@@ -1,0 +1,451 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SCAPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Policias">
+          <Key>
+            <PropertyRef Name="idPolicia" />
+          </Key>
+          <Property Name="idPolicia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cedula" Type="varchar" MaxLength="25" />
+          <Property Name="tipoCedula" Type="int" />
+          <Property Name="nombre" Type="varchar" MaxLength="150" />
+          <Property Name="fechaNacimiento" Type="date" />
+          <Property Name="correoElectronico" Type="varchar" MaxLength="100" />
+          <Property Name="direccion" Type="varchar" MaxLength="250" />
+          <Property Name="telefonoCelular" Type="varchar" MaxLength="9" />
+          <Property Name="telefonoCasa" Type="varchar" MaxLength="9" />
+          <Property Name="contactoEmergencia" Type="varchar" MaxLength="150" />
+          <Property Name="telefonoEmergencia" Type="varchar" MaxLength="9" />
+          <Property Name="estado" Type="int" />
+        </EntityType>
+        <EntityType Name="Requisitos">
+          <Key>
+            <PropertyRef Name="idRequisito" />
+          </Key>
+          <Property Name="idRequisito" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="detalles" Type="varchar" MaxLength="250" />
+          <Property Name="fechaVencimiento" Type="date" />
+          <Property Name="idPolicia" Type="int" />
+          <Property Name="tipoRequsito" Type="int" />
+          <Property Name="imagen" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="idRol" />
+          </Key>
+          <Property Name="idRol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="RolesUsuarios">
+          <Key>
+            <PropertyRef Name="idRolUsuario" />
+          </Key>
+          <Property Name="idRolUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipoRol" Type="int" />
+          <Property Name="idUsuario" Type="int" />
+        </EntityType>
+        <EntityType Name="TablaGeneral">
+          <Key>
+            <PropertyRef Name="idTablaGeneral" />
+          </Key>
+          <Property Name="idTablaGeneral" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="campo" Type="varchar" MaxLength="50" />
+          <Property Name="codigo" Type="varchar" MaxLength="3" />
+          <Property Name="descripcion" Type="varchar(max)" />
+          <Property Name="tabla" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="150" />
+          <Property Name="login" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Estado">
+          <End Role="TablaGeneral" Type="Self.TablaGeneral" Multiplicity="0..1" />
+          <End Role="Policias" Type="Self.Policias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TablaGeneral">
+              <PropertyRef Name="idTablaGeneral" />
+            </Principal>
+            <Dependent Role="Policias">
+              <PropertyRef Name="estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdPolicia">
+          <End Role="Policias" Type="Self.Policias" Multiplicity="0..1" />
+          <End Role="Requisitos" Type="Self.Requisitos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Policias">
+              <PropertyRef Name="idPolicia" />
+            </Principal>
+            <Dependent Role="Requisitos">
+              <PropertyRef Name="idPolicia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdUsuario">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="RolesUsuarios" Type="Self.RolesUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="RolesUsuarios">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TipoCedula">
+          <End Role="TablaGeneral" Type="Self.TablaGeneral" Multiplicity="0..1" />
+          <End Role="Policias" Type="Self.Policias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TablaGeneral">
+              <PropertyRef Name="idTablaGeneral" />
+            </Principal>
+            <Dependent Role="Policias">
+              <PropertyRef Name="tipoCedula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TipoRequisito">
+          <End Role="TablaGeneral" Type="Self.TablaGeneral" Multiplicity="0..1" />
+          <End Role="Requisitos" Type="Self.Requisitos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TablaGeneral">
+              <PropertyRef Name="idTablaGeneral" />
+            </Principal>
+            <Dependent Role="Requisitos">
+              <PropertyRef Name="tipoRequsito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TipoRol">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="RolesUsuarios" Type="Self.RolesUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="idRol" />
+            </Principal>
+            <Dependent Role="RolesUsuarios">
+              <PropertyRef Name="tipoRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SCAPModelStoreContainer">
+          <EntitySet Name="Policias" EntityType="Self.Policias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Requisitos" EntityType="Self.Requisitos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RolesUsuarios" EntityType="Self.RolesUsuarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TablaGeneral" EntityType="Self.TablaGeneral" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Estado" Association="Self.FK_Estado">
+            <End Role="TablaGeneral" EntitySet="TablaGeneral" />
+            <End Role="Policias" EntitySet="Policias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdPolicia" Association="Self.FK_IdPolicia">
+            <End Role="Policias" EntitySet="Policias" />
+            <End Role="Requisitos" EntitySet="Requisitos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdUsuario" Association="Self.FK_IdUsuario">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="RolesUsuarios" EntitySet="RolesUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TipoCedula" Association="Self.FK_TipoCedula">
+            <End Role="TablaGeneral" EntitySet="TablaGeneral" />
+            <End Role="Policias" EntitySet="Policias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TipoRequisito" Association="Self.FK_TipoRequisito">
+            <End Role="TablaGeneral" EntitySet="TablaGeneral" />
+            <End Role="Requisitos" EntitySet="Requisitos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TipoRol" Association="Self.FK_TipoRol">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="RolesUsuarios" EntitySet="RolesUsuarios" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SCAPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Policias">
+          <Key>
+            <PropertyRef Name="idPolicia" />
+          </Key>
+          <Property Name="idPolicia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cedula" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="tipoCedula" Type="Int32" />
+          <Property Name="nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="fechaNacimiento" Type="DateTime" Precision="0" />
+          <Property Name="correoElectronico" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="direccion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="telefonoCelular" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="telefonoCasa" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="contactoEmergencia" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="telefonoEmergencia" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="Int32" />
+          <NavigationProperty Name="TablaGeneral" Relationship="Self.FK_Estado" FromRole="Policias" ToRole="TablaGeneral" />
+          <NavigationProperty Name="Requisitos" Relationship="Self.FK_IdPolicia" FromRole="Policias" ToRole="Requisitos" />
+          <NavigationProperty Name="TablaGeneral1" Relationship="Self.FK_TipoCedula" FromRole="Policias" ToRole="TablaGeneral" />
+        </EntityType>
+        <EntityType Name="Requisitos">
+          <Key>
+            <PropertyRef Name="idRequisito" />
+          </Key>
+          <Property Name="idRequisito" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="detalles" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="fechaVencimiento" Type="DateTime" Precision="0" />
+          <Property Name="idPolicia" Type="Int32" />
+          <Property Name="tipoRequsito" Type="Int32" />
+          <Property Name="imagen" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Policias" Relationship="Self.FK_IdPolicia" FromRole="Requisitos" ToRole="Policias" />
+          <NavigationProperty Name="TablaGeneral" Relationship="Self.FK_TipoRequisito" FromRole="Requisitos" ToRole="TablaGeneral" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="idRol" />
+          </Key>
+          <Property Name="idRol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RolesUsuarios" Relationship="Self.FK_TipoRol" FromRole="Roles" ToRole="RolesUsuarios" />
+        </EntityType>
+        <EntityType Name="RolesUsuarios">
+          <Key>
+            <PropertyRef Name="idRolUsuario" />
+          </Key>
+          <Property Name="idRolUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipoRol" Type="Int32" />
+          <Property Name="idUsuario" Type="Int32" />
+          <NavigationProperty Name="Roles" Relationship="Self.FK_TipoRol" FromRole="RolesUsuarios" ToRole="Roles" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK_IdUsuario" FromRole="RolesUsuarios" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="TablaGeneral">
+          <Key>
+            <PropertyRef Name="idTablaGeneral" />
+          </Key>
+          <Property Name="idTablaGeneral" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="campo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="codigo" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="tabla" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Policias" Relationship="Self.FK_Estado" FromRole="TablaGeneral" ToRole="Policias" />
+          <NavigationProperty Name="Policias1" Relationship="Self.FK_TipoCedula" FromRole="TablaGeneral" ToRole="Policias" />
+          <NavigationProperty Name="Requisitos" Relationship="Self.FK_TipoRequisito" FromRole="TablaGeneral" ToRole="Requisitos" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RolesUsuarios" Relationship="Self.FK_IdUsuario" FromRole="Usuarios" ToRole="RolesUsuarios" />
+        </EntityType>
+        <Association Name="FK_Estado">
+          <End Role="TablaGeneral" Type="Self.TablaGeneral" Multiplicity="0..1" />
+          <End Role="Policias" Type="Self.Policias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TablaGeneral">
+              <PropertyRef Name="idTablaGeneral" />
+            </Principal>
+            <Dependent Role="Policias">
+              <PropertyRef Name="estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdPolicia">
+          <End Role="Policias" Type="Self.Policias" Multiplicity="0..1" />
+          <End Role="Requisitos" Type="Self.Requisitos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Policias">
+              <PropertyRef Name="idPolicia" />
+            </Principal>
+            <Dependent Role="Requisitos">
+              <PropertyRef Name="idPolicia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TipoCedula">
+          <End Role="TablaGeneral" Type="Self.TablaGeneral" Multiplicity="0..1" />
+          <End Role="Policias" Type="Self.Policias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TablaGeneral">
+              <PropertyRef Name="idTablaGeneral" />
+            </Principal>
+            <Dependent Role="Policias">
+              <PropertyRef Name="tipoCedula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TipoRequisito">
+          <End Role="TablaGeneral" Type="Self.TablaGeneral" Multiplicity="0..1" />
+          <End Role="Requisitos" Type="Self.Requisitos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TablaGeneral">
+              <PropertyRef Name="idTablaGeneral" />
+            </Principal>
+            <Dependent Role="Requisitos">
+              <PropertyRef Name="tipoRequsito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TipoRol">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="RolesUsuarios" Type="Self.RolesUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="idRol" />
+            </Principal>
+            <Dependent Role="RolesUsuarios">
+              <PropertyRef Name="tipoRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdUsuario">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="RolesUsuarios" Type="Self.RolesUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="RolesUsuarios">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SCAPEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Policias" EntityType="Self.Policias" />
+          <EntitySet Name="Requisitos" EntityType="Self.Requisitos" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" />
+          <EntitySet Name="RolesUsuarios" EntityType="Self.RolesUsuarios" />
+          <EntitySet Name="TablaGeneral" EntityType="Self.TablaGeneral" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
+          <AssociationSet Name="FK_Estado" Association="Self.FK_Estado">
+            <End Role="TablaGeneral" EntitySet="TablaGeneral" />
+            <End Role="Policias" EntitySet="Policias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdPolicia" Association="Self.FK_IdPolicia">
+            <End Role="Policias" EntitySet="Policias" />
+            <End Role="Requisitos" EntitySet="Requisitos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TipoCedula" Association="Self.FK_TipoCedula">
+            <End Role="TablaGeneral" EntitySet="TablaGeneral" />
+            <End Role="Policias" EntitySet="Policias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TipoRequisito" Association="Self.FK_TipoRequisito">
+            <End Role="TablaGeneral" EntitySet="TablaGeneral" />
+            <End Role="Requisitos" EntitySet="Requisitos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TipoRol" Association="Self.FK_TipoRol">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="RolesUsuarios" EntitySet="RolesUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdUsuario" Association="Self.FK_IdUsuario">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="RolesUsuarios" EntitySet="RolesUsuarios" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SCAPModelStoreContainer" CdmEntityContainer="SCAPEntities">
+          <EntitySetMapping Name="Policias">
+            <EntityTypeMapping TypeName="SCAPModel.Policias">
+              <MappingFragment StoreEntitySet="Policias">
+                <ScalarProperty Name="idPolicia" ColumnName="idPolicia" />
+                <ScalarProperty Name="cedula" ColumnName="cedula" />
+                <ScalarProperty Name="tipoCedula" ColumnName="tipoCedula" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
+                <ScalarProperty Name="correoElectronico" ColumnName="correoElectronico" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="telefonoCelular" ColumnName="telefonoCelular" />
+                <ScalarProperty Name="telefonoCasa" ColumnName="telefonoCasa" />
+                <ScalarProperty Name="contactoEmergencia" ColumnName="contactoEmergencia" />
+                <ScalarProperty Name="telefonoEmergencia" ColumnName="telefonoEmergencia" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Requisitos">
+            <EntityTypeMapping TypeName="SCAPModel.Requisitos">
+              <MappingFragment StoreEntitySet="Requisitos">
+                <ScalarProperty Name="idRequisito" ColumnName="idRequisito" />
+                <ScalarProperty Name="detalles" ColumnName="detalles" />
+                <ScalarProperty Name="fechaVencimiento" ColumnName="fechaVencimiento" />
+                <ScalarProperty Name="idPolicia" ColumnName="idPolicia" />
+                <ScalarProperty Name="tipoRequsito" ColumnName="tipoRequsito" />
+                <ScalarProperty Name="imagen" ColumnName="imagen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="SCAPModel.Roles">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="idRol" ColumnName="idRol" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RolesUsuarios">
+            <EntityTypeMapping TypeName="SCAPModel.RolesUsuarios">
+              <MappingFragment StoreEntitySet="RolesUsuarios">
+                <ScalarProperty Name="idRolUsuario" ColumnName="idRolUsuario" />
+                <ScalarProperty Name="tipoRol" ColumnName="tipoRol" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TablaGeneral">
+            <EntityTypeMapping TypeName="SCAPModel.TablaGeneral">
+              <MappingFragment StoreEntitySet="TablaGeneral">
+                <ScalarProperty Name="idTablaGeneral" ColumnName="idTablaGeneral" />
+                <ScalarProperty Name="campo" ColumnName="campo" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="tabla" ColumnName="tabla" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="SCAPModel.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="login" ColumnName="login" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

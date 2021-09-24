@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="32f3bdd6ce6840e8bc6b79c969d3fe8c" Name="Diagram1">
+        <EntityTypeShape EntityType="SCAPModel.Policias" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCAPModel.Requisitos" Width="1.5" PointX="5.25" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCAPModel.Roles" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCAPModel.RolesUsuarios" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCAPModel.TablaGeneral" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCAPModel.Usuarios" Width="1.5" PointX="0.75" PointY="9" IsExpanded="true" />
+        <AssociationConnector Association="SCAPModel.FK_Estado" ManuallyRouted="false" />
+        <AssociationConnector Association="SCAPModel.FK_IdPolicia" ManuallyRouted="false" />
+        <AssociationConnector Association="SCAPModel.FK_TipoCedula" ManuallyRouted="false" />
+        <AssociationConnector Association="SCAPModel.FK_TipoRequisito" ManuallyRouted="false" />
+        <AssociationConnector Association="SCAPModel.FK_TipoRol" ManuallyRouted="false" />
+        <AssociationConnector Association="SCAPModel.FK_IdUsuario" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
