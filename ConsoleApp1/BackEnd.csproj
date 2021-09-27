@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAL\IPoliciaDAL.cs" />
     <Compile Include="DAL\PoliciaDAL.cs" />
     <Compile Include="DBSCAP.Context.cs">
       <AutoGen>True</AutoGen>
