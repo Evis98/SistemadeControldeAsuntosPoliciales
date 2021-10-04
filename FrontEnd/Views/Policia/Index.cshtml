@@ -1,0 +1,51 @@
+﻿@model List<SistemadeControldeAsuntosPoliciales.Models.ViewModels.ListPoliciaViewModel>
+
+@{
+    ViewBag.Title = "Policias";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="row" style="text-align:right;">
+    <a href="~/Policia/Nuevo" class="btn btn-primary">Nuevo</a>
+</div>
+
+@using (Html.BeginForm("Index", "Policia", FormMethod.Get))
+{
+    <div style="display: inline-block">
+        <select name="searchBy" onclick="ocultar()" id="searchBy"></select>
+    </div>
+    <div style="display: inline-block">
+        <select name="tipoRequisito" id="tipoRequisito">
+            <option value="" selected="selected">Selecione un tipo de requisito</option>
+        </select>
+    </div>
+    <div style="display: inline-block">
+        <input name="search" type="text" id="search">
+    </div>
+    <button class="btn btn-default">Buscar</button>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <tr>
+                <th>Cédula</th>
+                <th>Nombre</th>
+                <th></th>
+                <th></th>
+
+            </tr>
+            @foreach (var oElemento in Model)
+            {
+                <tr>
+                    <td>@oElemento.Cedula</td>
+                    <td>@oElemento.Nombre</td>
+                    <td>
+                        <a class="btn btn-default" href="~/Policia/Detalle/@oElemento.IdPolicia">Detalles</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

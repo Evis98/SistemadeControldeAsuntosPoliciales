@@ -1,0 +1,82 @@
+﻿@model SistemadeControldeAsuntosPoliciales.Models.ViewModels.PoliciaViewModel
+
+@{
+    ViewBag.Title = "Detalle";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+
+    <div class=" row">
+
+        <div class="col-md-12">
+            @Html.HiddenFor(d => d.IdPolicia)
+            <div>
+                @Html.LabelFor(d => d.TipoCedula)
+                @Html.DisplayTextFor(d => d.TipoCedula)
+            </div>
+
+            <div>
+                @Html.LabelFor(d => d.Cedula)
+                @Html.DisplayTextFor(d => d.Cedula)
+            </div>
+
+            <div>
+                @Html.LabelFor(d => d.Fecha_nacimiento)
+                @Html.DisplayTextFor(d => d.Fecha_nacimiento)
+            </div>
+
+            <div>
+                @Html.LabelFor(d => d.Nombre)
+                @Html.DisplayTextFor(d => d.Nombre)
+            </div>
+            <div>
+                @Html.Label("Edad")
+
+            </div>
+            <div>
+                @Html.LabelFor(d => d.CorreoElectronico)
+                @Html.DisplayTextFor(d => d.CorreoElectronico)
+            </div>
+            <div>
+                @Html.LabelFor(d => d.Direccion)
+                @Html.DisplayTextFor(d => d.Direccion)
+            </div>
+            <div>
+
+                @Html.LabelFor(d => d.TelefonoCelular)
+                @Html.DisplayTextFor(d => d.TelefonoCelular)
+
+
+            </div>
+            <div>
+                @Html.LabelFor(d => d.TelefonoCasa)
+                @Html.DisplayTextFor(d => d.TelefonoCasa)
+            </div>
+            <div>
+                @Html.LabelFor(d => d.ContactoEmergencia)
+                @Html.DisplayTextFor(d => d.ContactoEmergencia)
+            </div>
+            <div>
+                @Html.LabelFor(d => d.TelefonoEmergencia)
+                @Html.DisplayTextFor(d => d.TelefonoEmergencia)
+            </div>
+            <br />
+            <div>
+                @Html.LabelFor(d => d.Estado)
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                @Html.DisplayTextFor(d => d.Estado)
+                <input value="Inactivar" class="btn alert-warning" type="submit" />
+            </div>
+
+            <div style="text-align:center;">
+                <a class="btn btn-default" href="~/Policia/Editar/@Model.IdPolicia">Editar</a>
+                <input value="Ver Requisito" class="btn btn-primary" type="submit" />
+
+            </div>
+        </div>
+
+
+    </div>
+

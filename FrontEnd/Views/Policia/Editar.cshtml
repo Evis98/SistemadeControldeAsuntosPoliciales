@@ -1,0 +1,82 @@
+﻿@model SistemadeControldeAsuntosPoliciales.Models.ViewModels.PoliciaViewModel
+@{
+    ViewBag.Title = "Editar Policía";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+@using (Html.BeginForm("Editar", "Policia", FormMethod.Post))
+{
+
+    <div class=" row">
+
+        <div class="col-md-12">
+            @Html.HiddenFor(d => d.IdPolicia)
+            <div>
+                @Html.LabelFor(d => d.Cedula)
+                @Html.TextBoxFor(d => d.Cedula, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.Cedula, null, new { @class = "red" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.TipoCedula)
+                @Html.DropDownListFor(d => d.TipoCedula, new List<SelectListItem> {
+                        new SelectListItem{ Value = "1", Text = "Fisica"},
+                        new SelectListItem{ Value = "2", Text = "Residencia"}
+                      },
+                    new { @class = "myselect" })
+                @Html.ValidationMessageFor(d => d.TipoCedula, null, new { @class = "red" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.Nombre)
+                @Html.TextBoxFor(d => d.Nombre, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.Nombre, null, new { @class = "red" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.Fecha_nacimiento)<br />
+                @Html.EditorFor(d => d.Fecha_nacimiento, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.Fecha_nacimiento, null, new { @class = "red" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.CorreoElectronico)
+                @Html.TextBoxFor(d => d.CorreoElectronico, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.CorreoElectronico, null, new { @class = "red" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.Direccion)
+                @Html.TextBoxFor(d => d.Direccion, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.Direccion, null, new { @class = "red" })
+            </div>
+            <div>
+
+                @Html.LabelFor(d => d.TelefonoCelular)
+                @Html.TextBoxFor(d => d.TelefonoCelular, "", new { @class = "inputphone" })
+                @Html.ValidationMessageFor(d => d.TelefonoCelular, null, new { @class = "red" })
+
+            </div>
+            <div>
+                @Html.LabelFor(d => d.TelefonoCasa)
+                @Html.TextBoxFor(d => d.TelefonoCasa, "", new { @class = "inputphone" })
+                @Html.ValidationMessageFor(d => d.TelefonoCasa, null, new { @class = "red" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.ContactoEmergencia)
+                @Html.TextBoxFor(d => d.ContactoEmergencia, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.ContactoEmergencia, null, new { @class = "red" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.TelefonoEmergencia)
+                @Html.TextBoxFor(d => d.TelefonoEmergencia, "", new { @class = "inputphone" })
+                @Html.ValidationMessageFor(d => d.TelefonoEmergencia, null, new { @class = "red" })
+            </div>
+            @Html.HiddenFor(d => d.Estado)
+            <br />
+            <div style="text-align:right;">
+                <input value="Guardar" class="btn btn-primary" type="submit" />
+
+            </div>
+        </div>
+
+
+    </div>
+}
