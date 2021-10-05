@@ -1,4 +1,4 @@
-﻿@model SistemadeControldeAsuntosPoliciales.Models.ViewModels.PoliciaViewModel
+﻿@model FrontEnd.Models.ViewModels.PoliciaViewModel
 
 @{
     ViewBag.Title = "Detalle";
@@ -72,7 +72,7 @@
 
             <div style="text-align:center;">
                 <a class="btn btn-default" href="~/Policia/Editar/@Model.IdPolicia">Editar</a>
-                <input value="Ver Requisito" class="btn btn-primary" type="submit" />
+                <a class="btn btn-primary" href="~/Requisito/Index/@Model.IdPolicia">Ver Requisitos</a>
 
             </div>
         </div>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace SistemadeControldeAsuntosPoliciales.Models.ViewModels
+namespace FrontEnd.Models.ViewModels
 {
     public class ListPoliciaViewModel
     {

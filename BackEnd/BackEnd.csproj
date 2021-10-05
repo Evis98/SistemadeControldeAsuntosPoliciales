@@ -56,7 +56,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAL\IPoliciaDAL.cs" />
+    <Compile Include="DAL\IRequisitoDAL.cs" />
     <Compile Include="DAL\PoliciaDAL.cs" />
+    <Compile Include="DAL\RequisitoDAL.cs" />
     <Compile Include="DBSCAP.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

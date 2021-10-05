@@ -1,0 +1,46 @@
+﻿
+@model FrontEnd.Models.ViewModels.RequisitoViewModel
+@{
+    ViewBag.Title = "Agregar";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Agregar", "Requisito", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class=" row">
+
+        <div class="col-md-12">
+            <div>
+                @Html.LabelFor(d => d.fecha_Vencimiento)<br />
+                @Html.EditorFor(d => d.fecha_Vencimiento, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.fecha_Vencimiento, null, new { @class = "red" })<br />
+            </div>
+            <div>
+                @Html.LabelFor(d => d.TipoRequisito)
+                @Html.DropDownListFor(d => d.TipoRequisito, new List<SelectListItem> {
+                        new SelectListItem{ Value = "0", Text = "Carné"},
+                        new SelectListItem{ Value = "1", Text = "Capacitación"}
+                      },
+                    new { @class = "myselect" })
+                @Html.ValidationMessageFor(d => d.TipoRequisito, null, new { @class = "red" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.detalles)
+                @Html.TextBoxFor(d => d.detalles, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.detalles, null, new { @class = "red" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(d => d.Archivo)
+                @Html.TextBoxFor(d => d.Archivo, new { @type = "file", accept = ".png" })
+                @Html.ValidationMessageFor(d => d.Archivo, "", new { @class = "text-danger" })
+
+            </div>
+            <br />
+            <div style="text-align:right;">
+                <input value="Guardar" class="btn btn-primary" type="submit" />
+
+            </div>
+        </div>
+    </div>
+}

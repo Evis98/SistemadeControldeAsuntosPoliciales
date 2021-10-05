@@ -5,10 +5,10 @@ using System.Web.Mvc;
 using System.Collections.Generic;
 using BackEnd.DAL;
 using BackEnd;
-using SistemadeControldeAsuntosPoliciales.Models;
-using SistemadeControldeAsuntosPoliciales.Models.ViewModels;
+using FrontEnd.Models;
+using FrontEnd.Models.ViewModels;
 
-namespace SistemadeControldeAsuntosPoliciales.Controllers
+namespace FrontEnd.Controllers
 {
     public class PoliciaController : Controller
     {
@@ -112,6 +112,7 @@ namespace SistemadeControldeAsuntosPoliciales.Controllers
         {
             policiaDAL = new PoliciaDAL();
             PoliciaViewModel modelo = new PoliciaViewModel();
+            Session["idPolicia"] = id;
             {
                 Policias oPolicia = policiaDAL.getPolicia(id);
                 modelo.IdPolicia = oPolicia.idPolicia;

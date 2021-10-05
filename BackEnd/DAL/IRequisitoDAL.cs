@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BackEnd;
 
 namespace BackEnd.DAL
 {
-    public interface IPoliciaDAL
+   public interface IRequisitoDAL
     {
-        List<Policias> Get();
-        void Add(Policias policia);
-        void Edit(Policias policia);
+        List<Requisitos> Get();
+        void Add(Requisitos requisito);
+        void Edit(Requisitos requisito);
 
     }
 }
