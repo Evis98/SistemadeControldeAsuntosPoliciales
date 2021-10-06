@@ -95,7 +95,7 @@ namespace FrontEnd.Controllers
                         policiaDAL.Add(oPolicia);
                         aux = policiaDAL.getPoliciaCedula(model.Cedula);
                     }
-                    return Redirect("~/Policia/Detalle/"+aux);
+                    return Redirect("~/Policia/Detalle/" + aux);
                 }
 
                 return View(model);
@@ -179,6 +179,35 @@ namespace FrontEnd.Controllers
                 }
 
                 return View(modelo);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public ActionResult CambioEstado(int id)
+        {
+            int estado = id;
+            policiaDAL = new PoliciaDAL();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    {
+                        string estadoPolicia = policiaDAL.getEstadoPolicia(id);
+                        if (estadoPolicia == "Activo")
+                        {
+                            estado = policiaDAL.getIdEstado("Inactivo");
+                        }
+                        else
+                        {
+                            estado = policiaDAL.getIdEstado("Activo");
+                        }
+                    }
+                    policiaDAL.CambiaEstadoPolicia((int)Session["idPolicia"], estado);
+                    return Redirect("~/Policia/Detalle/"+Session["idPolicia"]);
+                }
+                return Redirect("~/Policia/Detalle/" + Session["idPolicia"]);
             }
             catch (Exception ex)
             {

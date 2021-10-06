@@ -37,11 +37,11 @@ namespace FrontEnd.Controllers
                      select new ListRequisitoViewModel
                      {
                          IdRequisito = d.idRequisito,
-                         fecha_Vencimiento = Convert.ToDateTime(d.fechaVencimiento),
+                         Fecha_Vencimiento = Convert.ToDateTime(d.fechaVencimiento),
                          TipoRequisito = (int)d.tipoRequsito,
                          IdPolicia = (int) d.idPolicia,
-                         imagen = d.imagen,
-                         detalles = d.detalles,
+                         Imagen = d.imagen,
+                         Detalles = d.detalles,
                      }).ToList();
 
             return View(lista);            
@@ -62,21 +62,19 @@ namespace FrontEnd.Controllers
             requisitoDAL = new RequisitoDAL();
             try
             {
+                string RutaSitio = Server.MapPath("~/");
+                string PathArchivo = Path.Combine(RutaSitio + @"Files\" + model.Detalles+ Session["idPolicia"].ToString() + ".png");
                 if (ModelState.IsValid)
                 {
-                    var oRequisito = new Requisitos
-                    {
-                        idPolicia = model.IdPolicia,
-                        detalles = model.detalles,
-                        fechaVencimiento = model.fecha_Vencimiento,
-                        tipoRequsito = model.TipoRequisito
-                    };
-                    string RutaSitio = Server.MapPath("~/");
-                    string PathArchivo = Path.Combine(RutaSitio + "/Files/" + model.idRequisito + ".png");
-                    model.imagen = PathArchivo;
+                    var oRequisito = new Requisitos();
+                    oRequisito.idPolicia = Convert.ToInt32(Session["idPolicia"]);
+                    oRequisito.detalles = model.Detalles;
+                    oRequisito.fechaVencimiento = model.Fecha_Vencimiento;
+                    oRequisito.tipoRequsito = model.TipoRequisito;
+                    oRequisito.imagen = PathArchivo;
                     model.Archivo.SaveAs(PathArchivo);
                     requisitoDAL.Add(oRequisito);
-                    return Redirect("~/Requisito/");
+                    return Redirect("~/Requisito/Index" + Session["idPolicia"].ToString());
                 }
 
             }

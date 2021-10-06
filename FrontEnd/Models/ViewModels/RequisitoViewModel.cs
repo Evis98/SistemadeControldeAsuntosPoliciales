@@ -9,23 +9,20 @@ namespace FrontEnd.Models.ViewModels
 {
     public class RequisitoViewModel
     {
-        public int idRequisito { get; set; }
+        public int IdRequisito { get; set; }
         [Required]
         [DataType(DataType.Date)]
         [Display(Name = "Fecha de vencimiento")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime fecha_Vencimiento { get; set; }
+        public DateTime Fecha_Vencimiento { get; set; }
         [Required]
         [Display(Name = "Tipo de requisito")]
         public int TipoRequisito { get; set; }
-        [Required]
-        [StringLength(250)]
-        [Display]
-        public string imagen { get; set; }
+        public string Imagen { get; set; }
         [Required]
         [StringLength(250)]
         [Display(Name = "Detalles")]
-        public string detalles { get; set; }
+        public string Detalles { get; set; }
         [DisplayName("Archivo")]
         public HttpPostedFileBase Archivo { get; set; }
 

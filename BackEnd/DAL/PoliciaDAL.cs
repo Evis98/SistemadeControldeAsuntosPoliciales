@@ -83,6 +83,34 @@ namespace BackEnd.DAL
 
             return aux;
         }
+        public string getEstadoPolicia(int estado)
+        {
+            string descripcion;
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                descripcion = db.Database.SqlQuery<string>("Select descripcion from TablaGeneral where tabla= 'Policías' and campo = 'estado' and idTablaGeneral =" + estado).Single<string>();
+            }
+            return descripcion;
+        }
 
+        public int getIdEstado(string estado)
+        {
+            int IdTabla;
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                IdTabla = db.Database.SqlQuery<int>("Select idTablaGeneral from TablaGeneral where tabla= 'Policías' and campo = 'estado' and descripcion = '" + estado+"'").Single<int>();
+            }
+            return IdTabla;
+        }
+
+        public void CambiaEstadoPolicia(int id, int estado)
+        {
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                string comando = "update Policias set estado = " + estado + "where idPolicia = " + id;
+                db.Database.ExecuteSqlCommand(comando);
+                db.SaveChanges();
+            }
+        }
     }
 }
