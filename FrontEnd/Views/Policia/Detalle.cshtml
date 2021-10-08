@@ -3,80 +3,98 @@
 @{
     ViewBag.Title = "Detalle";
 }
-
-<h2>@ViewBag.Title</h2>
-
-
-
-    <div class=" row">
-
-        <div class="col-md-12">
-            @Html.HiddenFor(d => d.IdPolicia)
-            <div>
-                @Html.LabelFor(d => d.TipoCedula)
-                @Html.DisplayTextFor(d => d.TipoCedula)
-            </div>
-
-            <div>
-                @Html.LabelFor(d => d.Cedula)
-                @Html.DisplayTextFor(d => d.Cedula)
-            </div>
-
-            <div>
-                @Html.LabelFor(d => d.Fecha_nacimiento)
-                @Html.DisplayTextFor(d => d.Fecha_nacimiento)
-            </div>
-
-            <div>
-                @Html.LabelFor(d => d.Nombre)
-                @Html.DisplayTextFor(d => d.Nombre)
-            </div>
-            <div>
-                @Html.Label("Edad")
-
-            </div>
-            <div>
-                @Html.LabelFor(d => d.CorreoElectronico)
-                @Html.DisplayTextFor(d => d.CorreoElectronico)
-            </div>
-            <div>
-                @Html.LabelFor(d => d.Direccion)
-                @Html.DisplayTextFor(d => d.Direccion)
-            </div>
-            <div>
-
-                @Html.LabelFor(d => d.TelefonoCelular)
-                @Html.DisplayTextFor(d => d.TelefonoCelular)
-
-
-            </div>
-            <div>
-                @Html.LabelFor(d => d.TelefonoCasa)
-                @Html.DisplayTextFor(d => d.TelefonoCasa)
-            </div>
-            <div>
-                @Html.LabelFor(d => d.ContactoEmergencia)
-                @Html.DisplayTextFor(d => d.ContactoEmergencia)
-            </div>
-            <div>
-                @Html.LabelFor(d => d.TelefonoEmergencia)
-                @Html.DisplayTextFor(d => d.TelefonoEmergencia)
-            </div>
-            <br />
-            <div>
-                @Html.LabelFor(d => d.Estado)
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                @Html.DisplayTextFor(d => d.Estado)
-                <a class="btn btn-default" href="~/Policia/CambioEstado/@Model.Estado">Cambiar Estado</a>
-            </div>
-
-            <div style="text-align:center;">
-                <a class="btn btn-default" href="~/Policia/Editar/@Model.IdPolicia">Editar</a>
-                <a class="btn btn-primary" href="~/Requisito/Index/@Model.IdPolicia">Ver Requisitos</a>
-
-            </div>
-        </div>
-
-
+<div class=" container">
+    <div class="row mb-3">
+        <h2 class="display-4">@ViewBag.Title</h2>
     </div>
 
+    <dl class=" row">
+        @Html.HiddenFor(d => d.IdPolicia)
+        <dt class="col-sm-3">
+            @Html.LabelFor(d => d.TipoCedula)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayTextFor(d => d.TipoCedula)
+        </dd>
+
+        <dt class="col-sm-3">
+            @Html.LabelFor(d => d.Cedula)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayTextFor(d => d.Cedula)
+        </dd>
+
+        <dt class="col-sm-3">
+            @Html.LabelFor(d => d.Fecha_nacimiento)
+        </dt>
+        <dd class="col-sm-9">
+            <text>@(Model.Fecha_nacimiento.ToShortDateString())</text>
+        </dd>
+
+        <dt class="col-sm-3">
+            @Html.LabelFor(d => d.Nombre)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayTextFor(d => d.Nombre)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.Label("Edad")
+        </dt>
+        <dd class="col-sm-9">
+            <text>@(@DateTime.Now.Year - Model.Fecha_nacimiento.Year)</text>
+        </dd>
+        <dt class="col-sm-3">
+            @Html.LabelFor(d => d.CorreoElectronico)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayTextFor(d => d.CorreoElectronico)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.LabelFor(d => d.Direccion)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayTextFor(d => d.Direccion)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.LabelFor(d => d.TelefonoCelular)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayTextFor(d => d.TelefonoCelular)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.LabelFor(d => d.TelefonoCasa)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayTextFor(d => d.TelefonoCasa)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.LabelFor(d => d.ContactoEmergencia)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayTextFor(d => d.ContactoEmergencia)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.LabelFor(d => d.TelefonoEmergencia)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayTextFor(d => d.TelefonoEmergencia)
+        </dd>
+
+        <dt class="col-sm-3">
+            @Html.LabelFor(d => d.Estado)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayTextFor(d => d.Estado)
+        </dd>
+        <dd class="col-sm-9">
+            <a class="btn btn-warning" href="~/Policia/CambioEstado/@Model.Estado">Cambiar Estado</a>
+        </dd>
+
+
+    </dl>
+    <div style="text-align:center;">
+        <a class="btn btn-primary" href="~/Policia/Editar/@Model.IdPolicia">Editar</a>
+        <a class="btn btn-info" href="~/Requisito/Index/@Model.IdPolicia">Ver Requisitos</a>
+
+    </div>
+</div>

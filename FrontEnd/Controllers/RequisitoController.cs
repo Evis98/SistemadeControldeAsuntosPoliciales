@@ -71,10 +71,10 @@ namespace FrontEnd.Controllers
                     oRequisito.detalles = model.Detalles;
                     oRequisito.fechaVencimiento = model.Fecha_Vencimiento;
                     oRequisito.tipoRequsito = model.TipoRequisito;
-                    oRequisito.imagen = PathArchivo;
+                    oRequisito.imagen = @"~\Files\" + model.Detalles + Session["idPolicia"].ToString() + ".png";
                     model.Archivo.SaveAs(PathArchivo);
                     requisitoDAL.Add(oRequisito);
-                    return Redirect("~/Requisito/Index" + Session["idPolicia"].ToString());
+                    return Redirect("~/Requisito/Index/" + Session["idPolicia"].ToString());
                 }
 
             }
@@ -83,6 +83,24 @@ namespace FrontEnd.Controllers
                 throw new Exception(ex.Message);
             }
             return View();
+        }
+
+        public ActionResult Detalle(int id)
+        {
+            PoliciaDAL policiaDAL = new PoliciaDAL();
+            Policias policia = policiaDAL.getPolicia(Convert.ToInt32(Session["idPolicia"]));
+            requisitoDAL = new RequisitoDAL();
+            RequisitoViewModel modelo = new RequisitoViewModel();
+            Session["idRequisito"] = id;
+            {
+                Requisitos oRequisito = requisitoDAL.getRequisito(id);
+                modelo.Imagen = oRequisito.imagen;
+                modelo.TipoRequisito = (int)oRequisito.tipoRequsito;
+                modelo.Detalles = oRequisito.detalles;
+                modelo.IdPolicia = (int)oRequisito.idPolicia;
+                modelo.Nombre = policia.nombre;
+            }
+            return View(modelo);
         }
     }
 }

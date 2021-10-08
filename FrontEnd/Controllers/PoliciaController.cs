@@ -95,7 +95,7 @@ namespace FrontEnd.Controllers
                         policiaDAL.Add(oPolicia);
                         aux = policiaDAL.getPoliciaCedula(model.Cedula);
                     }
-                    return Redirect("~/Policia/Detalle/" + aux);
+                    return Redirect("~/Policia/Detalle/" +aux);
                 }
 
                 return View(model);
@@ -163,7 +163,7 @@ namespace FrontEnd.Controllers
                         Policias oPolicia = policiaDAL.getPolicia(modelo.IdPolicia);
                         oPolicia.idPolicia = modelo.IdPolicia;
                         oPolicia.cedula = modelo.Cedula;
-                        oPolicia.tipoCedula = (int)modelo.TipoCedula;
+                        oPolicia.tipoCedula = modelo.TipoCedula;
                         oPolicia.nombre = modelo.Nombre;
                         oPolicia.fechaNacimiento = Convert.ToDateTime(modelo.Fecha_nacimiento);
                         oPolicia.correoElectronico = modelo.CorreoElectronico;
@@ -172,16 +172,17 @@ namespace FrontEnd.Controllers
                         oPolicia.telefonoCasa = modelo.TelefonoCasa;
                         oPolicia.contactoEmergencia = modelo.ContactoEmergencia;
                         oPolicia.telefonoEmergencia = modelo.TelefonoEmergencia;
-                        oPolicia.estado = (int)modelo.Estado;
+                        oPolicia.estado = modelo.Estado;
                         policiaDAL.Edit(oPolicia);
                     }
-                    return Redirect("~/Policia");
+                    return Redirect("~/Policia/Detalle/" + Session["idPolicia"]);
                 }
 
                 return View(modelo);
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.InnerException.Message);
                 throw new Exception(ex.Message);
             }
         }

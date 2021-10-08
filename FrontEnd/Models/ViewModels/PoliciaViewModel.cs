@@ -12,14 +12,14 @@ namespace FrontEnd.Models.ViewModels
         public int IdPolicia { get; set; }
         [Required]
         [StringLength(25)]
-        [Display(Name = "Cédula")]
+        [Display(Name = "Número de Cédula")]
         public string Cedula { get; set; }
         [Required]
         [Display(Name = "Tipo de Cédula")]
         public int TipoCedula { get; set; }
         [Required]
         [StringLength(150)]
-        [Display(Name = "Nombre")]
+        [Display(Name = "Nombre Completo")]
         public string Nombre { get; set; }
         [Required]
         [DataType(DataType.Date)]
@@ -33,7 +33,7 @@ namespace FrontEnd.Models.ViewModels
         public string CorreoElectronico { get; set; }
         [Required]
         [StringLength(250)]
-        [Display(Name = "Dirección")]
+        [Display(Name = "Dirección Exacta")]
         public string Direccion { get; set; }
         [Required]
         [StringLength(9)]
@@ -45,11 +45,11 @@ namespace FrontEnd.Models.ViewModels
         public string TelefonoCasa { get; set; }
         [Required]
         [StringLength(150)]
-        [Display(Name = "Contacto de Emergencia")]
+        [Display(Name = "Nombre Contacto de Emergencia")]
         public string ContactoEmergencia { get; set; }
         [Required]
         [StringLength(9)]
-        [Display(Name = "Teléfono de Emergencia")]
+        [Display(Name = "Teléfono Contacto Emergencia")]
         public string TelefonoEmergencia { get; set; }
 
         public int Estado { get; set; }

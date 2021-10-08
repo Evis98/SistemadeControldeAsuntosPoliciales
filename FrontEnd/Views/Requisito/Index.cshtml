@@ -5,37 +5,43 @@
     ViewBag.Title = "Listado de Requisitos";
 }
 
-<h2>@ViewBag.Title</h2>
+<div class="container">
+    <div class="row mb-3">
 
+        <h2 class="display-4">@ViewBag.Title</h2>
 
-<div class="row" style="text-align:right;">
-    <a class="btn btn-default" href="~/Requisito/Agregar/@HttpContext.Current.Session["idPolicia"].ToString()">Agregar Requisito</a>
-</div>
+    </div>
+    <div class="row">
+        <a class="btn btn-success" href="~/Requisito/Agregar/@HttpContext.Current.Session["idPolicia"].ToString()">Agregar Requisito</a>
 
+    </div>
 
-<div class="row">
-    <div class="col-md-12">
+    <div class="row my-4">
+
         <table class="table">
-            <tr>
-                <th>Tipo Requisito</th>
-                <th>Descripcion</th>
-                <th></th>
-                <th></th>
-
-            </tr>
-
-
-            @foreach (var oElemento in Model)
-            {
+            <thead class="thead-dark">
                 <tr>
+                    <th scope="col">#</th>
+                    <th scope="col"> Tipo Requisito</th>
+                    <th scope="col"> Descripcion</th>
+                    <th scope="col"></th>
+
+                </tr>
+            </thead>    
+            <tbody>
+                @foreach (var oElemento in Model)
+                {
+                <tr>
+                    <th scope="row">@oElemento.IdRequisito</th>
                     <td>@oElemento.TipoRequisito</td>
                     <td>@oElemento.Detalles</td>
                     <td>
-                        <a class="btn btn-default">Ver Detalles</a>
+                        <a class="btn btn-info" href="~/Requisito/Detalle/@oElemento.IdRequisito">Ver Detalles</a>
                     </td>
                 </tr>
-            }
-
+                }
+            </tbody>
         </table>
+
     </div>
 </div>

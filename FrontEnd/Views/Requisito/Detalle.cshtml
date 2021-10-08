@@ -1,0 +1,66 @@
+﻿@model FrontEnd.Models.ViewModels.RequisitoViewModel
+
+@{
+    ViewBag.Title = "Requisito";
+}
+
+<div class="row mb-3">
+    <h2 class="display-4">
+        @Html.LabelFor(d => d.Nombre)
+        @Html.DisplayTextFor(d => d.Nombre)
+    </h2>
+</div>
+
+@using (Html.BeginForm("Mostrar", "Requisito", FormMethod.Post))
+{
+
+<dl class=" row">
+
+
+
+
+    <dt class="col-sm-3">
+        @Html.LabelFor(d => d.TipoRequisito)
+    </dt>
+    <dd class="col-sm-9">
+        @Html.DisplayTextFor(d => d.TipoRequisito)
+    </dd>
+
+    <dt class="col-sm-3">
+        @Html.LabelFor(d => d.Detalles)
+    </dt>
+    <dd class="col-sm-9">
+        @Html.DisplayTextFor(d => d.Detalles)
+    </dd>
+
+    <dt class="col-sm-3">
+        @Html.LabelFor(d => d.Fecha_Vencimiento)
+    </dt>
+    <dd class="col-sm-9">
+        @Html.DisplayTextFor(d => d.Fecha_Vencimiento)
+    </dd>
+
+    <dt class="col-sm-3">
+        @Html.Label("Archivo: ")
+    </dt>
+    <dd class="col-sm-9">
+        <u style="color:blue">
+            <text style="color:blue">@Url.Content(Model.Detalles)</text><text style="color:blue">.pdf</text>
+        </u>
+    </dd>
+</dl>
+
+        <div class="row" style="text-align:right;">
+            <a href="~/Requisito/Index/@HttpContext.Current.Session["idPolicia"].ToString()" class="btn btn-primary">Regresar</a>
+        </div>
+
+        <div style="text-align:center;">
+            <a class="btn btn-primary" href="~/Requisito/Editar//@HttpContext.Current.Session["idRequisito"].ToString()">Editar</a>
+            <a class="btn btn-success" href="@Url.Content(Model.Imagen)" download="@Url.Content(Model.Detalles)">Descargar Archivo Adjunto</a>
+            <a href="~/Requisito/Eliminar/@HttpContext.Current.Session["idRequisito"].ToString()" value="Eliminar" class="btn btn-danger" type="submit">Eliminar</a>
+
+
+        </div>
+
+
+}

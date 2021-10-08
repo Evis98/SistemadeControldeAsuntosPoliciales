@@ -9,30 +9,27 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
+    <div>
 
-    <div class="navbar navbar-inverse " style="background-color:#00277B;  text-align:left">
-        <div class="container">
-            <div>
+        <img src="~/SourcesSCAP/Banner3.png">
 
-                <img src="~/SourcesSCAP/Banner3.png">
-
-            </div>
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar "></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Inicio", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse ">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Policias", "Index", "Policia")</li>
-                </ul>
-            </div>
-        </div>
     </div>
-
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#00277B;">
+        <a class="navbar-brand" href="#">SCAP</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="~/Home/Index/">Inicio <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="~/Policia/Index/">Policias</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
 
     <div class="container body-content">

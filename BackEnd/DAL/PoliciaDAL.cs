@@ -49,12 +49,12 @@ namespace BackEnd.DAL
             }
             return poli;
         }
-        public int getPoliciaCedula(string id)
+        public int getPoliciaCedula(string cedula)
         {
             int poli;
             using (SCAPEntities db = new SCAPEntities())
             {
-                poli = db.Database.SqlQuery<int>("select idPolicia from Policias where cedula =" + id).Single<int>();
+                poli = db.Database.SqlQuery<int>("select idPolicia from Policias where cedula ='" + cedula+"'").Single<int>();
             }
             return poli;
         }
@@ -65,7 +65,7 @@ namespace BackEnd.DAL
             using (SCAPEntities db = new SCAPEntities())
             {
 
-                estado = db.Database.SqlQuery<int>("Select idTablaGeneral from TablaGeneral where tabla = 'Policías' and descripcion = 'Activo'")
+                estado = db.Database.SqlQuery<int>("Select idTablaGeneral from TablaGeneral where tabla = 'Policias' and descripcion = 'Activo'")
                                  .Single<int>();
 
 
@@ -78,7 +78,7 @@ namespace BackEnd.DAL
             int aux;
             using (SCAPEntities db = new SCAPEntities())
             {
-                aux = db.Database.SqlQuery<int>("Select idTablaGeneral from TablaGeneral where tabla= 'Policías' and campo = 'tipoCedula' and codigo =" + tipoCedula).Single<int>();
+                aux = db.Database.SqlQuery<int>("Select idTablaGeneral from TablaGeneral where tabla= 'Policias' and campo = 'tipoCedula' and codigo =" + tipoCedula).Single<int>();
             }
 
             return aux;
@@ -88,7 +88,7 @@ namespace BackEnd.DAL
             string descripcion;
             using (SCAPEntities db = new SCAPEntities())
             {
-                descripcion = db.Database.SqlQuery<string>("Select descripcion from TablaGeneral where tabla= 'Policías' and campo = 'estado' and idTablaGeneral =" + estado).Single<string>();
+                descripcion = db.Database.SqlQuery<string>("Select descripcion from TablaGeneral where tabla= 'Policias' and campo = 'estado' and idTablaGeneral =" + estado).Single<string>();
             }
             return descripcion;
         }
@@ -98,7 +98,7 @@ namespace BackEnd.DAL
             int IdTabla;
             using (SCAPEntities db = new SCAPEntities())
             {
-                IdTabla = db.Database.SqlQuery<int>("Select idTablaGeneral from TablaGeneral where tabla= 'Policías' and campo = 'estado' and descripcion = '" + estado+"'").Single<int>();
+                IdTabla = db.Database.SqlQuery<int>("Select idTablaGeneral from TablaGeneral where tabla= 'Policias' and campo = 'estado' and descripcion = '" + estado+"'").Single<int>();
             }
             return IdTabla;
         }
