@@ -11,80 +11,118 @@
     @using (Html.BeginForm("Editar", "Policia", FormMethod.Post))
     {
 
-        <div class="container">
-            @Html.HiddenFor(d => d.IdPolicia)
-            @Html.HiddenFor(d => d.Estado)
-            <div class="form-group col-md-2">
-                @Html.LabelFor(d => d.TipoCedula)
-                @Html.DropDownListFor(d => d.TipoCedula, new List<SelectListItem> {
-                                new SelectListItem{ Value = "1", Text = "Fisica"},
-                                new SelectListItem{ Value = "2", Text = "Residencia"}
-                              },
-                                                                          new { @class = "form-control" })
-                @Html.ValidationMessageFor(d => d.TipoCedula, null, new { @class = "red" })
-            </div>
-            <div class="form-group col-md-3">
-                @Html.LabelFor(d => d.Cedula)
-                @Html.TextBoxFor(d => d.Cedula, "", new { @class = "form-control" })
-                @Html.ValidationMessageFor(d => d.Cedula, null, new { @class = "red" })
-            </div>
-            <div class="form-group col-md-6">
+<div class="container">
+    @Html.HiddenFor(d => d.IdPolicia)
+    @Html.HiddenFor(d => d.Estado)
+    <div class="form-group col-md-2">
+        @Html.LabelFor(d => d.TipoCedula)
+        @Html.DropDownListFor(d => d.TipoCedula, new List<SelectListItem> {
+                        new SelectListItem{ Value = "1", Text = "Fisica"},
+                        new SelectListItem{ Value = "2", Text = "Residencia"}
+                      },
+                                                                  new { @class = "form-control" })
+        @Html.ValidationMessageFor(d => d.TipoCedula, null, new { @class = "red" })
+    </div>
+    <div class="form-group col-md-3">
+        @Html.LabelFor(d => d.Cedula)
+        @Html.TextBoxFor(d => d.Cedula, "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(d => d.Cedula, null, new { @class = "red" })
+    </div>
+    <div class="form-group col-md-6">
 
-                @Html.LabelFor(d => d.Nombre)
-                @Html.TextBoxFor(d => d.Nombre, "", new { @class = "form-control" })
-                @Html.ValidationMessageFor(d => d.Nombre, null, new { @class = "red" })
-            </div>
-            <div class="form-group col-md-3">
-                @Html.LabelFor(d => d.Fecha_nacimiento)<br />
-                @Html.EditorFor(d => d.Fecha_nacimiento, "", new { @class = "form-control" })
-                @Html.ValidationMessageFor(d => d.Fecha_nacimiento, null, new { @class = "red" })
+        @Html.LabelFor(d => d.Nombre)
+        @Html.TextBoxFor(d => d.Nombre, "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(d => d.Nombre, null, new { @class = "red" })
+    </div>
+    <div class="form-group col-md-3">
+        @Html.LabelFor(d => d.Fecha_nacimiento)<br />
+        @Html.EditorFor(d => d.Fecha_nacimiento, "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(d => d.Fecha_nacimiento, null, new { @class = "red" })
 
-            </div>
-            <div class="form-group col-md-3">
+    </div>
+    <div class="form-group col-md-3">
 
-                @Html.LabelFor(d => d.TelefonoCelular)
-                @Html.TextBoxFor(d => d.TelefonoCelular, "", new { @class = "inputphone form-control" })
-                @Html.ValidationMessageFor(d => d.TelefonoCelular, null, new { @class = "red" })
-            </div>
-            <div class="form-group col-md-3">
-                @Html.LabelFor(d => d.TelefonoCasa)
-                @Html.TextBoxFor(d => d.TelefonoCasa, "", new { @class = "inputphone form-control" })
-                @Html.ValidationMessageFor(d => d.TelefonoCasa, null, new { @class = "red" })
+        @Html.LabelFor(d => d.TelefonoCelular)
+        @Html.TextBoxFor(d => d.TelefonoCelular, "", new { @class = "inputphone form-control" })
+        @Html.ValidationMessageFor(d => d.TelefonoCelular, null, new { @class = "red" })
+    </div>
+    <div class="form-group col-md-3">
+        @Html.LabelFor(d => d.TelefonoCasa)
+        @Html.TextBoxFor(d => d.TelefonoCasa, "", new { @class = "inputphone form-control" })
+        @Html.ValidationMessageFor(d => d.TelefonoCasa, null, new { @class = "red" })
 
-            </div>
+    </div>
 
-            <div class="form-group col-md-6">
-                @Html.LabelFor(d => d.Direccion)
-                @Html.TextAreaFor(d => d.Direccion, new { @class = "form-control" })
-                @Html.ValidationMessageFor(d => d.Direccion, null, new { @class = "red" })
-            </div>
+    <div class="form-group col-md-6">
+        @Html.LabelFor(d => d.Direccion)
+        @Html.TextAreaFor(d => d.Direccion, new { @class = "form-control" })
+        @Html.ValidationMessageFor(d => d.Direccion, null, new { @class = "red" })
+    </div>
 
-            <div class="form-group col-md-6">
-                @Html.LabelFor(d => d.CorreoElectronico)
-                @Html.TextBoxFor(d => d.CorreoElectronico, "", new { @class = "form-control" })
-                @Html.ValidationMessageFor(d => d.CorreoElectronico, null, new { @class = "red" })
-            </div>
+    <div class="form-group col-md-6">
+        @Html.LabelFor(d => d.CorreoElectronico)
+        @Html.TextBoxFor(d => d.CorreoElectronico, "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(d => d.CorreoElectronico, null, new { @class = "red" })
+    </div>
 
-            <div class="form-group col-md-6">
+    <div class="form-group col-md-6">
 
-                @Html.LabelFor(d => d.ContactoEmergencia)
-                @Html.TextBoxFor(d => d.ContactoEmergencia, "", new { @class = "form-control" })
-                @Html.ValidationMessageFor(d => d.ContactoEmergencia, null, new { @class = "red" })
-            </div>
-            <div class="form-group col-md-3">
-                @Html.LabelFor(d => d.TelefonoEmergencia)
-                @Html.TextBoxFor(d => d.TelefonoEmergencia, "", new { @class = "inputphone form-control" })
-                @Html.ValidationMessageFor(d => d.TelefonoEmergencia, null, new { @class = "red" })
-            </div>
-
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <div style="text-align:right;">
-                        <input value="Agregar Información" class="btn btn-primary" type="submit" />
-
-                    </div>
+        @Html.LabelFor(d => d.ContactoEmergencia)
+        @Html.TextBoxFor(d => d.ContactoEmergencia, "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(d => d.ContactoEmergencia, null, new { @class = "red" })
+    </div>
+    <div class="form-group col-md-3">
+        @Html.LabelFor(d => d.TelefonoEmergencia)
+        @Html.TextBoxFor(d => d.TelefonoEmergencia, "", new { @class = "inputphone form-control" })
+        @Html.ValidationMessageFor(d => d.TelefonoEmergencia, null, new { @class = "red" })
+    </div>
+    <div class="modal" id="show" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar Policía</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Está seguro que desea modificar los datos de policía?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="Cancel" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" id="Save">Guardar</button>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="modal" id="show1" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar un policía.</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Está seguro que desea modificar los datos del policía?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" id="Cancel" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" id="Save">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <div style="text-align:right;">
+                <input value="Guardar Información" class="btn btn-primary" type="button" data-toggle="modal" data-target="#show1"/>
+
+            </div>
+        </div>
+    </div>
+</div>
     }
 </div>

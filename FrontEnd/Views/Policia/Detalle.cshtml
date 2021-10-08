@@ -1,13 +1,18 @@
 ﻿@model FrontEnd.Models.ViewModels.PoliciaViewModel
 
 @{
-    ViewBag.Title = "Detalle";
+    ViewBag.Title = "Policía";
 }
+
+
 <div class=" container">
     <div class="row mb-3">
-        <h2 class="display-4">@ViewBag.Title</h2>
+        <h3 class="display-4">@ViewBag.Title</h3>
     </div>
 
+    <div class="row mb-3">
+        <h2> @Html.DisplayTextFor(d => d.Nombre)</h2>
+    </div>
     <dl class=" row">
         @Html.HiddenFor(d => d.IdPolicia)
         <dt class="col-sm-3">
@@ -31,12 +36,6 @@
             <text>@(Model.Fecha_nacimiento.ToShortDateString())</text>
         </dd>
 
-        <dt class="col-sm-3">
-            @Html.LabelFor(d => d.Nombre)
-        </dt>
-        <dd class="col-sm-9">
-            @Html.DisplayTextFor(d => d.Nombre)
-        </dd>
         <dt class="col-sm-3">
             @Html.Label("Edad")
         </dt>
@@ -86,15 +85,34 @@
         <dd class="col-sm-9">
             @Html.DisplayTextFor(d => d.Estado)
         </dd>
+
         <dd class="col-sm-9">
-            <a class="btn btn-warning" href="~/Policia/CambioEstado/@Model.Estado">Cambiar Estado</a>
+            <a class="btn btn-warning" data-toggle="modal" data-target="#show3">Cambiar Estado</a>
         </dd>
-
-
     </dl>
+
     <div style="text-align:center;">
         <a class="btn btn-primary" href="~/Policia/Editar/@Model.IdPolicia">Editar</a>
         <a class="btn btn-info" href="~/Requisito/Index/@Model.IdPolicia">Ver Requisitos</a>
 
+    </div>
+</div>
+<div class="modal" id="show3" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modificar Estado</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>¿Está seguro que desea modificar el estado del policía?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger" id="Cancel" data-dismiss="modal">Cancelar</button>
+                <a type="button" class="btn btn-primary" id="Save" href="~/Policia/CambioEstado/@Model.Estado">Modificar</a>
+            </div>
+        </div>
     </div>
 </div>

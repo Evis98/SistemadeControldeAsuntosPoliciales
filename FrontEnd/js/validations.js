@@ -182,3 +182,15 @@ for (i = 0; i < document.querySelectorAll('.inputphone').length; i++) {
 	}
 }
 
+
+var TNombre = document.getElementById("TNombre");
+
+TNombre.addEventListener("input", function (event) {
+	this.value = this.value.toUpperCase();
+});
+
+var TContacto = document.getElementById("TContacto");
+
+TContacto.addEventListener("input", function (event) {
+	this.value = this.value.toUpperCase();
+});

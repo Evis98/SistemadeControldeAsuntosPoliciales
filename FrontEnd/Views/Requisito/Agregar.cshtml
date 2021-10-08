@@ -10,38 +10,60 @@
     </div>
     @using (Html.BeginForm("Agregar", "Requisito", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
-        <div class="container">
-                <div class="form-group col-md-3">
-                        @Html.LabelFor(d => d.Fecha_Vencimiento)
-                        @Html.EditorFor(d => d.Fecha_Vencimiento, "", new { @class = "form-control" })
-                        @Html.ValidationMessageFor(d => d.Fecha_Vencimiento, null, new { @class = "red" })
-                    </div>
-                <div class="form-group col-md-2">
-                    @Html.LabelFor(d => d.TipoRequisito)
-                    @Html.DropDownListFor(d => d.TipoRequisito, new List<SelectListItem> {
-                            new SelectListItem{ Value = "1", Text = "Carné"},
-                            new SelectListItem{ Value = "2", Text = "Capacitación"}
-                          },
-                        new { @class = "myselect form-control   " })
-                    @Html.ValidationMessageFor(d => d.TipoRequisito, null, new { @class = "red" })
+<div class="container">
+    <div class="form-group col-md-3">
+        @Html.LabelFor(d => d.Fecha_Vencimiento)
+        @Html.EditorFor(d => d.Fecha_Vencimiento, "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(d => d.Fecha_Vencimiento, null, new { @class = "red" })
+    </div>
+    <div class="form-group col-md-2">
+        @Html.LabelFor(d => d.TipoRequisito)
+        @Html.DropDownListFor(d => d.TipoRequisito, new List<SelectListItem> {
+                new SelectListItem{ Value = "1", Text = "Carné"},
+                new SelectListItem{ Value = "2", Text = "Capacitación"}
+              },
+            new { @class = "myselect form-control   " })
+        @Html.ValidationMessageFor(d => d.TipoRequisito, null, new { @class = "red" })
+    </div>
+    <div class="form-group col-md-6">
+        @Html.LabelFor(d => d.Detalles)
+        @Html.TextAreaFor(d => d.Detalles, new { @class = "form-control" })
+        @Html.ValidationMessageFor(d => d.Detalles, null, new { @class = "red" })
+    </div>
+    <div class="form-group col-md-3">
+        @Html.LabelFor(d => d.Archivo)
+        @Html.TextBoxFor(d => d.Archivo, new { @type = "file", accept = ".pdf" })
+        @Html.ValidationMessageFor(d => d.Archivo, "", new { @class = "text-danger" })
+    </div>
+    <div class="modal" id="show6" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Crear Nuevo Requisito</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="form-group col-md-6">
-                    @Html.LabelFor(d => d.Detalles)
-                    @Html.TextAreaFor(d => d.Detalles, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(d => d.Detalles, null, new { @class = "red" })
+                <div class="modal-body">
+                    <p>¿Está seguro que desea agregar un nuevo requisito?</p>
                 </div>
-                <div class="form-group col-md-3">
-                    @Html.LabelFor(d => d.Archivo)
-                    @Html.TextBoxFor(d => d.Archivo, new { @type = "file", accept = ".pdf" })
-                    @Html.ValidationMessageFor(d => d.Archivo, "", new { @class = "text-danger" })
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" id="Cancel" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" id="Save">Guardar</button>
                 </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <div style="text-align:right;">
-                            <input value="Guardar" class="btn btn-primary" type="submit" />
+            </div>
+        </div>
+    </div>
 
-                        </div>
-                    </div>
-                </div>
-          </div>  }
+
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <div style="text-align:right;">
+                <input value="Guardar" class="btn btn-primary" type="button" data-toggle="modal" data-target="#show6" />
+
+            </div>
+        </div>
+    </div>
+</div>  }
         </div>

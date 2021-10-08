@@ -63,7 +63,7 @@ namespace FrontEnd.Controllers
             try
             {
                 string RutaSitio = Server.MapPath("~/");
-                string PathArchivo = Path.Combine(RutaSitio + @"Files\" + model.Detalles+ Session["idPolicia"].ToString() + ".png");
+                string PathArchivo = Path.Combine(RutaSitio + @"Files\" + model.Detalles+ Session["idPolicia"].ToString() + ".pdf");
                 if (ModelState.IsValid)
                 {
                     var oRequisito = new Requisitos();
@@ -71,7 +71,7 @@ namespace FrontEnd.Controllers
                     oRequisito.detalles = model.Detalles;
                     oRequisito.fechaVencimiento = model.Fecha_Vencimiento;
                     oRequisito.tipoRequsito = model.TipoRequisito;
-                    oRequisito.imagen = @"~\Files\" + model.Detalles + Session["idPolicia"].ToString() + ".png";
+                    oRequisito.imagen = @"~\Files\" + model.Detalles + Session["idPolicia"].ToString() + ".pdf";
                     model.Archivo.SaveAs(PathArchivo);
                     requisitoDAL.Add(oRequisito);
                     return Redirect("~/Requisito/Index/" + Session["idPolicia"].ToString());
@@ -101,6 +101,60 @@ namespace FrontEnd.Controllers
                 modelo.Nombre = policia.nombre;
             }
             return View(modelo);
+        }
+        public ActionResult Eliminar(int id)
+        {
+            //RequisitoViewModel modelo = new RequisitoViewModel();
+            requisitoDAL = new RequisitoDAL();
+            {
+                var oRequisito = requisitoDAL.getRequisito(id);
+                requisitoDAL.EliminaRequisito(oRequisito);
+            }
+            return Redirect("~/Requisito/Index/" + Session["idPolicia"].ToString());
+        }
+        public ActionResult Editar(int id)
+        {
+            requisitoDAL = new RequisitoDAL();
+            RequisitoViewModel modelo = new RequisitoViewModel();
+            {
+                Requisitos oRequisito = requisitoDAL.getRequisito(id);
+                modelo.IdRequisito = oRequisito.idRequisito;
+                modelo.Detalles = oRequisito.detalles;
+                modelo.Fecha_Vencimiento = Convert.ToDateTime(oRequisito.fechaVencimiento);
+                modelo.IdPolicia = (int)oRequisito.idPolicia;
+                modelo.TipoRequisito = (int)oRequisito.tipoRequsito;
+                modelo.Imagen = oRequisito.imagen;
+            }
+            return View(modelo);
+        }
+
+        [HttpPost]
+        public ActionResult Editar(RequisitoViewModel modelo)
+        {
+            requisitoDAL = new RequisitoDAL();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    {
+                        var oRequisito = requisitoDAL.getRequisito(modelo.IdRequisito);
+                        oRequisito.idRequisito = modelo.IdRequisito;
+                        oRequisito.detalles = modelo.Detalles;
+                        oRequisito.fechaVencimiento = Convert.ToDateTime(modelo.Fecha_Vencimiento);
+                        oRequisito.idPolicia = (int)modelo.IdPolicia;
+                        oRequisito.tipoRequsito = (int)modelo.TipoRequisito;
+                        oRequisito.imagen = modelo.Imagen;
+                        requisitoDAL.Edit(oRequisito);
+                    }
+                    return Redirect("~/Requisito/Index/" + Session["idPolicia"].ToString());
+                }
+
+                return View(modelo);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }
