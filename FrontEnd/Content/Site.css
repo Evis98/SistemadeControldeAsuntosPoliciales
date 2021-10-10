@@ -1,1 +1,11 @@
-﻿
+﻿.red{
+    color: #c30a0a
+}
+.contenedor-imagenes {
+    display: flex;
+    background: #8bceff;
+}
+.contenedor-imagenes img:first-child {
+        margin-right: auto;
+}
+/*color de fondo #8bceff */

@@ -259,6 +259,8 @@
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="SourcesSCAP\Banner3.png" />
+    <Content Include="SourcesSCAP\MuniLogo.png" />
+    <Content Include="SourcesSCAP\ScapLogo.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

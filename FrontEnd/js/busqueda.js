@@ -1,4 +1,6 @@
-﻿var subjectObject = {
+﻿const { search } = require("modernizr");
+
+var subjectObject = {
     "Detalle de Requisito": {
     },
     "Tipo de Requisito": { "Carné": [], "Capacitacion": [] }
@@ -42,4 +44,6 @@ function ocultar() {
     }
 
 }
-
+Tsearch.addEventListener("input", function (event) {
+    this.value = this.value.toUpperCase();
+});

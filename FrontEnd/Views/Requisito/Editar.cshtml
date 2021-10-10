@@ -35,7 +35,6 @@
         @Html.LabelFor(d => d.Archivo)
         @Html.TextBoxFor(d => d.Archivo, new { @type = "file", accept = ".png" })
         @Html.ValidationMessageFor(d => d.Archivo, "", new { @class = "text-danger" })
-
     </div>
     @Html.HiddenFor(d => d.IdRequisito)
     @Html.HiddenFor(d => d.IdPolicia)
