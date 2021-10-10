@@ -16,31 +16,47 @@
 
     <dl class=" row">
 
-           <dt class="col-sm-3">
+           <dt class="col-sm-4">
             @Html.LabelFor(d => d.TipoRequisito)
         </dt>
-        <dd class="col-sm-9">
-            @Html.DisplayTextFor(d => d.TipoRequisito)
+        <dd id="req" class="col-sm-8">
+           
+                <script>
+                function RequsitoText(e) {
+                    var str = "";
+                    if (e == 5) {
+                        str = "Carné";
+                    }
+                    else if (e == 6) {
+                        str = "Capacitación";
+                    }
+                    //document.getElementById('req').innerHTML = str;
+                    return str;
+                }
+
+            document.write(RequsitoText(@Model.TipoRequisito))
+                </script>
+           
         </dd>
 
-        <dt class="col-sm-3">
+        <dt class="col-sm-4">
             @Html.LabelFor(d => d.Detalles)
         </dt>
-        <dd class="col-sm-9">
+        <dd class="col-sm-8">
             @Html.DisplayTextFor(d => d.Detalles)
         </dd>
 
-        <dt class="col-sm-3">
+        <dt class="col-sm-4">
             @Html.LabelFor(d => d.Fecha_Vencimiento)
         </dt>
-        <dd class="col-sm-9">
+        <dd class="col-sm-8">
             @Html.DisplayTextFor(d => d.Fecha_Vencimiento)
         </dd>
 
-        <dt class="col-sm-3">
+        <dt class="col-sm-4">
             @Html.Label("Archivo: ")
         </dt>
-        <dd class="col-sm-9">
+        <dd class="col-sm-8">
             <u style="color:blue">
                 <text style="color:blue">@Url.Content(Model.Detalles)</text><text style="color:blue">.pdf</text>
             </u>
@@ -48,7 +64,7 @@
     </dl>
 
     <div class="row" style="text-align:right;">
-        <a href="~/Requisito/Index/@HttpContext.Current.Session["idPolicia"].ToString()" class="btn btn-outline-secondary">Regresar</a>
+        <a href="~/Requisito/Index/@Model.IdPolicia" class="btn btn-outline-secondary">Regresar</a>
     </div>
     <div class="modal" id="show4" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -64,7 +80,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" id="Cancel" data-dismiss="modal">Cancelar</button>
-                    <a href="~/Requisito/Eliminar/@HttpContext.Current.Session["idRequisito"].ToString()" type="submit" class="btn btn-danger"  id="Save">Eliminar</a>
+                    <a href="~/Requisito/Eliminar/@Model.IdRequisito" type="submit" class="btn btn-danger"  id="Save">Eliminar</a>
                 </div>
             </div>
         </div>
@@ -73,9 +89,9 @@
 
 
     <div style="text-align:center;">
-        <a class="btn btn-primary" href="~/Requisito/Editar//@HttpContext.Current.Session["idRequisito"].ToString()">Editar</a>
+        <a class="btn btn-primary" href="~/Requisito/Editar/@Model.IdRequisito">Editar</a>
         <a class="btn btn-info" href="@Url.Content(Model.Imagen)" download="@Url.Content(Model.Detalles)">Descargar Archivo Adjunto</a>
-        <a  value="Eliminar" class="btn btn-danger" href="~/Requisito/Eliminar/@HttpContext.Current.Session["idRequisito"].ToString()" type="button"  data-toggle="modal" data-target="#show4">Eliminar</a>
+        <a  value="Eliminar" class="btn btn-danger" href="~/Requisito/Eliminar/@Model.IdRequisito" type="button"  data-toggle="modal" data-target="#show4">Eliminar</a>
 
 
     </div>

@@ -1,11 +1,7 @@
 ﻿var subjectObject = {
-    "Nombre": {
-    },
-    "Cedula": {
-    },
     "Detalle de Requisito": {
     },
-    "Tipo de Requisito": { "Carné": [], "Capacitación": [] }
+    "Tipo de Requisito": { "Carné": [], "Capacitacion": [] }
 }
 var variosInput = document.getElementById('search');
 var topicInput = document.getElementById('tipoRequisito');

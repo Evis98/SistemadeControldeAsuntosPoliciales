@@ -13,25 +13,23 @@
 
     <div class="row my-4">
 
-            <div class="col-sm-11">
-                <div style="display: inline-block">
-                    <select  class="custom-select" name="searchBy" onclick="ocultar()" id="searchBy"></select>
-                </div>
-                <div style="display: inline-block">
-                    <select class="custom-select" name="tipoRequisito" id="tipoRequisito">
-                        <option value="" selected="selected">Selecione un tipo de requisito</option>
-                    </select>
-                </div>
-                <div style="display: inline-block">
-                    <input class="form-control" name="search" type="text" id="search"/>
-                </div>
-                <button class="btn btn-primary">Buscar</button>
-            </div>
-            <div class="col-sm-1">
-                <a href="~/Policia/Nuevo" class="btn btn-success">Nuevo</a>
-            </div>
-
+        <div class="col-sm-3">
+            <select class="form-control" name="searchBy" id="searchBy">
+                <option selected>Nombre</option>
+                <option>Cedula</option>
+            </select>
         </div>
+        <div class="col-sm-4">
+            <input class="form-control" name="search" type="text" id="search" />
+        </div>
+        <div class="col-sm-4">
+            <button class="btn btn-primary">Buscar</button>
+        </div>
+        <div class="col-sm-1">
+            <a href="~/Policia/Nuevo" class="btn btn-success">Nuevo</a>
+        </div>
+
+    </div>
         }
 
 

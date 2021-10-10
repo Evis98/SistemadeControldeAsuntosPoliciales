@@ -78,6 +78,16 @@ namespace BackEnd.DAL
                 db.SaveChanges();
             }
         }
+
+        public string getDescripcionRequisito(int tipoRequisito)
+        {
+            string descripcion;
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                descripcion = db.Database.SqlQuery<string>("Select descripcion from TablaGeneral where idTablaGeneral =" + tipoRequisito).Single<string>();
+            }
+            return descripcion;
+        }
     }
 
 }

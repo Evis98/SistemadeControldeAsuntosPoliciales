@@ -13,5 +13,6 @@ namespace FrontEnd.Models.ViewModels
         public int IdPolicia { get; set; }
         public string Imagen { get; set; }
         public string Detalles { get; set; }
+        public List<String> ListaTipoRequisitos { get; set; }
     }
 }
