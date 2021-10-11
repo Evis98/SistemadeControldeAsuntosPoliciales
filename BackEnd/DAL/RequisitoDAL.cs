@@ -50,7 +50,7 @@ namespace BackEnd.DAL
             return requisito;
         }
 
-        public Policias getPoliciaDeRequisito(int id)
+        /*public Policias getPoliciaDeRequisito(int id)
         {
             Policias pol = new Policias();
             using (SCAPEntities db = new SCAPEntities())
@@ -58,7 +58,7 @@ namespace BackEnd.DAL
                 pol = db.Database.SqlQuery<Policias>("select * from Policias where idRequisito =" + id).Single<Policias>();
             }
             return pol;
-        }
+        }*/
 
         public int? getTipoRequisito(int tipoRequisito)
         {

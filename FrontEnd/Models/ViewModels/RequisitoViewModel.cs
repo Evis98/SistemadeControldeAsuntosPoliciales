@@ -10,9 +10,6 @@ namespace FrontEnd.Models.ViewModels
     public class RequisitoViewModel
     {
         public int IdRequisito { get; set; }
-
-
-
         [DataType(DataType.Date)]
         [Display(Name = "Fecha de Vencimiento")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]

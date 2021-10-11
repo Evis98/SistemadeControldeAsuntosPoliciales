@@ -1,14 +1,14 @@
 ﻿
 @model FrontEnd.Models.ViewModels.RequisitoViewModel
 @{
-    ViewBag.Title = "Agregar";
+    ViewBag.Title = "Agregar Requisito de Policía";
 }
 
 <div class="container">
     <div class="row mb-3">
         <h2 class="display-4">@ViewBag.Title</h2>
     </div>
-    @using (Html.BeginForm("Agregar", "Requisito", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("Nuevo", "Requisito", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
 <div class="container">
     <div class="form-group col-md-3">

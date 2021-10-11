@@ -15,37 +15,39 @@ namespace FrontEnd.Controllers
     {
         RequisitoDAL requisitoDAL;
         PoliciaDAL policiaDAL;
+
+
         // GET: Requisito
-        public ActionResult Index(int id)
-        {         
-            requisitoDAL = new RequisitoDAL ();
+        public ActionResult Listado(int id)
+        {
+            requisitoDAL = new RequisitoDAL();
             List<Requisitos> lista2;
             List<Requisitos> lista3 = new List<Requisitos>();
             List<ListRequisitoViewModel> lista;
 
             lista2 = requisitoDAL.Get();
-                foreach (Requisitos requisito in lista2)
+            foreach (Requisitos requisito in lista2)
+            {
+                if (id == requisito.idPolicia)
                 {
-                    if (id == requisito.idPolicia)
-                    {
-                          lista3.Add(requisito);
-                    }
+                    lista3.Add(requisito);
                 }
-                lista2 = lista3;          
+            }
+            lista2 = lista3;
             lista = (from d in lista2
                      select new ListRequisitoViewModel
                      {
                          IdRequisito = d.idRequisito,
                          Fecha_Vencimiento = Convert.ToDateTime(d.fechaVencimiento),
                          TipoRequisito = (int)d.tipoRequsito,
-                         IdPolicia = (int) d.idPolicia,
+                         IdPolicia = (int)d.idPolicia,
                          Imagen = d.imagen,
                          Detalles = d.detalles,
                      }).ToList();
-            return View(lista);            
+            return View(lista);
         }
-       
-        public ActionResult Agregar(int id)
+
+        public ActionResult Nuevo(int id)
         {
             RequisitoViewModel requisito = new RequisitoViewModel();
             {
@@ -55,13 +57,13 @@ namespace FrontEnd.Controllers
         }
 
         [HttpPost]
-        public ActionResult Agregar(RequisitoViewModel model)
+        public ActionResult Nuevo(RequisitoViewModel model)
         {
             requisitoDAL = new RequisitoDAL();
             try
             {
                 string RutaSitio = Server.MapPath("~/");
-                string PathArchivo = Path.Combine(RutaSitio + @"Files\" + model.Detalles+ Session["idPolicia"].ToString() + ".pdf");
+                string PathArchivo = Path.Combine(RutaSitio + @"Files\" + model.Detalles + Session["idPolicia"].ToString() + ".pdf");
                 if (ModelState.IsValid)
                 {
                     var oRequisito = new Requisitos();
@@ -69,16 +71,25 @@ namespace FrontEnd.Controllers
                     oRequisito.detalles = model.Detalles;
                     oRequisito.fechaVencimiento = model.Fecha_Vencimiento;
                     oRequisito.tipoRequsito = requisitoDAL.getTipoRequisito(model.TipoRequisito);
+                    if (model.Fecha_Vencimiento != null)
+                    {
+                        oRequisito.fechaVencimiento = model.Fecha_Vencimiento;
+                    }
+                    else
+                    {
+                        oRequisito.fechaVencimiento = null;
+                    }
                     if (model.Archivo != null)
                     {
                         oRequisito.imagen = @"~\Files\" + model.Detalles + Session["idPolicia"].ToString() + ".pdf";
                         model.Archivo.SaveAs(PathArchivo);
                     }
-                    else {
-                        oRequisito.imagen = "N/A";
+                    else
+                    {
+                        oRequisito.imagen = null ;
                     }
                     requisitoDAL.Add(oRequisito);
-                    return Redirect("~/Requisito/Index/" + Session["idPolicia"].ToString());
+                    return Redirect("~/Requisito/Listado/" + Session["idPolicia"].ToString());
                 }
 
             }
@@ -102,6 +113,7 @@ namespace FrontEnd.Controllers
             {
                 modelo.Imagen = oRequisito.imagen;
                 modelo.IdRequisito = oRequisito.idRequisito;
+                modelo.Fecha_Vencimiento = oRequisito.fechaVencimiento;
                 modelo.TipoRequisito = (int)oRequisito.tipoRequsito;
                 modelo.Detalles = oRequisito.detalles;
                 modelo.IdPolicia = (int)oRequisito.idPolicia;
@@ -116,12 +128,12 @@ namespace FrontEnd.Controllers
             //RequisitoViewModel modelo = new RequisitoViewModel();
             requisitoDAL = new RequisitoDAL();
             int idPolicia;
-       
-                var oRequisito = requisitoDAL.getRequisito(id);
+
+            var oRequisito = requisitoDAL.getRequisito(id);
             idPolicia = (int)oRequisito.idPolicia;
-                requisitoDAL.EliminaRequisito(oRequisito);
-   
-            return Redirect("~/Requisito/Index/" + idPolicia);
+            requisitoDAL.EliminaRequisito(oRequisito);
+
+            return Redirect("~/Requisito/Listado/" + idPolicia);
         }
         public ActionResult Editar(int id)
         {
@@ -131,7 +143,14 @@ namespace FrontEnd.Controllers
                 Requisitos oRequisito = requisitoDAL.getRequisito(id);
                 modelo.IdRequisito = oRequisito.idRequisito;
                 modelo.Detalles = oRequisito.detalles;
-                modelo.Fecha_Vencimiento = Convert.ToDateTime(oRequisito.fechaVencimiento);
+                if (oRequisito.fechaVencimiento != null)
+                {
+                    modelo.Fecha_Vencimiento = Convert.ToDateTime(oRequisito.fechaVencimiento);
+                }
+                else 
+                {
+                    modelo.Fecha_Vencimiento = null;
+                }
                 modelo.IdPolicia = (int)oRequisito.idPolicia;
                 modelo.TipoRequisito = (int)oRequisito.tipoRequsito;
                 modelo.Imagen = oRequisito.imagen;
@@ -151,13 +170,13 @@ namespace FrontEnd.Controllers
                         var oRequisito = requisitoDAL.getRequisito(modelo.IdRequisito);
                         oRequisito.idRequisito = modelo.IdRequisito;
                         oRequisito.detalles = modelo.Detalles;
-                        oRequisito.fechaVencimiento = Convert.ToDateTime(modelo.Fecha_Vencimiento);
+                        oRequisito.fechaVencimiento = modelo.Fecha_Vencimiento;
                         oRequisito.idPolicia = (int)modelo.IdPolicia;
-                        oRequisito.tipoRequsito = (int)modelo.TipoRequisito;
+                        oRequisito.tipoRequsito = requisitoDAL.getTipoRequisito(modelo.TipoRequisito);
                         oRequisito.imagen = modelo.Imagen;
                         requisitoDAL.Edit(oRequisito);
                     }
-                    return Redirect("~/Requisito/Index/" + Session["idPolicia"].ToString());
+                    return Redirect("~/Requisito/Listado/" + Session["idPolicia"].ToString());
                 }
 
                 return View(modelo);
@@ -168,7 +187,7 @@ namespace FrontEnd.Controllers
             }
         }
 
-        public ActionResult IndexR(string searchBy, string search, string tipoRequisito)
+        public ActionResult Index(string searchBy, string search, string tipoRequisito)
         {
             requisitoDAL = new RequisitoDAL();
             List<Requisitos> lista2;
@@ -189,10 +208,10 @@ namespace FrontEnd.Controllers
                     }
                     if (searchBy == "Tipo de Requisito")
                     {
-                            if (requisitoDAL.getDescripcionRequisito((int)requisito.tipoRequsito).Contains(tipoRequisito))
-                            {
-                                lista3.Add(requisito);
-                            }                 
+                        if (requisitoDAL.getDescripcionRequisito((int)requisito.tipoRequsito).Contains(tipoRequisito))
+                        {
+                            lista3.Add(requisito);
+                        }
                     }
                 }
                 lista2 = lista3;

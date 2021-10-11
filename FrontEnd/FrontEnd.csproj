@@ -277,8 +277,8 @@
     <Content Include="Views\Policia\Nuevo.cshtml" />
     <Content Include="Views\Policia\Detalle.cshtml" />
     <Content Include="Views\Policia\Editar.cshtml" />
-    <Content Include="Views\Requisito\Index.cshtml" />
-    <Content Include="Views\Requisito\Agregar.cshtml" />
+    <Content Include="Views\Requisito\Listado.cshtml" />
+    <Content Include="Views\Requisito\Nuevo.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper.js.flow" />
@@ -291,7 +291,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Requisito\Detalle.cshtml" />
     <Content Include="Views\Requisito\Editar.cshtml" />
-    <Content Include="Views\Requisito\IndexR.cshtml" />
+    <Content Include="Views\Requisito\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

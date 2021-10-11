@@ -9,8 +9,6 @@ namespace BackEnd.DAL
 {
     public class PoliciaDAL : IPoliciaDAL
     {
-
-
         public List<Policias> Get()
         {
             List<Policias> lista = new List<Policias>();
