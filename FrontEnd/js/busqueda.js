@@ -1,5 +1,4 @@
-﻿const { search } = require("modernizr");
-
+﻿
 var subjectObject = {
     "Detalle de Requisito": {
     },

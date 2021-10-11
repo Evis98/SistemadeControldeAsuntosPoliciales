@@ -69,10 +69,13 @@ namespace FrontEnd.Controllers
                     oRequisito.detalles = model.Detalles;
                     oRequisito.fechaVencimiento = model.Fecha_Vencimiento;
                     oRequisito.tipoRequsito = requisitoDAL.getTipoRequisito(model.TipoRequisito);
-                    if(model.Archivo != null)
+                    if (model.Archivo != null)
                     {
                         oRequisito.imagen = @"~\Files\" + model.Detalles + Session["idPolicia"].ToString() + ".pdf";
                         model.Archivo.SaveAs(PathArchivo);
+                    }
+                    else {
+                        oRequisito.imagen = "N/A";
                     }
                     requisitoDAL.Add(oRequisito);
                     return Redirect("~/Requisito/Index/" + Session["idPolicia"].ToString());

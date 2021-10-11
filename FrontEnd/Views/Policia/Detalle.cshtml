@@ -115,18 +115,25 @@
             </script>
 
         </dd>
+
+        <dd class="col-sm-9">
+            <a class="btn btn-warning" data-toggle="modal" data-target="#show3">Cambiar Estado</a>
+        </dd>
+
+
+
     </dl>
 
     <div class="row" style="text-align:right;">
-        <a class="btn btn-warning" data-toggle="modal" data-target="#show3">Cambiar Estado</a>
-        </div>
-
-        <div style="text-align:center;">
-            <a class="btn btn-primary" href="~/Policia/Editar/@Model.IdPolicia">Editar</a>
-            <a class="btn btn-info" href="~/Requisito/Index/@Model.IdPolicia">Ver Requisitos</a>
-
-        </div>
+        <a href="~/Policia/Index/" class="btn btn-outline-secondary">Regresar</a>
     </div>
+
+    <div style="text-align:center;">
+        <a class="btn btn-primary" href="~/Policia/Editar/@Model.IdPolicia">Editar</a>
+        <a class="btn btn-info" href="~/Requisito/Index/@Model.IdPolicia">Ver Requisitos</a>
+
+    </div>
+</div>
 <div class="modal" id="show3" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
