@@ -9,7 +9,7 @@ namespace BackEnd.DAL
 {
     public class RequisitoDAL : IRequisitoDAL
     {
-
+        //Recibe todos los requisitos ingresados en la base de datos con su información
         public List<Requisitos> Get()
         {
             List<Requisitos> lista = new List<Requisitos>();
@@ -20,6 +20,7 @@ namespace BackEnd.DAL
             return lista;
         }
 
+        //Permite agregar un requisito nuevo a la base de datos
         public void Add(Requisitos nuevo)
         {
             using (SCAPEntities db = new SCAPEntities())
@@ -30,6 +31,7 @@ namespace BackEnd.DAL
 
         }
 
+        //Permite actualizar la información de un requisito en la base de datos
         public void Edit(Requisitos cambiado)
         {
             using (SCAPEntities db = new SCAPEntities())
@@ -40,6 +42,7 @@ namespace BackEnd.DAL
 
         }
 
+        //Permite recibir un requisito con toda su información a través de su atributo "idRequisito"
         public Requisitos getRequisito(int id)
         {
             Requisitos requisito = new Requisitos();
@@ -50,16 +53,7 @@ namespace BackEnd.DAL
             return requisito;
         }
 
-        /*public Policias getPoliciaDeRequisito(int id)
-        {
-            Policias pol = new Policias();
-            using (SCAPEntities db = new SCAPEntities())
-            {
-                pol = db.Database.SqlQuery<Policias>("select * from Policias where idRequisito =" + id).Single<Policias>();
-            }
-            return pol;
-        }*/
-
+        //Permite recibir el atributo "idTablaGeneral" de la Tabla General haciendo uso del atributo "tipoRequisito" de la tabla Requisitos
         public int? getTipoRequisito(int tipoRequisito)
         {
             int aux;
@@ -70,6 +64,7 @@ namespace BackEnd.DAL
             return aux;
         }
 
+        //Permite la eliminación de un requisito de la base de datos
         public void EliminaRequisito(Requisitos eliminable)
         {
             using (SCAPEntities db = new SCAPEntities())
@@ -79,6 +74,7 @@ namespace BackEnd.DAL
             }
         }
 
+        //Permite recibir el atributo "descripcion" de la Tabla General haciendo uso del atributo "tipoRequisito" de la misma
         public string getDescripcionRequisito(int tipoRequisito)
         {
             string descripcion;

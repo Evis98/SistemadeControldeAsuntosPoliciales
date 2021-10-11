@@ -17,7 +17,7 @@ namespace FrontEnd.Controllers
         PoliciaDAL policiaDAL;
 
 
-        // GET: Requisito
+        //*Devuelve la página con el listado de todos los requisitos creados para el policía seleccionado
         public ActionResult Listado(int id)
         {
             requisitoDAL = new RequisitoDAL();
@@ -47,6 +47,7 @@ namespace FrontEnd.Controllers
             return View(lista);
         }
 
+        //Devuelve la página que agrega nuevos requisitos
         public ActionResult Nuevo(int id)
         {
             RequisitoViewModel requisito = new RequisitoViewModel();
@@ -56,6 +57,7 @@ namespace FrontEnd.Controllers
             return View(requisito);
         }
 
+        //Guarda la información ingresada en la página para crear requisitos
         [HttpPost]
         public ActionResult Nuevo(RequisitoViewModel model)
         {
@@ -100,6 +102,7 @@ namespace FrontEnd.Controllers
             return View();
         }
 
+        //Muestra la información detallada del requisito seleccionado
         public ActionResult Detalle(int id)
         {
             policiaDAL = new PoliciaDAL();
@@ -122,10 +125,9 @@ namespace FrontEnd.Controllers
             return View(modelo);
         }
 
-
+        //Permite la eliminación de requisitos de la base de datos
         public ActionResult Eliminar(int id)
         {
-            //RequisitoViewModel modelo = new RequisitoViewModel();
             requisitoDAL = new RequisitoDAL();
             int idPolicia;
 
@@ -135,6 +137,8 @@ namespace FrontEnd.Controllers
 
             return Redirect("~/Requisito/Listado/" + idPolicia);
         }
+
+        //Devuelve la página de edición de requisitos con sus apartados llenos
         public ActionResult Editar(int id)
         {
             requisitoDAL = new RequisitoDAL();
@@ -158,6 +162,7 @@ namespace FrontEnd.Controllers
             return View(modelo);
         }
 
+        //Guarda la información modificada de los requisitos
         [HttpPost]
         public ActionResult Editar(RequisitoViewModel modelo)
         {
@@ -187,6 +192,7 @@ namespace FrontEnd.Controllers
             }
         }
 
+        //Devuelve la página con el listado de todos los requisitos creados
         public ActionResult Index(string searchBy, string search, string tipoRequisito)
         {
             requisitoDAL = new RequisitoDAL();

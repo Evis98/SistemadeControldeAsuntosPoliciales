@@ -9,6 +9,7 @@ namespace BackEnd.DAL
 {
     public class PoliciaDAL : IPoliciaDAL
     {
+        //Recibe todos los policías ingresados en la base de datos con su información
         public List<Policias> Get()
         {
             List<Policias> lista = new List<Policias>();
@@ -19,6 +20,7 @@ namespace BackEnd.DAL
             return lista;
         }
 
+        //Permite agregar un policía nuevo a la base de datos
         public void Add(Policias nuevo)
         {
             using (SCAPEntities db = new SCAPEntities())
@@ -29,6 +31,7 @@ namespace BackEnd.DAL
 
         }
 
+        //Permite actualizar la información de un policía en la base de datos
         public void Edit(Policias cambiado)
         {
             using (SCAPEntities db = new SCAPEntities())
@@ -38,6 +41,8 @@ namespace BackEnd.DAL
             }
 
         }
+
+        //Permite recibir un policía con toda su información a través de su atributo "idPolicia"
         public Policias getPolicia(int id)
         {
             Policias poli = new Policias();
@@ -47,6 +52,8 @@ namespace BackEnd.DAL
             }
             return poli;
         }
+
+        //Permite recibir un policía con toda su información a través de su atributo "cédula"
         public int getPoliciaCedula(string cedula)
         {
             int poli;
@@ -57,20 +64,19 @@ namespace BackEnd.DAL
             return poli;
         }
 
+        //Recibe el atributo "idTablaGeneral" donde el atributo "descripción" es "Activo"
         public int? estadoDefault()
         {
             int estado;
             using (SCAPEntities db = new SCAPEntities())
             {
 
-                estado = db.Database.SqlQuery<int>("Select idTablaGeneral from TablaGeneral where tabla = 'Policias' and descripcion = 'Activo'")
-                                 .Single<int>();
-
-
+                estado = db.Database.SqlQuery<int>("Select idTablaGeneral from TablaGeneral where tabla = 'Policias' and descripcion = 'Activo'").Single<int>();
             }
             return estado;
         }
 
+        //Permite recibir el atributo "idTablaGeneral" de la Tabla General haciendo uso del atributo "tipoCedula" del policía
         public int? getTipoCedula(int tipoCedula)
         {
             int aux;
@@ -81,6 +87,8 @@ namespace BackEnd.DAL
 
             return aux;
         }
+
+        //Permite recibir el atributo "descripcion" de la Tabla General haciendo uso del atributo "estado" del policía
         public string getEstadoPolicia(int estado)
         {
             string descripcion;
@@ -91,6 +99,7 @@ namespace BackEnd.DAL
             return descripcion;
         }
 
+        //Permite recibir el atributo "idTablaGeneral" de la Tabla General haciendo uso del atributo "estado" de la misma tabla
         public int getIdEstado(string estado)
         {
             int IdTabla;
@@ -101,6 +110,7 @@ namespace BackEnd.DAL
             return IdTabla;
         }
 
+        //Permite cambiar el atributo "estado" de un policía al recibir el dato "idPolicia" y "estado" 
         public void CambiaEstadoPolicia(int id, int estado)
         {
             using (SCAPEntities db = new SCAPEntities())

@@ -14,7 +14,8 @@ namespace FrontEnd.Controllers
     {
 
         PoliciaDAL policiaDAL;
-        // GET: Policia
+
+        //Devuelve la página con el listado de todos los policías creados
         public ActionResult Index(string searchBy, string search)
         {
             policiaDAL = new PoliciaDAL();
@@ -64,12 +65,13 @@ namespace FrontEnd.Controllers
             return View(lista);
         }
 
+        //Devuelve la página que agrega nuevos policías
         public ActionResult Nuevo()
         {
             return View();
         }
 
-
+        //Guarda la información ingresada en la página para crear policías
         [HttpPost]
         public ActionResult Nuevo(PoliciaViewModel model)
         {
@@ -108,6 +110,7 @@ namespace FrontEnd.Controllers
 
         }
 
+        //Muestra la información detallada de un policía
         public ActionResult Detalle(int id)
         {
             policiaDAL = new PoliciaDAL();
@@ -130,6 +133,8 @@ namespace FrontEnd.Controllers
             }
             return View(modelo);
         }
+
+        //Devuelve la página de edición de policías con sus apartados llenos
         public ActionResult Editar(int id)
         {
             policiaDAL = new PoliciaDAL();
@@ -151,6 +156,8 @@ namespace FrontEnd.Controllers
             }
             return View(modelo);
         }
+
+        //Guarda la información modificada de los policías
         [HttpPost]
         public ActionResult Editar(PoliciaViewModel modelo)
         {
@@ -186,6 +193,8 @@ namespace FrontEnd.Controllers
                 throw new Exception(ex.Message);
             }
         }
+
+        //Se encarga del cambio de estado de un policía entre activo e inactivo
         public ActionResult CambioEstado(int id)
         {
             int estado = id;

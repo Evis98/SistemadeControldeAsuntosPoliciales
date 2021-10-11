@@ -5,6 +5,7 @@ using System.Web;
 
 namespace FrontEnd.Models.ViewModels
 {
+    
     public class ListPoliciaViewModel
     {
         public int IdPolicia { get; set; }

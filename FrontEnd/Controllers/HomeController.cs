@@ -8,6 +8,7 @@ namespace FrontEnd.Controllers
 {
     public class HomeController : Controller
     {
+        //Devuelve la pantalla inicial
         public ActionResult Index()
         {
             return View();
