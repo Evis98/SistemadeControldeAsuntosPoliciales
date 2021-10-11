@@ -53,7 +53,7 @@
 
     <div class="form-group col-md-6">
         @Html.LabelFor(d => d.Direccion)
-        @Html.TextAreaFor(d => d.Direccion, new { @class = "form-control", @maxlength = "250" })
+        @Html.TextAreaFor(d => d.Direccion, new { @class = "form-control", @maxlength = "250" , @onkeyup = "this.value = this.value.toUpperCase();" })
         @Html.ValidationMessageFor(d => d.Direccion, null, new { @class = "red" })
     </div>
 

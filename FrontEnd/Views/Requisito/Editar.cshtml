@@ -16,7 +16,7 @@
     {
         <div class=" form-group col-md-3">
             @Html.LabelFor(d => d.Fecha_Vencimiento)
-            @Html.EditorFor(d => d.Fecha_Vencimiento, "", new { @class = "form-control" })
+            @Html.EditorFor(d => d.Fecha_Vencimiento, "", new { @class = "form-control"  })
             @Html.ValidationMessageFor(d => d.Fecha_Vencimiento, null, new { @class = "red" })
         </div>
     }
@@ -31,14 +31,14 @@
     </div>
     <div class=" form-group col-md-3">
         @Html.LabelFor(d => d.Detalles)
-        @Html.TextBoxFor(d => d.Detalles, "", new { @class = "form-control" })
+        @Html.TextAreaFor(d => d.Detalles, new { @class = "form-control", @maxlength = "250", @onkeyup = "this.value = this.value.toUpperCase();" })
         @Html.ValidationMessageFor(d => d.Detalles, null, new { @class = "red" })
     </div>
     @if (Model.Imagen != null)
     {
         <div class="form-group col-md-4">
             @Html.LabelFor(d => d.Archivo)
-            @Html.TextBoxFor(d => d.Archivo, new { @type = "file", accept = ".png" })
+            @Html.TextBoxFor(d => d.Archivo, new { @type = "file", accept = ".pdf" })
             @Html.ValidationMessageFor(d => d.Archivo, "", new { @class = "text-danger" })
         </div>
     }

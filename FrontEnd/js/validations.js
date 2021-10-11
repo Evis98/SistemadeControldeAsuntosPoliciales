@@ -195,9 +195,6 @@ TContacto.addEventListener("input", function (event) {
 	this.value = this.value.toUpperCase();
 });
 
-function obtenerFecha(e) {
-
-	var fecha = moment(e.value);
-	console.log("Fecha original:" + e.value);
-	console.log("Fecha formateada es: " + fecha.format("DD/MM/YYYY"));
-}
+DetalleE.addEventListener("form-control", function (event) {
+	this.value = this.value.toUpperCase();
+});
