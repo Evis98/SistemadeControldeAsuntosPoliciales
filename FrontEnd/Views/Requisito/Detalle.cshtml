@@ -45,22 +45,26 @@
     <dd class="col-sm-8">
         @Html.DisplayTextFor(d => d.Detalles)
     </dd>
+    @if (Model.Fecha_Vencimiento != null)
+    {
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.Fecha_Vencimiento)
+        </dt>
+        <dd class="col-sm-8">
+            <text>@(Model.Fecha_Vencimiento.Value.ToShortDateString())</text>
+        </dd>
+    }
 
-    <dt class="col-sm-4">
-        @Html.LabelFor(d => d.Fecha_Vencimiento)
-    </dt>
-    <dd class="col-sm-8">
-        <text>@(Model.Fecha_Vencimiento.ToShortDateString())</text>
-    </dd>
-    @if (Model.Imagen != "N/A") { 
+    @if (Model.Imagen != "N/A")
+    {
         <dt class="col-sm-4">
             @Html.Label("Archivo: ")
         </dt>
-    <dd class="col-sm-8">
-        <u style="color:blue">
-            <text style="color:blue">@Url.Content(Model.Detalles)</text><text style="color:blue">.pdf</text>
-        </u>
-    </dd>
+        <dd class="col-sm-8">
+            <u style="color:blue">
+                <text style="color:blue">@Url.Content(Model.Detalles)</text><text style="color:blue">.pdf</text>
+            </u>
+        </dd>
     }
 </dl>
 

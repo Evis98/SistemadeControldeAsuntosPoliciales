@@ -12,11 +12,11 @@ namespace FrontEnd.Models.ViewModels
         public int IdRequisito { get; set; }
 
 
-        [Required]
+
         [DataType(DataType.Date)]
         [Display(Name = "Fecha de Vencimiento")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime Fecha_Vencimiento { get; set; } = DateTime.Today;
+        public DateTime? Fecha_Vencimiento { get; set; } = null;
         [Required]
         [Display(Name = "Tipo de Requisito")]
         public int TipoRequisito { get; set; }
