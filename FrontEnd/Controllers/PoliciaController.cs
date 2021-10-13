@@ -28,7 +28,7 @@ namespace FrontEnd.Controllers
             {
                 foreach (Policias policia in lista2)
                 {
-                    if (searchBy == "Cedula")
+                    if (searchBy == "Cédula")
                     {
                         if (policia.cedula.Contains(search))
                         {

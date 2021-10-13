@@ -28,7 +28,7 @@
     </div>
     <div class="form-group col-md-6">
         @Html.LabelFor(d => d.Detalles)
-        @Html.TextAreaFor(d => d.Detalles, new { @class = "form-control", @maxlength = "250", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+        @Html.TextAreaFor(d => d.Detalles, new { @class = "form-control", @maxlength = "250", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)" })
         @Html.ValidationMessageFor(d => d.Detalles, null, new { @class = "red" })
     </div>
     <div class="form-group col-md-3">

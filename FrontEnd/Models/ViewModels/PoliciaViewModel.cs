@@ -45,11 +45,11 @@ namespace FrontEnd.Models.ViewModels
         public string TelefonoCasa { get; set; }
         [Required]
         [StringLength(150)]
-        [Display(Name = "Nombre Contacto de Emergencia")]
+        [Display(Name = "Nombre del Contacto de Emergencia")]
         public string ContactoEmergencia { get; set; }
         [Required]
         [StringLength(9)]
-        [Display(Name = "Teléfono Contacto Emergencia")]
+        [Display(Name = "Teléfono del Contacto de Emergencia")]
         public string TelefonoEmergencia { get; set; }
 
         public int Estado { get; set; }
