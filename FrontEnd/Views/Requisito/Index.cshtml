@@ -37,10 +37,9 @@
         <table class="table">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Detalle</th>
-                    <th scope="col">Policía</th>
                     <th scope="col">Tipo</th>
+                    <th scope="col">Policía</th>
+                    <th scope="col">Detalle</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -48,10 +47,9 @@
                 @foreach (var oElemento in Model)
                 {
                     <tr>
-                        <th scope="row">@oElemento.IdRequisito</th>
+                        <th scope="row">@oElemento.DetalleTipoRequisito</th>
+                        <td>@oElemento.NombrePolicia</td>
                         <td>@oElemento.Detalles</td>
-                        <td>@oElemento.IdPolicia</td>
-                        <td>@oElemento.TipoRequisito</td>
                         <td>
                             <a class="btn btn-outline-info" href="~/Requisito/Detalle/@oElemento.IdRequisito">Ver Detalles</a>
                         </td>

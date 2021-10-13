@@ -40,6 +40,7 @@ namespace FrontEnd.Controllers
                          IdRequisito = d.idRequisito,
                          Fecha_Vencimiento = Convert.ToDateTime(d.fechaVencimiento),
                          TipoRequisito = (int)d.tipoRequsito,
+                         DetalleTipoRequisito = requisitoDAL.getDescripcionRequisito((int)d.tipoRequsito),
                          IdPolicia = (int)d.idPolicia,
                          Imagen = d.imagen,
                          Detalles = d.detalles,
@@ -196,6 +197,7 @@ namespace FrontEnd.Controllers
         public ActionResult Index(string searchBy, string search, string tipoRequisito)
         {
             requisitoDAL = new RequisitoDAL();
+            policiaDAL = new PoliciaDAL();
             List<Requisitos> lista2;
             List<Requisitos> lista3 = new List<Requisitos>();
             List<ListRequisitoViewModel> lista;
@@ -230,7 +232,9 @@ namespace FrontEnd.Controllers
                          IdRequisito = d.idRequisito,
                          Fecha_Vencimiento = Convert.ToDateTime(d.fechaVencimiento),
                          TipoRequisito = (int)d.tipoRequsito,
+                         DetalleTipoRequisito = requisitoDAL.getDescripcionRequisito((int)d.tipoRequsito),
                          IdPolicia = (int)d.idPolicia,
+                         NombrePolicia = policiaDAL.getPoliciaNombre((int)d.idPolicia),
                          Imagen = d.imagen,
                          Detalles = d.detalles,
                      }).ToList();

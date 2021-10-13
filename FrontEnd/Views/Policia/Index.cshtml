@@ -26,7 +26,7 @@
             <button class="btn btn-primary">Buscar</button>
         </div>
         <div class="col-sm-1">
-            <a href="~/Policia/Nuevo" class="btn btn-success">Nuevo</a>
+            <a href="~/Policia/Nuevo" class="btn btn-success">Agregar</a>
         </div>
 
     </div>
@@ -38,7 +38,6 @@
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
-                        <th scope="col">#</th>
                         <th scope="col">Cédula</th>
                         <th scope="col">Nombre</th>
                         <th scope="col"></th>
@@ -48,8 +47,7 @@
                     @foreach (var oElemento in Model)
                     {
                         <tr>
-                            <th scope="row">@oElemento.IdPolicia</th>
-                            <td>@oElemento.Cedula</td>
+                            <th scope="row">@oElemento.Cedula</th>
                             <td>@oElemento.Nombre</td>
                             <td>
                                 <a class="btn btn-outline-info" href="~/Policia/Detalle/@oElemento.IdPolicia">Ver Detalles</a>

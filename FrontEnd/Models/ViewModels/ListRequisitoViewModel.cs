@@ -10,7 +10,9 @@ namespace FrontEnd.Models.ViewModels
         public int IdRequisito { get; set; }
         public DateTime Fecha_Vencimiento { get; set; }
         public int TipoRequisito { get; set; }
+        public string DetalleTipoRequisito { get; set; }
         public int IdPolicia { get; set; }
+        public string NombrePolicia { get; set; }
         public string Imagen { get; set; }
         public string Detalles { get; set; }
         public List<String> ListaTipoRequisitos { get; set; }

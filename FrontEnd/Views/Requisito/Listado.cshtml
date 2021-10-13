@@ -23,7 +23,6 @@
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
-                        <th scope="col">#</th>
                         <th scope="col"> Tipo Requisito</th>
                         <th scope="col"> Descripción</th>
                         <th scope="col"></th>
@@ -34,8 +33,7 @@
                     @foreach (var oElemento in Model)
                     {
                         <tr>
-                            <th scope="row">@oElemento.IdRequisito</th>
-                            <td>@oElemento.TipoRequisito</td>
+                            <th scope="row">@oElemento.DetalleTipoRequisito</th>
                             <td>@oElemento.Detalles</td>
                             <td>
                                 <a class="btn btn-outline-info" href="~/Requisito/Detalle/@oElemento.IdRequisito">Ver Detalles</a>

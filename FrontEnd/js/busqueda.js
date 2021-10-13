@@ -2,7 +2,7 @@
 var subjectObject = {
     "Detalle de Requisito": {
     },
-    "Tipo de Requisito": { "Carné": [], "Capacitacion": [] }
+    "Tipo de Requisito": { "Carné": [], "Capacitación": [] }
 }
 var variosInput = document.getElementById('search');
 var topicInput = document.getElementById('tipoRequisito');

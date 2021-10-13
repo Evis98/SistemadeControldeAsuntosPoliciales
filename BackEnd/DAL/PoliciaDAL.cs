@@ -53,6 +53,16 @@ namespace BackEnd.DAL
             return poli;
         }
 
+        public string getPoliciaNombre(int id)
+        {
+            string poli;
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                poli = db.Database.SqlQuery<string>("select nombre from Policias where idPolicia =" + id).Single<string>();
+            }
+            return poli;
+        }
+
         //Permite recibir un policía con toda su información a través de su atributo "cédula"
         public int getPoliciaCedula(string cedula)
         {
