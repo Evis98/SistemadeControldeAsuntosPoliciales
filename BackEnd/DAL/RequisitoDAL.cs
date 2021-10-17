@@ -42,6 +42,17 @@ namespace BackEnd.DAL
 
         }
 
+        //Permite la eliminación de un requisito de la base de datos
+        public void EliminaRequisito(Requisitos eliminable)
+        {
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                db.Entry(eliminable).State = EntityState.Deleted;
+                db.SaveChanges();
+            }
+        }
+
+
         //Permite recibir un requisito con toda su información a través de su atributo "idRequisito"
         public Requisitos getRequisito(int id)
         {
@@ -53,37 +64,6 @@ namespace BackEnd.DAL
             return requisito;
         }
 
-        //Permite recibir el atributo "idTablaGeneral" de la Tabla General haciendo uso del atributo "tipoRequisito" de la tabla Requisitos
-        public int? getTipoRequisito(int tipoRequisito)
-        {
-            int aux;
-            using (SCAPEntities db = new SCAPEntities())
-            {
-                aux = db.Database.SqlQuery<int>("Select idTablaGeneral from TablaGeneral where tabla= 'Requisitos' and campo = 'tipoRequisito' and codigo =" + tipoRequisito).Single<int>();
-            }
-            return aux;
-        }
-
-        //Permite la eliminación de un requisito de la base de datos
-        public void EliminaRequisito(Requisitos eliminable)
-        {
-            using (SCAPEntities db = new SCAPEntities())
-            {
-                db.Entry(eliminable).State = EntityState.Deleted;
-                db.SaveChanges();
-            }
-        }
-
-        //Permite recibir el atributo "descripcion" de la Tabla General haciendo uso del atributo "tipoRequisito" de la misma
-        public string getDescripcionRequisito(int tipoRequisito)
-        {
-            string descripcion;
-            using (SCAPEntities db = new SCAPEntities())
-            {
-                descripcion = db.Database.SqlQuery<string>("Select descripcion from TablaGeneral where idTablaGeneral =" + tipoRequisito).Single<string>();
-            }
-            return descripcion;
-        }
     }
 
 }

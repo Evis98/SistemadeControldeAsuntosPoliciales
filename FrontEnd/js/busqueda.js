@@ -4,12 +4,12 @@ var subjectObject = {
     },
     "Tipo de Requisito": { "Carné": [], "Capacitación": [] }
 }
-var variosInput = document.getElementById('search');
+var variosInput = document.getElementById('busqueda');
 var topicInput = document.getElementById('tipoRequisito');
 
 window.onload = function () {
     document.getElementById("tipoRequisito").style.display = "none";
-    var subjectSel = document.getElementById("searchBy");
+    var subjectSel = document.getElementById("filtroSeleccionado");
     var topicSel = document.getElementById("tipoRequisito");
     for (var x in subjectObject) {
         subjectSel.options[subjectSel.options.length] = new Option(x, x);
@@ -30,8 +30,8 @@ window.onload = function () {
 
 function ocultar() {
     var aux = document.getElementById("tipoRequisito");
-    var aux2 = document.getElementById("searchBy");
-    var aux3 = document.getElementById('search');
+    var aux2 = document.getElementById("filtroSeleccionado");
+    var aux3 = document.getElementById('busqueda');
     if (aux2.options[aux2.selectedIndex].value === "Tipo de Requisito") {
 
         aux.style.display = "block";

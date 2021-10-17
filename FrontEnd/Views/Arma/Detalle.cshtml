@@ -1,0 +1,65 @@
+﻿@model FrontEnd.Models.ViewModels.ArmaViewModel
+
+@{ ViewBag.Title = "Arma"; }
+
+
+<div class=" container">
+    <div class="row mb-3">
+        <h3 class="display-4">@ViewBag.Title</h3>
+    </div>
+
+    <dl class=" row">
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.NumeroSerie)
+        </dt>
+
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.PoliciaAsignado)
+        </dt>
+
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.TipoArma)
+        </dt>
+
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.Marca)
+        </dt>
+
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.Modelo)
+        </dt>
+
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.Calibre)
+        </dt>
+
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.Condicion)
+        </dt>
+
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.Ubicacion)
+        </dt>
+
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.Observacion)
+        </dt>
+
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.EstadoArma)
+        </dt>
+
+
+        <dd class="col-sm-8">
+            <a class="btn btn-warning" data-toggle="modal">Cambiar Estado</a>
+        </dd>
+
+    </dl>
+
+
+    <div style="text-align:center;">
+        <a class="btn btn-primary">Editar</a>
+        <a class="btn btn-info">Regresar</a>
+
+    </div>
+</div>

@@ -14,11 +14,11 @@
 <div class="row my-4">
 
     <div class="col-sm-3">
-        <select class="form-control" name="searchBy" onclick="ocultar()" id="searchBy"></select>
+        <select class="form-control" name="filtroSeleccionado" onclick="ocultar()" id="filtroSeleccionado"></select>
     </div>
 
         <div class="col-sm-4">
-            <input class="form-control" name="search" type="text" id="search" onkeyup="this.value = this.value.toUpperCase();" onkeypress = "return sololetrasnumerossimbolos(event)" />
+            <input class="form-control" name="busqueda" type="text" id="busqueda" onkeyup="this.value = this.value.toUpperCase();" onkeypress = "return sololetrasnumerossimbolos(event)" />
             <select class="form-control" name="tipoRequisito" id="tipoRequisito">
                 <option value="" selected="selected">Selecione un tipo de requisito</option>
             </select>

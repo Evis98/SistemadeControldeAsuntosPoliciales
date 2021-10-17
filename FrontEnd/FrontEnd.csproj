@@ -129,12 +129,15 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ArmaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PoliciaController.cs" />
     <Compile Include="Controllers\RequisitoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModels\ArmaViewModel.cs" />
+    <Compile Include="Models\ViewModels\ListArmaViewModel.cs" />
     <Compile Include="Models\ViewModels\ListPoliciaViewModel.cs" />
     <Compile Include="Models\ViewModels\ListRequisitoViewModel.cs" />
     <Compile Include="Models\ViewModels\PoliciaViewModel.cs" />
@@ -292,6 +295,8 @@
     <Content Include="Views\Requisito\Detalle.cshtml" />
     <Content Include="Views\Requisito\Editar.cshtml" />
     <Content Include="Views\Requisito\Index.cshtml" />
+    <Content Include="Views\Arma\Index.cshtml" />
+    <Content Include="Views\Arma\Detalle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

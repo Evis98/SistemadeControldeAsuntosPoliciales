@@ -1,0 +1,49 @@
+﻿@model  List<FrontEnd.Models.ViewModels.ListArmaViewModel>
+
+@{
+    ViewBag.Title = "Armas";
+}
+<div class="container">
+    <div class="row mb-3">
+        <h2 class="display-4">@ViewBag.Title</h2>
+    </div>
+
+    @using (Html.BeginForm("Index", "Arma", FormMethod.Get))
+    {
+
+        <div class="row my-4">
+
+            <div class="col-sm-3">
+                <select class="form-control" name="searchBy" id="searchBy">
+                    <option selected>Policía Asignado</option>
+                    <option>Número de Serie</option>
+                </select>
+            </div>
+            <div class="col-sm-4">
+                <input class="form-control" name="search" maxlength="150" type="text" id="search" onkeyup="this.value = this.value.toUpperCase();" onkeypress="return  sololetrasnumeros(event)" />
+            </div>
+            <div class="col-sm-4">
+                <button class="btn btn-primary">Buscar</button>
+            </div>
+            <div class="col-sm-1">
+                <a href="~/Arma/Nuevo" class="btn btn-success">Agregar</a>
+            </div>
+
+        </div>
+    }
+
+
+    <div class="row">
+
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Policía Asignado</th>
+                    <th scope="col">Número de Serie</th>
+                    <th scope="col">Tipo de Arma</th>
+                </tr>
+            </thead>
+
+        </table>
+    </div>
+</div>

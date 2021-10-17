@@ -12,57 +12,93 @@ namespace FrontEnd.Controllers
 {
     public class PoliciaController : Controller
     {
+        IPoliciaDAL policiaDAL;
+        ITablaGeneralDAL tablaGeneralDAL;
 
-        PoliciaDAL policiaDAL;
+        public List<ListPoliciaViewModel> ConvertirListaPolicias(List<Policias> policias)
+        {
+            return (from d in policias
+                    select new ListPoliciaViewModel
+                    {
+                        IdPolicia = d.idPolicia,
+                        Cedula = d.cedula,
+                        Nombre = d.nombre,
+                        CorreoElectronico = d.correoElectronico,
+                        Direccion = d.direccion,
+                        TelefonoCelular = d.telefonoCelular,
+                        TelefonoCasa = d.telefonoCasa,
+                        ContactoEmergencia = d.contactoEmergencia,
+                        TelefonoEmergencia = d.telefonoEmergencia,
+                    }).ToList();
+        }
+
+        public Policias ConvertirPolicia(PoliciaViewModel modelo)
+        {
+            tablaGeneralDAL = new TablaGeneralDAL();
+            return new Policias
+            {
+                idPolicia = modelo.IdPolicia,
+                cedula = modelo.Cedula,
+                tipoCedula = tablaGeneralDAL.getTipoCedula(modelo.TipoCedula),
+                nombre = modelo.Nombre,
+                fechaNacimiento = Convert.ToDateTime(modelo.Fecha_nacimiento),
+                correoElectronico = modelo.CorreoElectronico,
+                direccion = modelo.Direccion,
+                telefonoCelular = modelo.TelefonoCelular,
+                telefonoCasa = modelo.TelefonoCasa,
+                contactoEmergencia = modelo.ContactoEmergencia,
+                telefonoEmergencia = modelo.TelefonoEmergencia,
+                estado = tablaGeneralDAL.estadoDefault()
+            };
+        }
+
+        public PoliciaViewModel ConvertirPoliciaInverso(Policias policia)
+        {
+            return new PoliciaViewModel
+            {
+                IdPolicia = policia.idPolicia,
+                Cedula = policia.cedula,
+                TipoCedula = (int)policia.tipoCedula,
+                Nombre = policia.nombre,
+                Fecha_nacimiento = Convert.ToDateTime(policia.fechaNacimiento),
+                CorreoElectronico = policia.correoElectronico,
+                Direccion = policia.direccion,
+                TelefonoCelular = policia.telefonoCelular,
+                TelefonoCasa = policia.telefonoCasa,
+                ContactoEmergencia = policia.contactoEmergencia,
+                TelefonoEmergencia = policia.telefonoEmergencia,
+                Estado = (int)policia.estado
+            };
+        }
 
         //Devuelve la página con el listado de todos los policías creados
-        public ActionResult Index(string searchBy, string search)
+        public ActionResult Index(string filtroSeleccionado, string busqueda)
         {
             policiaDAL = new PoliciaDAL();
-            List<Policias> lista2;
-            List<Policias> lista3 = new List<Policias>();
-            List<ListPoliciaViewModel> lista;
-
-            lista2 = policiaDAL.Get();
-            if (search != null)
+            List<Policias> policias = policiaDAL.Get();
+            List<Policias> policiasFiltrados = new List<Policias>();
+            if (busqueda != null)
             {
-                foreach (Policias policia in lista2)
+                foreach (Policias policia in policias)
                 {
-                    if (searchBy == "Cédula")
+                    if (filtroSeleccionado == "Cédula")
                     {
-                        if (policia.cedula.Contains(search))
+                        if (policia.cedula.Contains(busqueda))
                         {
-                            lista3.Add(policia);
+                            policiasFiltrados.Add(policia);
                         }
                     }
-                    if (searchBy == "Nombre")
+                    if (filtroSeleccionado == "Nombre")
                     {
-                        if (policia.nombre.Contains(search))
+                        if (policia.nombre.Contains(busqueda))
                         {
-                            lista3.Add(policia);
+                            policiasFiltrados.Add(policia);
                         }
                     }
-
                 }
-                lista2 = lista3;
-
+                policias = policiasFiltrados;
             }
-
-            lista = (from d in lista2
-                     select new ListPoliciaViewModel
-                     {
-                         IdPolicia = d.idPolicia,
-                         Cedula = d.cedula,
-                         Nombre = d.nombre,
-                         CorreoElectronico = d.correoElectronico,
-                         Direccion = d.direccion,
-                         TelefonoCelular = d.telefonoCelular,
-                         TelefonoCasa = d.telefonoCasa,
-                         ContactoEmergencia = d.contactoEmergencia,
-                         TelefonoEmergencia = d.telefonoEmergencia,
-                     }).ToList();
-
-            return View(lista);
+            return View(ConvertirListaPolicias(policias));
         }
 
         //Devuelve la página que agrega nuevos policías
@@ -76,32 +112,15 @@ namespace FrontEnd.Controllers
         public ActionResult Nuevo(PoliciaViewModel model)
         {
             policiaDAL = new PoliciaDAL();
-            int aux;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    {
-                        var oPolicia = new Policias();
-                        oPolicia.cedula = model.Cedula;
-                        oPolicia.tipoCedula = policiaDAL.getTipoCedula(model.TipoCedula);
-                        oPolicia.nombre = model.Nombre;
-                        oPolicia.fechaNacimiento = Convert.ToDateTime(model.Fecha_nacimiento);
-                        oPolicia.correoElectronico = model.CorreoElectronico;
-                        oPolicia.direccion = model.Direccion;
-                        oPolicia.telefonoCelular = model.TelefonoCelular;
-                        oPolicia.telefonoCasa = model.TelefonoCasa;
-                        oPolicia.contactoEmergencia = model.ContactoEmergencia;
-                        oPolicia.telefonoEmergencia = model.TelefonoEmergencia;
-                        oPolicia.estado = policiaDAL.estadoDefault();
-                        policiaDAL.Add(oPolicia);
-                        aux = policiaDAL.getPoliciaCedula(model.Cedula);
-                    }
-                    return Redirect("~/Policia/Detalle/" +aux);
+                    policiaDAL.Add(ConvertirPolicia(model));
+                    int aux = policiaDAL.getPoliciaCedula(model.Cedula);
+                    return Redirect("~/Policia/Detalle/" + aux);
                 }
-
                 return View(model);
-
             }
             catch (Exception ex)
             {
@@ -113,24 +132,9 @@ namespace FrontEnd.Controllers
         //Muestra la información detallada de un policía
         public ActionResult Detalle(int id)
         {
-            policiaDAL = new PoliciaDAL();
-            PoliciaViewModel modelo = new PoliciaViewModel();
             Session["idPolicia"] = id;
-            {
-                Policias oPolicia = policiaDAL.getPolicia(id);
-                modelo.IdPolicia = oPolicia.idPolicia;
-                modelo.Cedula = oPolicia.cedula;
-                modelo.TipoCedula = (int)oPolicia.tipoCedula;
-                modelo.Nombre = oPolicia.nombre;
-                modelo.Fecha_nacimiento = Convert.ToDateTime(oPolicia.fechaNacimiento);
-                modelo.CorreoElectronico = oPolicia.correoElectronico;
-                modelo.Direccion = oPolicia.direccion;
-                modelo.TelefonoCelular = oPolicia.telefonoCelular;
-                modelo.TelefonoCasa = oPolicia.telefonoCasa;
-                modelo.ContactoEmergencia = oPolicia.contactoEmergencia;
-                modelo.TelefonoEmergencia = oPolicia.telefonoEmergencia;
-                modelo.Estado = (int)oPolicia.estado;
-            }
+            policiaDAL = new PoliciaDAL();
+            PoliciaViewModel modelo = ConvertirPoliciaInverso(policiaDAL.getPolicia(id));
             return View(modelo);
         }
 
@@ -138,22 +142,7 @@ namespace FrontEnd.Controllers
         public ActionResult Editar(int id)
         {
             policiaDAL = new PoliciaDAL();
-            PoliciaViewModel modelo = new PoliciaViewModel();
-            {
-                Policias oPolicia = policiaDAL.getPolicia(id);
-                modelo.IdPolicia = oPolicia.idPolicia;
-                modelo.Cedula = oPolicia.cedula;
-                modelo.TipoCedula = (int)oPolicia.tipoCedula;
-                modelo.Nombre = oPolicia.nombre;
-                modelo.Fecha_nacimiento = Convert.ToDateTime(oPolicia.fechaNacimiento);
-                modelo.CorreoElectronico = oPolicia.correoElectronico;
-                modelo.Direccion = oPolicia.direccion;
-                modelo.TelefonoCelular = oPolicia.telefonoCelular;
-                modelo.TelefonoCasa = oPolicia.telefonoCasa;
-                modelo.ContactoEmergencia = oPolicia.contactoEmergencia;
-                modelo.TelefonoEmergencia = oPolicia.telefonoEmergencia;
-                modelo.Estado = (int)oPolicia.estado;
-            }
+            PoliciaViewModel modelo = ConvertirPoliciaInverso(policiaDAL.getPolicia(id));
             return View(modelo);
         }
 
@@ -166,30 +155,13 @@ namespace FrontEnd.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    {
-                        Policias oPolicia = policiaDAL.getPolicia(modelo.IdPolicia);
-                        oPolicia.idPolicia = modelo.IdPolicia;
-                        oPolicia.cedula = modelo.Cedula;
-                        oPolicia.tipoCedula = modelo.TipoCedula;
-                        oPolicia.nombre = modelo.Nombre;
-                        oPolicia.fechaNacimiento = Convert.ToDateTime(modelo.Fecha_nacimiento);
-                        oPolicia.correoElectronico = modelo.CorreoElectronico;
-                        oPolicia.direccion = modelo.Direccion;
-                        oPolicia.telefonoCelular = modelo.TelefonoCelular;
-                        oPolicia.telefonoCasa = modelo.TelefonoCasa;
-                        oPolicia.contactoEmergencia = modelo.ContactoEmergencia;
-                        oPolicia.telefonoEmergencia = modelo.TelefonoEmergencia;
-                        oPolicia.estado = modelo.Estado;
-                        policiaDAL.Edit(oPolicia);
-                    }
-                    return Redirect("~/Policia/Detalle/" + Session["idPolicia"]);
+                    policiaDAL.Edit(ConvertirPolicia(modelo));
+                    return Redirect("~/Policia/Detalle/" + modelo.IdPolicia);
                 }
-
                 return View(modelo);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.InnerException.Message);
                 throw new Exception(ex.Message);
             }
         }
@@ -197,26 +169,20 @@ namespace FrontEnd.Controllers
         //Se encarga del cambio de estado de un policía entre activo e inactivo
         public ActionResult CambioEstado(int id)
         {
-            int estado = id;
+            int estado;
             policiaDAL = new PoliciaDAL();
+            tablaGeneralDAL = new TablaGeneralDAL();
             try
             {
-                if (ModelState.IsValid)
+                if (tablaGeneralDAL.getEstadoPolicia(id) == "Activo")
                 {
-                    {
-                        string estadoPolicia = policiaDAL.getEstadoPolicia(id);
-                        if (estadoPolicia == "Activo")
-                        {
-                            estado = policiaDAL.getIdEstado("Inactivo");
-                        }
-                        else
-                        {
-                            estado = policiaDAL.getIdEstado("Activo");
-                        }
-                    }
-                    policiaDAL.CambiaEstadoPolicia((int)Session["idPolicia"], estado);
-                    return Redirect("~/Policia/Detalle/"+Session["idPolicia"]);
+                    estado = tablaGeneralDAL.getIdEstado("Inactivo");
                 }
+                else
+                {
+                    estado = tablaGeneralDAL.getIdEstado("Activo");
+                }
+                policiaDAL.CambiaEstadoPolicia((int)Session["idPolicia"], estado);
                 return Redirect("~/Policia/Detalle/" + Session["idPolicia"]);
             }
             catch (Exception ex)
