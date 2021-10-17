@@ -42,7 +42,7 @@ namespace BackEnd.DAL
         }
 
         //Permite recibir un policía con toda su información a través de su atributo "idPolicia"
-        public Policias getPolicia(int id)
+        public Policias GetPolicia(int id)
         {
             Policias poli = new Policias();
             using (SCAPEntities db = new SCAPEntities())
@@ -52,7 +52,7 @@ namespace BackEnd.DAL
             return poli;
         }
 
-        public string getPoliciaNombre(int id)
+        public string GetPoliciaNombre(int id)
         {
             string poli;
             using (SCAPEntities db = new SCAPEntities())
@@ -63,7 +63,7 @@ namespace BackEnd.DAL
         }
 
         //Permite recibir un policía con toda su información a través de su atributo "cédula"
-        public int getPoliciaCedula(string cedula)
+        public int GetPoliciaCedula(string cedula)
         {
             int poli;
             using (SCAPEntities db = new SCAPEntities())

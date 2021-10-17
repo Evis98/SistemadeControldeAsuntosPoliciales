@@ -39,7 +39,7 @@ namespace FrontEnd.Controllers
             {
                 idPolicia = modelo.IdPolicia,
                 cedula = modelo.Cedula,
-                tipoCedula = tablaGeneralDAL.getTipoCedula(modelo.TipoCedula),
+                tipoCedula = tablaGeneralDAL.GetTipoCedula(modelo.TipoCedula),
                 nombre = modelo.Nombre,
                 fechaNacimiento = Convert.ToDateTime(modelo.Fecha_nacimiento),
                 correoElectronico = modelo.CorreoElectronico,
@@ -48,7 +48,7 @@ namespace FrontEnd.Controllers
                 telefonoCasa = modelo.TelefonoCasa,
                 contactoEmergencia = modelo.ContactoEmergencia,
                 telefonoEmergencia = modelo.TelefonoEmergencia,
-                estado = tablaGeneralDAL.estadoDefault()
+                estado = tablaGeneralDAL.EstadoDefault()
             };
         }
 
@@ -117,7 +117,7 @@ namespace FrontEnd.Controllers
                 if (ModelState.IsValid)
                 {
                     policiaDAL.Add(ConvertirPolicia(model));
-                    int aux = policiaDAL.getPoliciaCedula(model.Cedula);
+                    int aux = policiaDAL.GetPoliciaCedula(model.Cedula);
                     return Redirect("~/Policia/Detalle/" + aux);
                 }
                 return View(model);
@@ -134,7 +134,7 @@ namespace FrontEnd.Controllers
         {
             Session["idPolicia"] = id;
             policiaDAL = new PoliciaDAL();
-            PoliciaViewModel modelo = ConvertirPoliciaInverso(policiaDAL.getPolicia(id));
+            PoliciaViewModel modelo = ConvertirPoliciaInverso(policiaDAL.GetPolicia(id));
             return View(modelo);
         }
 
@@ -142,7 +142,7 @@ namespace FrontEnd.Controllers
         public ActionResult Editar(int id)
         {
             policiaDAL = new PoliciaDAL();
-            PoliciaViewModel modelo = ConvertirPoliciaInverso(policiaDAL.getPolicia(id));
+            PoliciaViewModel modelo = ConvertirPoliciaInverso(policiaDAL.GetPolicia(id));
             return View(modelo);
         }
 
@@ -174,13 +174,13 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             try
             {
-                if (tablaGeneralDAL.getEstadoPolicia(id) == "Activo")
+                if (tablaGeneralDAL.GetEstadoPolicia(id) == "Activo")
                 {
-                    estado = tablaGeneralDAL.getIdEstado("Inactivo");
+                    estado = tablaGeneralDAL.GetIdEstado("Inactivo");
                 }
                 else
                 {
-                    estado = tablaGeneralDAL.getIdEstado("Activo");
+                    estado = tablaGeneralDAL.GetIdEstado("Activo");
                 }
                 policiaDAL.CambiaEstadoPolicia((int)Session["idPolicia"], estado);
                 return Redirect("~/Policia/Detalle/" + Session["idPolicia"]);

@@ -18,6 +18,7 @@ namespace FrontEnd.Models.ViewModels
         public string Observacion { get; set; }
         public int EstadoArma { get; set; }
         public string Modelo { get; set; }
+        public string NombrePolicia { get; set; }
 
     }
 }

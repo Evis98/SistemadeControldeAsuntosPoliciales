@@ -40,6 +40,6 @@ namespace FrontEnd.Models.ViewModels
         public int EstadoArma { get; set; }
         [Required]
         [Display(Name = " Modelo del arma")]
-        public int Modelo { get; set; }
+        public string Modelo { get; set; }
     }
 }

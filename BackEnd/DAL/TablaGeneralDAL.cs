@@ -9,7 +9,7 @@ namespace BackEnd.DAL
     public class TablaGeneralDAL : ITablaGeneralDAL
     {
         //Recibe el atributo "idTablaGeneral" donde el atributo "descripción" es "Activo"
-        public int? estadoDefault()
+        public int? EstadoDefault()
         {
             int estado;
             using (SCAPEntities db = new SCAPEntities())
@@ -21,7 +21,7 @@ namespace BackEnd.DAL
         }
 
         //Permite recibir el atributo "idTablaGeneral" de la Tabla General haciendo uso del atributo "tipoCedula" del policía
-        public int? getTipoCedula(int tipoCedula)
+        public int? GetTipoCedula(int tipoCedula)
         {
             int aux;
             using (SCAPEntities db = new SCAPEntities())
@@ -33,7 +33,7 @@ namespace BackEnd.DAL
         }
 
         //Permite recibir el atributo "descripcion" de la Tabla General haciendo uso del atributo "estado" del policía
-        public string getEstadoPolicia(int estado)
+        public string GetEstadoPolicia(int estado)
         {
             string descripcion;
             using (SCAPEntities db = new SCAPEntities())
@@ -44,7 +44,7 @@ namespace BackEnd.DAL
         }
 
         //Permite recibir el atributo "idTablaGeneral" de la Tabla General haciendo uso del atributo "estado" de la misma tabla
-        public int getIdEstado(string estado)
+        public int GetIdEstado(string estado)
         {
             int IdTabla;
             using (SCAPEntities db = new SCAPEntities())
@@ -55,7 +55,7 @@ namespace BackEnd.DAL
         }
 
         //Permite recibir el atributo "idTablaGeneral" de la Tabla General haciendo uso del atributo "tipoRequisito" de la tabla Requisitos
-        public int? getTipoRequisito(int tipoRequisito)
+        public int? GetTipoRequisito(int tipoRequisito)
         {
             int aux;
             using (SCAPEntities db = new SCAPEntities())
@@ -66,7 +66,7 @@ namespace BackEnd.DAL
         }
 
         //Permite recibir el atributo "descripcion" de la Tabla General haciendo uso del atributo "tipoRequisito" de la misma
-        public string getDescripcionRequisito(int tipoRequisito)
+        public string GetDescripcionRequisito(int tipoRequisito)
         {
             string descripcion;
             using (SCAPEntities db = new SCAPEntities())

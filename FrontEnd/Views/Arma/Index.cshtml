@@ -14,13 +14,13 @@
         <div class="row my-4">
 
             <div class="col-sm-3">
-                <select class="form-control" name="searchBy" id="searchBy">
+                <select class="form-control" name="filtroSeleccionado" id="filtroSeleccionado">
                     <option selected>Policía Asignado</option>
                     <option>Número de Serie</option>
                 </select>
             </div>
             <div class="col-sm-4">
-                <input class="form-control" name="search" maxlength="150" type="text" id="search" onkeyup="this.value = this.value.toUpperCase();" onkeypress="return  sololetrasnumeros(event)" />
+                <input class="form-control" name="busqueda" maxlength="150" type="text" id="busqueda" onkeyup="this.value = this.value.toUpperCase();" onkeypress="return  sololetrasnumeros(event)" />
             </div>
             <div class="col-sm-4">
                 <button class="btn btn-primary">Buscar</button>
@@ -41,9 +41,22 @@
                     <th scope="col">Policía Asignado</th>
                     <th scope="col">Número de Serie</th>
                     <th scope="col">Tipo de Arma</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
-
+            <tbody>
+                @foreach (var oElemento in Model)
+                {
+                <tr>
+                    <th scope="row">@oElemento.NombrePolicia</th>
+                    <td>@oElemento.NumeroSerie</td>
+                    <td>@oElemento.TipoArma</td>
+                    <td>
+                        <a class="btn btn-outline-info" href="~/Arma/Detalle/@oElemento.IdArma">Ver Detalles</a>
+                    </td>
+                </tr>
+                }
+            </tbody>
         </table>
     </div>
 </div>

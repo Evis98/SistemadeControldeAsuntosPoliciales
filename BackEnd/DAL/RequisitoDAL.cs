@@ -54,7 +54,7 @@ namespace BackEnd.DAL
 
 
         //Permite recibir un requisito con toda su información a través de su atributo "idRequisito"
-        public Requisitos getRequisito(int id)
+        public Requisitos GetRequisito(int id)
         {
             Requisitos requisito = new Requisitos();
             using (SCAPEntities db = new SCAPEntities())

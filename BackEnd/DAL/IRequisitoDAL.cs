@@ -11,7 +11,7 @@ namespace BackEnd.DAL
         List<Requisitos> Get();
         void Add(Requisitos requisito);
         void Edit(Requisitos requisito);
-        Requisitos getRequisito(int id);
+        Requisitos GetRequisito(int id);
         void EliminaRequisito(Requisitos eliminable);
 
     }

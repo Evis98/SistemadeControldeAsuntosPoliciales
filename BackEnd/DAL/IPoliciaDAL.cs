@@ -12,9 +12,9 @@ namespace BackEnd.DAL
         List<Policias> Get();
         void Add(Policias policia);
         void Edit(Policias policia);
-        Policias getPolicia(int id);
-        string getPoliciaNombre(int id);
-        int getPoliciaCedula(string cedula);
+        Policias GetPolicia(int id);
+        string GetPoliciaNombre(int id);
+        int GetPoliciaCedula(string cedula);
         void CambiaEstadoPolicia(int id, int estado);
     }
 }
