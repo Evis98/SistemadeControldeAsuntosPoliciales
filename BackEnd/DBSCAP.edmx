@@ -5,6 +5,22 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="SCAPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Armas">
+          <Key>
+            <PropertyRef Name="idArma" />
+          </Key>
+          <Property Name="idArma" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="policiaAsignado" Type="int" />
+          <Property Name="numeroSerie" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="tipoArma" Type="int" Nullable="false" />
+          <Property Name="marca" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="modelo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="calibre" Type="int" Nullable="false" />
+          <Property Name="condicion" Type="int" Nullable="false" />
+          <Property Name="ubicacion" Type="int" Nullable="false" />
+          <Property Name="observacion" Type="varchar" MaxLength="150" />
+          <Property Name="estadoArma" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Policias">
           <Key>
             <PropertyRef Name="idPolicia" />
@@ -66,6 +82,30 @@
           <Property Name="nombre" Type="varchar" MaxLength="150" />
           <Property Name="login" Type="varchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_Calibre">
+          <End Role="TablaGeneral" Type="Self.TablaGeneral" Multiplicity="1" />
+          <End Role="Armas" Type="Self.Armas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TablaGeneral">
+              <PropertyRef Name="idTablaGeneral" />
+            </Principal>
+            <Dependent Role="Armas">
+              <PropertyRef Name="calibre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Condicion">
+          <End Role="TablaGeneral" Type="Self.TablaGeneral" Multiplicity="1" />
+          <End Role="Armas" Type="Self.Armas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TablaGeneral">
+              <PropertyRef Name="idTablaGeneral" />
+            </Principal>
+            <Dependent Role="Armas">
+              <PropertyRef Name="condicion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Estado">
           <End Role="TablaGeneral" Type="Self.TablaGeneral" Multiplicity="0..1" />
           <End Role="Policias" Type="Self.Policias" Multiplicity="*" />
@@ -75,6 +115,18 @@
             </Principal>
             <Dependent Role="Policias">
               <PropertyRef Name="estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EstadoArma">
+          <End Role="TablaGeneral" Type="Self.TablaGeneral" Multiplicity="1" />
+          <End Role="Armas" Type="Self.Armas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TablaGeneral">
+              <PropertyRef Name="idTablaGeneral" />
+            </Principal>
+            <Dependent Role="Armas">
+              <PropertyRef Name="estadoArma" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -99,6 +151,18 @@
             </Principal>
             <Dependent Role="RolesUsuarios">
               <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TipoArma">
+          <End Role="TablaGeneral" Type="Self.TablaGeneral" Multiplicity="1" />
+          <End Role="Armas" Type="Self.Armas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TablaGeneral">
+              <PropertyRef Name="idTablaGeneral" />
+            </Principal>
+            <Dependent Role="Armas">
+              <PropertyRef Name="tipoArma" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -138,16 +202,41 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Ubicacion">
+          <End Role="TablaGeneral" Type="Self.TablaGeneral" Multiplicity="1" />
+          <End Role="Armas" Type="Self.Armas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TablaGeneral">
+              <PropertyRef Name="idTablaGeneral" />
+            </Principal>
+            <Dependent Role="Armas">
+              <PropertyRef Name="ubicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="SCAPModelStoreContainer">
+          <EntitySet Name="Armas" EntityType="Self.Armas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Policias" EntityType="Self.Policias" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Requisitos" EntityType="Self.Requisitos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RolesUsuarios" EntityType="Self.RolesUsuarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TablaGeneral" EntityType="Self.TablaGeneral" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Calibre" Association="Self.FK_Calibre">
+            <End Role="TablaGeneral" EntitySet="TablaGeneral" />
+            <End Role="Armas" EntitySet="Armas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Condicion" Association="Self.FK_Condicion">
+            <End Role="TablaGeneral" EntitySet="TablaGeneral" />
+            <End Role="Armas" EntitySet="Armas" />
+          </AssociationSet>
           <AssociationSet Name="FK_Estado" Association="Self.FK_Estado">
             <End Role="TablaGeneral" EntitySet="TablaGeneral" />
             <End Role="Policias" EntitySet="Policias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EstadoArma" Association="Self.FK_EstadoArma">
+            <End Role="TablaGeneral" EntitySet="TablaGeneral" />
+            <End Role="Armas" EntitySet="Armas" />
           </AssociationSet>
           <AssociationSet Name="FK_IdPolicia" Association="Self.FK_IdPolicia">
             <End Role="Policias" EntitySet="Policias" />
@@ -156,6 +245,10 @@
           <AssociationSet Name="FK_IdUsuario" Association="Self.FK_IdUsuario">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="RolesUsuarios" EntitySet="RolesUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TipoArma" Association="Self.FK_TipoArma">
+            <End Role="TablaGeneral" EntitySet="TablaGeneral" />
+            <End Role="Armas" EntitySet="Armas" />
           </AssociationSet>
           <AssociationSet Name="FK_TipoCedula" Association="Self.FK_TipoCedula">
             <End Role="TablaGeneral" EntitySet="TablaGeneral" />
@@ -168,6 +261,10 @@
           <AssociationSet Name="FK_TipoRol" Association="Self.FK_TipoRol">
             <End Role="Roles" EntitySet="Roles" />
             <End Role="RolesUsuarios" EntitySet="RolesUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ubicacion" Association="Self.FK_Ubicacion">
+            <End Role="TablaGeneral" EntitySet="TablaGeneral" />
+            <End Role="Armas" EntitySet="Armas" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -237,6 +334,11 @@
           <NavigationProperty Name="Policias" Relationship="Self.FK_Estado" FromRole="TablaGeneral" ToRole="Policias" />
           <NavigationProperty Name="Policias1" Relationship="Self.FK_TipoCedula" FromRole="TablaGeneral" ToRole="Policias" />
           <NavigationProperty Name="Requisitos" Relationship="Self.FK_TipoRequisito" FromRole="TablaGeneral" ToRole="Requisitos" />
+          <NavigationProperty Name="Armas" Relationship="SCAPModel.FK_Calibre" FromRole="TablaGeneral" ToRole="Armas" />
+          <NavigationProperty Name="Armas1" Relationship="SCAPModel.FK_Condicion" FromRole="TablaGeneral" ToRole="Armas" />
+          <NavigationProperty Name="Armas2" Relationship="SCAPModel.FK_EstadoArma" FromRole="TablaGeneral" ToRole="Armas" />
+          <NavigationProperty Name="Armas3" Relationship="SCAPModel.FK_TipoArma" FromRole="TablaGeneral" ToRole="Armas" />
+          <NavigationProperty Name="Armas4" Relationship="SCAPModel.FK_Ubicacion" FromRole="TablaGeneral" ToRole="Armas" />
         </EntityType>
         <EntityType Name="Usuarios">
           <Key>
@@ -350,7 +452,109 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="RolesUsuarios" EntitySet="RolesUsuarios" />
           </AssociationSet>
+          <EntitySet Name="Armas" EntityType="SCAPModel.Armas" />
+          <AssociationSet Name="FK_Calibre" Association="SCAPModel.FK_Calibre">
+            <End Role="TablaGeneral" EntitySet="TablaGeneral" />
+            <End Role="Armas" EntitySet="Armas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Condicion" Association="SCAPModel.FK_Condicion">
+            <End Role="TablaGeneral" EntitySet="TablaGeneral" />
+            <End Role="Armas" EntitySet="Armas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EstadoArma" Association="SCAPModel.FK_EstadoArma">
+            <End Role="TablaGeneral" EntitySet="TablaGeneral" />
+            <End Role="Armas" EntitySet="Armas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TipoArma" Association="SCAPModel.FK_TipoArma">
+            <End Role="TablaGeneral" EntitySet="TablaGeneral" />
+            <End Role="Armas" EntitySet="Armas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ubicacion" Association="SCAPModel.FK_Ubicacion">
+            <End Role="TablaGeneral" EntitySet="TablaGeneral" />
+            <End Role="Armas" EntitySet="Armas" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Armas">
+          <Key>
+            <PropertyRef Name="idArma" />
+          </Key>
+          <Property Name="idArma" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="policiaAsignado" Type="Int32" />
+          <Property Name="numeroSerie" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="tipoArma" Type="Int32" Nullable="false" />
+          <Property Name="marca" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="modelo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="calibre" Type="Int32" Nullable="false" />
+          <Property Name="condicion" Type="Int32" Nullable="false" />
+          <Property Name="ubicacion" Type="Int32" Nullable="false" />
+          <Property Name="observacion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="estadoArma" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TablaGeneral" Relationship="SCAPModel.FK_Calibre" FromRole="Armas" ToRole="TablaGeneral" />
+          <NavigationProperty Name="TablaGeneral1" Relationship="SCAPModel.FK_Condicion" FromRole="Armas" ToRole="TablaGeneral" />
+          <NavigationProperty Name="TablaGeneral2" Relationship="SCAPModel.FK_EstadoArma" FromRole="Armas" ToRole="TablaGeneral" />
+          <NavigationProperty Name="TablaGeneral3" Relationship="SCAPModel.FK_TipoArma" FromRole="Armas" ToRole="TablaGeneral" />
+          <NavigationProperty Name="TablaGeneral4" Relationship="SCAPModel.FK_Ubicacion" FromRole="Armas" ToRole="TablaGeneral" />
+        </EntityType>
+        <Association Name="FK_Calibre">
+          <End Type="SCAPModel.TablaGeneral" Role="TablaGeneral" Multiplicity="1" />
+          <End Type="SCAPModel.Armas" Role="Armas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TablaGeneral">
+              <PropertyRef Name="idTablaGeneral" />
+            </Principal>
+            <Dependent Role="Armas">
+              <PropertyRef Name="calibre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Condicion">
+          <End Type="SCAPModel.TablaGeneral" Role="TablaGeneral" Multiplicity="1" />
+          <End Type="SCAPModel.Armas" Role="Armas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TablaGeneral">
+              <PropertyRef Name="idTablaGeneral" />
+            </Principal>
+            <Dependent Role="Armas">
+              <PropertyRef Name="condicion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EstadoArma">
+          <End Type="SCAPModel.TablaGeneral" Role="TablaGeneral" Multiplicity="1" />
+          <End Type="SCAPModel.Armas" Role="Armas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TablaGeneral">
+              <PropertyRef Name="idTablaGeneral" />
+            </Principal>
+            <Dependent Role="Armas">
+              <PropertyRef Name="estadoArma" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TipoArma">
+          <End Type="SCAPModel.TablaGeneral" Role="TablaGeneral" Multiplicity="1" />
+          <End Type="SCAPModel.Armas" Role="Armas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TablaGeneral">
+              <PropertyRef Name="idTablaGeneral" />
+            </Principal>
+            <Dependent Role="Armas">
+              <PropertyRef Name="tipoArma" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ubicacion">
+          <End Type="SCAPModel.TablaGeneral" Role="TablaGeneral" Multiplicity="1" />
+          <End Type="SCAPModel.Armas" Role="Armas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TablaGeneral">
+              <PropertyRef Name="idTablaGeneral" />
+            </Principal>
+            <Dependent Role="Armas">
+              <PropertyRef Name="ubicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -421,6 +625,23 @@
                 <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="login" ColumnName="login" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Armas">
+            <EntityTypeMapping TypeName="SCAPModel.Armas">
+              <MappingFragment StoreEntitySet="Armas">
+                <ScalarProperty Name="estadoArma" ColumnName="estadoArma" />
+                <ScalarProperty Name="observacion" ColumnName="observacion" />
+                <ScalarProperty Name="ubicacion" ColumnName="ubicacion" />
+                <ScalarProperty Name="condicion" ColumnName="condicion" />
+                <ScalarProperty Name="calibre" ColumnName="calibre" />
+                <ScalarProperty Name="modelo" ColumnName="modelo" />
+                <ScalarProperty Name="marca" ColumnName="marca" />
+                <ScalarProperty Name="tipoArma" ColumnName="tipoArma" />
+                <ScalarProperty Name="numeroSerie" ColumnName="numeroSerie" />
+                <ScalarProperty Name="policiaAsignado" ColumnName="policiaAsignado" />
+                <ScalarProperty Name="idArma" ColumnName="idArma" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

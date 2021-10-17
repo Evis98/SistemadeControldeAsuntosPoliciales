@@ -17,6 +17,12 @@
         <AssociationConnector Association="SCAPModel.FK_TipoRequisito" ManuallyRouted="false" />
         <AssociationConnector Association="SCAPModel.FK_TipoRol" ManuallyRouted="false" />
         <AssociationConnector Association="SCAPModel.FK_IdUsuario" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SCAPModel.Armas" Width="1.5" PointX="3" PointY="9.5" />
+        <AssociationConnector Association="SCAPModel.FK_Calibre" />
+        <AssociationConnector Association="SCAPModel.FK_Condicion" />
+        <AssociationConnector Association="SCAPModel.FK_EstadoArma" />
+        <AssociationConnector Association="SCAPModel.FK_TipoArma" />
+        <AssociationConnector Association="SCAPModel.FK_Ubicacion" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

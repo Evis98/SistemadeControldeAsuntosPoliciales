@@ -55,6 +55,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Armas.cs">
+      <DependentUpon>DBSCAP.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\IPoliciaDAL.cs" />
     <Compile Include="DAL\IRequisitoDAL.cs" />
     <Compile Include="DAL\ITablaGeneralDAL.cs" />
