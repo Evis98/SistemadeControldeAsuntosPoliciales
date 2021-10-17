@@ -297,6 +297,7 @@
     <Content Include="Views\Requisito\Index.cshtml" />
     <Content Include="Views\Arma\Index.cshtml" />
     <Content Include="Views\Arma\Detalle.cshtml" />
+    <Content Include="Views\Arma\Nuevo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
