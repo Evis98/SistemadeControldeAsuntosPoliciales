@@ -14,11 +14,7 @@
 
     <div class="form-group col-md-2">
         @Html.LabelFor(d => d.TipoCedula)
-        @Html.DropDownListFor(d => d.TipoCedula, new List<SelectListItem> {
-                        new SelectListItem{ Value = "1", Text = "Física"},
-                        new SelectListItem{ Value = "2", Text = "Residencia"}
-                      },
-                                                                  new { @class = "myselect form-control" })
+        @Html.DropDownListFor(d => d.TipoCedula, Model.TiposCedula, new { @class = "myselect form-control" })
         @Html.ValidationMessageFor(d => d.TipoCedula, null, new { @class = "red" })
     </div>
     <div class="form-group col-md-3">
@@ -33,9 +29,9 @@
         @Html.ValidationMessageFor(d => d.Nombre, null, new { @class = "red" })
     </div>
     <div class="form-group col-md-3">
-        @Html.LabelFor(d => d.Fecha_nacimiento)
-        @Html.EditorFor(d => d.Fecha_nacimiento, "", new { @class = "form-control" })
-        @Html.ValidationMessageFor(d => d.Fecha_nacimiento, null, new { @class = "red" })
+        @Html.LabelFor(d => d.FechaNacimiento)
+        @Html.EditorFor(d => d.FechaNacimiento, "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(d => d.FechaNacimiento, null, new { @class = "red" })
 
     </div>
     <div class="form-group col-md-3">

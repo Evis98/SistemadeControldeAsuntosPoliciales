@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace FrontEnd.Models.ViewModels
 {
@@ -16,7 +17,7 @@ namespace FrontEnd.Models.ViewModels
         public string Cedula { get; set; }
         [Required]
         [Display(Name = "Tipo de Cédula")]
-        public int TipoCedula { get; set; }
+        public int? TipoCedula { get; set; }
         [Required]
         [StringLength(150)]
         [Display(Name = "Nombre Completo")]
@@ -25,7 +26,7 @@ namespace FrontEnd.Models.ViewModels
         [DataType(DataType.Date)]
         [Display(Name = "Fecha de Nacimiento")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime Fecha_nacimiento { get; set; }
+        public DateTime? FechaNacimiento { get; set; }
         [Required]
         [StringLength(100)]
         [EmailAddress]
@@ -51,7 +52,7 @@ namespace FrontEnd.Models.ViewModels
         [StringLength(9)]
         [Display(Name = "Teléfono del Contacto de Emergencia")]
         public string TelefonoEmergencia { get; set; }
-
-        public int Estado { get; set; }
+        public IEnumerable<SelectListItem> TiposCedula { get; set; }
+        public int? Estado { get; set; }
     }
 }

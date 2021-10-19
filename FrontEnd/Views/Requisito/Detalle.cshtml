@@ -1,4 +1,4 @@
-﻿@model FrontEnd.Models.ViewModels.RequisitoViewModel
+﻿@model FrontEnd.Models.ViewModels.ListRequisitoViewModel
 
 @{
     ViewBag.Title = "Requisito";
@@ -6,8 +6,8 @@
 
 <div class="row mb-3">
     <h2 class="display-4">
-        @Html.LabelFor(d => d.Nombre)
-        @Html.DisplayTextFor(d => d.Nombre)
+        @Html.LabelFor(d => d.NombrePolicia)
+        @Html.DisplayTextFor(d => d.NombrePolicia)
     </h2>
 </div>
 
@@ -19,42 +19,24 @@
     <dt class="col-sm-4">
         @Html.LabelFor(d => d.TipoRequisito)
     </dt>
-    <dd id="req" class="col-sm-8">
-
-        <script>
-                function RequsitoText(e) {
-                    var str = "";
-                    if (e == 5) {
-                        str = "Carné";
-                    }
-                    else if (e == 6) {
-                        str = "Capacitación";
-                    }
-                    //document.getElementById('req').innerHTML = str;
-                    return str;
-                }
-
-            document.write(RequsitoText(@Model.TipoRequisito))
-        </script>
-
+    <dd class="col-sm-8">
+        @Html.DisplayTextFor(d => d.TipoRequisito)
     </dd>
-
     <dt class="col-sm-4">
         @Html.LabelFor(d => d.Detalles)
     </dt>
     <dd class="col-sm-8">
         @Html.DisplayTextFor(d => d.Detalles)
     </dd>
-    @if (Model.Fecha_Vencimiento != null)
+    @if (Model.FechaVencimiento != null)
     {
         <dt class="col-sm-4">
-            @Html.LabelFor(d => d.Fecha_Vencimiento)
+            @Html.LabelFor(d => d.FechaVencimiento)
         </dt>
         <dd class="col-sm-8">
-            <text>@(Model.Fecha_Vencimiento.Value.ToShortDateString())</text>
+            @Html.DisplayTextFor(d => d.FechaVencimiento)
         </dd>
     }
-
     @if (Model.Imagen != null)
     {
         <dt class="col-sm-4">

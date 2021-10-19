@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace FrontEnd.Models.ViewModels
 {
@@ -41,5 +42,7 @@ namespace FrontEnd.Models.ViewModels
         [Required]
         [Display(Name = " Modelo del arma")]
         public string Modelo { get; set; }
+
+        public IEnumerable<SelectListItem> TiposArma { get; set; }
     }
 }

@@ -21,43 +21,45 @@ namespace BackEnd.DAL
         }
 
         //Permite agregar un policía nuevo a la base de datos
-        public void Add(Policias nuevo)
+        public void Add(Policias policia)
         {
             using (SCAPEntities db = new SCAPEntities())
             {
-                db.Policias.Add(nuevo);
+                db.Policias.Add(policia);
                 db.SaveChanges();
             }
         }
 
         //Permite actualizar la información de un policía en la base de datos
-        public void Edit(Policias cambiado)
+        public void Edit(Policias policia)
         {
             using (SCAPEntities db = new SCAPEntities())
             {
-                db.Entry(cambiado).State = System.Data.Entity.EntityState.Modified;
+                db.Entry(policia).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
             }
 
         }
 
+        //Permite cambiar el atributo "estado" de un policía al recibir el dato "idPolicia" y "estado" 
+        public void CambiaEstadoPolicia(int idPolicia, int estado)
+        {
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                string comando = "update Policias set estado = " + estado + "where idPolicia = " + idPolicia;
+                db.Database.ExecuteSqlCommand(comando);
+                db.SaveChanges();
+            }
+        }
+
+
         //Permite recibir un policía con toda su información a través de su atributo "idPolicia"
-        public Policias GetPolicia(int id)
+        public Policias GetPolicia(int? idPolicia)
         {
             Policias poli = new Policias();
             using (SCAPEntities db = new SCAPEntities())
             {
-                poli = db.Database.SqlQuery<Policias>("select * from Policias where idPolicia =" + id).Single<Policias>();
-            }
-            return poli;
-        }
-
-        public string GetPoliciaNombre(int id)
-        {
-            string poli;
-            using (SCAPEntities db = new SCAPEntities())
-            {
-                poli = db.Database.SqlQuery<string>("select nombre from Policias where idPolicia =" + id).Single<string>();
+                poli = db.Database.SqlQuery<Policias>("select * from Policias where idPolicia =" + idPolicia).Single<Policias>();
             }
             return poli;
         }
@@ -71,17 +73,6 @@ namespace BackEnd.DAL
                 poli = db.Database.SqlQuery<int>("select idPolicia from Policias where cedula ='" + cedula+"'").Single<int>();
             }
             return poli;
-        }
-
-        //Permite cambiar el atributo "estado" de un policía al recibir el dato "idPolicia" y "estado" 
-        public void CambiaEstadoPolicia(int id, int estado)
-        {
-            using (SCAPEntities db = new SCAPEntities())
-            {
-                string comando = "update Policias set estado = " + estado + "where idPolicia = " + id;
-                db.Database.ExecuteSqlCommand(comando);
-                db.SaveChanges();
-            }
         }
     }
 }

@@ -8,11 +8,14 @@ namespace BackEnd.DAL
 {
     public interface ITablaGeneralDAL
     {
-        int? EstadoDefault();
-        int? GetTipoCedula(int tipoCedula);
-        string GetEstadoPolicia(int estado);
+        int EstadoDefault();
+        int GetTipoCedula(int? tipoCedula);
         int GetIdEstado(string estado);
-        int? GetTipoRequisito(int tipoRequisito);
-        string GetDescripcionRequisito(int tipoRequisito);
+        int GetTipoRequisito(int? tipoRequisito);
+        string GetDescripcion(int? idTablaGeneral);
+        List<string> GetTiposArma();
+        List<TablaGeneral> GetTiposCedulaPolicia();
+        List<TablaGeneral> GetTiposRequisito();
+
     }
 }

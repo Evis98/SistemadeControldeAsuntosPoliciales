@@ -44,7 +44,7 @@ namespace FrontEnd.Controllers
                 idArma = modelo.IdArma,
                 //policiaAsignado = modelo.PoliciaAsignado,
                 numeroSerie = modelo.NumeroSerie,
-                //tipoArma = modelo.tipoArma,
+                //tipoArma = modelo.tipoArma,               
                 marca = modelo.Marca,
                 modelo = modelo.Modelo,
                 //calibre = modelo.Calibre,
@@ -63,6 +63,7 @@ namespace FrontEnd.Controllers
                 PoliciaAsignado = (int)arma.policiaAsignado,
                 NumeroSerie = arma.numeroSerie,
                 TipoArma = arma.tipoArma,
+                //TiposArma = tablaGeneralDAL.getTiposArma(),
                 Marca = arma.marca,
                 Modelo = arma.modelo,
                 Calibre = arma.calibre,
@@ -104,8 +105,15 @@ namespace FrontEnd.Controllers
 
         public ActionResult Nuevo()
         {
-            return View();
+            tablaGeneralDAL = new TablaGeneralDAL();
+            ArmaViewModel modelo = new ArmaViewModel()
+            {
+                TiposArma = tablaGeneralDAL.GetTiposArma().Select(i => new SelectListItem() { Text = i.ToString(), Value = i })
+            };
+
+            return View(modelo);
         }
+
         //Guarda la información ingresada en la página para crear policías
         [HttpPost]
         public ActionResult Nuevo(ArmaViewModel model)

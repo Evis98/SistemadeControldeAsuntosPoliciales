@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace FrontEnd.Models.ViewModels
 {
@@ -13,10 +14,10 @@ namespace FrontEnd.Models.ViewModels
         [DataType(DataType.Date)]
         [Display(Name = "Fecha de Vencimiento")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime? Fecha_Vencimiento { get; set; } = null;
+        public DateTime? FechaVencimiento { get; set; } = null;
         [Required]
         [Display(Name = "Tipo de Requisito")]
-        public int TipoRequisito { get; set; }
+        public int? TipoRequisito { get; set; }
         public string Imagen { get; set; }
         [Required]
         [StringLength(250)]
@@ -27,6 +28,8 @@ namespace FrontEnd.Models.ViewModels
         [StringLength(150)]
         [Display(Name = "Policía")]
         public string Nombre { get; set; }
-        public int IdPolicia { get; set; }
+
+        public IEnumerable<SelectListItem> TiposRequisito { get; set; }
+        public int? IdPolicia { get; set; }
     }
 }

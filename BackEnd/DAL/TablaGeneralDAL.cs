@@ -9,7 +9,7 @@ namespace BackEnd.DAL
     public class TablaGeneralDAL : ITablaGeneralDAL
     {
         //Recibe el atributo "idTablaGeneral" donde el atributo "descripción" es "Activo"
-        public int? EstadoDefault()
+        public int EstadoDefault()
         {
             int estado;
             using (SCAPEntities db = new SCAPEntities())
@@ -21,7 +21,7 @@ namespace BackEnd.DAL
         }
 
         //Permite recibir el atributo "idTablaGeneral" de la Tabla General haciendo uso del atributo "tipoCedula" del policía
-        public int? GetTipoCedula(int tipoCedula)
+        public int GetTipoCedula(int? tipoCedula)
         {
             int aux;
             using (SCAPEntities db = new SCAPEntities())
@@ -30,17 +30,6 @@ namespace BackEnd.DAL
             }
 
             return aux;
-        }
-
-        //Permite recibir el atributo "descripcion" de la Tabla General haciendo uso del atributo "estado" del policía
-        public string GetEstadoPolicia(int estado)
-        {
-            string descripcion;
-            using (SCAPEntities db = new SCAPEntities())
-            {
-                descripcion = db.Database.SqlQuery<string>("Select descripcion from TablaGeneral where tabla= 'Policias' and campo = 'estado' and idTablaGeneral =" + estado).Single<string>();
-            }
-            return descripcion;
         }
 
         //Permite recibir el atributo "idTablaGeneral" de la Tabla General haciendo uso del atributo "estado" de la misma tabla
@@ -55,7 +44,7 @@ namespace BackEnd.DAL
         }
 
         //Permite recibir el atributo "idTablaGeneral" de la Tabla General haciendo uso del atributo "tipoRequisito" de la tabla Requisitos
-        public int? GetTipoRequisito(int tipoRequisito)
+        public int GetTipoRequisito(int? tipoRequisito)
         {
             int aux;
             using (SCAPEntities db = new SCAPEntities())
@@ -64,16 +53,44 @@ namespace BackEnd.DAL
             }
             return aux;
         }
-
-        //Permite recibir el atributo "descripcion" de la Tabla General haciendo uso del atributo "tipoRequisito" de la misma
-        public string GetDescripcionRequisito(int tipoRequisito)
+        public string GetDescripcion(int? idTablaGeneral)
         {
-            string descripcion;
+            string aux;
             using (SCAPEntities db = new SCAPEntities())
             {
-                descripcion = db.Database.SqlQuery<string>("Select descripcion from TablaGeneral where idTablaGeneral =" + tipoRequisito).Single<string>();
+                aux = db.Database.SqlQuery<string>("Select descripcion from TablaGeneral where idTablaGeneral =" + idTablaGeneral).Single<string>();
+            }
+            return aux;
+        }
+        //Permite recibir el atributo "descripcion" de la Tabla General haciendo uso del atributo "tipoArma" de la misma
+        public List<string> GetTiposArma()
+        {
+            List<string> descripcion;
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                descripcion = db.Database.SqlQuery<string>("select descripcion from TablaGeneral where tabla = 'Armas' and campo = 'tipoArma'").ToList<string>();
             }
             return descripcion;
         }
+
+        public List<TablaGeneral> GetTiposCedulaPolicia()
+        {
+            List<TablaGeneral> descripcion;
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                descripcion = db.Database.SqlQuery<TablaGeneral>("Select * from TablaGeneral where tabla = 'Policias' and campo = 'tipoCedula'").ToList<TablaGeneral>();
+            }
+            return descripcion;
+        }
+        public List<TablaGeneral> GetTiposRequisito()
+        {
+            List<TablaGeneral> descripcion;
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                descripcion = db.Database.SqlQuery<TablaGeneral>("Select * from TablaGeneral where tabla = 'Requisitos' and campo = 'tipoRequisito'").ToList<TablaGeneral>();
+            }
+            return descripcion;
+        }
+
     }
 }

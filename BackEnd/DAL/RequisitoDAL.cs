@@ -21,45 +21,45 @@ namespace BackEnd.DAL
         }
 
         //Permite agregar un requisito nuevo a la base de datos
-        public void Add(Requisitos nuevo)
+        public void Add(Requisitos requisito)
         {
             using (SCAPEntities db = new SCAPEntities())
             {
-                db.Requisitos.Add(nuevo);
+                db.Requisitos.Add(requisito);
                 db.SaveChanges();
             }
 
         }
 
         //Permite actualizar la información de un requisito en la base de datos
-        public void Edit(Requisitos cambiado)
+        public void Edit(Requisitos requisito)
         {
             using (SCAPEntities db = new SCAPEntities())
             {
-                db.Entry(cambiado).State = System.Data.Entity.EntityState.Modified;
+                db.Entry(requisito).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
             }
 
         }
 
         //Permite la eliminación de un requisito de la base de datos
-        public void EliminaRequisito(Requisitos eliminable)
+        public void EliminaRequisito(Requisitos requisito)
         {
             using (SCAPEntities db = new SCAPEntities())
             {
-                db.Entry(eliminable).State = EntityState.Deleted;
+                db.Entry(requisito).State = EntityState.Deleted;
                 db.SaveChanges();
             }
         }
 
 
         //Permite recibir un requisito con toda su información a través de su atributo "idRequisito"
-        public Requisitos GetRequisito(int id)
+        public Requisitos GetRequisito(int idRequisito)
         {
             Requisitos requisito = new Requisitos();
             using (SCAPEntities db = new SCAPEntities())
             {
-                requisito = db.Database.SqlQuery<Requisitos>("select * from Requisitos where idRequisito =" + id).Single<Requisitos>();
+                requisito = db.Database.SqlQuery<Requisitos>("select * from Requisitos where idRequisito =" + idRequisito).Single<Requisitos>();
             }
             return requisito;
         }

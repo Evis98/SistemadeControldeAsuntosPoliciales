@@ -21,17 +21,15 @@ namespace FrontEnd.Controllers
         {
             requisitoDAL = new RequisitoDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
+            policiaDAL = new PoliciaDAL();
             return (from d in requisitos
                     select new ListRequisitoViewModel
                     {
                         IdRequisito = d.idRequisito,
-                        Fecha_Vencimiento = Convert.ToDateTime(d.fechaVencimiento),
-                        TipoRequisito = (int)d.tipoRequsito,
-                        DetalleTipoRequisito = tablaGeneralDAL.GetDescripcionRequisito((int)d.tipoRequsito),
-                        IdPolicia = (int)d.idPolicia,
+                        DetalleTipoRequisito = tablaGeneralDAL.GetDescripcion(d.tipoRequsito),
                         Imagen = d.imagen,
                         Detalles = d.detalles,
-                        NombrePolicia = policiaDAL.GetPolicia((int)d.idPolicia).nombre
+                        NombrePolicia = policiaDAL.GetPolicia(d.idPolicia).nombre
                     }).ToList();
         }
 
@@ -41,24 +39,43 @@ namespace FrontEnd.Controllers
             return new Requisitos
             {
                 idRequisito = modelo.IdRequisito,
-                idPolicia = Convert.ToInt32(Session["idPolicia"]),
+                idPolicia = (int)Session["idPolicia"],
                 detalles = modelo.Detalles,
-                fechaVencimiento = modelo.Fecha_Vencimiento,
+                fechaVencimiento = modelo.FechaVencimiento,
                 tipoRequsito = tablaGeneralDAL.GetTipoRequisito(modelo.TipoRequisito),
                 imagen = modelo.Imagen
             };           
         }
 
-        public RequisitoViewModel ConvertirRequisitoInverso(Requisitos requisito)
+       public RequisitoViewModel CargarRequisito(Requisitos requisito)
         {
             return new RequisitoViewModel
             {
                 Imagen = requisito.imagen,
                 IdRequisito = requisito.idRequisito,
-                Fecha_Vencimiento = requisito.fechaVencimiento,
-                TipoRequisito = (int)requisito.tipoRequsito,
+                FechaVencimiento = requisito.fechaVencimiento,
+                TipoRequisito = requisito.tipoRequsito,
                 Detalles = requisito.detalles,
-                IdPolicia = (int)requisito.idPolicia
+                IdPolicia = requisito.idPolicia
+            };
+        }
+       
+        public ListRequisitoViewModel ConvertirRequisitoInverso(Requisitos requisito)
+        {
+            tablaGeneralDAL = new TablaGeneralDAL();
+            string fechaVencimiento = null;
+            if (requisito.fechaVencimiento.HasValue)
+            {
+                fechaVencimiento = requisito.fechaVencimiento.Value.ToShortDateString();
+            }
+            return new ListRequisitoViewModel
+            {
+                Imagen = requisito.imagen,
+                IdRequisito = requisito.idRequisito,
+                FechaVencimiento = fechaVencimiento,
+                TipoRequisito = tablaGeneralDAL.GetDescripcion(requisito.tipoRequsito),
+                Detalles = requisito.detalles,
+                IdPolicia = requisito.idPolicia
             };
         }
 
@@ -66,7 +83,7 @@ namespace FrontEnd.Controllers
         public ActionResult Index(string filtroSeleccionado, string busqueda, string tipoRequisito)
         {
             requisitoDAL = new RequisitoDAL();
-            policiaDAL = new PoliciaDAL();
+            tablaGeneralDAL = new TablaGeneralDAL();
 
             List<Requisitos> requisitos = requisitoDAL.Get();
             List<Requisitos> requisitosFiltrados = new List<Requisitos>();
@@ -83,7 +100,7 @@ namespace FrontEnd.Controllers
                     }
                     if (filtroSeleccionado == "Tipo de Requisito")
                     {
-                        if (tablaGeneralDAL.GetDescripcionRequisito((int)requisito.tipoRequsito).Contains(tipoRequisito))
+                        if (tablaGeneralDAL.GetDescripcion(requisito.tipoRequsito).Contains(tipoRequisito))
                         {
                             requisitosFiltrados.Add(requisito);
                         }
@@ -114,8 +131,10 @@ namespace FrontEnd.Controllers
         //Devuelve la página que agrega nuevos requisitos
         public ActionResult Nuevo(int id)
         {
+            tablaGeneralDAL = new TablaGeneralDAL();
             RequisitoViewModel requisito = new RequisitoViewModel
             {
+                TiposRequisito = tablaGeneralDAL.GetTiposRequisito().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
                 IdPolicia = id
             };
             return View(requisito);
@@ -133,9 +152,9 @@ namespace FrontEnd.Controllers
                     string rutaSitio = Server.MapPath("~/");
                     string pathArchivo = Path.Combine(rutaSitio + @"Files\" + modelo.Detalles + Session["idPolicia"].ToString() + ".pdf");
                     Requisitos requisito = ConvertirRequisito(modelo);
-                    if (modelo.Fecha_Vencimiento != null)
+                    if (modelo.FechaVencimiento != null)
                     {
-                        requisito.fechaVencimiento = modelo.Fecha_Vencimiento;
+                        requisito.fechaVencimiento = modelo.FechaVencimiento;
                     }
                     else
                     {
@@ -166,8 +185,8 @@ namespace FrontEnd.Controllers
         {
             policiaDAL = new PoliciaDAL();
             requisitoDAL = new RequisitoDAL();
-            RequisitoViewModel modelo = ConvertirRequisitoInverso(requisitoDAL.GetRequisito(id));
-            modelo.Nombre = policiaDAL.GetPolicia(modelo.IdPolicia).nombre;
+            ListRequisitoViewModel modelo = ConvertirRequisitoInverso(requisitoDAL.GetRequisito(id));
+            modelo.NombrePolicia = policiaDAL.GetPolicia(modelo.IdPolicia).nombre;
             return View(modelo);
         }
 
@@ -176,7 +195,7 @@ namespace FrontEnd.Controllers
         {
             requisitoDAL = new RequisitoDAL();
             Requisitos requisito = requisitoDAL.GetRequisito(id);
-            int idPolicia = (int)requisito.idPolicia;
+            int? idPolicia = requisito.idPolicia;
             requisitoDAL.EliminaRequisito(requisito);
             return Redirect("~/Requisito/Listado/" + idPolicia);
         }
@@ -184,8 +203,11 @@ namespace FrontEnd.Controllers
         //Devuelve la página de edición de requisitos con sus apartados llenos
         public ActionResult Editar(int id)
         {
-            requisitoDAL = new RequisitoDAL();        
-            return View(ConvertirRequisitoInverso(requisitoDAL.GetRequisito(id)));
+            tablaGeneralDAL = new TablaGeneralDAL();
+            requisitoDAL = new RequisitoDAL();
+            RequisitoViewModel modelo = CargarRequisito(requisitoDAL.GetRequisito(id));
+            modelo.TiposRequisito = tablaGeneralDAL.GetTiposRequisito().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            return View(modelo);
         }
 
         //Guarda la información modificada de los requisitos
@@ -198,7 +220,7 @@ namespace FrontEnd.Controllers
                 if (ModelState.IsValid)
                 {              
                     requisitoDAL.Edit(ConvertirRequisito(modelo));                   
-                    return Redirect("~/Requisito/Listado/" + Session["idPolicia"].ToString());
+                    return Redirect("~/Requisito/Listado/" + modelo.IdPolicia);
                 }
                 return View(ConvertirRequisito(modelo));
             }

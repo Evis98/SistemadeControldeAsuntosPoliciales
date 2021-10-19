@@ -1,4 +1,4 @@
-﻿@model FrontEnd.Models.ViewModels.PoliciaViewModel
+﻿@model FrontEnd.Models.ViewModels.ListPoliciaViewModel
 
 @{
     ViewBag.Title = "Policía";
@@ -15,46 +15,30 @@
     </div>
     <dl class=" row">
         @Html.HiddenFor(d => d.IdPolicia)
+        @Html.HiddenFor(d => d.Estado)
         <dt class="col-sm-4">
             @Html.LabelFor(d => d.TipoCedula)
         </dt>
         <dd id="req" class="col-sm-8">
-            <script>
-                function RequsitoText(e) {
-                    var str = "";
-                    if (e == 1) {
-                        str = "Física";
-                    }
-                    else if (e == 2) {
-                        str = "Residencia";
-                    }
-                    //document.getElementById('req').innerHTML = str;
-                    return str;
-                }
-
-            document.write(RequsitoText(@Model.TipoCedula))
-            </script>
+            @Html.DisplayTextFor(d => d.TipoCedula)
         </dd>
-
         <dt class="col-sm-4">
             @Html.LabelFor(d => d.Cedula)
         </dt>
         <dd class="col-sm-8">
             @Html.DisplayTextFor(d => d.Cedula)
         </dd>
-
         <dt class="col-sm-4">
-            @Html.LabelFor(d => d.Fecha_nacimiento)
+            @Html.LabelFor(d => d.FechaNacimiento)
         </dt>
         <dd class="col-sm-8">
-            <text>@(Model.Fecha_nacimiento.ToShortDateString())</text>
+            @Html.DisplayTextFor(d => d.FechaNacimiento)
         </dd>
-
         <dt class="col-sm-4">
-            @Html.Label("Edad")
+            @Html.LabelFor(d => d.Edad)
         </dt>
         <dd class="col-sm-8">
-            <text>@(@DateTime.Now.Year - Model.Fecha_nacimiento.Year)</text>
+            @Html.DisplayTextFor(d => d.Edad)
         </dd>
         <dt class="col-sm-4">
             @Html.LabelFor(d => d.CorreoElectronico)
@@ -94,34 +78,15 @@
         </dd>
 
         <dt class="col-sm-4">
-            @Html.LabelFor(d => d.Estado)
+            @Html.LabelFor(d => d.DescripcionEstado)
         </dt>
-        <dd id="req" class="col-sm-8">
-
-            <script>
-                function RequsitoText(e) {
-                    var str = "";
-                    if (e == 3) {
-                        str = "Activo";
-                    }
-                    else if (e == 4) {
-                        str = "Inactivo";
-                    }
-                    //document.getElementById('req').innerHTML = str;
-                    return str;
-                }
-
-            document.write(RequsitoText(@Model.Estado))
-            </script>
-
+        <dd class="col-sm-8">
+            @Html.DisplayTextFor(d => d.DescripcionEstado)
         </dd>
 
         <dd class="col-sm-9">
             <a class="btn btn-warning" data-toggle="modal" data-target="#show3">Cambiar Estado</a>
         </dd>
-
-
-
     </dl>
 
     <div class="row" style="text-align:right;">

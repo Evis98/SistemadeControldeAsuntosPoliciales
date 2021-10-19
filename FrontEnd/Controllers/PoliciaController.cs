@@ -41,7 +41,7 @@ namespace FrontEnd.Controllers
                 cedula = modelo.Cedula,
                 tipoCedula = tablaGeneralDAL.GetTipoCedula(modelo.TipoCedula),
                 nombre = modelo.Nombre,
-                fechaNacimiento = Convert.ToDateTime(modelo.Fecha_nacimiento),
+                fechaNacimiento = modelo.FechaNacimiento,
                 correoElectronico = modelo.CorreoElectronico,
                 direccion = modelo.Direccion,
                 telefonoCelular = modelo.TelefonoCelular,
@@ -51,23 +51,44 @@ namespace FrontEnd.Controllers
                 estado = tablaGeneralDAL.EstadoDefault()
             };
         }
-
-        public PoliciaViewModel ConvertirPoliciaInverso(Policias policia)
+        public PoliciaViewModel CargarPolicia(Policias policia)
         {
+            tablaGeneralDAL = new TablaGeneralDAL();
             return new PoliciaViewModel
             {
                 IdPolicia = policia.idPolicia,
                 Cedula = policia.cedula,
-                TipoCedula = (int)policia.tipoCedula,
+                TipoCedula = policia.tipoCedula,
                 Nombre = policia.nombre,
-                Fecha_nacimiento = Convert.ToDateTime(policia.fechaNacimiento),
+                FechaNacimiento = (DateTime)policia.fechaNacimiento,
                 CorreoElectronico = policia.correoElectronico,
                 Direccion = policia.direccion,
                 TelefonoCelular = policia.telefonoCelular,
                 TelefonoCasa = policia.telefonoCasa,
                 ContactoEmergencia = policia.contactoEmergencia,
                 TelefonoEmergencia = policia.telefonoEmergencia,
-                Estado = (int)policia.estado
+                Estado = policia.estado
+            };
+        }
+        public ListPoliciaViewModel ConvertirPoliciaInverso(Policias policia)
+        {
+            tablaGeneralDAL = new TablaGeneralDAL();
+            return new ListPoliciaViewModel
+            {
+                IdPolicia = policia.idPolicia,
+                Cedula = policia.cedula,
+                TipoCedula = tablaGeneralDAL.GetDescripcion(policia.tipoCedula),
+                Nombre = policia.nombre,
+                FechaNacimiento = policia.fechaNacimiento.Value.ToShortDateString(),
+                Edad = ObtenerEdad(policia.fechaNacimiento),
+                CorreoElectronico = policia.correoElectronico,
+                Direccion = policia.direccion,
+                TelefonoCelular = policia.telefonoCelular,
+                TelefonoCasa = policia.telefonoCasa,
+                ContactoEmergencia = policia.contactoEmergencia,
+                TelefonoEmergencia = policia.telefonoEmergencia,
+                Estado = (int)policia.estado,
+                DescripcionEstado = tablaGeneralDAL.GetDescripcion(policia.estado)
             };
         }
 
@@ -104,14 +125,21 @@ namespace FrontEnd.Controllers
         //Devuelve la página que agrega nuevos policías
         public ActionResult Nuevo()
         {
-            return View();
+            tablaGeneralDAL = new TablaGeneralDAL();
+            PoliciaViewModel modelo = new PoliciaViewModel()
+            {
+                TiposCedula = tablaGeneralDAL.GetTiposCedulaPolicia().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
+                FechaNacimiento = null
+
+            };
+            return View(modelo);
         }
 
         //Guarda la información ingresada en la página para crear policías
         [HttpPost]
         public ActionResult Nuevo(PoliciaViewModel model)
         {
-            policiaDAL = new PoliciaDAL();
+          policiaDAL = new PoliciaDAL();
             try
             {
                 if (ModelState.IsValid)
@@ -134,7 +162,7 @@ namespace FrontEnd.Controllers
         {
             Session["idPolicia"] = id;
             policiaDAL = new PoliciaDAL();
-            PoliciaViewModel modelo = ConvertirPoliciaInverso(policiaDAL.GetPolicia(id));
+            ListPoliciaViewModel modelo = ConvertirPoliciaInverso(policiaDAL.GetPolicia(id));
             return View(modelo);
         }
 
@@ -142,7 +170,8 @@ namespace FrontEnd.Controllers
         public ActionResult Editar(int id)
         {
             policiaDAL = new PoliciaDAL();
-            PoliciaViewModel modelo = ConvertirPoliciaInverso(policiaDAL.GetPolicia(id));
+            PoliciaViewModel modelo = CargarPolicia(policiaDAL.GetPolicia(id));
+            modelo.TiposCedula = tablaGeneralDAL.GetTiposCedulaPolicia().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             return View(modelo);
         }
 
@@ -167,14 +196,14 @@ namespace FrontEnd.Controllers
         }
 
         //Se encarga del cambio de estado de un policía entre activo e inactivo
-        public ActionResult CambioEstado(int id)
+        public ActionResult CambioEstado(int? id)
         {
             int estado;
             policiaDAL = new PoliciaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             try
             {
-                if (tablaGeneralDAL.GetEstadoPolicia(id) == "Activo")
+                if (tablaGeneralDAL.GetDescripcion(id) == "Activo")
                 {
                     estado = tablaGeneralDAL.GetIdEstado("Inactivo");
                 }
@@ -189,6 +218,16 @@ namespace FrontEnd.Controllers
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        string ObtenerEdad(DateTime? fechaNacimiento) { 
+
+            var edad = DateTime.Today.Year - fechaNacimiento.Value.Year;
+
+            if (fechaNacimiento.Value.Date > DateTime.Today.AddYears(-edad)) edad--;
+
+            return edad.ToString();
+
         }
     }
 }
