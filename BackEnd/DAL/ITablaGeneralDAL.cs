@@ -13,9 +13,16 @@ namespace BackEnd.DAL
         int GetIdEstado(string estado);
         int GetTipoRequisito(int? tipoRequisito);
         string GetDescripcion(int? idTablaGeneral);
-        List<string> GetTiposArma();
+        List<TablaGeneral> GetTiposArma();
         List<TablaGeneral> GetTiposCedulaPolicia();
         List<TablaGeneral> GetTiposRequisito();
+        int GetTipoIdentificacionInfractor(int? tipoId);
+        List<TablaGeneral> GetTipoSexoInfractor();
+        List<TablaGeneral> GetTiposIdentificacionInfractor(); 
+        List<TablaGeneral> GetTiposCalibre(); 
+        List<TablaGeneral> GetTiposCondicion();
+        List<TablaGeneral> GetTiposUbicacion();
+
 
     }
 }

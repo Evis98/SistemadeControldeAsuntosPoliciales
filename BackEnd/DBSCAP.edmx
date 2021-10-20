@@ -21,6 +21,28 @@
           <Property Name="observacion" Type="varchar" MaxLength="150" />
           <Property Name="estadoArma" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Infractores">
+          <Key>
+            <PropertyRef Name="idInfractor" />
+          </Key>
+          <Property Name="idInfractor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipoDeIdentificacion" Type="int" />
+          <Property Name="numeroDeIdentificacion" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="nacionalidad" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nombreCompleto" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="fechaNacimiento" Type="date" Nullable="false" />
+          <Property Name="telefono" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="direccionExacta" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="sexo" Type="int" Nullable="false" />
+          <Property Name="correoEletronico" Type="varchar" MaxLength="100" />
+          <Property Name="observaciones" Type="varchar" MaxLength="150" />
+          <Property Name="profesionUOficio" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="estatura" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="tatuajes" Type="varchar" MaxLength="150" />
+          <Property Name="nombreDelPadre" Type="varchar" MaxLength="150" />
+          <Property Name="nombreDeLaMadre" Type="varchar" MaxLength="150" />
+          <Property Name="imagen" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
         <EntityType Name="Policias">
           <Key>
             <PropertyRef Name="idPolicia" />
@@ -154,6 +176,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Sexo">
+          <End Role="TablaGeneral" Type="Self.TablaGeneral" Multiplicity="1" />
+          <End Role="Infractores" Type="Self.Infractores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TablaGeneral">
+              <PropertyRef Name="idTablaGeneral" />
+            </Principal>
+            <Dependent Role="Infractores">
+              <PropertyRef Name="sexo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TipoArma">
           <End Role="TablaGeneral" Type="Self.TablaGeneral" Multiplicity="1" />
           <End Role="Armas" Type="Self.Armas" Multiplicity="*" />
@@ -175,6 +209,18 @@
             </Principal>
             <Dependent Role="Policias">
               <PropertyRef Name="tipoCedula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TipoDeIdentificacion">
+          <End Role="TablaGeneral" Type="Self.TablaGeneral" Multiplicity="0..1" />
+          <End Role="Infractores" Type="Self.Infractores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TablaGeneral">
+              <PropertyRef Name="idTablaGeneral" />
+            </Principal>
+            <Dependent Role="Infractores">
+              <PropertyRef Name="tipoDeIdentificacion" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -216,6 +262,7 @@
         </Association>
         <EntityContainer Name="SCAPModelStoreContainer">
           <EntitySet Name="Armas" EntityType="Self.Armas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Infractores" EntityType="Self.Infractores" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Policias" EntityType="Self.Policias" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Requisitos" EntityType="Self.Requisitos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
@@ -246,6 +293,10 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="RolesUsuarios" EntitySet="RolesUsuarios" />
           </AssociationSet>
+          <AssociationSet Name="FK_Sexo" Association="Self.FK_Sexo">
+            <End Role="TablaGeneral" EntitySet="TablaGeneral" />
+            <End Role="Infractores" EntitySet="Infractores" />
+          </AssociationSet>
           <AssociationSet Name="FK_TipoArma" Association="Self.FK_TipoArma">
             <End Role="TablaGeneral" EntitySet="TablaGeneral" />
             <End Role="Armas" EntitySet="Armas" />
@@ -253,6 +304,10 @@
           <AssociationSet Name="FK_TipoCedula" Association="Self.FK_TipoCedula">
             <End Role="TablaGeneral" EntitySet="TablaGeneral" />
             <End Role="Policias" EntitySet="Policias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TipoDeIdentificacion" Association="Self.FK_TipoDeIdentificacion">
+            <End Role="TablaGeneral" EntitySet="TablaGeneral" />
+            <End Role="Infractores" EntitySet="Infractores" />
           </AssociationSet>
           <AssociationSet Name="FK_TipoRequisito" Association="Self.FK_TipoRequisito">
             <End Role="TablaGeneral" EntitySet="TablaGeneral" />
@@ -339,6 +394,8 @@
           <NavigationProperty Name="Armas2" Relationship="SCAPModel.FK_EstadoArma" FromRole="TablaGeneral" ToRole="Armas" />
           <NavigationProperty Name="Armas3" Relationship="SCAPModel.FK_TipoArma" FromRole="TablaGeneral" ToRole="Armas" />
           <NavigationProperty Name="Armas4" Relationship="SCAPModel.FK_Ubicacion" FromRole="TablaGeneral" ToRole="Armas" />
+          <NavigationProperty Name="Infractores" Relationship="SCAPModel.FK_Sexo" FromRole="TablaGeneral" ToRole="Infractores" />
+          <NavigationProperty Name="Infractores1" Relationship="SCAPModel.FK_TipoDeIdentificacion" FromRole="TablaGeneral" ToRole="Infractores" />
         </EntityType>
         <EntityType Name="Usuarios">
           <Key>
@@ -473,6 +530,15 @@
             <End Role="TablaGeneral" EntitySet="TablaGeneral" />
             <End Role="Armas" EntitySet="Armas" />
           </AssociationSet>
+          <EntitySet Name="Infractores" EntityType="SCAPModel.Infractores" />
+          <AssociationSet Name="FK_Sexo" Association="SCAPModel.FK_Sexo">
+            <End Role="TablaGeneral" EntitySet="TablaGeneral" />
+            <End Role="Infractores" EntitySet="Infractores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TipoDeIdentificacion" Association="SCAPModel.FK_TipoDeIdentificacion">
+            <End Role="TablaGeneral" EntitySet="TablaGeneral" />
+            <End Role="Infractores" EntitySet="Infractores" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Armas">
           <Key>
@@ -552,6 +618,54 @@
             </Principal>
             <Dependent Role="Armas">
               <PropertyRef Name="ubicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Infractores">
+          <Key>
+            <PropertyRef Name="idInfractor" />
+          </Key>
+          <Property Name="idInfractor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipoDeIdentificacion" Type="Int32" />
+          <Property Name="numeroDeIdentificacion" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="nacionalidad" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nombreCompleto" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="fechaNacimiento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="telefono" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="direccionExacta" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="sexo" Type="Int32" Nullable="false" />
+          <Property Name="correoEletronico" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="observaciones" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="profesionUOficio" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="estatura" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="tatuajes" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="nombreDelPadre" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="nombreDeLaMadre" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="imagen" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TablaGeneral" Relationship="SCAPModel.FK_Sexo" FromRole="Infractores" ToRole="TablaGeneral" />
+          <NavigationProperty Name="TablaGeneral1" Relationship="SCAPModel.FK_TipoDeIdentificacion" FromRole="Infractores" ToRole="TablaGeneral" />
+        </EntityType>
+        <Association Name="FK_Sexo">
+          <End Type="SCAPModel.TablaGeneral" Role="TablaGeneral" Multiplicity="1" />
+          <End Type="SCAPModel.Infractores" Role="Infractores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TablaGeneral">
+              <PropertyRef Name="idTablaGeneral" />
+            </Principal>
+            <Dependent Role="Infractores">
+              <PropertyRef Name="sexo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TipoDeIdentificacion">
+          <End Type="SCAPModel.TablaGeneral" Role="TablaGeneral" Multiplicity="0..1" />
+          <End Type="SCAPModel.Infractores" Role="Infractores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TablaGeneral">
+              <PropertyRef Name="idTablaGeneral" />
+            </Principal>
+            <Dependent Role="Infractores">
+              <PropertyRef Name="tipoDeIdentificacion" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -642,6 +756,29 @@
                 <ScalarProperty Name="numeroSerie" ColumnName="numeroSerie" />
                 <ScalarProperty Name="policiaAsignado" ColumnName="policiaAsignado" />
                 <ScalarProperty Name="idArma" ColumnName="idArma" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Infractores">
+            <EntityTypeMapping TypeName="SCAPModel.Infractores">
+              <MappingFragment StoreEntitySet="Infractores">
+                <ScalarProperty Name="imagen" ColumnName="imagen" />
+                <ScalarProperty Name="nombreDeLaMadre" ColumnName="nombreDeLaMadre" />
+                <ScalarProperty Name="nombreDelPadre" ColumnName="nombreDelPadre" />
+                <ScalarProperty Name="tatuajes" ColumnName="tatuajes" />
+                <ScalarProperty Name="estatura" ColumnName="estatura" />
+                <ScalarProperty Name="profesionUOficio" ColumnName="profesionUOficio" />
+                <ScalarProperty Name="observaciones" ColumnName="observaciones" />
+                <ScalarProperty Name="correoEletronico" ColumnName="correoEletronico" />
+                <ScalarProperty Name="sexo" ColumnName="sexo" />
+                <ScalarProperty Name="direccionExacta" ColumnName="direccionExacta" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
+                <ScalarProperty Name="nombreCompleto" ColumnName="nombreCompleto" />
+                <ScalarProperty Name="nacionalidad" ColumnName="nacionalidad" />
+                <ScalarProperty Name="numeroDeIdentificacion" ColumnName="numeroDeIdentificacion" />
+                <ScalarProperty Name="tipoDeIdentificacion" ColumnName="tipoDeIdentificacion" />
+                <ScalarProperty Name="idInfractor" ColumnName="idInfractor" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

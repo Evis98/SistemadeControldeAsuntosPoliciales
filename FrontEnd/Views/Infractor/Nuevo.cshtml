@@ -14,16 +14,7 @@
 
     <div class="form-group col-md-3">
         @Html.LabelFor(d => d.TipoIdentificacion)
-        @Html.DropDownListFor(d => d.TipoIdentificacion, new SelectList(
-    new List<Object> {
-    new  { Value = "1", text = "Nacional"  },
-    new  { Value = "2", text = "Residencia"},
-    new  { Value = "3", text = "Pasaporte" },
-    new  { Value = "4", text = "Otro"}
-    },
-    "value",
-    "text"
-       ), new { @class = "myselect form-control" })
+        @Html.DropDownListFor(d => d.TipoIdentificacion, Model.TiposDeIdentificacion, new { @class = "myselect form-control" })
         @Html.ValidationMessageFor(d => d.TipoIdentificacion, null, new { @class = "red" })
     </div>
     <div class="form-group col-md-3">
@@ -87,10 +78,10 @@
     </div>
     <div class="form-group col-md-6">
         @Html.LabelFor(d => d.Tatuajes)
-        @Html.TextBoxFor(d => d.Tatuajes, "", new { @class = "form-control", @maxlength = "150", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+        @Html.TextAreaFor(d => d.Tatuajes,new { @class = "form-control", @maxlength = "150", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
         @Html.ValidationMessageFor(d => d.Tatuajes, null, new { @class = "red" })
     </div>
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-3">
         @Html.LabelFor(d => d.Nacionalidad)
         @Html.TextBoxFor(d => d.Nacionalidad, "", new { @class = "form-control", @maxlength = "50", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
         @Html.ValidationMessageFor(d => d.Nacionalidad, null, new { @class = "red" })

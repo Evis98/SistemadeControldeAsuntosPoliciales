@@ -63,12 +63,12 @@ namespace BackEnd.DAL
             return aux;
         }
         //Permite recibir el atributo "descripcion" de la Tabla General haciendo uso del atributo "tipoArma" de la misma
-        public List<string> GetTiposArma()
+        public List<TablaGeneral> GetTiposArma()
         {
-            List<string> descripcion;
+            List<TablaGeneral> descripcion;
             using (SCAPEntities db = new SCAPEntities())
             {
-                descripcion = db.Database.SqlQuery<string>("select descripcion from TablaGeneral where tabla = 'Armas' and campo = 'tipoArma'").ToList<string>();
+                descripcion = db.Database.SqlQuery<TablaGeneral>("select * from TablaGeneral where tabla = 'Armas' and campo = 'tipoArma'").ToList<TablaGeneral>();
             }
             return descripcion;
         }
@@ -92,5 +92,85 @@ namespace BackEnd.DAL
             return descripcion;
         }
 
+
+
+        public int GetTipoIdentificacionInfractor(int? tipoId)
+        {
+            int aux;
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                aux = db.Database.SqlQuery<int>("Select idTablaGeneral from TablaGeneral where tabla= 'Infractores' and campo = 'tipoDeIdentificacion' and codigo =" + tipoId).Single<int>();
+            }
+
+            return aux;
+        }
+
+        public List<TablaGeneral> GetTipoSexoInfractor()
+        {
+            List<TablaGeneral> descripcion;
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                descripcion = db.Database.SqlQuery<TablaGeneral>("Select * from TablaGeneral where tabla = 'Infractores' and campo = 'sexo'").ToList<TablaGeneral>();
+            }
+            return descripcion;
+        }
+
+       public List<TablaGeneral> GetTiposIdentificacionInfractor() 
+        {
+            List<TablaGeneral> tiposIdentificacion;
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                tiposIdentificacion = db.Database.SqlQuery<TablaGeneral>("Select * from TablaGeneral where tabla = 'Infractores' and campo = 'tipoDeIdentificacion'").ToList<TablaGeneral>();
+            }
+            return tiposIdentificacion;
+        }
+
+
+
+
+        public List<TablaGeneral> GetTiposCalibre()
+        {
+            List<TablaGeneral> descripcion;
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                descripcion = db.Database.SqlQuery<TablaGeneral>("Select * from TablaGeneral where tabla = 'Armas' and campo = 'calibre'").ToList<TablaGeneral>();
+            }
+            return descripcion;
+
+
+        }
+
+        public List<TablaGeneral> GetTiposCondicion()
+        {
+
+            List<TablaGeneral> descripcion;
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                descripcion = db.Database.SqlQuery<TablaGeneral>("Select * from TablaGeneral where tabla = 'Armas' and campo = 'condicion'").ToList<TablaGeneral>();
+            }
+            return descripcion;
+        }
+
+        public List<TablaGeneral> GetTiposUbicacion()
+        {
+
+
+            List<TablaGeneral> descripcion;
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                descripcion = db.Database.SqlQuery<TablaGeneral>("Select * from TablaGeneral where tabla = 'Armas' and campo = 'ubicacion'").ToList<TablaGeneral>();
+            }
+            return descripcion;
+        }
+
+
+
     }
+
+
+
+
+
+
+
 }

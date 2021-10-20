@@ -1,4 +1,4 @@
-﻿@model FrontEnd.Models.ViewModels.ListInfractorViewModel
+﻿@model List<FrontEnd.Models.ViewModels.ListInfractorViewModel>
 @{
     ViewBag.Title = "Infractor";
 }
@@ -39,15 +39,23 @@
         <table class="table">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">Cédula</th>
+                    <th scope="col">Identificación</th>
                     <th scope="col">Nombre</th>
                     <th scope="col"></th>
                 </tr>
+
             </thead>
             <tbody>
-
-
-
+                @foreach (var oElemento in Model)
+                {
+                    <tr>
+                        <th scope="row">@oElemento.Identificacion</th>
+                        <td>@oElemento.Nombre</td>
+                        <td>
+                            <a class="btn btn-outline-info" href="~/Infractor/Detalle/@oElemento.IdInfractor">Ver Detalles</a>
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
     </div>

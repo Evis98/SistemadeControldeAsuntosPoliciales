@@ -60,7 +60,7 @@ namespace FrontEnd.Controllers
                 Cedula = policia.cedula,
                 TipoCedula = policia.tipoCedula,
                 Nombre = policia.nombre,
-                FechaNacimiento = (DateTime)policia.fechaNacimiento,
+                FechaNacimiento = policia.fechaNacimiento,
                 CorreoElectronico = policia.correoElectronico,
                 Direccion = policia.direccion,
                 TelefonoCelular = policia.telefonoCelular,

@@ -23,6 +23,9 @@
         <AssociationConnector Association="SCAPModel.FK_EstadoArma" />
         <AssociationConnector Association="SCAPModel.FK_TipoArma" />
         <AssociationConnector Association="SCAPModel.FK_Ubicacion" />
+        <EntityTypeShape EntityType="SCAPModel.Infractores" Width="1.5" PointX="3" PointY="14.375" />
+        <AssociationConnector Association="SCAPModel.FK_Sexo" />
+        <AssociationConnector Association="SCAPModel.FK_TipoDeIdentificacion" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

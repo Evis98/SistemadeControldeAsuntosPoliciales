@@ -1,0 +1,119 @@
+﻿@model FrontEnd.Models.ViewModels.ListInfractorViewModel
+
+@{
+    ViewBag.Title = "Infractor";
+}
+
+<div class=" container">
+    <div class="row mb-3">
+        <h3 class="display-4">@ViewBag.Title</h3>
+    </div>
+
+    <div class="row mb-3">
+        <h2> @Html.DisplayTextFor(d => d.Nombre)</h2>
+    </div>
+    <dl class=" row">
+        @Html.HiddenFor(d => d.IdInfractor)
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.TipoIdentificacion)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayTextFor(d => d.TipoIdentificacion)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.Identificacion)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayTextFor(d => d.Identificacion)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.Nacionalidad)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayTextFor(d => d.Nacionalidad)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.FechaNacimiento)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayTextFor(d => d.FechaNacimiento)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.Edad)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayTextFor(d => d.Edad)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.Telefono)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayTextFor(d => d.Telefono)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.DireccionExacta)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayTextFor(d => d.DireccionExacta)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.Sexo)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayTextFor(d => d.Sexo)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.CorreoElectronico)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayTextFor(d => d.CorreoElectronico)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.ProfesionUOficio)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayTextFor(d => d.ProfesionUOficio)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.Estatura)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayTextFor(d => d.Estatura)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.Tatuajes)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayTextFor(d => d.Tatuajes)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.NombrePadre)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayTextFor(d => d.NombrePadre)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.NombreMadre)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayTextFor(d => d.NombreMadre)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.Observaciones)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayTextFor(d => d.Observaciones)
+        </dd>
+
+    </dl>
+
+    <div class="row" style="text-align:right;">
+        <a href="~/Infractor/Index/" class="btn btn-outline-secondary">Regresar</a>
+    </div>
+
+    <div style="text-align:center;">
+        <a class="btn btn-primary" href="~/Infractor/Editar/@Model.IdInfractor">Editar</a>
+        <a class="btn btn-info" >Ver Infracciones</a>
+
+    </div>
+</div>

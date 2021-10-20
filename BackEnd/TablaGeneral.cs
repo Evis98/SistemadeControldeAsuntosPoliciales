@@ -25,6 +25,8 @@ namespace BackEnd
             this.Armas2 = new HashSet<Armas>();
             this.Armas3 = new HashSet<Armas>();
             this.Armas4 = new HashSet<Armas>();
+            this.Infractores = new HashSet<Infractores>();
+            this.Infractores1 = new HashSet<Infractores>();
         }
     
         public int idTablaGeneral { get; set; }
@@ -49,5 +51,9 @@ namespace BackEnd
         public virtual ICollection<Armas> Armas3 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Armas> Armas4 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Infractores> Infractores { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Infractores> Infractores1 { get; set; }
     }
 }

@@ -60,6 +60,8 @@
     </Compile>
     <Compile Include="DAL\ArmaDAL.cs" />
     <Compile Include="DAL\IArmaDAL.cs" />
+    <Compile Include="DAL\IInfractorDAL.cs" />
+    <Compile Include="DAL\InfractorDAL.cs" />
     <Compile Include="DAL\IPoliciaDAL.cs" />
     <Compile Include="DAL\IRequisitoDAL.cs" />
     <Compile Include="DAL\ITablaGeneralDAL.cs" />
@@ -80,6 +82,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DBSCAP.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Infractores.cs">
+      <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
     <Compile Include="Policias.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>

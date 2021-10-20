@@ -19,21 +19,14 @@ namespace FrontEnd.Controllers
         public List<ListArmaViewModel> ConvertirListaArmas(List<Armas> armas)
         {
             policiaDAL = new PoliciaDAL();
+            tablaGeneralDAL = new TablaGeneralDAL();
             return (from d in armas
                     select new ListArmaViewModel
                     {
                         IdArma = d.idArma,
-                        PoliciaAsignado = (int)d.policiaAsignado,
                         NumeroSerie = d.numeroSerie,
-                        TipoArma = d.tipoArma,
-                        Marca = d.marca,
-                        Modelo = d.modelo,
-                        Calibre = d.calibre,
-                        Condicion = d.condicion,
-                        Ubicacion = d.ubicacion,
-                        Observacion = d.observacion,
-                        EstadoArma = d.estadoArma,
-                        NombrePolicia = policiaDAL.GetPolicia((int)d.policiaAsignado).nombre
+                        TipoArma = tablaGeneralDAL.GetDescripcion(d.tipoArma),
+                        NombrePolicia = policiaDAL.GetPolicia(d.policiaAsignado).nombre
                     }).ToList();
         }
         public Armas ConvertirArma(ArmaViewModel modelo)
@@ -42,28 +35,27 @@ namespace FrontEnd.Controllers
             return new Armas
             {
                 idArma = modelo.IdArma,
-                //policiaAsignado = modelo.PoliciaAsignado,
+                policiaAsignado = modelo.PoliciaAsignado,
                 numeroSerie = modelo.NumeroSerie,
-                //tipoArma = modelo.tipoArma,               
+                tipoArma = modelo.TipoArma,
                 marca = modelo.Marca,
                 modelo = modelo.Modelo,
-                //calibre = modelo.Calibre,
-                //condicion = modelo.Condicion,
-                //ubicacion = modelo.Ubicacion,
+                calibre = modelo.Calibre,
+                condicion = modelo.Condicion,
+                ubicacion = modelo.Ubicacion,
                 observacion = modelo.Observacion,
-                //estadoArma = modelo.EstadoArma,
+                estadoArma = modelo.EstadoArma,
             };
         }
-
-        public ArmaViewModel ConvertirArmaInverso(Armas arma)
+        public ArmaViewModel CargarArma(Armas arma)
         {
+            tablaGeneralDAL = new TablaGeneralDAL();
             return new ArmaViewModel
             {
                 IdArma = arma.idArma,
-                PoliciaAsignado = (int)arma.policiaAsignado,
+                PoliciaAsignado = arma.policiaAsignado,
                 NumeroSerie = arma.numeroSerie,
                 TipoArma = arma.tipoArma,
-                //TiposArma = tablaGeneralDAL.getTiposArma(),
                 Marca = arma.marca,
                 Modelo = arma.modelo,
                 Calibre = arma.calibre,
@@ -71,6 +63,25 @@ namespace FrontEnd.Controllers
                 Ubicacion = arma.ubicacion,
                 Observacion = arma.observacion,
                 EstadoArma = arma.estadoArma,
+            };
+        }
+        public ListArmaViewModel ConvertirArmaInverso(Armas arma)
+        {
+            policiaDAL = new PoliciaDAL();
+            tablaGeneralDAL = new TablaGeneralDAL();
+            return new ListArmaViewModel
+            {
+                IdArma = arma.idArma,
+                PoliciaAsignado = policiaDAL.GetPolicia(arma.policiaAsignado).cedula + " " + policiaDAL.GetPolicia(arma.policiaAsignado).nombre,
+                NumeroSerie = arma.numeroSerie,
+                TipoArma = tablaGeneralDAL.GetDescripcion(arma.tipoArma),
+                Marca = arma.marca,
+                Modelo = arma.modelo,
+                Calibre = tablaGeneralDAL.GetDescripcion(arma.calibre),
+                Condicion = tablaGeneralDAL.GetDescripcion(arma.condicion),
+                Ubicacion = tablaGeneralDAL.GetDescripcion(arma.ubicacion),
+                Observacion = arma.observacion,
+                EstadoArma = tablaGeneralDAL.GetDescripcion(arma.estadoArma)
             };
         }
         // GET: Arma
@@ -108,7 +119,10 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             ArmaViewModel modelo = new ArmaViewModel()
             {
-                TiposArma = tablaGeneralDAL.GetTiposArma().Select(i => new SelectListItem() { Text = i.ToString(), Value = i })
+                TiposArma = tablaGeneralDAL.GetTiposArma().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
+                TiposCalibre = tablaGeneralDAL.GetTiposCalibre().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
+                TiposCondicion = tablaGeneralDAL.GetTiposCondicion().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
+                TiposUbicacion = tablaGeneralDAL.GetTiposUbicacion().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
             };
 
             return View(modelo);
@@ -137,12 +151,21 @@ namespace FrontEnd.Controllers
         }
         public ActionResult Detalle(int id)
         {
-            // Session["idPolicia"] = id;
+            Session["idPolicia"] = id;
             armaDAL = new ArmaDAL();
-            ArmaViewModel modelo = ConvertirArmaInverso(armaDAL.GetArma(id));
+            ListArmaViewModel modelo = ConvertirArmaInverso(armaDAL.GetArma(id));
             return View(modelo);
         }
-
+        public ActionResult Editar(int id)
+        {
+            armaDAL = new ArmaDAL();
+            ArmaViewModel modelo = CargarArma(armaDAL.GetArma(id));
+            modelo.TiposArma = tablaGeneralDAL.GetTiposArma().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            modelo.TiposCalibre = tablaGeneralDAL.GetTiposCalibre().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            modelo.TiposCondicion = tablaGeneralDAL.GetTiposCondicion().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            modelo.TiposUbicacion = tablaGeneralDAL.GetTiposUbicacion().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            return View(modelo);
+        }
 
 
     }

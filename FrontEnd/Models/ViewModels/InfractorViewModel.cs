@@ -31,7 +31,7 @@ namespace FrontEnd.Models.ViewModels
         [DataType(DataType.Date)]
         [Display(Name = "Fecha de Nacimiento")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime? FechaNacimiento { get; set; }
+        public DateTime FechaNacimiento { get; set; }
         [Required]
         [StringLength(9)]
         [Display(Name = "Teléfono")]
@@ -42,7 +42,7 @@ namespace FrontEnd.Models.ViewModels
         public string DireccionExacta { get; set; }
         [Required]
         [Display(Name = "Sexo")]
-        public int? Sexo { get; set; }
+        public int Sexo { get; set; }
         [StringLength(100)]
         [EmailAddress]
         [Display(Name = "Correo Electrónico")]
@@ -71,8 +71,10 @@ namespace FrontEnd.Models.ViewModels
         [Display(Name = "Adjuntar imagen")]
         public HttpPostedFileBase Archivo { get; set; }
         public string Imagen { get; set; }
+
+      
         public IEnumerable<SelectListItem> TiposDeIdentificacion { get; set; }
-        //public IEnumerable<SelectListItem> Sexo { get; set; }
+        public IEnumerable<SelectListItem> TiposDeSexo { get; set; }
         //public int? Estado { get; set; }
     }
 }

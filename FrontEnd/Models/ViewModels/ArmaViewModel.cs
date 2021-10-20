@@ -11,7 +11,7 @@ namespace FrontEnd.Models.ViewModels
     {
         public int IdArma { get; set; }
         [Display(Name = "Policía Asignado")]
-        public int PoliciaAsignado { get; set; }
+        public int? PoliciaAsignado { get; set; }
         [Required]
         [StringLength(20)]
         [Display(Name = "Número de serie")]
@@ -44,5 +44,10 @@ namespace FrontEnd.Models.ViewModels
         public string Modelo { get; set; }
 
         public IEnumerable<SelectListItem> TiposArma { get; set; }
+
+        public IEnumerable<SelectListItem> TiposCalibre { get; set; }
+        public IEnumerable<SelectListItem> TiposCondicion { get; set; }
+        public IEnumerable<SelectListItem> TiposUbicacion { get; set; }
+
     }
 }

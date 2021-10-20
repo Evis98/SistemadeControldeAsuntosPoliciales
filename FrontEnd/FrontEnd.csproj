@@ -303,6 +303,9 @@
     <Content Include="Views\Arma\Nuevo.cshtml" />
     <Content Include="Views\Infractor\Index.cshtml" />
     <Content Include="Views\Infractor\Nuevo.cshtml" />
+    <Content Include="Views\Infractor\Detalle.cshtml" />
+    <Content Include="Views\Infractor\Editar.cshtml" />
+    <Content Include="Views\Arma\Editar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
