@@ -137,7 +137,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModels\ArmaViewModel.cs" />
+    <Compile Include="Models\ViewModels\InfractorViewModel.cs" />
     <Compile Include="Models\ViewModels\ListArmaViewModel.cs" />
+    <Compile Include="Models\ViewModels\ListInfractorViewModel.cs" />
     <Compile Include="Models\ViewModels\ListPoliciaViewModel.cs" />
     <Compile Include="Models\ViewModels\ListRequisitoViewModel.cs" />
     <Compile Include="Models\ViewModels\PoliciaViewModel.cs" />
