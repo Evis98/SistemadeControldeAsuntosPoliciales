@@ -68,8 +68,8 @@ namespace FrontEnd.Models.ViewModels
         [StringLength(150)]
         [Display(Name = "Nombre de la Madre")]
         public string NombreMadre { get; set; }
-        [StringLength(250)]
-        [Display(Name = "Imagen")]
+        [Display(Name = "Adjuntar imagen")]
+        public HttpPostedFileBase Archivo { get; set; }
         public string Imagen { get; set; }
         public IEnumerable<SelectListItem> TiposDeIdentificacion { get; set; }
         //public IEnumerable<SelectListItem> Sexo { get; set; }

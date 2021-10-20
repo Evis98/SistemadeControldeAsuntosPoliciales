@@ -14,6 +14,9 @@ namespace FrontEnd.Controllers
             return View();
         }
 
-       
+        public ActionResult Nuevo() 
+        {
+            return View();
+        }
     }
 }

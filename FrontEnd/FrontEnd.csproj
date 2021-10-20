@@ -301,11 +301,12 @@
     <Content Include="Views\Arma\Index.cshtml" />
     <Content Include="Views\Arma\Detalle.cshtml" />
     <Content Include="Views\Arma\Nuevo.cshtml" />
+    <Content Include="Views\Infractor\Index.cshtml" />
+    <Content Include="Views\Infractor\Nuevo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
-    <Folder Include="Views\Infractor\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
