@@ -11,7 +11,7 @@
     @using (Html.BeginForm("Editar", "Infractor", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         <div class="container">
-
+             @Html.HiddenFor(d=>d.IdInfractor)
             <div class="form-group col-md-3">
                 @Html.LabelFor(d => d.TipoIdentificacion)
                 @Html.DropDownListFor(d => d.TipoIdentificacion, Model.TiposDeIdentificacion, new { @class = "myselect form-control" })
@@ -88,7 +88,7 @@
             </div>
             <div class="form-group col-md-6">
                 @Html.LabelFor(d => d.Observaciones)
-                @Html.TextBoxFor(d => d.Observaciones, "", new { @class = "form-control", @maxlength = "150", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+                @Html.TextAreaFor(d => d.Observaciones, new { @class = "form-control", @maxlength = "150", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
                 @Html.ValidationMessageFor(d => d.Observaciones, null, new { @class = "red" })
             </div>
             <div class="form-group col-md-6">

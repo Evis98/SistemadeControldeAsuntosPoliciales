@@ -3,6 +3,7 @@ using BackEnd.DAL;
 using FrontEnd.Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -175,8 +176,24 @@ namespace FrontEnd.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    infractorDAL.Add(ConvertirInfractor(model));
-                    int aux = infractorDAL.GetNumeroIdInfractor(model.IdInfractor);
+
+                    string rutaSitio = Server.MapPath("~/");
+                    string pathArchivo = Path.Combine(rutaSitio + @"Files\" + model.Identificacion + ".png");
+                    Infractores infractor = ConvertirInfractor(model);
+                    
+
+                    if (model.Archivo != null)
+                    {
+                        infractor.imagen = @"~\Files\" + model.Identificacion + ".png";
+                        model.Archivo.SaveAs(pathArchivo);
+                    }
+                    else
+                    {
+                        infractor.imagen = null;
+                    }
+              
+                    infractorDAL.Add(infractor);
+                    int aux = infractorDAL.GetNumeroIdInfractor(model.Identificacion);
                     return Redirect("~/Infractor/Detalle/" + aux);
                 }
                 return View(model);

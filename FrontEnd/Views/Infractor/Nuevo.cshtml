@@ -51,9 +51,9 @@
         @Html.LabelFor(d => d.Sexo)
         @Html.DropDownListFor(d => d.Sexo, new SelectList(
       new List<Object> {
-    new  { Value = "1", text = "Masculino"  },
-    new  { Value = "2", text = "Femenino"},
-    new  { Value = "3", text = "Otro" }
+    new  { Value = "24", text = "Masculino"  },
+    new  { Value = "25", text = "Femenino"},
+    new  { Value = "26", text = "Otro" }
     },
     "value",
     "text"
@@ -88,7 +88,7 @@
     </div>
     <div class="form-group col-md-6">
         @Html.LabelFor(d => d.Observaciones)
-        @Html.TextBoxFor(d => d.Observaciones, "", new { @class = "form-control", @maxlength = "150", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+        @Html.TextAreaFor(d => d.Observaciones, new { @class = "form-control", @maxlength = "150", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
         @Html.ValidationMessageFor(d => d.Observaciones, null, new { @class = "red" })
     </div>
     <div class="form-group col-md-6">

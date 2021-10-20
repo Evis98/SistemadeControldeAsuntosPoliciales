@@ -63,12 +63,12 @@ namespace BackEnd.DAL
         }
 
         //Permite recibir el numero de indentificacion del infractor a través de su atributo "idInfractor"
-        public int GetNumeroIdInfractor(int idInfractor)
+        public int GetNumeroIdInfractor(string identificacionInfractor)
         {
             int id;
             using (SCAPEntities db = new SCAPEntities())
             {
-                id = db.Database.SqlQuery<int>("select numeroDeIdentificacion from Infractores where idInfractor ='" + idInfractor + "'").Single<int>();
+                id = db.Database.SqlQuery<int>("select idInfractor from Infractores where numeroDeIdentificacion ='" + identificacionInfractor + "'").Single<int>();
             }
             return id;
         }
