@@ -131,6 +131,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ArmaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InfractorController.cs" />
     <Compile Include="Controllers\PoliciaController.cs" />
     <Compile Include="Controllers\RequisitoController.cs" />
     <Compile Include="Global.asax.cs">
@@ -304,6 +305,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
+    <Folder Include="Views\Infractor\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
