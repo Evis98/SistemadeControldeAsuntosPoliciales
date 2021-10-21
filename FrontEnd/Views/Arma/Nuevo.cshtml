@@ -13,7 +13,7 @@
     {
         <div class="form-group col-md-3">
             @Html.LabelFor(d => d.NumeroSerie)
-            @Html.TextBoxFor(d => d.NumeroSerie, "", new { @class = "form-control", @maxlength = "20", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)" })
+            @Html.TextBoxFor(d => d.NumeroSerie, "", new { @class = "form-control", @maxlength = "20", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
             @Html.ValidationMessageFor(d => d.NumeroSerie, null, new { @class = "red" })
         </div>
         <div class="form-group col-md-4">

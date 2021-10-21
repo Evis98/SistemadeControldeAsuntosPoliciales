@@ -105,7 +105,17 @@ namespace BackEnd.DAL
             return aux;
         }
 
-        public List<TablaGeneral> GetTipoSexoInfractor()
+        public int GetTipoSexoInfractor(int? tipoSexo)
+        {
+            int aux;
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                aux = db.Database.SqlQuery<int>("Select idTablaGeneral from TablaGeneral where tabla= 'Infractores' and campo = 'sexo' and codigo =" + tipoSexo).Single<int>();
+            }
+
+            return aux;
+        }
+        public List<TablaGeneral> GetTiposSexoInfractor()
         {
             List<TablaGeneral> descripcion;
             using (SCAPEntities db = new SCAPEntities())
@@ -163,7 +173,7 @@ namespace BackEnd.DAL
             return descripcion;
         }
 
-        public int getIdTipoArma(int tipoArma) {
+        public int GetIdTipoArma(int tipoArma) {
 
             int aux;
             using (SCAPEntities db = new SCAPEntities())
@@ -173,7 +183,7 @@ namespace BackEnd.DAL
 
             return aux;
         }
-        public int getIdCalibreArma(int calibre) {
+        public int GetIdCalibreArma(int calibre) {
             int aux;
             using (SCAPEntities db = new SCAPEntities())
             {
@@ -182,7 +192,7 @@ namespace BackEnd.DAL
 
             return aux;
         }
-        public int getIdCondicionArma(int condicion) {
+        public int GetIdCondicionArma(int condicion) {
 
             int aux;
             using (SCAPEntities db = new SCAPEntities())
@@ -192,7 +202,7 @@ namespace BackEnd.DAL
 
             return aux;
         }
-        public int getIdUbicacionArma(int ubicacion) {
+        public int GetIdUbicacionArma(int ubicacion) {
 
             int aux;
             using (SCAPEntities db = new SCAPEntities())

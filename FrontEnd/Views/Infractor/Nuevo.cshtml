@@ -49,31 +49,23 @@
     </div>
     <div class="form-group col-md-2">
         @Html.LabelFor(d => d.Sexo)
-        @Html.DropDownListFor(d => d.Sexo, new SelectList(
-      new List<Object> {
-    new  { Value = "24", text = "Masculino"  },
-    new  { Value = "25", text = "Femenino"},
-    new  { Value = "26", text = "Otro" }
-    },
-    "value",
-    "text"
-       ), new { @class = "myselect form-control" })
-        @Html.ValidationMessageFor(d => d.TipoIdentificacion, null, new { @class = "red" })
+        @Html.DropDownListFor(d => d.Sexo, Model.TiposDeSexo, new { @class = "myselect form-control" })
+        @Html.ValidationMessageFor(d => d.Sexo, null, new { @class = "red" })
     </div>
     <div class="form-group col-md-6">
         @Html.LabelFor(d => d.CorreoElectronico)
         @Html.TextBoxFor(d => d.CorreoElectronico, "", new { @class = "form-control", @maxlength = "100" })
         @Html.ValidationMessageFor(d => d.CorreoElectronico, null, new { @class = "red" })
     </div>
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-3">
 
         @Html.LabelFor(d => d.ProfesionUOficio)
         @Html.TextBoxFor(d => d.ProfesionUOficio, "", new { @class = "form-control", @maxlength = "50", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
         @Html.ValidationMessageFor(d => d.ProfesionUOficio, null, new { @class = "red" })
     </div>
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-2">
         @Html.LabelFor(d => d.Estatura)
-        @Html.TextBoxFor(d => d.Estatura, "", new { @class = "form-control", @maxlength = "4", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)" })
+        @Html.TextBoxFor(d => d.Estatura, "", new { @class = "form-control inputheight", @maxlength = "4", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)" })
         @Html.ValidationMessageFor(d => d.Estatura, null, new { @class = "red" })
     </div>
     <div class="form-group col-md-6">

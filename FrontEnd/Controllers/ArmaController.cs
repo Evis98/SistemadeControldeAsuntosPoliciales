@@ -37,12 +37,12 @@ namespace FrontEnd.Controllers
                 idArma = modelo.IdArma,
                 policiaAsignado = modelo.PoliciaAsignado,
                 numeroSerie = modelo.NumeroSerie,
-                tipoArma = tablaGeneralDAL.getIdTipoArma(modelo.TipoArma),
+                tipoArma = tablaGeneralDAL.GetIdTipoArma(modelo.TipoArma),
                 marca = modelo.Marca,
                 modelo = modelo.Modelo,
-                calibre = tablaGeneralDAL.getIdCalibreArma(modelo.Calibre),
-                condicion = tablaGeneralDAL.getIdCondicionArma(modelo.Condicion),
-                ubicacion = tablaGeneralDAL.getIdUbicacionArma(modelo.Ubicacion),
+                calibre = tablaGeneralDAL.GetIdCalibreArma(modelo.Calibre),
+                condicion = tablaGeneralDAL.GetIdCondicionArma(modelo.Condicion),
+                ubicacion = tablaGeneralDAL.GetIdUbicacionArma(modelo.Ubicacion),
                 observacion = modelo.Observacion,
                 estadoArma = tablaGeneralDAL.EstadoDefaultArma(),
             };
@@ -179,7 +179,7 @@ namespace FrontEnd.Controllers
                 if (ModelState.IsValid)
                 {
                     armaDAL.Edit(ConvertirArma(modelo));
-                    return Redirect("~/Policia/Detalle/" + modelo.IdArma);
+                    return Redirect("~/Arma/Detalle/" + modelo.IdArma);
                 }
                 return View(modelo);
             }

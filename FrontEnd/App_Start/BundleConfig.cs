@@ -29,6 +29,8 @@ namespace FrontEnd
                       "~/js/validations.js"));
             bundles.Add(new ScriptBundle("~/bundles/busqueda").Include(
           "~/js/busqueda.js"));
+            bundles.Add(new ScriptBundle("~/bundles/ValidarEstatura").Include(
+         "~/js/ValidarEstatura.js"));
         }
     }
 }
