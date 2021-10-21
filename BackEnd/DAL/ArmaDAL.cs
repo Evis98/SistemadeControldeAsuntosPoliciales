@@ -54,7 +54,7 @@ namespace BackEnd.DAL
             int arma;
             using (SCAPEntities db = new SCAPEntities())
             {
-                arma = db.Database.SqlQuery<int>("select idArma from Armas where numeroSeria ='" + numSerie + "'").Single<int>();
+                arma = db.Database.SqlQuery<int>("select idArma from Armas where numeroSerie ='" + numSerie + "'").Single<int>();
             }
             return arma;
         }

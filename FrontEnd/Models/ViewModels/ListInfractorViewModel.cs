@@ -63,8 +63,8 @@ namespace FrontEnd.Models.ViewModels
      
         [Display(Name = "Nombre de la Madre")]
         public string NombreMadre { get; set; }
-        
-        [Display(Name = "Imagen")]
+
+        [Display(Name = "Fotografía")]
         public string Imagen { get; set; }
 
         [Display(Name = "Edad")]

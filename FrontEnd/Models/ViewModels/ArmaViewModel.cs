@@ -44,7 +44,6 @@ namespace FrontEnd.Models.ViewModels
         public string Modelo { get; set; }
 
         public IEnumerable<SelectListItem> TiposArma { get; set; }
-
         public IEnumerable<SelectListItem> TiposCalibre { get; set; }
         public IEnumerable<SelectListItem> TiposCondicion { get; set; }
         public IEnumerable<SelectListItem> TiposUbicacion { get; set; }

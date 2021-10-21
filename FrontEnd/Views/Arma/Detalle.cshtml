@@ -1,4 +1,4 @@
-﻿@model FrontEnd.Models.ViewModels.ArmaViewModel
+﻿@model FrontEnd.Models.ViewModels.ListArmaViewModel
 
 @{ ViewBag.Title = "Arma"; }
 
@@ -72,9 +72,8 @@
         <dd class="col-sm-8">
             @Html.DisplayTextFor(d => d.EstadoArma)
         </dd>
-
         <dd class="col-sm-8">
-            <a class="btn btn-warning" data-toggle="modal">Cambiar Estado</a>
+            <a class="btn btn-warning" data-toggle="modal" data-target="#show3">Cambiar Estado</a>
         </dd>
 
     </dl>
@@ -84,5 +83,24 @@
         <a class="btn btn-primary" href="~/Arma/Editar/@Model.IdArma">Editar</a>
         <a class="btn btn-info" href="~/Arma/Index/">Regresar</a>
     </div>
-
+</div>
+<div class="modal" id="show3" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modificar Estado</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>¿Está seguro que desea modificar el estado del arma?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger" id="Cancel" data-dismiss="modal">Cancelar</button>
+                <a class="btn btn-primary" id="Save"  href="~/Arma/CambioEstadoArma/@Model.EstadoArma">Modificar</a>
+            </div>
+        </div>
+    </div>
+</div>
 </div>

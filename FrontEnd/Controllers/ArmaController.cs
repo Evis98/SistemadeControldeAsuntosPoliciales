@@ -37,14 +37,14 @@ namespace FrontEnd.Controllers
                 idArma = modelo.IdArma,
                 policiaAsignado = modelo.PoliciaAsignado,
                 numeroSerie = modelo.NumeroSerie,
-                tipoArma = modelo.TipoArma,
+                tipoArma = tablaGeneralDAL.getIdTipoArma(modelo.TipoArma),
                 marca = modelo.Marca,
                 modelo = modelo.Modelo,
-                calibre = modelo.Calibre,
-                condicion = modelo.Condicion,
-                ubicacion = modelo.Ubicacion,
+                calibre = tablaGeneralDAL.getIdCalibreArma(modelo.Calibre),
+                condicion = tablaGeneralDAL.getIdCondicionArma(modelo.Condicion),
+                ubicacion = tablaGeneralDAL.getIdUbicacionArma(modelo.Ubicacion),
                 observacion = modelo.Observacion,
-                estadoArma = modelo.EstadoArma,
+                estadoArma = tablaGeneralDAL.EstadoDefaultArma(),
             };
         }
         public ArmaViewModel CargarArma(Armas arma)
@@ -133,6 +133,7 @@ namespace FrontEnd.Controllers
         public ActionResult Nuevo(ArmaViewModel model)
         {
             policiaDAL = new PoliciaDAL();
+            armaDAL = new ArmaDAL();
             try
             {
                 if (ModelState.IsValid)
@@ -151,7 +152,7 @@ namespace FrontEnd.Controllers
         }
         public ActionResult Detalle(int id)
         {
-            Session["idPolicia"] = id;
+            Session["idArma"] = id;
             armaDAL = new ArmaDAL();
             ListArmaViewModel modelo = ConvertirArmaInverso(armaDAL.GetArma(id));
             return View(modelo);
@@ -159,6 +160,8 @@ namespace FrontEnd.Controllers
         public ActionResult Editar(int id)
         {
             armaDAL = new ArmaDAL();
+            tablaGeneralDAL = new TablaGeneralDAL();
+
             ArmaViewModel modelo = CargarArma(armaDAL.GetArma(id));
             modelo.TiposArma = tablaGeneralDAL.GetTiposArma().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             modelo.TiposCalibre = tablaGeneralDAL.GetTiposCalibre().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
@@ -167,6 +170,46 @@ namespace FrontEnd.Controllers
             return View(modelo);
         }
 
-
+        [HttpPost]
+        public ActionResult Editar(ArmaViewModel modelo)
+        {
+            armaDAL = new ArmaDAL();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    armaDAL.Edit(ConvertirArma(modelo));
+                    return Redirect("~/Policia/Detalle/" + modelo.IdArma);
+                }
+                return View(modelo);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public ActionResult CambioEstadoArma(string id)
+        {
+            int estado;
+            armaDAL = new ArmaDAL();
+            tablaGeneralDAL = new TablaGeneralDAL();
+            try
+            {
+                if (id == "Activo")
+                {
+                    estado = tablaGeneralDAL.GetIdEstadoArmas("Inactivo");
+                }
+                else
+                {
+                    estado = tablaGeneralDAL.GetIdEstadoArmas("Activo");
+                }
+                tablaGeneralDAL.CambiaEstadoArma((int)Session["idArma"], estado);
+                return Redirect("~/Arma/Detalle/" + Session["idArma"]);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

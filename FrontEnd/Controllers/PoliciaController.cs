@@ -205,11 +205,11 @@ namespace FrontEnd.Controllers
             {
                 if (tablaGeneralDAL.GetDescripcion(id) == "Activo")
                 {
-                    estado = tablaGeneralDAL.GetIdEstado("Inactivo");
+                    estado = tablaGeneralDAL.GetIdEstadoPolicia("Inactivo");
                 }
                 else
                 {
-                    estado = tablaGeneralDAL.GetIdEstado("Activo");
+                    estado = tablaGeneralDAL.GetIdEstadoPolicia("Activo");
                 }
                 policiaDAL.CambiaEstadoPolicia((int)Session["idPolicia"], estado);
                 return Redirect("~/Policia/Detalle/" + Session["idPolicia"]);

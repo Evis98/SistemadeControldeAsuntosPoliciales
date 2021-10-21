@@ -33,7 +33,7 @@ namespace BackEnd.DAL
         }
 
         //Permite recibir el atributo "idTablaGeneral" de la Tabla General haciendo uso del atributo "estado" de la misma tabla
-        public int GetIdEstado(string estado)
+        public int GetIdEstadoPolicia(string estado)
         {
             int IdTabla;
             using (SCAPEntities db = new SCAPEntities())
@@ -115,7 +115,7 @@ namespace BackEnd.DAL
             return descripcion;
         }
 
-       public List<TablaGeneral> GetTiposIdentificacionInfractor() 
+        public List<TablaGeneral> GetTiposIdentificacionInfractor()
         {
             List<TablaGeneral> tiposIdentificacion;
             using (SCAPEntities db = new SCAPEntities())
@@ -163,14 +163,71 @@ namespace BackEnd.DAL
             return descripcion;
         }
 
+        public int getIdTipoArma(int tipoArma) {
 
+            int aux;
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                aux = db.Database.SqlQuery<int>("Select idTablaGeneral from TablaGeneral where tabla= 'Armas' and campo = 'tipoArma' and codigo =" + tipoArma).Single<int>();
+            }
 
+            return aux;
+        }
+        public int getIdCalibreArma(int calibre) {
+            int aux;
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                aux = db.Database.SqlQuery<int>("Select idTablaGeneral from TablaGeneral where tabla= 'Armas' and campo = 'calibre' and codigo =" + calibre).Single<int>();
+            }
+
+            return aux;
+        }
+        public int getIdCondicionArma(int condicion) {
+
+            int aux;
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                aux = db.Database.SqlQuery<int>("Select idTablaGeneral from TablaGeneral where tabla= 'Armas' and campo = 'condicion' and codigo =" + condicion).Single<int>();
+            }
+
+            return aux;
+        }
+        public int getIdUbicacionArma(int ubicacion) {
+
+            int aux;
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                aux = db.Database.SqlQuery<int>("Select idTablaGeneral from TablaGeneral where tabla= 'Armas' and campo = 'ubicacion' and codigo =" + ubicacion).Single<int>();
+            }
+
+            return aux;
+        }
+        public int EstadoDefaultArma() {
+            int aux;
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                aux = db.Database.SqlQuery<int>("Select idTablaGeneral from TablaGeneral where tabla= 'Armas' and campo = 'estadoArma' and descripcion = 'Activo'").Single<int>();
+            }
+
+            return aux;
+        }
+        public int GetIdEstadoArmas(string estadoArma)
+        {
+            int IdTabla;
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                IdTabla = db.Database.SqlQuery<int>("Select idTablaGeneral from TablaGeneral where tabla= 'Armas' and campo = 'estadoArma' and descripcion = '" + estadoArma + "'").Single<int>();
+            }
+            return IdTabla;
+        }
+        public void CambiaEstadoArma(int idArma, int estado)
+        {
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                string comando = "update Armas set estadoArma = " + estado + "where idArma = " + idArma;
+                db.Database.ExecuteSqlCommand(comando);
+                db.SaveChanges();
+            }
+        }
     }
-
-
-
-
-
-
-
 }

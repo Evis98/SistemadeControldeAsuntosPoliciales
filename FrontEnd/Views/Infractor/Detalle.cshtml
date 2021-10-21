@@ -104,6 +104,12 @@
         <dd class="col-sm-8">
             @Html.DisplayTextFor(d => d.Observaciones)
         </dd>
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.Imagen)
+        </dt>
+        <dd class="col-sm-8">
+            <img src="@Url.Content(Model.Imagen)" style="width:220px;height:300px;">
+        </dd>
 
     </dl>
 

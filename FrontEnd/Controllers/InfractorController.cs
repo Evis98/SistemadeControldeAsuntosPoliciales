@@ -133,7 +133,7 @@ namespace FrontEnd.Controllers
             {
                 foreach (Infractores infractor in infractores)
                 {
-                    if (filtroSeleccionado == "No de Identificación")
+                    if (filtroSeleccionado == "Cédula")
                     {
                         if (infractor.numeroDeIdentificacion.Contains(busqueda))
                         {

@@ -10,7 +10,7 @@ namespace BackEnd.DAL
     {
         int EstadoDefault();
         int GetTipoCedula(int? tipoCedula);
-        int GetIdEstado(string estado);
+        int GetIdEstadoPolicia(string estado);
         int GetTipoRequisito(int? tipoRequisito);
         string GetDescripcion(int? idTablaGeneral);
         List<TablaGeneral> GetTiposArma();
@@ -22,7 +22,12 @@ namespace BackEnd.DAL
         List<TablaGeneral> GetTiposCalibre(); 
         List<TablaGeneral> GetTiposCondicion();
         List<TablaGeneral> GetTiposUbicacion();
-
-
+        int getIdTipoArma(int tipoArma);
+        int getIdCalibreArma(int calibre);
+        int getIdCondicionArma(int condicion);
+        int getIdUbicacionArma(int ubicacion);
+        int EstadoDefaultArma();
+        int GetIdEstadoArmas(string estadoArma);
+        void CambiaEstadoArma(int idArma, int estado);
     }
 }
