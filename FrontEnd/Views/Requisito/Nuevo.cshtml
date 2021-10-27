@@ -19,7 +19,7 @@
     </div>
     <div class="form-group col-md-6">
         @Html.LabelFor(d => d.Detalles)
-        @Html.TextAreaFor(d => d.Detalles, new { @class = "form-control", @maxlength = "250", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)" })
+        @Html.TextAreaFor(d => d.Detalles, new { @class = "form-control",  @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)" })
         @Html.ValidationMessageFor(d => d.Detalles, null, new { @class = "red" })
     </div>
     <div class="form-group col-md-3">
@@ -29,7 +29,7 @@
     <div class="form-group col-md-3">
         @Html.LabelFor(d => d.Archivo)
         @Html.TextBoxFor(d => d.Archivo, new { @type = "file", accept = ".pdf" })
-        @Html.ValidationMessageFor(d => d.Archivo, "", new { @class = "text-danger" })
+        @Html.ValidationMessageFor(d => d.Archivo, "", new { @class = "red" })
     </div>
     <div class="modal" id="show6" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">

@@ -13,8 +13,12 @@
     {
         <div class="form-group col-md-3">
             @Html.LabelFor(d => d.NumeroSerie)
-            @Html.TextBoxFor(d => d.NumeroSerie, "", new { @class = "form-control", @maxlength = "20", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+            @Html.TextBoxFor(d => d.NumeroSerie, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+
+        </div>
+        <div class="form-group col-md-6">
             @Html.ValidationMessageFor(d => d.NumeroSerie, null, new { @class = "red" })
+
         </div>
         <div class="form-group col-md-4">
             @Html.LabelFor(d => d.PoliciaAsignado)
@@ -33,12 +37,16 @@
         </div>
         <div class="form-group col-md-3">
             @Html.LabelFor(d => d.Marca)
-            @Html.TextBoxFor(d => d.Marca, "", new { @class = "form-control", @maxlength = "20", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+            @Html.TextBoxFor(d => d.Marca, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+        </div>
+        <div class="form-group col-md-8">
             @Html.ValidationMessageFor(d => d.Marca, null, new { @class = "red" })
         </div>
         <div class="form-group col-md-3">
             @Html.LabelFor(d => d.ModeloArma)
-            @Html.TextBoxFor(d => d.ModeloArma, "", new { @class = "form-control", @maxlength = "20", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+            @Html.TextBoxFor(d => d.ModeloArma, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+        </div>
+        <div class="form-group col-md-6">
             @Html.ValidationMessageFor(d => d.ModeloArma, null, new { @class = "red" })
         </div>
         <div class="form-group col-md-2">
@@ -58,7 +66,7 @@
         </div>
         <div class="form-group col-md-4">
             @Html.LabelFor(d => d.Observacion)
-            @Html.TextAreaFor(d => d.Observacion, new { @class = "form-control", @maxlength = "250", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)" })
+            @Html.TextAreaFor(d => d.Observacion, new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
             @Html.ValidationMessageFor(d => d.Observacion, null, new { @class = "red" })
         </div>
         <div class="modal" id="show" tabindex="-1" role="dialog">

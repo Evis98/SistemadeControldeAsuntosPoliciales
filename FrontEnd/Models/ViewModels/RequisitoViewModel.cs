@@ -19,7 +19,7 @@ namespace FrontEnd.Models.ViewModels
         [Display(Name = "Tipo de Requisito")]
         public int TipoRequisito { get; set; }
         [Required]
-        [StringLength(250)]
+        [StringLength(250, ErrorMessage = "Detalles exceden los 250 caracteres.")]
         [Display(Name = "Detalles")]
         public string Detalles { get; set; }
         [Display(Name = "Archivo")]
@@ -28,4 +28,5 @@ namespace FrontEnd.Models.ViewModels
         public string Imagen { get; set; }
         public int? IdPolicia { get; set; }
     }
+
 }

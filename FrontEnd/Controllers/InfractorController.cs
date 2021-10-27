@@ -239,7 +239,9 @@ namespace FrontEnd.Controllers
         public ActionResult Editar(InfractorViewModel modelo)
         {
             infractorDAL = new InfractorDAL();
-
+            tablaGeneralDAL = new TablaGeneralDAL();
+            modelo.TiposDeIdentificacion = tablaGeneralDAL.GetTiposIdentificacionInfractor().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            modelo.TiposDeSexo = tablaGeneralDAL.GetTiposSexoInfractor().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             try
             {
                 if (ModelState.IsValid)
@@ -262,6 +264,7 @@ namespace FrontEnd.Controllers
                     {
                         infractor.imagen = modelo.Imagen;
                     }
+                    
                     infractorDAL.Edit(infractor);
                     return Redirect("~/Infractor/Detalle/" + modelo.IdInfractor);
                 }

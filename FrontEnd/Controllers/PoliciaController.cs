@@ -141,6 +141,8 @@ namespace FrontEnd.Controllers
         public ActionResult Nuevo(PoliciaViewModel model)
         {
           policiaDAL = new PoliciaDAL();
+          tablaGeneralDAL = new TablaGeneralDAL();
+          model.TiposCedula = tablaGeneralDAL.GetTiposCedulaPolicia().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             try
             {
                 if (ModelState.IsValid)
@@ -181,6 +183,8 @@ namespace FrontEnd.Controllers
         public ActionResult Editar(PoliciaViewModel modelo)
         {
             policiaDAL = new PoliciaDAL();
+            tablaGeneralDAL = new TablaGeneralDAL();
+            modelo.TiposCedula = tablaGeneralDAL.GetTiposCedulaPolicia().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             try
             {
                 if (ModelState.IsValid)

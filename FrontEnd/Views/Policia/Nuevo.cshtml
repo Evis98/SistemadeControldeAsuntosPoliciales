@@ -19,13 +19,15 @@
     </div>
     <div class="form-group col-md-3">
         @Html.LabelFor(d => d.Cedula)
-        @Html.TextBoxFor(d => d.Cedula, "", new { @class = "form-control", @maxlength = "25", @id = "pcedula", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)" })
+        @Html.TextBoxFor(d => d.Cedula, "", new { @class = "form-control", @id = "pcedula", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)" })
+       
+    </div>
+    <div class="form-group col-md-8">
         @Html.ValidationMessageFor(d => d.Cedula, null, new { @class = "red" })
     </div>
     <div class="form-group col-md-6">
-
         @Html.LabelFor(d => d.Nombre)
-        @Html.TextBoxFor(d => d.Nombre, "", new { @class = "form-control", @maxlength = "150", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)" })
+        @Html.TextBoxFor(d => d.Nombre, "", new { @class = "form-control", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)" })
         @Html.ValidationMessageFor(d => d.Nombre, null, new { @class = "red" })
     </div>
     <div class="form-group col-md-3">
@@ -37,38 +39,50 @@
     <div class="form-group col-md-3">
 
         @Html.LabelFor(d => d.TelefonoCelular)
-        @Html.TextBoxFor(d => d.TelefonoCelular, "", new { @class = "inputphone form-control", @maxlength = "100" })
+        @Html.TextBoxFor(d => d.TelefonoCelular, "", new { @class = "inputphone form-control" })
+      
+    </div>
+    <div class="form-group col-md-8">
         @Html.ValidationMessageFor(d => d.TelefonoCelular, null, new { @class = "red" })
+
     </div>
     <div class="form-group col-md-3">
         @Html.LabelFor(d => d.TelefonoCasa)
         @Html.TextBoxFor(d => d.TelefonoCasa, "", new { @class = "inputphone form-control" })
-        @Html.ValidationMessageFor(d => d.TelefonoCasa, null, new { @class = "red" })
+
 
     </div>
 
     <div class="form-group col-md-6">
         @Html.LabelFor(d => d.Direccion)
-        @Html.TextAreaFor(d => d.Direccion, new { @class = "form-control", @maxlength = "250", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+        @Html.TextAreaFor(d => d.Direccion, new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
         @Html.ValidationMessageFor(d => d.Direccion, null, new { @class = "red" })
     </div>
 
     <div class="form-group col-md-6">
         @Html.LabelFor(d => d.CorreoElectronico)
-        @Html.TextBoxFor(d => d.CorreoElectronico, "", new { @class = "form-control", @maxlength = "100" })
+        @Html.TextBoxFor(d => d.CorreoElectronico, "", new { @class = "form-control" })
         @Html.ValidationMessageFor(d => d.CorreoElectronico, null, new { @class = "red" })
     </div>
 
     <div class="form-group col-md-6">
 
         @Html.LabelFor(d => d.ContactoEmergencia)
-        @Html.TextBoxFor(d => d.ContactoEmergencia, "", new { @class = "form-control", @maxlength = "150", @id = "TContacto", @onkeypress = "return sololetras(event)" })
+        @Html.TextBoxFor(d => d.ContactoEmergencia, "", new { @class = "form-control", @id = "TContacto", @onkeypress = "return sololetras(event)" })
         @Html.ValidationMessageFor(d => d.ContactoEmergencia, null, new { @class = "red" })
     </div>
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-8">
         @Html.LabelFor(d => d.TelefonoEmergencia)
+
+    </div>
+    <div class="form-group col-md-3">
+
         @Html.TextBoxFor(d => d.TelefonoEmergencia, "", new { @class = "inputphone form-control" })
+
+    </div>
+    <div class="form-group col-md-6">
         @Html.ValidationMessageFor(d => d.TelefonoEmergencia, null, new { @class = "red" })
+
     </div>
     <div class="modal" id="show" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">

@@ -57,12 +57,14 @@
         <dd class="col-sm-8">
             @Html.DisplayTextFor(d => d.Ubicacion)
         </dd>
+        @if(Model.Observacion != null) { 
         <dt class="col-sm-4">
             @Html.LabelFor(d => d.Observacion)
         </dt>
         <dd class="col-sm-8">
             @Html.DisplayTextFor(d => d.Observacion)
         </dd>
+        }
         <dt class="col-sm-4">
             @Html.LabelFor(d => d.EstadoArma)
         </dt>

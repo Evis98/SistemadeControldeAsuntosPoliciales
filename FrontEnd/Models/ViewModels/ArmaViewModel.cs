@@ -10,34 +10,36 @@ namespace FrontEnd.Models.ViewModels
     public class ArmaViewModel
     {
         public int IdArma { get; set; }
+        [Required]
         [Display(Name = "Policía Asignado")]
         public int? PoliciaAsignado { get; set; }
         [Required]
-        [StringLength(20)]
-        [Display(Name = "Número de serie")]
+        [StringLength(20, ErrorMessage = "Número de Serie excede los 20 caracteres.")]
+        [Display(Name = "Número de Serie")]
         public string NumeroSerie { get; set; }
         [Required]
-        [Display(Name = "Tipo de arma")]
+        [Display(Name = "Tipo de Arma")]
         public int TipoArma { get; set; }
         [Required]
-        [StringLength(50)]
-        [Display(Name = "Marca del arma")]
+        [StringLength(50, ErrorMessage = "Marca excede los 50 caracteres.")]
+        [Display(Name = "Marca del Arma")]
         public string Marca { get; set; }
         [Required]
-        [Display(Name = "Calibre del arma")]
+        [Display(Name = "Calibre del Arma")]
         public int Calibre { get; set; }
         [Required]
-        [Display(Name = "Condicíon del arma")]
+        [Display(Name = "Condición del Arma")]
         public int Condicion { get; set; }
         [Required]
-        [Display(Name = "Ubicación del arma")]
+        [Display(Name = "Ubicación del Arma")]
         public int Ubicacion { get; set; }
-        [Required]
-        [StringLength(100)]
+        
+        [StringLength(150, ErrorMessage = "Observaciones exceden los 150 caracteres.")]
         [Display(Name = "Observaciones")]
         public string Observacion { get; set; }
         [Required]
-        [Display(Name = " Modelo del arma")]
+        [StringLength(50, ErrorMessage = "Modelo excede los 50 caracteres.")]
+        [Display(Name = " Modelo del Arma")]
         public string ModeloArma { get; set; }
         public IEnumerable<SelectListItem> TiposArma { get; set; }
         public IEnumerable<SelectListItem> TiposCalibre { get; set; }
