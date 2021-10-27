@@ -46,6 +46,7 @@ namespace FrontEnd.Models.ViewModels
         public IEnumerable<SelectListItem> TiposCondicion { get; set; }
         public IEnumerable<SelectListItem> TiposUbicacion { get; set; }
         public IEnumerable<SelectListItem> ListaPolicias { get; set; }
+        public string SerieFiltrada { get; set;}
         public int EstadoArma { get; set; }
     }
 }

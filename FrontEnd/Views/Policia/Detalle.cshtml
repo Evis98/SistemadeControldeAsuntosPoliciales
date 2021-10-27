@@ -58,36 +58,39 @@
         <dd class="col-sm-8">
             @Html.DisplayTextFor(d => d.TelefonoCelular)
         </dd>
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.TelefonoCasa)
-        </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.TelefonoCasa)
-        </dd>
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.ContactoEmergencia)
-        </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.ContactoEmergencia)
-        </dd>
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.TelefonoEmergencia)
-        </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.TelefonoEmergencia)
-        </dd>
+        @if (Model.TelefonoCasa != null)
+        {
+            <dt class="col-sm-4">
+                @Html.LabelFor(d => d.TelefonoCasa)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayTextFor(d => d.TelefonoCasa)
+            </dd>
+        }
+            <dt class="col-sm-4">
+                @Html.LabelFor(d => d.ContactoEmergencia)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayTextFor(d => d.ContactoEmergencia)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.LabelFor(d => d.TelefonoEmergencia)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayTextFor(d => d.TelefonoEmergencia)
+            </dd>
 
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.DescripcionEstado)
-        </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.DescripcionEstado)
-        </dd>
+            <dt class="col-sm-4">
+                @Html.LabelFor(d => d.DescripcionEstado)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayTextFor(d => d.DescripcionEstado)
+            </dd>
 
-        <dd class="col-sm-9">
-            <a class="btn btn-warning" data-toggle="modal" data-target="#show3">Cambiar Estado</a>
-        </dd>
-    </dl>
+            <dd class="col-sm-9">
+                <a class="btn btn-warning" data-toggle="modal" data-target="#show3">Cambiar Estado</a>
+            </dd>
+        </dl>
 
     <div class="row" style="text-align:right;">
         <a href="~/Policia/Index/" class="btn btn-outline-secondary">Regresar</a>

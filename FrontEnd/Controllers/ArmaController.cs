@@ -142,18 +142,30 @@ namespace FrontEnd.Controllers
 
         //Guarda la información ingresada en la página para crear policías
         [HttpPost]
-        public ActionResult Nuevo(ArmaViewModel model)
+        public ActionResult Nuevo(ArmaViewModel model, string filtroCedula)
         {
             policiaDAL = new PoliciaDAL();
             armaDAL = new ArmaDAL();
+            tablaGeneralDAL = new TablaGeneralDAL();
+            List<Policias> policiasFiltrados = BuscarPolicias(policiaDAL.GetPolicias(), filtroCedula);
+            model.SerieFiltrada = armaDAL.GetSerieArma(model.NumeroSerie);
             try
             {
-                if (ModelState.IsValid)
+                if (!armaDAL.SerieExiste(model.NumeroSerie))
                 {
-                    armaDAL.Add(ConvertirArma(model));
-                    int aux = armaDAL.GetArmaNumSerie(model.NumeroSerie);
-                    return Redirect("~/Arma/Detalle/" + aux);
+                    if (ModelState.IsValid)
+                    {
+                        armaDAL.Add(ConvertirArma(model));
+                        int aux = armaDAL.GetArmaNumSerie(model.NumeroSerie);
+                        return Redirect("~/Arma/Detalle/" + aux);
+                    }
                 }
+                model.TiposArma = tablaGeneralDAL.GetTiposArma().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+                model.TiposCalibre = tablaGeneralDAL.GetTiposCalibre().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+                model.TiposCondicion = tablaGeneralDAL.GetTiposCondicion().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+                model.TiposUbicacion = tablaGeneralDAL.GetTiposUbicacion().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+                model.ListaPolicias = policiasFiltrados.Select(i => new SelectListItem() { Text = i.nombre, Value = i.cedula });
+
                 return View(model);
             }
             catch (Exception ex)

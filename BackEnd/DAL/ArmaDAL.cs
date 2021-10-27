@@ -58,5 +58,26 @@ namespace BackEnd.DAL
             }
             return arma;
         }
+        public bool SerieExiste(string serie)
+        {
+            int contador;
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                contador = db.Database.SqlQuery<int>("select count(numeroSerie) from Armas where numeroSerie ='" + serie + "'").Single<int>();
+            }
+
+            return contador > 0 ? true : false;
+        }
+        public string GetSerieArma(string serie)
+        {
+            if (SerieExiste(serie))
+            {
+                return serie;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

@@ -41,7 +41,6 @@ namespace FrontEnd.Models.ViewModels
         [StringLength(9, ErrorMessage = "Escriba un número de teléfono con 8 digitos.", MinimumLength = 9)]
         [Display(Name = "Teléfono Celular")]
         public string TelefonoCelular { get; set; }
-        [Required]
         [StringLength(9, ErrorMessage = "Escriba un número de teléfono con 8 digitos.", MinimumLength = 9)]
         [Display(Name = "Teléfono de Casa")]
         public string TelefonoCasa { get; set; }
