@@ -69,14 +69,14 @@ namespace FrontEnd.Controllers
             return new InfractorViewModel
             {
                 IdInfractor = infractor.idInfractor,
-                TipoIdentificacion = infractor.tipoDeIdentificacion,
+                TipoIdentificacion = int.Parse(tablaGeneralDAL.GetCodigo(infractor.tipoDeIdentificacion)),
                 Identificacion = infractor.numeroDeIdentificacion,
                 Nacionalidad = infractor.nacionalidad,
                 Nombre = infractor.nombreCompleto,
                 FechaNacimiento = infractor.fechaNacimiento,
                 Telefono = infractor.telefono,
                 DireccionExacta = infractor.direccionExacta,
-                Sexo = infractor.sexo,
+                Sexo = int.Parse(tablaGeneralDAL.GetCodigo(infractor.sexo)),
                 CorreoElectronico = infractor.correoEletronico,
                 Observaciones = infractor.observaciones,
                 ProfesionUOficio = infractor.profesionUOficio,
@@ -106,7 +106,7 @@ namespace FrontEnd.Controllers
                 CorreoElectronico = infractor.correoEletronico,
                 Observaciones = infractor.observaciones,
                 ProfesionUOficio = infractor.profesionUOficio,
-                Estatura = infractor.estatura,
+                Estatura = infractor.estatura + " m",
                 Tatuajes = infractor.tatuajes,
                 NombrePadre = infractor.nombreDelPadre,
                 NombreMadre = infractor.nombreDeLaMadre,
@@ -174,30 +174,38 @@ namespace FrontEnd.Controllers
         public ActionResult Nuevo(InfractorViewModel model)
         {
             infractorDAL = new InfractorDAL();
+            tablaGeneralDAL = new TablaGeneralDAL();
+            model.CedulaFiltrada = infractorDAL.GetCedulaInfractor(model.Identificacion);
             try
             {
-                if (ModelState.IsValid)
+                if (!infractorDAL.IdentificacionExiste(model.Identificacion))
                 {
-
-                    string rutaSitio = Server.MapPath("~/");
-                    string pathArchivo = Path.Combine(rutaSitio + @"Files\" + model.Identificacion + ".png");
-                    Infractores infractor = ConvertirInfractor(model);
-                    
-
-                    if (model.Archivo != null)
+                    if (ModelState.IsValid)
                     {
-                        infractor.imagen = @"~\Files\" + model.Identificacion + ".png";
-                        model.Archivo.SaveAs(pathArchivo);
+
+                        string rutaSitio = Server.MapPath("~/");
+                        string pathArchivo = Path.Combine(rutaSitio + @"Files" + model.Identificacion + ".png");
+                        Infractores infractor = ConvertirInfractor(model);
+
+
+                        if (model.Archivo != null)
+                        {
+                            infractor.imagen = @"~\Files" + model.Identificacion + ".png";
+                            model.Archivo.SaveAs(pathArchivo);
+                        }
+                        else
+                        {
+                            infractor.imagen = null;
+                        }
+
+                        infractorDAL.Add(infractor);
+                        int aux = infractorDAL.GetNumeroIdInfractor(model.Identificacion);
+                        return Redirect("~/Infractor/Detalle/" + aux);
                     }
-                    else
-                    {
-                        infractor.imagen = null;
-                    }
-              
-                    infractorDAL.Add(infractor);
-                    int aux = infractorDAL.GetNumeroIdInfractor(model.Identificacion);
-                    return Redirect("~/Infractor/Detalle/" + aux);
                 }
+
+                model.TiposDeIdentificacion = tablaGeneralDAL.GetTiposIdentificacionInfractor().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+                model.TiposDeSexo = tablaGeneralDAL.GetTiposSexoInfractor().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
                 return View(model);
             }
             catch (Exception ex)
@@ -218,14 +226,11 @@ namespace FrontEnd.Controllers
 
         //Devuelve la página de edición de policías con sus apartados llenos
         public ActionResult Editar(int id)
-        {
-           
+        {      
             infractorDAL = new InfractorDAL();
-            InfractorViewModel modelo = CargarInfractor(infractorDAL.GetInfractor(id));
-          
+            InfractorViewModel modelo = CargarInfractor(infractorDAL.GetInfractor(id));        
             modelo.TiposDeIdentificacion = tablaGeneralDAL.GetTiposIdentificacionInfractor().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
-            modelo.TiposDeSexo = tablaGeneralDAL.GetTiposSexoInfractor().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
-           
+            modelo.TiposDeSexo = tablaGeneralDAL.GetTiposSexoInfractor().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });        
             return View(modelo);
         }
 
@@ -234,24 +239,29 @@ namespace FrontEnd.Controllers
         public ActionResult Editar(InfractorViewModel modelo)
         {
             infractorDAL = new InfractorDAL();
-            
+
             try
             {
                 if (ModelState.IsValid)
                 {
                     Infractores infractor = ConvertirInfractor(modelo);
-                   
+
                     string rutaSitio = Server.MapPath("~/");
-                    string pathArchivo = Path.Combine(rutaSitio + @"Files\" + modelo.Identificacion + ".png");
+                    string pathArchivo = Path.Combine(rutaSitio + @"Files" + modelo.Identificacion + ".png");
                     if (modelo.Archivo != null)
                     {
-                        infractor.imagen = @"~\Files\" + modelo.Identificacion + ".png";
+                        if (System.IO.File.Exists(infractor.imagen))
+                        {
+                            System.IO.File.Delete(infractor.imagen);
+                        }
+
+                        infractor.imagen = @"~\Files" + modelo.Identificacion + ".png";
                         modelo.Archivo.SaveAs(pathArchivo);
                     }
                     else
                     {
                         infractor.imagen = modelo.Imagen;
-                    } 
+                    }
                     infractorDAL.Edit(infractor);
                     return Redirect("~/Infractor/Detalle/" + modelo.IdInfractor);
                 }
@@ -263,7 +273,6 @@ namespace FrontEnd.Controllers
                 throw new Exception(ex.Message);
             }
         }
-
     }
 
 

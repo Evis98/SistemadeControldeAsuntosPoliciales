@@ -48,9 +48,10 @@ namespace FrontEnd.Controllers
                 telefonoCasa = modelo.TelefonoCasa,
                 contactoEmergencia = modelo.ContactoEmergencia,
                 telefonoEmergencia = modelo.TelefonoEmergencia,
-                estado = tablaGeneralDAL.EstadoDefault()
+                estado = (int)EstadoDefault(modelo.Estado),
             };
         }
+
         public PoliciaViewModel CargarPolicia(Policias policia)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
@@ -58,7 +59,7 @@ namespace FrontEnd.Controllers
             {
                 IdPolicia = policia.idPolicia,
                 Cedula = policia.cedula,
-                TipoCedula = policia.tipoCedula,
+                TipoCedula = int.Parse(tablaGeneralDAL.GetCodigo(policia.tipoCedula)),
                 Nombre = policia.nombre,
                 FechaNacimiento = policia.fechaNacimiento,
                 CorreoElectronico = policia.correoElectronico,
@@ -79,7 +80,7 @@ namespace FrontEnd.Controllers
                 Cedula = policia.cedula,
                 TipoCedula = tablaGeneralDAL.GetDescripcion(policia.tipoCedula),
                 Nombre = policia.nombre,
-                FechaNacimiento = policia.fechaNacimiento.Value.ToShortDateString(),
+                FechaNacimiento = policia.fechaNacimiento.ToShortDateString(),
                 Edad = ObtenerEdad(policia.fechaNacimiento),
                 CorreoElectronico = policia.correoElectronico,
                 Direccion = policia.direccion,
@@ -129,7 +130,7 @@ namespace FrontEnd.Controllers
             PoliciaViewModel modelo = new PoliciaViewModel()
             {
                 TiposCedula = tablaGeneralDAL.GetTiposCedulaPolicia().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
-                FechaNacimiento = null
+                FechaNacimiento = DateTime.Today
 
             };
             return View(modelo);
@@ -217,6 +218,19 @@ namespace FrontEnd.Controllers
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
+            }
+        }
+
+        
+        int? EstadoDefault(int? estado)
+        {
+            tablaGeneralDAL = new TablaGeneralDAL();
+            if (estado == null)
+            {
+                return tablaGeneralDAL.EstadoDefault();
+            }
+            else {
+                return estado;
             }
         }
 

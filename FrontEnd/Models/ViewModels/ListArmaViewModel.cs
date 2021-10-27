@@ -8,7 +8,7 @@ namespace FrontEnd.Models.ViewModels
     public class ListArmaViewModel
     {
         public int IdArma { get; set; }
-        public string PoliciaAsignado { get; set; }
+        public int? PoliciaAsignado { get; set; }
         public string NumeroSerie { get; set; }
         public string TipoArma { get; set; }
         public string Marca { get; set; }

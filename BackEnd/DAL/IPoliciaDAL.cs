@@ -15,7 +15,7 @@ namespace BackEnd.DAL
         void CambiaEstadoPolicia(int idPolicia, int estado);
         Policias GetPolicia(int? idPolicia);
         int GetPoliciaCedula(string cedula);
-
-
+        List<Policias> BuscaPolicias(string cedulaPolicia);
+        List<Policias> GetPolicias();
     }
 }

@@ -14,6 +14,7 @@ namespace BackEnd.DAL
         Infractores GetInfractor(int? idInfractor);
         string GetNombreInfractor(int idInfractor);
         int GetNumeroIdInfractor(string identificacionInfractor);
-
+        bool IdentificacionExiste(string identificacionInfractor);
+        string GetCedulaInfractor(string cedula);
     }
 }

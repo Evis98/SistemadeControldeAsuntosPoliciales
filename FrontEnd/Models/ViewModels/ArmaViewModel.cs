@@ -37,16 +37,13 @@ namespace FrontEnd.Models.ViewModels
         [Display(Name = "Observaciones")]
         public string Observacion { get; set; }
         [Required]
-        [Display(Name = "Estado del arma")]
-        public int EstadoArma { get; set; }
-        [Required]
         [Display(Name = " Modelo del arma")]
-        public string Modelo { get; set; }
-
+        public string ModeloArma { get; set; }
         public IEnumerable<SelectListItem> TiposArma { get; set; }
         public IEnumerable<SelectListItem> TiposCalibre { get; set; }
         public IEnumerable<SelectListItem> TiposCondicion { get; set; }
         public IEnumerable<SelectListItem> TiposUbicacion { get; set; }
-
+        public IEnumerable<SelectListItem> ListaPolicias { get; set; }
+        public int EstadoArma { get; set; }
     }
 }

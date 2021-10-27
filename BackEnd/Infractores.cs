@@ -15,7 +15,7 @@ namespace BackEnd
     public partial class Infractores
     {
         public int idInfractor { get; set; }
-        public Nullable<int> tipoDeIdentificacion { get; set; }
+        public int tipoDeIdentificacion { get; set; }
         public string numeroDeIdentificacion { get; set; }
         public string nacionalidad { get; set; }
         public string nombreCompleto { get; set; }

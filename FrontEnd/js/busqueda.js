@@ -1,5 +1,4 @@
-﻿
-var subjectObject = {
+﻿var subjectObject = {
     "Detalle de Requisito": {
     },
     "Tipo de Requisito": { "Carné": [], "Capacitación": [] }
@@ -33,16 +32,30 @@ function ocultar() {
     var aux2 = document.getElementById("filtroSeleccionado");
     var aux3 = document.getElementById('busqueda');
     if (aux2.options[aux2.selectedIndex].value === "Tipo de Requisito") {
-
         aux.style.display = "block";
         aux3.style.display = "none"
     } else {
-
         aux.style.display = "none";
         aux3.style.display = "block"
     }
 
 }
+function ocultarFecha() {
+
+    var aux2 = document.getElementById("tiposRequisito");
+    var aux3 = document.getElementById("fechaVencimiento");
+    if (aux2.val() == "Capacitación") {
+        aux3.style.display = "block"
+    } else {
+        aux3.style.display = "none"
+    }
+
+}
+
 Tsearch.addEventListener("input", function (event) {
     this.value = this.value.toUpperCase();
 });
+
+    $('#btnSave').click(function () {
+        $('#show').modal('hide');
+    });

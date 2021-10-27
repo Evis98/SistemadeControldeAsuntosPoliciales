@@ -23,12 +23,14 @@ namespace BackEnd.DAL
         List<TablaGeneral> GetTiposCalibre(); 
         List<TablaGeneral> GetTiposCondicion();
         List<TablaGeneral> GetTiposUbicacion();
-        int GetIdTipoArma(int tipoArma);
-        int GetIdCalibreArma(int calibre);
-        int GetIdCondicionArma(int condicion);
-        int GetIdUbicacionArma(int ubicacion);
+        int GetIdTipoArma(int? tipoArma);
+        int GetIdCalibreArma(int? calibre);
+        int GetIdCondicionArma(int? condicion);
+        int GetIdUbicacionArma(int? ubicacion);
         int EstadoDefaultArma();
         int GetIdEstadoArmas(string estadoArma);
         void CambiaEstadoArma(int idArma, int estado);
+        string GetCodigo(int idTablaGeneral);
+
     }
 }

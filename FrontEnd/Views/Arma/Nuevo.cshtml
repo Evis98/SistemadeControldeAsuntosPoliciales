@@ -33,13 +33,13 @@
         </div>
         <div class="form-group col-md-3">
             @Html.LabelFor(d => d.Marca)
-            @Html.TextBoxFor(d => d.Marca, "", new { @class = "form-control", @maxlength = "20", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)" })
+            @Html.TextBoxFor(d => d.Marca, "", new { @class = "form-control", @maxlength = "20", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
             @Html.ValidationMessageFor(d => d.Marca, null, new { @class = "red" })
         </div>
         <div class="form-group col-md-3">
-            @Html.LabelFor(d => d.Modelo)
-            @Html.TextBoxFor(d => d.Modelo, "", new { @class = "form-control", @maxlength = "20", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)" })
-            @Html.ValidationMessageFor(d => d.Modelo, null, new { @class = "red" })
+            @Html.LabelFor(d => d.ModeloArma)
+            @Html.TextBoxFor(d => d.ModeloArma, "", new { @class = "form-control", @maxlength = "20", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+            @Html.ValidationMessageFor(d => d.ModeloArma, null, new { @class = "red" })
         </div>
         <div class="form-group col-md-2">
             @Html.LabelFor(d => d.Calibre)
@@ -58,7 +58,7 @@
         </div>
         <div class="form-group col-md-4">
             @Html.LabelFor(d => d.Observacion)
-            @Html.TextAreaFor(d => d.Observacion, new { @class = "form-control", @maxlength = "20", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)" })
+            @Html.TextAreaFor(d => d.Observacion, new { @class = "form-control", @maxlength = "250", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)" })
             @Html.ValidationMessageFor(d => d.Observacion, null, new { @class = "red" })
         </div>
         <div class="modal" id="show" tabindex="-1" role="dialog">
@@ -97,19 +97,28 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Nombre Policía:</label>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" aria-describedby="basic-addon2">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary" type="button">Buscar</button>
-                                </div>
+                    @using (Html.BeginForm("Nuevo", "Arma", FormMethod.Get))
+                    {
+
+                        <label for="recipient-name" class="col-form-label">Nombre Policía:</label>
+                        <div class="input-group mb-3">
+                            <input type="text" name="filtroCedula" id="filtroCedula" class="form-control" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-primary" type="submit">Buscar</button>
                             </div>
                         </div>
-                        <div class="form-group">
-                        </div>
-                    </form>
+                    }
+                    <table class="table">
+                        <tbody>
+                            @foreach (var oElemento in Model.ListaPolicias)
+                            {
+                                <tr>
+                                    <th scope="row">@oElemento.Text</th>
+                                    <td>@oElemento.Value</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

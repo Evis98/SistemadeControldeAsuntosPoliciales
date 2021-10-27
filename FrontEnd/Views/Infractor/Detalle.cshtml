@@ -62,12 +62,15 @@
         <dd class="col-sm-8">
             @Html.DisplayTextFor(d => d.Sexo)
         </dd>
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.CorreoElectronico)
-        </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.CorreoElectronico)
-        </dd>
+        @if (Model.CorreoElectronico != null)
+        {
+            <dt class="col-sm-4">
+                @Html.LabelFor(d => d.CorreoElectronico)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayTextFor(d => d.CorreoElectronico)
+            </dd>
+        }
         <dt class="col-sm-4">
             @Html.LabelFor(d => d.ProfesionUOficio)
         </dt>
@@ -80,30 +83,42 @@
         <dd class="col-sm-8">
             @Html.DisplayTextFor(d => d.Estatura)
         </dd>
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.Tatuajes)
-        </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.Tatuajes)
-        </dd>
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.NombrePadre)
-        </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.NombrePadre)
-        </dd>
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.NombreMadre)
-        </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.NombreMadre)
-        </dd>
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.Observaciones)
-        </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.Observaciones)
-        </dd>
+        @if (Model.Tatuajes != null)
+        {
+            <dt class="col-sm-4">
+                @Html.LabelFor(d => d.Tatuajes)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayTextFor(d => d.Tatuajes)
+            </dd>
+        }
+        @if (Model.NombrePadre != null)
+        {
+            <dt class="col-sm-4">
+                @Html.LabelFor(d => d.NombrePadre)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayTextFor(d => d.NombrePadre)
+            </dd>
+        }
+        @if (Model.NombreMadre != null)
+        {
+            <dt class="col-sm-4">
+                @Html.LabelFor(d => d.NombreMadre)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayTextFor(d => d.NombreMadre)
+            </dd>
+        }
+        @if (Model.Observaciones != null)
+        {
+            <dt class="col-sm-4">
+                @Html.LabelFor(d => d.Observaciones)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayTextFor(d => d.Observaciones)
+            </dd>
+        }
         <dt class="col-sm-4">
             @Html.LabelFor(d => d.Imagen)
         </dt>
@@ -119,7 +134,7 @@
 
     <div style="text-align:center;">
         <a class="btn btn-primary" href="~/Infractor/Editar/@Model.IdInfractor">Editar</a>
-        <a class="btn btn-info" >Ver Infracciones</a>
+        <a class="btn btn-info">Ver Infracciones</a>
 
     </div>
 </div>

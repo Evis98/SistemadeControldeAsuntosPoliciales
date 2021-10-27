@@ -74,5 +74,24 @@ namespace BackEnd.DAL
             }
             return poli;
         }
+
+        public List<Policias> BuscaPolicias(string cedulaPolicia)
+        {
+            List<Policias> lista = new List<Policias>();
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                lista = db.Database.SqlQuery<Policias>("Select 'nombre','cedula' from Policias where tabla= 'Armas' and 'policiaAsignado' like" + cedulaPolicia).ToList<Policias>();
+            }
+            return lista;
+        }
+        public List<Policias> GetPolicias()
+        {
+            List<Policias> policias;
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                policias = db.Database.SqlQuery<Policias>("select * from Policias").ToList<Policias>();
+            }
+            return policias;
+        }
     }
 }

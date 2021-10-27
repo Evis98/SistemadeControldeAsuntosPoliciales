@@ -26,7 +26,7 @@ namespace FrontEnd.Controllers
                     select new ListRequisitoViewModel
                     {
                         IdRequisito = d.idRequisito,
-                        DetalleTipoRequisito = tablaGeneralDAL.GetDescripcion(d.tipoRequsito),
+                        DetalleTipoRequisito = tablaGeneralDAL.GetDescripcion(d.tipoRequisito),
                         Imagen = d.imagen,
                         Detalles = d.detalles,
                         NombrePolicia = policiaDAL.GetPolicia(d.idPolicia).nombre
@@ -42,7 +42,7 @@ namespace FrontEnd.Controllers
                 idPolicia = (int)Session["idPolicia"],
                 detalles = modelo.Detalles,
                 fechaVencimiento = modelo.FechaVencimiento,
-                tipoRequsito = tablaGeneralDAL.GetTipoRequisito(modelo.TipoRequisito),
+                tipoRequisito = tablaGeneralDAL.GetTipoRequisito(modelo.TipoRequisito),
                 imagen = modelo.Imagen
             };           
         }
@@ -54,7 +54,7 @@ namespace FrontEnd.Controllers
                 Imagen = requisito.imagen,
                 IdRequisito = requisito.idRequisito,
                 FechaVencimiento = requisito.fechaVencimiento,
-                TipoRequisito = requisito.tipoRequsito,
+                TipoRequisito = int.Parse(tablaGeneralDAL.GetCodigo(requisito.tipoRequisito)),
                 Detalles = requisito.detalles,
                 IdPolicia = requisito.idPolicia
             };
@@ -73,7 +73,7 @@ namespace FrontEnd.Controllers
                 Imagen = requisito.imagen,
                 IdRequisito = requisito.idRequisito,
                 FechaVencimiento = fechaVencimiento,
-                TipoRequisito = tablaGeneralDAL.GetDescripcion(requisito.tipoRequsito),
+                TipoRequisito = tablaGeneralDAL.GetDescripcion(requisito.tipoRequisito),
                 Detalles = requisito.detalles,
                 IdPolicia = requisito.idPolicia
             };
@@ -100,7 +100,7 @@ namespace FrontEnd.Controllers
                     }
                     if (filtroSeleccionado == "Tipo de Requisito")
                     {
-                        if (tablaGeneralDAL.GetDescripcion(requisito.tipoRequsito).Contains(tipoRequisito))
+                        if (tablaGeneralDAL.GetDescripcion(requisito.tipoRequisito).Contains(tipoRequisito))
                         {
                             requisitosFiltrados.Add(requisito);
                         }
@@ -218,8 +218,13 @@ namespace FrontEnd.Controllers
             try
             {
                 if (ModelState.IsValid)
-                {              
-                    requisitoDAL.Edit(ConvertirRequisito(modelo));                   
+                {
+                    if (modelo.Archivo != null && System.IO.File.Exists(requisitoDAL.GetRequisito(modelo.IdRequisito).imagen))
+                    {
+                        System.IO.File.Delete(requisitoDAL.GetRequisito(modelo.IdRequisito).imagen);
+                        modelo.Archivo.SaveAs(modelo.Imagen);
+                    }
+                    requisitoDAL.Edit(ConvertirRequisito(modelo));
                     return Redirect("~/Requisito/Listado/" + modelo.IdPolicia);
                 }
                 return View(ConvertirRequisito(modelo));

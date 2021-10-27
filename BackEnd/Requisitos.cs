@@ -17,11 +17,11 @@ namespace BackEnd
         public int idRequisito { get; set; }
         public string detalles { get; set; }
         public Nullable<System.DateTime> fechaVencimiento { get; set; }
-        public Nullable<int> idPolicia { get; set; }
-        public Nullable<int> tipoRequsito { get; set; }
+        public int idPolicia { get; set; }
+        public int tipoRequisito { get; set; }
         public string imagen { get; set; }
     
-        public virtual Policias Policias { get; set; }
         public virtual TablaGeneral TablaGeneral { get; set; }
+        public virtual TablaGeneral TablaGeneral1 { get; set; }
     }
 }

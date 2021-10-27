@@ -72,5 +72,28 @@ namespace BackEnd.DAL
             }
             return id;
         }
+
+
+public bool IdentificacionExiste(string identificacionInfractor)
+        {
+            int contador;
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                contador = db.Database.SqlQuery<int>("select count(numeroDeIdentificacion) from Infractores where numeroDeIdentificacion ='" + identificacionInfractor + "'").Single<int>();
+            }
+
+            return contador > 0 ? true : false;
+        }
+
+        public string GetCedulaInfractor(string identificacion)
+        {
+            if (IdentificacionExiste(identificacion))
+            {
+                return identificacion;
+            }
+            else {
+                return null;
+            }
+        }
     }
 }

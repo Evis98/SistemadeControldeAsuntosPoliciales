@@ -17,7 +17,7 @@ namespace FrontEnd.Models.ViewModels
         public string Cedula { get; set; }
         [Required]
         [Display(Name = "Tipo de Cédula")]
-        public int? TipoCedula { get; set; }
+        public int TipoCedula { get; set; }
         [Required]
         [StringLength(150)]
         [Display(Name = "Nombre Completo")]
@@ -26,7 +26,7 @@ namespace FrontEnd.Models.ViewModels
         [DataType(DataType.Date)]
         [Display(Name = "Fecha de Nacimiento")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime? FechaNacimiento { get; set; }
+        public DateTime FechaNacimiento { get; set; }
         [Required]
         [StringLength(100)]
         [EmailAddress]

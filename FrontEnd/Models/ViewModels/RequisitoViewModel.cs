@@ -17,19 +17,15 @@ namespace FrontEnd.Models.ViewModels
         public DateTime? FechaVencimiento { get; set; } = null;
         [Required]
         [Display(Name = "Tipo de Requisito")]
-        public int? TipoRequisito { get; set; }
-        public string Imagen { get; set; }
+        public int TipoRequisito { get; set; }
         [Required]
         [StringLength(250)]
         [Display(Name = "Detalles")]
         public string Detalles { get; set; }
         [Display(Name = "Archivo")]
         public HttpPostedFileBase Archivo { get; set; }
-        [StringLength(150)]
-        [Display(Name = "Policía")]
-        public string Nombre { get; set; }
-
         public IEnumerable<SelectListItem> TiposRequisito { get; set; }
+        public string Imagen { get; set; }
         public int? IdPolicia { get; set; }
     }
 }

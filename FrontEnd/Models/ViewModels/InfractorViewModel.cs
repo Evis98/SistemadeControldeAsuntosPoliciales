@@ -13,12 +13,12 @@ namespace FrontEnd.Models.ViewModels
         public int IdInfractor { get; set; }
         [Required]
         [Display(Name = "Tipo de Identificación")]
-        public int? TipoIdentificacion { get; set; }
+        public int TipoIdentificacion { get; set; }
         [Required]
         [StringLength(20)]
         [Display(Name = "Número de Identificación")]
         public string Identificacion { get; set; }
-      
+        public string CedulaFiltrada { get; set; }
         [Required]
         [StringLength(50)]
         [Display(Name = "Nacionalidad")]
@@ -33,7 +33,7 @@ namespace FrontEnd.Models.ViewModels
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaNacimiento { get; set; }
         [Required]
-        [StringLength(9)]
+        [StringLength(9, ErrorMessage = "Digite 8 numeros", MinimumLength = 9)]
         [Display(Name = "Teléfono")]
         public string Telefono { get; set; }
         [Required]
@@ -50,7 +50,6 @@ namespace FrontEnd.Models.ViewModels
         [StringLength(150)]
         [Display(Name = "Observaciones")]
         public string Observaciones { get; set; }
-
         [Required]
         [StringLength(50)]
         [Display(Name = "Profesión u Oficio")]
@@ -69,12 +68,11 @@ namespace FrontEnd.Models.ViewModels
         [Display(Name = "Nombre de la Madre")]
         public string NombreMadre { get; set; }
         [Display(Name = "Adjuntar imagen")]
+        [Required]
         public HttpPostedFileBase Archivo { get; set; }
-        public string Imagen { get; set; }
 
-      
+        public string Imagen { get; set; } 
         public IEnumerable<SelectListItem> TiposDeIdentificacion { get; set; }
         public IEnumerable<SelectListItem> TiposDeSexo { get; set; }
-        //public int? Estado { get; set; }
     }
 }

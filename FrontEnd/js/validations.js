@@ -67,32 +67,10 @@ function ValidatePhone(object) {
 	p = p.replace(/[^\d]*/gi, "")
 
 	if (p.length < 4) {
-	object.value = p
-	}// else if (p.length == 3) {
-//		pp = p;
-//		d4 = p.indexOf('(')
-	//	d5 = p.indexOf(')')
-	//	if (d4 == -1) {
-//			pp = "(" + pp;
-//		}
-//		if (d5 == -1) {
-//			pp = pp + ")";
-//		}
-//		object.value = pp;
-//	} else if (p.length > 3 && p.length < 7) {
-//		p = "(" + p;
-	//	l30 = p.length;
-		//p30 = p.substring(0, 4);
-	//	p30 = p30 + ")"
-//
-//		p31 = p.substring(4, l30);
-	//	pp = p30 + p31;
-//
-	//	object.value = pp;
-
-	//}
+		object.value = p
+	}
 	else if (p.length >= 4) {
-		//p = "(" + p;
+
 		l30 = p.length;
 		p30 = p.substring(0, 4);
 		p30 = p30 + "-"
@@ -100,12 +78,7 @@ function ValidatePhone(object) {
 		p31 = p.substring(4, l30);
 		pp = p30 + p31;
 
-		//l40 = pp.length;
-		//p40 = pp.substring(0, 9);
-		//p40 = p40 + "-"
 
-		//p41 = pp.substring(9, l40);
-		//ppp = p40 + p41;
 
 		object.value = pp.substring(0, maxphonelength);
 	}
@@ -261,5 +234,48 @@ function sololetrasnumeros(e) {
 	}
 	if (letras.indexOf(teclado) == -1 && !teclado_especial) {
 		return false;
+	}
+}
+function observacionesN() {
+	document.getElementById("observacion").defaultValue = "N/A";
+}
+
+function aparecerPadre() {
+	var checkBox = document.getElementById("checkboxPadre");
+	var text = document.getElementById("nombrePadre");
+	if (checkBox.checked == true) {
+		text.style.display = "block";
+	} else {
+		text.style.display = "none";
+	}
+}
+
+function aparecerMadre() {
+	var checkBox = document.getElementById("checkboxMadre");
+	var text = document.getElementById("nombreMadre");
+	if (checkBox.checked == true) {
+		text.style.display = "block";
+	} else {
+		text.style.display = "none";
+	}
+}
+
+function aparecerObservaciones() {
+	var checkBox = document.getElementById("checkboxObservaciones");
+	var text = document.getElementById("Obs");
+	if (checkBox.checked == true) {
+		text.style.display = "block";
+	} else {
+		text.style.display = "none";
+	}
+}
+
+function aparecerTatuajes() {
+	var checkBox = document.getElementById("checkboxTatuajes");
+	var text = document.getElementById("nombreTatuajes");
+	if (checkBox.checked == true) {
+		text.style.display = "block";
+	} else {
+		text.style.display = "none";
 	}
 }

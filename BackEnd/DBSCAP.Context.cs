@@ -25,13 +25,13 @@ namespace BackEnd
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Armas> Armas { get; set; }
+        public virtual DbSet<Infractores> Infractores { get; set; }
         public virtual DbSet<Policias> Policias { get; set; }
         public virtual DbSet<Requisitos> Requisitos { get; set; }
         public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<RolesUsuarios> RolesUsuarios { get; set; }
         public virtual DbSet<TablaGeneral> TablaGeneral { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
-        public virtual DbSet<Armas> Armas { get; set; }
-        public virtual DbSet<Infractores> Infractores { get; set; }
     }
 }

@@ -173,7 +173,7 @@ namespace BackEnd.DAL
             return descripcion;
         }
 
-        public int GetIdTipoArma(int tipoArma) {
+        public int GetIdTipoArma(int? tipoArma) {
 
             int aux;
             using (SCAPEntities db = new SCAPEntities())
@@ -183,7 +183,7 @@ namespace BackEnd.DAL
 
             return aux;
         }
-        public int GetIdCalibreArma(int calibre) {
+        public int GetIdCalibreArma(int? calibre) {
             int aux;
             using (SCAPEntities db = new SCAPEntities())
             {
@@ -192,7 +192,7 @@ namespace BackEnd.DAL
 
             return aux;
         }
-        public int GetIdCondicionArma(int condicion) {
+        public int GetIdCondicionArma(int? condicion) {
 
             int aux;
             using (SCAPEntities db = new SCAPEntities())
@@ -202,7 +202,7 @@ namespace BackEnd.DAL
 
             return aux;
         }
-        public int GetIdUbicacionArma(int ubicacion) {
+        public int GetIdUbicacionArma(int? ubicacion) {
 
             int aux;
             using (SCAPEntities db = new SCAPEntities())
@@ -239,5 +239,14 @@ namespace BackEnd.DAL
                 db.SaveChanges();
             }
         }
+
+        public string GetCodigo(int idTablaGeneral) {
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                return db.Database.SqlQuery<string>("Select codigo from TablaGeneral where idTablaGeneral =" + idTablaGeneral).Single<string>();
+            }
+        }
+
+
     }
 }

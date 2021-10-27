@@ -24,8 +24,16 @@ namespace FrontEnd.Controllers
                     select new ListArmaViewModel
                     {
                         IdArma = d.idArma,
+                        PoliciaAsignado = d.policiaAsignado,
                         NumeroSerie = d.numeroSerie,
                         TipoArma = tablaGeneralDAL.GetDescripcion(d.tipoArma),
+                        Marca = d.marca,
+                        Modelo = d.modelo,
+                        Calibre = tablaGeneralDAL.GetDescripcion(d.calibre),
+                        Condicion = tablaGeneralDAL.GetDescripcion(d.condicion),
+                        Ubicacion = tablaGeneralDAL.GetDescripcion(d.ubicacion),
+                        Observacion = d.observacion,
+                        EstadoArma = tablaGeneralDAL.GetDescripcion(d.estadoArma),
                         NombrePolicia = policiaDAL.GetPolicia(d.policiaAsignado).nombre
                     }).ToList();
         }
@@ -39,7 +47,7 @@ namespace FrontEnd.Controllers
                 numeroSerie = modelo.NumeroSerie,
                 tipoArma = tablaGeneralDAL.GetIdTipoArma(modelo.TipoArma),
                 marca = modelo.Marca,
-                modelo = modelo.Modelo,
+                modelo = modelo.ModeloArma,
                 calibre = tablaGeneralDAL.GetIdCalibreArma(modelo.Calibre),
                 condicion = tablaGeneralDAL.GetIdCondicionArma(modelo.Condicion),
                 ubicacion = tablaGeneralDAL.GetIdUbicacionArma(modelo.Ubicacion),
@@ -55,12 +63,12 @@ namespace FrontEnd.Controllers
                 IdArma = arma.idArma,
                 PoliciaAsignado = arma.policiaAsignado,
                 NumeroSerie = arma.numeroSerie,
-                TipoArma = arma.tipoArma,
+                TipoArma = int.Parse(tablaGeneralDAL.GetCodigo(arma.tipoArma)),
                 Marca = arma.marca,
-                Modelo = arma.modelo,
-                Calibre = arma.calibre,
-                Condicion = arma.condicion,
-                Ubicacion = arma.ubicacion,
+                ModeloArma = arma.modelo,
+                Calibre = int.Parse(tablaGeneralDAL.GetCodigo(arma.calibre)),
+                Condicion = int.Parse(tablaGeneralDAL.GetCodigo(arma.condicion)),
+                Ubicacion = int.Parse(tablaGeneralDAL.GetCodigo(arma.ubicacion)),
                 Observacion = arma.observacion,
                 EstadoArma = arma.estadoArma,
             };
@@ -72,7 +80,8 @@ namespace FrontEnd.Controllers
             return new ListArmaViewModel
             {
                 IdArma = arma.idArma,
-                PoliciaAsignado = policiaDAL.GetPolicia(arma.policiaAsignado).cedula + " " + policiaDAL.GetPolicia(arma.policiaAsignado).nombre,
+                PoliciaAsignado = arma.policiaAsignado,
+                NombrePolicia = policiaDAL.GetPolicia(arma.policiaAsignado).cedula + " " + policiaDAL.GetPolicia(arma.policiaAsignado).nombre,
                 NumeroSerie = arma.numeroSerie,
                 TipoArma = tablaGeneralDAL.GetDescripcion(arma.tipoArma),
                 Marca = arma.marca,
@@ -114,11 +123,14 @@ namespace FrontEnd.Controllers
             return View(armas);
         }
 
-        public ActionResult Nuevo()
+        public ActionResult Nuevo(string filtroCedula)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
+            policiaDAL = new PoliciaDAL();
+            List<Policias> policiasFiltrados = BuscarPolicias(policiaDAL.GetPolicias(), filtroCedula);
             ArmaViewModel modelo = new ArmaViewModel()
             {
+                ListaPolicias = policiasFiltrados.Select(i => new SelectListItem() { Text = i.nombre, Value = i.cedula }),
                 TiposArma = tablaGeneralDAL.GetTiposArma().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
                 TiposCalibre = tablaGeneralDAL.GetTiposCalibre().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
                 TiposCondicion = tablaGeneralDAL.GetTiposCondicion().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
@@ -161,7 +173,6 @@ namespace FrontEnd.Controllers
         {
             armaDAL = new ArmaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
-
             ArmaViewModel modelo = CargarArma(armaDAL.GetArma(id));
             modelo.TiposArma = tablaGeneralDAL.GetTiposArma().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             modelo.TiposCalibre = tablaGeneralDAL.GetTiposCalibre().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
@@ -174,6 +185,7 @@ namespace FrontEnd.Controllers
         public ActionResult Editar(ArmaViewModel modelo)
         {
             armaDAL = new ArmaDAL();
+            tablaGeneralDAL = new TablaGeneralDAL();
             try
             {
                 if (ModelState.IsValid)
@@ -210,6 +222,23 @@ namespace FrontEnd.Controllers
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        public List<Policias> BuscarPolicias(List<Policias> policias, string filtroCedula)
+        {
+            List<Policias> policiasFiltrados = new List<Policias>();
+            if (filtroCedula != null)
+            {
+                foreach (Policias policia in policias)
+                {
+                    if (policia.cedula.Contains(filtroCedula))
+                    {
+                        policiasFiltrados.Add(policia);
+                    }
+                }
+                policias = policiasFiltrados;
+            }
+            return policias;
         }
     }
 }

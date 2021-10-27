@@ -17,9 +17,6 @@ namespace BackEnd
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TablaGeneral()
         {
-            this.Policias = new HashSet<Policias>();
-            this.Policias1 = new HashSet<Policias>();
-            this.Requisitos = new HashSet<Requisitos>();
             this.Armas = new HashSet<Armas>();
             this.Armas1 = new HashSet<Armas>();
             this.Armas2 = new HashSet<Armas>();
@@ -27,6 +24,10 @@ namespace BackEnd
             this.Armas4 = new HashSet<Armas>();
             this.Infractores = new HashSet<Infractores>();
             this.Infractores1 = new HashSet<Infractores>();
+            this.Policias = new HashSet<Policias>();
+            this.Policias1 = new HashSet<Policias>();
+            this.Requisitos = new HashSet<Requisitos>();
+            this.Requisitos1 = new HashSet<Requisitos>();
         }
     
         public int idTablaGeneral { get; set; }
@@ -35,12 +36,6 @@ namespace BackEnd
         public string descripcion { get; set; }
         public string tabla { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Policias> Policias { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Policias> Policias1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Requisitos> Requisitos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Armas> Armas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -55,5 +50,13 @@ namespace BackEnd
         public virtual ICollection<Infractores> Infractores { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Infractores> Infractores1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Policias> Policias { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Policias> Policias1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Requisitos> Requisitos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Requisitos> Requisitos1 { get; set; }
     }
 }
