@@ -42,7 +42,7 @@
     @Html.HiddenFor(d => d.IdPolicia)
     @Html.HiddenFor(d => d.Imagen)
 
-    <div class="modal" id="show7" tabindex="-1" role="dialog">
+    <div class="modal" id="show" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -56,14 +56,14 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-danger" id="Cancel" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary" id="Save">Guardar</button>
+                    <button type="submit" class="btn btn-primary" id="btnSave">Guardar</button>
                 </div>
             </div>
         </div>
     </div>
-    <div class=" form-group col-md-6" style="text-align:right;">
 
-        <input value="Guardar" class="btn btn-primary" type="button" id="hGuardar" data-toggle="modal" data-target="#show7" />
+    <div class=" form-group col-md-6" style="text-align:right;">
+        <input value="Guardar" class="btn btn-primary" type="button" id="hGuardar" data-toggle="modal" data-target="#show" />
 
     </div>
 </div>

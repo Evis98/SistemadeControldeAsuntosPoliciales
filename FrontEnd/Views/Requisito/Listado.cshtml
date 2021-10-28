@@ -2,25 +2,22 @@
 
 
 @{
-    ViewBag.Title = "Listado de Requisitos";
+    ViewBag.Title = "Listado de Requisitos: "+ @HttpContext.Current.Session["nombrePolicia"].ToString();
 }
 
 <div class="container">
     <div class="row mb-3">
-
         <h2 class="display-4">@ViewBag.Title</h2>
-        <h2 class="display-4">
-         
-
-        </h2>
     </div>
 
-    <div class="text-right">
-
-        <a class="btn btn-success" href="~/Requisito/Nuevo/@HttpContext.Current.Session["idPolicia"].ToString()">Agregar Requisito</a>
-
+    <div class="row my-4">
+        <div class="col-sm-10">
+            <a class="btn btn-outline-secondary" href="~/Policia/Detalle/@HttpContext.Current.Session["idPolicia"].ToString()">Regresar</a>
+        </div>
+        <div class="col-sm-2">
+            <a class="btn btn-success" href="~/Requisito/Nuevo/@HttpContext.Current.Session["idPolicia"].ToString()">Agregar Requisito</a>
+        </div>
     </div>
-
     <div class="row my-4">
 
         <table class="table">
@@ -47,8 +44,6 @@
         </table>
 
     </div>
-    <div class="text-left">
-        <a class="btn btn-outline-secondary" href="~/Policia/Detalle/@HttpContext.Current.Session["idPolicia"].ToString()">Regresar</a>
-    </div>
+
 </div>
 

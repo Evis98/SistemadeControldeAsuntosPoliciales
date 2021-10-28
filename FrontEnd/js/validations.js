@@ -12,6 +12,10 @@ function ParseForNumber2(object) {
 	phonevalue2 = ParseChar(object.value, zChar);
 }
 
+$('#btnSave').click(function () {
+	$('#show').modal('hide');
+});
+
 function backspacerUP(object, e) {
 	if (e) {
 		e = e

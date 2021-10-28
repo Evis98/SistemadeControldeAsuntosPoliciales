@@ -91,11 +91,11 @@ namespace FrontEnd.Controllers
             {
                 armaEditar.PoliciaAsignado = policiaDAL.GetPolicia(arma.policiaAsignado).cedula;
             }
-            else
-            {
+            //else
+            //{
 
-                armaEditar.PoliciaAsignado = "No Asignado";
-            }
+            //    armaEditar.PoliciaAsignado = "No Asignado";
+            //}
 
             return armaEditar;
         }
@@ -176,41 +176,41 @@ namespace FrontEnd.Controllers
 
         //Guarda la información ingresada en la página para crear policías
         [HttpPost]
-        public ActionResult Nuevo(ArmaViewModel model)
+        public ActionResult Nuevo(ArmaViewModel modelo)
         {
             
             armaDAL = new ArmaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
-            model.SerieFiltrada = armaDAL.GetSerieArma(model.NumeroSerie);
+            modelo.SerieFiltrada = armaDAL.GetSerieArma(modelo.NumeroSerie);
             
             try
             {
-                if (!armaDAL.SerieExiste(model.NumeroSerie))
+                if (!armaDAL.SerieExiste(modelo.NumeroSerie))
                 {
                     if (ModelState.IsValid)
                     {
-                        Armas arma = ConvertirArma(model);
-                        if (model.PoliciaAsignado != null) { 
-                        arma.policiaAsignado = policiaDAL.GetPoliciaCedula(model.PoliciaAsignado);
-                    }
+                        Armas arma = ConvertirArma(modelo);
+                        if (modelo.PoliciaAsignado != null) { 
+                        arma.policiaAsignado = policiaDAL.GetPoliciaCedula(modelo.PoliciaAsignado);
+                        }
                         else {
                             arma.policiaAsignado = null;
 
                         }
                         armaDAL.Add(arma);
                    
-                        int aux = armaDAL.GetArmaNumSerie(model.NumeroSerie);
+                        int aux = armaDAL.GetArmaNumSerie(modelo.NumeroSerie);
                         return Redirect("~/Arma/Detalle/" + aux);
                     }
 
                 }
-                model.TiposArma = tablaGeneralDAL.GetTiposArma().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
-                model.TiposCalibre = tablaGeneralDAL.GetTiposCalibre().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
-                model.TiposCondicion = tablaGeneralDAL.GetTiposCondicion().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
-                model.TiposUbicacion = tablaGeneralDAL.GetTiposUbicacion().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+                modelo.TiposArma = tablaGeneralDAL.GetTiposArma().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+                modelo.TiposCalibre = tablaGeneralDAL.GetTiposCalibre().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+                modelo.TiposCondicion = tablaGeneralDAL.GetTiposCondicion().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+                modelo.TiposUbicacion = tablaGeneralDAL.GetTiposUbicacion().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
                
 
-                return View(model);
+                return View(modelo);
             }
             catch (Exception ex)
             {
@@ -286,7 +286,17 @@ namespace FrontEnd.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    armaDAL.Edit(ConvertirArma(modelo));
+                    Armas arma = ConvertirArma(modelo);                
+                    if (modelo.PoliciaAsignado != null)
+                    {
+                        arma.policiaAsignado = policiaDAL.GetPoliciaCedula(modelo.PoliciaAsignado);
+                    }
+                    else
+                    {
+                        arma.policiaAsignado = null;
+
+                    }
+                    armaDAL.Edit(arma);
                     return Redirect("~/Arma/Detalle/" + modelo.IdArma);
                 }
                 return View(modelo);

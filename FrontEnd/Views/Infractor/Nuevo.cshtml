@@ -145,7 +145,7 @@
             @Html.ValidationMessageFor(d => d.Archivo, "", new { @class = "red" })
         </div>
 
-        <div class="modal" id="showI" tabindex="-1" role="dialog">
+        <div class="modal" id="show" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -159,22 +159,16 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-danger" id="Cancel" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary" id="ISave">Guardar</button>
+                        <button type="submit" class="btn btn-primary" id="btnSave">Guardar</button>
                     </div>
                 </div>
             </div>
         </div>
-        <script>
-            $('#ISave').click(function () {
-                $('#showI').modal('hide');
-            });
-
-        </script>
 
         <div class="form-row">
             <div class="form-group col-md-6">
                 <div style="text-align:right;">
-                    <input value="Guardar" class="btn btn-primary" type="button" id="hGuardar" data-toggle="modal" data-target="#showI" />
+                    <input value="Guardar" class="btn btn-primary" type="button" id="hGuardar" data-toggle="modal" data-target="#show" />
 
                 </div>
             </div>

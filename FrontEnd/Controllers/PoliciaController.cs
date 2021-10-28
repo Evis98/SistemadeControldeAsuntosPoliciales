@@ -168,8 +168,9 @@ namespace FrontEnd.Controllers
         //Muestra la información detallada de un policía
         public ActionResult Detalle(int id)
         {
-            Session["idPolicia"] = id;
             policiaDAL = new PoliciaDAL();
+            Session["idPolicia"] = id;
+            Session["nombrePolicia"] = policiaDAL.GetPolicia(id).nombre;         
             ListPoliciaViewModel modelo = ConvertirPoliciaInverso(policiaDAL.GetPolicia(id));
             return View(modelo);
         }
