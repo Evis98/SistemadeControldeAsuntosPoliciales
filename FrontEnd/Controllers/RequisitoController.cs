@@ -108,7 +108,9 @@ namespace FrontEnd.Controllers
                 }
                 requisitos =requisitosFiltrados;
             }
-            return View(ConvertirListaRequisitos(requisitos));
+            List<ListRequisitoViewModel> requisitosOrdenados = ConvertirListaRequisitos(requisitos);
+            requisitosOrdenados = requisitosOrdenados.OrderBy(x => x.NombrePolicia).ToList();
+            return View(requisitosOrdenados);
         }
 
         //*Devuelve la página con el listado de todos los requisitos creados para el policía seleccionado

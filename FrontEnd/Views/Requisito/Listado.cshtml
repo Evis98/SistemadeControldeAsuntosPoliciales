@@ -9,7 +9,10 @@
     <div class="row mb-3">
 
         <h2 class="display-4">@ViewBag.Title</h2>
+        <h2 class="display-4">
+         
 
+        </h2>
     </div>
 
     <div class="text-right">
@@ -45,7 +48,7 @@
 
     </div>
     <div class="text-left">
-        <a class="btn btn-outline-secondary" onclick="history.go(-1);">Regresar</a>
+        <a class="btn btn-outline-secondary" href="~/Policia/Detalle/@HttpContext.Current.Session["idPolicia"].ToString()">Regresar</a>
     </div>
 </div>
 

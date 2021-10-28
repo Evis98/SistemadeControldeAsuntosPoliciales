@@ -15,6 +15,7 @@ namespace FrontEnd.Models.ViewModels
         [StringLength(25, ErrorMessage = "Número de cédula excede los 25 caracteres.")]
         [Display(Name = "Número de Cédula")]
         public string Cedula { get; set; }
+        public string CedulaPoliciaFiltrada { get; set; }
         [Required]
         [Display(Name = "Tipo de Cédula")]
         public int TipoCedula { get; set; }

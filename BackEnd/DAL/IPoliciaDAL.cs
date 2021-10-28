@@ -17,5 +17,7 @@ namespace BackEnd.DAL
         int GetPoliciaCedula(string cedula);
         List<Policias> BuscaPolicias(string cedulaPolicia);
         List<Policias> GetPolicias();
+        bool CedulaPoliciaExiste(string cedulaPolicia);
+        string GetCedulaPolicia(string cedulaPolicia);
     }
 }

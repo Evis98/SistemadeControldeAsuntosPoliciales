@@ -70,7 +70,7 @@ namespace BackEnd.DAL
             int poli;
             using (SCAPEntities db = new SCAPEntities())
             {
-                poli = db.Database.SqlQuery<int>("select idPolicia from Policias where cedula ='" + cedula+"'").Single<int>();
+                poli = db.Database.SqlQuery<int>("select idPolicia from Policias where cedula ='" + cedula + "'").Single<int>();
             }
             return poli;
         }
@@ -92,6 +92,29 @@ namespace BackEnd.DAL
                 policias = db.Database.SqlQuery<Policias>("select * from Policias").ToList<Policias>();
             }
             return policias;
+        }
+
+        public bool CedulaPoliciaExiste(string cedulaPolicia)
+        {
+            int contador;
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                contador = db.Database.SqlQuery<int>("select count(cedula) from Policias where cedula ='" + cedulaPolicia + "'").Single<int>();
+            }
+
+            return contador > 0 ? true : false;
+        }
+
+        public string GetCedulaPolicia(string cedulaPolicia)
+        {
+            if (CedulaPoliciaExiste(cedulaPolicia))
+            {
+                return cedulaPolicia;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

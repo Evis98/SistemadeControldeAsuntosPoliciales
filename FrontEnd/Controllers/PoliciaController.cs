@@ -141,16 +141,20 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public ActionResult Nuevo(PoliciaViewModel model)
         {
-          policiaDAL = new PoliciaDAL();
-          tablaGeneralDAL = new TablaGeneralDAL();
-          model.TiposCedula = tablaGeneralDAL.GetTiposCedulaPolicia().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            policiaDAL = new PoliciaDAL();
+            tablaGeneralDAL = new TablaGeneralDAL();
+            model.TiposCedula = tablaGeneralDAL.GetTiposCedulaPolicia().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            model.CedulaPoliciaFiltrada = policiaDAL.GetCedulaPolicia(model.Cedula);
             try
             {
-                if (ModelState.IsValid)
+                if (!policiaDAL.CedulaPoliciaExiste(model.Cedula))
                 {
-                    policiaDAL.Add(ConvertirPolicia(model));
-                    int aux = policiaDAL.GetPoliciaCedula(model.Cedula);
-                    return Redirect("~/Policia/Detalle/" + aux);
+                    if (ModelState.IsValid)
+                    {
+                        policiaDAL.Add(ConvertirPolicia(model));
+                        int aux = policiaDAL.GetPoliciaCedula(model.Cedula);
+                        return Redirect("~/Policia/Detalle/" + aux);
+                    }
                 }
                 return View(model);
             }

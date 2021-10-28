@@ -10,7 +10,7 @@ namespace FrontEnd.Models.ViewModels
     public class ArmaViewModel
     {
         public int IdArma { get; set; }
-        [Required]
+      
         [Display(Name = "Policía Asignado")]
         public string PoliciaAsignado { get; set; }
         [Required]

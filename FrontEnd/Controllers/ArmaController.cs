@@ -18,25 +18,40 @@ namespace FrontEnd.Controllers
         ITablaGeneralDAL tablaGeneralDAL;
         public List<ListArmaViewModel> ConvertirListaArmas(List<Armas> armas)
         {
+
             policiaDAL = new PoliciaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
-            return (from d in armas
-                    select new ListArmaViewModel
-                    {
-                        IdArma = d.idArma,
-                        PoliciaAsignado = d.policiaAsignado,
-                        NumeroSerie = d.numeroSerie,
-                        TipoArma = tablaGeneralDAL.GetDescripcion(d.tipoArma),
-                        Marca = d.marca,
-                        Modelo = d.modelo,
-                        Calibre = tablaGeneralDAL.GetDescripcion(d.calibre),
-                        Condicion = tablaGeneralDAL.GetDescripcion(d.condicion),
-                        Ubicacion = tablaGeneralDAL.GetDescripcion(d.ubicacion),
-                        Observacion = d.observacion,
-                        EstadoArma = tablaGeneralDAL.GetDescripcion(d.estadoArma),
-                        NombrePolicia = policiaDAL.GetPolicia(d.policiaAsignado).nombre
-                    }).ToList();
+            List<ListArmaViewModel> listadoArmas = (from d in armas
+                                                    select new ListArmaViewModel
+                                                    {
+                                                        IdArma = d.idArma,
+                                                        PoliciaAsignado = d.policiaAsignado,
+                                                        NumeroSerie = d.numeroSerie,
+                                                        TipoArma = tablaGeneralDAL.GetDescripcion(d.tipoArma),
+                                                        Marca = d.marca,
+                                                        Modelo = d.modelo,
+                                                        Calibre = tablaGeneralDAL.GetDescripcion(d.calibre),
+                                                        Condicion = tablaGeneralDAL.GetDescripcion(d.condicion),
+                                                        Ubicacion = tablaGeneralDAL.GetDescripcion(d.ubicacion),
+                                                        Observacion = d.observacion,
+                                                        EstadoArma = tablaGeneralDAL.GetDescripcion(d.estadoArma),
+                                                    }).ToList();
+
+            foreach (ListArmaViewModel arma in listadoArmas)
+            {
+                if (arma.PoliciaAsignado != null)
+                {
+                    arma.NombrePolicia = policiaDAL.GetPolicia(arma.PoliciaAsignado).nombre;
+                }
+                else
+                {
+                    arma.NombrePolicia = "No Asignado";
+                }
+            }
+            return listadoArmas;
         }
+
+      
         public Armas ConvertirArma(ArmaViewModel modelo)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
@@ -44,7 +59,6 @@ namespace FrontEnd.Controllers
             return new Armas
             {
                 idArma = modelo.IdArma,
-                policiaAsignado = policiaDAL.GetPoliciaCedula(modelo.PoliciaAsignado),
                 numeroSerie = modelo.NumeroSerie,
                 tipoArma = tablaGeneralDAL.GetIdTipoArma(modelo.TipoArma),
                 marca = modelo.Marca,
@@ -60,20 +74,30 @@ namespace FrontEnd.Controllers
         {
             tablaGeneralDAL = new TablaGeneralDAL();
             policiaDAL = new PoliciaDAL();
-            return new ArmaViewModel
+            ArmaViewModel armaEditar = new ArmaViewModel();
             {
-                IdArma = arma.idArma,
-                PoliciaAsignado = policiaDAL.GetPolicia(arma.policiaAsignado).cedula,
-                NumeroSerie = arma.numeroSerie,
-                TipoArma = int.Parse(tablaGeneralDAL.GetCodigo(arma.tipoArma)),
-                Marca = arma.marca,
-                ModeloArma = arma.modelo,
-                Calibre = int.Parse(tablaGeneralDAL.GetCodigo(arma.calibre)),
-                Condicion = int.Parse(tablaGeneralDAL.GetCodigo(arma.condicion)),
-                Ubicacion = int.Parse(tablaGeneralDAL.GetCodigo(arma.ubicacion)),
-                Observacion = arma.observacion,
-                EstadoArma = arma.estadoArma,
+                armaEditar.IdArma = arma.idArma;
+                armaEditar.NumeroSerie = arma.numeroSerie;
+                armaEditar.TipoArma = int.Parse(tablaGeneralDAL.GetCodigo(arma.tipoArma));
+                armaEditar.Marca = arma.marca;
+                armaEditar.ModeloArma = arma.modelo;
+                armaEditar.Calibre = int.Parse(tablaGeneralDAL.GetCodigo(arma.calibre));
+                armaEditar.Condicion = int.Parse(tablaGeneralDAL.GetCodigo(arma.condicion));
+                armaEditar.Ubicacion = int.Parse(tablaGeneralDAL.GetCodigo(arma.ubicacion));
+                armaEditar.Observacion = arma.observacion;
+                armaEditar.EstadoArma = arma.estadoArma;
             };
+            if (arma.policiaAsignado != null)
+            {
+                armaEditar.PoliciaAsignado = policiaDAL.GetPolicia(arma.policiaAsignado).cedula;
+            }
+            else
+            {
+
+                armaEditar.PoliciaAsignado = "No Asignado";
+            }
+
+            return armaEditar;
         }
         public ListArmaViewModel ConvertirArmaInverso(Armas arma)
         {
@@ -83,7 +107,7 @@ namespace FrontEnd.Controllers
             {
                 IdArma = arma.idArma,
                 PoliciaAsignado = arma.policiaAsignado,
-                NombrePolicia = policiaDAL.GetPolicia(arma.policiaAsignado).cedula + " " + policiaDAL.GetPolicia(arma.policiaAsignado).nombre,
+                
                 NumeroSerie = arma.numeroSerie,
                 TipoArma = tablaGeneralDAL.GetDescripcion(arma.tipoArma),
                 Marca = arma.marca,
@@ -154,20 +178,31 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public ActionResult Nuevo(ArmaViewModel model)
         {
-            policiaDAL = new PoliciaDAL();
+            
             armaDAL = new ArmaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
-          
+            model.SerieFiltrada = armaDAL.GetSerieArma(model.NumeroSerie);
+            
             try
             {
                 if (!armaDAL.SerieExiste(model.NumeroSerie))
                 {
                     if (ModelState.IsValid)
                     {
-                        armaDAL.Add(ConvertirArma(model));
+                        Armas arma = ConvertirArma(model);
+                        if (model.PoliciaAsignado != null) { 
+                        arma.policiaAsignado = policiaDAL.GetPoliciaCedula(model.PoliciaAsignado);
+                    }
+                        else {
+                            arma.policiaAsignado = null;
+
+                        }
+                        armaDAL.Add(arma);
+                   
                         int aux = armaDAL.GetArmaNumSerie(model.NumeroSerie);
                         return Redirect("~/Arma/Detalle/" + aux);
                     }
+
                 }
                 model.TiposArma = tablaGeneralDAL.GetTiposArma().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
                 model.TiposCalibre = tablaGeneralDAL.GetTiposCalibre().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
@@ -220,6 +255,14 @@ namespace FrontEnd.Controllers
             Session["idArma"] = id;
             armaDAL = new ArmaDAL();
             ListArmaViewModel modelo = ConvertirArmaInverso(armaDAL.GetArma(id));
+            if (modelo.PoliciaAsignado != null)
+            {
+                modelo.NombrePolicia = policiaDAL.GetPolicia(modelo.PoliciaAsignado).cedula + " " + policiaDAL.GetPolicia(modelo.PoliciaAsignado).nombre;
+            }
+            else
+            {
+                modelo.NombrePolicia = "No Asignado";
+            }
             return View(modelo);
         }
         public ActionResult Editar(int id)
