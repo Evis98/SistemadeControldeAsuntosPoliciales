@@ -120,6 +120,7 @@ namespace FrontEnd.Controllers
                 }
                 policias = policiasFiltrados;
             }
+            policias = policias.OrderBy(x => x.nombre).ToList();
             return View(ConvertirListaPolicias(policias));
         }
 

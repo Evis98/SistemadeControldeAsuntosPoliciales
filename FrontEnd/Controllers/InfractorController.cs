@@ -151,6 +151,7 @@ namespace FrontEnd.Controllers
                 }
                 infractores = infractoresFiltrados;
             }
+            infractores = infractores.OrderBy(x => x.nombreCompleto).ToList();
             return View(ConvertirListaInfractores(infractores));
         }
 

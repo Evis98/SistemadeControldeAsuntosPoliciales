@@ -11,12 +11,12 @@
 
     @using (Html.BeginForm("Nuevo", "Arma", FormMethod.Post))
     {
-<div class="form-group col-md-3">
-    @Html.LabelFor(d => d.NumeroSerie)
-    @Html.TextBoxFor(d => d.NumeroSerie, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
-    @if (Model.SerieFiltrada != null)
-    {@Html.ValidationMessageFor(d => d.NumeroSerie, "El numero de serie ya existe", new { @class = "red" })}
-</div>
+        <div class="form-group col-md-3">
+            @Html.LabelFor(d => d.NumeroSerie)
+            @Html.TextBoxFor(d => d.NumeroSerie, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+            @if (Model.SerieFiltrada != null)
+            {@Html.ValidationMessageFor(d => d.NumeroSerie, "El numero de serie ya existe", new { @class = "red" })}
+        </div>
         <div class="form-group col-md-6">
             @Html.ValidationMessageFor(d => d.NumeroSerie, null, new { @class = "red" })
 
@@ -24,7 +24,7 @@
         <div class="form-group col-md-4">
             @Html.LabelFor(d => d.PoliciaAsignado)
             <div class="input-group">
-                @Html.TextBoxFor(d => d.PoliciaAsignado, "", new { @class = "form-control" })
+                @Html.TextBoxFor(d => d.PoliciaAsignado, "", new { @class = "form-control", @id = "idPolicia" ,@readonly="readonly" })
                 <div class="input-group-append ">
                     <a class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Buscar</a>
                 </div>
@@ -106,31 +106,16 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    @using (Html.BeginForm("Nuevo", "Arma", FormMethod.Get))
-                    {
-
-                        <label for="recipient-name" class="col-form-label">Nombre Policía:</label>
-                        <div class="input-group mb-3">
-                            <input type="text" name="filtroCedula" id="filtroCedula" class="form-control" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-primary" type="submit">Buscar</button>
-                            </div>
-                        </div>
-                    }
-                    <table class="table">
-                        <tbody>
-                            @foreach (var oElemento in Model.ListaPolicias)
-                            {
-                                <tr>
-                                    <th scope="row">@oElemento.Text</th>
-                                    <td>@oElemento.Value</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+                    @{ Html.RenderAction("ListaPoliciasBuscar", "Arma", new { nombre = "" }); }
                 </div>
             </div>
         </div>
     </div>
 
 </div>
+
+<script>function reply_click(clicked_id) {
+        var elem = document.getElementById("idPolicia");
+        elem.value = clicked_id;
+        $('#exampleModal').modal('hide');
+    }</script>

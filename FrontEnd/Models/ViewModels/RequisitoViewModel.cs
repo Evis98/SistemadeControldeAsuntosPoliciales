@@ -28,5 +28,6 @@ namespace FrontEnd.Models.ViewModels
         public string Imagen { get; set; }
         public int? IdPolicia { get; set; }
     }
+   
 
 }

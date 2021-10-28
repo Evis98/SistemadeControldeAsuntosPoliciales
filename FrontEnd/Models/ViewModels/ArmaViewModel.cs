@@ -12,7 +12,7 @@ namespace FrontEnd.Models.ViewModels
         public int IdArma { get; set; }
         [Required]
         [Display(Name = "Policía Asignado")]
-        public int? PoliciaAsignado { get; set; }
+        public string PoliciaAsignado { get; set; }
         [Required]
         [StringLength(20, ErrorMessage = "Número de Serie excede los 20 caracteres.")]
         [Display(Name = "Número de Serie")]

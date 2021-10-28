@@ -40,10 +40,11 @@ namespace FrontEnd.Controllers
         public Armas ConvertirArma(ArmaViewModel modelo)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
+            policiaDAL = new PoliciaDAL();
             return new Armas
             {
                 idArma = modelo.IdArma,
-                policiaAsignado = modelo.PoliciaAsignado,
+                policiaAsignado = policiaDAL.GetPoliciaCedula(modelo.PoliciaAsignado),
                 numeroSerie = modelo.NumeroSerie,
                 tipoArma = tablaGeneralDAL.GetIdTipoArma(modelo.TipoArma),
                 marca = modelo.Marca,
@@ -58,10 +59,11 @@ namespace FrontEnd.Controllers
         public ArmaViewModel CargarArma(Armas arma)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
+            policiaDAL = new PoliciaDAL();
             return new ArmaViewModel
             {
                 IdArma = arma.idArma,
-                PoliciaAsignado = arma.policiaAsignado,
+                PoliciaAsignado = policiaDAL.GetPolicia(arma.policiaAsignado).cedula,
                 NumeroSerie = arma.numeroSerie,
                 TipoArma = int.Parse(tablaGeneralDAL.GetCodigo(arma.tipoArma)),
                 Marca = arma.marca,
@@ -94,6 +96,15 @@ namespace FrontEnd.Controllers
             };
         }
         // GET: Arma
+        public List<ListPoliciaViewModel> ConvertirListaPoliciasFiltrados(List<Policias> policias)
+        {
+            return (from d in policias
+                    select new ListPoliciaViewModel
+                    {
+                        Cedula = d.cedula,
+                        Nombre = d.nombre,
+                    }).ToList();
+        }
         public ActionResult Index(string filtroSeleccionado, string busqueda)
         {
             armaDAL = new ArmaDAL();
@@ -123,14 +134,13 @@ namespace FrontEnd.Controllers
             return View(armas);
         }
 
-        public ActionResult Nuevo(string filtroCedula)
+        public ActionResult Nuevo()
         {
             tablaGeneralDAL = new TablaGeneralDAL();
-            policiaDAL = new PoliciaDAL();
-            List<Policias> policiasFiltrados = BuscarPolicias(policiaDAL.GetPolicias(), filtroCedula);
+          
+         
             ArmaViewModel modelo = new ArmaViewModel()
             {
-                ListaPolicias = policiasFiltrados.Select(i => new SelectListItem() { Text = i.nombre, Value = i.cedula }),
                 TiposArma = tablaGeneralDAL.GetTiposArma().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
                 TiposCalibre = tablaGeneralDAL.GetTiposCalibre().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
                 TiposCondicion = tablaGeneralDAL.GetTiposCondicion().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
@@ -142,13 +152,12 @@ namespace FrontEnd.Controllers
 
         //Guarda la información ingresada en la página para crear policías
         [HttpPost]
-        public ActionResult Nuevo(ArmaViewModel model, string filtroCedula)
+        public ActionResult Nuevo(ArmaViewModel model)
         {
             policiaDAL = new PoliciaDAL();
             armaDAL = new ArmaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
-            List<Policias> policiasFiltrados = BuscarPolicias(policiaDAL.GetPolicias(), filtroCedula);
-            model.SerieFiltrada = armaDAL.GetSerieArma(model.NumeroSerie);
+          
             try
             {
                 if (!armaDAL.SerieExiste(model.NumeroSerie))
@@ -164,7 +173,7 @@ namespace FrontEnd.Controllers
                 model.TiposCalibre = tablaGeneralDAL.GetTiposCalibre().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
                 model.TiposCondicion = tablaGeneralDAL.GetTiposCondicion().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
                 model.TiposUbicacion = tablaGeneralDAL.GetTiposUbicacion().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
-                model.ListaPolicias = policiasFiltrados.Select(i => new SelectListItem() { Text = i.nombre, Value = i.cedula });
+               
 
                 return View(model);
             }
@@ -173,6 +182,38 @@ namespace FrontEnd.Controllers
                 throw new Exception(ex.Message);
             }
 
+        }
+        public PartialViewResult ListaPoliciasBuscar(string nombre)
+        {
+            List<ListPoliciaViewModel> policias = new List<ListPoliciaViewModel>();
+
+            return PartialView("_ListaPoliciasBuscar", policias);
+        }
+
+        public PartialViewResult ListaPoliciasParcial(string nombre)
+        {
+            tablaGeneralDAL = new TablaGeneralDAL();
+            policiaDAL = new PoliciaDAL();
+            List<Policias> policias = policiaDAL.Get();
+            List<Policias> policiasFiltrados = new List<Policias>();
+
+            if (nombre == "")
+            {
+                policiasFiltrados = policias;
+            }
+            else
+            {
+                foreach (Policias policia in policias)
+                {
+                    if (policia.nombre.Contains(nombre))
+                    {
+                        policiasFiltrados.Add(policia);
+                    }
+                }
+            }
+            policiasFiltrados = policiasFiltrados.OrderBy(x => x.nombre).ToList();
+
+            return PartialView("_ListaPoliciasParcial", ConvertirListaPoliciasFiltrados(policiasFiltrados));
         }
         public ActionResult Detalle(int id)
         {

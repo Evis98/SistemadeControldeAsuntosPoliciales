@@ -57,13 +57,14 @@
         <dd class="col-sm-8">
             @Html.DisplayTextFor(d => d.Ubicacion)
         </dd>
-        @if(Model.Observacion != null) { 
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.Observacion)
-        </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.Observacion)
-        </dd>
+        @if (Model.Observacion != null)
+        {
+            <dt class="col-sm-4">
+                @Html.LabelFor(d => d.Observacion)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayTextFor(d => d.Observacion)
+            </dd>
         }
         <dt class="col-sm-4">
             @Html.LabelFor(d => d.EstadoArma)
@@ -75,11 +76,13 @@
             <a class="btn btn-warning" data-toggle="modal" data-target="#show3">Cambiar Estado</a>
         </dd>
     </dl>
-
+    <div class="row" style="text-align:right;">
+        <a href="~/Arma/Index/" class="btn btn-outline-secondary">Regresar</a>
+    </div>
 
     <div style="text-align:center;">
         <a class="btn btn-primary" href="~/Arma/Editar/@Model.IdArma">Editar</a>
-        <a class="btn btn-info" href="~/Arma/Index/">Regresar</a>
+
     </div>
 </div>
 <div class="modal" id="show3" tabindex="-1" role="dialog">

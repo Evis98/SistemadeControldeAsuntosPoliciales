@@ -87,12 +87,18 @@
     </div>
     <div class="form-group col-md-6">
         @Html.LabelFor(d => d.Tatuajes)
-        <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="checkboxTatuajes" onclick="aparecerTatuajes()">
-            <label class="form-check-label" for="exampleCheck1">Aplica</label>
-        </div>
+        @if (Model.Tatuajes != null)
+        {
+            @Html.TextAreaFor(d => d.Tatuajes, new { @class = "form-control",  @id = "nombreTatuajes", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+        }
+        @if (Model.Tatuajes == null)
+        {
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="checkboxTatuajes" onclick="aparecerTatuajes()">
+                <label class="form-check-label" for="exampleCheck1">Aplica</label>
+            </div>
         @Html.TextAreaFor(d => d.Tatuajes, new { @class = "form-control", @style = "display:none", @id = "nombreTatuajes", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
-        @Html.ValidationMessageFor(d => d.Tatuajes, null, new { @class = "red" })
+       }
     </div>
       <div class="form-group col-md-3">
         @Html.LabelFor(d => d.Nacionalidad)
@@ -106,34 +112,52 @@
 
     <div class="form-group col-md-6">
         @Html.LabelFor(d => d.Observaciones)
-        <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="checkboxObservaciones" onclick="aparecerObservaciones()">
-            <label class="form-check-label" for="exampleCheck1">Aplica</label>
+        @if (Model.Observaciones != null)
+        {
+            @Html.TextAreaFor(d => d.Observaciones, new { @class = "form-control", @id = "Obs", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+        }
+        @if (Model.Observaciones == null)
+        {
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="checkboxObservaciones" onclick="aparecerObservaciones()">
+                <label class="form-check-label" for="exampleCheck1">Aplica</label>
+            </div>
+            @Html.TextAreaFor(d => d.Observaciones, new { @class = "form-control", @style = "display:none", @id = "Obs", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+            @Html.ValidationMessageFor(d => d.Observaciones, null, new { @class = "red" })
+        }
         </div>
-        @Html.TextAreaFor(d => d.Observaciones, new { @class = "form-control", @style = "display:none", @id = "Obs", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
-        @Html.ValidationMessageFor(d => d.Observaciones, null, new { @class = "red" })
-
-    </div>
 
     <div class="form-group col-md-6">
         @Html.LabelFor(d => d.NombrePadre)
-        <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="checkboxPadre" onclick="aparecerPadre()">
-            <label class="form-check-label" for="exampleCheck1">Aplica</label>
+        @if (Model.NombrePadre != null)
+        {
+            @Html.TextBoxFor(d => d.NombrePadre, "", new { @class = "form-control", @id = "nombrePadre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)" })
+        }
+        @if (Model.NombrePadre == null)
+        {
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="checkboxPadre" onclick="aparecerPadre()">
+                <label class="form-check-label" for="exampleCheck1">Aplica</label>
+            </div>
+            @Html.TextBoxFor(d => d.NombrePadre, "", new { @class = "form-control", @style = "display:none", @id = "nombrePadre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)" })
+            @Html.ValidationMessageFor(d => d.NombrePadre, null, new { @class = "red" })
+        }
         </div>
-        @Html.TextBoxFor(d => d.NombrePadre, "", new { @class = "form-control", @style = "display:none", @id = "nombrePadre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)" })
-        @Html.ValidationMessageFor(d => d.NombrePadre, null, new { @class = "red" })
-
-    </div>
     <div class="form-group col-md-6">
         @Html.LabelFor(d => d.NombreMadre)
-        <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="checkboxMadre" onclick="aparecerMadre()">
-            <label class="form-check-label">Aplica</label>
-        </div>
-        @Html.TextBoxFor(d => d.NombreMadre, "", new { @class = "form-control", @style = "display:none", @id = "nombreMadre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)" })
-        @Html.ValidationMessageFor(d => d.NombreMadre, null, new { @class = "red" })
-    </div>
+        @if (Model.NombreMadre != null)
+        {
+            @Html.TextBoxFor(d => d.NombreMadre, "", new { @class = "form-control", @id = "nombreMadre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)" })
+        }
+        @if (Model.NombreMadre == null)
+        {
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="checkboxMadre" onclick="aparecerMadre()">
+                <label class="form-check-label">Aplica</label>
+            </div>
+            @Html.TextBoxFor(d => d.NombreMadre, "", new { @class = "form-control", @style = "display:none", @id = "nombreMadre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)" })
+            @Html.ValidationMessageFor(d => d.NombreMadre, null, new { @class = "red" })
+        }</div>
     <div class="form-group col-md-3">
         @Html.LabelFor(d => d.Archivo)
         @Html.TextBoxFor(d => d.Archivo, new { @type = "file", accept = ".png" })

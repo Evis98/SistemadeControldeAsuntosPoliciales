@@ -56,6 +56,6 @@ Tsearch.addEventListener("input", function (event) {
     this.value = this.value.toUpperCase();
 });
 
-    $('#btnSave').click(function () {
+$('#btnSave').click(function () {
         $('#show').modal('hide');
-    });
+});

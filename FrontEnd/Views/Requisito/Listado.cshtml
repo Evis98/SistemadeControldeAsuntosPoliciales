@@ -11,37 +11,41 @@
         <h2 class="display-4">@ViewBag.Title</h2>
 
     </div>
-    
+
     <div class="text-right">
-      
-            <a class="btn btn-success" href="~/Requisito/Nuevo/@HttpContext.Current.Session["idPolicia"].ToString()">Agregar Requisito</a>
 
-        </div>
+        <a class="btn btn-success" href="~/Requisito/Nuevo/@HttpContext.Current.Session["idPolicia"].ToString()">Agregar Requisito</a>
 
-        <div class="row my-4">
-
-            <table class="table">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col"> Tipo Requisito</th>
-                        <th scope="col"> Descripción</th>
-                        <th scope="col"></th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var oElemento in Model)
-                    {
-                        <tr>
-                            <th scope="row">@oElemento.DetalleTipoRequisito</th>
-                            <td>@oElemento.Detalles</td>
-                            <td>
-                                <a class="btn btn-outline-info" href="~/Requisito/Detalle/@oElemento.IdRequisito">Ver Detalles</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-
-        </div>
     </div>
+
+    <div class="row my-4">
+
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col"> Tipo Requisito</th>
+                    <th scope="col"> Descripción</th>
+                    <th scope="col"></th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var oElemento in Model)
+                {
+                    <tr>
+                        <th scope="row">@oElemento.DetalleTipoRequisito</th>
+                        <td>@oElemento.Detalles</td>
+                        <td>
+                            <a class="btn btn-outline-info" href="~/Requisito/Detalle/@oElemento.IdRequisito">Ver Detalles</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+    <div class="text-left">
+        <a class="btn btn-outline-secondary" onclick="history.go(-1);">Regresar</a>
+    </div>
+</div>
+

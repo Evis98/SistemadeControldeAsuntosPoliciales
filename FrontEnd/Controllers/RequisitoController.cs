@@ -145,6 +145,7 @@ namespace FrontEnd.Controllers
         public ActionResult Nuevo(RequisitoViewModel modelo)
         {
             requisitoDAL = new RequisitoDAL();
+            tablaGeneralDAL = new TablaGeneralDAL();
             try
             {
                 if (ModelState.IsValid)
@@ -172,7 +173,8 @@ namespace FrontEnd.Controllers
                     requisitoDAL.Add(requisito);
                     return Redirect("~/Requisito/Listado/" + Session["idPolicia"].ToString());
                 }
-                return View(modelo.IdPolicia);
+                modelo.TiposRequisito = tablaGeneralDAL.GetTiposRequisito().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+                return View(modelo);
             }
             catch (Exception ex)
             {

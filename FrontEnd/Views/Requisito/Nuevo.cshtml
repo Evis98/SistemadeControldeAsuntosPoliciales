@@ -25,13 +25,14 @@
     <div class="form-group col-md-3">
         @Html.LabelFor(d => d.FechaVencimiento)
         @Html.EditorFor(d => d.FechaVencimiento, "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(d => d.FechaVencimiento, null, new { @class = "red" })
     </div>
     <div class="form-group col-md-3">
         @Html.LabelFor(d => d.Archivo)
         @Html.TextBoxFor(d => d.Archivo, new { @type = "file", accept = ".pdf" })
         @Html.ValidationMessageFor(d => d.Archivo, "", new { @class = "red" })
     </div>
-    <div class="modal" id="show6" tabindex="-1" role="dialog">
+    <div class="modal" id="show" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -45,7 +46,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-danger" id="Cancel" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary" id="Save">Guardar</button>
+                    <button type="submit" class="btn btn-primary" id="btnSave">Guardar</button>
                 </div>
             </div>
         </div>
@@ -56,7 +57,7 @@
     <div class="form-row">
         <div class="form-group col-md-6">
             <div style="text-align:right;">
-                <input value="Guardar" class="btn btn-primary" type="button" data-toggle="modal" data-target="#show6" />
+                <input value="Guardar"  class="btn btn-primary" type="button" data-toggle="modal" data-target="#show" />
 
             </div>
         </div>
