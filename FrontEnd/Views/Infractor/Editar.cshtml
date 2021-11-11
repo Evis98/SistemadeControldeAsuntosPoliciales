@@ -35,8 +35,9 @@
     <div class="form-group col-md-3">
         @Html.LabelFor(d => d.FechaNacimiento)
         @Html.EditorFor(d => d.FechaNacimiento, "", new { @class = "form-control" })
+    </div>
+    <div class="form-group col-md-6">
         @Html.ValidationMessageFor(d => d.FechaNacimiento, "", new { @class = "red" })
-
     </div>
 
     <div class="form-group col-md-3">
@@ -89,7 +90,7 @@
         @Html.LabelFor(d => d.Tatuajes)
         @if (Model.Tatuajes != null)
         {
-            @Html.TextAreaFor(d => d.Tatuajes, new { @class = "form-control",  @id = "nombreTatuajes", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+            @Html.TextAreaFor(d => d.Tatuajes, new { @class = "form-control", @id = "nombreTatuajes", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
         }
         @if (Model.Tatuajes == null)
         {
@@ -97,10 +98,10 @@
                 <input type="checkbox" class="form-check-input" id="checkboxTatuajes" onclick="aparecerTatuajes()">
                 <label class="form-check-label" for="exampleCheck1">Aplica</label>
             </div>
-        @Html.TextAreaFor(d => d.Tatuajes, new { @class = "form-control", @style = "display:none", @id = "nombreTatuajes", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
-       }
+            @Html.TextAreaFor(d => d.Tatuajes, new { @class = "form-control", @style = "display:none", @id = "nombreTatuajes", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+        }
     </div>
-      <div class="form-group col-md-3">
+    <div class="form-group col-md-3">
         @Html.LabelFor(d => d.Nacionalidad)
         @Html.TextBoxFor(d => d.Nacionalidad, "", new { @class = "form-control", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)" })
     </div>
@@ -125,7 +126,7 @@
             @Html.TextAreaFor(d => d.Observaciones, new { @class = "form-control", @style = "display:none", @id = "Obs", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
             @Html.ValidationMessageFor(d => d.Observaciones, null, new { @class = "red" })
         }
-        </div>
+    </div>
 
     <div class="form-group col-md-6">
         @Html.LabelFor(d => d.NombrePadre)
@@ -142,7 +143,7 @@
             @Html.TextBoxFor(d => d.NombrePadre, "", new { @class = "form-control", @style = "display:none", @id = "nombrePadre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)" })
             @Html.ValidationMessageFor(d => d.NombrePadre, null, new { @class = "red" })
         }
-        </div>
+    </div>
     <div class="form-group col-md-6">
         @Html.LabelFor(d => d.NombreMadre)
         @if (Model.NombreMadre != null)
@@ -157,7 +158,8 @@
             </div>
             @Html.TextBoxFor(d => d.NombreMadre, "", new { @class = "form-control", @style = "display:none", @id = "nombreMadre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)" })
             @Html.ValidationMessageFor(d => d.NombreMadre, null, new { @class = "red" })
-        }</div>
+        }
+    </div>
     <div class="form-group col-md-3">
         @Html.LabelFor(d => d.Archivo)
         @Html.TextBoxFor(d => d.Archivo, new { @type = "file", accept = ".png" })

@@ -14,7 +14,7 @@
 <div class="container">
     @Html.HiddenFor(d => d.IdPolicia)
     @Html.HiddenFor(d => d.Estado)
-    <div class="form-group col-md-2">
+    <div class="form-group col-md-4">
         @Html.LabelFor(d => d.TipoCedula)
         @Html.DropDownListFor(d => d.TipoCedula, Model.TiposCedula, new { @class = "myselect form-control" })
         @Html.ValidationMessageFor(d => d.TipoCedula, null, new { @class = "red" })
@@ -34,9 +34,11 @@
         @Html.ValidationMessageFor(d => d.Nombre, null, new { @class = "red" })
     </div>
     <div class="form-group col-md-3">
-        @Html.LabelFor(d => d.FechaNacimiento)<br />
+        @Html.LabelFor(d => d.FechaNacimiento)
         @Html.EditorFor(d => d.FechaNacimiento, "", new { @class = "form-control" })
-        @Html.ValidationMessageFor(d => d.FechaNacimiento, null, new { @class = "red" })
+    </div>
+    <div class="form-group col-md-6">
+        @Html.ValidationMessageFor(d => d.FechaNacimiento, "", new { @class = "red" })
 
     </div>
     <div class="form-group col-md-3">

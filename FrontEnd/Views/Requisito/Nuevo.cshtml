@@ -12,7 +12,7 @@
     {
 <div class="container">
 
-    <div class="form-group col-md-2">
+    <div class="form-group col-md-4">
         @Html.LabelFor(d => d.TipoRequisito)
         @Html.DropDownListFor(d => d.TipoRequisito, Model.TiposRequisito, new { @class = "myselect form-control" })
         @Html.ValidationMessageFor(d => d.TipoRequisito, null, new { @class = "red" })
