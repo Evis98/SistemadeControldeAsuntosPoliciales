@@ -1,16 +1,22 @@
 ﻿@model FrontEnd.Models.ViewModels.ListInfractorViewModel
 
 @{
-    ViewBag.Title = "Infractor";
+    ViewBag.Title = "Información del Infractor";
 }
 
-<div class=" container">
-    <div class="row mb-3">
-        <h3 class="display-4">@ViewBag.Title</h3>
+<div class="container bg-light text-dark border" style="height:80vh;">
+    <div class="row">
+        <div class="col-md-12">
+            <div style="text-align:center;">
+                <h2 class="display-4" style="text-align:center;">@ViewBag.Title</h2>
+            </div>
+        </div>
     </div>
-
-    <div class="row mb-3">
-        <h2> @Html.DisplayTextFor(d => d.Nombre)</h2>
+    <hr />
+    <div class="row">
+        <div class="col">
+            <h2> @Html.DisplayTextFor(d => d.Nombre)</h2>
+        </div>
     </div>
     <dl class=" row">
         @Html.HiddenFor(d => d.IdInfractor)
@@ -123,18 +129,17 @@
             @Html.LabelFor(d => d.Imagen)
         </dt>
         <dd class="col-sm-8">
-            <img src="@Url.Content(Model.Imagen)" style="width:220px;height:300px;">
+            <img src="@Url.Content(Model.Imagen)" style="width:100px;height:100px;">
         </dd>
-
     </dl>
-
-    <div class="row" style="text-align:right;">
-        <a href="~/Infractor/Index/" class="btn btn-outline-secondary">Regresar</a>
-    </div>
-
-    <div style="text-align:center;">
-        <a class="btn btn-primary" href="~/Infractor/Editar/@Model.IdInfractor">Editar</a>
-        <a class="btn btn-info">Ver Infracciones</a>
-
+    <hr />
+    <div class="row">
+        <div class="col-sm-12">
+            <a href="~/Infractor/Index/" class="btn btn-outline-secondary">Regresar</a>
+            <div style="text-align:center;">
+                <a class="btn btn-primary" href="~/Infractor/Editar/@Model.IdInfractor">Editar</a>
+                <a class="btn btn-info">Ver Infracciones</a>
+            </div>
+        </div>
     </div>
 </div>

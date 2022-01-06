@@ -1,12 +1,17 @@
 ﻿@model FrontEnd.Models.ViewModels.ListArmaViewModel
 
-@{ ViewBag.Title = "Arma"; }
+@{ ViewBag.Title = "Información del Arma"; }
 
 
-<div class=" container">
-    <div class="row mb-3">
-        <h3 class="display-4">@ViewBag.Title</h3>
+<div class="container bg-light text-dark border" style="height:80vh;">
+    <div class="row">
+        <div class="col-md-12">
+            <div style="text-align:center;">
+                <h2 class="display-4">@ViewBag.Title </h2>
+            </div>
+        </div>
     </div>
+    <hr />
 
     <dl class=" row">
         <dt class="col-sm-4">
@@ -73,18 +78,26 @@
             @Html.DisplayTextFor(d => d.EstadoArma)
         </dd>
         <dd class="col-sm-8">
-            <a class="btn btn-warning" data-toggle="modal" data-target="#show3">Cambiar Estado</a>
+            <a class="btn btn-sm btn-warning" data-toggle="modal" data-target="#show3">Cambiar Estado</a>
         </dd>
     </dl>
-    <div class="row" style="text-align:right;">
-        <a href="~/Arma/Index/" class="btn btn-outline-secondary">Regresar</a>
+    <hr />
+
+    <div class="row">
+        <div class="col-sm-12">
+            <a href="~/Arma/Index/" class="btn btn-outline-secondary">Regresar</a>
+     
+            <div style="text-align:center;">
+                <a class="btn btn-primary" href="~/Arma/Editar/@Model.IdArma">Editar</a>
+
+            </div>
+        </div>
+
     </div>
 
-    <div style="text-align:center;">
-        <a class="btn btn-primary" href="~/Arma/Editar/@Model.IdArma">Editar</a>
-
-    </div>
 </div>
+
+
 <div class="modal" id="show3" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

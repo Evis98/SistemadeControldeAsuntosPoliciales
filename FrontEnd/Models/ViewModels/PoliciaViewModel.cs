@@ -47,11 +47,11 @@ namespace FrontEnd.Models.ViewModels
         public string TelefonoCasa { get; set; }
         [Required]
         [StringLength(150, ErrorMessage = "Nombre excede los 150 caracteres.")]
-        [Display(Name = "Nombre del Contacto de Emergencia")]
+        [Display(Name = "Nombre Contacto de Emergencia")]
         public string ContactoEmergencia { get; set; }
         [Required]
         [StringLength(9, ErrorMessage = "Escriba un número de teléfono con 8 digitos.", MinimumLength = 9)]
-        [Display(Name = "Teléfono del Contacto de Emergencia")]
+        [Display(Name = "Teléfono Contacto de Emergencia")]
         public string TelefonoEmergencia { get; set; }
         public IEnumerable<SelectListItem> TiposCedula { get; set; }
         public int? Estado { get; set; }

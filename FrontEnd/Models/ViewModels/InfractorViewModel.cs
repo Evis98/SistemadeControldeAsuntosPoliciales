@@ -75,6 +75,7 @@ namespace FrontEnd.Models.ViewModels
         public string Imagen { get; set; } 
         public IEnumerable<SelectListItem> TiposDeIdentificacion { get; set; }
         public IEnumerable<SelectListItem> TiposDeSexo { get; set; }
+        public IEnumerable<SelectListItem> Nacionalidades { get; set; }
     }
     public class DateValidation : ValidationAttribute
     {

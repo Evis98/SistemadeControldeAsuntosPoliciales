@@ -1,61 +1,61 @@
 ﻿@model List<FrontEnd.Models.ViewModels.ListRequisitoViewModel>
-
 @{
     ViewBag.Title = "Requisito";
 }
-<div class="container">
-    <div class="row mb-3">
-        <h2 class="display-4">@ViewBag.Title</h2>
+<div class="container bg-light text-dark border" style="height:80vh;">
+    <div class="row">
+        <div class="col-md-12">
+            <div style="text-align:center;">
+                <h2 class="display-4">@ViewBag.Title</h2>
+            </div>
+        </div>
     </div>
-
+    <hr />
     @using (Html.BeginForm("Index", "Requisito", FormMethod.Get))
     {
-
-<div class="row my-4">
-
-    <div class="col-sm-3">
-        <select class="form-control" name="filtroSeleccionado" onclick="ocultar()" id="filtroSeleccionado"></select>
-    </div>
-
-        <div class="col-sm-4">
-            <input class="form-control" name="busqueda" type="text" id="busqueda" onkeyup="this.value = this.value.toUpperCase();" onkeypress = "return sololetrasnumerossimbolos(event)" />
-            <select class="form-control" name="tipoRequisito" id="tipoRequisito">
-                <option value="" selected="selected">Selecione un tipo de requisito</option>
-            </select>
+        <div class="form-row">
+            <div class="col-sm-3">
+                <select class="form-control" name="filtroSeleccionado" onclick="ocultar()" id="filtroSeleccionado"></select>
+            </div>
+            <div class="col-sm-4">
+                <input class="form-control" name="busqueda" type="text" id="busqueda" onkeyup="this.value = this.value.toUpperCase();" onkeypress="return sololetrasnumerossimbolos(event)" />
+                <select class="form-control" name="tipoRequisito" id="tipoRequisito">
+                    <option value="" selected="selected">Selecione un tipo de requisito</option>
+                </select>
+            </div>
+            <div class="col-sm-1">
+                <button class="btn btn-primary">Buscar</button>
+            </div>
         </div>
-    
-        <div class="col-sm-1">
-            <button class="btn btn-primary">Buscar</button>
-        </div>
-
-    </div>
     }
-
-
+    <hr />
     <div class="row">
-
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Tipo</th>
-                    <th scope="col">Policía</th>
-                    <th scope="col">Detalle</th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var oElemento in Model)
-                {
+        <div class="col-md-12">
+            <table class="table table-bordered center table-sm">
+                <thead class="thead-dark">
                     <tr>
-                        <th scope="row">@oElemento.DetalleTipoRequisito</th>
-                        <td>@oElemento.NombrePolicia</td>
-                        <td>@oElemento.Detalles</td>
-                        <td>
-                            <a class="btn btn-outline-info" href="~/Requisito/Detalle/@oElemento.IdRequisito">Ver Detalles</a>
-                        </td>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Policía</th>
+                        <th scope="col">Detalle</th>
+                        <th scope="col"></th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var oElemento in Model)
+                    {
+                        <tr>
+                            <th scope="row">@oElemento.DetalleTipoRequisito</th>
+                            <td>@oElemento.NombrePolicia</td>
+                            <td>@oElemento.Detalles</td>
+                            <td>
+                                <div style="text-align:center;">
+                                    <a class="btn btn-sm btn-outline-info" href="~/Requisito/Detalle/@oElemento.IdRequisito">Ver Detalles</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

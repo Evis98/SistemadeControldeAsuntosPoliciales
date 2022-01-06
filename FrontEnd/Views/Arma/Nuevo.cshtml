@@ -1,75 +1,89 @@
 ﻿@model FrontEnd.Models.ViewModels.ArmaViewModel
 @{
-    ViewBag.Title = "Agregar arma";
+    ViewBag.Title = "Agregar Información de Arma";
 }
 
-
-<div class="container">
-    <div class="row mb-3">
-        <h2 class="display-4">@ViewBag.Title</h2>
+<div class="container bg-light text-dark border" style="height:80vh;">
+    <div class="row">
+        <div class="col-md-12">
+            <div style="text-align:center;">
+                <h2 class="display-4" style="text-align:center;">@ViewBag.Title</h2>
+            </div>
+        </div>
     </div>
+    <hr />
 
     @using (Html.BeginForm("Nuevo", "Arma", FormMethod.Post))
     {
-        <div class="form-group col-md-3">
-            @Html.LabelFor(d => d.NumeroSerie)
-            @Html.TextBoxFor(d => d.NumeroSerie, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
-            @if (Model.SerieFiltrada != null)
-            {@Html.ValidationMessageFor(d => d.NumeroSerie, "El numero de serie ya existe.", new { @class = "red" })}
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                @Html.LabelFor(d => d.NumeroSerie)
+                @Html.TextBoxFor(d => d.NumeroSerie, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+                @if (Model.SerieFiltrada != null)
+                {
+                    @Html.ValidationMessageFor(d => d.NumeroSerie, "El numero de serie ya existe.", new { @class = "red" })
+                }
+                @Html.ValidationMessageFor(d => d.NumeroSerie, null, new { @class = "red" })
+            </div>
+            <div class="form-group col-md-3">
+                @Html.LabelFor(d => d.PoliciaAsignado)
+                <div class="input-group">
+                    @Html.TextBoxFor(d => d.PoliciaAsignado, "", new { @class = "form-control", @id = "idPolicia", @readonly = "readonly" })
+                    <div class="input-group-append ">
+                        <a class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Buscar</a>
+                    </div>
+                </div>
+                @Html.ValidationMessageFor(d => d.PoliciaAsignado, null, new { @class = "red" })
+            </div>
+            <div class="form-group col-md-2">
+                @Html.LabelFor(d => d.TipoArma)
+                @Html.DropDownListFor(d => d.TipoArma, Model.TiposArma, new { @class = "myselect form-control" })
+                @Html.ValidationMessageFor(d => d.TipoArma, null, new { @class = "red" })
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(d => d.Marca)
+                @Html.TextBoxFor(d => d.Marca, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+                @Html.ValidationMessageFor(d => d.Marca, null, new { @class = "red" })
+            </div>
         </div>
-        <div class="form-group col-md-6">
-            @Html.ValidationMessageFor(d => d.NumeroSerie, null, new { @class = "red" })
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                @Html.LabelFor(d => d.ModeloArma)
+                @Html.TextBoxFor(d => d.ModeloArma, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+                @Html.ValidationMessageFor(d => d.ModeloArma, null, new { @class = "red" })
+            </div>
+            <div class="form-group col-md-2">
+                @Html.LabelFor(d => d.Calibre)
+                @Html.DropDownListFor(d => d.Calibre, Model.TiposCalibre, new { @class = "myselect form-control" })
+                @Html.ValidationMessageFor(d => d.Calibre, null, new { @class = "red" })
+            </div>
+            <div class="form-group col-md-2">
+                @Html.LabelFor(d => d.Condicion)
+                @Html.DropDownListFor(d => d.Condicion, Model.TiposCondicion, new { @class = "myselect form-control" })
+                @Html.ValidationMessageFor(d => d.Condicion, null, new { @class = "red" })
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(d => d.Ubicacion)
+                @Html.DropDownListFor(d => d.Ubicacion, Model.TiposUbicacion, new { @class = "myselect form-control" })
+                @Html.ValidationMessageFor(d => d.Ubicacion, null, new { @class = "red" })
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                @Html.LabelFor(d => d.Observacion)
+                @Html.TextAreaFor(d => d.Observacion, new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+                @Html.ValidationMessageFor(d => d.Observacion, null, new { @class = "red" })
+            </div>
+        </div>
 
-        </div>
-        <div class="form-group col-md-4">
-            @Html.LabelFor(d => d.PoliciaAsignado)
-            <div class="input-group">
-                @Html.TextBoxFor(d => d.PoliciaAsignado, "", new { @class = "form-control", @id = "idPolicia" ,@readonly="readonly" })
-                <div class="input-group-append ">
-                    <a class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Buscar</a>
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <div style="text-align:center;">
+                    <input value="Guardar" class="btn btn-primary" type="button" id="hGuardar" data-toggle="modal" data-target="#show" />
                 </div>
             </div>
-            @Html.ValidationMessageFor(d => d.PoliciaAsignado, null, new { @class = "red" })
         </div>
-        <div class="form-group col-md-2">
-            @Html.LabelFor(d => d.TipoArma)
-            @Html.DropDownListFor(d => d.TipoArma, Model.TiposArma, new { @class = "myselect form-control" })
-            @Html.ValidationMessageFor(d => d.TipoArma, null, new { @class = "red" })
-        </div>
-        <div class="form-group col-md-3">
-            @Html.LabelFor(d => d.Marca)
-            @Html.TextBoxFor(d => d.Marca, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
-        </div>
-        <div class="form-group col-md-8">
-            @Html.ValidationMessageFor(d => d.Marca, null, new { @class = "red" })
-        </div>
-        <div class="form-group col-md-3">
-            @Html.LabelFor(d => d.ModeloArma)
-            @Html.TextBoxFor(d => d.ModeloArma, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
-        </div>
-        <div class="form-group col-md-6">
-            @Html.ValidationMessageFor(d => d.ModeloArma, null, new { @class = "red" })
-        </div>
-        <div class="form-group col-md-2">
-            @Html.LabelFor(d => d.Calibre)
-            @Html.DropDownListFor(d => d.Calibre, Model.TiposCalibre, new { @class = "myselect form-control" })
-            @Html.ValidationMessageFor(d => d.Calibre, null, new { @class = "red" })
-        </div>
-        <div class="form-group col-md-2">
-            @Html.LabelFor(d => d.Condicion)
-            @Html.DropDownListFor(d => d.Condicion, Model.TiposCondicion, new { @class = "myselect form-control" })
-            @Html.ValidationMessageFor(d => d.Condicion, null, new { @class = "red" })
-        </div>
-        <div class="form-group col-md-4">
-            @Html.LabelFor(d => d.Ubicacion)
-            @Html.DropDownListFor(d => d.Ubicacion, Model.TiposUbicacion, new { @class = "myselect form-control" })
-            @Html.ValidationMessageFor(d => d.Ubicacion, null, new { @class = "red" })
-        </div>
-        <div class="form-group col-md-4">
-            @Html.LabelFor(d => d.Observacion)
-            @Html.TextAreaFor(d => d.Observacion, new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
-            @Html.ValidationMessageFor(d => d.Observacion, null, new { @class = "red" })
-        </div>
+
         <div class="modal" id="show" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -88,14 +102,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <div style="text-align:right;">
-                    <input value="Guardar" class="btn btn-primary" type="button" id="hGuardar" data-toggle="modal" data-target="#show" />
-                </div>
-            </div>
         </div>}
+
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -114,7 +122,8 @@
 
 </div>
 
-<script>function reply_click(clicked_id) {
+<script>
+    function reply_click(clicked_id) {
         var elem = document.getElementById("idPolicia");
         elem.value = clicked_id;
         $('#exampleModal').modal('hide');

@@ -1,71 +1,78 @@
 ﻿@model FrontEnd.Models.ViewModels.RequisitoViewModel
-@{ ViewBag.Title = "Editar"; }
+@{ ViewBag.Title = "Editar Requisito"; }
 
-<div class="container">
-    <div class="row mb-3">
-        <h2 class="display-4">@ViewBag.Title</h2>
+<div class="container bg-light text-dark border" style="height:80vh;">
+    <div class="row">
+        <div class="col-md-12">
+            <div style="text-align:center;">
+                <h2 class="display-4">@ViewBag.Title</h2>
+            </div>
+        </div>
     </div>
-
+    <hr />
 
     @using (Html.BeginForm("Editar", "Requisito", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
 
 
-<div class="container">
-    <div class=" form-group col-md-4">
-        @Html.LabelFor(d => d.TipoRequisito)
-        @Html.DropDownListFor(d => d.TipoRequisito, Model.TiposRequisito, new { @class = "myselect form-control" })
-        @Html.ValidationMessageFor(d => d.TipoRequisito, null, new { @class = "red" })
-    </div>
-    <div class=" form-group col-md-3">
-        @Html.LabelFor(d => d.Detalles)
-        @Html.TextAreaFor(d => d.Detalles, new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)" })
-        @Html.ValidationMessageFor(d => d.Detalles, null, new { @class = "red" })
-    </div>
-    @if (Model.FechaVencimiento != null)
-    {
-        <div class=" form-group col-md-3">
-            @Html.LabelFor(d => d.FechaVencimiento)
-            @Html.EditorFor(d => d.FechaVencimiento, "", new { @class = "form-control" })
-            @Html.ValidationMessageFor(d => d.FechaVencimiento, null, new { @class = "red" })
+        <div class=" form-group col-md-4">
+            @Html.LabelFor(d => d.TipoRequisito)
+            @Html.DropDownListFor(d => d.TipoRequisito, Model.TiposRequisito, new { @class = "myselect form-control" })
+            @Html.ValidationMessageFor(d => d.TipoRequisito, null, new { @class = "red" })
         </div>
-    }
-    @if (Model.Imagen != null)
-    {
-        <div class="form-group col-md-4">
-            @Html.LabelFor(d => d.Archivo)
-            @Html.TextBoxFor(d => d.Archivo, new { @type = "file", accept = ".pdf" })
-            @Html.ValidationMessageFor(d => d.Archivo, "", new { @class = "red" })
-        </div>
-    }
-    @Html.HiddenFor(d => d.IdRequisito)
-    @Html.HiddenFor(d => d.IdPolicia)
-    @Html.HiddenFor(d => d.Imagen)
 
-    <div class="modal" id="show" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Editar Requisito</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>¿Está seguro que desea editar el requisito?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-danger" id="Cancel" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary" id="btnSave">Guardar</button>
+        if (Model.FechaVencimiento != null)
+        {
+            <div class=" form-group col-md-3">
+                @Html.LabelFor(d => d.FechaVencimiento)
+                @Html.EditorFor(d => d.FechaVencimiento, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.FechaVencimiento, null, new { @class = "red" })
+            </div>
+        }
+        <div class=" form-group col-md-3">
+            @Html.LabelFor(d => d.Detalles)
+            @Html.TextAreaFor(d => d.Detalles, new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)" })
+            @Html.ValidationMessageFor(d => d.Detalles, null, new { @class = "red" })
+        </div>
+
+        if (Model.Imagen != null)
+        {
+            <div class="form-group col-md-4">
+                @Html.LabelFor(d => d.Archivo)
+                @Html.TextBoxFor(d => d.Archivo, new { @type = "file", accept = ".pdf" })
+                @Html.ValidationMessageFor(d => d.Archivo, "", new { @class = "red" })
+            </div>
+        }
+        @Html.HiddenFor(d => d.IdRequisito)
+        @Html.HiddenFor(d => d.IdPolicia)
+        @Html.HiddenFor(d => d.Imagen)
+        <hr />
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <div style="text-align:center;">
+                    <input value="Guardar" class="btn btn-primary" type="button" id="hGuardar" data-toggle="modal" data-target="#show" />
+
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class=" form-group col-md-6" style="text-align:right;">
-        <input value="Guardar" class="btn btn-primary" type="button" id="hGuardar" data-toggle="modal" data-target="#show" />
-
-    </div>
+        <div class="modal" id="show" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Editar Requisito</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>¿Está seguro que desea editar el requisito?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-danger" id="Cancel" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" id="btnSave">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 </div>
-      }
-    </div>

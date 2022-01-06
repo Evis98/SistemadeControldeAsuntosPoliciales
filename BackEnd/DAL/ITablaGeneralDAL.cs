@@ -31,6 +31,7 @@ namespace BackEnd.DAL
         int GetIdEstadoArmas(string estadoArma);
         void CambiaEstadoArma(int idArma, int estado);
         string GetCodigo(int idTablaGeneral);
-
+        int GetNacionalidadInfractor(int? nacionalidad);
+        List<TablaGeneral> GetNacionalidadesInfractor();
     }
 }

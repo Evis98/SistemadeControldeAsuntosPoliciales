@@ -1,61 +1,67 @@
 ﻿@model FrontEnd.Models.ViewModels.ListPoliciaViewModel
 
 @{
-    ViewBag.Title = "Policía";
+    ViewBag.Title = "Información del Policía";
 }
 
 
-<div class=" container">
-    <div class="row mb-3">
-        <h3 class="display-4">@ViewBag.Title</h3>
+<div class="container bg-light text-dark border" style="height:80vh;">
+    <div class="row">
+        <div class="col-md-12">
+            <div style="text-align:center;">
+                <h2 class="display-4">@ViewBag.Title </h2>
+            </div>
+        </div>
     </div>
-
-    <div class="row mb-3">
-        <h2> @Html.DisplayTextFor(d => d.Nombre)</h2>
+    <hr />
+    <div class="row">
+        <div class="col">
+            <h2> @Html.DisplayTextFor(d => d.Nombre)</h2>
+        </div>
     </div>
-    <dl class=" row">
+    <dl class="row">
         @Html.HiddenFor(d => d.IdPolicia)
         @Html.HiddenFor(d => d.Estado)
-        <dt class="col-sm-4">
+        <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.TipoCedula)
         </dt>
-        <dd id="req" class="col-sm-8">
+        <dd id="req" class="col-sm-8 ">
             @Html.DisplayTextFor(d => d.TipoCedula)
         </dd>
-        <dt class="col-sm-4">
+        <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.Cedula)
         </dt>
-        <dd class="col-sm-8">
+        <dd class="col-sm-8 ">
             @Html.DisplayTextFor(d => d.Cedula)
         </dd>
         <dt class="col-sm-4">
             @Html.LabelFor(d => d.FechaNacimiento)
         </dt>
-        <dd class="col-sm-8">
+        <dd class="col-sm-8 ">
             @Html.DisplayTextFor(d => d.FechaNacimiento)
         </dd>
-        <dt class="col-sm-4">
+        <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.Edad)
         </dt>
-        <dd class="col-sm-8">
+        <dd class="col-sm-8 ">
             @Html.DisplayTextFor(d => d.Edad)
         </dd>
         <dt class="col-sm-4">
             @Html.LabelFor(d => d.CorreoElectronico)
         </dt>
-        <dd class="col-sm-8">
+        <dd class="col-sm-8 ">
             @Html.DisplayTextFor(d => d.CorreoElectronico)
         </dd>
         <dt class="col-sm-4">
             @Html.LabelFor(d => d.Direccion)
         </dt>
-        <dd class="col-sm-8">
+        <dd class="col-sm-8 ">
             @Html.DisplayTextFor(d => d.Direccion)
         </dd>
         <dt class="col-sm-4">
             @Html.LabelFor(d => d.TelefonoCelular)
         </dt>
-        <dd class="col-sm-8">
+        <dd class="col-sm-8 ">
             @Html.DisplayTextFor(d => d.TelefonoCelular)
         </dd>
         @if (Model.TelefonoCasa != null)
@@ -63,61 +69,64 @@
             <dt class="col-sm-4">
                 @Html.LabelFor(d => d.TelefonoCasa)
             </dt>
-            <dd class="col-sm-8">
+            <dd class="col-sm-8 ">
                 @Html.DisplayTextFor(d => d.TelefonoCasa)
             </dd>
         }
-            <dt class="col-sm-4">
-                @Html.LabelFor(d => d.ContactoEmergencia)
-            </dt>
-            <dd class="col-sm-8">
-                @Html.DisplayTextFor(d => d.ContactoEmergencia)
-            </dd>
-            <dt class="col-sm-4">
-                @Html.LabelFor(d => d.TelefonoEmergencia)
-            </dt>
-            <dd class="col-sm-8">
-                @Html.DisplayTextFor(d => d.TelefonoEmergencia)
-            </dd>
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.ContactoEmergencia)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.ContactoEmergencia)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.TelefonoEmergencia)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayTextFor(d => d.TelefonoEmergencia)
+        </dd>
 
-            <dt class="col-sm-4">
-                @Html.LabelFor(d => d.DescripcionEstado)
-            </dt>
-            <dd class="col-sm-8">
-                @Html.DisplayTextFor(d => d.DescripcionEstado)
-            </dd>
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.DescripcionEstado)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayTextFor(d => d.DescripcionEstado)
+        </dd>
 
-            <dd class="col-sm-9">
-                <a class="btn btn-warning" data-toggle="modal" data-target="#show3">Cambiar Estado</a>
-            </dd>
-        </dl>
+        <dd class="col-sm-9">
+            <a class="btn btn-sm  btn-warning" data-toggle="modal" data-target="#show3">Cambiar Estado</a>
+        </dd>
+    </dl>
+    <hr />
 
-    <div class="row" style="text-align:right;">
-        <a href="~/Policia/Index/" class="btn btn-outline-secondary">Regresar</a>
+    <div class="row">
+        <div class="col-sm-12">
+            <a href="~/Policia/Index/" class="btn btn-outline-secondary">Regresar</a>
+
+        <div style="text-align:center;">
+            <a class="btn btn-primary" href="~/Policia/Editar/@Model.IdPolicia">Editar</a>
+            <a class="btn btn-info" href="~/Requisito/Listado/@Model.IdPolicia">Ver Requisitos</a>
+        </div>
     </div>
-
-    <div style="text-align:center;">
-        <a class="btn btn-primary" href="~/Policia/Editar/@Model.IdPolicia">Editar</a>
-        <a class="btn btn-info" href="~/Requisito/Listado/@Model.IdPolicia">Ver Requisitos</a>
-
-    </div>
-</div>
-<div class="modal" id="show3" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Modificar Estado</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>¿Está seguro que desea modificar el estado del policía?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-danger" id="Cancel" data-dismiss="modal">Cancelar</button>
-                <a type="button" class="btn btn-primary" id="Save" href="~/Policia/CambioEstado/@Model.Estado">Modificar</a>
+        </div>
+    <div class="modal" id="show3" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modificar Estado</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Está seguro que desea modificar el estado del policía?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" id="Cancel" data-dismiss="modal">Cancelar</button>
+                    <a type="button" class="btn btn-primary" id="Save" href="~/Policia/CambioEstado/@Model.Estado">Modificar</a>
+                </div>
             </div>
         </div>
     </div>
+
 </div>

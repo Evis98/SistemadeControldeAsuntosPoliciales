@@ -9,11 +9,13 @@ namespace FrontEnd.Models.ViewModels
     public class ListRequisitoViewModel
     {
         public int IdRequisito { get; set; }
+        [Display(Name = "Fecha de Vencimiento")]
         public string FechaVencimiento { get; set; }
+        [Display(Name = "Tipo de Requisito")]
         public string TipoRequisito { get; set; }
         public string DetalleTipoRequisito { get; set; }
         public int? IdPolicia { get; set; }
-        [Display(Name = "POLICÍA: ")]
+        [Display(Name = "POLICÍA")]
         public string NombrePolicia { get; set; }
         public string Imagen { get; set; }
         public string Detalles { get; set; }

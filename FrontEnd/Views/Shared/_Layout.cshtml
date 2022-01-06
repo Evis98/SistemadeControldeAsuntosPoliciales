@@ -8,7 +8,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body>
+<body style="background-image: url('https://cdn.discordapp.com/attachments/894600217746354226/920456009607159848/v996-008.jpg'); ">
     <div class="contenedor-imagenes">
 
         <img src="~/SourcesSCAP/ScapLogo.png">
@@ -44,9 +44,9 @@
 
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Municipalidad de Alajuela</p>
+
+        <footer class="fixed-bottom" style="background-color:#00277B;">
+            <p style="color:white; text-align:center">&copy; @DateTime.Now.Year - Municipalidad de Alajuela</p>
         </footer>
     </div>
 

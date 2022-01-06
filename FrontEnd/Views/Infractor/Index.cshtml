@@ -4,16 +4,19 @@
 }
 
 
-<div class="container">
-    <div class="row mb-3">
-        <h2 class="display-4">@ViewBag.Title</h2>
+<div class="container bg-light text-dark border" style="height:80vh;">
+    <div class="row">
+        <div class="col-md-12">
+            <div style="text-align:center;">
+                <h2 class="display-4">@ViewBag.Title</h2>
+            </div>
+        </div>
     </div>
-
+    <hr />
     @using (Html.BeginForm("Index", "Infractor", FormMethod.Get))
     {
 
-        <div class="row my-4">
-
+        <div class="form-row">
             <div class="col-sm-3">
                 <select class="form-control" name="filtroSeleccionado" id="filtroSeleccionado">
                     <option selected>Nombre</option>
@@ -32,32 +35,34 @@
 
         </div>
     }
-
+    <hr />
 
     <div class="row">
-
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Identificación</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col"></th>
-                </tr>
-
-            </thead>
-            <tbody>
-                @foreach (var oElemento in Model)
-                {
+        <div class="col-md-12">
+            <table class="table table-bordered center table-sm">
+                <thead class="thead-dark">
                     <tr>
-                        <th scope="row">@oElemento.Identificacion</th>
-                        <td>@oElemento.Nombre</td>
-                        <td>
-                            <a class="btn btn-outline-info" href="~/Infractor/Detalle/@oElemento.IdInfractor">Ver Detalles</a>
-                        </td>
+                        <th scope="col">Identificación</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col"></th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-</div>
 
+                </thead>
+                <tbody>
+                    @foreach (var oElemento in Model)
+                    {
+                        <tr>
+                            <th scope="row">@oElemento.Identificacion</th>
+                            <td>@oElemento.Nombre</td>
+                            <td>
+                                <div style="text-align:center;">
+                                    <a class="btn btn-sm btn-outline-info" href="~/Infractor/Detalle/@oElemento.IdInfractor">Ver Detalles</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>    
+</div>

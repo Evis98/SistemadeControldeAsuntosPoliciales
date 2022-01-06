@@ -2,116 +2,108 @@
 @{
     ViewBag.Title = "Editar Policía";
 }
-<div class="container">
-    <div class="row mb-3">
-        <h2 class="display-4">@ViewBag.Title</h2>
+<div class="container bg-light text-dark border" style="height:80vh;">
+    <div class="row">
+        <div class="col-md-12">
+            <div style="text-align:center;">
+                <h2 class="display-4" style="text-align:center;">@ViewBag.Title</h2>
+            </div>
+        </div>
     </div>
-
-
+    <hr />
     @using (Html.BeginForm("Editar", "Policia", FormMethod.Post))
     {
+        @Html.HiddenFor(d => d.IdPolicia)
+        @Html.HiddenFor(d => d.Estado)
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                @Html.LabelFor(d => d.Nombre)
+                @Html.TextBoxFor(d => d.Nombre, "", new { @class = "form-control", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)" })
+                @Html.ValidationMessageFor(d => d.Nombre, null, new { @class = "red" })
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(d => d.Cedula)
+                @Html.TextBoxFor(d => d.Cedula, "", new { @class = "form-control", @id = "pcedula", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)" })
+                @if (Model.CedulaPoliciaFiltrada != null)
+                {@Html.ValidationMessageFor(d => d.Cedula, "La cedula ya existe", new { @class = "red" })}
+            </div>
+            <div class="form-group col-md-2">
+                @Html.LabelFor(d => d.TipoCedula)
+                @Html.DropDownListFor(d => d.TipoCedula, Model.TiposCedula, new { @class = "myselect form-control" })
+                @Html.ValidationMessageFor(d => d.TipoCedula, null, new { @class = "red" })
+            </div>
 
-<div class="container">
-    @Html.HiddenFor(d => d.IdPolicia)
-    @Html.HiddenFor(d => d.Estado)
-    <div class="form-group col-md-4">
-        @Html.LabelFor(d => d.TipoCedula)
-        @Html.DropDownListFor(d => d.TipoCedula, Model.TiposCedula, new { @class = "myselect form-control" })
-        @Html.ValidationMessageFor(d => d.TipoCedula, null, new { @class = "red" })
-    </div>
-    <div class="form-group col-md-3">
-        @Html.LabelFor(d => d.Cedula)
-        @Html.TextBoxFor(d => d.Cedula, "", new { @class = "form-control", @id = "pcedula", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)" })
-    </div>
-    <div class="form-group col-md-6">
-        @Html.ValidationMessageFor(d => d.Cedula, null, new { @class = "red" })
-    </div>
-
-    <div class="form-group col-md-6">
-
-        @Html.LabelFor(d => d.Nombre)
-        @Html.TextBoxFor(d => d.Nombre, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)" })
-        @Html.ValidationMessageFor(d => d.Nombre, null, new { @class = "red" })
-    </div>
-    <div class="form-group col-md-3">
-        @Html.LabelFor(d => d.FechaNacimiento)
-        @Html.EditorFor(d => d.FechaNacimiento, "", new { @class = "form-control" })
-    </div>
-    <div class="form-group col-md-6">
-        @Html.ValidationMessageFor(d => d.FechaNacimiento, "", new { @class = "red" })
-
-    </div>
-    <div class="form-group col-md-3">
-
-        @Html.LabelFor(d => d.TelefonoCelular)
-        @Html.TextBoxFor(d => d.TelefonoCelular, "", new { @class = "inputphone form-control" })
-
-    </div>
-    <div class="form-group col-md-6">
-        @Html.ValidationMessageFor(d => d.TelefonoCelular, null, new { @class = "red" })
-
-    </div>
-    <div class="form-group col-md-3">
-        @Html.LabelFor(d => d.TelefonoCasa)
-        @Html.TextBoxFor(d => d.TelefonoCasa, "", new { @class = "inputphone form-control" })
-
-    </div>
-    <div class="form-group col-md-6">
-        @Html.LabelFor(d => d.Direccion)
-        @Html.TextAreaFor(d => d.Direccion, new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
-        @Html.ValidationMessageFor(d => d.Direccion, null, new { @class = "red" })
-    </div>
-    <div class="form-group col-md-6">
-        @Html.LabelFor(d => d.CorreoElectronico)
-        @Html.TextBoxFor(d => d.CorreoElectronico, "", new { @class = "form-control" })
-        @Html.ValidationMessageFor(d => d.CorreoElectronico, null, new { @class = "red" })
-    </div>
-    <div class="form-group col-md-6">
-        @Html.LabelFor(d => d.ContactoEmergencia)
-        @Html.TextBoxFor(d => d.ContactoEmergencia, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)" })
-        @Html.ValidationMessageFor(d => d.ContactoEmergencia, null, new { @class = "red" })
-    </div>
-    <div class="form-group col-md-8">
-        @Html.LabelFor(d => d.TelefonoEmergencia)
-
-    </div>
-    <div class="form-group col-md-3">
-
-        @Html.TextBoxFor(d => d.TelefonoEmergencia, "", new { @class = "inputphone form-control" })
-
-    </div>
-    <div class="form-group col-md-6">
-        @Html.ValidationMessageFor(d => d.TelefonoEmergencia, null, new { @class = "red" })
-
-    </div>
-    <div class="modal" id="show" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Editar un policía.</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>¿Está seguro que desea modificar los datos del policía?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-danger" id="Cancel" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary" id="btnSave">Guardar</button>
-                </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                @Html.LabelFor(d => d.CorreoElectronico)
+                @Html.TextBoxFor(d => d.CorreoElectronico, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.CorreoElectronico, null, new { @class = "red" })
+            </div>
+            <div class="form-group col-md-2">
+                @Html.LabelFor(d => d.TelefonoCelular)
+                @Html.TextBoxFor(d => d.TelefonoCelular, "", new { @class = "inputphone form-control" })
+                @Html.ValidationMessageFor(d => d.TelefonoCelular, null, new { @class = "red" })
+            </div>
+            <div class="form-group col-md-2">
+                @Html.LabelFor(d => d.TelefonoCasa)
+                @Html.TextBoxFor(d => d.TelefonoCasa, "", new { @class = "inputphone form-control" })
+            </div>
+            <div class="form-group col-md-2">
+                @Html.LabelFor(d => d.FechaNacimiento)
+                @Html.EditorFor(d => d.FechaNacimiento, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.FechaNacimiento, null, new { @class = "red" })
             </div>
         </div>
-    </div>
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                @Html.LabelFor(d => d.Direccion)
+                @Html.TextAreaFor(d => d.Direccion, new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+                @Html.ValidationMessageFor(d => d.Direccion, null, new { @class = "red" })
+            </div>
+        </div>
 
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <div style="text-align:right;">
-                <input value="Guardar Información" class="btn btn-primary" id="hGuardar" type="button" data-toggle="modal" data-target="#show" />
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                @Html.LabelFor(d => d.ContactoEmergencia)
+                @Html.TextBoxFor(d => d.ContactoEmergencia, "", new { @class = "form-control", @id = "TContacto", @onkeypress = "return sololetras(event)" })
+                @Html.ValidationMessageFor(d => d.ContactoEmergencia, null, new { @class = "red" })
+            </div>
+            <div class="form-group col-md-3">
+                @Html.LabelFor(d => d.TelefonoEmergencia)
+                @Html.TextBoxFor(d => d.TelefonoEmergencia, "", new { @class = "inputphone form-control" })
+                @Html.ValidationMessageFor(d => d.TelefonoEmergencia, null, new { @class = "red" })
 
             </div>
         </div>
-    </div>
-</div>
+        <hr />
+
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <div style="text-align:center;">
+                    <input value="Guardar Información" class="btn btn-primary" id="hGuardar" type="button" data-toggle="modal" data-target="#show" />
+
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="show" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Editar un policía.</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>¿Está seguro que desea modificar los datos del policía?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-danger" id="Cancel" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" id="btnSave">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     }
 </div>

@@ -17,7 +17,7 @@ namespace BackEnd
         public int idInfractor { get; set; }
         public int tipoDeIdentificacion { get; set; }
         public string numeroDeIdentificacion { get; set; }
-        public string nacionalidad { get; set; }
+        public int nacionalidad { get; set; }
         public string nombreCompleto { get; set; }
         public System.DateTime fechaNacimiento { get; set; }
         public string telefono { get; set; }
@@ -34,5 +34,6 @@ namespace BackEnd
     
         public virtual TablaGeneral TablaGeneral { get; set; }
         public virtual TablaGeneral TablaGeneral1 { get; set; }
+        public virtual TablaGeneral TablaGeneral2 { get; set; }
     }
 }

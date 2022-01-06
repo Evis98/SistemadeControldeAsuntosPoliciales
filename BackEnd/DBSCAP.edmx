@@ -28,15 +28,15 @@
           <Property Name="idInfractor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="tipoDeIdentificacion" Type="int" Nullable="false" />
           <Property Name="numeroDeIdentificacion" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="nacionalidad" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nacionalidad" Type="int" Nullable="false" />
           <Property Name="nombreCompleto" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="fechaNacimiento" Type="date" Nullable="false" />
-          <Property Name="telefono" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="telefono" Type="varchar" MaxLength="9" />
           <Property Name="direccionExacta" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="sexo" Type="int" Nullable="false" />
           <Property Name="correoEletronico" Type="varchar" MaxLength="100" />
           <Property Name="observaciones" Type="varchar" MaxLength="150" />
-          <Property Name="profesionUOficio" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="profesionUOficio" Type="varchar" MaxLength="50" />
           <Property Name="estatura" Type="varchar" MaxLength="4" Nullable="false" />
           <Property Name="tatuajes" Type="varchar" MaxLength="150" />
           <Property Name="nombreDelPadre" Type="varchar" MaxLength="150" />
@@ -176,6 +176,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Nacionalidad">
+          <End Role="TablaGeneral" Type="Self.TablaGeneral" Multiplicity="1" />
+          <End Role="Infractores" Type="Self.Infractores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TablaGeneral">
+              <PropertyRef Name="idTablaGeneral" />
+            </Principal>
+            <Dependent Role="Infractores">
+              <PropertyRef Name="nacionalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Sexo">
           <End Role="TablaGeneral" Type="Self.TablaGeneral" Multiplicity="1" />
           <End Role="Infractores" Type="Self.Infractores" Multiplicity="*" />
@@ -293,6 +305,10 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="RolesUsuarios" EntitySet="RolesUsuarios" />
           </AssociationSet>
+          <AssociationSet Name="FK_Nacionalidad" Association="Self.FK_Nacionalidad">
+            <End Role="TablaGeneral" EntitySet="TablaGeneral" />
+            <End Role="Infractores" EntitySet="Infractores" />
+          </AssociationSet>
           <AssociationSet Name="FK_Sexo" Association="Self.FK_Sexo">
             <End Role="TablaGeneral" EntitySet="TablaGeneral" />
             <End Role="Infractores" EntitySet="Infractores" />
@@ -355,22 +371,23 @@
           <Property Name="idInfractor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="tipoDeIdentificacion" Type="Int32" Nullable="false" />
           <Property Name="numeroDeIdentificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="nacionalidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nacionalidad" Type="Int32" Nullable="false" />
           <Property Name="nombreCompleto" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="fechaNacimiento" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="telefono" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefono" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
           <Property Name="direccionExacta" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="sexo" Type="Int32" Nullable="false" />
           <Property Name="correoEletronico" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="observaciones" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="profesionUOficio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="profesionUOficio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="estatura" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="tatuajes" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="nombreDelPadre" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="nombreDeLaMadre" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="imagen" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="TablaGeneral" Relationship="Self.FK_Sexo" FromRole="Infractores" ToRole="TablaGeneral" />
-          <NavigationProperty Name="TablaGeneral1" Relationship="Self.FK_TipoDeIdentificacion" FromRole="Infractores" ToRole="TablaGeneral" />
+          <NavigationProperty Name="TablaGeneral" Relationship="Self.FK_Nacionalidad" FromRole="Infractores" ToRole="TablaGeneral" />
+          <NavigationProperty Name="TablaGeneral1" Relationship="Self.FK_Sexo" FromRole="Infractores" ToRole="TablaGeneral" />
+          <NavigationProperty Name="TablaGeneral2" Relationship="Self.FK_TipoDeIdentificacion" FromRole="Infractores" ToRole="TablaGeneral" />
         </EntityType>
         <EntityType Name="Policias">
           <Key>
@@ -436,8 +453,9 @@
           <NavigationProperty Name="Armas2" Relationship="Self.FK_EstadoArma" FromRole="TablaGeneral" ToRole="Armas" />
           <NavigationProperty Name="Armas3" Relationship="Self.FK_TipoArma" FromRole="TablaGeneral" ToRole="Armas" />
           <NavigationProperty Name="Armas4" Relationship="Self.FK_Ubicacion" FromRole="TablaGeneral" ToRole="Armas" />
-          <NavigationProperty Name="Infractores" Relationship="Self.FK_Sexo" FromRole="TablaGeneral" ToRole="Infractores" />
-          <NavigationProperty Name="Infractores1" Relationship="Self.FK_TipoDeIdentificacion" FromRole="TablaGeneral" ToRole="Infractores" />
+          <NavigationProperty Name="Infractores" Relationship="Self.FK_Nacionalidad" FromRole="TablaGeneral" ToRole="Infractores" />
+          <NavigationProperty Name="Infractores1" Relationship="Self.FK_Sexo" FromRole="TablaGeneral" ToRole="Infractores" />
+          <NavigationProperty Name="Infractores2" Relationship="Self.FK_TipoDeIdentificacion" FromRole="TablaGeneral" ToRole="Infractores" />
           <NavigationProperty Name="Policias" Relationship="Self.FK_Estado" FromRole="TablaGeneral" ToRole="Policias" />
           <NavigationProperty Name="Policias1" Relationship="Self.FK_TipoCedula" FromRole="TablaGeneral" ToRole="Policias" />
           <NavigationProperty Name="Requisitos" Relationship="Self.FK_IdPolicia" FromRole="TablaGeneral" ToRole="Requisitos" />
@@ -509,6 +527,18 @@
             </Principal>
             <Dependent Role="Armas">
               <PropertyRef Name="ubicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Nacionalidad">
+          <End Role="TablaGeneral" Type="Self.TablaGeneral" Multiplicity="1" />
+          <End Role="Infractores" Type="Self.Infractores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TablaGeneral">
+              <PropertyRef Name="idTablaGeneral" />
+            </Principal>
+            <Dependent Role="Infractores">
+              <PropertyRef Name="nacionalidad" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -636,6 +666,10 @@
           <AssociationSet Name="FK_Ubicacion" Association="Self.FK_Ubicacion">
             <End Role="TablaGeneral" EntitySet="TablaGeneral" />
             <End Role="Armas" EntitySet="Armas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Nacionalidad" Association="Self.FK_Nacionalidad">
+            <End Role="TablaGeneral" EntitySet="TablaGeneral" />
+            <End Role="Infractores" EntitySet="Infractores" />
           </AssociationSet>
           <AssociationSet Name="FK_Sexo" Association="Self.FK_Sexo">
             <End Role="TablaGeneral" EntitySet="TablaGeneral" />

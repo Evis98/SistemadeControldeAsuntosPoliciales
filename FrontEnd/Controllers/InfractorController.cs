@@ -17,12 +17,13 @@ namespace FrontEnd.Controllers
 
         public List<ListInfractorViewModel> ConvertirListaInfractores(List<Infractores> infractores)
         {
+            tablaGeneralDAL = new TablaGeneralDAL();
             return (from d in infractores
                     select new ListInfractorViewModel
                     {
                         IdInfractor = d.idInfractor,
                         Identificacion = d.numeroDeIdentificacion,
-                        Nacionalidad = d.nacionalidad,
+                        Nacionalidad = tablaGeneralDAL.GetDescripcion(d.nacionalidad),
                         Nombre = d.nombreCompleto,
                         Telefono = d.telefono,
                         DireccionExacta = d.direccionExacta,
@@ -45,7 +46,7 @@ namespace FrontEnd.Controllers
                 idInfractor = modelo.IdInfractor,
                 tipoDeIdentificacion = tablaGeneralDAL.GetTipoIdentificacionInfractor(modelo.TipoIdentificacion),
                 numeroDeIdentificacion = modelo.Identificacion,
-                nacionalidad = modelo.Nacionalidad,
+                nacionalidad = tablaGeneralDAL.GetNacionalidadInfractor(int.Parse(modelo.Nacionalidad)),
                 nombreCompleto = modelo.Nombre,
                 fechaNacimiento = modelo.FechaNacimiento,
                 telefono = modelo.Telefono,
@@ -71,7 +72,7 @@ namespace FrontEnd.Controllers
                 IdInfractor = infractor.idInfractor,
                 TipoIdentificacion = int.Parse(tablaGeneralDAL.GetCodigo(infractor.tipoDeIdentificacion)),
                 Identificacion = infractor.numeroDeIdentificacion,
-                Nacionalidad = infractor.nacionalidad,
+                Nacionalidad = infractor.nacionalidad.ToString(),
                 Nombre = infractor.nombreCompleto,
                 FechaNacimiento = infractor.fechaNacimiento,
                 Telefono = infractor.telefono,
@@ -96,7 +97,7 @@ namespace FrontEnd.Controllers
                 IdInfractor = infractor.idInfractor,
                 TipoIdentificacion = tablaGeneralDAL.GetDescripcion(infractor.tipoDeIdentificacion),
                 Identificacion = infractor.numeroDeIdentificacion,
-                Nacionalidad = infractor.nacionalidad,
+                Nacionalidad = tablaGeneralDAL.GetDescripcion(infractor.nacionalidad),
                 Nombre = infractor.nombreCompleto,
                 FechaNacimiento = infractor.fechaNacimiento.ToShortDateString(),
                 Edad = ObtenerEdad(infractor.fechaNacimiento),
@@ -160,6 +161,7 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             InfractorViewModel modelo = new InfractorViewModel()
             {
+                Nacionalidades = tablaGeneralDAL.GetNacionalidadesInfractor().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
                 TiposDeIdentificacion = tablaGeneralDAL.GetTiposIdentificacionInfractor().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
                 TiposDeSexo = tablaGeneralDAL.GetTiposSexoInfractor().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
                 FechaNacimiento = DateTime.Today,
@@ -204,7 +206,7 @@ namespace FrontEnd.Controllers
                         return Redirect("~/Infractor/Detalle/" + aux);
                     }
                 }
-
+                model.Nacionalidades = tablaGeneralDAL.GetNacionalidadesInfractor().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
                 model.TiposDeIdentificacion = tablaGeneralDAL.GetTiposIdentificacionInfractor().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
                 model.TiposDeSexo = tablaGeneralDAL.GetTiposSexoInfractor().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
                 return View(model);
@@ -229,7 +231,8 @@ namespace FrontEnd.Controllers
         public ActionResult Editar(int id)
         {      
             infractorDAL = new InfractorDAL();
-            InfractorViewModel modelo = CargarInfractor(infractorDAL.GetInfractor(id));        
+            InfractorViewModel modelo = CargarInfractor(infractorDAL.GetInfractor(id));
+            modelo.Nacionalidades = tablaGeneralDAL.GetNacionalidadesInfractor().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             modelo.TiposDeIdentificacion = tablaGeneralDAL.GetTiposIdentificacionInfractor().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             modelo.TiposDeSexo = tablaGeneralDAL.GetTiposSexoInfractor().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });        
             return View(modelo);
@@ -241,6 +244,7 @@ namespace FrontEnd.Controllers
         {
             infractorDAL = new InfractorDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
+            modelo.Nacionalidades = tablaGeneralDAL.GetNacionalidadesInfractor().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             modelo.TiposDeIdentificacion = tablaGeneralDAL.GetTiposIdentificacionInfractor().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             modelo.TiposDeSexo = tablaGeneralDAL.GetTiposSexoInfractor().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             try

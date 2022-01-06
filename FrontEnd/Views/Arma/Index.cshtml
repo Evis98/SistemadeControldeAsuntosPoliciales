@@ -3,16 +3,18 @@
 @{
     ViewBag.Title = "Armas";
 }
-<div class="container">
-    <div class="row mb-3">
-        <h2 class="display-4">@ViewBag.Title</h2>
+<div class="container bg-light text-dark border" style="height:80vh;">
+    <div class="row">
+        <div class="col-md-12">
+            <div style="text-align:center;">
+                <h2 class="display-4">@ViewBag.Title</h2>
+            </div>
+        </div>
     </div>
-
+    <hr />
     @using (Html.BeginForm("Index", "Arma", FormMethod.Get))
     {
-
-        <div class="row my-4">
-
+        <div class="form-row">
             <div class="col-sm-3">
                 <select class="form-control" name="filtroSeleccionado" id="filtroSeleccionado">
                     <option selected>Policía Asignado</option>
@@ -28,35 +30,37 @@
             <div class="col-sm-1">
                 <a href="~/Arma/Nuevo" class="btn btn-success">Agregar</a>
             </div>
-
         </div>
     }
-
-
+    <hr />
     <div class="row">
-
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Policía Asignado</th>
-                    <th scope="col">Número de Serie</th>
-                    <th scope="col">Tipo de Arma</th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var oElemento in Model)
-                {
-                <tr>
-                    <th scope="row">@oElemento.NombrePolicia</th>
-                    <td>@oElemento.NumeroSerie</td>
-                    <td>@oElemento.TipoArma</td>
-                    <td>
-                        <a class="btn btn-outline-info" href="~/Arma/Detalle/@oElemento.IdArma">Ver Detalles</a>
-                    </td>
-                </tr>
-                }
-            </tbody>
-        </table>
+        <div class="col-md-12">
+            <table class="table table-bordered center table-sm">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Policía Asignado</th>
+                        <th scope="col">Número de Serie</th>
+                        <th scope="col">Tipo de Arma</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var oElemento in Model)
+                    {
+                        <tr>
+                            <th scope="row">@oElemento.NombrePolicia</th>
+                            <td>@oElemento.NumeroSerie</td>
+                            <td>@oElemento.TipoArma</td>
+                            <td>
+                                <div style="text-align:center;">
+                                    <a class="btn btn-sm btn-outline-info" href="~/Arma/Detalle/@oElemento.IdArma">Ver Detalles</a>
+                                    </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
+    
 </div>

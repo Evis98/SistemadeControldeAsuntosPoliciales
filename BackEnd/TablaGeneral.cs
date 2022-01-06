@@ -24,6 +24,7 @@ namespace BackEnd
             this.Armas4 = new HashSet<Armas>();
             this.Infractores = new HashSet<Infractores>();
             this.Infractores1 = new HashSet<Infractores>();
+            this.Infractores2 = new HashSet<Infractores>();
             this.Policias = new HashSet<Policias>();
             this.Policias1 = new HashSet<Policias>();
             this.Requisitos = new HashSet<Requisitos>();
@@ -50,6 +51,8 @@ namespace BackEnd
         public virtual ICollection<Infractores> Infractores { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Infractores> Infractores1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Infractores> Infractores2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Policias> Policias { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

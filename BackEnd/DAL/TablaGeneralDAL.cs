@@ -246,7 +246,23 @@ namespace BackEnd.DAL
                 return db.Database.SqlQuery<string>("Select codigo from TablaGeneral where idTablaGeneral =" + idTablaGeneral).Single<string>();
             }
         }
-
-
+        public int GetNacionalidadInfractor(int? nacionalidad)
+        {
+            int aux;
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                aux = db.Database.SqlQuery<int>("Select idTablaGeneral from TablaGeneral where tabla= 'Infractores' and campo = 'nacionalidad' and codigo =" + nacionalidad).Single<int>();
+            }
+            return aux;
+        }
+        public List<TablaGeneral> GetNacionalidadesInfractor()
+        {
+            List<TablaGeneral> descripcion;
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                descripcion = db.Database.SqlQuery<TablaGeneral>("Select * from TablaGeneral where tabla = 'Infractores' and campo = 'nacionalidad'").ToList<TablaGeneral>();
+            }
+            return descripcion;
+        }
     }
 }
