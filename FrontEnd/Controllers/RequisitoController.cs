@@ -114,11 +114,13 @@ namespace FrontEnd.Controllers
         }
 
         //*Devuelve la página con el listado de todos los requisitos creados para el policía seleccionado
-        public ActionResult Listado(int id)
+        public ActionResult Listado(int id, string filtroSeleccionado, string busqueda, string tipoRequisito)
         {
             requisitoDAL = new RequisitoDAL();
+            tablaGeneralDAL = new TablaGeneralDAL();
             List<Requisitos> requisitos = requisitoDAL.Get();
             List<Requisitos> requisitosPolicia = new List<Requisitos>();
+            List<Requisitos> requisitosAux = new List<Requisitos>();
             foreach (Requisitos requisito in requisitos)
             {
                 if (id == requisito.idPolicia)
@@ -127,7 +129,31 @@ namespace FrontEnd.Controllers
                 }
             }
             requisitos = requisitosPolicia;
-            return View(ConvertirListaRequisitos(requisitos));
+
+            if (busqueda != null)
+            {
+                foreach (Requisitos requisito in requisitosPolicia)
+                {
+                    if (filtroSeleccionado == "Detalle de Requisito")
+                    {
+                        if (requisito.detalles.Contains(busqueda))
+                        {
+                            requisitosAux.Add(requisito);
+                        }
+                    }
+                    if (filtroSeleccionado == "Tipo de Requisito")
+                    {
+                        if (tablaGeneralDAL.GetDescripcion(requisito.tipoRequisito).Contains(tipoRequisito))
+                        {
+                            requisitosAux.Add(requisito);
+                        }
+                    }
+                }
+                requisitos = requisitosAux;
+            }
+            List<ListRequisitoViewModel> requisitosOrdenados = ConvertirListaRequisitos(requisitos);
+            requisitosOrdenados = requisitosOrdenados.OrderBy(x => x.DetalleTipoRequisito).ToList();
+            return View(requisitosOrdenados);
         }
 
         //Devuelve la página que agrega nuevos requisitos

@@ -50,12 +50,16 @@
         <dd class="col-sm-8">
             @Html.DisplayTextFor(d => d.Edad)
         </dd>
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.Telefono)
-        </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.Telefono)
-        </dd>
+        @if (Model.Telefono != null)
+        {
+            <dt class="col-sm-4">
+                @Html.LabelFor(d => d.Telefono)
+            </dt>
+
+            <dd class="col-sm-8">
+                @Html.DisplayTextFor(d => d.Telefono)
+            </dd>
+        }
         <dt class="col-sm-4">
             @Html.LabelFor(d => d.DireccionExacta)
         </dt>
@@ -77,12 +81,15 @@
                 @Html.DisplayTextFor(d => d.CorreoElectronico)
             </dd>
         }
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.ProfesionUOficio)
-        </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.ProfesionUOficio)
-        </dd>
+        @if (Model.ProfesionUOficio != null)
+        {
+            <dt class="col-sm-4">
+                @Html.LabelFor(d => d.ProfesionUOficio)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayTextFor(d => d.ProfesionUOficio)
+            </dd>
+        }
         <dt class="col-sm-4">
             @Html.LabelFor(d => d.Estatura)
         </dt>

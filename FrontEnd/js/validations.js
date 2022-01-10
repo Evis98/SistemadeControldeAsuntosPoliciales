@@ -158,22 +158,14 @@ for (i = 0; i < document.querySelectorAll('.inputphone').length; i++) {
 		backspacerUP(this, e);
 	}
 }
-
-
-var TNombre = document.getElementById("TNombre");
-
-TNombre.addEventListener("input", function (event) {
-	this.value = this.value.toUpperCase();
-});
-
-var TContacto = document.getElementById("TContacto");
-
-TContacto.addEventListener("input", function (event) {
-	this.value = this.value.toUpperCase();
-});
-
-DetalleE.addEventListener("form-control", function (event) {
-	this.value = this.value.toUpperCase();
+document.getElementById("TipoR").addEventListener("change", function () {
+	var tipoR = document.getElementById("TipoR")
+	var valorS = tipoR.value;
+	if (valorS == 2) {
+		document.getElementById("FechaV").style.display = 'none';
+	} else {
+		document.getElementById("FechaV").style.display = 'block';
+	}
 });
 
 function sololetras(e) {
@@ -283,3 +275,4 @@ function aparecerTatuajes() {
 		text.style.display = "none";
 	}
 }
+

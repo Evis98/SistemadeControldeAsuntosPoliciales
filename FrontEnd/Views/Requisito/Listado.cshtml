@@ -2,65 +2,72 @@
 
 
 @{
-    ViewBag.Title = "Listado de Requisitos: "+ @HttpContext.Current.Session["nombrePolicia"].ToString();
+    ViewBag.Title = "Listado de Requisitos";
 }
 
 <div class="container bg-light text-dark border" style="height:80vh;">
     <div class="row">
         <div class="col-md-12">
             <div style="text-align:center;">
-                <h2 class="display-4">@ViewBag.Title </h2>
+                <h3 class="display-4">@ViewBag.Title </h3>
             </div>
             <hr />
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-3">
-            <select class="form-control" name="filtroSeleccionado" onclick="ocultar()" id="filtroSeleccionado"></select>
+    @using (Html.BeginForm("Listado", "Requisito", FormMethod.Get))
+    {
+        <div class="row">
+            <div class="col mb-3">
+                <h1 class="h2">@HttpContext.Current.Session["nombrePolicia"].ToString()</h1>
+            </div>
         </div>
-        <div class="col-sm-4">
-            <input class="form-control" name="busqueda" type="text" id="busqueda" onkeyup="this.value = this.value.toUpperCase();" onkeypress="return sololetrasnumerossimbolos(event)" />
-            <select class="form-control" name="tipoRequisito" id="tipoRequisito">
-                <option value="" selected="selected">Selecione un tipo de requisito</option>
-            </select>
+        <div class="row">
+            <div class="col-sm-3">
+                <select class="form-control" name="filtroSeleccionado" onclick="ocultar()" id="filtroSeleccionado"></select>
+            </div>
+            <div class="col-sm-4">
+                <input class="form-control" name="busqueda" type="text" id="busqueda" onkeyup="this.value = this.value.toUpperCase();" onkeypress="return sololetrasnumerossimbolos(event)" />
+                <select class="form-control" name="tipoRequisito" id="tipoRequisito">
+                    <option value="" selected="selected">Selecione un tipo de requisito</option>
+                </select>
+            </div>
+            <div class="col-sm-3">
+                <button class="btn btn-primary">Buscar</button>
+            </div>
+            <div class="col-sm-2">
+                <a class="btn btn-success" href="~/Requisito/Nuevo/@HttpContext.Current.Session["idPolicia"].ToString()">Agregar Requisito</a>
+            </div>
         </div>
-        <div class="col-sm-3">
-            <button class="btn btn-primary">Buscar</button>
-        </div>
-        <div class="col-sm-2">
-            <a class="btn btn-success" href="~/Requisito/Nuevo/@HttpContext.Current.Session["idPolicia"].ToString()">Agregar Requisito</a>
-        </div>
-    </div>
     <hr />
-    <div class="row">
-        <div class="col-sm-12">
-            <table class="table table-bordered center table-sm">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col"> Tipo Requisito</th>
-                        <th scope="col"> Descripción</th>
-                        <th scope="col"></th>
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-bordered center table-sm">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col"> Tipo Requisito</th>
+                                <th scope="col"> Descripción</th>
+                                <th scope="col"></th>
 
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var oElemento in Model)
-                    {
-                        <tr>
-                            <th scope="row">@oElemento.DetalleTipoRequisito</th>
-                            <td>@oElemento.Detalles</td>
-                            <td>
-                                <div style="text-align:center;">
-                                    <a class="btn btn-sm btn-outline-info" href="~/Requisito/Detalle/@oElemento.IdRequisito">Ver Detalles</a>
-                                </div>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
-
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var oElemento in Model.Take(10))
+                            {
+                                <tr>
+                                    <th scope="row">@oElemento.DetalleTipoRequisito</th>
+                                    <td>@oElemento.Detalles</td>
+                                    <td>
+                                        <div style="text-align:center;">
+                                            <a class="btn btn-sm btn-outline-info" href="~/Requisito/Detalle/@oElemento.IdRequisito">Ver Detalles</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
     <div class="row">
 
         <div class="col-sm-3">

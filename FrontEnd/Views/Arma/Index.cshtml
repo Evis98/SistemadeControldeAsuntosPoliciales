@@ -45,7 +45,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var oElemento in Model)
+                    @foreach (var oElemento in Model.Take(10))
                     {
                         <tr>
                             <th scope="row">@oElemento.NombrePolicia</th>

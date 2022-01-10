@@ -1,4 +1,5 @@
-﻿var subjectObject = {
+﻿
+var subjectObject = {
     "Detalle de Requisito": {
     },
     "Tipo de Requisito": { "Carné": [], "Capacitación": [] }
@@ -52,7 +53,21 @@ function ocultarFecha() {
 
 }
 
-Tsearch.addEventListener("input", function (event) {
-    this.value = this.value.toUpperCase();
-});
-
+uploadField.onchange = function () {
+    if (this.files[0].size > 4194304) {
+        error.textContent = "El peso de la imagen es mayor a 4 MB."
+        error.style.color = "red"
+        this.value = "";
+    } else {
+        error.textContent = ""
+    }
+}
+uploadField2.onchange = function () {
+    if (this.files[0].size > 4194304) {
+        error.textContent = "El peso de la imagen es mayor a 4 MB."
+        error.style.color = "red"
+        this.value = "";
+    } else {
+        error.textContent = ""
+    }
+}

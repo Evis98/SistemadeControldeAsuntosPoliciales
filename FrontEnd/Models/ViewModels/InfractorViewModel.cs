@@ -33,7 +33,7 @@ namespace FrontEnd.Models.ViewModels
         [Display(Name = "Fecha de Nacimiento")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaNacimiento { get; set; }
-        [Required]
+        
         [StringLength(9, ErrorMessage = "Escriba un número de teléfono con 8 digitos.", MinimumLength = 9)]
         [Display(Name = "Teléfono")]
         public string Telefono { get; set; }
@@ -51,7 +51,7 @@ namespace FrontEnd.Models.ViewModels
         [StringLength(150, ErrorMessage = "Observación excede los 150 caracteres.")]
         [Display(Name = "Observaciones")]
         public string Observaciones { get; set; }
-        [Required]
+       
         [StringLength(50, ErrorMessage = "Profesión excede los 50 caracteres.")]
         [Display(Name = "Profesión u Oficio")]
         public string ProfesionUOficio { get; set; }

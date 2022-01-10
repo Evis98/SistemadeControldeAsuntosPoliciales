@@ -1,6 +1,6 @@
 ﻿@model List<FrontEnd.Models.ViewModels.ListRequisitoViewModel>
 @{
-    ViewBag.Title = "Requisito";
+    ViewBag.Title = "Requisitos";
 }
 <div class="container bg-light text-dark border" style="height:80vh;">
     <div class="row">
@@ -41,7 +41,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var oElemento in Model)
+                    @foreach (var oElemento in Model.Take(10))
                     {
                         <tr>
                             <th scope="row">@oElemento.DetalleTipoRequisito</th>

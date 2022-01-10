@@ -23,6 +23,7 @@
             <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.Cedula)
                 @Html.TextBoxFor(d => d.Cedula, "", new { @class = "form-control", @id = "pcedula", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)" })
+                @Html.ValidationMessageFor(d => d.Cedula, null, new { @class = "red" })
                 @if (Model.CedulaPoliciaFiltrada != null)
                 {@Html.ValidationMessageFor(d => d.Cedula, "La cedula ya existe", new { @class = "red" })}
             </div>

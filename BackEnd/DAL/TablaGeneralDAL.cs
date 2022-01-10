@@ -264,5 +264,12 @@ namespace BackEnd.DAL
             }
             return descripcion;
         }
+        public string GetCodigo(int? idTablaGeneral)
+        {
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                return db.Database.SqlQuery<string>("Select codigo from TablaGeneral where idTablaGeneral =" + idTablaGeneral).Single<string>();
+            }
+        }
     }
 }

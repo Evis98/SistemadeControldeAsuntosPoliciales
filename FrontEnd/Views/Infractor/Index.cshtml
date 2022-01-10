@@ -1,6 +1,6 @@
 ﻿@model List<FrontEnd.Models.ViewModels.ListInfractorViewModel>
 @{
-    ViewBag.Title = "Infractor";
+    ViewBag.Title = "Infractores";
 }
 
 
@@ -49,7 +49,7 @@
 
                 </thead>
                 <tbody>
-                    @foreach (var oElemento in Model)
+                    @foreach (var oElemento in Model.Take(10))
                     {
                         <tr>
                             <th scope="row">@oElemento.Identificacion</th>
