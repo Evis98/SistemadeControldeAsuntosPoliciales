@@ -72,7 +72,7 @@ namespace BackEnd.DAL
             }
             return descripcion;
         }
-
+        
         public List<TablaGeneral> GetTiposCedulaPolicia()
         {
             List<TablaGeneral> descripcion;

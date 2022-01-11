@@ -24,6 +24,7 @@ namespace BackEnd.DAL
         List<TablaGeneral> GetTiposCondicion();
         List<TablaGeneral> GetTiposUbicacion();
         int GetIdTipoArma(int? tipoArma);
+       // int GetIdMarcaArma(int? marcaArma);
         int GetIdCalibreArma(int? calibre);
         int GetIdCondicionArma(int? condicion);
         int GetIdUbicacionArma(int? ubicacion);
@@ -32,6 +33,7 @@ namespace BackEnd.DAL
         void CambiaEstadoArma(int idArma, int estado);
         string GetCodigo(int? idTablaGeneral);
         int GetNacionalidadInfractor(int? nacionalidad);
+       // List<TablaGeneral> GetMarcasArma();
         List<TablaGeneral> GetNacionalidadesInfractor();
     }
 }
