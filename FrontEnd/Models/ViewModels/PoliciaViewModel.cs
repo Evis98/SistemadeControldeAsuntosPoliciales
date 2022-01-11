@@ -43,7 +43,7 @@ namespace FrontEnd.Models.ViewModels
         [Display(Name = "Teléfono Celular")]
         public string TelefonoCelular { get; set; }
         [StringLength(9, ErrorMessage = "Escriba un número de teléfono con 8 digitos.", MinimumLength = 9)]
-        [Display(Name = "Teléfono de Casa")]
+        [Display(Name = "Teléfono de Casa (Opcional)")]
         public string TelefonoCasa { get; set; }
         [Required]
         [StringLength(150, ErrorMessage = "Nombre excede los 150 caracteres.")]

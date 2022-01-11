@@ -35,7 +35,7 @@ namespace FrontEnd.Models.ViewModels
         public int Ubicacion { get; set; }
         
         [StringLength(150, ErrorMessage = "Observaciones exceden los 150 caracteres.")]
-        [Display(Name = "Observaciones")]
+        [Display(Name = "Observaciones (Opcional)")]
         public string Observacion { get; set; }
         [Required]
         [StringLength(50, ErrorMessage = "Modelo excede los 50 caracteres.")]

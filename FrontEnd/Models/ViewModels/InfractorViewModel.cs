@@ -35,7 +35,7 @@ namespace FrontEnd.Models.ViewModels
         public DateTime FechaNacimiento { get; set; }
         
         [StringLength(9, ErrorMessage = "Escriba un número de teléfono con 8 digitos.", MinimumLength = 9)]
-        [Display(Name = "Teléfono")]
+        [Display(Name = "Teléfono (Opcional)")]
         public string Telefono { get; set; }
         [Required]
         [StringLength(250, ErrorMessage = "Direccion exacta excede los 250 caracteres.")]
@@ -46,27 +46,27 @@ namespace FrontEnd.Models.ViewModels
         public int Sexo { get; set; }
         [StringLength(100, ErrorMessage = "Dirección de correo excede los 100 caracteres.")]
         [EmailAddress(ErrorMessage = "Escriba una dirección de correo válida.")]
-        [Display(Name = "Correo Electrónico")]
+        [Display(Name = "Correo Electrónico (Opcional)")]
         public string CorreoElectronico { get; set; }
         [StringLength(150, ErrorMessage = "Observación excede los 150 caracteres.")]
-        [Display(Name = "Observaciones")]
+        [Display(Name = "Observaciones (Opcional)")]
         public string Observaciones { get; set; }
        
         [StringLength(50, ErrorMessage = "Profesión excede los 50 caracteres.")]
-        [Display(Name = "Profesión u Oficio")]
+        [Display(Name = "Profesión u Oficio (Opcional)")]
         public string ProfesionUOficio { get; set; }
         [Required]
         [StringLength(4, ErrorMessage = "Escriba la estatura en metros (Ejemplo: 1.60).", MinimumLength = 4)]
         [Display(Name = "Estatura")]
         public string Estatura { get; set; }
         [StringLength(150, ErrorMessage = "Tatuajes excede los 150 caracteres.")]
-        [Display(Name = "Tatuajes")]
+        [Display(Name = "Tatuajes (Opcional)")]
         public string Tatuajes { get; set; }
         [StringLength(150, ErrorMessage = "Nombre del Padre excede los 150 caracteres.")]
-        [Display(Name = "Nombre del Padre")]
+        [Display(Name = "Nombre del Padre (Opcional)")]
         public string NombrePadre { get; set; }
         [StringLength(150, ErrorMessage = "Nombre de la Madre excede los 150 caracteres.")]
-        [Display(Name = "Nombre de la Madre")]
+        [Display(Name = "Nombre de la Madre (Opcional)")]
         public string NombreMadre { get; set; }
         [Display(Name = "Adjuntar imagen")]
     

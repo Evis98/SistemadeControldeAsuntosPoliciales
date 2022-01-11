@@ -22,7 +22,7 @@ namespace FrontEnd.Models.ViewModels
         [StringLength(250, ErrorMessage = "Detalles exceden los 250 caracteres.")]
         [Display(Name = "Detalles")]
         public string Detalles { get; set; }
-        [Display(Name = "Archivo")]
+        [Display(Name = "Archivo (Opcional)")]
         public HttpPostedFileBase Archivo { get; set; }
         public IEnumerable<SelectListItem> TiposRequisito { get; set; }
         public string Imagen { get; set; }
