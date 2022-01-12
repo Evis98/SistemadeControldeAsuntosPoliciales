@@ -17,38 +17,38 @@
 
         @Html.HiddenFor(d => d.IdArma)
         @Html.HiddenFor(d => d.EstadoArma)
-        <div class="form-row">
-            <div class="form-group col-md-3">
-                @Html.LabelFor(d => d.NumeroSerie)
-                @Html.TextBoxFor(d => d.NumeroSerie, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
-                @if (Model.SerieFiltrada != null)
-                {
-                    @Html.ValidationMessageFor(d => d.NumeroSerie, "El numero de serie ya existe.", new { @class = "red" })
-                }
-                @Html.ValidationMessageFor(d => d.NumeroSerie, null, new { @class = "red" })
-            </div>
-            <div class="form-group col-md-3">
-                @Html.LabelFor(d => d.PoliciaAsignado)
-                <div class="input-group">
-                    @Html.TextBoxFor(d => d.PoliciaAsignado, "", new { @class = "form-control", @id = "idPolicia", @readonly = "readonly" })
-                    <div class="input-group-append ">
-                        <a class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Buscar</a>
-                        <a class="btn btn-danger" onclick="document.getElementById('idPolicia').value = ''">Quitar</a>                    
-                    </div>
-                </div>
-                @Html.ValidationMessageFor(d => d.PoliciaAsignado, null, new { @class = "red" })
-            </div>
-            <div class="form-group col-md-2">
-                @Html.LabelFor(d => d.TipoArma)
-                @Html.DropDownListFor(d => d.TipoArma, Model.TiposArma, new { @class = "myselect form-control" })
-                @Html.ValidationMessageFor(d => d.TipoArma, null, new { @class = "red" })
-            </div>
-            <div class="form-group col-md-4">
-                @Html.LabelFor(d => d.Marca)
-                @Html.TextBoxFor(d => d.Marca, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
-                @Html.ValidationMessageFor(d => d.Marca, null, new { @class = "red" })
+<div class="form-row">
+    <div class="form-group col-md-3">
+        @Html.LabelFor(d => d.NumeroSerie)
+        @Html.TextBoxFor(d => d.NumeroSerie, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+        @if (Model.SerieFiltrada != null)
+        {
+            @Html.ValidationMessageFor(d => d.NumeroSerie, "El numero de serie ya existe.", new { @class = "red" })
+        }
+        @Html.ValidationMessageFor(d => d.NumeroSerie, null, new { @class = "red" })
+    </div>
+    <div class="form-group col-md-3">
+        @Html.LabelFor(d => d.PoliciaAsignado)
+        <div class="input-group">
+            @Html.TextBoxFor(d => d.PoliciaAsignado, "", new { @class = "form-control", @id = "idPolicia", @readonly = "readonly" })
+            <div class="input-group-append ">
+                <a class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Buscar</a>
+                <a class="btn btn-danger" onclick="document.getElementById('idPolicia').value = ''">Quitar</a>
             </div>
         </div>
+        @Html.ValidationMessageFor(d => d.PoliciaAsignado, null, new { @class = "red" })
+    </div>
+    <div class="form-group col-md-2">
+        @Html.LabelFor(d => d.TipoArma)
+        @Html.DropDownListFor(d => d.TipoArma, Model.TiposArma, new { @class = "myselect form-control" })
+        @Html.ValidationMessageFor(d => d.TipoArma, null, new { @class = "red" })
+    </div>
+    <div class="form-group col-md-4">
+        @Html.LabelFor(d => d.Marca)
+        @Html.DropDownListFor(d => d.Marca, Model.TiposMarcas, new { @class = "myselect form-control" })
+        @Html.ValidationMessageFor(d => d.Marca, null, new { @class = "red" })
+    </div>
+</div>
 
         <div class="form-row">
             <div class="form-group col-md-4">
@@ -93,13 +93,13 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Modificar Infractor</h5>
+                        <h5 class="modal-title">Editar un Infractor</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>¿Está seguro que modificar los datos del Arma?</p>
+                        <p>¿Está seguro que editar los datos del Arma?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-danger" id="Cancel" data-dismiss="modal">Cancelar</button>

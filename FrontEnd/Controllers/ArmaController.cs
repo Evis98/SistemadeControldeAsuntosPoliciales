@@ -28,7 +28,7 @@ namespace FrontEnd.Controllers
                                                         PoliciaAsignado = d.policiaAsignado,
                                                         NumeroSerie = d.numeroSerie,
                                                         TipoArma = tablaGeneralDAL.GetDescripcion(d.tipoArma),
-                                                        Marca = d.marca,
+                                                        Marca = tablaGeneralDAL.GetDescripcion(d.marca),
                                                         Modelo = d.modelo,
                                                         Calibre = tablaGeneralDAL.GetDescripcion(d.calibre),
                                                         Condicion = tablaGeneralDAL.GetDescripcion(d.condicion),
@@ -61,7 +61,7 @@ namespace FrontEnd.Controllers
                 idArma = modelo.IdArma,
                 numeroSerie = modelo.NumeroSerie,
                 tipoArma = tablaGeneralDAL.GetIdTipoArma(modelo.TipoArma),
-                marca = modelo.Marca,
+                marca = tablaGeneralDAL.GetIdMarcaArma(modelo.Marca),
                 modelo = modelo.ModeloArma,
                 calibre = tablaGeneralDAL.GetIdCalibreArma(modelo.Calibre),
                 condicion = tablaGeneralDAL.GetIdCondicionArma(modelo.Condicion),
@@ -79,7 +79,7 @@ namespace FrontEnd.Controllers
                 armaEditar.IdArma = arma.idArma;
                 armaEditar.NumeroSerie = arma.numeroSerie;
                 armaEditar.TipoArma = int.Parse(tablaGeneralDAL.GetCodigo(arma.tipoArma));
-                armaEditar.Marca = arma.marca;
+                armaEditar.Marca = int.Parse(tablaGeneralDAL.GetCodigo(arma.marca));
                 armaEditar.ModeloArma = arma.modelo;
                 armaEditar.Calibre = int.Parse(tablaGeneralDAL.GetCodigo(arma.calibre));
                 armaEditar.Condicion = int.Parse(tablaGeneralDAL.GetCodigo(arma.condicion));
@@ -104,7 +104,7 @@ namespace FrontEnd.Controllers
 
                 NumeroSerie = arma.numeroSerie,
                 TipoArma = tablaGeneralDAL.GetDescripcion(arma.tipoArma),
-                Marca = arma.marca,
+                Marca = tablaGeneralDAL.GetDescripcion(arma.marca),
                 Modelo = arma.modelo,
                 Calibre = tablaGeneralDAL.GetDescripcion(arma.calibre),
                 Condicion = tablaGeneralDAL.GetDescripcion(arma.condicion),
@@ -156,6 +156,7 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             ArmaViewModel modelo = new ArmaViewModel()
             {
+                TiposMarcas = tablaGeneralDAL.GetMarcasArma().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
                 TiposArma = tablaGeneralDAL.GetTiposArma().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
                 TiposCalibre = tablaGeneralDAL.GetTiposCalibre().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
                 TiposCondicion = tablaGeneralDAL.GetTiposCondicion().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
@@ -197,6 +198,7 @@ namespace FrontEnd.Controllers
                 modelo.TiposCalibre = tablaGeneralDAL.GetTiposCalibre().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
                 modelo.TiposCondicion = tablaGeneralDAL.GetTiposCondicion().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
                 modelo.TiposUbicacion = tablaGeneralDAL.GetTiposUbicacion().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+                modelo.TiposMarcas = tablaGeneralDAL.GetMarcasArma().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
                 return View(modelo);
             }
             catch (Exception ex)
@@ -261,6 +263,7 @@ namespace FrontEnd.Controllers
             modelo.TiposCalibre = tablaGeneralDAL.GetTiposCalibre().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             modelo.TiposCondicion = tablaGeneralDAL.GetTiposCondicion().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             modelo.TiposUbicacion = tablaGeneralDAL.GetTiposUbicacion().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            modelo.TiposMarcas = tablaGeneralDAL.GetMarcasArma().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             return View(modelo);
         }
 

@@ -21,9 +21,8 @@ namespace FrontEnd.Models.ViewModels
         [Display(Name = "Tipo de Arma")]
         public int TipoArma { get; set; }
         [Required]
-        [StringLength(50, ErrorMessage = "Marca excede los 50 caracteres.")]
         [Display(Name = "Marca del Arma")]
-        public string Marca { get; set; }
+        public int Marca { get; set; }
         [Required]
         [Display(Name = "Calibre del Arma")]
         public int Calibre { get; set; }
@@ -45,6 +44,7 @@ namespace FrontEnd.Models.ViewModels
         public IEnumerable<SelectListItem> TiposCalibre { get; set; }
         public IEnumerable<SelectListItem> TiposCondicion { get; set; }
         public IEnumerable<SelectListItem> TiposUbicacion { get; set; }
+        public IEnumerable<SelectListItem> TiposMarcas { get; set; }
         public IEnumerable<SelectListItem> ListaPolicias { get; set; }
         public string SerieFiltrada { get; set;}
         public int EstadoArma { get; set; }

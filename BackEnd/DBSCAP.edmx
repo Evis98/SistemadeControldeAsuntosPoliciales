@@ -13,7 +13,7 @@
           <Property Name="policiaAsignado" Type="int" />
           <Property Name="numeroSerie" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="tipoArma" Type="int" Nullable="false" />
-          <Property Name="marca" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="marca" Type="int" Nullable="false" />
           <Property Name="modelo" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="calibre" Type="int" Nullable="false" />
           <Property Name="condicion" Type="int" Nullable="false" />
@@ -176,6 +176,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Marca">
+          <End Role="TablaGeneral" Type="Self.TablaGeneral" Multiplicity="1" />
+          <End Role="Armas" Type="Self.Armas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TablaGeneral">
+              <PropertyRef Name="idTablaGeneral" />
+            </Principal>
+            <Dependent Role="Armas">
+              <PropertyRef Name="marca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Nacionalidad">
           <End Role="TablaGeneral" Type="Self.TablaGeneral" Multiplicity="1" />
           <End Role="Infractores" Type="Self.Infractores" Multiplicity="*" />
@@ -305,6 +317,10 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="RolesUsuarios" EntitySet="RolesUsuarios" />
           </AssociationSet>
+          <AssociationSet Name="FK_Marca" Association="Self.FK_Marca">
+            <End Role="TablaGeneral" EntitySet="TablaGeneral" />
+            <End Role="Armas" EntitySet="Armas" />
+          </AssociationSet>
           <AssociationSet Name="FK_Nacionalidad" Association="Self.FK_Nacionalidad">
             <End Role="TablaGeneral" EntitySet="TablaGeneral" />
             <End Role="Infractores" EntitySet="Infractores" />
@@ -351,7 +367,7 @@
           <Property Name="policiaAsignado" Type="Int32" />
           <Property Name="numeroSerie" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="tipoArma" Type="Int32" Nullable="false" />
-          <Property Name="marca" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="marca" Type="Int32" Nullable="false" />
           <Property Name="modelo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="calibre" Type="Int32" Nullable="false" />
           <Property Name="condicion" Type="Int32" Nullable="false" />
@@ -361,8 +377,9 @@
           <NavigationProperty Name="TablaGeneral" Relationship="Self.FK_Calibre" FromRole="Armas" ToRole="TablaGeneral" />
           <NavigationProperty Name="TablaGeneral1" Relationship="Self.FK_Condicion" FromRole="Armas" ToRole="TablaGeneral" />
           <NavigationProperty Name="TablaGeneral2" Relationship="Self.FK_EstadoArma" FromRole="Armas" ToRole="TablaGeneral" />
-          <NavigationProperty Name="TablaGeneral3" Relationship="Self.FK_TipoArma" FromRole="Armas" ToRole="TablaGeneral" />
-          <NavigationProperty Name="TablaGeneral4" Relationship="Self.FK_Ubicacion" FromRole="Armas" ToRole="TablaGeneral" />
+          <NavigationProperty Name="TablaGeneral3" Relationship="Self.FK_Marca" FromRole="Armas" ToRole="TablaGeneral" />
+          <NavigationProperty Name="TablaGeneral4" Relationship="Self.FK_TipoArma" FromRole="Armas" ToRole="TablaGeneral" />
+          <NavigationProperty Name="TablaGeneral5" Relationship="Self.FK_Ubicacion" FromRole="Armas" ToRole="TablaGeneral" />
         </EntityType>
         <EntityType Name="Infractores">
           <Key>
@@ -451,8 +468,9 @@
           <NavigationProperty Name="Armas" Relationship="Self.FK_Calibre" FromRole="TablaGeneral" ToRole="Armas" />
           <NavigationProperty Name="Armas1" Relationship="Self.FK_Condicion" FromRole="TablaGeneral" ToRole="Armas" />
           <NavigationProperty Name="Armas2" Relationship="Self.FK_EstadoArma" FromRole="TablaGeneral" ToRole="Armas" />
-          <NavigationProperty Name="Armas3" Relationship="Self.FK_TipoArma" FromRole="TablaGeneral" ToRole="Armas" />
-          <NavigationProperty Name="Armas4" Relationship="Self.FK_Ubicacion" FromRole="TablaGeneral" ToRole="Armas" />
+          <NavigationProperty Name="Armas3" Relationship="Self.FK_Marca" FromRole="TablaGeneral" ToRole="Armas" />
+          <NavigationProperty Name="Armas4" Relationship="Self.FK_TipoArma" FromRole="TablaGeneral" ToRole="Armas" />
+          <NavigationProperty Name="Armas5" Relationship="Self.FK_Ubicacion" FromRole="TablaGeneral" ToRole="Armas" />
           <NavigationProperty Name="Infractores" Relationship="Self.FK_Nacionalidad" FromRole="TablaGeneral" ToRole="Infractores" />
           <NavigationProperty Name="Infractores1" Relationship="Self.FK_Sexo" FromRole="TablaGeneral" ToRole="Infractores" />
           <NavigationProperty Name="Infractores2" Relationship="Self.FK_TipoDeIdentificacion" FromRole="TablaGeneral" ToRole="Infractores" />
@@ -503,6 +521,18 @@
             </Principal>
             <Dependent Role="Armas">
               <PropertyRef Name="estadoArma" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Marca">
+          <End Role="TablaGeneral" Type="Self.TablaGeneral" Multiplicity="1" />
+          <End Role="Armas" Type="Self.Armas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TablaGeneral">
+              <PropertyRef Name="idTablaGeneral" />
+            </Principal>
+            <Dependent Role="Armas">
+              <PropertyRef Name="marca" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -656,6 +686,10 @@
             <End Role="Armas" EntitySet="Armas" />
           </AssociationSet>
           <AssociationSet Name="FK_EstadoArma" Association="Self.FK_EstadoArma">
+            <End Role="TablaGeneral" EntitySet="TablaGeneral" />
+            <End Role="Armas" EntitySet="Armas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Marca" Association="Self.FK_Marca">
             <End Role="TablaGeneral" EntitySet="TablaGeneral" />
             <End Role="Armas" EntitySet="Armas" />
           </AssociationSet>
@@ -834,7 +868,7 @@
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

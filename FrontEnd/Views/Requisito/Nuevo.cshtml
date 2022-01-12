@@ -15,15 +15,20 @@
     <hr />
     @using (Html.BeginForm("Nuevo", "Requisito", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
+        <div class="row">
+            <div class="col mb-3">
+                <h1 class="h2">@HttpContext.Current.Session["nombrePolicia"].ToString()</h1>
+            </div>
+        </div>
         <div class="form-row">
             <div class="form-group col-md-2">
                 @Html.LabelFor(d => d.TipoRequisito)
-                @Html.DropDownListFor(d => d.TipoRequisito, Model.TiposRequisito, new { @class = "myselect form-control" , @id = "TipoR"})
+                @Html.DropDownListFor(d => d.TipoRequisito, Model.TiposRequisito, new { @class = "myselect form-control", @id = "TipoR" })
                 @Html.ValidationMessageFor(d => d.TipoRequisito, null, new { @class = "red" })
             </div>
         </div>
         <div class="form-row">
-            <div class="form-group col-md-2" , id= "FechaV" >
+            <div class="form-group col-md-2" , id="FechaV">
                 @Html.LabelFor(d => d.FechaVencimiento)
                 @Html.EditorFor(d => d.FechaVencimiento, "", new { @class = "form-control" })
                 @Html.ValidationMessageFor(d => d.FechaVencimiento, null, new { @class = "red" })
@@ -56,7 +61,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Crear Nuevo Requisito</h5>
+                        <h5 class="modal-title">Agregar un Requisito</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>

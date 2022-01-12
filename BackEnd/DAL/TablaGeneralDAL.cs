@@ -91,9 +91,24 @@ namespace BackEnd.DAL
             }
             return descripcion;
         }
-
-
-
+        public int GetIdMarcaArma(int? marcaArma)
+        {
+            int aux;
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                aux = db.Database.SqlQuery<int>("Select idTablaGeneral from TablaGeneral where tabla= 'Armas' and campo = 'marca' and codigo =" + marcaArma).Single<int>();
+            }
+            return aux;
+        }
+        public List<TablaGeneral> GetMarcasArma()
+        {
+            List<TablaGeneral> descripcion;
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                descripcion = db.Database.SqlQuery<TablaGeneral>("Select * from TablaGeneral where tabla = 'Armas' and campo = 'marca'").ToList<TablaGeneral>();
+            }
+            return descripcion;
+        }
         public int GetTipoIdentificacionInfractor(int? tipoId)
         {
             int aux;
@@ -101,10 +116,8 @@ namespace BackEnd.DAL
             {
                 aux = db.Database.SqlQuery<int>("Select idTablaGeneral from TablaGeneral where tabla= 'Infractores' and campo = 'tipoDeIdentificacion' and codigo =" + tipoId).Single<int>();
             }
-
             return aux;
         }
-
         public int GetTipoSexoInfractor(int? tipoSexo)
         {
             int aux;
@@ -112,7 +125,6 @@ namespace BackEnd.DAL
             {
                 aux = db.Database.SqlQuery<int>("Select idTablaGeneral from TablaGeneral where tabla= 'Infractores' and campo = 'sexo' and codigo =" + tipoSexo).Single<int>();
             }
-
             return aux;
         }
         public List<TablaGeneral> GetTiposSexoInfractor()

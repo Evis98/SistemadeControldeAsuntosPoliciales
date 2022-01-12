@@ -158,15 +158,64 @@ for (i = 0; i < document.querySelectorAll('.inputphone').length; i++) {
 		backspacerUP(this, e);
 	}
 }
-document.getElementById("TipoR").addEventListener("change", function () {
-	var tipoR = document.getElementById("TipoR")
-	var valorS = tipoR.value;
-	if (valorS == 2) {
-		document.getElementById("FechaV").style.display = 'none';
-	} else {
-		document.getElementById("FechaV").style.display = 'block';
+
+if (document.getElementById("TipoR") != null) {
+
+	document.getElementById("TipoR").addEventListener("change", function () {
+		var tipoR = document.getElementById("TipoR")
+		var valorS = tipoR.value;
+		if (valorS == 2) {
+			document.getElementById("FechaV").style.visibility = 'hidden';
+		} else {
+			document.getElementById("FechaV").style.visibility = 'visible';
+		}
+	});
+}
+
+if (document.getElementById("uploadfile") != null) {
+
+	var uploadField = document.getElementById("uploadfile");
+
+	uploadField.onchange = function () {
+		if (this.files[0].size > 4194304) {
+			error.textContent = "Filesize too big"
+			error.style.color = "red"
+			this.value = "";
+		} else {
+			error.textContent = ""
+		}
 	}
-});
+}
+
+
+
+if (document.getElementById("TNombre") != null) {
+
+	var TNombre = document.getElementById("TNombre");
+
+	TNombre.addEventListener("input", function (event) {
+		this.value = this.value.toUpperCase();
+	});
+}
+
+if (document.getElementById("TContacto") != null) {
+
+	var TContacto = document.getElementById("TContacto");
+
+	TContacto.addEventListener("input", function (event) {
+		this.value = this.value.toUpperCase();
+	});
+}
+
+if (document.getElementById("DetalleE") != null) {
+
+	var DetalleE = document.getElementById("DetalleE");
+
+	DetalleE.addEventListener("form-control", function (event) {
+		this.value = this.value.toUpperCase();
+	});
+}
+
 
 function sololetras(e) {
 
@@ -275,4 +324,3 @@ function aparecerTatuajes() {
 		text.style.display = "none";
 	}
 }
-

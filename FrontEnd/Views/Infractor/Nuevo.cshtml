@@ -1,6 +1,6 @@
 ﻿@model FrontEnd.Models.ViewModels.InfractorViewModel
 @{
-    ViewBag.Title = "Agregar Infromacion de Infractor";
+    ViewBag.Title = "Agregar Información de Infractor";
 }
 <div class="container bg-light text-dark border" style="height:80vh;">
     <div class="row">
@@ -112,7 +112,7 @@
             </div>
         </div>
         <div class="form-row">
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.Archivo)
                 @Html.TextBoxFor(d => d.Archivo, new { @type = "file", accept = ".jpg", @required = "required", @id= "uploadField" })
                 @Html.ValidationMessageFor(d => d.Archivo, "", new { @class = "red" })
@@ -133,7 +133,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Crear Infractor</h5>
+                        <h5 class="modal-title">Agregar un Infractor</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>

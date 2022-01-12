@@ -4,11 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ff9b0f93a8aa4ae383613abeb5f7d594" Name="Diagram1">
+      <Diagram DiagramId="e68de9d0d8284b49bfeb6aaae287ae57" Name="Diagram1">
         <EntityTypeShape EntityType="SCAPModel.Armas" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SCAPModel.Infractores" Width="1.5" PointX="3" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SCAPModel.Policias" Width="1.5" PointX="3" PointY="12.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SCAPModel.Requisitos" Width="1.5" PointX="3" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCAPModel.Infractores" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCAPModel.Policias" Width="1.5" PointX="3" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCAPModel.Requisitos" Width="1.5" PointX="3" PointY="16.875" IsExpanded="true" />
         <EntityTypeShape EntityType="SCAPModel.Roles" Width="1.5" PointX="5.75" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="SCAPModel.RolesUsuarios" Width="1.5" PointX="8" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="SCAPModel.TablaGeneral" Width="1.5" PointX="0.75" PointY="8.25" IsExpanded="true" />
@@ -16,6 +16,7 @@
         <AssociationConnector Association="SCAPModel.FK_Calibre" ManuallyRouted="false" />
         <AssociationConnector Association="SCAPModel.FK_Condicion" ManuallyRouted="false" />
         <AssociationConnector Association="SCAPModel.FK_EstadoArma" ManuallyRouted="false" />
+        <AssociationConnector Association="SCAPModel.FK_Marca" ManuallyRouted="false" />
         <AssociationConnector Association="SCAPModel.FK_TipoArma" ManuallyRouted="false" />
         <AssociationConnector Association="SCAPModel.FK_Ubicacion" ManuallyRouted="false" />
         <AssociationConnector Association="SCAPModel.FK_Nacionalidad" ManuallyRouted="false" />
