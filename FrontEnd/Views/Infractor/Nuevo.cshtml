@@ -114,7 +114,7 @@
         <div class="form-row">
             <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.Archivo)
-                @Html.TextBoxFor(d => d.Archivo, new { @type = "file", accept = ".jpg", @required = "required", @id= "uploadField" })
+                @Html.TextBoxFor(d => d.Archivo, new { @type = "file", accept = ".jpg", @required = "required", @id= "uploadfile" })
                 @Html.ValidationMessageFor(d => d.Archivo, "", new { @class = "red" })
                 <span id="error"></span>
             </div>

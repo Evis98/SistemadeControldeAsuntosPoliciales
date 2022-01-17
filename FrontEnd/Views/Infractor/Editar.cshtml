@@ -43,6 +43,7 @@
             <div class="form-group col-md-2">
                 @Html.LabelFor(d => d.Sexo)
                 @Html.DropDownListFor(d => d.Sexo, Model.TiposDeSexo, new { @class = "myselect form-control" })
+                
                 @Html.ValidationMessageFor(d => d.Sexo, null, new { @class = "red" })
             </div>
 
@@ -119,7 +120,7 @@
         <div class="form-row">
             <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.Archivo)
-                @Html.TextBoxFor(d => d.Archivo, new { @type = "file", accept = ".jpg", @id = "uploadField" })
+                @Html.TextBoxFor(d => d.Archivo, new { @type = "file", accept = ".jpg", @id = "uploadfile" })
                 @Html.ValidationMessageFor(d => d.Archivo, "", new { @class = "red" })
                 <span id="error"></span>
             </div>

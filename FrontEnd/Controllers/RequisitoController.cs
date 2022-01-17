@@ -170,6 +170,24 @@ namespace FrontEnd.Controllers
 
         //Guarda la información ingresada en la página para crear requisitos
         [HttpPost]
+        public void CrearCarpetas()
+        {
+            string folderPath = Server.MapPath(@"~\ArchivosSCAP\Policias\" + Session["idPolicia"].ToString());
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+                Console.WriteLine(folderPath);
+            }
+            string folderPath2 = Server.MapPath(@"~\ArchivosSCAP\Policias\" + Session["idPolicia"].ToString() + @"\" + @"Requisitos\");
+            if (!Directory.Exists(folderPath2))
+            {
+                Directory.CreateDirectory(folderPath2);
+                Console.WriteLine(folderPath2);
+            }
+        }
+
+        //Guarda la información ingresada en la página para crear requisitos
+        [HttpPost]
         public ActionResult Nuevo(RequisitoViewModel modelo)
         {
             requisitoDAL = new RequisitoDAL();
@@ -178,8 +196,9 @@ namespace FrontEnd.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    string rutaSitio = Server.MapPath("~/");
-                    string pathArchivo = Path.Combine(rutaSitio + @"Files\" + modelo.Detalles + Session["idPolicia"].ToString() + ".pdf");
+                  // CrearCarpetas();
+                    string rutaSitio = Server.MapPath(@"~\ArchivosSCAP\Policias\" + Session["idPolicia"].ToString() + @"\");
+                    string pathArchivo = Path.Combine(rutaSitio + @"Requisitos\" + modelo.Detalles + " - " + Session["idPolicia"].ToString() + ".pdf");
                     Requisitos requisito = ConvertirRequisito(modelo);
                     if (modelo.FechaVencimiento != null)
                     {
@@ -191,7 +210,7 @@ namespace FrontEnd.Controllers
                     }
                     if (modelo.Archivo != null)
                     {
-                        requisito.imagen = @"~\Files\" + modelo.Detalles + Session["idPolicia"].ToString() + ".pdf";
+                        requisito.imagen = rutaSitio + @"Requisitos\" + modelo.Detalles + " - " + Session["idPolicia"].ToString() + ".pdf";
                         modelo.Archivo.SaveAs(pathArchivo);
                     }
                     else
@@ -207,8 +226,9 @@ namespace FrontEnd.Controllers
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
-            }           
+            }
         }
+        
 
         //Muestra la información detallada del requisito seleccionado
         public ActionResult Detalle(int id)
