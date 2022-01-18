@@ -29,7 +29,7 @@
             </div>
             <div class="form-group col-md-2">
                 @Html.LabelFor(d => d.TipoCedula)
-                @Html.DropDownListFor(d => d.TipoCedula, Model.TiposCedula, new { @class = "myselect form-control" })
+                @Html.DropDownListFor(d => d.TipoCedula, Model.TiposCedula, "--Seleccione--", new { @class = "myselect form-control" })
                 @Html.ValidationMessageFor(d => d.TipoCedula, null, new { @class = "red" })
             </div>
         </div>
@@ -79,6 +79,7 @@
             <div class="form-group col-md-12">
                 <div style="text-align:center;">
                     <input value="Guardar" class="btn btn-primary" type="button" id="hGuardar" data-toggle="modal" data-target="#show" />
+                    <a class="btn btn-secondary" href="~/Policia/Index">Cancelar</a>
                     <script>
                         $('#btnSave').click(function () {
                             $('#show').modal('hide');

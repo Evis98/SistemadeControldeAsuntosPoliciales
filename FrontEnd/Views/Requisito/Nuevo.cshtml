@@ -23,7 +23,7 @@
         <div class="form-row">
             <div class="form-group col-md-2">
                 @Html.LabelFor(d => d.TipoRequisito)
-                @Html.DropDownListFor(d => d.TipoRequisito, Model.TiposRequisito, new { @class = "myselect form-control", @id = "TipoR" })
+                @Html.DropDownListFor(d => d.TipoRequisito, Model.TiposRequisito, "--Seleccione--", new { @class = "myselect form-control", @id = "TipoR" })
                 @Html.ValidationMessageFor(d => d.TipoRequisito, null, new { @class = "red" })
             </div>
         </div>
@@ -53,7 +53,7 @@
             <div class="form-group col-md-12">
                 <div style="text-align:center;">
                     <input value="Guardar" class="btn btn-primary" type="button" data-toggle="modal" data-target="#show" />
-
+                    <a class="btn btn-secondary" href="~/Requisito/Index">Cancelar</a>
                 </div>
             </div>
         </div>
