@@ -23,12 +23,12 @@
         <div class="form-row">
             <div class="form-group col-md-2">
                 @Html.LabelFor(d => d.TipoRequisito)
-                @Html.DropDownListFor(d => d.TipoRequisito, Model.TiposRequisito, "--Seleccione--", new { @class = "myselect form-control", @id = "TipoR" })
+                @Html.DropDownListFor(d => d.TipoRequisito, Model.TiposRequisito, "--Seleccione--", new { @class = "myselect form-control", @id = "TipoRequisito" })
                 @Html.ValidationMessageFor(d => d.TipoRequisito, null, new { @class = "red" })
             </div>
         </div>
         <div class="form-row">
-            <div class="form-group col-md-2" , id="FechaV">
+            <div class="form-group col-md-2" , id="FechaVencimiento">
                 @Html.LabelFor(d => d.FechaVencimiento)
                 @Html.EditorFor(d => d.FechaVencimiento, "", new { @class = "form-control" })
                 @Html.ValidationMessageFor(d => d.FechaVencimiento, null, new { @class = "red" })

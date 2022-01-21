@@ -187,14 +187,24 @@ namespace FrontEnd.Controllers
                     {
 
                         string rutaSitio = Server.MapPath("~/");
-                        string pathArchivo = Path.Combine(rutaSitio + @"Files" + model.Identificacion + ".png");
                         Infractores infractor = ConvertirInfractor(model);
 
 
                         if (model.Archivo != null)
                         {
-                            infractor.imagen = @"~\Files" + model.Identificacion + ".png";
-                            model.Archivo.SaveAs(pathArchivo);
+                            string fileExt = System.IO.Path.GetExtension(model.Archivo.FileName);
+                            if (fileExt == ".jpg")
+                            {
+                                string pathArchivo = Path.Combine(rutaSitio + @"Files" + model.Identificacion + ".jpg");
+                                infractor.imagen = @"~\Files" + model.Identificacion + ".jpg";
+                                model.Archivo.SaveAs(pathArchivo);
+                            }
+                            else if (fileExt == ".png")
+                            {
+                                string pathArchivo = Path.Combine(rutaSitio + @"Files" + model.Identificacion + ".png");
+                                infractor.imagen = @"~\Files" + model.Identificacion + ".png";
+                                model.Archivo.SaveAs(pathArchivo);
+                            }
                         }
                         else
                         {
@@ -254,22 +264,32 @@ namespace FrontEnd.Controllers
                     Infractores infractor = ConvertirInfractor(modelo);
 
                     string rutaSitio = Server.MapPath("~/");
-                    string pathArchivo = Path.Combine(rutaSitio + @"Files" + modelo.Identificacion + ".png");
+                    
                     if (modelo.Archivo != null)
                     {
+
                         if (System.IO.File.Exists(infractor.imagen))
                         {
                             System.IO.File.Delete(infractor.imagen);
                         }
-
-                        infractor.imagen = @"~\Files" + modelo.Identificacion + ".png";
-                        modelo.Archivo.SaveAs(pathArchivo);
+                        string fileExt = System.IO.Path.GetExtension(modelo.Archivo.FileName);
+                        if (fileExt == ".jpg")
+                        {
+                            string pathArchivo = Path.Combine(rutaSitio + @"Files" + modelo.Identificacion + ".jpg");
+                            infractor.imagen = @"~\Files" + modelo.Identificacion + ".jpg";
+                            modelo.Archivo.SaveAs(pathArchivo);
+                        }
+                        else if (fileExt == ".png")
+                        {
+                            string pathArchivo = Path.Combine(rutaSitio + @"Files" + modelo.Identificacion + ".png");
+                            infractor.imagen = @"~\Files" + modelo.Identificacion + ".png";
+                            modelo.Archivo.SaveAs(pathArchivo);
+                        }                        
                     }
                     else
                     {
                         infractor.imagen = modelo.Imagen;
-                    }
-                    
+                    }                    
                     infractorDAL.Edit(infractor);
                     return Redirect("~/Infractor/Detalle/" + modelo.IdInfractor);
                 }

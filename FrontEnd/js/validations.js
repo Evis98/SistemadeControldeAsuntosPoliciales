@@ -114,13 +114,11 @@ function ValidatePhone(object) {
 		} else if (cursorposition >= 12) {
 			cursorposition = cursorposition
 		}
-
 		var txtRange = object.createTextRange();
 		txtRange.moveStart("character", cursorposition);
 		txtRange.moveEnd("character", cursorposition - object.value.length);
 		txtRange.select();
 	}
-
 }
 
 function ParseChar(sStr, sChar) {
@@ -128,23 +126,18 @@ function ParseChar(sStr, sChar) {
 		zChar = new Array(sChar);
 	}
 	else zChar = sChar;
-
 	for (i = 0; i < zChar.length; i++) {
 		sNewStr = "";
-
 		var iStart = 0;
 		var iEnd = sStr.indexOf(sChar[i]);
-
 		while (iEnd != -1) {
 			sNewStr += sStr.substring(iStart, iEnd);
 			iStart = iEnd + 1;
 			iEnd = sStr.indexOf(sChar[i], iStart);
 		}
 		sNewStr += sStr.substring(sStr.lastIndexOf(sChar[i]) + 1, sStr.length);
-
 		sStr = sNewStr;
 	}
-
 	return sNewStr;
 }
 
@@ -153,29 +146,25 @@ for (i = 0; i < document.querySelectorAll('.inputphone').length; i++) {
 	document.getElementsByClassName('inputphone')[i].onkeydown = function (e) {
 		backspacerDOWN(this, e);
 	}
-
 	document.getElementsByClassName('inputphone')[i].onkeyup = function (e) {
 		backspacerUP(this, e);
 	}
 }
 
-if (document.getElementById("TipoR") != null) {
-
-	document.getElementById("TipoR").addEventListener("change", function () {
-		var tipoR = document.getElementById("TipoR")
-		var valorS = tipoR.value;
-		if (valorS == 2) {
-			document.getElementById("FechaV").style.visibility = 'hidden';
+if (document.getElementById("TipoRequisito") != null) {
+	document.getElementById("TipoRequisito").addEventListener("change", function () {
+		var tipoRequisito = document.getElementById("TipoRequisito")
+		var tipoSeleccion = tipoRequisito.value;
+		if (tipoSeleccion == 2) {
+			document.getElementById("FechaVencimiento").style.display = 'none';
 		} else {
-			document.getElementById("FechaV").style.visibility = 'visible';
+			document.getElementById("FechaVencimiento").style.display = 'block';
 		}
 	});
 }
 
 if (document.getElementById("uploadfile") != null) {
-
 	var uploadField = document.getElementById("uploadfile");
-
 	uploadField.onchange = function () {
 		if (this.files[0].size > 4194304) {
 			error.textContent = "Filesize too big"
@@ -187,38 +176,7 @@ if (document.getElementById("uploadfile") != null) {
 	}
 }
 
-
-
-if (document.getElementById("TNombre") != null) {
-
-	var TNombre = document.getElementById("TNombre");
-
-	TNombre.addEventListener("input", function (event) {
-		this.value = this.value.toUpperCase();
-	});
-}
-
-if (document.getElementById("TContacto") != null) {
-
-	var TContacto = document.getElementById("TContacto");
-
-	TContacto.addEventListener("input", function (event) {
-		this.value = this.value.toUpperCase();
-	});
-}
-
-if (document.getElementById("DetalleE") != null) {
-
-	var DetalleE = document.getElementById("DetalleE");
-
-	DetalleE.addEventListener("form-control", function (event) {
-		this.value = this.value.toUpperCase();
-	});
-}
-
-
 function sololetras(e) {
-
 	key = e.keyCode || e.which;
 	teclado = String.fromCharCode(key).toUpperCase();
 	letras = " ABCDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚ";
@@ -234,7 +192,6 @@ function sololetras(e) {
 	}
 }
 function sololetrassimbolos(e) {
-
 	key = e.keyCode || e.which;
 	teclado = String.fromCharCode(key).toUpperCase();
 	letras = " ABCDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚ,.-";
@@ -251,6 +208,12 @@ function sololetrassimbolos(e) {
 }
 
 function sololetrasnumerossimbolos(e) {
+	if (document.getElementById("Mayuscula") != null) {
+		var Mayuscula = document.getElementById("Mayuscula");
+		Mayuscula.addEventListener("input", function (event) {
+			this.value = this.value.toUpperCase();
+		});
+	}
 	key = e.keyCode || e.which;
 	teclado = String.fromCharCode(key).toUpperCase();
 	letras = " ABCDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚ,.-1234567890";
@@ -280,9 +243,6 @@ function sololetrasnumeros(e) {
 	if (letras.indexOf(teclado) == -1 && !teclado_especial) {
 		return false;
 	}
-}
-function observacionesN() {
-	document.getElementById("observacion").defaultValue = "N/A";
 }
 
 function aparecerPadre() {

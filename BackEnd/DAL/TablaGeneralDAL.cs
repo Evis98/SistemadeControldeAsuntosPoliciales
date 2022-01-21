@@ -147,9 +147,6 @@ namespace BackEnd.DAL
             return tiposIdentificacion;
         }
 
-
-
-
         public List<TablaGeneral> GetTiposCalibre()
         {
             List<TablaGeneral> descripcion;
@@ -158,13 +155,10 @@ namespace BackEnd.DAL
                 descripcion = db.Database.SqlQuery<TablaGeneral>("Select * from TablaGeneral where tabla = 'Armas' and campo = 'calibre'").ToList<TablaGeneral>();
             }
             return descripcion;
-
-
         }
 
         public List<TablaGeneral> GetTiposCondicion()
         {
-
             List<TablaGeneral> descripcion;
             using (SCAPEntities db = new SCAPEntities())
             {
@@ -175,8 +169,6 @@ namespace BackEnd.DAL
 
         public List<TablaGeneral> GetTiposUbicacion()
         {
-
-
             List<TablaGeneral> descripcion;
             using (SCAPEntities db = new SCAPEntities())
             {
@@ -192,9 +184,9 @@ namespace BackEnd.DAL
             {
                 aux = db.Database.SqlQuery<int>("Select idTablaGeneral from TablaGeneral where tabla= 'Armas' and campo = 'tipoArma' and codigo =" + tipoArma).Single<int>();
             }
-
             return aux;
         }
+
         public int GetIdCalibreArma(int? calibre) {
             int aux;
             using (SCAPEntities db = new SCAPEntities())
@@ -204,6 +196,7 @@ namespace BackEnd.DAL
 
             return aux;
         }
+
         public int GetIdCondicionArma(int? condicion) {
 
             int aux;
@@ -214,6 +207,7 @@ namespace BackEnd.DAL
 
             return aux;
         }
+
         public int GetIdUbicacionArma(int? ubicacion) {
 
             int aux;
@@ -224,15 +218,16 @@ namespace BackEnd.DAL
 
             return aux;
         }
+
         public int EstadoDefaultArma() {
             int aux;
             using (SCAPEntities db = new SCAPEntities())
             {
                 aux = db.Database.SqlQuery<int>("Select idTablaGeneral from TablaGeneral where tabla= 'Armas' and campo = 'estadoArma' and descripcion = 'Activo'").Single<int>();
             }
-
             return aux;
         }
+
         public int GetIdEstadoArmas(string estadoArma)
         {
             int IdTabla;
@@ -242,6 +237,7 @@ namespace BackEnd.DAL
             }
             return IdTabla;
         }
+
         public void CambiaEstadoArma(int idArma, int estado)
         {
             using (SCAPEntities db = new SCAPEntities())
@@ -267,6 +263,7 @@ namespace BackEnd.DAL
             }
             return aux;
         }
+
         public List<TablaGeneral> GetNacionalidadesInfractor()
         {
             List<TablaGeneral> descripcion;
@@ -276,6 +273,7 @@ namespace BackEnd.DAL
             }
             return descripcion;
         }
+
         public string GetCodigo(int? idTablaGeneral)
         {
             using (SCAPEntities db = new SCAPEntities())

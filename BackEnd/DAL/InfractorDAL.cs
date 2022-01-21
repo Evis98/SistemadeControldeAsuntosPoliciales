@@ -37,7 +37,6 @@ namespace BackEnd.DAL
                 db.Entry(infractor).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
             }
-
         }
 
         //Permite recibir un infractor con toda su información a través de su atributo "idInfractor"
@@ -74,14 +73,13 @@ namespace BackEnd.DAL
         }
 
 
-public bool IdentificacionExiste(string identificacionInfractor)
+        public bool IdentificacionExiste(string identificacionInfractor)
         {
             int contador;
             using (SCAPEntities db = new SCAPEntities())
             {
                 contador = db.Database.SqlQuery<int>("select count(numeroDeIdentificacion) from Infractores where numeroDeIdentificacion ='" + identificacionInfractor + "'").Single<int>();
             }
-
             return contador > 0 ? true : false;
         }
 
@@ -91,7 +89,8 @@ public bool IdentificacionExiste(string identificacionInfractor)
             {
                 return identificacion;
             }
-            else {
+            else
+            {
                 return null;
             }
         }

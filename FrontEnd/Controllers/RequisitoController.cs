@@ -84,7 +84,6 @@ namespace FrontEnd.Controllers
         {
             requisitoDAL = new RequisitoDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
-
             List<Requisitos> requisitos = requisitoDAL.Get();
             List<Requisitos> requisitosFiltrados = new List<Requisitos>();
             if (busqueda != null)
@@ -196,7 +195,7 @@ namespace FrontEnd.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                  // CrearCarpetas();
+                   //CrearCarpetas();
                     string rutaSitio = Server.MapPath(@"~\ArchivosSCAP\Policias\" + Session["idPolicia"].ToString() + @"\");
                     string pathArchivo = Path.Combine(rutaSitio + @"Requisitos\" + modelo.Detalles + " - " + Session["idPolicia"].ToString() + ".pdf");
                     Requisitos requisito = ConvertirRequisito(modelo);

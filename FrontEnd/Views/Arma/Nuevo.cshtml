@@ -18,7 +18,7 @@
         <div class="form-row">
             <div class="form-group col-md-3">
                 @Html.LabelFor(d => d.NumeroSerie)
-                @Html.TextBoxFor(d => d.NumeroSerie, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)"})
+                @Html.TextBoxFor(d => d.NumeroSerie, "", new { @class = "form-control", @onkeypress = "return sololetrasnumerossimbolos(event)"})
                 @if (Model.SerieFiltrada != null)
                 {
                     @Html.ValidationMessageFor(d => d.NumeroSerie, "El numero de serie ya existe.", new { @class = "red" })
