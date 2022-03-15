@@ -10,12 +10,20 @@ namespace BackEnd.DAL
     {
         public Usuarios GetUsuario(int? idUsuario)
         {
-            Usuarios usuario = new Usuarios();
-            using (SCAPEntities db = new SCAPEntities())
+            try
             {
-                usuario = db.Database.SqlQuery<Usuarios>("select * from Usuarios where idUsuario =" + idUsuario).Single<Usuarios>();
+                Usuarios resultado;
+                using (SCAPEntities db = new SCAPEntities())
+                {
+                    resultado = db.Usuarios.Find(idUsuario);
+                }
+                return resultado;
             }
-            return usuario;
+            catch (Exception)
+            {
+                throw;
+            }
+           
         }
     }
 }
