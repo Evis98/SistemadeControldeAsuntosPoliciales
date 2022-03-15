@@ -172,6 +172,7 @@ namespace FrontEnd.Controllers
 
         }
         //Crea las rutas de archivos de Infractores
+        //Crea las rutas de archivos de Infractores
         public void CrearCarpetaInfractor(InfractorViewModel model)
         {
             string folderPath = Server.MapPath(@"~\ArchivosSCAP\Infractores\" + model.Identificacion.ToString() + " - " + model.Nombre.ToString());
@@ -201,7 +202,7 @@ namespace FrontEnd.Controllers
                 {
                     if (ModelState.IsValid)
                     {
-
+                        CrearCarpetaInfractor(model);
                         string rutaSitio = Server.MapPath("~/");
                         Infractores infractor = ConvertirInfractor(model);
 
@@ -211,14 +212,14 @@ namespace FrontEnd.Controllers
                             string fileExt = System.IO.Path.GetExtension(model.Archivo.FileName);
                             if (fileExt == ".jpg")
                             {
-                                string pathArchivo = Path.Combine(rutaSitio + @"Files" + model.Identificacion + ".jpg");
-                                infractor.imagen = @"~\Files" + model.Identificacion + ".jpg";
+                                string pathArchivo = Path.Combine(rutaSitio + @"ArchivosSCAP\Infractores\" + model.Identificacion.ToString() + " - " + model.Nombre.ToString() + @"\" + @"Imagen\" + model.Nombre.ToString() + model.Identificacion + ".jpg");
+                                infractor.imagen = @"~\ArchivosSCAP\Infractores\" + model.Identificacion.ToString() + " - " + model.Nombre.ToString() + @"\" + @"Imagen\" + model.Nombre.ToString() + model.Identificacion + ".jpg";
                                 model.Archivo.SaveAs(pathArchivo);
                             }
                             else if (fileExt == ".png")
                             {
-                                string pathArchivo = Path.Combine(rutaSitio + @"Files" + model.Identificacion + ".png");
-                                infractor.imagen = @"~\Files" + model.Identificacion + ".png";
+                                string pathArchivo = Path.Combine(rutaSitio + @"ArchivosSCAP\Infractores\" + model.Identificacion.ToString() + " - " + model.Nombre.ToString() + @"\" + @"Imagen\" + model.Nombre.ToString() + model.Identificacion + ".png");
+                                infractor.imagen = @"~\ArchivosSCAP\Infractores\" + model.Identificacion.ToString() + " - " + model.Nombre.ToString() + @"\" + @"Imagen\" + model.Nombre.ToString() + model.Identificacion + ".png";
                                 model.Archivo.SaveAs(pathArchivo);
                             }
                         }

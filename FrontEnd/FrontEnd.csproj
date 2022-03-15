@@ -138,6 +138,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ActaController.cs" />
     <Compile Include="Controllers\ArmaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InfractorController.cs" />
@@ -323,6 +324,7 @@
     <Content Include="Views\Arma\_ListaPoliciasBuscar.cshtml" />
     <Content Include="Views\Arma\_ListaPoliciasParcial.cshtml" />
     <Content Include="Views\Registro\Index.cshtml" />
+    <Content Include="Views\Acta\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
