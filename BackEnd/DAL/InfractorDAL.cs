@@ -40,47 +40,57 @@ namespace BackEnd.DAL
         }
 
         //Permite recibir un infractor con toda su información a través de su atributo "idInfractor"
-        public Infractores GetInfractor(int? idInfractor)
+        public Infractores GetInfractor(int idInfractor)
         {
-            Infractores infractor = new Infractores();
-            using (SCAPEntities db = new SCAPEntities())
+            try
             {
-                infractor = db.Database.SqlQuery<Infractores>("select * from Infractores where idInfractor =" + idInfractor).Single<Infractores>();
+                Infractores resultado;
+                using (SCAPEntities db = new SCAPEntities())
+                {
+                    resultado = db.Infractores.Find(idInfractor);
+                }
+                return resultado;
             }
-            return infractor;
-        }
-
-        //Permite recibir el nombre del infractor a través de su atributo "idInfractor"
-        public string GetNombreInfractor(int idInfractor)
-        {
-            string nombre;
-            using (SCAPEntities db = new SCAPEntities())
+            catch (Exception)
             {
-                nombre = db.Database.SqlQuery<string>("select nombreCompleto from Infractores where idInfractor ='" + idInfractor + "'").Single<string>();
+                throw;
             }
-            return nombre;
         }
 
         //Permite recibir el numero de indentificacion del infractor a través de su atributo "idInfractor"
-        public int GetNumeroIdInfractor(string identificacionInfractor)
+        public Infractores GetInfractorIdentificacion(string numeroDeIdentificacion)
         {
-            int id;
-            using (SCAPEntities db = new SCAPEntities())
+            try
             {
-                id = db.Database.SqlQuery<int>("select idInfractor from Infractores where numeroDeIdentificacion ='" + identificacionInfractor + "'").Single<int>();
+                Infractores resultado;
+                using (SCAPEntities db = new SCAPEntities())
+                {
+                    resultado = db.Infractores.Where(x => x.numeroDeIdentificacion == numeroDeIdentificacion).FirstOrDefault();
+                }
+                return resultado;
             }
-            return id;
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
-
-        public bool IdentificacionExiste(string identificacionInfractor)
+        public bool IdentificacionExiste(string numeroDeIdentificacion)
         {
-            int contador;
-            using (SCAPEntities db = new SCAPEntities())
+            try
             {
-                contador = db.Database.SqlQuery<int>("select count(numeroDeIdentificacion) from Infractores where numeroDeIdentificacion ='" + identificacionInfractor + "'").Single<int>();
+                int contador;
+                using (SCAPEntities db = new SCAPEntities())
+                {
+                    contador = db.Infractores.Where(x => x.numeroDeIdentificacion == numeroDeIdentificacion).Count();
+                }
+                return contador > 0 ? true : false;
             }
-            return contador > 0 ? true : false;
+            catch (Exception)
+            {
+                throw;
+            }
+
         }
 
         public string GetCedulaInfractor(string identificacion)

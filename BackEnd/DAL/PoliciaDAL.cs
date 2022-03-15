@@ -54,62 +54,63 @@ namespace BackEnd.DAL
 
 
         //Permite recibir un policía con toda su información a través de su atributo "idPolicia"
-        public Policias GetPolicia(int? idPolicia)
+        public Policias GetPolicia(int idPolicia)
         {
-            Policias poli = new Policias();
-            using (SCAPEntities db = new SCAPEntities())
+            try
             {
-                poli = db.Database.SqlQuery<Policias>("select * from Policias where idPolicia =" + idPolicia).Single<Policias>();
+                Policias resultado;
+                using (SCAPEntities db = new SCAPEntities())
+                {
+                    resultado = db.Policias.Find(idPolicia);
+                }
+                return resultado;
             }
-            return poli;
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         //Permite recibir un policía con toda su información a través de su atributo "cédula"
-        public int GetPoliciaCedula(string cedula)
+        public Policias GetPoliciaCedula(string cedula)
         {
-            int poli;
-            using (SCAPEntities db = new SCAPEntities())
+            try
             {
-                poli = db.Database.SqlQuery<int>("select idPolicia from Policias where cedula ='" + cedula + "'").Single<int>();
+                Policias resultado;
+                using (SCAPEntities db = new SCAPEntities())
+                {
+                    resultado = db.Policias.Where(x => x.cedula == cedula).FirstOrDefault();
+                }
+                return resultado;
             }
-            return poli;
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
-        public List<Policias> BuscaPolicias(string cedulaPolicia)
+        public bool CedulaPoliciaExiste(string cedula)
         {
-            List<Policias> lista = new List<Policias>();
-            using (SCAPEntities db = new SCAPEntities())
+            try
             {
-                lista = db.Database.SqlQuery<Policias>("Select 'nombre','cedula' from Policias where tabla= 'Armas' and 'policiaAsignado' like" + cedulaPolicia).ToList<Policias>();
+                int contador;
+                using (SCAPEntities db = new SCAPEntities())
+                {
+                    contador = db.Policias.Where(x => x.cedula == cedula).Count();
+                }
+                return contador > 0 ? true : false;
             }
-            return lista;
-        }
-        public List<Policias> GetPolicias()
-        {
-            List<Policias> policias;
-            using (SCAPEntities db = new SCAPEntities())
+            catch (Exception)
             {
-                policias = db.Database.SqlQuery<Policias>("select * from Policias").ToList<Policias>();
+                throw;
             }
-            return policias;
         }
 
-        public bool CedulaPoliciaExiste(string cedulaPolicia)
+        public string GetCedulaPolicia(string cedula)
         {
-            int contador;
-            using (SCAPEntities db = new SCAPEntities())
+            if (CedulaPoliciaExiste(cedula))
             {
-                contador = db.Database.SqlQuery<int>("select count(cedula) from Policias where cedula ='" + cedulaPolicia + "'").Single<int>();
-            }
-
-            return contador > 0 ? true : false;
-        }
-
-        public string GetCedulaPolicia(string cedulaPolicia)
-        {
-            if (CedulaPoliciaExiste(cedulaPolicia))
-            {
-                return cedulaPolicia;
+                return cedula;
             }
             else
             {

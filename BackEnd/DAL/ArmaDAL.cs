@@ -42,31 +42,62 @@ namespace BackEnd.DAL
         //Permite recibir un arma con toda su información a través de su atributo "idArma"
         public Armas GetArma(int idArma)
         {
-            Armas arma = new Armas();
-            using (SCAPEntities db = new SCAPEntities())
+            try
             {
-                arma = db.Database.SqlQuery<Armas>("select * from Armas where idArma =" + idArma).Single<Armas>();
+                Armas resultado;
+                using (SCAPEntities db = new SCAPEntities())
+                {
+                    resultado = db.Armas.Find(idArma);
+                }
+                return resultado;
             }
-            return arma;
+            catch (Exception)
+            {
+                throw;
+            }
         }
-        public int GetArmaNumSerie(string numSerie)
+        public Armas GetArmaNumSerie(string numeroSerie)
         {
-            int arma;
-            using (SCAPEntities db = new SCAPEntities())
+            try
             {
-                arma = db.Database.SqlQuery<int>("select idArma from Armas where numeroSerie ='" + numSerie + "'").Single<int>();
+                Armas resultado;
+                using (SCAPEntities db = new SCAPEntities())
+                {
+                    resultado = db.Armas.Where(x => x.numeroSerie == numeroSerie).FirstOrDefault();
+                }
+                return resultado;
             }
-            return arma;
+            catch (Exception)
+            {
+                throw;
+            }
         }
-        public bool SerieExiste(string serie)
-        {
-            int contador;
-            using (SCAPEntities db = new SCAPEntities())
-            {
-                contador = db.Database.SqlQuery<int>("select count(numeroSerie) from Armas where numeroSerie ='" + serie + "'").Single<int>();
-            }
 
-            return contador > 0 ? true : false;
+        public void CambiaEstadoArma(int idArma, int estado)
+        {
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                string comando = "update Armas set estadoArma = " + estado + "where idArma = " + idArma;
+                db.Database.ExecuteSqlCommand(comando);
+                db.SaveChanges();
+            }
+        }
+
+        public bool SerieExiste(string numeroSerie)
+        {
+            try
+            {
+                int contador;
+                using (SCAPEntities db = new SCAPEntities())
+                {
+                    contador = db.Armas.Where(x => x.numeroSerie == numeroSerie).Count();
+                }
+                return contador > 0 ? true : false;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
         public string GetSerieArma(string serie)
         {

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -36,6 +37,17 @@
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="~/Infractor/Index/">Infractores</a>
+                </li>
+               
+            </ul>
+        </div>
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="navbar-brand">
+                        @Session["Username"]
+                    </a>
+
                 </li>
             </ul>
         </div>

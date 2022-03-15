@@ -52,18 +52,22 @@ namespace BackEnd.DAL
             }
         }
 
-
         //Permite recibir un requisito con toda su información a través de su atributo "idRequisito"
         public Requisitos GetRequisito(int idRequisito)
         {
-            Requisitos requisito = new Requisitos();
-            using (SCAPEntities db = new SCAPEntities())
+            try
             {
-                requisito = db.Database.SqlQuery<Requisitos>("select * from Requisitos where idRequisito =" + idRequisito).Single<Requisitos>();
+                Requisitos resultado;
+                using (SCAPEntities db = new SCAPEntities())
+                {
+                    resultado = db.Requisitos.Find(idRequisito);
+                }
+                return resultado;
             }
-            return requisito;
+            catch (Exception)
+            {
+                throw;
+            }
         }
-
     }
-
 }

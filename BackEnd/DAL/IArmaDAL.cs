@@ -12,9 +12,10 @@ namespace BackEnd.DAL
         void Add(Armas nuevo);
         void Edit(Armas cambiada);
         Armas GetArma(int idArma);
-        int GetArmaNumSerie(string numSerie);
+        Armas GetArmaNumSerie(string numeroSerie);
         bool SerieExiste(string serie);
         string GetSerieArma(string serie);
+        void CambiaEstadoArma(int idArma, int estado);
 
     }
 }

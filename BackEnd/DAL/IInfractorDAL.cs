@@ -11,9 +11,8 @@ namespace BackEnd.DAL
         List<Infractores> Get();
         void Add(Infractores infractor);
         void Edit(Infractores infractor);
-        Infractores GetInfractor(int? idInfractor);
-        string GetNombreInfractor(int idInfractor);
-        int GetNumeroIdInfractor(string identificacionInfractor);
+        Infractores GetInfractor(int idInfractor);
+        Infractores GetInfractorIdentificacion(string identificacionInfractor);
         bool IdentificacionExiste(string identificacionInfractor);
         string GetCedulaInfractor(string cedula);
     }

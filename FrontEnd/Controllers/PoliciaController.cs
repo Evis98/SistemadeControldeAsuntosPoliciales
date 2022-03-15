@@ -39,7 +39,7 @@ namespace FrontEnd.Controllers
             {
                 idPolicia = modelo.IdPolicia,
                 cedula = modelo.Cedula,
-                tipoCedula = tablaGeneralDAL.GetTipoCedula(modelo.TipoCedula),
+                tipoCedula = tablaGeneralDAL.GetCodigo("Policias", "tipoCedula", modelo.TipoCedula.ToString()).idTablaGeneral,
                 nombre = modelo.Nombre,
                 fechaNacimiento = modelo.FechaNacimiento,
                 correoElectronico = modelo.CorreoElectronico,
@@ -59,7 +59,7 @@ namespace FrontEnd.Controllers
             {
                 IdPolicia = policia.idPolicia,
                 Cedula = policia.cedula,
-                TipoCedula = int.Parse(tablaGeneralDAL.GetCodigo(policia.tipoCedula)),
+                TipoCedula = int.Parse(tablaGeneralDAL.Get(policia.tipoCedula).codigo),
                 Nombre = policia.nombre,
                 FechaNacimiento = policia.fechaNacimiento,
                 CorreoElectronico = policia.correoElectronico,
@@ -78,7 +78,7 @@ namespace FrontEnd.Controllers
             {
                 IdPolicia = policia.idPolicia,
                 Cedula = policia.cedula,
-                TipoCedula = tablaGeneralDAL.GetDescripcion(policia.tipoCedula),
+                TipoCedula = tablaGeneralDAL.Get(policia.tipoCedula).descripcion,
                 Nombre = policia.nombre,
                 FechaNacimiento = policia.fechaNacimiento.ToShortDateString(),
                 Edad = ObtenerEdad(policia.fechaNacimiento),
@@ -89,7 +89,7 @@ namespace FrontEnd.Controllers
                 ContactoEmergencia = policia.contactoEmergencia,
                 TelefonoEmergencia = policia.telefonoEmergencia,
                 Estado = (int)policia.estado,
-                DescripcionEstado = tablaGeneralDAL.GetDescripcion(policia.estado)
+                DescripcionEstado = tablaGeneralDAL.Get(policia.estado).descripcion
             };
         }
 
@@ -130,7 +130,7 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             PoliciaViewModel modelo = new PoliciaViewModel()
             {
-                TiposCedula = tablaGeneralDAL.GetTiposCedulaPolicia().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
+                TiposCedula = tablaGeneralDAL.Get("Policias", "tipoCedula").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
                 FechaNacimiento = DateTime.Today
 
             };
@@ -143,7 +143,7 @@ namespace FrontEnd.Controllers
         {
             policiaDAL = new PoliciaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
-            model.TiposCedula = tablaGeneralDAL.GetTiposCedulaPolicia().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            model.TiposCedula = tablaGeneralDAL.Get("Policias", "tipoCedula").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             model.CedulaPoliciaFiltrada = policiaDAL.GetCedulaPolicia(model.Cedula);
             try
             {
@@ -152,7 +152,9 @@ namespace FrontEnd.Controllers
                     if (ModelState.IsValid)
                     {
                         policiaDAL.Add(ConvertirPolicia(model));
-                        int aux = policiaDAL.GetPoliciaCedula(model.Cedula);
+                        int aux = policiaDAL.GetPoliciaCedula(model.Cedula).idPolicia;
+                        TempData["smsnuevopolicia"] = "Policía creado con éxito";
+                        ViewBag.smsnuevopolicia = TempData["smsnuevopolicia"];
                         return Redirect("~/Policia/Detalle/" + aux);
                     }
                 }
@@ -170,8 +172,15 @@ namespace FrontEnd.Controllers
         {
             policiaDAL = new PoliciaDAL();
             Session["idPolicia"] = id;
-            Session["nombrePolicia"] = policiaDAL.GetPolicia(id).nombre;         
+            Session["nombrePolicia"] = policiaDAL.GetPolicia(id).nombre;
             ListPoliciaViewModel modelo = ConvertirPoliciaInverso(policiaDAL.GetPolicia(id));
+            try
+            {
+                ViewBag.sms = TempData["sms"];
+                ViewBag.smscambioestado = TempData["smscambioestado"];
+                ViewBag.smsnuevopolicia = TempData["smsnuevopolicia"];
+            }
+            catch { }
             return View(modelo);
         }
 
@@ -180,7 +189,7 @@ namespace FrontEnd.Controllers
         {
             policiaDAL = new PoliciaDAL();
             PoliciaViewModel modelo = CargarPolicia(policiaDAL.GetPolicia(id));
-            modelo.TiposCedula = tablaGeneralDAL.GetTiposCedulaPolicia().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            modelo.TiposCedula = tablaGeneralDAL.Get("Policias", "tipoCedula").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             return View(modelo);
         }
 
@@ -190,12 +199,14 @@ namespace FrontEnd.Controllers
         {
             policiaDAL = new PoliciaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
-            modelo.TiposCedula = tablaGeneralDAL.GetTiposCedulaPolicia().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            modelo.TiposCedula = tablaGeneralDAL.Get("Policias", "tipoCedula").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             try
             {
                 if (ModelState.IsValid)
                 {
                     policiaDAL.Edit(ConvertirPolicia(modelo));
+                    TempData["sms"] = "Policía editado con éxito";
+                    ViewBag.sms = TempData["sms"];
                     return Redirect("~/Policia/Detalle/" + modelo.IdPolicia);
                 }
                 return View(modelo);
@@ -214,15 +225,17 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             try
             {
-                if (tablaGeneralDAL.GetDescripcion(id) == "Activo")
+                if (tablaGeneralDAL.Get((int)id).descripcion == "Activo")
                 {
-                    estado = tablaGeneralDAL.GetIdEstadoPolicia("Inactivo");
+                    estado = tablaGeneralDAL.Get("Policias", "estado", "Inactivo").idTablaGeneral;
                 }
                 else
                 {
-                    estado = tablaGeneralDAL.GetIdEstadoPolicia("Activo");
+                    estado = tablaGeneralDAL.Get("Policias", "estado", "Activo").idTablaGeneral;
                 }
                 policiaDAL.CambiaEstadoPolicia((int)Session["idPolicia"], estado);
+                TempData["smscambioestado"] = "Cambio de estado realizado con éxito";
+                ViewBag.smscambioestado = TempData["smscambioestado"];
                 return Redirect("~/Policia/Detalle/" + Session["idPolicia"]);
             }
             catch (Exception ex)
@@ -231,20 +244,22 @@ namespace FrontEnd.Controllers
             }
         }
 
-        
+
         int? EstadoDefault(int? estado)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
             if (estado == null)
             {
-                return tablaGeneralDAL.EstadoDefault();
+                return tablaGeneralDAL.Get("Policias", "estado", "Activo").idTablaGeneral;
             }
-            else {
+            else
+            {
                 return estado;
             }
         }
 
-        string ObtenerEdad(DateTime? fechaNacimiento) { 
+        string ObtenerEdad(DateTime? fechaNacimiento)
+        {
 
             var edad = DateTime.Today.Year - fechaNacimiento.Value.Year;
 

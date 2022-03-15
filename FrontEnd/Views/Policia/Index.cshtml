@@ -46,7 +46,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var oElemento in Model.Take(10))
+                    @foreach (var oElemento in Model.Take(100))
                     {
                         <tr>
                             <th scope="row">@oElemento.Cedula</th>
@@ -54,6 +54,7 @@
                             <td>
                                 <div style="text-align:center;">
                                     <a class="btn btn-sm btn-outline-info" href="~/Policia/Detalle/@oElemento.IdPolicia">Ver Detalles</a>
+                                    <a class="btn btn-sm btn-outline-secondary" >Aditorías</a>
                                 </div>
                             </td>
                         </tr>

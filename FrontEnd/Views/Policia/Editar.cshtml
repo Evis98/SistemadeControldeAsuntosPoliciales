@@ -16,50 +16,49 @@
         @Html.HiddenFor(d => d.IdPolicia)
         @Html.HiddenFor(d => d.Estado)
         <div class="form-row">
-            <div class="form-group col-md-6">
-                @Html.LabelFor(d => d.Nombre)
-                @Html.TextBoxFor(d => d.Nombre, "", new { @class = "form-control", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)" })
-                @Html.ValidationMessageFor(d => d.Nombre, null, new { @class = "red" })
-            </div>
-            <div class="form-group col-md-4">
-                @Html.LabelFor(d => d.Cedula)
-                @Html.TextBoxFor(d => d.Cedula, "", new { @class = "form-control", @id = "pcedula", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)" })
-                @if (Model.CedulaPoliciaFiltrada != null)
-                {@Html.ValidationMessageFor(d => d.Cedula, "La cedula ya existe", new { @class = "red" })}
-            </div>
             <div class="form-group col-md-2">
                 @Html.LabelFor(d => d.TipoCedula)
                 @Html.DropDownListFor(d => d.TipoCedula, Model.TiposCedula, new { @class = "myselect form-control" })
                 @Html.ValidationMessageFor(d => d.TipoCedula, null, new { @class = "red" })
             </div>
-
+            <div class="form-group col-md-4">
+                @Html.LabelFor(d => d.Cedula)
+                @Html.TextBoxFor(d => d.Cedula, "", new { @class = "form-control", @id = "pcedula", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)" , autocomplete = "new-password" })
+                @if (Model.CedulaPoliciaFiltrada != null)
+                {@Html.ValidationMessageFor(d => d.Cedula, "La cedula ya existe", new { @class = "red" })}
+            </div>
+            <div class="form-group col-md-6">
+                @Html.LabelFor(d => d.Nombre)
+                @Html.TextBoxFor(d => d.Nombre, "", new { @class = "form-control", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)" , autocomplete = "new-password" })
+                @Html.ValidationMessageFor(d => d.Nombre, null, new { @class = "red" })
+            </div>
         </div>
         <div class="form-row">
-            <div class="form-group col-md-4">
-                @Html.LabelFor(d => d.CorreoElectronico)
-                @Html.TextBoxFor(d => d.CorreoElectronico, "", new { @class = "form-control" })
-                @Html.ValidationMessageFor(d => d.CorreoElectronico, null, new { @class = "red" })
-            </div>
-            <div class="form-group col-md-3">
-                @Html.LabelFor(d => d.TelefonoCelular)
-                @Html.TextBoxFor(d => d.TelefonoCelular, "", new { @class = "inputphone form-control" })
-                @Html.ValidationMessageFor(d => d.TelefonoCelular, null, new { @class = "red" })
-            </div>
-            <div class="form-group col-md-3">
-                @Html.LabelFor(d => d.TelefonoCasa)
-                @Html.TextBoxFor(d => d.TelefonoCasa, "", new { @class = "inputphone form-control" })
-            </div>
             <div class="form-group col-md-2">
                 @Html.LabelFor(d => d.FechaNacimiento)
                 @Html.EditorFor(d => d.FechaNacimiento, "", new { @class = "form-control" })
                 @Html.ValidationMessageFor(d => d.FechaNacimiento, null, new { @class = "red" })
             </div>
+            <div class="form-group col-md-3">
+                @Html.LabelFor(d => d.TelefonoCelular)
+                @Html.TextBoxFor(d => d.TelefonoCelular, "", new { @class = "inputphone form-control" , autocomplete = "new-password" })
+                @Html.ValidationMessageFor(d => d.TelefonoCelular, null, new { @class = "red" })
+            </div>
+            <div class="form-group col-md-3">
+                @Html.LabelFor(d => d.TelefonoCasa)
+                @Html.TextBoxFor(d => d.TelefonoCasa, "", new { @class = "inputphone form-control" , autocomplete = "new-password" })
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(d => d.CorreoElectronico)
+                @Html.TextBoxFor(d => d.CorreoElectronico, "", new { @class = "form-control" , autocomplete = "new-password" })
+                @Html.ValidationMessageFor(d => d.CorreoElectronico, null, new { @class = "red" })
+            </div>
         </div>
-   
+
         <div class="form-row">
             <div class="form-group col-md-12">
                 @Html.LabelFor(d => d.Direccion)
-                @Html.TextAreaFor(d => d.Direccion, new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+                @Html.TextAreaFor(d => d.Direccion, new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" , autocomplete = "new-password" })
                 @Html.ValidationMessageFor(d => d.Direccion, null, new { @class = "red" })
             </div>
         </div>
@@ -67,12 +66,12 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 @Html.LabelFor(d => d.ContactoEmergencia)
-                @Html.TextBoxFor(d => d.ContactoEmergencia, "", new { @class = "form-control", @id = "TContacto", @onkeypress = "return sololetras(event)" })
+                @Html.TextBoxFor(d => d.ContactoEmergencia, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @id = "TContacto", @onkeypress = "return sololetras(event)" , autocomplete = "new-password" })
                 @Html.ValidationMessageFor(d => d.ContactoEmergencia, null, new { @class = "red" })
             </div>
             <div class="form-group col-md-3">
                 @Html.LabelFor(d => d.TelefonoEmergencia)
-                @Html.TextBoxFor(d => d.TelefonoEmergencia, "", new { @class = "inputphone form-control" })
+                @Html.TextBoxFor(d => d.TelefonoEmergencia, "", new { @class = "inputphone form-control" , autocomplete = "new-password" })
                 @Html.ValidationMessageFor(d => d.TelefonoEmergencia, null, new { @class = "red" })
 
             </div>
@@ -82,7 +81,7 @@
         <div class="form-row">
             <div class="form-group col-md-12">
                 <div style="text-align:center;">
-                    <input value="Guardar Información" class="btn btn-primary" id="hGuardar" type="button" data-toggle="modal" data-target="#show" />
+                    <input value="Guardar" class="btn btn-primary" id="hGuardar" type="button" data-toggle="modal" data-target="#show" />
                     <a class="btn btn-secondary" href="~/Policia/Detalle/@Model.IdPolicia">Cancelar</a>
                 </div>
             </div>
