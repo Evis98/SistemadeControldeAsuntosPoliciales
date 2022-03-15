@@ -16,6 +16,16 @@ $('#btnSave').click(function () {
 	$('#show').modal('hide');
 });
 
+$('#quitaPolicia').on('show.bs.modal', function (e) {
+	var bookId = $(e.relatedTarget).data('book-id');
+	document.getElementsByName("quitarPolicia")[0].setAttribute("id", bookId);
+});
+
+$('#modalBusqueda').on('show.bs.modal', function (e) {
+	var bookId = $(e.relatedTarget).data('book-id');
+	document.getElementsByName("agregarPolicia")[0].setAttribute("id", bookId);
+});
+
 function backspacerUP(object, e) {
 	if (e) {
 		e = e

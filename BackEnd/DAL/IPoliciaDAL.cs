@@ -17,5 +17,7 @@ namespace BackEnd.DAL
         Policias GetPoliciaCedula(string cedula);
         bool CedulaPoliciaExiste(string cedula);
         string GetCedulaPolicia(string cedula);
+        List<Policias> GetPoliciasRango(DateTime inicio, DateTime final);
+      
     }
 }

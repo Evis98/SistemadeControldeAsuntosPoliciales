@@ -168,16 +168,17 @@ namespace FrontEnd.Controllers
         }
 
         //Guarda la información ingresada en la página para crear requisitos
-       /* [HttpPost]
+        [HttpPost]
         public void CrearCarpetaRequisitos()
         {
+            policiaDAL = new PoliciaDAL();
             string folderPath = Server.MapPath(@"~\ArchivosSCAP\Policias\" + policiaDAL.GetPolicia((int)Session["idPolicia"]).cedula + " - " + policiaDAL.GetPolicia((int)Session["idPolicia"]).nombre + @"\Requisitos\");
             if (!Directory.Exists(folderPath))
             {
                 Directory.CreateDirectory(folderPath);
                 Console.WriteLine(folderPath);
             }
-        }*/
+        }
 
         //Guarda la información ingresada en la página para crear requisitos
         [HttpPost]
@@ -189,9 +190,9 @@ namespace FrontEnd.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                   // CrearCarpetaRequisitos();
-                    string rutaSitio = Server.MapPath(@"~\ArchivosSCAP\Policias\" + Session["idPolicia"].ToString() + @"\");
-                    string pathArchivo = Path.Combine(rutaSitio + @"Requisitos\" + modelo.Detalles + " - " + Session["idPolicia"].ToString() + ".pdf");
+                   CrearCarpetaRequisitos();
+                    string rutaSitio = Server.MapPath("~/");
+                    string pathArchivo = Path.Combine(rutaSitio + @"ArchivosSCAP\Policias\" + policiaDAL.GetPolicia((int)Session["idPolicia"]).cedula + " - " + policiaDAL.GetPolicia((int)Session["idPolicia"]).nombre + @"\Requisitos\" + modelo.Detalles + " - " + policiaDAL.GetPolicia((int)Session["idPolicia"]).nombre + ".pdf");
                     Requisitos requisito = ConvertirRequisito(modelo);
                     if (modelo.FechaVencimiento != null)
                     {
@@ -203,7 +204,7 @@ namespace FrontEnd.Controllers
                     }
                     if (modelo.Archivo != null)
                     {
-                        requisito.imagen = rutaSitio + @"Requisitos\" + modelo.Detalles + " - " + Session["idPolicia"].ToString() + ".pdf";
+                        requisito.imagen = @"~\ArchivosSCAP\Policias\" + policiaDAL.GetPolicia((int)Session["idPolicia"]).cedula + " - " + policiaDAL.GetPolicia((int)Session["idPolicia"]).nombre + @"\Requisitos\" + modelo.Detalles + " - " + policiaDAL.GetPolicia((int)Session["idPolicia"]).nombre + ".pdf";
                         modelo.Archivo.SaveAs(pathArchivo);
                     }
                     else

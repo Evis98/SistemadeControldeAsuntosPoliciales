@@ -117,5 +117,23 @@ namespace BackEnd.DAL
                 return null;
             }
         }
+        public List<Policias> GetPoliciasRango(DateTime inicio, DateTime final)
+        {
+            try
+            {
+                List<Policias> resultado;
+                using (SCAPEntities db = new SCAPEntities())
+                {                    
+                    resultado = db.Policias.Where(x => x.fechaNacimiento >= inicio && x.fechaNacimiento <=  final).ToList();
+                }
+                return resultado;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+       
+        
     }
 }

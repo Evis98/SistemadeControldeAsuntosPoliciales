@@ -95,11 +95,12 @@ namespace FrontEnd.Controllers
         }
 
         //Devuelve la página con el listado de todos los policías creados
-        public ActionResult Index(string filtroSeleccionado, string busqueda)
+        public ActionResult Index(string filtroSeleccionado, string busqueda , string busquedaFechaInicio, string busquedaFechaFinal)
         {
             policiaDAL = new PoliciaDAL();
             List<Policias> policias = policiaDAL.Get();
             List<Policias> policiasFiltrados = new List<Policias>();
+                    
             if (busqueda != null)
             {
                 foreach (Policias policia in policias)
@@ -116,6 +117,15 @@ namespace FrontEnd.Controllers
                         if (policia.nombre.Contains(busqueda))
                         {
                             policiasFiltrados.Add(policia);
+                        }
+                    }
+                    if (filtroSeleccionado == "Fecha Nacimiento")
+                    {
+                        DateTime fechaInicio = DateTime.Parse(busquedaFechaInicio);
+                        DateTime fechaFinal = DateTime.Parse(busquedaFechaFinal);
+                        if (policiaDAL.GetPoliciasRango(fechaInicio, fechaFinal) != null)
+                        {
+                            policiasFiltrados = policiaDAL.GetPoliciasRango(fechaInicio, fechaFinal).ToList();                                                      
                         }
                     }
                 }
@@ -237,11 +247,11 @@ namespace FrontEnd.Controllers
             {
                 if (tablaGeneralDAL.Get((int)id).descripcion == "Activo")
                 {
-                    estado = tablaGeneralDAL.Get("Policias", "estado", "Inactivo").idTablaGeneral;
+                    estado = tablaGeneralDAL.Get("Generales", "estado", "Inactivo").idTablaGeneral;
                 }
                 else
                 {
-                    estado = tablaGeneralDAL.Get("Policias", "estado", "Activo").idTablaGeneral;
+                    estado = tablaGeneralDAL.Get("Generales", "estado", "Activo").idTablaGeneral;
                 }
                 policiaDAL.CambiaEstadoPolicia((int)Session["idPolicia"], estado);
                 TempData["smscambioestado"] = "Cambio de estado realizado con éxito";
@@ -260,7 +270,7 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             if (estado == null)
             {
-                return tablaGeneralDAL.Get("Policias", "estado", "Activo").idTablaGeneral;
+                return tablaGeneralDAL.Get("Generales", "estado", "Activo").idTablaGeneral;
             }
             else
             {

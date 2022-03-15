@@ -16,8 +16,8 @@ namespace FrontEnd.Controllers
         public ActionResult Index()
         {
             usuarioDAL = new UsuarioDAL();
-            var usuario =  usuarioDAL.GetUsuario(2001);          
-            if(usuario != null)
+            var usuario = usuarioDAL.GetUsuario(1);
+            if (usuario != null)
             {
                 Session.Add("Username", usuario.nombre);
             }

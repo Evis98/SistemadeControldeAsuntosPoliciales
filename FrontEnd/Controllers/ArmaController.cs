@@ -186,10 +186,8 @@ namespace FrontEnd.Controllers
                         else
                         {
                             arma.policiaAsignado = null;
-
                         }
                         armaDAL.Add(arma);
-
                         int aux = armaDAL.GetArmaNumSerie(modelo.NumeroSerie).idArma;
                         TempData["smsnuevaarma"] = "Arma creada con éxito";
                         ViewBag.smsnuevaarma = TempData["smsnuevaarma"];
@@ -212,7 +210,6 @@ namespace FrontEnd.Controllers
         public PartialViewResult ListaPoliciasBuscar(string nombre)
         {
             List<ListPoliciaViewModel> policias = new List<ListPoliciaViewModel>();
-
             return PartialView("_ListaPoliciasBuscar", policias);
         }
 

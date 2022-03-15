@@ -1,0 +1,70 @@
+﻿@model List<FrontEnd.Models.ViewModels.ListBitacoraViewModel>
+@{ ViewBag.Title = "Bitacora"; }
+
+<div class="container bg-light text-dark border" style="height:80vh;">
+    <div class="row">
+        <div class="col-md-12">
+            <div style="text-align:center;">
+                <h2 class="display-4">@ViewBag.Title</h2>
+            </div>
+        </div>
+    </div>
+
+
+    @using (Html.BeginForm("Index", "Requisito", FormMethod.Get))
+    {
+<div class="form-row">
+    <div class="col-sm-3">
+        <select class="form-control" name="filtroSeleccionado" id="filtroSeleccionado" onclick="ocultarBitacora()">
+            <option selected>Nombre Policia</option>
+            <option>Estado de bitácora</option>
+        </select>
+    </div>
+    <div class="col-sm-4">
+        <input class="form-control" name="busqueda" maxlength="150" type="text" id="busqueda" onkeyup="this.value = this.value.toUpperCase();" onkeypress="return  sololetrasnumeros(event)" />
+        <select class="form-control" name="estadoActualBitacora" id="estadoActualBitacora" style="display:none">
+            <option value="" selected="selected" >Selecione un estado de bitacora</option>
+            @*<option selected>Pendiente</option>
+            <option>Completa</option>*@
+        </select>
+    </div>
+    <div class="col-sm-4">
+        <button class="btn btn-primary">Buscar</button>
+    </div>
+    <div class="col-sm-1">
+        <a class="btn btn-success">Agregar</a>
+    </div>
+</div>}
+
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered center table-sm">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Nombre Policia</th>
+                        <th scope="col">Serie Arma</th>
+                        <th scope="col">Estado de la Bitacora</th>
+                        <th scope="col">Fecha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var oElemento in Model)
+                    {
+        <tr>
+            <th scope="row">@oElemento.PoliciaSolicitante</th>
+            <td>@oElemento.NumeroSerieArmaAsignada</td>
+            <td>@oElemento.EstadoActualBitacora</td>
+            <td>@oElemento.FechaCreacion</td>
+            <td>
+                <div style="text-align:center;">
+                </div>
+            </td>
+        </tr>}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+</div>

@@ -55,17 +55,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActasHallazgo.cs">
+      <DependentUpon>DBSCAP.tt</DependentUpon>
+    </Compile>
     <Compile Include="Armas.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
+    <Compile Include="Bitacoras.cs">
+      <DependentUpon>DBSCAP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\ActaHallazgoDAL.cs" />
     <Compile Include="DAL\ArmaDAL.cs" />
+    <Compile Include="DAL\BitacoraDAL.cs" />
+    <Compile Include="DAL\IActaHallazgoDAL.cs" />
     <Compile Include="DAL\IArmaDAL.cs" />
+    <Compile Include="DAL\IBitacoraDAL.cs" />
     <Compile Include="DAL\IInfractorDAL.cs" />
     <Compile Include="DAL\InfractorDAL.cs" />
+    <Compile Include="DAL\IPersonaDAL.cs" />
     <Compile Include="DAL\IPoliciaDAL.cs" />
     <Compile Include="DAL\IRequisitoDAL.cs" />
     <Compile Include="DAL\ITablaGeneralDAL.cs" />
     <Compile Include="DAL\IUsuarioDAL.cs" />
+    <Compile Include="DAL\PersonaDAL.cs" />
     <Compile Include="DAL\PoliciaDAL.cs" />
     <Compile Include="DAL\RequisitoDAL.cs" />
     <Compile Include="DAL\TablaGeneralDAL.cs" />
@@ -86,6 +98,12 @@
       <DependentUpon>DBSCAP.edmx</DependentUpon>
     </Compile>
     <Compile Include="Infractores.cs">
+      <DependentUpon>DBSCAP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PartesPoliciales.cs">
+      <DependentUpon>DBSCAP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Personas.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
     <Compile Include="Policias.cs">

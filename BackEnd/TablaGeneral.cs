@@ -23,9 +23,20 @@ namespace BackEnd
             this.Armas3 = new HashSet<Armas>();
             this.Armas4 = new HashSet<Armas>();
             this.Armas5 = new HashSet<Armas>();
+            this.Bitacoras = new HashSet<Bitacoras>();
+            this.Bitacoras1 = new HashSet<Bitacoras>();
             this.Infractores = new HashSet<Infractores>();
             this.Infractores1 = new HashSet<Infractores>();
             this.Infractores2 = new HashSet<Infractores>();
+            this.PartesPoliciales = new HashSet<PartesPoliciales>();
+            this.PartesPoliciales1 = new HashSet<PartesPoliciales>();
+            this.PartesPoliciales2 = new HashSet<PartesPoliciales>();
+            this.PartesPoliciales3 = new HashSet<PartesPoliciales>();
+            this.PartesPoliciales4 = new HashSet<PartesPoliciales>();
+            this.PartesPoliciales5 = new HashSet<PartesPoliciales>();
+            this.Personas = new HashSet<Personas>();
+            this.Personas1 = new HashSet<Personas>();
+            this.Personas2 = new HashSet<Personas>();
             this.Policias = new HashSet<Policias>();
             this.Policias1 = new HashSet<Policias>();
             this.Requisitos = new HashSet<Requisitos>();
@@ -51,11 +62,33 @@ namespace BackEnd
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Armas> Armas5 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Bitacoras> Bitacoras { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Bitacoras> Bitacoras1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Infractores> Infractores { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Infractores> Infractores1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Infractores> Infractores2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PartesPoliciales> PartesPoliciales { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PartesPoliciales> PartesPoliciales1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PartesPoliciales> PartesPoliciales2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PartesPoliciales> PartesPoliciales3 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PartesPoliciales> PartesPoliciales4 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PartesPoliciales> PartesPoliciales5 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Personas> Personas { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Personas> Personas1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Personas> Personas2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Policias> Policias { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

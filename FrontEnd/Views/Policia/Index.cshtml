@@ -15,23 +15,33 @@
     @using (Html.BeginForm("Index", "Policia", FormMethod.Get))
     {
 
-        <div class="form-row">
-            <div class="col-sm-3">
-                <select class="form-control" name="filtroSeleccionado" id="filtroSeleccionado">
-                    <option selected>Nombre</option>
-                    <option>Cédula</option>
-                </select>
-            </div>
-            <div class="col-sm-4">
-                <input class="form-control" name="busqueda" maxlength="150" type="text" id="busqueda" onkeyup="this.value = this.value.toUpperCase();" onkeypress="return  sololetrasnumeros(event)" />
-            </div>
-            <div class="col-sm-4">
-                <button class="btn btn-primary">Buscar</button>
-            </div>
-            <div class="col-sm-1">
-                <a href="~/Policia/Nuevo" class="btn btn-success">Agregar</a>
-            </div>
-        </div>
+<div class="form-row">
+    <div class="col-sm-3">
+        <select class="form-control" name="filtroSeleccionado" onclick="ocultarFechaNacimiento()" id="filtroSeleccionado">
+           
+            <option selected>Nombre</option>
+            <option>Cédula</option>
+            <option>Fecha Nacimiento</option>
+        </select>
+    </div>
+
+    <div class="col-sm-3">
+        <input class="form-control" name="busqueda" type="text" id="busqueda" onkeyup = "this.value = this.value.toUpperCase();"/>
+        <input class="form-control" name="busquedaFechaInicio" type="date" id="busquedaFechaInicio" style="display:none" />
+    </div>
+
+    <div class="col-sm-3">
+        <input class="form-control" name="busquedaFechaFinal" type="date" id="busquedaFechaFinal" style="display:none"/>       
+    </div>
+
+    <div class="col-sm-1">        
+        <button class="btn btn-primary">Buscar</button>
+    </div>
+
+    <div class="col-sm-1">
+        <a href="~/Policia/Nuevo" class="btn btn-success">Agregar</a>
+    </div>
+</div>
     }
 
     <hr />
@@ -46,7 +56,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var oElemento in Model.Take(100))
+                    @foreach (var oElemento in Model)
                     {
                         <tr>
                             <th scope="row">@oElemento.Cedula</th>
@@ -54,8 +64,7 @@
                             <td>
                                 <div style="text-align:center;">
                                     <a class="btn btn-sm btn-outline-info" href="~/Policia/Detalle/@oElemento.IdPolicia">Ver Detalles</a>
-                                    <a class="btn btn-sm btn-outline-secondary" >Aditorías</a>
-                                </div>
+                                 </div>
                             </td>
                         </tr>
                     }

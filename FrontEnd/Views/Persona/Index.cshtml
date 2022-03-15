@@ -1,0 +1,66 @@
+﻿@model List<FrontEnd.Models.ViewModels.ListPersonaViewModel>
+
+@{
+    ViewBag.Title = "Personas";
+}
+<div class="container bg-light text-dark border" style="height:80vh;">
+    <div class="row">
+        <div class="col-md-12">
+            <div style="text-align:center;">
+                <h2 class="display-4">@ViewBag.Title</h2>
+            </div>
+        </div>
+    </div>
+    <hr />
+    @using (Html.BeginForm("Index", "Persona", FormMethod.Get))
+    {
+
+        <div class="form-row">
+            <div class="col-sm-3">
+                <select class="form-control" name="filtroSeleccionado" id="filtroSeleccionado">
+                    <option selected>Nombre</option>
+                    <option>Cédula</option>
+                </select>
+            </div>
+            <div class="col-sm-4">
+                <input class="form-control" name="busqueda" maxlength="150" type="text" id="busqueda" onkeyup="this.value = this.value.toUpperCase();" onkeypress="return  sololetrasnumeros(event)" />
+            </div>
+            <div class="col-sm-4">
+                <button class="btn btn-primary">Buscar</button>
+            </div>
+            <div class="col-sm-1">
+                <a href="~/Persona/Nuevo" class="btn btn-success">Agregar</a>
+            </div>
+        </div>
+    }
+
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered center table-sm">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Identificación</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var oElemento in Model)
+                    {
+                        <tr>
+                            <th scope="row">@oElemento.IdentificacionPersona</th>
+                            <td>@oElemento.NombrePersona</td>
+                            <td>
+                                <div style="text-align:center;">
+                                    <a class="btn btn-sm btn-outline-info" href="~/Persona/Detalle/@oElemento.IdPersona">Ver Detalles</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

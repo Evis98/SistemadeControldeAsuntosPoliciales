@@ -1,0 +1,23 @@
+﻿@model List<FrontEnd.Models.ViewModels.ListInfractorViewModel>
+
+<table class="table">
+
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">Cédula</th>
+            <th scope="col">Nombre</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+<tr>
+    <th scope="row">@Html.DisplayFor(modelItem => item.Identificacion)</th>
+    <td>
+        <label><a href="#" onclick="reply_click3(this.id)" id="@item.Identificacion"> @item.Nombre</a></label>
+    </td>
+</tr>
+}
+    </tbody>
+</table>
+

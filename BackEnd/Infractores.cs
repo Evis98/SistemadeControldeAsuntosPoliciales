@@ -14,11 +14,19 @@ namespace BackEnd
     
     public partial class Infractores
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Infractores()
+        {
+            this.PartesPoliciales = new HashSet<PartesPoliciales>();
+        }
+    
         public int idInfractor { get; set; }
         public int tipoDeIdentificacion { get; set; }
         public string numeroDeIdentificacion { get; set; }
         public int nacionalidad { get; set; }
         public string nombreCompleto { get; set; }
+        public string apodoInfractor { get; set; }
+        public string rasgosFisicosInfractor { get; set; }
         public System.DateTime fechaNacimiento { get; set; }
         public string telefono { get; set; }
         public string direccionExacta { get; set; }
@@ -32,6 +40,8 @@ namespace BackEnd
         public string nombreDeLaMadre { get; set; }
         public string imagen { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PartesPoliciales> PartesPoliciales { get; set; }
         public virtual TablaGeneral TablaGeneral { get; set; }
         public virtual TablaGeneral TablaGeneral1 { get; set; }
         public virtual TablaGeneral TablaGeneral2 { get; set; }

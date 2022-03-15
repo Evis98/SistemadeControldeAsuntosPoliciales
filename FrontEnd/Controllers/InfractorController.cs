@@ -44,14 +44,14 @@ namespace FrontEnd.Controllers
             return new Infractores
             {
                 idInfractor = modelo.IdInfractor,
-                tipoDeIdentificacion = tablaGeneralDAL.GetCodigo("Infractores", "tipoDeIdentificacion", modelo.TipoIdentificacion.ToString()).idTablaGeneral,
+                tipoDeIdentificacion = tablaGeneralDAL.GetCodigo("Generales", "tipoDeIdentificacion", modelo.TipoIdentificacion.ToString()).idTablaGeneral,
                 numeroDeIdentificacion = modelo.Identificacion,
-                nacionalidad = tablaGeneralDAL.GetCodigo("Infractores", "nacionalidad", modelo.Nacionalidad.ToString()).idTablaGeneral,
+                nacionalidad = tablaGeneralDAL.GetCodigo("Generales", "nacionalidad", modelo.Nacionalidad.ToString()).idTablaGeneral,
                 nombreCompleto = modelo.Nombre,
                 fechaNacimiento = modelo.FechaNacimiento,
                 telefono = modelo.Telefono,
                 direccionExacta = modelo.DireccionExacta,
-                sexo = tablaGeneralDAL.GetCodigo("Infractores", "sexo", modelo.Sexo.ToString()).idTablaGeneral,
+                sexo = tablaGeneralDAL.GetCodigo("Generales", "sexo", modelo.Sexo.ToString()).idTablaGeneral,
                 correoEletronico = modelo.CorreoElectronico,
                 observaciones = modelo.Observaciones,
                 profesionUOficio = modelo.ProfesionUOficio,
@@ -161,17 +161,16 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             InfractorViewModel modelo = new InfractorViewModel()
             {
-                Nacionalidades = tablaGeneralDAL.Get("Infractores", "nacionalidad").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
-                TiposDeIdentificacion = tablaGeneralDAL.Get("Infractores", "tipoDeIdentificacion").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
-                TiposDeSexo = tablaGeneralDAL.Get("Infractores", "sexo").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
-                FechaNacimiento = DateTime.Today,
-
+                Nacionalidades = tablaGeneralDAL.Get("Generales", "nacionalidad").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
+                TiposDeIdentificacion = tablaGeneralDAL.Get("Generales", "tipoDeIdentificacion").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
+                TiposDeSexo = tablaGeneralDAL.Get("Generales", "sexo").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
+                FechaNacimiento = DateTime.Today
 
             };
             return View(modelo);
 
         }
-        //Crea las rutas de archivos de Infractores
+        
         //Crea las rutas de archivos de Infractores
         public void CrearCarpetaInfractor(InfractorViewModel model)
         {
@@ -235,9 +234,9 @@ namespace FrontEnd.Controllers
                         return Redirect("~/Infractor/Detalle/" + aux);
                     }
                 }
-                model.Nacionalidades = tablaGeneralDAL.Get("Infractores", "nacionalidad").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
-                model.TiposDeIdentificacion = tablaGeneralDAL.Get("Infractores", "tipoDeIdentificacion").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
-                model.TiposDeSexo = tablaGeneralDAL.Get("Infractores", "sexo").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+                model.Nacionalidades = tablaGeneralDAL.Get("Generales", "nacionalidad").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+                model.TiposDeIdentificacion = tablaGeneralDAL.Get("Generales", "tipoDeIdentificacion").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+                model.TiposDeSexo = tablaGeneralDAL.Get("Generales", "sexo").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
                 return View(model);
             }
             catch (Exception ex)
@@ -263,9 +262,9 @@ namespace FrontEnd.Controllers
         {
             infractorDAL = new InfractorDAL();
             InfractorViewModel model = CargarInfractor(infractorDAL.GetInfractor(id));
-            model.Nacionalidades = tablaGeneralDAL.Get("Infractores", "nacionalidad").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
-            model.TiposDeIdentificacion = tablaGeneralDAL.Get("Infractores", "tipoDeIdentificacion").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
-            model.TiposDeSexo = tablaGeneralDAL.Get("Infractores", "sexo").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            model.Nacionalidades = tablaGeneralDAL.Get("Generales", "nacionalidad").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            model.TiposDeIdentificacion = tablaGeneralDAL.Get("Generales", "tipoDeIdentificacion").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            model.TiposDeSexo = tablaGeneralDAL.Get("Generales", "sexo").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             return View(model);
         }
 
@@ -275,9 +274,9 @@ namespace FrontEnd.Controllers
         {
             infractorDAL = new InfractorDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
-            model.Nacionalidades = tablaGeneralDAL.Get("Infractores", "nacionalidad").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
-            model.TiposDeIdentificacion = tablaGeneralDAL.Get("Infractores", "tipoDeIdentificacion").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
-            model.TiposDeSexo = tablaGeneralDAL.Get("Infractores", "sexo").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            model.Nacionalidades = tablaGeneralDAL.Get("Generales", "nacionalidad").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            model.TiposDeIdentificacion = tablaGeneralDAL.Get("Generales", "tipoDeIdentificacion").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            model.TiposDeSexo = tablaGeneralDAL.Get("Generales", "sexo").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             try
             {
                 if (ModelState.IsValid)

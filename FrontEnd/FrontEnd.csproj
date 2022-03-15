@@ -139,21 +139,31 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ActaController.cs" />
+    <Compile Include="Controllers\ActaHallazgoController.cs" />
     <Compile Include="Controllers\ArmaController.cs" />
+    <Compile Include="Controllers\BitacoraController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InfractorController.cs" />
+    <Compile Include="Controllers\ParteController.cs" />
+    <Compile Include="Controllers\PersonaController.cs" />
     <Compile Include="Controllers\PoliciaController.cs" />
-    <Compile Include="Controllers\RegistroController.cs" />
     <Compile Include="Controllers\RequisitoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModels\ActaHallazgoViewModel.cs" />
     <Compile Include="Models\ViewModels\ArmaViewModel.cs" />
+    <Compile Include="Models\ViewModels\BitacoraViewModel.cs" />
     <Compile Include="Models\ViewModels\InfractorViewModel.cs" />
     <Compile Include="Models\ViewModels\ListArmaViewModel.cs" />
+    <Compile Include="Models\ViewModels\ListBitacoraViewModel.cs" />
     <Compile Include="Models\ViewModels\ListInfractorViewModel.cs" />
+    <Compile Include="Models\ViewModels\ListParte1ViewModel.cs" />
+    <Compile Include="Models\ViewModels\ListPersonaViewModel.cs" />
     <Compile Include="Models\ViewModels\ListPoliciaViewModel.cs" />
     <Compile Include="Models\ViewModels\ListRequisitoViewModel.cs" />
+    <Compile Include="Models\ViewModels\Parte1ViewModel.cs" />
+    <Compile Include="Models\ViewModels\PersonaViewModel.cs" />
     <Compile Include="Models\ViewModels\PoliciaViewModel.cs" />
     <Compile Include="Models\ViewModels\RequisitoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -323,8 +333,25 @@
     <Content Include="Views\Arma\Editar.cshtml" />
     <Content Include="Views\Arma\_ListaPoliciasBuscar.cshtml" />
     <Content Include="Views\Arma\_ListaPoliciasParcial.cshtml" />
-    <Content Include="Views\Registro\Index.cshtml" />
     <Content Include="Views\Acta\Index.cshtml" />
+    <Content Include="Views\Parte\Index.cshtml" />
+    <Content Include="Views\Parte\Nuevo1.cshtml" />
+    <Content Include="Views\Parte\_ListaInfractoresBuscar.cshtml" />
+    <Content Include="Views\Parte\_ListaInfractoresParcial.cshtml" />
+    <Content Include="Views\Parte\_ListaPoliciasParcial.cshtml" />
+    <Content Include="Views\Parte\_ListaPoliciasBuscar.cshtml" />
+    <Content Include="Views\Persona\Index.cshtml" />
+    <Content Include="Views\Persona\Nuevo.cshtml" />
+    <Content Include="Views\Persona\Detalle.cshtml" />
+    <Content Include="Views\Persona\Editar.cshtml" />
+    <Content Include="Views\Bitacora\Nuevo.cshtml" />
+    <Content Include="Views\Bitacora\Index.cshtml" />
+    <Content Include="Views\ActaHallazgo\_ListaPoliciasBuscar.cshtml" />
+    <Content Include="Views\ActaHallazgo\_ListaPoliciasParcial.cshtml" />
+    <Content Include="Views\ActaHallazgo\Index.cshtml" />
+    <Content Include="Views\ActaHallazgo\Nuevo.cshtml" />
+    <Content Include="Views\ActaHallazgo\Detalle.cshtml" />
+    <Content Include="Views\ActaHallazgo\Editar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
