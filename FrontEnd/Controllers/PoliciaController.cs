@@ -7,6 +7,7 @@ using BackEnd.DAL;
 using BackEnd;
 using FrontEnd.Models;
 using FrontEnd.Models.ViewModels;
+using System.IO;
 
 namespace FrontEnd.Controllers
 {
@@ -136,11 +137,20 @@ namespace FrontEnd.Controllers
             };
             return View(modelo);
         }
-
+        public void CrearCarpetaPolicia(PoliciaViewModel model)
+        {
+            string folderPath = Server.MapPath(@"~\ArchivosSCAP\Policias\" + model.Cedula.ToString() + " - " + model.Nombre.ToString());
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+                Console.WriteLine(folderPath);
+            }
+        }
         //Guarda la información ingresada en la página para crear policías
         [HttpPost]
         public ActionResult Nuevo(PoliciaViewModel model)
         {
+            CrearCarpetaPolicia(model);
             policiaDAL = new PoliciaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             model.TiposCedula = tablaGeneralDAL.Get("Policias", "tipoCedula").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
