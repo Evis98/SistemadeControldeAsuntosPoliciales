@@ -168,22 +168,16 @@ namespace FrontEnd.Controllers
         }
 
         //Guarda la información ingresada en la página para crear requisitos
-        [HttpPost]
-        public void CrearCarpetas()
+       /* [HttpPost]
+        public void CrearCarpetaRequisitos()
         {
-            string folderPath = Server.MapPath(@"~\ArchivosSCAP\Policias\" + Session["idPolicia"].ToString());
+            string folderPath = Server.MapPath(@"~\ArchivosSCAP\Policias\" + policiaDAL.GetPolicia((int)Session["idPolicia"]).cedula + " - " + policiaDAL.GetPolicia((int)Session["idPolicia"]).nombre + @"\Requisitos\");
             if (!Directory.Exists(folderPath))
             {
                 Directory.CreateDirectory(folderPath);
                 Console.WriteLine(folderPath);
             }
-            string folderPath2 = Server.MapPath(@"~\ArchivosSCAP\Policias\" + Session["idPolicia"].ToString() + @"\" + @"Requisitos\");
-            if (!Directory.Exists(folderPath2))
-            {
-                Directory.CreateDirectory(folderPath2);
-                Console.WriteLine(folderPath2);
-            }
-        }
+        }*/
 
         //Guarda la información ingresada en la página para crear requisitos
         [HttpPost]
@@ -195,7 +189,7 @@ namespace FrontEnd.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    CrearCarpetas();
+                   // CrearCarpetaRequisitos();
                     string rutaSitio = Server.MapPath(@"~\ArchivosSCAP\Policias\" + Session["idPolicia"].ToString() + @"\");
                     string pathArchivo = Path.Combine(rutaSitio + @"Requisitos\" + modelo.Detalles + " - " + Session["idPolicia"].ToString() + ".pdf");
                     Requisitos requisito = ConvertirRequisito(modelo);
