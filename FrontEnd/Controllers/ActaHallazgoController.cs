@@ -44,7 +44,7 @@ namespace FrontEnd.Controllers
             {
                 idActaHallazgo = modelo.IdActaHallazgo,
                 numeroFolio = modelo.NumeroFolio,
-                distrito = tablaGeneralDAL.GetCodigo("PartesPoliciales", "distrito", modelo.Distrito.ToString()).idTablaGeneral,
+                distrito = tablaGeneralDAL.GetCodigo("Generales", "distrito", modelo.Distrito.ToString()).idTablaGeneral,
                 fechaHora = modelo.Fecha,
                 avenida = modelo.Avenida,
                 calle = modelo.Calle,
@@ -156,7 +156,7 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             ActaHallazgoViewModel modelo = new ActaHallazgoViewModel()
             {
-                Distritos = tablaGeneralDAL.Get("PartesPoliciales", "distrito").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
+                Distritos = tablaGeneralDAL.Get("Generales", "distrito").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
                 Fecha = DateTime.Today
 
             };
@@ -168,7 +168,7 @@ namespace FrontEnd.Controllers
         {
             actaHallazgoDAL = new ActaHallazgoDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
-            model.Distritos = tablaGeneralDAL.Get("PartesPoliciales", "distrito").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            model.Distritos = tablaGeneralDAL.Get("Generales", "distrito").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             model.NumeroFolio = (actaHallazgoDAL.GetCount() + 1).ToString() + "-" + DateTime.Now.Year;
             DateTime newDateTime = model.Fecha.Date + model.Hora.TimeOfDay;
             model.Fecha = newDateTime;
@@ -210,7 +210,7 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             actaHallazgoDAL = new ActaHallazgoDAL();
             ActaHallazgoViewModel modelo = CargarActaHallazgo(actaHallazgoDAL.GetActaHallazgo(id));
-            modelo.Distritos = tablaGeneralDAL.Get("PartesPoliciales", "distrito").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            modelo.Distritos = tablaGeneralDAL.Get("Generales", "distrito").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             return View(modelo);
         }
 
@@ -219,7 +219,7 @@ namespace FrontEnd.Controllers
         {
             actaHallazgoDAL = new ActaHallazgoDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
-            model.Distritos = tablaGeneralDAL.Get("PartesPoliciales", "distrito").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            model.Distritos = tablaGeneralDAL.Get("Generales", "distrito").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             DateTime newDateTime = model.Fecha.Date + model.Hora.TimeOfDay;
             model.Fecha = newDateTime;
             try
