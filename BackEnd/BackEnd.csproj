@@ -72,11 +72,13 @@
     <Compile Include="DAL\IBitacoraDAL.cs" />
     <Compile Include="DAL\IInfractorDAL.cs" />
     <Compile Include="DAL\InfractorDAL.cs" />
+    <Compile Include="DAL\IParteDAL.cs" />
     <Compile Include="DAL\IPersonaDAL.cs" />
     <Compile Include="DAL\IPoliciaDAL.cs" />
     <Compile Include="DAL\IRequisitoDAL.cs" />
     <Compile Include="DAL\ITablaGeneralDAL.cs" />
     <Compile Include="DAL\IUsuarioDAL.cs" />
+    <Compile Include="DAL\ParteDAL.cs" />
     <Compile Include="DAL\PersonaDAL.cs" />
     <Compile Include="DAL\PoliciaDAL.cs" />
     <Compile Include="DAL\RequisitoDAL.cs" />

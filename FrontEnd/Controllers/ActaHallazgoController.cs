@@ -120,7 +120,7 @@ namespace FrontEnd.Controllers
             return PartialView("_ListaPoliciasParcial", ConvertirListaPoliciasFiltrados(policiasFiltrados));
         }
 
-        public ActionResult Index(string filtroSeleccionado, string busqueda)
+        public ActionResult Index(string filtroSeleccionado, string busqueda, string busquedaFechaInicioH, string busquedaFechaFinalH)
         {
             actaHallazgoDAL = new ActaHallazgoDAL();
             policiaDAL = new PoliciaDAL();
@@ -144,13 +144,21 @@ namespace FrontEnd.Controllers
                             actasHallazgoFiltradas.Add(actaHallazgo);
                         }
                     }
+                    if (filtroSeleccionado == "Fecha")
+                    {
+                        DateTime fechaInicio = DateTime.Parse(busquedaFechaInicioH);
+                        DateTime fechaFinal = DateTime.Parse(busquedaFechaFinalH);
+                        if (actaHallazgoDAL.GetActaHallazgoRango(fechaInicio, fechaFinal) != null)
+                        {
+                            actasHallazgoFiltradas = actaHallazgoDAL.GetActaHallazgoRango(fechaInicio, fechaFinal).ToList();
+                        }
+                    }
                 }
                 actasHallazgo = actasHallazgoFiltradas;
             }
             actasHallazgo = actasHallazgo.OrderBy(x => x.numeroFolio).ToList();
             return View(ConvertirListaActasHallazgo(actasHallazgo));
         }
-
         public ActionResult Nuevo()
         {
             tablaGeneralDAL = new TablaGeneralDAL();

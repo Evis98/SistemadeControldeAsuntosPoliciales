@@ -1,0 +1,22 @@
+﻿@model List<FrontEnd.Models.ViewModels.ListArmaViewModel>
+
+<table class="table">
+
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">Numero de Serie</th>
+            <th scope="col">Tipo de Arma</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+<tr>
+    <th scope="row">@Html.DisplayFor(modelItem => item.NumeroSerie)</th>
+    <td>
+        <label><a href="#" onclick="reply_clickArma(this.id)" id="@item.NumeroSerie"> @item.TipoArma</a></label>
+    </td>
+</tr>
+}
+    </tbody>
+</table>

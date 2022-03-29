@@ -37,10 +37,25 @@ function ocultarRequisito() {
         aux3.style.display = "block"
     }
 }
+function ocultarFechaActa() {
+    var auxa = document.getElementById("busquedaFechaInicioH");
+    var auxb = document.getElementById("busquedaFechaFinalH");
+    var auxc = document.getElementById("filtroSeleccionado");
+    var auxd = document.getElementById('busqueda');
+    if (auxc.options[auxc.selectedIndex].value === "Fecha") {
+        auxa.style.display = "block";
+        auxb.style.display = "block";
+        auxd.style.display = "none"
+    } else {
+        auxa.style.display = "none";
+        auxb.style.display = "none";
+        auxd.style.display = "block"
+    }
+}
 
 function ocultarBitacora() {
 
-    var aux8 = document.getElementById("estadoActualBitacora");
+    var aux8 = document.getElementById("estadoBitacora");
     var aux9 = document.getElementById("filtroSeleccionado");
     var aux10 = document.getElementById('busqueda');
     if (aux9.options[aux9.selectedIndex].value === "Estado de bitácora") {

@@ -72,7 +72,7 @@ namespace FrontEnd.Controllers
                 IdInfractor = infractor.idInfractor,
                 TipoIdentificacion = int.Parse(tablaGeneralDAL.Get(infractor.tipoDeIdentificacion).codigo),
                 Identificacion = infractor.numeroDeIdentificacion,
-                Nacionalidad = infractor.nacionalidad.ToString(),
+                Nacionalidad = tablaGeneralDAL.Get(infractor.nacionalidad).codigo,
                 Nombre = infractor.nombreCompleto,
                 FechaNacimiento = infractor.fechaNacimiento,
                 Telefono = infractor.telefono,

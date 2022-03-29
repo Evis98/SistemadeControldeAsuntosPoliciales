@@ -16,5 +16,6 @@ namespace BackEnd.DAL
         bool FolioExiste(string numeroFolio);
         string GetFolioActaHallazgo(string numeroFolio);
         int GetCount();
+        List<ActasHallazgo> GetActaHallazgoRango(DateTime inicio, DateTime final);
     }
 }

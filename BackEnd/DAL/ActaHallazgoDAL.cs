@@ -107,5 +107,21 @@ namespace BackEnd.DAL
                 return null;
             }
         }
+        public List<ActasHallazgo> GetActaHallazgoRango(DateTime inicio, DateTime final)
+        {
+            try
+            {
+                List<ActasHallazgo> resultado;
+                using (SCAPEntities db = new SCAPEntities())
+                {
+                    resultado = db.ActasHallazgo.Where(x => x.fechaHora >= inicio && x.fechaHora <= final).ToList();
+                }
+                return resultado;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

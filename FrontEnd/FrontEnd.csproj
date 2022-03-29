@@ -352,6 +352,15 @@
     <Content Include="Views\ActaHallazgo\Nuevo.cshtml" />
     <Content Include="Views\ActaHallazgo\Detalle.cshtml" />
     <Content Include="Views\ActaHallazgo\Editar.cshtml" />
+    <Content Include="Views\Bitacora\_ListaPoliciasBuscar.cshtml" />
+    <Content Include="Views\Bitacora\_ListaPoliciasParcial.cshtml" />
+    <Content Include="Views\Bitacora\_ListaArmasBuscar.cshtml" />
+    <Content Include="Views\Bitacora\_ListaArmasParcial.cshtml" />
+    <Content Include="Views\Parte\Nuevo2.cshtml" />
+    <Content Include="Views\Parte\Nuevo3.cshtml" />
+    <Content Include="Views\Parte\Nuevo4.cshtml" />
+    <Content Include="Views\Parte\_ListaPersonasParcial.cshtml" />
+    <Content Include="Views\Parte\_ListaPersonasBuscar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

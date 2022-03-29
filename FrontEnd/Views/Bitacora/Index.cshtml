@@ -11,7 +11,7 @@
     </div>
 
 
-    @using (Html.BeginForm("Index", "Requisito", FormMethod.Get))
+    @using (Html.BeginForm("Index", "Bitacora", FormMethod.Get))
     {
 <div class="form-row">
     <div class="col-sm-3">
@@ -22,17 +22,17 @@
     </div>
     <div class="col-sm-4">
         <input class="form-control" name="busqueda" maxlength="150" type="text" id="busqueda" onkeyup="this.value = this.value.toUpperCase();" onkeypress="return  sololetrasnumeros(event)" />
-        <select class="form-control" name="estadoActualBitacora" id="estadoActualBitacora" style="display:none">
-            <option value="" selected="selected" >Selecione un estado de bitacora</option>
-            @*<option selected>Pendiente</option>
-            <option>Completa</option>*@
+        <select class="form-control" name="estadoBitacora" id="estadoBitacora" style="display:none">
+            <option  value="" selected="selected" >Selecione un estado de bitacora</option>
+            <option >Pendiente</option>
+            <option >Completada</option>
         </select>
     </div>
     <div class="col-sm-4">
         <button class="btn btn-primary">Buscar</button>
     </div>
     <div class="col-sm-1">
-        <a class="btn btn-success">Agregar</a>
+        <a class="btn btn-success"  href="~/Bitacora/Nuevo">Agregar</a>
     </div>
 </div>}
 

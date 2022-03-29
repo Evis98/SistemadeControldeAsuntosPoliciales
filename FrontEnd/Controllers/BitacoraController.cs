@@ -56,7 +56,7 @@ namespace FrontEnd.Controllers
                 idArmeroProveedor = policiaDAL.GetPoliciaCedula(modelo.ArmeroProveedor).idPolicia,
                 idArmeroReceptor = policiaDAL.GetPoliciaCedula(modelo.ArmeroReceptor).idPolicia,
                 idPoliciaSolicitante = policiaDAL.GetPoliciaCedula(modelo.PoliciaSolicitante).idPolicia,
-                condicionFinal = tablaGeneralDAL.GetCodigo("Bitacora", "condicionFinal", modelo.CondicionFinal.ToString()).idTablaGeneral,
+                condicionFinal = tablaGeneralDAL.GetCodigo("Generales", "condicionFinal", modelo.CondicionFinal.ToString()).idTablaGeneral,
                 fechaCreacion = modelo.FechaCreacion,
                 fechaFinalizacion = modelo.FechaFinalizacion,
                 municionEntregada = modelo.MunicionEntregada,
@@ -78,7 +78,7 @@ namespace FrontEnd.Controllers
             {
                 bitacoraEditar.IdBitacora = bitacora.idBitacora;
                 bitacoraEditar.NumeroSerieArmaAsignada = armaDAL.GetArma(bitacora.idArma).numeroSerie;
-                bitacoraEditar.TipoArmaAsignada = armaDAL.GetArma(bitacora.idArma).tipoArma;
+                //bitacoraEditar.TipoArmaAsignada = armaDAL.GetArma(bitacora.idArma).tipoArma;
                 bitacoraEditar.ArmeroProveedor = policiaDAL.GetPolicia(bitacora.idArmeroProveedor).nombre;
                 bitacoraEditar.PoliciaSolicitante = policiaDAL.GetPolicia(bitacora.idPoliciaSolicitante).nombre;
                 bitacoraEditar.CondicionInicial = armaDAL.GetArma(bitacora.idArma).condicion;
@@ -86,7 +86,7 @@ namespace FrontEnd.Controllers
                 bitacoraEditar.MunicionEntregada = bitacora.municionEntregada;
                 bitacoraEditar.CargadoresEntregados = bitacora.cargadoresEntregados;
                 bitacoraEditar.Observaciones = bitacora.observaciones;
-                bitacoraEditar.EstadoActualBitacora = tablaGeneralDAL.Get(bitacora.estadoActualBitacora).codigo;
+                //bitacoraEditar.EstadoActualBitacora = tablaGeneralDAL.Get(bitacora.estadoActualBitacora).codigo;
                  
             };
             if (bitacora.idArmeroReceptor != null)
@@ -137,36 +137,38 @@ namespace FrontEnd.Controllers
             };
         }
 
-        public ActionResult Index(string filtroSeleccionado, string busqueda, string EstadoBitacora)
+        public ActionResult Index(string filtroSeleccionado, string busqueda, string estadoBitacora)
         {
             bitacoraDAL = new BitacoraDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
-            List<ListBitacoraViewModel> bitacoras = ConvertirListaBitacoras(bitacoraDAL.Get());
-            List<ListBitacoraViewModel> bitacorasFiltradas = new List<ListBitacoraViewModel>();
+            policiaDAL = new PoliciaDAL();
+            List<Bitacoras> bitacoras = bitacoraDAL.Get();
+            List<Bitacoras> bitacorasFiltradas = new List<Bitacoras>();
             if (busqueda != null)
             {
-                foreach (ListBitacoraViewModel bitacora in bitacoras)
+                foreach (Bitacoras bitacora in bitacoras)
                 {
                     if (filtroSeleccionado == "Policía Solicitante")
                     {
-                        if (bitacora.PoliciaSolicitante.Contains(busqueda))
+                        if (policiaDAL.GetPolicia(bitacora.idPoliciaSolicitante).nombre.Contains(busqueda))
                         {
                             bitacorasFiltradas.Add(bitacora);
                         }
                     }
                     if (filtroSeleccionado == "Estado de bitácora")
                     {
-                        
-                            //if (tablaGeneralDAL.Get(bitacora.EstadoActualBitacora).descripcion.Contains(EstadoBitacora))
-                        //{
-                        //    bitacorasFiltradas.Add(bitacora);
-                        //}
+                        if (tablaGeneralDAL.Get(bitacora.estadoActualBitacora).descripcion.Contains(estadoBitacora))
+                        {
+                            bitacorasFiltradas.Add(bitacora);
+                        }
                     }
                     /*Meter un buscar por fecha (Eva lo va a pasar)*/
                 }
                 bitacoras = bitacorasFiltradas;
             }
-            return View(bitacoras);
+            List<ListBitacoraViewModel> bitacorasOrdenados = ConvertirListaBitacoras(bitacoras);
+            bitacorasOrdenados = bitacorasOrdenados.OrderBy(x => x.PoliciaSolicitante).ToList();
+            return View(bitacorasOrdenados);
         }
 
         // Este Nuevo funciona para cargar la información para el View Nuevo
@@ -176,6 +178,7 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             BitacoraViewModel modelo = new BitacoraViewModel();
             {
+              
                 //modelo.TiposDeCondicion = tablaGeneralDAL.Get("Bitacoras", "condicionFinal").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             }
             return View(modelo);
@@ -187,12 +190,15 @@ namespace FrontEnd.Controllers
         {
             bitacoraDAL = new BitacoraDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
+            modelo.FechaCreacion = DateTime.Today;
+            //modelo.EstadoActualBitacora = tablaGeneralDAL.Get(253).descripcion;
             try
             {
                 if (ModelState.IsValid)
                 {
                     Bitacoras bitacora = ConvertirBitacora(modelo);
                     bitacoraDAL.Add(bitacora);
+                    
                     int aux = bitacoraDAL.GetBitacora(modelo.IdBitacora).idBitacora;
                     //TempData["smsnuevabitacora"] = "Bitacora creada con éxito";
                     //ViewBag.smsnuevaarma = TempData["smsnuevaarma"];
@@ -216,21 +222,18 @@ namespace FrontEnd.Controllers
                         Nombre = d.nombre,
                     }).ToList();
         }
-
         public PartialViewResult ListaPoliciasBuscar(string nombre)
         {
             List<ListPoliciaViewModel> policias = new List<ListPoliciaViewModel>();
 
             return PartialView("_ListaPoliciasBuscar", policias);
         }
-
         public PartialViewResult ListaPoliciasParcial(string nombre)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
             policiaDAL = new PoliciaDAL();
             List<Policias> policias = policiaDAL.Get();
             List<Policias> policiasFiltrados = new List<Policias>();
-
             if (nombre == "")
             {
                 policiasFiltrados = policias;
@@ -273,7 +276,7 @@ namespace FrontEnd.Controllers
             armaDAL = new ArmaDAL();
             List<Armas> armas = armaDAL.Get();
             List<Armas> armasFiltradas = new List<Armas>();
-            if (serie == "")
+            if (serie == null)
             {
                 armasFiltradas = armas;
             }

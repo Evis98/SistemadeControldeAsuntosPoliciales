@@ -26,6 +26,8 @@ $('#modalBusqueda').on('show.bs.modal', function (e) {
 	document.getElementsByName("agregarPolicia")[0].setAttribute("id", bookId);
 });
 
+
+
 function backspacerUP(object, e) {
 	if (e) {
 		e = e

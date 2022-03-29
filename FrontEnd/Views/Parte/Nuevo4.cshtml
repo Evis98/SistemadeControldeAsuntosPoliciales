@@ -1,0 +1,157 @@
+﻿@model FrontEnd.Models.ViewModels.Parte1ViewModel
+@{
+    ViewBag.Title = "Agregar Información del Parte Policial";
+}
+
+<div class="container bg-light text-dark border" style="height:220vh;">
+    @using (Html.BeginForm("Nuevo", "Parte", FormMethod.Post))
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div style="text-align:center;">
+                    <h2 class="display-4">@ViewBag.Title</h2>
+                </div>
+            </div>
+        </div>
+        <div class="form-row" style="text-align:center;">
+            <h4>Oficial Actuante</h4>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                @Html.LabelFor(d => d.IdentificacionPoliciaActuante)
+                <div class="input-group">
+                    @Html.TextBoxFor(d => d.IdentificacionPoliciaActuante, "", new { @class = "form-control", @id = "idPolicia", @readonly = "readonly" })
+                    <div class="input-group-append ">
+                        <a class="btn btn-primary" data-toggle="modal" data-target="#policiaModalBuscar">Buscar</a>
+                        <a class="btn btn-danger" data-toggle="modal" data-target="#showQu">Borrar</a>
+                    </div>
+                </div>
+                @Html.ValidationMessageFor(d => d.IdentificacionPoliciaActuante, null, new { @class = "red" })
+            </div>
+            <div class="form-group col-md-5">
+                @Html.LabelFor(d => d.NombrePoliciaActuante)
+                @Html.TextBoxFor(d => d.NombrePoliciaActuante, "", new { @class = "form-control", @readonly = "readonly" })
+                @Html.ValidationMessageFor(d => d.NombrePoliciaActuante, null, new { @class = "red" })
+            </div>
+            <div class="form-group col-md-3">
+                @Html.LabelFor(d => d.TelefonoPoliciaActuante)
+                @Html.TextBoxFor(d => d.TelefonoPoliciaActuante, "", new { @class = "inputphone form-control", autocomplete = "new-password", @readonly = "readonly" })
+                @Html.ValidationMessageFor(d => d.TelefonoPoliciaActuante, null, new { @class = "red" })
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                @Html.LabelFor(d => d.UnidadOrigenPoliciaActuante)
+                @Html.TextBoxFor(d => d.UnidadOrigenPoliciaActuante, "", new { @class = "form-control", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)" })
+                @Html.ValidationMessageFor(d => d.UnidadOrigenPoliciaActuante, null, new { @class = "red" })
+            </div>
+            <div class="form-group col-md-2">
+                @Html.LabelFor(d => d.HoraConfeccionDocumento)
+                @Html.EditorFor(d => d.HoraConfeccionDocumento, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.HoraConfeccionDocumento, "", new { @class = "red" })
+            </div>
+        </div>
+        <div class="form-row" style="text-align:center;">
+            <h4>Oficial que Asiste</h4>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                @Html.LabelFor(d => d.IdentificacionPoliciaAsiste)
+                <div class="input-group">
+                    @Html.TextBoxFor(d => d.IdentificacionPoliciaAsiste, "", new { @class = "form-control", @id = "idPolicia", @readonly = "readonly" })
+                    <div class="input-group-append ">
+                        <a class="btn btn-primary" data-toggle="modal" data-target="#policiaModalBuscar">Buscar</a>
+                        <a class="btn btn-danger" data-toggle="modal" data-target="#showQu">Borrar</a>
+                    </div>
+                </div>
+                @Html.ValidationMessageFor(d => d.IdentificacionPoliciaAsiste, null, new { @class = "red" })
+            </div>
+            <div class="form-group col-md-5">
+                @Html.LabelFor(d => d.NombrePoliciaAsiste)
+                @Html.TextBoxFor(d => d.NombrePoliciaActuante, "", new { @class = "form-control", @readonly = "readonly" })
+                @Html.ValidationMessageFor(d => d.NombrePoliciaActuante, null, new { @class = "red" })
+            </div>
+            <div class="form-group col-md-3">
+                @Html.LabelFor(d => d.TelefonoPoliciaAsiste)
+                @Html.TextBoxFor(d => d.TelefonoPoliciaActuante, "", new { @class = "inputphone form-control", autocomplete = "new-password", @readonly = "readonly" })
+                @Html.ValidationMessageFor(d => d.TelefonoPoliciaActuante, null, new { @class = "red" })
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                @Html.LabelFor(d => d.UnidadOrigenPoliciaAsiste)
+                @Html.TextBoxFor(d => d.UnidadOrigenPoliciaAsiste, "", new { @class = "form-control", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)" })
+                @Html.ValidationMessageFor(d => d.UnidadOrigenPoliciaActuante, null, new { @class = "red" })
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(d => d.NumeroMovilPolciaAsiste)
+                @Html.TextBoxFor(d => d.NumeroMovilPolciaAsiste, "", new { @class = "form-control", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)" })
+                @Html.ValidationMessageFor(d => d.NumeroMovilPolciaAsiste, null, new { @class = "red" })
+            </div>
+        </div>
+
+
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <div style="text-align:center;">
+                    <a class="btn btn-outline-secondary" href="~/Parte/Nuevo3">Regresar</a>
+                    <a class="btn btn-success" href="">Guardar</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="policiaModalQuitar" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Quitar un Policía de un Arma</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>¿Está seguro que desea quitar un policía del parte?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" id="Cancel" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger" onclick="document.getElementById('idPolicia').value = ''" id="Quitar" data-dismiss="modal">Quitar </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+
+    <div class="modal fade" id="policiaModalBuscar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Buscar Policía</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @{ Html.RenderAction("ListaPoliciasBuscar", "Arma", new { nombre = "" }); }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+        function reply_click(clicked_id) {
+            var elem = document.getElementById("idPolicia");
+            elem.value = clicked_id;
+            $('#policiaModalBuscar').modal('hide');
+        }
+
+        function reply_click2(clicked_id2) {
+            var elem2 = document.getElementById("Quitar");
+            elem2.value = clicked_id2;
+            $('#policiaModalQuitar').modal('hide');
+        }
+
+
+
+
+</script>

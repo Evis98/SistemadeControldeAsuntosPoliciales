@@ -15,42 +15,51 @@
 
     @using (Html.BeginForm("Nuevo", "Bitacora", FormMethod.Post))
     {
-<div class="form-row">
-    <div class="form-group col-md-4">
-        @Html.LabelFor(d => d.NumeroSerieArmaAsignada)
-        <div class="input-group">
-            @Html.TextBoxFor(d => d.NumeroSerieArmaAsignada, "", new { @class = "form-control", @id = "idPolicia", @readonly = "readonly" })
-            <div class="input-group-append ">
-                <a class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Buscar</a>
-                <a class="btn btn-danger" data-toggle="modal" data-target="#showQu">Quitar</a>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                @Html.LabelFor(d => d.NumeroSerieArmaAsignada)
+                <div class="input-group">
+                    @Html.TextBoxFor(d => d.NumeroSerieArmaAsignada, "", new
+                    {
+                        @class = "form-control",
+                        @id = "idArma"@*, @readonly = "readonly"*@})
+                    <div class="input-group-append ">
+                        <a class="btn btn-primary" data-toggle="modal" data-target="#modalBusquedaArma">Buscar</a>
+                        <a class="btn btn-danger" data-toggle="modal" data-target="#QuitarArma">Quitar</a>
+                    </div>
+                </div>
+                @Html.ValidationMessageFor(d => d.NumeroSerieArmaAsignada, null, new { @class = "red" })
             </div>
-        </div>
-        @Html.ValidationMessageFor(d => d.NumeroSerieArmaAsignada, null, new { @class = "red" })
-    </div>
-    <div class="form-group col-md-4">
-        @Html.LabelFor(d => d.ArmeroProveedor)
-        <div class="input-group">
-            @Html.TextBoxFor(d => d.ArmeroProveedor, "", new { @class = "form-control", @id = "idPolicia", @readonly = "readonly" })
-            <div class="input-group-append ">
-                <a class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Buscar</a>
-                <a class="btn btn-danger" data-toggle="modal" data-target="#showQu">Quitar</a>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(d => d.ArmeroProveedor)
+                <div class="input-group">
+                    @Html.TextBoxFor(d => d.ArmeroProveedor, "", new
+                    {
+                        @class = "form-control",
+                        @id = "idArmeroProveedor"@*, @readonly = "readonly"*@})
+                    <div class="input-group-append ">
+                        <a class="btn btn-primary" data-book-id="idArmeroProveedor" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
+                        <a class="btn btn-danger" data-book-id="idArmeroProveedor" data-toggle="modal" data-target="#quitaPolicia">Quitar</a>
+                    </div>
+                </div>
+                @Html.ValidationMessageFor(d => d.ArmeroProveedor, null, new { @class = "red" })
             </div>
-        </div>
-        @Html.ValidationMessageFor(d => d.ArmeroProveedor, null, new { @class = "red" })
-    </div>
-    <div class="form-group col-md-4">
-        @Html.LabelFor(d => d.PoliciaSolicitante)
-        <div class="input-group">
-            @Html.TextBoxFor(d => d.PoliciaSolicitante, "", new { @class = "form-control", @id = "idPolicia", @readonly = "readonly" })
-            <div class="input-group-append ">
-                <a class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Buscar</a>
-                <a class="btn btn-danger" data-toggle="modal" data-target="#showQu">Quitar</a>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(d => d.PoliciaSolicitante)
+                <div class="input-group">
+                    @Html.TextBoxFor(d => d.PoliciaSolicitante, "", new
+                    {
+                        @class = "form-control",
+                        @id = "idPoliciaSolicitante"@*, @readonly = "readonly"*@})
+                    <div class="input-group-append ">
+                        <a class="btn btn-primary" data-book-id="idPoliciaSolicitante" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
+                        <a class="btn btn-danger" data-book-id="idPoliciaSolicitante" data-toggle="modal" data-target="#quitaPolicia">Quitar</a>
+                    </div>
+                </div>
+                @Html.ValidationMessageFor(d => d.PoliciaSolicitante, null, new { @class = "red" })
             </div>
+
         </div>
-        @Html.ValidationMessageFor(d => d.PoliciaSolicitante, null, new { @class = "red" })
-    </div>
-    
-    </div>
         <div class="form-row">
             <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.MunicionEntregada)
@@ -62,9 +71,7 @@
                 @Html.TextBoxFor(d => d.CargadoresEntregados, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
                 @Html.ValidationMessageFor(d => d.CargadoresEntregados, null, new { @class = "red" })
             </div>
-           
         </div>
-      
 
         <div class="form-row">
             <div class="form-group col-md-12">
@@ -75,7 +82,7 @@
             </div>
         </div>
 
-        @*<div class="modal" id="show" tabindex="-1" role="dialog">
+        <div class="modal" id="show" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -95,11 +102,32 @@
             </div>
         </div>
 
-        <div class="modal" id="showQu" tabindex="-1" role="dialog">
+        <div class="modal" id="QuitarArma" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Quitar un Policía de un Arma</h5>
+                        <h5 class="modal-title">Quitar un Arma de la Bitácora</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>¿Está seguro que desea quitar un arma de la bitácora?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" id="Cancel" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger" onclick="document.getElementById('idArma').value = ''" id="QuitarArma" data-dismiss="modal">Quitar </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal" id="quitaPolicia">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Quitar un  de un Arma</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -109,13 +137,13 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-secondary" id="Cancel" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-danger" onclick="document.getElementById('idPolicia').value = ''" id="Quitar" data-dismiss="modal">Quitar </button>
+                        <a name="quitarPolicia" class="btn btn-danger" onclick="reply_click4(this.id)" data-dismiss="modal">Quitar </a>
                     </div>
                 </div>
             </div>
-        </div>*@}
-
-    @*<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        </div>
+    }
+    <div class="modal fade" id="modalBusqueda" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -124,25 +152,65 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                <p hidden name="agregarPolicia" id="" />
                 <div class="modal-body">
-                    @{ Html.RenderAction("ListaPoliciasBuscar", "Arma", new { nombre = "" }); }
+                    @{ Html.RenderAction("ListaPoliciasBuscar", "Bitacora", new { nombre = "" }); }
                 </div>
             </div>
         </div>
-    </div>*@
+    </div>
+    <div class="modal fade" id="modalBusquedaArma" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Buscar Arma</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @{ Html.RenderAction("ListaArmasBuscar", "Bitacora", new { nombre = "" }); }
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 
 <script>
-    function reply_click(clicked_id) {
-        var elem = document.getElementById("idPolicia");
+
+    function reply_clickB(clicked_id) {
+        var aux = document.getElementsByName("agregarPolicia")[0].getAttribute("id");
+        if (aux === "idArmeroProveedor") {
+            var elem = document.getElementById("idArmeroProveedor");
+        }
+        if (aux === "idPoliciaSolicitante") {
+            var elem = document.getElementById("idPoliciaSolicitante");
+        }
         elem.value = clicked_id;
-        $('#exampleModal').modal('hide');
+        $('#modalBusqueda').modal('hide');
+    }
+
+
+    function reply_click2(clicked_id2) {
+        var elem2 = document.getElementByName("quitaPolicia");
+        elem2.value = clicked_id2;
+        $('#showQu').modal('hide');
+    }
+
+    function reply_click4(clicked_id3) {
+        document.getElementById(clicked_id3).value = '';
+    }
+
+    function reply_clickArma(clicked_id) {
+        var elem = document.getElementById("idArma");
+        elem.value = clicked_id;
+        $('#modalBusquedaArma').modal('hide');
     }
     function reply_click2(clicked_id2) {
-            var elem2 = document.getElementById("Quitar");
-            elem2.value = clicked_id2;
-            $('#showQu').modal('hide');
+        var elem2 = document.getElementById("QuitarArma");
+        elem2.value = clicked_id2;
+        $('#QuitarArma').modal('hide');
     }
-</script>
 
+</script>

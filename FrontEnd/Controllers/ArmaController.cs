@@ -67,7 +67,7 @@ namespace FrontEnd.Controllers
                 condicion = tablaGeneralDAL.GetCodigo("Armas", "condicion", modelo.Condicion.ToString()).idTablaGeneral,
                 ubicacion = tablaGeneralDAL.GetCodigo("Armas", "ubicacion", modelo.Ubicacion.ToString()).idTablaGeneral,
                 observacion = modelo.Observacion,
-                estadoArma = tablaGeneralDAL.GetCodigo("Armas","estadoArma","1").idTablaGeneral,
+                estadoArma = tablaGeneralDAL.GetCodigo("Generales","estado","1").idTablaGeneral,
             };
         }
         public ArmaViewModel CargarArma(Armas arma)
@@ -315,11 +315,11 @@ namespace FrontEnd.Controllers
             {
                 if (id == "Activo")
                 {
-                    estado = tablaGeneralDAL.Get("Armas", "estadoArma", "Inactivo").idTablaGeneral;
+                    estado = tablaGeneralDAL.Get("Generales", "estado", "Inactivo").idTablaGeneral;
                 }
                 else
                 {
-                    estado = tablaGeneralDAL.Get("Armas", "estadoArma", "Activo").idTablaGeneral;
+                    estado = tablaGeneralDAL.Get("Generales", "estado", "Activo").idTablaGeneral;
                 }
                 armaDAL.CambiaEstadoArma((int)Session["idArma"], estado);
                 TempData["smscambioestadoarma"] = "Cambio de estado realizado con éxito";

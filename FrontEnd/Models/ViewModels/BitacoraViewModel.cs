@@ -15,9 +15,9 @@ namespace FrontEnd.Models.ViewModels
         [Display(Name = "Número de serie")]
         public string NumeroSerieArmaAsignada { get; set; }
 
-        [Required]
-        [Display(Name = "Tipo de arma")]
-        public int TipoArmaAsignada { get; set; }
+       
+        //[Display(Name = "Tipo de arma")]
+        //public int TipoArmaAsignada { get; set; }
 
         [Required]
         [Display(Name = "Armero que entrega")]
@@ -30,14 +30,14 @@ namespace FrontEnd.Models.ViewModels
         [Display(Name = "Policía Solicitante")]
         public string PoliciaSolicitante { get; set; }
 
-        [Required]
+       
         [Display(Name = "Condición del arma al entregarse")]
         public int CondicionInicial { get; set; }
 
         [Display(Name = "Condición del arma al devolverse")]
         public int CondicionFinal { get; set; }
 
-        [Required]
+        
         [Display(Name = "Fecha de solicitud")]
         public DateTime FechaCreacion { get; set; }
 
@@ -62,8 +62,8 @@ namespace FrontEnd.Models.ViewModels
         [Display(Name = "Observaciones")]
         public string Observaciones { get; set; }
 
-        [Required]
+       
         [Display(Name = "Estado actual de bitácora")]
-        public string EstadoActualBitacora { get; set; }
+        public int EstadoActualBitacora { get; set; }
     }
 }
