@@ -39,24 +39,26 @@ namespace FrontEnd.Models.ViewModels
 
         
         [Display(Name = "Fecha de solicitud")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaCreacion { get; set; }
 
         [Display(Name = "Fecha de devolución")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaFinalizacion { get; set; }
 
         [Required]
         [Display(Name = "Munición entregada con el arma")]
-        public int MunicionEntregada { get; set; }
+        public string MunicionEntregada { get; set; }
 
         [Display(Name = "Munición devuelta con el arma")]
-        public int MunicionDevuelta { get; set; }
+        public string MunicionDevuelta { get; set; }
 
         [Required]
         [Display(Name = "Cargadores entregados con el arma")]
-        public int CargadoresEntregados { get; set; }
+        public string CargadoresEntregados { get; set; }
 
         [Display(Name = "Cargadores devueltos con el arma")]
-        public int CargadoresDevueltos { get; set; }
+        public string CargadoresDevueltos { get; set; }
 
         [StringLength(250, ErrorMessage = "Las observaciones exceden los 250 caracteres.")]
         [Display(Name = "Observaciones")]

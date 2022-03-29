@@ -103,11 +103,11 @@ namespace FrontEnd.Controllers
             }
             if (bitacora.municionDevuelta != null)
             {
-                bitacoraEditar.MunicionDevuelta = (int)bitacora.municionDevuelta;
+                bitacoraEditar.MunicionDevuelta = bitacora.municionDevuelta;
             }
             if (bitacora.cargadoresDevueltos != null)
             {
-                bitacoraEditar.CargadoresDevueltos = (int)bitacora.cargadoresDevueltos;
+                bitacoraEditar.CargadoresDevueltos = bitacora.cargadoresDevueltos;
             }
             return bitacoraEditar;
         }
@@ -129,9 +129,9 @@ namespace FrontEnd.Controllers
                 FechaCreacion = bitacora.fechaCreacion,
                 FechaFinalizacion = (DateTime)bitacora.fechaFinalizacion,
                 MunicionEntregada = bitacora.municionEntregada,
-                MunicionDevuelta = (int)bitacora.municionDevuelta,
+                MunicionDevuelta = bitacora.municionDevuelta,
                 CargadoresEntregados = bitacora.cargadoresEntregados,
-                CargadoresDevueltos = (int)bitacora.cargadoresDevueltos,
+                CargadoresDevueltos = bitacora.cargadoresDevueltos,
                 Observaciones = bitacora.observaciones,
                 EstadoActualBitacora = tablaGeneralDAL.Get(bitacora.estadoActualBitacora).descripcion,
             };
@@ -148,7 +148,7 @@ namespace FrontEnd.Controllers
             {
                 foreach (Bitacoras bitacora in bitacoras)
                 {
-                    if (filtroSeleccionado == "Policía Solicitante")
+                    if (filtroSeleccionado == "Nombre Policía")
                     {
                         if (policiaDAL.GetPolicia(bitacora.idPoliciaSolicitante).nombre.Contains(busqueda))
                         {

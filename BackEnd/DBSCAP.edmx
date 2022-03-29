@@ -50,10 +50,10 @@
           <Property Name="condicionFinal" Type="int" />
           <Property Name="fechaCreacion" Type="date" Nullable="false" />
           <Property Name="fechaFinalizacion" Type="date" />
-          <Property Name="municionEntregada" Type="int" Nullable="false" />
-          <Property Name="municionDevuelta" Type="int" />
-          <Property Name="cargadoresEntregados" Type="int" Nullable="false" />
-          <Property Name="cargadoresDevueltos" Type="int" />
+          <Property Name="municionEntregada" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="municionDevuelta" Type="varchar" MaxLength="10" />
+          <Property Name="cargadoresEntregados" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="cargadoresDevueltos" Type="varchar" MaxLength="10" />
           <Property Name="observaciones" Type="varchar" MaxLength="250" />
           <Property Name="estadoActualBitacora" Type="int" Nullable="false" />
         </EntityType>
@@ -857,10 +857,10 @@
           <Property Name="condicionFinal" Type="Int32" />
           <Property Name="fechaCreacion" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="fechaFinalizacion" Type="DateTime" Precision="0" />
-          <Property Name="municionEntregada" Type="Int32" Nullable="false" />
-          <Property Name="municionDevuelta" Type="Int32" />
-          <Property Name="cargadoresEntregados" Type="Int32" Nullable="false" />
-          <Property Name="cargadoresDevueltos" Type="Int32" />
+          <Property Name="municionEntregada" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="municionDevuelta" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="cargadoresEntregados" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cargadoresDevueltos" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="observaciones" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="estadoActualBitacora" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Armas" Relationship="Self.FK_IdArma" FromRole="Bitacoras" ToRole="Armas" />

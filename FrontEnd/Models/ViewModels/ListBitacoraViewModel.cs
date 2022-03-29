@@ -15,7 +15,7 @@ namespace FrontEnd.Models.ViewModels
         public string NumeroSerieArmaAsignada { get; set; }
 
         [Display(Name = "Tipo de arma")]
-        public int TipoArmaAsignada { get; set; }
+        public string TipoArmaAsignada { get; set; }
 
         [Display(Name = "Armero que entrega")]
         public string ArmeroProveedor { get; set; }
@@ -27,10 +27,10 @@ namespace FrontEnd.Models.ViewModels
         public string PoliciaSolicitante { get; set; }
 
         [Display(Name = "Condición del arma al entregarse")]
-        public int CondicionInicial { get; set; }
+        public string CondicionInicial { get; set; }
 
         [Display(Name = "Condición del arma al devolverse")]
-        public int? CondicionFinal { get; set; }
+        public string CondicionFinal { get; set; }
 
         [Display(Name = "Fecha de solicitud")]
         public DateTime FechaCreacion { get; set; }
@@ -39,16 +39,16 @@ namespace FrontEnd.Models.ViewModels
         public DateTime? FechaFinalizacion { get; set; }
 
         [Display(Name = "Munición entregada con el arma")]
-        public int MunicionEntregada { get; set; }
+        public string MunicionEntregada { get; set; }
 
         [Display(Name = "Munición devuelta con el arma")]
-        public int? MunicionDevuelta { get; set; }
+        public string MunicionDevuelta { get; set; }
 
         [Display(Name = "Cargadores entregados con el arma")]
-        public int CargadoresEntregados { get; set; }
+        public string CargadoresEntregados { get; set; }
 
         [Display(Name = "Cargadores devueltos con el arma")]
-        public int? CargadoresDevueltos { get; set; }
+        public string CargadoresDevueltos { get; set; }
 
         [Display(Name = "Observaciones")]
         public string Observaciones { get; set; }

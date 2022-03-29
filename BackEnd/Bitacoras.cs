@@ -22,10 +22,10 @@ namespace BackEnd
         public Nullable<int> condicionFinal { get; set; }
         public System.DateTime fechaCreacion { get; set; }
         public Nullable<System.DateTime> fechaFinalizacion { get; set; }
-        public int municionEntregada { get; set; }
-        public Nullable<int> municionDevuelta { get; set; }
-        public int cargadoresEntregados { get; set; }
-        public Nullable<int> cargadoresDevueltos { get; set; }
+        public string municionEntregada { get; set; }
+        public string municionDevuelta { get; set; }
+        public string cargadoresEntregados { get; set; }
+        public string cargadoresDevueltos { get; set; }
         public string observaciones { get; set; }
         public int estadoActualBitacora { get; set; }
     

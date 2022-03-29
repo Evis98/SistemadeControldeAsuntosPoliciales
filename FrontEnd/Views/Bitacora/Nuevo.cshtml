@@ -22,7 +22,7 @@
                     @Html.TextBoxFor(d => d.NumeroSerieArmaAsignada, "", new
                     {
                         @class = "form-control",
-                        @id = "idArma"@*, @readonly = "readonly"*@})
+                        @id = "idArma", @readonly = "readonly"})
                     <div class="input-group-append ">
                         <a class="btn btn-primary" data-toggle="modal" data-target="#modalBusquedaArma">Buscar</a>
                         <a class="btn btn-danger" data-toggle="modal" data-target="#QuitarArma">Quitar</a>
@@ -36,7 +36,7 @@
                     @Html.TextBoxFor(d => d.ArmeroProveedor, "", new
                     {
                         @class = "form-control",
-                        @id = "idArmeroProveedor"@*, @readonly = "readonly"*@})
+                        @id = "idArmeroProveedor", @readonly = "readonly"})
                     <div class="input-group-append ">
                         <a class="btn btn-primary" data-book-id="idArmeroProveedor" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
                         <a class="btn btn-danger" data-book-id="idArmeroProveedor" data-toggle="modal" data-target="#quitaPolicia">Quitar</a>
@@ -50,7 +50,7 @@
                     @Html.TextBoxFor(d => d.PoliciaSolicitante, "", new
                     {
                         @class = "form-control",
-                        @id = "idPoliciaSolicitante"@*, @readonly = "readonly"*@})
+                        @id = "idPoliciaSolicitante", @readonly = "readonly"})
                     <div class="input-group-append ">
                         <a class="btn btn-primary" data-book-id="idPoliciaSolicitante" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
                         <a class="btn btn-danger" data-book-id="idPoliciaSolicitante" data-toggle="modal" data-target="#quitaPolicia">Quitar</a>
