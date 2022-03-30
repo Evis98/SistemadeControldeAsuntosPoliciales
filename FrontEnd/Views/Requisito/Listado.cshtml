@@ -1,4 +1,4 @@
-﻿@model List<FrontEnd.Models.ViewModels.ListRequisitoViewModel>
+﻿@model List<FrontEnd.Models.ViewModels.RequisitoViewModel>
 
 
 @{
@@ -54,7 +54,7 @@
                             @foreach (var oElemento in Model.Take(10))
                             {
                                 <tr>
-                                    <th scope="row">@oElemento.DetalleTipoRequisito</th>
+                                    <th scope="row">@oElemento.VistaTipoRequisito</th>
                                     <td>@oElemento.Detalles</td>
                                     <td>
                                         <div style="text-align:center;">

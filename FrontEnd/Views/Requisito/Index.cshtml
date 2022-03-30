@@ -1,4 +1,4 @@
-﻿@model List<FrontEnd.Models.ViewModels.ListRequisitoViewModel>
+﻿@model List<FrontEnd.Models.ViewModels.RequisitoViewModel>
 @{
     ViewBag.Title = "Requisitos";
 }
@@ -44,7 +44,7 @@
                     @foreach (var oElemento in Model)
                     {
                         <tr>
-                            <th scope="row">@oElemento.DetalleTipoRequisito</th>
+                            <th scope="row">@oElemento.VistaTipoRequisito</th>
                             <td>@oElemento.NombrePolicia</td>
                             <td>@oElemento.Detalles</td>
                             <td>

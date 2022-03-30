@@ -155,13 +155,8 @@
     <Compile Include="Models\ViewModels\ArmaViewModel.cs" />
     <Compile Include="Models\ViewModels\BitacoraViewModel.cs" />
     <Compile Include="Models\ViewModels\InfractorViewModel.cs" />
-    <Compile Include="Models\ViewModels\ListArmaViewModel.cs" />
-    <Compile Include="Models\ViewModels\ListBitacoraViewModel.cs" />
-    <Compile Include="Models\ViewModels\ListInfractorViewModel.cs" />
     <Compile Include="Models\ViewModels\ListParte1ViewModel.cs" />
     <Compile Include="Models\ViewModels\ListPersonaViewModel.cs" />
-    <Compile Include="Models\ViewModels\ListPoliciaViewModel.cs" />
-    <Compile Include="Models\ViewModels\ListRequisitoViewModel.cs" />
     <Compile Include="Models\ViewModels\Parte1ViewModel.cs" />
     <Compile Include="Models\ViewModels\PersonaViewModel.cs" />
     <Compile Include="Models\ViewModels\PoliciaViewModel.cs" />
@@ -361,6 +356,8 @@
     <Content Include="Views\Parte\Nuevo4.cshtml" />
     <Content Include="Views\Parte\_ListaPersonasParcial.cshtml" />
     <Content Include="Views\Parte\_ListaPersonasBuscar.cshtml" />
+    <Content Include="Views\Bitacora\Detalle.cshtml" />
+    <Content Include="Views\Bitacora\Editar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

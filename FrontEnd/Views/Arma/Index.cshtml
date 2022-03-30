@@ -1,4 +1,4 @@
-﻿@model  List<FrontEnd.Models.ViewModels.ListArmaViewModel>
+﻿@model  List<FrontEnd.Models.ViewModels.ArmaViewModel>
 
 @{
     ViewBag.Title = "Armas";
@@ -50,7 +50,7 @@
                         <tr>
                             <th scope="row">@oElemento.NombrePolicia</th>
                             <td>@oElemento.NumeroSerie</td>
-                            <td>@oElemento.TipoArma</td>
+                            <td>@oElemento.VistaTipoArma</td>
                             <td>
                                 <div style="text-align:center;">
                                     <a class="btn btn-sm btn-outline-info" href="~/Arma/Detalle/@oElemento.IdArma">Ver Detalles</a>

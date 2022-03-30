@@ -1,6 +1,6 @@
 ﻿@model List<FrontEnd.Models.ViewModels.ListArmaViewModel>
 
-@{ ViewBag.Title = "ListaArmasBuscar"; }
+@{ ViewBag.Title = "Armas Disponibles"; }
 
 @using (Ajax.BeginForm("ListaArmasParcial", "Bitacora", new { nombre = "abcd" }, new AjaxOptions { UpdateTargetId = "listaFiltrada" }))
 {

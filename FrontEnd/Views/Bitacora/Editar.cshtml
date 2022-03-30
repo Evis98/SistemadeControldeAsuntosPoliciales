@@ -13,18 +13,21 @@
     </div>
     <hr />
 
-    @using (Html.BeginForm("Nuevo", "Bitacora", FormMethod.Post))
+    @using (Html.BeginForm("Editar", "Bitacora", FormMethod.Post))
     {
+        @Html.HiddenFor(d => d.IdBitacora)
+        @Html.HiddenFor(d => d.NumeroConsecutivo)
+        @Html.HiddenFor(d => d.FechaCreacion)
         <div class="form-row">
             <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.NumeroSerieArma)
                 <div class="input-group">
                     @Html.TextBoxFor(d => d.NumeroSerieArma, "", new
-                    {
-                        @class = "form-control",
-                        @id = "idArma",
-                        @readonly = "readonly"
-                    })
+               {
+                   @class = "form-control",
+                   @id = "idArma",
+                   @readonly = "readonly"
+               })
                     <div class="input-group-append ">
                         <a class="btn btn-primary" data-toggle="modal" data-target="#modalBusquedaArma">Buscar</a>
                         <a class="btn btn-danger" data-toggle="modal" data-target="#QuitarArma">Quitar</a>

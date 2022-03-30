@@ -13,5 +13,7 @@ namespace BackEnd.DAL
         void Add(Bitacoras bitacora);
         void Edit(Bitacoras bitacora);
         Bitacoras GetBitacora(int idBitacora);
+        int GetCount();
+        Bitacoras GetBitacoraConsecutivo(string numeroConsecutivo);
     }
 }

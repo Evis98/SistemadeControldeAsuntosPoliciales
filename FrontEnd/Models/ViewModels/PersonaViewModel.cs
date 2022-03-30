@@ -31,6 +31,7 @@ namespace FrontEnd.Models.ViewModels
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaNacimientoPersona { get; set; }
         [StringLength(50, ErrorMessage = "Nacionalidad excede los 50 caracteres.")]
+        [Required]
         [Display(Name = "Nacionalidad ")]
         public string NacionalidadPersona { get; set; }
         [StringLength(250, ErrorMessage = "Direccion exacta excede los 250 caracteres.")]
@@ -54,11 +55,11 @@ namespace FrontEnd.Models.ViewModels
         public string CorreoElectronicoPersona { get; set; }
         [StringLength(100, ErrorMessage = "Profesión excede la cantidad maxima de caractéres")]
         [Display(Name = "Lugar de Trabajo (Opcional)")]
-        public string LugarTrabajoPersona { get; set; }       
+        public string LugarTrabajoPersona { get; set; }
         public IEnumerable<SelectListItem> TiposDeIdentificacion { get; set; }
         public IEnumerable<SelectListItem> TiposDeSexo { get; set; }
         public IEnumerable<SelectListItem> Nacionalidades { get; set; }
-         }
+    }
     public class DateValidationPersona : ValidationAttribute
     {
         public override bool IsValid(object value)

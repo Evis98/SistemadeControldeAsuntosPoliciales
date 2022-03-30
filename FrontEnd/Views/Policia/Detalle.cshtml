@@ -1,4 +1,4 @@
-﻿@model FrontEnd.Models.ViewModels.ListPoliciaViewModel
+﻿@model FrontEnd.Models.ViewModels.PoliciaViewModel
 
 @{
     ViewBag.Title = "Información del Policía";
@@ -23,10 +23,10 @@
         @Html.HiddenFor(d => d.IdPolicia)
         @Html.HiddenFor(d => d.Estado)
         <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.TipoCedula)
+            @Html.LabelFor(d => d.VistaTipoCedula)
         </dt>
         <dd id="req" class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.TipoCedula)
+            @Html.DisplayTextFor(d => d.VistaTipoCedula)
         </dd>
         <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.Cedula)
@@ -87,10 +87,10 @@
         </dd>
 
         <dt class="col-sm-4">
-            @Html.LabelFor(d => d.DescripcionEstado)
+            @Html.LabelFor(d => d.VistaEstado)
         </dt>
         <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.DescripcionEstado)
+            @Html.DisplayTextFor(d => d.VistaEstado)
         </dd>
 
         <dd class="col-sm-9">

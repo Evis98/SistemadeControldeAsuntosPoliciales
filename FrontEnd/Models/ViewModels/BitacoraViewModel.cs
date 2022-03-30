@@ -10,18 +10,18 @@ namespace FrontEnd.Models.ViewModels
     public class BitacoraViewModel
     {
         public int IdBitacora { get; set; }
+        public string NumeroConsecutivo { get; set; }
+        public bool ArmaPoliciaAsignado { get; set; }
 
         [Required]
-        [Display(Name = "Número de serie")]
-        public string NumeroSerieArmaAsignada { get; set; }
-
-       
-        //[Display(Name = "Tipo de arma")]
-        //public int TipoArmaAsignada { get; set; }
+        [Display(Name = "Número de serie de Arma")]
+        public string NumeroSerieArma{ get; set; }
 
         [Required]
         [Display(Name = "Armero que entrega")]
         public string ArmeroProveedor { get; set; }
+        [Display(Name = "Armero que entrega")]
+        public string VistaArmeroProveedor { get; set; }
 
         [Display(Name = "Armero que recibe")]
         public string ArmeroReceptor { get; set; }
@@ -29,15 +29,16 @@ namespace FrontEnd.Models.ViewModels
         [Required]
         [Display(Name = "Policía Solicitante")]
         public string PoliciaSolicitante { get; set; }
+        [Display(Name = "Policía Solicitante")]
+        public string VistaPoliciaSolicitante { get; set; }
 
-       
+
         [Display(Name = "Condición del arma al entregarse")]
         public int CondicionInicial { get; set; }
 
         [Display(Name = "Condición del arma al devolverse")]
         public int CondicionFinal { get; set; }
 
-        
         [Display(Name = "Fecha de solicitud")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaCreacion { get; set; }
@@ -61,11 +62,12 @@ namespace FrontEnd.Models.ViewModels
         public string CargadoresDevueltos { get; set; }
 
         [StringLength(250, ErrorMessage = "Las observaciones exceden los 250 caracteres.")]
-        [Display(Name = "Observaciones")]
-        public string Observaciones { get; set; }
+        [Display(Name = "Observaciones de Entrega")]
+        public string ObservacionesEntrega { get; set; }
 
-       
         [Display(Name = "Estado actual de bitácora")]
-        public int EstadoActualBitacora { get; set; }
+        public int EstadoActual { get; set; }
+        [Display(Name = "Estado actual de bitácora")]
+        public string VistaEstadoActual { get; set; }
     }
 }

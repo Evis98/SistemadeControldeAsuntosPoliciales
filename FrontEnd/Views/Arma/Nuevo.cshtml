@@ -24,17 +24,6 @@
                 }
                 @Html.ValidationMessageFor(d => d.NumeroSerie, null, new { @class = "red" })
             </div>
-            <div class="form-group col-md-4">
-                @Html.LabelFor(d => d.PoliciaAsignado)
-                <div class="input-group">
-                    @Html.TextBoxFor(d => d.PoliciaAsignado, "", new { @class = "form-control", @id = "idPolicia", @readonly = "readonly" })
-                    <div class="input-group-append ">
-                        <a class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Buscar</a>
-                        <a class="btn btn-danger" data-toggle="modal" data-target="#showQu">Quitar</a>
-                    </div>
-                </div>
-                @Html.ValidationMessageFor(d => d.PoliciaAsignado, null, new { @class = "red" })
-            </div>
             <div class="form-group col-md-2">
                 @Html.LabelFor(d => d.TipoArma)
                 @Html.DropDownListFor(d => d.TipoArma, Model.TiposArma, "--Seleccione--", new { @class = "myselect form-control" })
@@ -106,53 +95,7 @@
             </div>
         </div>
 
-        <div class="modal" id="showQu" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Quitar un Policía de un Arma</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>¿Está seguro que desea quitar un policía de un arma?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" id="Cancel" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-danger" onclick="document.getElementById('idPolicia').value = ''" id="Quitar" data-dismiss="modal">Quitar </button>
-                    </div>
-                </div>
-            </div>
-        </div>}
+}
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Buscar Policía</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    @{ Html.RenderAction("ListaPoliciasBuscar", "Arma", new { nombre = "" }); }
-                </div>
-            </div>
-        </div>
-    </div>
 
 </div>
-
-<script>
-    function reply_click(clicked_id) {
-        var elem = document.getElementById("idPolicia");
-        elem.value = clicked_id;
-        $('#exampleModal').modal('hide');
-    }
-    function reply_click2(clicked_id2) {
-            var elem2 = document.getElementById("Quitar");
-            elem2.value = clicked_id2;
-            $('#showQu').modal('hide');
-    }
-</script>

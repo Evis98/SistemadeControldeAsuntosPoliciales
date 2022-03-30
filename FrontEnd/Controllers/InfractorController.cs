@@ -14,30 +14,6 @@ namespace FrontEnd.Controllers
     {
         IInfractorDAL infractorDAL;
         ITablaGeneralDAL tablaGeneralDAL;
-
-        public List<ListInfractorViewModel> ConvertirListaInfractores(List<Infractores> infractores)
-        {
-            tablaGeneralDAL = new TablaGeneralDAL();
-            return (from d in infractores
-                    select new ListInfractorViewModel
-                    {
-                        IdInfractor = d.idInfractor,
-                        Identificacion = d.numeroDeIdentificacion,
-                        Nacionalidad = tablaGeneralDAL.Get(d.nacionalidad).descripcion,
-                        Nombre = d.nombreCompleto,
-                        Telefono = d.telefono,
-                        DireccionExacta = d.direccionExacta,
-                        CorreoElectronico = d.correoEletronico,
-                        Observaciones = d.observaciones,
-                        ProfesionUOficio = d.profesionUOficio,
-                        Estatura = d.estatura,
-                        Tatuajes = d.tatuajes,
-                        NombrePadre = d.nombreDelPadre,
-                        NombreMadre = d.nombreDeLaMadre,
-                        Imagen = d.imagen,
-                    }).ToList();
-        }
-
         public Infractores ConvertirInfractor(InfractorViewModel modelo)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
@@ -71,13 +47,16 @@ namespace FrontEnd.Controllers
             {
                 IdInfractor = infractor.idInfractor,
                 TipoIdentificacion = int.Parse(tablaGeneralDAL.Get(infractor.tipoDeIdentificacion).codigo),
+                VistaTipoidentifiacion = tablaGeneralDAL.Get(infractor.tipoDeIdentificacion).descripcion,
                 Identificacion = infractor.numeroDeIdentificacion,
                 Nacionalidad = tablaGeneralDAL.Get(infractor.nacionalidad).codigo,
+                VistaNacionalidad = tablaGeneralDAL.Get(infractor.nacionalidad).descripcion,
                 Nombre = infractor.nombreCompleto,
                 FechaNacimiento = infractor.fechaNacimiento,
                 Telefono = infractor.telefono,
                 DireccionExacta = infractor.direccionExacta,
                 Sexo = int.Parse(tablaGeneralDAL.Get(infractor.sexo).codigo),
+                VistaSexo = tablaGeneralDAL.Get(infractor.sexo).descripcion,
                 CorreoElectronico = infractor.correoEletronico,
                 Observaciones = infractor.observaciones,
                 ProfesionUOficio = infractor.profesionUOficio,
@@ -88,7 +67,7 @@ namespace FrontEnd.Controllers
                 Imagen = infractor.imagen
             };
         }
-
+        /*
         public ListInfractorViewModel ConvertirInfractorInverso(Infractores infractor)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
@@ -114,7 +93,7 @@ namespace FrontEnd.Controllers
                 Imagen = infractor.imagen
             };
         }
-
+        */
         string ObtenerEdad(DateTime? fechaNacimiento)
         {
 
@@ -129,22 +108,26 @@ namespace FrontEnd.Controllers
         public ActionResult Index(string filtroSeleccionado, string busqueda)
         {
             infractorDAL = new InfractorDAL();
-            List<Infractores> infractores = infractorDAL.Get();
-            List<Infractores> infractoresFiltrados = new List<Infractores>();
+            List<InfractorViewModel> infractores = new List<InfractorViewModel>();
+            List<InfractorViewModel> infractoresFiltrados = new List<InfractorViewModel>();
+            foreach (Infractores infractor in infractorDAL.Get())
+            {
+                infractores.Add(CargarInfractor(infractor));
+            }
             if (busqueda != null)
             {
-                foreach (Infractores infractor in infractores)
+                foreach (InfractorViewModel infractor in infractores)
                 {
                     if (filtroSeleccionado == "Cédula")
                     {
-                        if (infractor.numeroDeIdentificacion.Contains(busqueda))
+                        if (infractor.Identificacion.Contains(busqueda))
                         {
                             infractoresFiltrados.Add(infractor);
                         }
                     }
                     if (filtroSeleccionado == "Nombre")
                     {
-                        if (infractor.nombreCompleto.Contains(busqueda))
+                        if (infractor.Nombre.Contains(busqueda))
                         {
                             infractoresFiltrados.Add(infractor);
                         }
@@ -152,8 +135,7 @@ namespace FrontEnd.Controllers
                 }
                 infractores = infractoresFiltrados;
             }
-            infractores = infractores.OrderBy(x => x.nombreCompleto).ToList();
-            return View(ConvertirListaInfractores(infractores));
+            return View(infractores.OrderBy(x => x.Nombre).ToList());
         }
 
         public ActionResult Nuevo()
@@ -251,7 +233,8 @@ namespace FrontEnd.Controllers
         {
             Session["idPolicia"] = id;
             infractorDAL = new InfractorDAL();
-            ListInfractorViewModel modelo = ConvertirInfractorInverso(infractorDAL.GetInfractor(id));
+            InfractorViewModel modelo = CargarInfractor(infractorDAL.GetInfractor(id));
+            modelo.Edad = ObtenerEdad(modelo.FechaNacimiento);
             ViewBag.smseditarinfractor = TempData["smseditarinfractor"];
             ViewBag.smsnuevoinfractor = TempData["smsnuevoinfractor"];
             return View(modelo);

@@ -60,6 +60,7 @@ namespace FrontEnd.Controllers
         {
             tablaGeneralDAL = new TablaGeneralDAL();
             policiaDAL = new PoliciaDAL();
+
             return new ActaHallazgoViewModel
             {
                 IdActaHallazgo = actaHallazgo.idActaHallazgo,
@@ -78,10 +79,10 @@ namespace FrontEnd.Controllers
                 Observaciones = actaHallazgo.observaciones,
             };
         }
-        public List<ListPoliciaViewModel> ConvertirListaPoliciasFiltrados(List<Policias> policias)
+        public List<PoliciaViewModel> ConvertirListaPoliciasFiltrados(List<Policias> policias)
         {
             return (from d in policias
-                    select new ListPoliciaViewModel
+                    select new PoliciaViewModel
                     {
                         Cedula = d.cedula,
                         Nombre = d.nombre,
@@ -89,7 +90,7 @@ namespace FrontEnd.Controllers
         }
         public PartialViewResult ListaPoliciasBuscar(string nombre)
         {
-            List<ListPoliciaViewModel> policias = new List<ListPoliciaViewModel>();
+            List<PoliciaViewModel> policias = new List<PoliciaViewModel>();
 
             return PartialView("_ListaPoliciasBuscar", policias);
         }

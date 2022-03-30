@@ -1,4 +1,4 @@
-﻿@model FrontEnd.Models.ViewModels.ListArmaViewModel
+﻿@model FrontEnd.Models.ViewModels.ArmaViewModel
 
 @{ ViewBag.Title = "Información del Arma"; }
 
@@ -27,40 +27,40 @@
             @Html.DisplayTextFor(d => d.NombrePolicia)
         </dd>
         <dt class="col-sm-4">
-            @Html.LabelFor(d => d.TipoArma)
+            @Html.LabelFor(d => d.VistaTipoArma)
         </dt>
         <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.TipoArma)
+            @Html.DisplayTextFor(d => d.VistaTipoArma)
         </dd>
         <dt class="col-sm-4">
-            @Html.LabelFor(d => d.Marca)
+            @Html.LabelFor(d => d.VistaMarca)
         </dt>
         <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.Marca)
+            @Html.DisplayTextFor(d => d.VistaMarca)
         </dd>
         <dt class="col-sm-4">
-            @Html.LabelFor(d => d.Modelo)
+            @Html.LabelFor(d => d.ModeloArma)
         </dt>
         <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.Modelo)
+            @Html.DisplayTextFor(d => d.ModeloArma)
         </dd>
         <dt class="col-sm-4">
-            @Html.LabelFor(d => d.Calibre)
+            @Html.LabelFor(d => d.VistaCalibre)
         </dt>
         <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.Calibre)
+            @Html.DisplayTextFor(d => d.VistaCalibre)
         </dd>
         <dt class="col-sm-4">
-            @Html.LabelFor(d => d.Condicion)
+            @Html.LabelFor(d => d.VistaCondicion)
         </dt>
         <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.Condicion)
+            @Html.DisplayTextFor(d => d.VistaCondicion)
         </dd>
         <dt class="col-sm-4">
-            @Html.LabelFor(d => d.Ubicacion)
+            @Html.LabelFor(d => d.VistaUbicacion)
         </dt>
         <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.Ubicacion)
+            @Html.DisplayTextFor(d => d.VistaUbicacion)
         </dd>
         @if (Model.Observacion != null)
         {
@@ -72,10 +72,10 @@
             </dd>
         }
         <dt class="col-sm-4">
-            @Html.LabelFor(d => d.EstadoArma)
+            @Html.LabelFor(d => d.VistaEstadoArma)
         </dt>
         <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.EstadoArma)
+            @Html.DisplayTextFor(d => d.VistaEstadoArma)
         </dd>
         <dd class="col-sm-8">
             <a class="btn btn-sm btn-warning" data-toggle="modal" data-target="#show3">Cambiar Estado</a>

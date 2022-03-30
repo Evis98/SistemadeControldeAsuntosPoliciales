@@ -1,7 +1,8 @@
-﻿@model List<FrontEnd.Models.ViewModels.ListPoliciaViewModel>
+﻿@model List<FrontEnd.Models.ViewModels.PoliciaViewModel>
 
 @{
     ViewBag.Title = "Policías";
+    List<SelectListItem> items = (List<SelectListItem>)ViewBag.items;
 }
 <div class="container bg-light text-dark border" style="height:80vh;">
     <div class="row">
@@ -15,33 +16,36 @@
     @using (Html.BeginForm("Index", "Policia", FormMethod.Get))
     {
 
-<div class="form-row">
-    <div class="col-sm-3">
-        <select class="form-control" name="filtroSeleccionado" onclick="ocultarFechaNacimiento()" id="filtroSeleccionado">
-           
-            <option selected>Nombre</option>
-            <option>Cédula</option>
-            <option>Fecha Nacimiento</option>
-        </select>
-    </div>
+        <div class="form-row">
+            <div class="col-sm-3">
+                @Html.DropDownList("Descripción", items, "--Seleccione--", new { @class = "form-control" })
+                <select class="form-control" name="filtroSeleccionado" onclick="ocultarFechaNacimiento()" id="filtroSeleccionado">
 
-    <div class="col-sm-3">
-        <input class="form-control" name="busqueda" type="text" id="busqueda" onkeyup = "this.value = this.value.toUpperCase();"/>
-        <input class="form-control" name="busquedaFechaInicio" type="date" id="busquedaFechaInicio" style="display:none" />
-    </div>
+                    <option selected>Nombre</option>
+                    <option>Cédula</option>
+                    <option>Fecha Nacimiento</option>
+                </select>
+            </div>
 
-    <div class="col-sm-3">
-        <input class="form-control" name="busquedaFechaFinal" type="date" id="busquedaFechaFinal" style="display:none"/>       
-    </div>
+            <div class="col-sm-3">
+                <input class="form-control" name="busqueda" type="text" id="busqueda" onkeyup="this.value = this.value.toUpperCase();" />
+                <input class="form-control" name="busquedaFechaInicio" type="date" id="busquedaFechaInicio" style="display:none" />
+            </div>
 
-    <div class="col-sm-1">        
-        <button class="btn btn-primary">Buscar</button>
-    </div>
+            <div class="col-sm-3">
+                <input class="form-control" name="busquedaFechaFinal" type="date" id="busquedaFechaFinal" style="display:none" />
+            </div>
+            <div class="col-sm-1">
 
-    <div class="col-sm-1">
-        <a href="~/Policia/Nuevo" class="btn btn-success">Agregar</a>
-    </div>
-</div>
+            </div>
+            <div class="col-sm-1">
+                <button class="btn btn-primary">Buscar</button>
+            </div>
+
+            <div class="col-sm-1">
+                <a href="~/Policia/Nuevo" class="btn btn-success">Agregar</a>
+            </div>
+        </div>
     }
 
     <hr />
@@ -64,7 +68,7 @@
                             <td>
                                 <div style="text-align:center;">
                                     <a class="btn btn-sm btn-outline-info" href="~/Policia/Detalle/@oElemento.IdPolicia">Ver Detalles</a>
-                                 </div>
+                                </div>
                             </td>
                         </tr>
                     }

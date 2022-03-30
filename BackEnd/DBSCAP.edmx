@@ -43,18 +43,20 @@
             <PropertyRef Name="idBitacora" />
           </Key>
           <Property Name="idBitacora" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="numeroConsecutivo" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="idArma" Type="int" Nullable="false" />
           <Property Name="idArmeroProveedor" Type="int" Nullable="false" />
           <Property Name="idArmeroReceptor" Type="int" />
           <Property Name="idPoliciaSolicitante" Type="int" Nullable="false" />
           <Property Name="condicionFinal" Type="int" />
-          <Property Name="fechaCreacion" Type="date" Nullable="false" />
-          <Property Name="fechaFinalizacion" Type="date" />
+          <Property Name="fechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="fechaFinalizacion" Type="datetime" />
           <Property Name="municionEntregada" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="municionDevuelta" Type="varchar" MaxLength="10" />
           <Property Name="cargadoresEntregados" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="cargadoresDevueltos" Type="varchar" MaxLength="10" />
-          <Property Name="observaciones" Type="varchar" MaxLength="250" />
+          <Property Name="observacionesEntrega" Type="varchar" MaxLength="250" />
+          <Property Name="observacionesDevuelta" Type="varchar" MaxLength="250" />
           <Property Name="estadoActualBitacora" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Infractores">
@@ -850,18 +852,20 @@
             <PropertyRef Name="idBitacora" />
           </Key>
           <Property Name="idBitacora" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="numeroConsecutivo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="idArma" Type="Int32" Nullable="false" />
           <Property Name="idArmeroProveedor" Type="Int32" Nullable="false" />
           <Property Name="idArmeroReceptor" Type="Int32" />
           <Property Name="idPoliciaSolicitante" Type="Int32" Nullable="false" />
           <Property Name="condicionFinal" Type="Int32" />
-          <Property Name="fechaCreacion" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="fechaFinalizacion" Type="DateTime" Precision="0" />
+          <Property Name="fechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fechaFinalizacion" Type="DateTime" Precision="3" />
           <Property Name="municionEntregada" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="municionDevuelta" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="cargadoresEntregados" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cargadoresDevueltos" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="observaciones" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="observacionesEntrega" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="observacionesDevuelta" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="estadoActualBitacora" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Armas" Relationship="Self.FK_IdArma" FromRole="Bitacoras" ToRole="Armas" />
           <NavigationProperty Name="Policias" Relationship="Self.FK_ArmeroProveedor" FromRole="Bitacoras" ToRole="Policias" />
@@ -1711,6 +1715,7 @@
             <EntityTypeMapping TypeName="SCAPModel.Bitacoras">
               <MappingFragment StoreEntitySet="Bitacoras">
                 <ScalarProperty Name="idBitacora" ColumnName="idBitacora" />
+                <ScalarProperty Name="numeroConsecutivo" ColumnName="numeroConsecutivo" />
                 <ScalarProperty Name="idArma" ColumnName="idArma" />
                 <ScalarProperty Name="idArmeroProveedor" ColumnName="idArmeroProveedor" />
                 <ScalarProperty Name="idArmeroReceptor" ColumnName="idArmeroReceptor" />
@@ -1722,7 +1727,8 @@
                 <ScalarProperty Name="municionDevuelta" ColumnName="municionDevuelta" />
                 <ScalarProperty Name="cargadoresEntregados" ColumnName="cargadoresEntregados" />
                 <ScalarProperty Name="cargadoresDevueltos" ColumnName="cargadoresDevueltos" />
-                <ScalarProperty Name="observaciones" ColumnName="observaciones" />
+                <ScalarProperty Name="observacionesEntrega" ColumnName="observacionesEntrega" />
+                <ScalarProperty Name="observacionesDevuelta" ColumnName="observacionesDevuelta" />
                 <ScalarProperty Name="estadoActualBitacora" ColumnName="estadoActualBitacora" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1903,7 +1909,7 @@
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

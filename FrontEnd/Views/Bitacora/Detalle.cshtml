@@ -1,0 +1,123 @@
+﻿@model FrontEnd.Models.ViewModels.BitacoraViewModel
+
+@{ ViewBag.Title = "Detalle de la Bitacora"; }
+
+<div class="container bg-light text-dark border" style="height:80vh;">
+    <div class="row">
+        <div class="col-md-12">
+            <div style="text-align:center;">
+                <h2 class="display-4">@ViewBag.Title </h2>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <dl class="row">
+
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.NumeroSerieArma)
+        </dt>
+        <dd id="req" class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.NumeroSerieArma)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.VistaArmeroProveedor)
+        </dt>
+        <dd id="req" class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.VistaArmeroProveedor)
+        </dd>
+        @if (Model.ArmeroReceptor != null)
+        {
+            <dt class="col-sm-4 ">
+                @Html.LabelFor(d => d.ArmeroReceptor)
+            </dt>
+            <dd class="col-sm-8 ">
+                @Html.DisplayTextFor(d => d.ArmeroReceptor)
+            </dd>
+        }
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.VistaPoliciaSolicitante)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.VistaPoliciaSolicitante)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.FechaCreacion)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.FechaCreacion)
+        </dd>
+        @if (Model.FechaFinalizacion != null)
+        {
+            <dt class="col-sm-4 ">
+                @Html.LabelFor(d => d.FechaFinalizacion)
+            </dt>
+            <dd class="col-sm-8 ">
+                @Html.DisplayTextFor(d => d.FechaFinalizacion)
+            </dd>
+        }
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.MunicionEntregada)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.MunicionEntregada)
+        </dd>
+        @if (Model.MunicionDevuelta != null)
+        {
+            <dt class="col-sm-4 ">
+                @Html.LabelFor(d => d.MunicionDevuelta)
+            </dt>
+            <dd class="col-sm-8 ">
+                @Html.DisplayTextFor(d => d.MunicionDevuelta)
+            </dd>
+        }
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.CargadoresEntregados)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.CargadoresEntregados)
+        </dd>
+        @if (Model.CargadoresDevueltos != null)
+        {
+            <dt class="col-sm-4 ">
+                @Html.LabelFor(d => d.CargadoresDevueltos)
+            </dt>
+            <dd class="col-sm-8 ">
+                @Html.DisplayTextFor(d => d.CargadoresDevueltos)
+            </dd>
+        }
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.ObservacionesEntrega)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.ObservacionesEntrega)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.VistaEstadoActual)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.VistaEstadoActual)
+        </dd>
+
+    </dl>
+
+    <hr />
+
+
+    <div class="row">
+        <div class="col-sm-12">
+
+            <a class="btn btn-outline-secondary" href="~/Bitacora/Index";">Regresar</a>
+
+            <div style="text-align:center;">
+                <a class="btn btn-primary" href="~/Bitacora/Editar/@Model.IdBitacora">Editar</a>
+                @if (Model.VistaEstadoActual == "Pendiente")
+                {
+                    <a value="Eliminar" class="btn btn-info" href="~/Requisito/Completar/@Model.IdBitacora" type="button" data-toggle="modal" data-target="#show4">Completar</a>
+                }
+            </div>
+        </div>
+    </div>
+
+</div>

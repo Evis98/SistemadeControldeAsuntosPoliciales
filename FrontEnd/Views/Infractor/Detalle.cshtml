@@ -1,4 +1,4 @@
-﻿@model FrontEnd.Models.ViewModels.ListInfractorViewModel
+﻿@model FrontEnd.Models.ViewModels.InfractorViewModel
 
 @{
     ViewBag.Title = "Información del Infractor";
@@ -21,10 +21,10 @@
     <dl class=" row">
         @Html.HiddenFor(d => d.IdInfractor)
         <dt class="col-sm-4">
-            @Html.LabelFor(d => d.TipoIdentificacion)
+            @Html.LabelFor(d => d.VistaTipoidentifiacion)
         </dt>
         <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.TipoIdentificacion)
+            @Html.DisplayTextFor(d => d.VistaTipoidentifiacion)
         </dd>
         <dt class="col-sm-4">
             @Html.LabelFor(d => d.Identificacion)
@@ -33,10 +33,10 @@
             @Html.DisplayTextFor(d => d.Identificacion)
         </dd>
         <dt class="col-sm-4">
-            @Html.LabelFor(d => d.Nacionalidad)
+            @Html.LabelFor(d => d.VistaNacionalidad)
         </dt>
         <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.Nacionalidad)
+            @Html.DisplayTextFor(d => d.VistaNacionalidad)
         </dd>
         <dt class="col-sm-4">
             @Html.LabelFor(d => d.FechaNacimiento)
@@ -67,10 +67,10 @@
             @Html.DisplayTextFor(d => d.DireccionExacta)
         </dd>
         <dt class="col-sm-4">
-            @Html.LabelFor(d => d.Sexo)
+            @Html.LabelFor(d => d.VistaSexo)
         </dt>
         <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.Sexo)
+            @Html.DisplayTextFor(d => d.VistaSexo)
         </dd>
         @if (Model.CorreoElectronico != null)
         {

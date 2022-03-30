@@ -4,18 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="60da30740a90459e89cc380fcd15796e" Name="Diagram1">
-        <EntityTypeShape EntityType="SCAPModel.ActasHallazgo" Width="1.5" PointX="5.25" PointY="22.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SCAPModel.Armas" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
+      <Diagram DiagramId="60952d23869d41d081410fd7f7d2b156" Name="Diagram1">
+        <EntityTypeShape EntityType="SCAPModel.ActasHallazgo" Width="1.5" PointX="5.25" PointY="22.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCAPModel.Armas" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="SCAPModel.Bitacoras" Width="1.5" PointX="5.25" PointY="13.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="SCAPModel.Infractores" Width="1.5" PointX="3" PointY="10.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SCAPModel.PartesPoliciales" Width="1.5" PointX="8.25" PointY="13.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="SCAPModel.Personas" Width="1.5" PointX="3" PointY="16.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="SCAPModel.Policias" Width="1.5" PointX="3" PointY="21.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SCAPModel.Requisitos" Width="1.5" PointX="3" PointY="27.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCAPModel.Infractores" Width="1.5" PointX="3" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCAPModel.PartesPoliciales" Width="1.5" PointX="8.25" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCAPModel.Personas" Width="1.5" PointX="3" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCAPModel.Policias" Width="1.5" PointX="3" PointY="22" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCAPModel.Requisitos" Width="1.5" PointX="3" PointY="27.875" IsExpanded="true" />
         <EntityTypeShape EntityType="SCAPModel.Roles" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="SCAPModel.RolesUsuarios" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="SCAPModel.TablaGeneral" Width="1.5" PointX="0.75" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCAPModel.TablaGeneral" Width="1.5" PointX="0.75" PointY="14.625" IsExpanded="true" />
         <EntityTypeShape EntityType="SCAPModel.Usuarios" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
         <AssociationConnector Association="SCAPModel.FK_Encargado" ManuallyRouted="false" />
         <AssociationConnector Association="SCAPModel.FK_Supervisor" ManuallyRouted="false" />

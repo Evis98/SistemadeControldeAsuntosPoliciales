@@ -1,4 +1,4 @@
-﻿@model List<FrontEnd.Models.ViewModels.ListBitacoraViewModel>
+﻿@model List<FrontEnd.Models.ViewModels.BitacoraViewModel>
 @{ ViewBag.Title = "Bitacora"; }
 
 <div class="container bg-light text-dark border" style="height:80vh;">
@@ -42,25 +42,29 @@
             <table class="table table-bordered center table-sm">
                 <thead class="thead-dark">
                     <tr>
+                        <th scope="col">Numero Consecutivo</th>
                         <th scope="col">Nombre Policia</th>
                         <th scope="col">Serie Arma</th>
                         <th scope="col">Estado de la Bitacora</th>
                         <th scope="col">Fecha</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var oElemento in Model)
                     {
-        <tr>
-            <th scope="row">@oElemento.PoliciaSolicitante</th>
-            <td>@oElemento.NumeroSerieArmaAsignada</td>
-            <td>@oElemento.EstadoActualBitacora</td>
-            <td>@oElemento.FechaCreacion</td>
-            <td>
-                <div style="text-align:center;">
-                </div>
-            </td>
-        </tr>}
+                    <tr>
+                        <th scope="row">@oElemento.NumeroConsecutivo</th>
+                        <td>@oElemento.VistaPoliciaSolicitante</td>
+                        <td>@oElemento.NumeroSerieArma</td>
+                        <td>@oElemento.VistaEstadoActual</td>
+                        <td>@oElemento.FechaCreacion</td>
+                        <td>
+                            <div style="text-align:center;">
+                                <a class="btn btn-sm btn-outline-info" href="~/Bitacora/Detalle/@oElemento.IdBitacora">Ver Detalles</a>
+                            </div>
+                        </td>
+                    </tr>}
                 </tbody>
             </table>
         </div>

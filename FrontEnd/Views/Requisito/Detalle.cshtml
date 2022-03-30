@@ -1,4 +1,4 @@
-﻿@model FrontEnd.Models.ViewModels.ListRequisitoViewModel
+﻿@model FrontEnd.Models.ViewModels.RequisitoViewModel
 
 @{
     ViewBag.Title = "Información del Requisito";
@@ -24,10 +24,10 @@
     </div>
     <dl class=" row">
         <dt class="col-sm-4">
-            @Html.LabelFor(d => d.TipoRequisito)
+            @Html.LabelFor(d => d.VistaTipoRequisito)
         </dt>
         <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.TipoRequisito)
+            @Html.DisplayTextFor(d => d.VistaTipoRequisito)
         </dd>
         <dt class="col-sm-4">
             @Html.LabelFor(d => d.Detalles)
@@ -38,10 +38,10 @@
         @if (Model.FechaVencimiento != null)
         {
             <dt class="col-sm-4">
-                @Html.LabelFor(d => d.FechaVencimiento)
+                @Html.LabelFor(d => d.VistaFechaVencimiento)
             </dt>
             <dd class="col-sm-8">
-                @Html.DisplayTextFor(d => d.FechaVencimiento)
+                @Html.DisplayTextFor(d => d.VistaFechaVencimiento)
             </dd>
         }
         @if (Model.Imagen != null)

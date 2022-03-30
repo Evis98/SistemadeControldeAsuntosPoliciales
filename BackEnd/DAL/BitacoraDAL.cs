@@ -39,6 +39,15 @@ namespace BackEnd.DAL
             }
         }
 
+        public int GetCount()
+        {
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                return db.Bitacoras.Where(x => x.fechaCreacion.Year == DateTime.Now.Year).Count();
+            }
+
+        }
+
         //Permite recibir una bitacora con toda su información a través de su atributo "idBitacora"
         public Bitacoras GetBitacora(int idBitacora)
         {
@@ -48,6 +57,23 @@ namespace BackEnd.DAL
                 using (SCAPEntities db = new SCAPEntities())
                 {
                     resultado = db.Bitacoras.Find(idBitacora);
+                }
+                return resultado;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public Bitacoras GetBitacoraConsecutivo(string numeroConsecutivo)
+        {
+            try
+            {
+                Bitacoras resultado;
+                using (SCAPEntities db = new SCAPEntities())
+                {
+                    resultado = db.Bitacoras.Where(x => x.numeroConsecutivo == numeroConsecutivo).FirstOrDefault();
                 }
                 return resultado;
             }

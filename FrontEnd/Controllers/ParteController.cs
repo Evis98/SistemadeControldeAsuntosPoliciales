@@ -166,20 +166,20 @@ namespace FrontEnd.Controllers
             };
         }
 
-        public List<ListPoliciaViewModel> ConvertirListaPoliciasFiltrados(List<Policias> policias)
+        public List<PoliciaViewModel> ConvertirListaPoliciasFiltrados(List<Policias> policias)
         {
             return (from d in policias
-                    select new ListPoliciaViewModel
+                    select new PoliciaViewModel
                     {
                         Cedula = d.cedula,
                         Nombre = d.nombre,
                     }).ToList();
         }
 
-        public List<ListInfractorViewModel> ConvertirListaInfractoresFiltrados(List<Infractores> infractores)
+        public List<InfractorViewModel> ConvertirListaInfractoresFiltrados(List<Infractores> infractores)
         {
             return (from d in infractores
-                    select new ListInfractorViewModel
+                    select new InfractorViewModel
                     {
                         Identificacion = d.numeroDeIdentificacion,
                         Nombre = d.nombreCompleto,
@@ -308,7 +308,7 @@ namespace FrontEnd.Controllers
 
         public PartialViewResult ListaInfractoresBuscar(string nombre)
         {
-            List<ListInfractorViewModel> infractores = new List<ListInfractorViewModel>();
+            List<InfractorViewModel> infractores = new List<InfractorViewModel>();
             return PartialView("_ListaInfractoresBuscar", infractores);
         }
 
@@ -405,7 +405,7 @@ namespace FrontEnd.Controllers
 
         public PartialViewResult ListaPoliciasBuscar(string nombre)
         {
-            List<ListPoliciaViewModel> policias = new List<ListPoliciaViewModel>();
+            List<PoliciaViewModel> policias = new List<PoliciaViewModel>();
             return PartialView("_ListaPoliciasBuscar", policias);
         }
 
