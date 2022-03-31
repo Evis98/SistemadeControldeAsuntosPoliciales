@@ -67,12 +67,12 @@
             </div>
             <div class="form-group col-md-3">
                 @Html.LabelFor(d => d.Avenida)
-                @Html.TextBoxFor(d => d.Avenida, "", new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)", autocomplete = "new-password" })
+                @Html.TextBoxFor(d => d.Avenida, "", new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "sololetrasnumerossimbolos(event)", autocomplete = "new-password" })
                 @Html.ValidationMessageFor(d => d.Avenida, null, new { @class = "red" })
             </div>
             <div class="form-group col-md-3">
                 @Html.LabelFor(d => d.Calle)
-                @Html.TextBoxFor(d => d.Calle, "", new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)", autocomplete = "new-password" })
+                @Html.TextBoxFor(d => d.Calle, "", new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimboloss(event)", autocomplete = "new-password" })
                 @Html.ValidationMessageFor(d => d.Calle, null, new { @class = "red" })
             </div>
         </div>
@@ -80,19 +80,19 @@
 
             <div class="form-group col-md-6">
                 @Html.LabelFor(d => d.OtrasSenas)
-                @Html.TextAreaFor(d => d.OtrasSenas, new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)", autocomplete = "new-password" })
+                @Html.TextAreaFor(d => d.OtrasSenas, new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)", autocomplete = "new-password" })
                 @Html.ValidationMessageFor(d => d.OtrasSenas, null, new { @class = "red" })
             </div>
             <div class="form-group col-md-6">
                 @Html.LabelFor(d => d.Observaciones)
-                @Html.TextAreaFor(d => d.Observaciones, new { @class = "form-control", @onkeypress = "return sololetrasnumeros(event)", autocomplete = "new-password" })
+                @Html.TextAreaFor(d => d.Observaciones, new { @class = "form-control", @onkeypress = "return sololetrasnumerossimbolos(event)", autocomplete = "new-password" , onkeyup = "this.value = this.value.toUpperCase();" })
                 @Html.ValidationMessageFor(d => d.Observaciones, null, new { @class = "red" })
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-12">
                 @Html.LabelFor(d => d.Inventario)
-                @Html.TextAreaFor(d => d.Inventario, new { @class = "form-control", @onkeypress = "return sololetrasnumeros(event)", autocomplete = "new-password" })
+                @Html.TextAreaFor(d => d.Inventario, new { @class = "form-control", @onkeypress = "return sololetrasnumerossimbolos(event)", autocomplete = "new-password", onkeyup = "this.value = this.value.toUpperCase();" })
                 @Html.ValidationMessageFor(d => d.Inventario, null, new { @class = "red" })
             </div>
         </div>
@@ -104,7 +104,7 @@
         <div class="form-row">
             <div class="form-group col-md-12">
                 <div style="text-align:center;">
-                    <input value="Guardar" class="btn btn-primary" type="button" id="hGuardar" data-toggle="modal" data-target="#show" />
+
                     <a class="btn btn-secondary" href="~/ActaHallazgo/Index">Cancelar</a>
                     <script>
                         $('#btnSave').click(function () {
@@ -112,6 +112,7 @@
                         });
 
                     </script>
+                    <input value="Guardar" class="btn btn-primary" type="button" id="hGuardar" data-toggle="modal" data-target="#show" />
                 </div>
 
             </div>

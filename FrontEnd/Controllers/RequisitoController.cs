@@ -77,7 +77,7 @@ namespace FrontEnd.Controllers
                     }
                     if (filtroSeleccionado == "Tipo de Requisito")
                     {
-                        if (tablaGeneralDAL.Get(requisito.TipoRequisito).descripcion.Contains(tipoRequisito))
+                        if (tablaGeneralDAL.GetCodigo("Requisitos", "tipoRequisito", requisito.TipoRequisito.ToString()).descripcion.Contains(tipoRequisito))
                         {
                             requisitosFiltrados.Add(requisito);
                         }
@@ -97,27 +97,27 @@ namespace FrontEnd.Controllers
             List<RequisitoViewModel> requisitosFiltrados = new List<RequisitoViewModel>();
             foreach (Requisitos requisito in requisitoDAL.Get())
             {
-                requisitos.Add(CargarRequisito(requisito));
+                if (id == requisito.idPolicia)
+                {
+                    requisitos.Add(CargarRequisito(requisito));
+                }
             }
             if (busqueda != null)
             {
                 foreach (RequisitoViewModel requisito in requisitos)
                 {
-                    if (id == requisito.IdPolicia)
+                    if (filtroSeleccionado == "Detalle de Requisito")
                     {
-                        if (filtroSeleccionado == "Detalle de Requisito")
+                        if (requisito.Detalles.Contains(busqueda))
                         {
-                            if (requisito.Detalles.Contains(busqueda))
-                            {
-                                requisitosFiltrados.Add(requisito);
-                            }
+                            requisitosFiltrados.Add(requisito);
                         }
-                        if (filtroSeleccionado == "Tipo de Requisito")
+                    }
+                    if (filtroSeleccionado == "Tipo de Requisito")
+                    {
+                        if (tablaGeneralDAL.GetCodigo("Requisitos", "tipoRequisito", requisito.TipoRequisito.ToString()).descripcion.Contains(tipoRequisito))
                         {
-                            if (tablaGeneralDAL.Get(requisito.TipoRequisito).descripcion.Contains(tipoRequisito))
-                            {
-                                requisitosFiltrados.Add(requisito);
-                            }
+                            requisitosFiltrados.Add(requisito);
                         }
                     }
                 }

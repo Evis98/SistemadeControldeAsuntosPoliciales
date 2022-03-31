@@ -64,7 +64,7 @@ namespace FrontEnd.Controllers
             }
             else
             {
-                armaCarga.NombrePolicia = "No Asignado";
+                armaCarga.NombrePolicia = "NO ASIGNADO";
             }
             return armaCarga;
         }
@@ -163,7 +163,7 @@ namespace FrontEnd.Controllers
             }
             else
             {
-                modelo.NombrePolicia = "No Asignado";
+                modelo.NombrePolicia = "NO ASIGNADO";
             }
             try
             {
@@ -190,7 +190,7 @@ namespace FrontEnd.Controllers
             }
             else
             {
-                modelo.NombrePolicia = "No Asignado";
+                modelo.NombrePolicia = "NO ASIGNADO";
             }
             return View(modelo);
         }
@@ -226,14 +226,14 @@ namespace FrontEnd.Controllers
                 throw new Exception(ex.Message);
             }
         }
-        public ActionResult CambioEstadoArma(string id)
+        public ActionResult CambioEstadoArma(int id)
         {
             int estado;
             armaDAL = new ArmaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             try
             {
-                if (id == "Activo")
+                if (tablaGeneralDAL.Get((int)id).descripcion == "Activo")
                 {
                     estado = tablaGeneralDAL.Get("Generales", "estado", "Inactivo").idTablaGeneral;
                 }

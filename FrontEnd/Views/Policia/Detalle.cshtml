@@ -38,7 +38,8 @@
             @Html.LabelFor(d => d.FechaNacimiento)
         </dt>
         <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.FechaNacimiento)
+            @{ var fecha = Model.FechaNacimiento.ToShortDateString(); }
+            @Html.DisplayTextFor(d => fecha)
         </dd>
         <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.Edad)
@@ -138,8 +139,8 @@
                 </div>
                 <div class="modal-body">
                     <p>¿Está seguro que desea modificar el estado del policía?</p>
-                    <label for="message-text" class="col-form-label">Justificación:</label>
-                    <textarea class="form-control" id="message-text"></textarea>
+                    @*<label for="message-text" class="col-form-label">Justificación:</label>
+                    <textarea class="form-control" id="message-text"></textarea>*@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-danger" id="Cancel" data-dismiss="modal">Cancelar</button>

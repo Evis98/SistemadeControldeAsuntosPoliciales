@@ -59,7 +59,7 @@
 
             <div class="form-group col-md-3">
                 @Html.LabelFor(d => d.LugarTrabajoPersona)
-                @Html.TextBoxFor(d => d.LugarTrabajoPersona, "", new { @class = "form-control", @autocomplete = "new-password" })
+                @Html.TextBoxFor(d => d.LugarTrabajoPersona, "", new { @class = "form-control", @autocomplete = "new-password" , @onkeyup = "this.value = this.value.toUpperCase();" })
                 @Html.ValidationMessageFor(d => d.LugarTrabajoPersona, null, new { @class = "red" })
             </div>
             <div class="form-group col-md-3">
@@ -81,6 +81,11 @@
 
         </div>
         <div class="form-row">
+            <div class="form-group col-md-4">
+                @Html.LabelFor(d => d.CorreoElectronicoPersona)
+                @Html.TextBoxFor(d => d.CorreoElectronicoPersona, "", new { @class = "form-control", @autocomplete = "new-password" })
+                @Html.ValidationMessageFor(d => d.CorreoElectronicoPersona, null, new { @class = "red" })
+            </div>
             <div class="form-group col-md-5">
                 @Html.LabelFor(d => d.DireccionExacta)
                 @Html.TextAreaFor(d => d.DireccionExacta, new { @class = "form-control", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
@@ -98,8 +103,8 @@
         <div class="form-row">
             <div class="form-group col-md-12">
                 <div style="text-align:center;">
-                    <input value="Guardar" class="btn btn-primary" type="button" id="hGuardar" data-toggle="modal" data-target="#show" />
                     <a class="btn btn-secondary" href="~/Persona/Index">Cancelar</a>
+                    <input value="Guardar" class="btn btn-primary" type="button" id="hGuardar" data-toggle="modal" data-target="#show" />
                 </div>
             </div>
         </div>

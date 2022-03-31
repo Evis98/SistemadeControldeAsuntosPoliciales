@@ -45,10 +45,10 @@ namespace FrontEnd.Models.ViewModels
         [Display(Name = "Edad")]
         public string EdadPersona { get; set; }
 
-        [Display(Name = "Teléfono celular")]
+        [Display(Name = "Teléfono Celular")]
         public string TelefonoCelularPersona { get; set; }
 
-        [Display(Name = "Teléfono celular")]
+        [Display(Name = "Teléfono Habitación")]
         public string TelefonoHabitacionPersona { get; set; }
 
         [Display(Name = "Teléfono de Trabajo")]

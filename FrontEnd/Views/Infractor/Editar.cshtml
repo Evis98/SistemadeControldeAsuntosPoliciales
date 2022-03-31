@@ -17,87 +17,80 @@
     {
         @Html.HiddenFor(d => d.IdInfractor)
         @Html.HiddenFor(d => d.Imagen)
-<div class="form-row">
-    <div class="form-group col-md-3">
-        @Html.LabelFor(d => d.TipoIdentificacion)
-        @Html.DropDownListFor(d => d.TipoIdentificacion, Model.TiposDeIdentificacion, new { @class = "myselect form-control" })
-        @Html.ValidationMessageFor(d => d.TipoIdentificacion, null, new { @class = "red" })
-    </div>
-    <div class="form-group col-md-3">
-        @Html.LabelFor(d => d.Identificacion)
-        @Html.TextBoxFor(d => d.Identificacion, "", new { @class = "form-control", @id = "pcedula", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)" })
-        @Html.ValidationMessageFor(d => d.Identificacion, null, new { @class = "red" })
-        @if (Model.CedulaFiltrada != null)
-        {@Html.ValidationMessageFor(d => d.Identificacion, "La identificación ya existe", new { @class = "red" })}
-    </div>
-    <div class="form-group col-md-6">
-        @Html.LabelFor(d => d.Nombre)
-        @Html.TextBoxFor(d => d.Nombre, "", new { @class = "form-control", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)" })
-        @Html.ValidationMessageFor(d => d.Nombre, null, new { @class = "red" })
-    </div>
-
-</div>
-<div class="form-row">
-    <div class="form-group col-md-2">
-        @Html.LabelFor(d => d.FechaNacimiento)
-        @Html.EditorFor(d => d.FechaNacimiento, "", new { @class = "form-control" })
-        @Html.ValidationMessageFor(d => d.FechaNacimiento, "", new { @class = "red" })
-    </div>
-    <div class="form-group col-md-3">
-        @Html.LabelFor(d => d.Telefono)
-        @Html.TextBoxFor(d => d.Telefono, "", new { @class = "inputphone form-control" })
-        @Html.ValidationMessageFor(d => d.Telefono, "", new { @class = "red" })
-    </div>
-    <div class="form-group col-md-2">
-        @Html.LabelFor(d => d.Sexo)
-        @Html.DropDownListFor(d => d.Sexo, Model.TiposDeSexo, new { @class = "myselect form-control" })
-        @Html.ValidationMessageFor(d => d.Sexo, null, new { @class = "red" })
-    </div>
-    <div class="form-group col-md-2">
-        @Html.LabelFor(d => d.Estatura)
-        @Html.TextBoxFor(d => d.Estatura, "", new { @class = "form-control inputheight", @maxlength = "4", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)" })
-        @Html.ValidationMessageFor(d => d.Estatura, null, new { @class = "red" })
-
-    </div>
-    <div class="form-group col-md-3">
-        @Html.LabelFor(d => d.Nacionalidad)
-        @Html.DropDownListFor(d => d.Nacionalidad, Model.Nacionalidades, new { @class = "myselect form-control" })
-        @Html.ValidationMessageFor(d => d.Nacionalidad, null, new { @class = "red" })
-    </div>
-   
-
-
-</div>
-<div class="form-row">
-    <div class="form-group col-md-3">
-        @Html.LabelFor(d => d.ProfesionUOficio)
-        @Html.TextBoxFor(d => d.ProfesionUOficio, "", new { @class = "form-control", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)" })
-        @Html.ValidationMessageFor(d => d.ProfesionUOficio, null, new { @class = "red" })
-    </div>
-    <div class="form-group col-md-4">
-        @Html.LabelFor(d => d.CorreoElectronico)
-        @Html.TextBoxFor(d => d.CorreoElectronico, "", new { @class = "form-control" })
-        @Html.ValidationMessageFor(d => d.CorreoElectronico, null, new { @class = "red" })
-    </div>
-    <div class="form-group col-md-5">
-        @Html.LabelFor(d => d.DireccionExacta)
-        @Html.TextAreaFor(d => d.DireccionExacta, new { @class = "form-control", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
-        @Html.ValidationMessageFor(d => d.DireccionExacta, null, new { @class = "red" })
-    </div>
-</div>
         <div class="form-row">
+            <div class="form-group col-md-3">
+                @Html.LabelFor(d => d.TipoIdentificacion)
+                @Html.DropDownListFor(d => d.TipoIdentificacion, Model.TiposDeIdentificacion, new { @class = "myselect form-control" })
+                @Html.ValidationMessageFor(d => d.TipoIdentificacion, null, new { @class = "red" })
+            </div>
+            <div class="form-group col-md-3">
+                @Html.LabelFor(d => d.Identificacion)
+                @Html.TextBoxFor(d => d.Identificacion, "", new { @class = "form-control", @id = "pcedula", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)" })
+                @Html.ValidationMessageFor(d => d.Identificacion, null, new { @class = "red" })
+                @if (Model.CedulaFiltrada != null)
+                {@Html.ValidationMessageFor(d => d.Identificacion, "La identificación ya existe", new { @class = "red" })}
+            </div>
             <div class="form-group col-md-6">
+                @Html.LabelFor(d => d.Nombre)
+                @Html.TextBoxFor(d => d.Nombre, "", new { @class = "form-control", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)" })
+                @Html.ValidationMessageFor(d => d.Nombre, null, new { @class = "red" })
+            </div>
+
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-2">
+                @Html.LabelFor(d => d.FechaNacimiento)
+                @Html.EditorFor(d => d.FechaNacimiento, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.FechaNacimiento, "", new { @class = "red" })
+            </div>
+            <div class="form-group col-md-3">
+                @Html.LabelFor(d => d.Telefono)
+                @Html.TextBoxFor(d => d.Telefono, "", new { @class = "inputphone form-control" })
+                @Html.ValidationMessageFor(d => d.Telefono, "", new { @class = "red" })
+            </div>
+            <div class="form-group col-md-2">
+                @Html.LabelFor(d => d.Sexo)
+                @Html.DropDownListFor(d => d.Sexo, Model.TiposDeSexo, new { @class = "myselect form-control" })
+                @Html.ValidationMessageFor(d => d.Sexo, null, new { @class = "red" })
+            </div>
+            <div class="form-group col-md-2">
+                @Html.LabelFor(d => d.Estatura)
+                @Html.TextBoxFor(d => d.Estatura, "", new { @class = "form-control inputheight", @maxlength = "4", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)" })
+                @Html.ValidationMessageFor(d => d.Estatura, null, new { @class = "red" })
+
+            </div>
+            <div class="form-group col-md-3">
+                @Html.LabelFor(d => d.Nacionalidad)
+                @Html.DropDownListFor(d => d.Nacionalidad, Model.Nacionalidades, new { @class = "myselect form-control" })
+                @Html.ValidationMessageFor(d => d.Nacionalidad, null, new { @class = "red" })
+            </div>
+
+
+
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                @Html.LabelFor(d => d.ApodoInfractor)
+                @Html.TextBoxFor(d => d.ApodoInfractor, "", new { @class = "form-control", @id = "nombrePadre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)" })
+                @Html.ValidationMessageFor(d => d.ApodoInfractor, null, new { @class = "red" })
+            </div>
+            <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.NombrePadre)
                 @Html.TextBoxFor(d => d.NombrePadre, "", new { @class = "form-control", @id = "nombrePadre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)" })
                 @Html.ValidationMessageFor(d => d.NombrePadre, null, new { @class = "red" })
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-5">
                 @Html.LabelFor(d => d.NombreMadre)
                 @Html.TextBoxFor(d => d.NombreMadre, "", new { @class = "form-control", @id = "nombreMadre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)" })
                 @Html.ValidationMessageFor(d => d.NombreMadre, null, new { @class = "red" })
             </div>
         </div>
         <div class="form-row">
+            <div class="form-group col-md-4">
+                @Html.LabelFor(d => d.RasgosFisicos)
+                @Html.TextAreaFor(d => d.RasgosFisicos, new { @class = "form-control", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+                @Html.ValidationMessageFor(d => d.RasgosFisicos, null, new { @class = "red" })
+            </div>
             <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.Tatuajes)
                 <div class="form-check">
@@ -107,8 +100,7 @@
                 @Html.TextAreaFor(d => d.Tatuajes, new { @class = "form-control", @style = "display:none", @id = "nombreTatuajes", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
                 @Html.ValidationMessageFor(d => d.Tatuajes, null, new { @class = "red" })
             </div>
-            
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.Observaciones)
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="checkboxObservaciones" onclick="aparecerObservaciones()">
@@ -130,9 +122,8 @@
         <div class="form-row">
             <div class="form-group col-md-12">
                 <div style="text-align:center;">
-
-                    <input value="Guardar" class="btn btn-primary" type="button" id="hGuardar" data-toggle="modal" data-target="#show" />
                     <a class="btn btn-secondary" href="~/Infractor/Detalle/@Model.IdInfractor">Cancelar</a>
+                    <input value="Guardar" class="btn btn-primary" type="button" id="hGuardar" data-toggle="modal" data-target="#show" />
                 </div>
             </div>
         </div>

@@ -53,7 +53,7 @@ namespace FrontEnd.Models.ViewModels
         [EmailAddress(ErrorMessage = "Escriba una dirección de correo válida.")]
         [Display(Name = "Correo Electrónico (Opcional)")]
         public string CorreoElectronicoPersona { get; set; }
-        [StringLength(100, ErrorMessage = "Profesión excede la cantidad maxima de caractéres")]
+        [StringLength(100, ErrorMessage = "Lugar de trabajo excede la cantidad maxima de caractéres")]
         [Display(Name = "Lugar de Trabajo (Opcional)")]
         public string LugarTrabajoPersona { get; set; }
         public IEnumerable<SelectListItem> TiposDeIdentificacion { get; set; }

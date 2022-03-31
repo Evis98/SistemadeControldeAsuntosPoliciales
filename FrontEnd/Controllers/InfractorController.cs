@@ -24,7 +24,7 @@ namespace FrontEnd.Controllers
                 numeroDeIdentificacion = modelo.Identificacion,
                 nacionalidad = tablaGeneralDAL.GetCodigo("Generales", "nacionalidad", modelo.Nacionalidad.ToString()).idTablaGeneral,
                 nombreCompleto = modelo.Nombre,
-                fechaNacimiento = modelo.FechaNacimiento,
+                fechaNacimiento = modelo.FechaNacimiento.Date,
                 telefono = modelo.Telefono,
                 direccionExacta = modelo.DireccionExacta,
                 sexo = tablaGeneralDAL.GetCodigo("Generales", "sexo", modelo.Sexo.ToString()).idTablaGeneral,
@@ -35,6 +35,8 @@ namespace FrontEnd.Controllers
                 tatuajes = modelo.Tatuajes,
                 nombreDelPadre = modelo.NombrePadre,
                 nombreDeLaMadre = modelo.NombreMadre,
+                apodoInfractor = modelo.ApodoInfractor,
+                rasgosFisicosInfractor = modelo.RasgosFisicos,
                 imagen = modelo.Imagen,
 
             };
@@ -64,6 +66,8 @@ namespace FrontEnd.Controllers
                 Tatuajes = infractor.tatuajes,
                 NombrePadre = infractor.nombreDelPadre,
                 NombreMadre = infractor.nombreDeLaMadre,
+                RasgosFisicos = infractor.rasgosFisicosInfractor,
+                ApodoInfractor = infractor.apodoInfractor,
                 Imagen = infractor.imagen
             };
         }

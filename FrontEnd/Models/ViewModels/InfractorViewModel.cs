@@ -35,14 +35,15 @@ namespace FrontEnd.Models.ViewModels
         [StringLength(150, ErrorMessage = "Nombre  excede los 150 caracteres.")]
         [Display(Name = "Nombre Completo")]
         public string Nombre { get; set; }
-
+        
         [Required]
         [DataType(DataType.Date)]
         [DateValidation(ErrorMessage = "Fecha ingresada invalida")]
         [Display(Name = "Fecha de Nacimiento")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaNacimiento { get; set; }
-        [Display(Name = "Fecha de Nacimiento")]
+
+        [Display(Name = "Edad")]
         public string Edad { get; set; }
 
         [StringLength(9, ErrorMessage = "Escriba un número de teléfono con 8 digitos.", MinimumLength = 9)]
@@ -89,6 +90,14 @@ namespace FrontEnd.Models.ViewModels
         [StringLength(150, ErrorMessage = "Nombre de la Madre excede los 150 caracteres.")]
         [Display(Name = "Nombre de la Madre (Opcional)")]
         public string NombreMadre { get; set; }
+
+        [StringLength(150, ErrorMessage = "Conocido como excede los 150 caracteres.")]
+        [Display(Name = "Conocido como (Opcional)")]
+        public string ApodoInfractor { get; set; }
+
+        [StringLength(150, ErrorMessage = "Rasgos Fisicos excede los 150 caracteres.")]
+        [Display(Name = "Rasgos Fisicos (Opcional)")]
+        public string RasgosFisicos { get; set; }
 
         [Display(Name = "Adjuntar imagen")]
         public HttpPostedFileBase Archivo { get; set; }

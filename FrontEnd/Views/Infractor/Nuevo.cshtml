@@ -81,38 +81,48 @@
     </div>
     
 </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                @Html.LabelFor(d => d.NombrePadre)
-                @Html.TextBoxFor(d => d.NombrePadre, "", new { @class = "form-control", @id = "nombrePadre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)" })
-                @Html.ValidationMessageFor(d => d.NombrePadre, null, new { @class = "red" })
-            </div>
-            <div class="form-group col-md-6">
-                @Html.LabelFor(d => d.NombreMadre)
-                @Html.TextBoxFor(d => d.NombreMadre, "", new { @class = "form-control", @id = "nombreMadre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)" })
-                @Html.ValidationMessageFor(d => d.NombreMadre, null, new { @class = "red" })
-            </div>
+<div class="form-row">
+    <div class="form-group col-md-3">
+        @Html.LabelFor(d => d.ApodoInfractor)
+        @Html.TextBoxFor(d => d.ApodoInfractor, "", new { @class = "form-control", @id = "nombrePadre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)" })
+        @Html.ValidationMessageFor(d => d.ApodoInfractor, null, new { @class = "red" })
+    </div>
+    <div class="form-group col-md-4">
+        @Html.LabelFor(d => d.NombrePadre)
+        @Html.TextBoxFor(d => d.NombrePadre, "", new { @class = "form-control", @id = "nombrePadre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)" })
+        @Html.ValidationMessageFor(d => d.NombrePadre, null, new { @class = "red" })
+    </div>
+    <div class="form-group col-md-5">
+        @Html.LabelFor(d => d.NombreMadre)
+        @Html.TextBoxFor(d => d.NombreMadre, "", new { @class = "form-control", @id = "nombreMadre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)" })
+        @Html.ValidationMessageFor(d => d.NombreMadre, null, new { @class = "red" })
+    </div>
+</div>
+<div class="form-row">
+    <div class="form-group col-md-4">
+        @Html.LabelFor(d => d.RasgosFisicos)
+        @Html.TextAreaFor(d => d.RasgosFisicos, new { @class = "form-control", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+        @Html.ValidationMessageFor(d => d.RasgosFisicos, null, new { @class = "red" })
+    </div>
+    <div class="form-group col-md-4">
+        @Html.LabelFor(d => d.Tatuajes)
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="checkboxTatuajes" onclick="aparecerTatuajes()">
+            <label class="form-check-label" for="exampleCheck1">Aplica</label>
         </div>
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                @Html.LabelFor(d => d.Tatuajes)
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="checkboxTatuajes" onclick="aparecerTatuajes()">
-                    <label class="form-check-label" for="exampleCheck1">Aplica</label>
-                </div>
-                @Html.TextAreaFor(d => d.Tatuajes, new { @class = "form-control", @style = "display:none", @id = "nombreTatuajes", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
-                @Html.ValidationMessageFor(d => d.Tatuajes, null, new { @class = "red" })
-            </div>
-            <div class="form-group col-md-6">
-                @Html.LabelFor(d => d.Observaciones)
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="checkboxObservaciones" onclick="aparecerObservaciones()">
-                    <label class="form-check-label" for="exampleCheck1">Aplica</label>
-                </div>
-                @Html.TextAreaFor(d => d.Observaciones, new { @class = "form-control", @style = "display:none", @id = "Obs", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
-                @Html.ValidationMessageFor(d => d.Observaciones, null, new { @class = "red" })
-            </div>
+        @Html.TextAreaFor(d => d.Tatuajes, new { @class = "form-control", @style = "display:none", @id = "nombreTatuajes", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+        @Html.ValidationMessageFor(d => d.Tatuajes, null, new { @class = "red" })
+    </div>
+    <div class="form-group col-md-4">
+        @Html.LabelFor(d => d.Observaciones)
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="checkboxObservaciones" onclick="aparecerObservaciones()">
+            <label class="form-check-label" for="exampleCheck1">Aplica</label>
         </div>
+        @Html.TextAreaFor(d => d.Observaciones, new { @class = "form-control", @style = "display:none", @id = "Obs", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+        @Html.ValidationMessageFor(d => d.Observaciones, null, new { @class = "red" })
+    </div>
+</div>
         <div class="form-row">
             <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.Archivo)
@@ -126,8 +136,8 @@
         <div class="form-row">
             <div class="form-group col-md-12">
                 <div style="text-align:center;">
+                    <a class="btn btn-secondary" href="~/Infractor/Index">Cancelar</a>
                     <input value="Guardar" class="btn btn-primary" type="button" id="hGuardar" data-toggle="modal" data-target="#show" />
-                    <a class="btn btn-secondary" href="~/Infractor/Index">Cancelar</a>                
                 </div>
             </div>
         </div>

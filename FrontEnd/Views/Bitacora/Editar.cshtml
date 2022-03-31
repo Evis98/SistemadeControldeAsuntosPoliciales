@@ -61,10 +61,7 @@
                     </div>
                 </div>
 
-                @if (!Model.ArmaPoliciaAsignado)
-                {@Html.ValidationMessageFor(d => d.PoliciaSolicitante, "La cedula ya existe", new { @class = "red" })}
-            else
-            { @Html.ValidationMessageFor(d => d.PoliciaSolicitante, null, new { @class = "red" })}
+               
             </div>
 
         </div>
@@ -90,8 +87,8 @@
         <div class="form-row">
             <div class="form-group col-md-12">
                 <div style="text-align:center;">
-                    <input value="Guardar" class="btn btn-primary" type="button" id="hGuardar" data-toggle="modal" data-target="#show" />
                     <a class="btn btn-secondary" href="~/Bitacora/Index">Cancelar</a>
+                    <input value="Guardar" class="btn btn-primary" type="button" id="hGuardar" data-toggle="modal" data-target="#show" />
                 </div>
             </div>
         </div>
