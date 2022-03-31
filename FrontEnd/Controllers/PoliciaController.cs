@@ -96,16 +96,17 @@ namespace FrontEnd.Controllers
                             policiasFiltrados.Add(policia);
                         }
                     }
-                    if (filtroSeleccionado == "Fecha Nacimiento")
+
+                }
+                if (filtroSeleccionado == "Fecha Nacimiento")
+                {
+                    DateTime fechaInicio = DateTime.Parse(busquedaFechaInicio);
+                    DateTime fechaFinal = DateTime.Parse(busquedaFechaFinal);
+                    if (policiaDAL.GetPoliciasRango(fechaInicio, fechaFinal) != null)
                     {
-                        DateTime fechaInicio = DateTime.Parse(busquedaFechaInicio);
-                        DateTime fechaFinal = DateTime.Parse(busquedaFechaFinal);
-                        if (policiaDAL.GetPoliciasRango(fechaInicio, fechaFinal) != null)
+                        foreach (Policias policiaFechas in policiaDAL.GetPoliciasRango(fechaInicio, fechaFinal))
                         {
-                            foreach (Policias policiaFechas in policiaDAL.GetPoliciasRango(DateTime.Parse(busquedaFechaInicio), DateTime.Parse(busquedaFechaFinal)).ToList())
-                            {
-                                policiasFiltrados.Add(CargarPolicia(policiaFechas));
-                            }
+                            policiasFiltrados.Add(CargarPolicia(policiaFechas));
                         }
                     }
                 }

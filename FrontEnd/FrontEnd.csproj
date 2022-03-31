@@ -358,6 +358,7 @@
     <Content Include="Views\Parte\_ListaPersonasBuscar.cshtml" />
     <Content Include="Views\Bitacora\Detalle.cshtml" />
     <Content Include="Views\Bitacora\Editar.cshtml" />
+    <Content Include="Views\Bitacora\Completar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

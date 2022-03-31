@@ -65,9 +65,17 @@ namespace FrontEnd.Models.ViewModels
         [Display(Name = "Observaciones de Entrega")]
         public string ObservacionesEntrega { get; set; }
 
+        [StringLength(250, ErrorMessage = "Las observaciones exceden los 250 caracteres.")]
+        [Display(Name = "Observaciones de Devolucion")]
+        public string ObservacionesDevuelta { get; set; }
+
         [Display(Name = "Estado actual de bitácora")]
         public int EstadoActual { get; set; }
         [Display(Name = "Estado actual de bitácora")]
         public string VistaEstadoActual { get; set; }
+
+        public IEnumerable<SelectListItem> TiposCondicion { get; set; }
+        public string VistaArmeroReceptor { get; internal set; }
+        public string VistaCondicionFinal { get; internal set; }
     }
 }

@@ -17,24 +17,6 @@ namespace FrontEnd.Controllers
         IActaHallazgoDAL actaHallazgoDAL;
         IPoliciaDAL policiaDAL;
 
-        // GET: ActaHallazgo
-        public List<ActaHallazgoViewModel> ConvertirListaActasHallazgo(List<ActasHallazgo> actasHallazgo)
-        {
-            tablaGeneralDAL = new TablaGeneralDAL();
-            policiaDAL = new PoliciaDAL();
-
-            return (from d in actasHallazgo
-                    select new ActaHallazgoViewModel
-                    {
-                        IdActaHallazgo = d.idActaHallazgo,
-                        NumeroFolio = d.numeroFolio,
-                        Encargado = policiaDAL.GetPolicia(d.encargado).nombre,
-                        Distrito = tablaGeneralDAL.Get(d.distrito).idTablaGeneral,
-                        VistaDistrito = tablaGeneralDAL.Get(d.distrito).descripcion,
-                        Fecha = d.fechaHora.Value.Date,
-                    }).ToList();
-        }
-
         public ActasHallazgo ConvertirActaHallazgo(ActaHallazgoViewModel modelo)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
@@ -125,22 +107,26 @@ namespace FrontEnd.Controllers
         {
             actaHallazgoDAL = new ActaHallazgoDAL();
             policiaDAL = new PoliciaDAL();
-            List<ActasHallazgo> actasHallazgo = actaHallazgoDAL.Get();
-            List<ActasHallazgo> actasHallazgoFiltradas = new List<ActasHallazgo>();
+            List<ActaHallazgoViewModel> actasHallazgo = new List<ActaHallazgoViewModel>();
+            List<ActaHallazgoViewModel> actasHallazgoFiltradas = new List<ActaHallazgoViewModel>();
+            foreach (ActasHallazgo actaHallazgo in actaHallazgoDAL.Get())
+            {
+                actasHallazgo.Add(CargarActaHallazgo(actaHallazgo));
+            }
             if (busqueda != null)
             {
-                foreach (ActasHallazgo actaHallazgo in actasHallazgo)
+                foreach (ActaHallazgoViewModel actaHallazgo in actasHallazgo)
                 {
                     if (filtroSeleccionado == "Numero de Folio")
                     {
-                        if (actaHallazgo.numeroFolio.Contains(busqueda))
+                        if (actaHallazgo.NumeroFolio.Contains(busqueda))
                         {
                             actasHallazgoFiltradas.Add(actaHallazgo);
                         }
                     }
                     if (filtroSeleccionado == "Nombre Policia Encargado")
                     {
-                        if (policiaDAL.GetPolicia(actaHallazgo.encargado).nombre.Contains(busqueda))
+                        if (policiaDAL.GetPoliciaCedula(actaHallazgo.Encargado).nombre.Contains(busqueda))
                         {
                             actasHallazgoFiltradas.Add(actaHallazgo);
                         }
@@ -151,14 +137,16 @@ namespace FrontEnd.Controllers
                         DateTime fechaFinal = DateTime.Parse(busquedaFechaFinalH);
                         if (actaHallazgoDAL.GetActaHallazgoRango(fechaInicio, fechaFinal) != null)
                         {
-                            actasHallazgoFiltradas = actaHallazgoDAL.GetActaHallazgoRango(fechaInicio, fechaFinal).ToList();
+                            foreach (ActasHallazgo actaHallazgoFecha in actaHallazgoDAL.GetActaHallazgoRango(fechaInicio, fechaFinal).ToList())
+                            {
+                                actasHallazgoFiltradas.Add(CargarActaHallazgo(actaHallazgoFecha));
+                            }
                         }
                     }
                 }
                 actasHallazgo = actasHallazgoFiltradas;
             }
-            actasHallazgo = actasHallazgo.OrderBy(x => x.numeroFolio).ToList();
-            return View(ConvertirListaActasHallazgo(actasHallazgo));
+            return View(actasHallazgo.OrderBy(x => x.NumeroFolio).ToList());
         }
         public ActionResult Nuevo()
         {

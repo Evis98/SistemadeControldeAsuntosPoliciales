@@ -10,9 +10,9 @@
             </div>
         </div>
     </div>
-
+    <h2>Bitacora @Html.DisplayTextFor(d => d.VistaEstadoActual) </h2>
     <hr />
-
+    <h2>Entrega</h2>
     <dl class="row">
 
         <dt class="col-sm-4 ">
@@ -27,15 +27,6 @@
         <dd id="req" class="col-sm-8 ">
             @Html.DisplayTextFor(d => d.VistaArmeroProveedor)
         </dd>
-        @if (Model.ArmeroReceptor != null)
-        {
-            <dt class="col-sm-4 ">
-                @Html.LabelFor(d => d.ArmeroReceptor)
-            </dt>
-            <dd class="col-sm-8 ">
-                @Html.DisplayTextFor(d => d.ArmeroReceptor)
-            </dd>
-        }
         <dt class="col-sm-4">
             @Html.LabelFor(d => d.VistaPoliciaSolicitante)
         </dt>
@@ -47,46 +38,19 @@
         </dt>
         <dd class="col-sm-8 ">
             @Html.DisplayTextFor(d => d.FechaCreacion)
-        @*</dd>
-        @if (Model.FechaFinalizacion != null)
-        {
-            <dt class="col-sm-4 ">
-                @Html.LabelFor(d => d.FechaFinalizacion)
-            </dt>
-            <dd class="col-sm-8 ">
-                @Html.DisplayTextFor(d => d.FechaFinalizacion)
-            </dd>
-        }*@
+        </dd>
         <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.MunicionEntregada)
         </dt>
         <dd class="col-sm-8 ">
             @Html.DisplayTextFor(d => d.MunicionEntregada)
         </dd>
-        @if (Model.MunicionDevuelta != null)
-        {
-            <dt class="col-sm-4 ">
-                @Html.LabelFor(d => d.MunicionDevuelta)
-            </dt>
-            <dd class="col-sm-8 ">
-                @Html.DisplayTextFor(d => d.MunicionDevuelta)
-            </dd>
-        }
         <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.CargadoresEntregados)
         </dt>
         <dd class="col-sm-8 ">
             @Html.DisplayTextFor(d => d.CargadoresEntregados)
         </dd>
-        @if (Model.CargadoresDevueltos != null)
-        {
-            <dt class="col-sm-4 ">
-                @Html.LabelFor(d => d.CargadoresDevueltos)
-            </dt>
-            <dd class="col-sm-8 ">
-                @Html.DisplayTextFor(d => d.CargadoresDevueltos)
-            </dd>
-        }
         @if (Model.ObservacionesEntrega != null)
         {
             <dt class="col-sm-4 ">
@@ -96,31 +60,67 @@
                 @Html.DisplayTextFor(d => d.ObservacionesEntrega)
             </dd>
         }
+    </dl>
+    @if (Model.VistaEstadoActual == "Completada")
+    {
+        <hr />
+        <h2>Devuelta</h2>
+        <dl class="row">
+
             <dt class="col-sm-4 ">
-                @Html.LabelFor(d => d.VistaEstadoActual)
+                @Html.LabelFor(d => d.VistaArmeroReceptor)
             </dt>
             <dd class="col-sm-8 ">
-                @Html.DisplayTextFor(d => d.VistaEstadoActual)
+                @Html.DisplayTextFor(d => d.VistaArmeroReceptor)
             </dd>
+            <dt class="col-sm-4 ">
+                @Html.LabelFor(d => d.VistaCondicionFinal)
+            </dt>
+            <dd class="col-sm-8 ">
+                @Html.DisplayTextFor(d => d.VistaCondicionFinal)
+            </dd>
+            <dt class="col-sm-4 ">
+                @Html.LabelFor(d => d.FechaFinalizacion)
+            </dt>
+            <dd class="col-sm-8 ">
+                @Html.DisplayTextFor(d => d.FechaFinalizacion)
+            </dd>
+            <dt class="col-sm-4 ">
+                @Html.LabelFor(d => d.MunicionDevuelta)
+            </dt>
+            <dd class="col-sm-8 ">
+                @Html.DisplayTextFor(d => d.MunicionDevuelta)
+            </dd>
+            <dt class="col-sm-4 ">
+                @Html.LabelFor(d => d.CargadoresDevueltos)
+            </dt>
+            <dd class="col-sm-8 ">
+                @Html.DisplayTextFor(d => d.CargadoresDevueltos)
+            </dd>
+            <dt class="col-sm-4 ">
+                @Html.LabelFor(d => d.ObservacionesDevuelta)
+            </dt>
+            <dd class="col-sm-8 ">
+                @Html.DisplayTextFor(d => d.ObservacionesDevuelta)
+            </dd>
+            
 
         </dl>
+    }
+        <hr />
+        <div class="row">
+            <div class="col-sm-12">
 
-    <hr />
+                <a class="btn btn-outline-secondary" href="~/Bitacora/Index" ;">Regresar</a>
 
-
-    <div class="row">
-        <div class="col-sm-12">
-
-            <a class="btn btn-outline-secondary" href="~/Bitacora/Index";">Regresar</a>
-
-            <div style="text-align:center;">
-                <a class="btn btn-primary" href="~/Bitacora/Editar/@Model.IdBitacora">Editar</a>
-                @if (Model.VistaEstadoActual == "Pendiente")
-                {
-                    <a value="Eliminar" class="btn btn-info" href="~/Requisito/Completar/@Model.IdBitacora" type="button" data-toggle="modal" data-target="#show4">Completar</a>
-                }
+                <div style="text-align:center;">
+                    <a class="btn btn-primary" href="~/Bitacora/Editar/@Model.IdBitacora">Editar</a>
+                    @if (Model.VistaEstadoActual == "Pendiente")
+                    {
+                        <a class="btn btn-info" href="~/Bitacora/Completar/@Model.IdBitacora" type="button">Completar</a>
+                    }
+                </div>
             </div>
         </div>
-    </div>
 
-</div>
+    </div>

@@ -56,16 +56,16 @@ namespace FrontEnd.Controllers
                 armaCarga.Observacion = arma.observacion;
                 armaCarga.EstadoArma = arma.estadoArma;
                 armaCarga.VistaEstadoArma = tablaGeneralDAL.Get(arma.estadoArma).descripcion;
+                if (arma.policiaAsignado != null)
+                {
+                    armaCarga.PoliciaAsignado = policiaDAL.GetPolicia((int)arma.policiaAsignado).cedula;
+                    armaCarga.NombrePolicia = policiaDAL.GetPolicia((int)arma.policiaAsignado).nombre;
+                }
+                else
+                {
+                    armaCarga.NombrePolicia = "NO ASIGNADO";
+                }
             };
-            if (arma.policiaAsignado != null)
-            {
-                armaCarga.PoliciaAsignado = policiaDAL.GetPolicia((int)arma.policiaAsignado).cedula;
-                armaCarga.NombrePolicia = policiaDAL.GetPolicia((int)arma.policiaAsignado).nombre;
-            }
-            else
-            {
-                armaCarga.NombrePolicia = "NO ASIGNADO";
-            }
             return armaCarga;
         }
 
@@ -99,7 +99,7 @@ namespace FrontEnd.Controllers
                 }
                 armas = armasFiltradas;
             }
-            return View(armas.OrderBy(x => x.NumeroSerie).ToList());
+            return View(armas.OrderByDescending(x => x.PoliciaAsignado).ToList());
         }
 
         public ActionResult Nuevo()

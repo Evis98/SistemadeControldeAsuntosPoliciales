@@ -22,22 +22,35 @@ namespace FrontEnd.Controllers
             policiaDAL = new PoliciaDAL();
             armaDAL = new ArmaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
-            return new BitacoraViewModel
+
+            BitacoraViewModel modelo = new BitacoraViewModel();
             {
-                IdBitacora = bitacora.idBitacora,            
-                NumeroConsecutivo = bitacora.numeroConsecutivo,
-                NumeroSerieArma = armaDAL.GetArma(bitacora.idArma).numeroSerie,
-                ArmeroProveedor = policiaDAL.GetPolicia(bitacora.idArmeroProveedor).cedula,
-                VistaArmeroProveedor = policiaDAL.GetPolicia(bitacora.idArmeroProveedor).nombre,
-                PoliciaSolicitante = policiaDAL.GetPolicia(bitacora.idPoliciaSolicitante).cedula,
-                VistaPoliciaSolicitante = policiaDAL.GetPolicia(bitacora.idPoliciaSolicitante).nombre,
-                FechaCreacion = bitacora.fechaCreacion,
-                MunicionEntregada = bitacora.municionEntregada,
-                CargadoresEntregados = bitacora.cargadoresEntregados,
-                ObservacionesEntrega = bitacora.observacionesEntrega,
-                EstadoActual = tablaGeneralDAL.Get(bitacora.estadoActualBitacora).idTablaGeneral,
-                VistaEstadoActual = tablaGeneralDAL.Get(bitacora.estadoActualBitacora).descripcion
-            };
+                modelo.IdBitacora = bitacora.idBitacora;
+                modelo.NumeroConsecutivo = bitacora.numeroConsecutivo;
+                modelo.NumeroSerieArma = armaDAL.GetArma(bitacora.idArma).numeroSerie;
+                modelo.ArmeroProveedor = policiaDAL.GetPolicia(bitacora.idArmeroProveedor).cedula;
+                modelo.VistaArmeroProveedor = policiaDAL.GetPolicia(bitacora.idArmeroProveedor).nombre;
+                modelo.PoliciaSolicitante = policiaDAL.GetPolicia(bitacora.idPoliciaSolicitante).cedula;
+                modelo.VistaPoliciaSolicitante = policiaDAL.GetPolicia(bitacora.idPoliciaSolicitante).nombre;
+                modelo.FechaCreacion = bitacora.fechaCreacion;
+                modelo.MunicionEntregada = bitacora.municionEntregada;
+                modelo.CargadoresEntregados = bitacora.cargadoresEntregados;
+                modelo.ObservacionesEntrega = bitacora.observacionesEntrega;
+                modelo.EstadoActual = tablaGeneralDAL.Get(bitacora.estadoActualBitacora).idTablaGeneral;
+                modelo.VistaEstadoActual = tablaGeneralDAL.Get(bitacora.estadoActualBitacora).descripcion;
+                if (modelo.VistaEstadoActual == "Completada")
+                {
+                    modelo.ArmeroReceptor = policiaDAL.GetPolicia((int)bitacora.idArmeroReceptor).cedula;
+                    modelo.VistaArmeroReceptor = policiaDAL.GetPolicia((int)bitacora.idArmeroReceptor).nombre;
+                    modelo.CondicionFinal = int.Parse(tablaGeneralDAL.Get((int)bitacora.condicionFinal).codigo);
+                    modelo.VistaCondicionFinal = tablaGeneralDAL.Get((int)bitacora.condicionFinal).descripcion;
+                    modelo.FechaFinalizacion = DateTime.Now;
+                    modelo.MunicionDevuelta = bitacora.municionDevuelta;
+                    modelo.CargadoresDevueltos = bitacora.cargadoresDevueltos;
+                    modelo.ObservacionesDevuelta = bitacora.observacionesDevuelta;
+                }
+            }
+            return modelo;
         }
 
         public Bitacoras ConvertirBitacora(BitacoraViewModel modelo)
@@ -45,19 +58,35 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             policiaDAL = new PoliciaDAL();
             armaDAL = new ArmaDAL();
-            return new Bitacoras
+            Bitacoras bitacora = new Bitacoras();
             {
-                idBitacora = modelo.IdBitacora,
-                numeroConsecutivo = modelo.NumeroConsecutivo,
-                idArmeroProveedor = policiaDAL.GetPoliciaCedula(modelo.ArmeroProveedor).idPolicia,
-                idPoliciaSolicitante = policiaDAL.GetPoliciaCedula(modelo.PoliciaSolicitante).idPolicia,
-                idArma = armaDAL.GetArmaNumSerie(modelo.NumeroSerieArma).idArma,
-                fechaCreacion = modelo.FechaCreacion,
-                municionEntregada = modelo.MunicionEntregada,
-                cargadoresEntregados = modelo.CargadoresEntregados,
-                observacionesEntrega = modelo.ObservacionesEntrega,
-                estadoActualBitacora = tablaGeneralDAL.GetCodigo("Bitacoras", "estadoActualBitacora", "1").idTablaGeneral,
+                bitacora.idBitacora = modelo.IdBitacora;
+                bitacora.numeroConsecutivo = modelo.NumeroConsecutivo;
+                bitacora.idArmeroProveedor = policiaDAL.GetPoliciaCedula(modelo.ArmeroProveedor).idPolicia;
+                bitacora.idPoliciaSolicitante = policiaDAL.GetPoliciaCedula(modelo.PoliciaSolicitante).idPolicia;
+                bitacora.idArma = armaDAL.GetArmaNumSerie(modelo.NumeroSerieArma).idArma;
+                bitacora.fechaCreacion = modelo.FechaCreacion;
+                bitacora.municionEntregada = modelo.MunicionEntregada;
+                bitacora.cargadoresEntregados = modelo.CargadoresEntregados;
+                bitacora.observacionesEntrega = modelo.ObservacionesEntrega;
+                if (modelo.VistaEstadoActual == null)
+                {
+                    bitacora.estadoActualBitacora = tablaGeneralDAL.GetCodigo("Bitacoras", "estadoActualBitacora", "1").idTablaGeneral;
+                }
+                else
+                {
+                    bitacora.idArmeroReceptor = policiaDAL.GetPoliciaCedula(modelo.ArmeroReceptor).idPolicia;
+                    bitacora.condicionFinal = tablaGeneralDAL.GetCodigo("Armas", "condicion", modelo.CondicionFinal.ToString()).idTablaGeneral;
+                    bitacora.fechaFinalizacion = DateTime.Now;
+                    bitacora.municionDevuelta = modelo.MunicionDevuelta;
+                    bitacora.cargadoresDevueltos = modelo.CargadoresDevueltos;
+                    bitacora.observacionesDevuelta = modelo.ObservacionesDevuelta;
+                    bitacora.estadoActualBitacora = tablaGeneralDAL.GetCodigo("Bitacoras", "estadoActualBitacora", "2").idTablaGeneral;
+                }
+
             };
+
+            return bitacora;
         }
 
      
@@ -167,6 +196,39 @@ namespace FrontEnd.Controllers
             return View(modelo);
         }
 
+        public ActionResult Completar(int id)
+        {
+            bitacoraDAL = new BitacoraDAL();
+            BitacoraViewModel model = CargarBitacora(bitacoraDAL.GetBitacora(id));
+            model.TiposCondicion = tablaGeneralDAL.Get("Armas", "condicion").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Completar(BitacoraViewModel model)
+        {
+            bitacoraDAL = new BitacoraDAL();
+            tablaGeneralDAL = new TablaGeneralDAL();
+            armaDAL = new ArmaDAL();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Armas arma = armaDAL.GetArmaNumSerie(model.NumeroSerieArma);
+                    arma.policiaAsignado = null;
+                    armaDAL.Edit(arma);
+                    bitacoraDAL.Edit(ConvertirBitacora(model));
+                    TempData["sms"] = "Policía editado con éxito";
+                    ViewBag.sms = TempData["sms"];
+                    return Redirect("~/Bitacora/Detalle/" + model.IdBitacora);
+                }
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
         public ActionResult Editar(int id)
         {
@@ -174,6 +236,7 @@ namespace FrontEnd.Controllers
             BitacoraViewModel modelo = CargarBitacora(bitacoraDAL.GetBitacora(id));
             return View(modelo);
         }
+
 
         //Guarda la información modificada de los policías
         [HttpPost]

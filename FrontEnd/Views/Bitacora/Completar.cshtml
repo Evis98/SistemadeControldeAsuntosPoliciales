@@ -1,0 +1,142 @@
+﻿@model FrontEnd.Models.ViewModels.BitacoraViewModel
+@{
+    ViewBag.Title = "Completar Información de Bitácora";
+}
+
+<div class="container bg-light text-dark border" style="height:80vh;">
+    <div class="row">
+        <div class="col-md-12">
+            <div style="text-align:center;">
+                <h2 class="display-4" style="text-align:center;">@ViewBag.Title</h2>
+            </div>
+        </div>
+    </div>
+    <hr />
+
+    @using (Html.BeginForm("Completar", "Bitacora", FormMethod.Post))
+    {
+        @Html.HiddenFor(d => d.IdBitacora)
+        @Html.HiddenFor(d => d.NumeroConsecutivo)
+        @Html.HiddenFor(d => d.ArmeroProveedor)
+        @Html.HiddenFor(d => d.PoliciaSolicitante)
+        @Html.HiddenFor(d => d.NumeroSerieArma)
+        @Html.HiddenFor(d => d.FechaCreacion)
+        @Html.HiddenFor(d => d.MunicionEntregada)
+        @Html.HiddenFor(d => d.CargadoresEntregados)
+        @Html.HiddenFor(d => d.ObservacionesEntrega)
+        @Html.HiddenFor(d => d.VistaEstadoActual)
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                @Html.LabelFor(d => d.CondicionFinal)
+                @Html.DropDownListFor(d => d.CondicionFinal, Model.TiposCondicion, "--Seleccione--", new { @class = "myselect form-control" })
+                @Html.ValidationMessageFor(d => d.CondicionFinal, null, new { @class = "red" })
+
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(d => d.ArmeroReceptor)
+                <div class="input-group">
+                    @Html.TextBoxFor(d => d.ArmeroReceptor, "", new { @class = "form-control", @id = "idArmeroReceptor", @readonly = "readonly" })
+                    <div class="input-group-append ">
+                        <a class="btn btn-primary" data-toggle="modal" data-target="#buscaArmero">Buscar</a>
+                        <a class="btn btn-danger" data-toggle="modal" data-target="#quitaArmero">Quitar</a>
+                    </div>
+                </div>
+                @Html.ValidationMessageFor(d => d.ArmeroReceptor, null, new { @class = "red" })
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                @Html.LabelFor(d => d.MunicionDevuelta)
+                @Html.TextBoxFor(d => d.MunicionDevuelta, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+                @Html.ValidationMessageFor(d => d.MunicionDevuelta, null, new { @class = "red" })
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(d => d.CargadoresDevueltos)
+                @Html.TextBoxFor(d => d.CargadoresDevueltos, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+                @Html.ValidationMessageFor(d => d.CargadoresDevueltos, null, new { @class = "red" })
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                @Html.LabelFor(d => d.ObservacionesDevuelta)
+                @Html.TextAreaFor(d => d.ObservacionesDevuelta, new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+                @Html.ValidationMessageFor(d => d.ObservacionesDevuelta, null, new { @class = "red" })
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <div style="text-align:center;">
+                    <input value="Guardar" class="btn btn-primary" type="button" id="hGuardar" data-toggle="modal" data-target="#show" />
+                    <a class="btn btn-secondary" href="~/Bitacora/Index">Cancelar</a>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="show" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p>¿Está seguro que desea completar esta bitácora?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-danger" id="Cancel" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" id="btnSave">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+
+
+    <div class="modal" id="quitaArmero">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Quitar un  de un Arma</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Está seguro que desea quitar un policía de la bitacora?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" id="Cancel" data-dismiss="modal">Cancelar</button>
+                    <a name="quitarPolicia" class="btn btn-danger" onclick="reply_click2(this.id)" data-dismiss="modal">Quitar </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="buscaArmero" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Buscar Policía</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <p hidden name="agregarPolicia" id="" />
+                <div class="modal-body">
+                    @{ Html.RenderAction("ListaPoliciasBuscar", "Bitacora", new { nombre = "" }); }
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+    function reply_clickB(clicked_id) {
+        var elem = document.getElementById("idArmeroReceptor");
+        elem.value = clicked_id;
+        $('#buscaArmero').modal('hide');
+    }
+    function reply_click2(clicked_id2) {
+        var elem2 = document.getElementById("idArmeroReceptor");
+        elem2.value = clicked_id2;
+        $('#showQu').modal('hide');
+    }
+</script>

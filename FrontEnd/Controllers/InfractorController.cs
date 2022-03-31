@@ -71,33 +71,7 @@ namespace FrontEnd.Controllers
                 Imagen = infractor.imagen
             };
         }
-        /*
-        public ListInfractorViewModel ConvertirInfractorInverso(Infractores infractor)
-        {
-            tablaGeneralDAL = new TablaGeneralDAL();
-            return new ListInfractorViewModel
-            {
-                IdInfractor = infractor.idInfractor,
-                TipoIdentificacion = tablaGeneralDAL.Get(infractor.tipoDeIdentificacion).descripcion,
-                Identificacion = infractor.numeroDeIdentificacion,
-                Nacionalidad = tablaGeneralDAL.Get(infractor.nacionalidad).descripcion,
-                Nombre = infractor.nombreCompleto,
-                FechaNacimiento = infractor.fechaNacimiento.ToShortDateString(),
-                Edad = ObtenerEdad(infractor.fechaNacimiento),
-                Telefono = infractor.telefono,
-                DireccionExacta = infractor.direccionExacta,
-                Sexo = tablaGeneralDAL.Get(infractor.sexo).descripcion,
-                CorreoElectronico = infractor.correoEletronico,
-                Observaciones = infractor.observaciones,
-                ProfesionUOficio = infractor.profesionUOficio,
-                Estatura = infractor.estatura + " m",
-                Tatuajes = infractor.tatuajes,
-                NombrePadre = infractor.nombreDelPadre,
-                NombreMadre = infractor.nombreDeLaMadre,
-                Imagen = infractor.imagen
-            };
-        }
-        */
+
         string ObtenerEdad(DateTime? fechaNacimiento)
         {
 
