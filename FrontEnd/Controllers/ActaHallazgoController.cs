@@ -189,7 +189,8 @@ namespace FrontEnd.Controllers
                     int aux = actaHallazgoDAL.GetActaHallazgoFolio(model.NumeroFolio).idActaHallazgo;
                     TempData["smsnuevopolicia"] = "Policía creado con éxito";
                     ViewBag.smsnuevopolicia = TempData["smsnuevopolicia"];
-                    return Redirect("~/ActaHallazgo/Index");
+                    return Redirect("~/ActaHallazgo/Detalle/" + aux);
+               
                 }
                 return View(model);
             }

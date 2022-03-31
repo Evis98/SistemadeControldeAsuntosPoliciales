@@ -14,49 +14,50 @@
     <hr />
     @using (Html.BeginForm("Nuevo", "Arma", FormMethod.Post))
     {
-        <div class="form-row">
-            <div class="form-group col-md-3">
-                @Html.LabelFor(d => d.NumeroSerie)
-                @Html.TextBoxFor(d => d.NumeroSerie, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" , autocomplete = "off" })
-                @if (Model.SerieFiltrada != null)
-                {
-                    @Html.ValidationMessageFor(d => d.NumeroSerie, "El numero de serie ya existe.", new { @class = "red" })
-                }
-                @Html.ValidationMessageFor(d => d.NumeroSerie, null, new { @class = "red" })
-            </div>
-            <div class="form-group col-md-2">
-                @Html.LabelFor(d => d.TipoArma)
-                @Html.DropDownListFor(d => d.TipoArma, Model.TiposArma, "--Seleccione--", new { @class = "myselect form-control" })
+<div class="form-row">
+    <div class="form-group col-md-3">
+        @Html.LabelFor(d => d.NumeroSerie)
+        @Html.TextBoxFor(d => d.NumeroSerie, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)", autocomplete = "off" })
+        @if (Model.SerieFiltrada != null)
+        {
+            @Html.ValidationMessageFor(d => d.NumeroSerie, "El numero de serie ya existe.", new { @class = "red" })
+        }
+        @Html.ValidationMessageFor(d => d.NumeroSerie, null, new { @class = "red" })
+    </div>
+    <div class="form-group col-md-2">
+        @Html.LabelFor(d => d.TipoArma)
+        @Html.DropDownListFor(d => d.TipoArma, Model.TiposArma, "--Seleccione--", new { @class = "myselect form-control" })
 
-                @Html.ValidationMessageFor(d => d.TipoArma, null, new { @class = "red" })
-            </div>
-            <div class="form-group col-md-3">
-                @Html.LabelFor(d => d.Marca)
-                @Html.DropDownListFor(d => d.Marca, Model.TiposMarcas, "--Seleccione--", new { @class = "myselect form-control" })
-                @Html.ValidationMessageFor(d => d.Marca, null, new { @class = "red" })
-            </div>
-        </div>
+        @Html.ValidationMessageFor(d => d.TipoArma, null, new { @class = "red" })
+    </div>
+    <div class="form-group col-md-3">
+        @Html.LabelFor(d => d.Marca)
+        @Html.DropDownListFor(d => d.Marca, Model.TiposMarcas, "--Seleccione--", new { @class = "myselect form-control" })
+        @Html.ValidationMessageFor(d => d.Marca, null, new { @class = "red" })
+    </div>
+    <div class="form-group col-md-4">
+        @Html.LabelFor(d => d.Ubicacion)
+        @Html.DropDownListFor(d => d.Ubicacion, Model.TiposUbicacion, "--Seleccione--", new { @class = "myselect form-control" })
+        @Html.ValidationMessageFor(d => d.Ubicacion, null, new { @class = "red" })
+    </div>
+</div>
         <div class="form-row">
             <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.ModeloArma)
                 @Html.TextBoxFor(d => d.ModeloArma, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
                 @Html.ValidationMessageFor(d => d.ModeloArma, null, new { @class = "red" })
             </div>
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.Calibre)
                 @Html.DropDownListFor(d => d.Calibre, Model.TiposCalibre, "--Seleccione--", new { @class = "myselect form-control" })
                 @Html.ValidationMessageFor(d => d.Calibre, null, new { @class = "red" })
             </div>
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.Condicion)
                 @Html.DropDownListFor(d => d.Condicion, Model.TiposCondicion, "--Seleccione--", new { @class = "myselect form-control" })
                 @Html.ValidationMessageFor(d => d.Condicion, null, new { @class = "red" })
             </div>
-            <div class="form-group col-md-4">
-                @Html.LabelFor(d => d.Ubicacion)
-                @Html.DropDownListFor(d => d.Ubicacion, Model.TiposUbicacion, "--Seleccione--", new { @class = "myselect form-control" })
-                @Html.ValidationMessageFor(d => d.Ubicacion, null, new { @class = "red" })
-            </div>
+           
         </div>
         <div class="form-row">
             <div class="form-group col-md-12">

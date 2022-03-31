@@ -57,7 +57,7 @@ namespace FrontEnd.Models.ViewModels
         public string Inventario { get; set; }
 
         [Display(Name = "Observaciones")]
-        [Required]
+       
         [StringLength(250)]
         public string Observaciones { get; set; }
 
