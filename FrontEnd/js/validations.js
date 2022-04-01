@@ -188,6 +188,34 @@ if (document.getElementById("uploadfile") != null) {
 	}
 }
 
+if (document.getElementById("busquedaFechaFinalB")) {
+	var fechainicio = document.getElementById("busquedaFechaInicioB");
+	var fechafinal = document.getElementById("busquedaFechaFinalB");
+	fechafinal.onchange = function () {
+		if (fechainicio.value > fechafinal.value) {
+			errorFecha.textContent = "La fecha de inicio no puede ser mayor a la fecha de final"
+			errorFecha.style.color = "red"
+			this.value = "";
+		} else {
+			errorFecha.textContent = ""
+		}
+	}
+}
+
+if (document.getElementById("busquedaFechaFinalH")) {
+	var fechainicio = document.getElementById("busquedaFechaInicioH");
+	var fechafinal = document.getElementById("busquedaFechaFinalH");
+	fechafinal.onchange = function () {
+		if (fechainicio.value > fechafinal.value) {
+			errorFechaH.textContent = "La fecha de inicio no puede ser mayor a la fecha de final"
+			errorFechaH.style.color = "red"
+			this.value = "";
+		} else {
+			errorFechaH.textContent = ""
+		}
+	}
+}
+
 function sololetras(e) {
 	key = e.keyCode || e.which;
 	teclado = String.fromCharCode(key).toUpperCase();

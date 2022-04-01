@@ -1,5 +1,5 @@
 ﻿@model List<FrontEnd.Models.ViewModels.BitacoraViewModel>
-@{ ViewBag.Title = "Bitacora"; }
+@{ ViewBag.Title = "Bitácora"; }
 
 <div class="container bg-light text-dark border" style="height:80vh;">
     <div class="row">
@@ -9,39 +9,40 @@
             </div>
         </div>
     </div>
-
-
+    <hr />
     @using (Html.BeginForm("Index", "Bitacora", FormMethod.Get))
     {
-<div class="form-row">
-    <div class="col-sm-3">
-        <select class="form-control" name="filtroSeleccionado" id="filtroSeleccionado" onclick="ocultarBitacora()">
-            <option selected>Nombre Policía</option>
-            <option>Estado de bitácora</option>
-            <option>Fecha de creación</option>
-        </select>
-    </div>
-    <div class="col-sm-3">
-        <input class="form-control" name="busqueda" maxlength="150" type="text" id="busqueda" onkeyup="this.value = this.value.toUpperCase();" onkeypress="return  sololetrasnumeros(event)" />
-        <select class="form-control" name="estadoBitacora" id="estadoBitacora" style="display:none">
-           
-            <option selected="selected">Pendiente</option>
-            <option>Completada</option>
-        </select>
-        <input class="form-control" name="busquedaFechaInicioB" type="date" id="busquedaFechaInicioB" style="display:none" />
-    </div>
+        <div class="form-row">
+            <div class="col-sm-3">
+                <select class="form-control" name="filtroSeleccionado" id="filtroSeleccionado" onclick="ocultarBitacora()">
+                    <option selected>Nombre Policía</option>
+                    <option>Estado de bitácora</option>
+                    <option>Fecha de creación</option>
+                </select>
+            </div>
+            <div class="col-sm-3">
+                <input class="form-control" name="busqueda" maxlength="150" type="text" id="busqueda" onkeyup="this.value = this.value.toUpperCase();" onkeypress="return  sololetrasnumeros(event)" />
+                <select class="form-control" name="estadoBitacora" id="estadoBitacora" style="display:none">
+                    <option selected="selected">Pendiente</option>
+                    <option>Completada</option>
+                </select>
+                <input class="form-control" name="busquedaFechaInicioB" type="date" id="busquedaFechaInicioB" style="display:none" />
+                <label id="textFechaInicio" style="display:none">Fecha de inicio</label>
+            </div>
 
-    <div class="col-sm-3">
-        <input class="form-control" name="busquedaFechaFinalB" type="date" id="busquedaFechaFinalB" style="display:none" />
-    </div>
+            <div class="col-sm-3">
+                <input class="form-control" name="busquedaFechaFinalB" type="date" id="busquedaFechaFinalB" style="display:none" />
+                <label id="textFechaFinal" style="display:none">Fecha final</label>
+                <span id="errorFecha"></span>
+            </div>
 
-    <div class="col-sm-1">
-        <button class="btn btn-primary">Buscar</button>
-    </div>
-    <div class="col-sm-1">
-        <a class="btn btn-success" href="~/Bitacora/Nuevo">Agregar</a>
-    </div>
-</div>}
+            <div class="col-sm-1">
+                <button class="btn btn-primary">Buscar</button>
+            </div>
+            <div class="col-sm-1">
+                <a class="btn btn-success" href="~/Bitacora/Nuevo">Agregar</a>
+            </div>
+        </div>}
 
     <hr />
     <div class="row">
@@ -60,18 +61,19 @@
                 <tbody>
                     @foreach (var oElemento in Model)
                     {
-                    <tr>
-                        <th scope="row">@oElemento.NumeroConsecutivo</th>
-                        <td>@oElemento.VistaPoliciaSolicitante</td>
-                        <td>@oElemento.NumeroSerieArma</td>
-                        <td>@oElemento.VistaEstadoActual</td>
-                        <td>@oElemento.FechaCreacion</td>
-                        <td>
-                            <div style="text-align:center;">
-                                <a class="btn btn-sm btn-outline-info" href="~/Bitacora/Detalle/@oElemento.IdBitacora">Ver Detalles</a>
-                            </div>
-                        </td>
-                    </tr>}
+                        <tr>
+                            <th scope="row">@oElemento.NumeroConsecutivo</th>
+                            <td>@oElemento.VistaPoliciaSolicitante</td>
+                            <td>@oElemento.NumeroSerieArma</td>
+                            <td>@oElemento.VistaEstadoActual</td>
+                            <td>@oElemento.FechaCreacion</td>
+                            <td>
+                                <div style="text-align:center;">
+                                    <a class="btn btn-sm btn-outline-info" href="~/Bitacora/Detalle/@oElemento.IdBitacora">Ver Detalles</a>
+                                </div>
+                            </td>
+                        </tr>
+}
                 </tbody>
             </table>
         </div>

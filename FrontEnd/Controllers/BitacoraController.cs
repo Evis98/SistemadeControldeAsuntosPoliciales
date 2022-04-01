@@ -124,8 +124,8 @@ namespace FrontEnd.Controllers
                 {
                     DateTime fechaInicio = DateTime.Parse(busquedaFechaInicioB);
                     DateTime fechaFinal = DateTime.Parse(busquedaFechaFinalB);
-                    if (fechaInicio < fechaFinal)
-                    {
+                    //if (fechaInicio < fechaFinal)
+                    //{
                         if (bitacoraDAL.GetBitacorasRango(fechaInicio, fechaFinal) != null)
                         {
                             foreach (Bitacoras bitacoraFechas in bitacoraDAL.GetBitacorasRango(fechaInicio, fechaFinal))
@@ -133,7 +133,7 @@ namespace FrontEnd.Controllers
                                 bitacorasFiltradas.Add(CargarBitacora(bitacoraFechas));
                             }
                         }
-                    }
+                    //}
                 }
                 bitacoras = bitacorasFiltradas;
             }
