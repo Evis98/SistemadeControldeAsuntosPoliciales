@@ -18,21 +18,28 @@
         <select class="form-control" name="filtroSeleccionado" id="filtroSeleccionado" onclick="ocultarBitacora()">
             <option selected>Nombre Policía</option>
             <option>Estado de bitácora</option>
+            <option>Fecha de creación</option>
         </select>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-3">
         <input class="form-control" name="busqueda" maxlength="150" type="text" id="busqueda" onkeyup="this.value = this.value.toUpperCase();" onkeypress="return  sololetrasnumeros(event)" />
         <select class="form-control" name="estadoBitacora" id="estadoBitacora" style="display:none">
-            <option  value="" selected="selected" >Selecione un estado de bitacora</option>
-            <option >Pendiente</option>
-            <option >Completada</option>
+           
+            <option selected="selected">Pendiente</option>
+            <option>Completada</option>
         </select>
+        <input class="form-control" name="busquedaFechaInicioB" type="date" id="busquedaFechaInicioB" style="display:none" />
     </div>
-    <div class="col-sm-4">
+
+    <div class="col-sm-3">
+        <input class="form-control" name="busquedaFechaFinalB" type="date" id="busquedaFechaFinalB" style="display:none" />
+    </div>
+
+    <div class="col-sm-1">
         <button class="btn btn-primary">Buscar</button>
     </div>
     <div class="col-sm-1">
-        <a class="btn btn-success"  href="~/Bitacora/Nuevo">Agregar</a>
+        <a class="btn btn-success" href="~/Bitacora/Nuevo">Agregar</a>
     </div>
 </div>}
 

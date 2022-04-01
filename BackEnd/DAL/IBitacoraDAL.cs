@@ -15,5 +15,7 @@ namespace BackEnd.DAL
         Bitacoras GetBitacora(int idBitacora);
         int GetCount();
         Bitacoras GetBitacoraConsecutivo(string numeroConsecutivo);
+
+        List<Bitacoras> GetBitacorasRango(DateTime inicio, DateTime final);
     }
 }

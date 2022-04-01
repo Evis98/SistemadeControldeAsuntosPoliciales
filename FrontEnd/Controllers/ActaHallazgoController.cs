@@ -131,10 +131,13 @@ namespace FrontEnd.Controllers
                             actasHallazgoFiltradas.Add(actaHallazgo);
                         }
                     }
-                    if (filtroSeleccionado == "Fecha")
+                }
+                if (filtroSeleccionado == "Fecha")
+                {
+                    DateTime fechaInicio = DateTime.Parse(busquedaFechaInicioH);
+                    DateTime fechaFinal = DateTime.Parse(busquedaFechaFinalH);
+                    if (fechaInicio < fechaFinal)
                     {
-                        DateTime fechaInicio = DateTime.Parse(busquedaFechaInicioH);
-                        DateTime fechaFinal = DateTime.Parse(busquedaFechaFinalH);
                         if (actaHallazgoDAL.GetActaHallazgoRango(fechaInicio, fechaFinal) != null)
                         {
                             foreach (ActasHallazgo actaHallazgoFecha in actaHallazgoDAL.GetActaHallazgoRango(fechaInicio, fechaFinal).ToList())
@@ -144,6 +147,7 @@ namespace FrontEnd.Controllers
                         }
                     }
                 }
+                
                 actasHallazgo = actasHallazgoFiltradas;
             }
             return View(actasHallazgo.OrderBy(x => x.NumeroFolio).ToList());

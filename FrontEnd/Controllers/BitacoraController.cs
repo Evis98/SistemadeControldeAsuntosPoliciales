@@ -89,44 +89,55 @@ namespace FrontEnd.Controllers
             return bitacora;
         }
 
-     
-        public ActionResult Index(string filtroSeleccionado, string busqueda, string estadoBitacora)
+
+        public ActionResult Index(string filtroSeleccionado, string busqueda, string estadoBitacora, string busquedaFechaInicioB, string busquedaFechaFinalB)
         {
             bitacoraDAL = new BitacoraDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             policiaDAL = new PoliciaDAL();
-            List<Bitacoras> bitacoras = bitacoraDAL.Get();
-            List<Bitacoras> bitacorasFiltradas = new List<Bitacoras>();
-            List<BitacoraViewModel> bitacorasOrdenados = new List<BitacoraViewModel>();
+            List<BitacoraViewModel> bitacoras = new List<BitacoraViewModel>();
+            List<BitacoraViewModel> bitacorasFiltradas = new List<BitacoraViewModel>();
+            foreach (Bitacoras bitacora in bitacoraDAL.Get())
+            {
+                bitacoras.Add(CargarBitacora(bitacora));
+            }
             if (busqueda != null)
             {
-                foreach (Bitacoras bitacora in bitacoras)
+                foreach (BitacoraViewModel bitacora in bitacoras)
                 {
                     if (filtroSeleccionado == "Nombre Policía")
                     {
-                        if (policiaDAL.GetPolicia(bitacora.idPoliciaSolicitante).nombre.Contains(busqueda))
+                        if (policiaDAL.GetPoliciaCedula(bitacora.PoliciaSolicitante).nombre.Contains(busqueda))
                         {
                             bitacorasFiltradas.Add(bitacora);
                         }
                     }
                     if (filtroSeleccionado == "Estado de bitácora")
                     {
-                        if (tablaGeneralDAL.Get(bitacora.estadoActualBitacora).descripcion.Contains(estadoBitacora))
+                        if (tablaGeneralDAL.Get(bitacora.EstadoActual).descripcion.Contains(estadoBitacora))
                         {
                             bitacorasFiltradas.Add(bitacora);
                         }
                     }
-                    /*Meter un buscar por fecha (Eva lo va a pasar)*/
+                }
+                if (filtroSeleccionado == "Fecha de creación")
+                {
+                    DateTime fechaInicio = DateTime.Parse(busquedaFechaInicioB);
+                    DateTime fechaFinal = DateTime.Parse(busquedaFechaFinalB);
+                    if (fechaInicio < fechaFinal)
+                    {
+                        if (bitacoraDAL.GetBitacorasRango(fechaInicio, fechaFinal) != null)
+                        {
+                            foreach (Bitacoras bitacoraFechas in bitacoraDAL.GetBitacorasRango(fechaInicio, fechaFinal))
+                            {
+                                bitacorasFiltradas.Add(CargarBitacora(bitacoraFechas));
+                            }
+                        }
+                    }
                 }
                 bitacoras = bitacorasFiltradas;
-
             }
-            foreach (Bitacoras bitacora in bitacoras)
-            {
-                bitacorasOrdenados.Add(CargarBitacora(bitacora));
-            }
-            bitacorasOrdenados = bitacorasOrdenados.OrderBy(x => x.EstadoActual).ToList();
-            return View(bitacorasOrdenados);
+            return View(bitacoras.OrderBy(x => x.EstadoActual).ToList());
         }
 
         // Este Nuevo funciona para cargar la información para el View Nuevo

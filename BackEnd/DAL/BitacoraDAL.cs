@@ -82,5 +82,22 @@ namespace BackEnd.DAL
                 throw;
             }
         }
+
+        public List<Bitacoras> GetBitacorasRango(DateTime inicio, DateTime final)
+        {
+            try
+            {
+                List<Bitacoras> resultado;
+                using (SCAPEntities db = new SCAPEntities())
+                {
+                    resultado = db.Bitacoras.Where(x => x.fechaCreacion >= inicio && x.fechaCreacion <= final).ToList();
+                }
+                return resultado;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

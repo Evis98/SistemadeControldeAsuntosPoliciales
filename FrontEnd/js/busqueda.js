@@ -43,10 +43,14 @@ function ocultarFechaActa() {
     var auxc = document.getElementById("filtroSeleccionado");
     var auxd = document.getElementById('busqueda');
     if (auxc.options[auxc.selectedIndex].value === "Fecha") {
+        auxa.setAttribute('required', '');
+        auxb.setAttribute('required', '');
         auxa.style.display = "block";
         auxb.style.display = "block";
         auxd.style.display = "none"
     } else {
+        auxa.removeAttribute('required');
+        auxb.removeAttribute('required');
         auxa.style.display = "none";
         auxb.style.display = "none";
         auxd.style.display = "block"
@@ -54,14 +58,32 @@ function ocultarFechaActa() {
 }
 
 function ocultarBitacora() {
-
+    var auxiB = document.getElementById("busquedaFechaInicioB");
+    var auxiA = document.getElementById("busquedaFechaFinalB");
     var aux8 = document.getElementById("estadoBitacora");
     var aux9 = document.getElementById("filtroSeleccionado");
-    var aux10 = document.getElementById('busqueda');
+    var aux10 = document.getElementById('busqueda');    
     if (aux9.options[aux9.selectedIndex].value === "Estado de bitácora") {
+        auxiB.style.display = "none";
+        auxiA.style.display = "none";
+        auxiA.removeAttribute('required');
+        auxiB.removeAttribute('required');
         aux8.style.display = "block";
         aux10.style.display = "none"
-    } else {
+    }
+    else if (aux9.options[aux9.selectedIndex].value === "Fecha de creación") {
+        aux8.style.display = "none";
+        aux10.style.display = "none";
+        auxiB.setAttribute('required', '');
+        auxiA.setAttribute('required', '');
+        auxiB.style.display = "block";
+        auxiA.style.display = "block"
+    }
+    else {
+        auxiB.style.display = "none";
+        auxiA.style.display = "none";
+        auxiA.removeAttribute('required');
+        auxiB.removeAttribute('required');
         aux8.style.display = "none";
         aux10.style.display = "block"
     }

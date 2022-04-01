@@ -102,12 +102,14 @@ namespace FrontEnd.Controllers
                 {
                     DateTime fechaInicio = DateTime.Parse(busquedaFechaInicio);
                     DateTime fechaFinal = DateTime.Parse(busquedaFechaFinal);
+                    if(fechaInicio < fechaFinal) { 
                     if (policiaDAL.GetPoliciasRango(fechaInicio, fechaFinal) != null)
                     {
                         foreach (Policias policiaFechas in policiaDAL.GetPoliciasRango(fechaInicio, fechaFinal))
                         {
                             policiasFiltrados.Add(CargarPolicia(policiaFechas));
                         }
+                    }
                     }
                 }
                 policias = policiasFiltrados;
