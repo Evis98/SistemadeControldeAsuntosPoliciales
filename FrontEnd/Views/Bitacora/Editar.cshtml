@@ -68,12 +68,12 @@
         <div class="form-row">
             <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.MunicionEntregada)
-                @Html.TextBoxFor(d => d.MunicionEntregada, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+                @Html.TextBoxFor(d => d.MunicionEntregada, "", new { @class = "form-control", @type = "number", onkeydown = "javascript: return event.keyCode == 69 ? false : true" })
                 @Html.ValidationMessageFor(d => d.MunicionEntregada, null, new { @class = "red" })
             </div>
             <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.CargadoresEntregados)
-                @Html.TextBoxFor(d => d.CargadoresEntregados, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+                @Html.TextBoxFor(d => d.CargadoresEntregados, "", new { @class = "form-control", @type = "number", onkeydown = "javascript: return event.keyCode == 69 ? false : true"})
                 @Html.ValidationMessageFor(d => d.CargadoresEntregados, null, new { @class = "red" })
             </div>
         </div>
@@ -111,12 +111,12 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     @Html.LabelFor(d => d.MunicionDevuelta)
-                    @Html.TextBoxFor(d => d.MunicionDevuelta, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+                    @Html.TextBoxFor(d => d.MunicionDevuelta, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return solonumeros(event)" })
                     @Html.ValidationMessageFor(d => d.MunicionDevuelta, null, new { @class = "red" })
                 </div>
                 <div class="form-group col-md-4">
                     @Html.LabelFor(d => d.CargadoresDevueltos)
-                    @Html.TextBoxFor(d => d.CargadoresDevueltos, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+                    @Html.TextBoxFor(d => d.CargadoresDevueltos, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return solonumeros(event)" })
                     @Html.ValidationMessageFor(d => d.CargadoresDevueltos, null, new { @class = "red" })
                 </div>
             </div>
