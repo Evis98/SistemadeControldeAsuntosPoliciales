@@ -17,7 +17,7 @@
     <div class="row">
         <div class="col">
             <h2>
-                @*@Html.LabelFor(d => d.NombrePolicia)*@
+              
                 @Html.DisplayTextFor(d => d.NombrePolicia)
             </h2>
         </div>
@@ -50,9 +50,7 @@
                 @Html.Label("Archivo: ")
             </dt>
             <dd class="col-sm-8">
-                <u style="color:blue">
-                    <text style="color:blue">@Url.Content(Model.Detalles)</text><text style="color:blue">.pdf</text>
-                </u>
+                @Model.NombrePolicia - @Model.Detalles .pdf
             </dd>
         }
     </dl>
@@ -66,7 +64,7 @@
                 <a class="btn btn-primary" href="~/Requisito/Editar/@Model.IdRequisito">Editar</a>
                 @if (Model.Imagen != null)
                 {
-                    <a class="btn btn-info" href="@Url.Content(Model.Imagen)" download="@Url.Content(Model.Imagen)">Descargar Archivo Adjunto</a>
+                    <a class="btn btn-info" href="@Url.Content(Model.Imagen)" download="@Model.NombrePolicia - @Model.Detalles .pdf">Descargar Archivo Adjunto</a>
                 }
                 <a value="Eliminar" class="btn btn-danger" href="~/Requisito/Eliminar/@Model.IdRequisito" type="button" data-toggle="modal" data-target="#show4">Eliminar</a>
             </div>

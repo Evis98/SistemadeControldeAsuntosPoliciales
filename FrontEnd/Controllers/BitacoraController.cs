@@ -26,6 +26,7 @@ namespace FrontEnd.Controllers
             BitacoraViewModel modelo = new BitacoraViewModel();
             {
                 modelo.IdBitacora = bitacora.idBitacora;
+                modelo.IdArma = bitacora.idArma;
                 modelo.NumeroConsecutivo = bitacora.numeroConsecutivo;
                 modelo.NumeroSerieArma = armaDAL.GetArma(bitacora.idArma).numeroSerie;
                 modelo.ArmeroProveedor = policiaDAL.GetPolicia(bitacora.idArmeroProveedor).cedula;
@@ -44,7 +45,7 @@ namespace FrontEnd.Controllers
                     modelo.VistaArmeroReceptor = policiaDAL.GetPolicia((int)bitacora.idArmeroReceptor).nombre;
                     modelo.CondicionFinal = int.Parse(tablaGeneralDAL.Get((int)bitacora.condicionFinal).codigo);
                     modelo.VistaCondicionFinal = tablaGeneralDAL.Get((int)bitacora.condicionFinal).descripcion;
-                    modelo.FechaFinalizacion = DateTime.Now;
+                    modelo.FechaFinalizacion = (DateTime)bitacora.fechaFinalizacion;
                     modelo.MunicionDevuelta = bitacora.municionDevuelta;
                     modelo.CargadoresDevueltos = bitacora.cargadoresDevueltos;
                     modelo.ObservacionesDevuelta = bitacora.observacionesDevuelta;
@@ -69,7 +70,7 @@ namespace FrontEnd.Controllers
                 bitacora.municionEntregada = modelo.MunicionEntregada;
                 bitacora.cargadoresEntregados = modelo.CargadoresEntregados;
                 bitacora.observacionesEntrega = modelo.ObservacionesEntrega;
-                if (modelo.VistaEstadoActual == null)
+                if (modelo.VistaEstadoActual == "Pendiente")
                 {
                     bitacora.estadoActualBitacora = tablaGeneralDAL.GetCodigo("Bitacoras", "estadoActualBitacora", "1").idTablaGeneral;
                 }
@@ -77,7 +78,7 @@ namespace FrontEnd.Controllers
                 {
                     bitacora.idArmeroReceptor = policiaDAL.GetPoliciaCedula(modelo.ArmeroReceptor).idPolicia;
                     bitacora.condicionFinal = tablaGeneralDAL.GetCodigo("Armas", "condicion", modelo.CondicionFinal.ToString()).idTablaGeneral;
-                    bitacora.fechaFinalizacion = DateTime.Now;
+                    bitacora.fechaFinalizacion = modelo.FechaFinalizacion;
                     bitacora.municionDevuelta = modelo.MunicionDevuelta;
                     bitacora.cargadoresDevueltos = modelo.CargadoresDevueltos;
                     bitacora.observacionesDevuelta = modelo.ObservacionesDevuelta;
@@ -124,16 +125,14 @@ namespace FrontEnd.Controllers
                 {
                     DateTime fechaInicio = DateTime.Parse(busquedaFechaInicioB);
                     DateTime fechaFinal = DateTime.Parse(busquedaFechaFinalB);
-                    //if (fechaInicio < fechaFinal)
-                    //{
-                        if (bitacoraDAL.GetBitacorasRango(fechaInicio, fechaFinal) != null)
+                    if (bitacoraDAL.GetBitacorasRango(fechaInicio, fechaFinal) != null)
+                    {
+                        foreach (Bitacoras bitacoraFechas in bitacoraDAL.GetBitacorasRango(fechaInicio, fechaFinal))
                         {
-                            foreach (Bitacoras bitacoraFechas in bitacoraDAL.GetBitacorasRango(fechaInicio, fechaFinal))
-                            {
-                                bitacorasFiltradas.Add(CargarBitacora(bitacoraFechas));
-                            }
+                            bitacorasFiltradas.Add(CargarBitacora(bitacoraFechas));
                         }
-                    //}
+                    }
+                   
                 }
                 bitacoras = bitacorasFiltradas;
             }
@@ -159,13 +158,13 @@ namespace FrontEnd.Controllers
             armaDAL = new ArmaDAL();
             model.FechaCreacion = DateTime.Now;
             model.NumeroConsecutivo = (bitacoraDAL.GetCount() + 1).ToString() + "-" + DateTime.Now.Year;
-            if (armaDAL.GetArmaNumSerie(model.NumeroSerieArma).policiaAsignado == null) 
+            if (armaDAL.GetArmaNumSerie(model.NumeroSerieArma).policiaAsignado == null)
             {
                 model.ArmaPoliciaAsignado = true;
             }
             else
             {
-                model.ArmaPoliciaAsignado = false; 
+                model.ArmaPoliciaAsignado = false;
             }
             try
             {
@@ -221,6 +220,7 @@ namespace FrontEnd.Controllers
             bitacoraDAL = new BitacoraDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             armaDAL = new ArmaDAL();
+            model.FechaFinalizacion = DateTime.Now;
             try
             {
                 if (ModelState.IsValid)
@@ -244,8 +244,9 @@ namespace FrontEnd.Controllers
         public ActionResult Editar(int id)
         {
             bitacoraDAL = new BitacoraDAL();
-            BitacoraViewModel modelo = CargarBitacora(bitacoraDAL.GetBitacora(id));
-            return View(modelo);
+            BitacoraViewModel model = CargarBitacora(bitacoraDAL.GetBitacora(id));
+            model.TiposCondicion = tablaGeneralDAL.Get("Armas", "condicion").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            return View(model);
         }
 
 
@@ -255,11 +256,21 @@ namespace FrontEnd.Controllers
         {
             bitacoraDAL = new BitacoraDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
-            
+            armaDAL = new ArmaDAL();
+            policiaDAL = new PoliciaDAL();
             try
             {
                 if (ModelState.IsValid)
                 {
+                    if (modelo.NumeroSerieArma != armaDAL.GetArma(modelo.IdBitacora).numeroSerie)
+                    {
+                        Armas arma = armaDAL.GetArmaNumSerie(modelo.NumeroSerieArma);
+                        Armas arma2 = armaDAL.GetArma(modelo.IdArma);
+                        arma.policiaAsignado = policiaDAL.GetPoliciaCedula(modelo.PoliciaSolicitante).idPolicia;
+                        arma2.policiaAsignado = null;
+                        armaDAL.Edit(arma);
+                        armaDAL.Edit(arma2);
+                    }
                     bitacoraDAL.Edit(ConvertirBitacora(modelo));
                     TempData["sms"] = "Policía editado con éxito";
                     ViewBag.sms = TempData["sms"];
@@ -306,7 +317,7 @@ namespace FrontEnd.Controllers
                 {
                     if (policia.nombre.Contains(nombre))
                     {
-                        
+
                         policiasFiltrados.Add(policia);
                     }
                 }

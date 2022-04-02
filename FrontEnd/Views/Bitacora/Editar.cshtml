@@ -1,6 +1,6 @@
 ﻿@model FrontEnd.Models.ViewModels.BitacoraViewModel
 @{
-    ViewBag.Title = "Agregar Información de Bitácora";
+    ViewBag.Title = "Editar Información de Bitácora";
 }
 
 <div class="container bg-light text-dark border" style="height:80vh;">
@@ -11,13 +11,16 @@
             </div>
         </div>
     </div>
-    <hr />
-
+    <hr/>
+    <h2>Entrega</h2>
     @using (Html.BeginForm("Editar", "Bitacora", FormMethod.Post))
     {
         @Html.HiddenFor(d => d.IdBitacora)
         @Html.HiddenFor(d => d.NumeroConsecutivo)
         @Html.HiddenFor(d => d.FechaCreacion)
+        @Html.HiddenFor(d => d.VistaEstadoActual)
+        @Html.HiddenFor(d => d.FechaFinalizacion)
+        @Html.HiddenFor(d => d.IdArma)
         <div class="form-row">
             <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.NumeroSerieArma)
@@ -60,10 +63,7 @@
                         <a class="btn btn-danger" data-book-id="idPoliciaSolicitante" data-toggle="modal" data-target="#quitaPolicia">Quitar</a>
                     </div>
                 </div>
-
-               
             </div>
-
         </div>
         <div class="form-row">
             <div class="form-group col-md-4">
@@ -84,6 +84,51 @@
                 @Html.ValidationMessageFor(d => d.ObservacionesEntrega, null, new { @class = "red" })
             </div>
         </div>
+        <hr />
+
+        if (Model.VistaEstadoActual == "Completada")
+        {
+            <h2>Devuelta</h2>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(d => d.CondicionFinal)
+                    @Html.DropDownListFor(d => d.CondicionFinal, Model.TiposCondicion, "--Seleccione--", new { @class = "myselect form-control" })
+                    @Html.ValidationMessageFor(d => d.CondicionFinal, null, new { @class = "red" })
+
+                </div>
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(d => d.ArmeroReceptor)
+                    <div class="input-group">
+                        @Html.TextBoxFor(d => d.ArmeroReceptor, "", new { @class = "form-control", @id = "idArmeroReceptor", @readonly = "readonly" })
+                        <div class="input-group-append ">
+                            <a class="btn btn-primary" data-toggle="modal" data-target="#buscaArmero">Buscar</a>
+                            <a class="btn btn-danger" data-toggle="modal" data-target="#quitaArmero">Quitar</a>
+                        </div>
+                    </div>
+                    @Html.ValidationMessageFor(d => d.ArmeroReceptor, null, new { @class = "red" })
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(d => d.MunicionDevuelta)
+                    @Html.TextBoxFor(d => d.MunicionDevuelta, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+                    @Html.ValidationMessageFor(d => d.MunicionDevuelta, null, new { @class = "red" })
+                </div>
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(d => d.CargadoresDevueltos)
+                    @Html.TextBoxFor(d => d.CargadoresDevueltos, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+                    @Html.ValidationMessageFor(d => d.CargadoresDevueltos, null, new { @class = "red" })
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    @Html.LabelFor(d => d.ObservacionesDevuelta)
+                    @Html.TextAreaFor(d => d.ObservacionesDevuelta, new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+                    @Html.ValidationMessageFor(d => d.ObservacionesDevuelta, null, new { @class = "red" })
+                </div>
+            </div>
+            <hr />
+        }
         <div class="form-row">
             <div class="form-group col-md-12">
                 <div style="text-align:center;">
@@ -92,7 +137,6 @@
                 </div>
             </div>
         </div>
-
         <div class="modal" id="show" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">

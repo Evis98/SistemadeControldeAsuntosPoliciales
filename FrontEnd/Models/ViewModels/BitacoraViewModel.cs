@@ -15,7 +15,7 @@ namespace FrontEnd.Models.ViewModels
 
         [Required]
         [Display(Name = "Número de serie de Arma")]
-        public string NumeroSerieArma{ get; set; }
+        public string NumeroSerieArma { get; set; }
 
         [Required]
         [Display(Name = "Armero que entrega")]
@@ -77,5 +77,6 @@ namespace FrontEnd.Models.ViewModels
         public IEnumerable<SelectListItem> TiposCondicion { get; set; }
         public string VistaArmeroReceptor { get; internal set; }
         public string VistaCondicionFinal { get; internal set; }
+        public int IdArma { get; set; }
     }
 }
