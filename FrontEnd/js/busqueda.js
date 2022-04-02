@@ -101,26 +101,26 @@ function ocultarBitacora() {
         aux10.style.display = "block"
     }
 }
-function ocultarFechaNacimiento() {
-    var aux4 = document.getElementById("busquedaFechaInicio");
-    var aux7 = document.getElementById("busquedaFechaFinal");
-    var aux5 = document.getElementById("filtroSeleccionado");
-    var aux6 = document.getElementById('busqueda');
+//function ocultarFechaNacimiento() {
+//    var aux4 = document.getElementById("busquedaFechaInicio");
+//    var aux7 = document.getElementById("busquedaFechaFinal");
+//    var aux5 = document.getElementById("filtroSeleccionado");
+//    var aux6 = document.getElementById('busqueda');
 
-    if (aux5.options[aux5.selectedIndex].value === "Fecha Nacimiento") {
-        aux4.style.display = "block";
-        aux4.setAttribute('required', '');
-        aux7.setAttribute('required', '');
-        aux7.style.display = "block";
-        aux6.style.display = "none"
-    } else {
-        aux4.style.display = "none";
-        aux4.removeAttribute('required');
-        aux7.removeAttribute('required');
-        aux7.style.display = "none";
-        aux6.style.display = "block"
-    }
-}
+//    if (aux5.options[aux5.selectedIndex].value === "Fecha Nacimiento") {
+//        aux4.style.display = "block";
+//        aux4.setAttribute('required', '');
+//        aux7.setAttribute('required', '');
+//        aux7.style.display = "block";
+//        aux6.style.display = "none"
+//    } else {
+//        aux4.style.display = "none";
+//        aux4.removeAttribute('required');
+//        aux7.removeAttribute('required');
+//        aux7.style.display = "none";
+//        aux6.style.display = "block"
+//    }
+//}
 
 function ocultarFecha() {
     var aux2 = document.getElementById("tiposRequisito");

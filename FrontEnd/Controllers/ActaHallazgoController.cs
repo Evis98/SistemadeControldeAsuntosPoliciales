@@ -59,6 +59,9 @@ namespace FrontEnd.Controllers
                 OtrasSenas = actaHallazgo.otrasSenas,
                 Inventario = actaHallazgo.inventario,
                 Observaciones = actaHallazgo.observaciones,
+                VistaPoliciaEncargado = policiaDAL.GetPolicia(actaHallazgo.encargado).nombre,
+                VistaPoliciaTestigo = policiaDAL.GetPolicia(actaHallazgo.testigo).nombre,
+                VistaPoliciaSupervisor = policiaDAL.GetPolicia(actaHallazgo.supervisor).nombre
             };
         }
         public List<PoliciaViewModel> ConvertirListaPoliciasFiltrados(List<Policias> policias)
@@ -179,8 +182,8 @@ namespace FrontEnd.Controllers
                 {
                     actaHallazgoDAL.Add(ConvertirActaHallazgo(model));
                     int aux = actaHallazgoDAL.GetActaHallazgoFolio(model.NumeroFolio).idActaHallazgo;
-                    TempData["smsnuevopolicia"] = "Policía creado con éxito";
-                    ViewBag.smsnuevopolicia = TempData["smsnuevopolicia"];
+                    TempData["smsnuevaActaH"] = "Acta de Hallazgo creada con éxito";
+                    ViewBag.smsnuevaActaH = TempData["smsnuevaActaH"];
                     return Redirect("~/ActaHallazgo/Detalle/" + aux);
                
                 }
@@ -198,9 +201,8 @@ namespace FrontEnd.Controllers
             ActaHallazgoViewModel modelo = CargarActaHallazgo(actaHallazgoDAL.GetActaHallazgo(id));
             try
             {
-                ViewBag.sms = TempData["sms"];
-                ViewBag.smscambioestado = TempData["smscambioestado"];
-                ViewBag.smsnuevopolicia = TempData["smsnuevopolicia"];
+                ViewBag.smsnuevaActaH = TempData["smsnuevaActaH"];            
+                ViewBag.smseditaractaH = TempData["smseditaractaH"];
             }
             catch { }
             return View(modelo);
@@ -229,8 +231,8 @@ namespace FrontEnd.Controllers
                 if (ModelState.IsValid)
                 {
                     actaHallazgoDAL.Edit(ConvertirActaHallazgo(model));
-                    TempData["sms"] = "Acta de Hallazgo editada con éxito";
-                    ViewBag.sms = TempData["sms"];
+                    TempData["smseditaractaH"] = "Acta de Hallazgo editada con éxito";
+                    ViewBag.smseditaractaH = TempData["smseditaractaH"];
                     return Redirect("~/ActaHallazgo/Detalle/" + model.IdActaHallazgo);
                 }
                 return View(model);

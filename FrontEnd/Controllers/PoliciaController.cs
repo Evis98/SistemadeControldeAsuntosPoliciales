@@ -57,7 +57,7 @@ namespace FrontEnd.Controllers
                 VistaEstado = tablaGeneralDAL.Get(policia.estado).descripcion,
             };
         }
-        public ActionResult Index(string filtroSeleccionado, string busqueda , string busquedaFechaInicio, string busquedaFechaFinal)
+        public ActionResult Index(string filtroSeleccionado, string busqueda )
         {
             policiaDAL = new PoliciaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
@@ -98,20 +98,7 @@ namespace FrontEnd.Controllers
                     }
 
                 }
-                if (filtroSeleccionado == "Fecha Nacimiento")
-                {
-                    DateTime fechaInicio = DateTime.Parse(busquedaFechaInicio);
-                    DateTime fechaFinal = DateTime.Parse(busquedaFechaFinal);
-                    if(fechaInicio < fechaFinal) { 
-                    if (policiaDAL.GetPoliciasRango(fechaInicio, fechaFinal) != null)
-                    {
-                        foreach (Policias policiaFechas in policiaDAL.GetPoliciasRango(fechaInicio, fechaFinal))
-                        {
-                            policiasFiltrados.Add(CargarPolicia(policiaFechas));
-                        }
-                    }
-                    }
-                }
+                
                 policias = policiasFiltrados;
             }
             return View(policias.OrderBy(x => x.Nombre).ToList());

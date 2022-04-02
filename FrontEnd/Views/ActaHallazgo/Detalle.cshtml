@@ -23,22 +23,22 @@
             @Html.DisplayTextFor(d => d.NumeroFolio)
         </dd>
         <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.Encargado)
+            @Html.LabelFor(d => d.VistaPoliciaTestigo)
         </dt>
         <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.Encargado)
+            @Html.DisplayTextFor(d => d.VistaPoliciaEncargado)
         </dd>
         <dt class="col-sm-4">
-            @Html.LabelFor(d => d.Testigo)
+            @Html.LabelFor(d => d.VistaPoliciaTestigo)
         </dt>
         <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.Testigo)
+            @Html.DisplayTextFor(d => d.VistaPoliciaTestigo)
         </dd>
         <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.Supervisor)
         </dt>
         <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.Supervisor)
+            @Html.DisplayTextFor(d => d.VistaPoliciaSupervisor)
         </dd>
         <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.VistaDistrito)
@@ -92,8 +92,21 @@
                 @Html.DisplayTextFor(d => d.Observaciones)
             </dd>
         }
-        </dl>
+    </dl>
     <hr />
+    @if (@ViewBag.smsnuevaActaH != null)
+    {
+        <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h4> @ViewBag.smsnuevaActaH</h4>
+        </div>}
+    @if (@ViewBag.smseditaractaH != null)
+    {
+        <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h4> @ViewBag.smseditaractaH</h4>
+        </div>}
+
     <div class="row">
         <div class="col-sm-12">
             <a href="~/ActaHallazgo/Index/" class="btn btn-outline-secondary">Regresar</a>
@@ -107,4 +120,4 @@
     </div>
 
 
-    </div>
+</div>

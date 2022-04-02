@@ -64,14 +64,19 @@ namespace FrontEnd.Models.ViewModels
         [Display(Name = "Nombre del Encargado")]
         [Required]
         public string Encargado { get; set; }
+        [Display(Name = "Encargado")]
+        public string VistaPoliciaEncargado { get; set; }
 
         [Display(Name = "Testigo")]
         [Required]
         public string Testigo { get; set; }
-
+        [Display(Name = "Testigo")]
+        public string VistaPoliciaTestigo { get; set; }
         [Display(Name = "Supervisor")]
         [Required]
         public string Supervisor { get; set; }
+        [Display(Name = "Supervisor")]
+        public string VistaPoliciaSupervisor { get; set; }
 
         public IEnumerable<SelectListItem> Distritos { get; set; }
 
