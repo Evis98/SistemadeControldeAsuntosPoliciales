@@ -16,6 +16,7 @@ namespace BackEnd.DAL
         bool NumeroFolioExiste(string numeroFolio);
         string GetNumeroFolio(string numeroFolio);
         int GetCount();
+        List<PartesPoliciales> GetPartesRango(DateTime inicio, DateTime final);
 
     }
 }

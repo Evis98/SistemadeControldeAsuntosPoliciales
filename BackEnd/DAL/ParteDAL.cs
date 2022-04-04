@@ -114,6 +114,22 @@ namespace BackEnd.DAL
 
         }
 
+        public List<PartesPoliciales> GetPartesRango(DateTime inicio, DateTime final)
+        {
+            try
+            {
+                List<PartesPoliciales> resultado;
+                using (SCAPEntities db = new SCAPEntities())
+                {
+                    resultado = db.PartesPoliciales.Where(x => x.fecha >= inicio && x.fecha <= final).ToList();
+                }
+                return resultado;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 
 }

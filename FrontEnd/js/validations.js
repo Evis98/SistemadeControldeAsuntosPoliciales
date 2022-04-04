@@ -216,6 +216,20 @@ if (document.getElementById("busquedaFechaFinalH")) {
 	}
 }
 
+if (document.getElementById("busquedaFechaFinalP")) {
+	var fechainicio = document.getElementById("busquedaFechaInicioP");
+	var fechafinal = document.getElementById("busquedaFechaFinalP");
+	fechafinal.onchange = function () {
+		if (fechainicio.value > fechafinal.value) {
+			errorFechaP.textContent = "La fecha de inicio no puede ser mayor a la fecha de final"
+			errorFechaP.style.color = "red"
+			this.value = "";
+		} else {
+			errorFechaP.textContent = ""
+		}
+	}
+}
+
 function sololetras(e) {
 	key = e.keyCode || e.which;
 	teclado = String.fromCharCode(key).toUpperCase();

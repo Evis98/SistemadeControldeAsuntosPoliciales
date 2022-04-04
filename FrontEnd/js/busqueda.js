@@ -37,6 +37,33 @@ function ocultarRequisito() {
         aux3.style.display = "block"
     }
 }
+
+function ocultarFechaParte() {
+    var auxQ = document.getElementById("busquedaFechaInicioP");
+    var auxW = document.getElementById("busquedaFechaFinalP");
+    var auxc = document.getElementById("filtroSeleccionado");
+    var auxFIT = document.getElementById("textFechaInicioP");
+    var auxFFT = document.getElementById("textFechaFinalP");
+    var auxd = document.getElementById('busqueda');
+    if (auxc.options[auxc.selectedIndex].value === "Fecha") {
+        auxQ.setAttribute('required', '');
+        auxW.setAttribute('required', '');
+        auxFIT.style.display = "block";
+        auxFFT.style.display = "block";
+        auxQ.style.display = "block";
+        auxW.style.display = "block";
+        auxd.style.display = "none"
+    } else {
+        auxQ.removeAttribute('required');
+        auxW.removeAttribute('required');
+        auxQ.style.display = "none";
+        auxW.style.display = "none";
+        auxFFT.style.display = "none";
+        auxFIT.style.display = "none";
+        auxd.style.display = "block"
+    }
+}
+
 function ocultarFechaActa() {
     var auxa = document.getElementById("busquedaFechaInicioH");
     var auxb = document.getElementById("busquedaFechaFinalH");

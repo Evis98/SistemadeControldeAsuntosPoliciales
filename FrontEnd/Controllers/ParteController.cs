@@ -480,7 +480,7 @@ namespace FrontEnd.Controllers
                         NombrePersona = d.nombre,
                     }).ToList();
         }
-        public ActionResult Index(string filtroSeleccionado, string busqueda, string busquedaFechaInicioH, string busquedaFechaFinalH)
+        public ActionResult Index(string filtroSeleccionado, string busqueda, string busquedaFechaInicioP, string busquedaFechaFinalP)
         {
             parteDAL = new ParteDAL();
             infractorDAL = new InfractorDAL();
@@ -505,20 +505,25 @@ namespace FrontEnd.Controllers
                             partesFiltrados.Add(parte);
                         }
                     }
-                    //if (filtroSeleccionado == "Fecha")
-                    //{
-                    //    DateTime fechaInicio = DateTime.Parse(busquedaFechaInicioH);
-                    //    DateTime fechaFinal = DateTime.Parse(busquedaFechaFinalH);
-                    //    if (actaHallazgoDAL.GetActaHallazgoRango(fechaInicio, fechaFinal) != null)
-                    //    {
-                    //        partesFiltrados = actaHallazgoDAL.GetActaHallazgoRango(fechaInicio, fechaFinal).ToList();
-                    //    }
                 }
+                if (filtroSeleccionado == "Fecha")
+                {
+                    DateTime fechaInicio = DateTime.Parse(busquedaFechaInicioP);
+                    DateTime fechaFinal = DateTime.Parse(busquedaFechaFinalP);
+                    if (fechaInicio < fechaFinal)
+                    {
+                        if (parteDAL.GetPartesRango(fechaInicio, fechaFinal) != null)
+                        {
+                            foreach (PartesPoliciales parteFecha in parteDAL.GetPartesRango(fechaInicio, fechaFinal).ToList())
+                            {
+                                partesFiltrados.Add(parteFecha);
+                            }
+                        }
+                    }
+                }    
                 partes = partesFiltrados;
-            }
-           
-
-            partes = partes.OrderBy(x => x.fecha).ToList();
+            }        
+            partes = partes.OrderBy(x => x.numeroFolio).ToList();
             return View(ConvertirListaPartes(partes));
         }
         public ActionResult Nuevo1()
