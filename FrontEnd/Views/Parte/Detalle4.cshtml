@@ -1,0 +1,90 @@
+﻿@model FrontEnd.Models.ViewModels.ListParte1ViewModel
+
+@{ ViewBag.Title = "Detalle del Parte"; }
+
+<div class="container bg-light text-dark border" style="height:80vh;">
+    <div class="row">
+        <div class="col-md-12">
+            <div style="text-align:center;">
+                <h2 class="display-4">@ViewBag.Title </h2>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.NombrePoliciaActuante)
+        </dt>
+        <dd id="req" class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.NombrePoliciaActuante)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.IdentificacionPoliciaActuante)
+        </dt>
+        <dd id="req" class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.IdentificacionPoliciaActuante)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.TelefonoPoliciaActuante)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.TelefonoPoliciaActuante)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.UnidadOrigenPoliciaActuante)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.UnidadOrigenPoliciaActuante)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.HoraConfeccionDocumento)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.HoraConfeccionDocumento)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.NombrePoliciaAsiste)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.NombrePoliciaAsiste)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.IdentificacionPoliciaAsiste)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.IdentificacionPoliciaAsiste)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.TelefonoPoliciaAsiste)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.TelefonoPoliciaAsiste)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.UnidadOrigenPoliciaAsiste)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.UnidadOrigenPoliciaAsiste)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.NumeroMovilPolciaAsiste)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.NumeroMovilPolciaAsiste)
+        </dd>
+
+
+
+    </dl>
+    <div class="form-row">
+        <div class="form-group col-md-11">
+            <a class="btn btn-outline-secondary" href="~/Parte/Detalle4/@HttpContext.Current.Session["idParte"].ToString()">Anterior</a>
+        </div>
+        <div class="form-group col-md-1">
+            <a class="btn btn-secondary" href="~/Parte/Index">Salir</a>
+
+        </div>
+    </div>
+    
+
+</div>

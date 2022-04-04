@@ -15,7 +15,7 @@
             <tr>
                 <th scope="row">@Html.DisplayFor(modelItem => item.IdentificacionPersona)</th>
                 <td>
-                    <label><a href="#" onclick="reply_click3(this.id)" id="@item.IdentificacionPersona"> @item.NombrePersona</a></label>
+                    <label><a href="#" onclick="reply_click5(this.id,this.name)" id="@item.IdentificacionPersona" name="@item.NombrePersona"> @item.NombrePersona</a></label>
                 </td>
             </tr>
         }

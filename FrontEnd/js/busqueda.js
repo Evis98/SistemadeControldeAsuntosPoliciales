@@ -47,8 +47,8 @@ function ocultarFechaActa() {
     if (auxc.options[auxc.selectedIndex].value === "Fecha") {
         auxa.setAttribute('required', '');
         auxb.setAttribute('required', '');
-        auxFFT.style.display = "none";
-        auxFFT.style.display = "none";
+        auxFIT.style.display = "block";
+        auxFFT.style.display = "block";
         auxa.style.display = "block";
         auxb.style.display = "block";
         auxd.style.display = "none"

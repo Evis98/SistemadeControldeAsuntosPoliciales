@@ -17,8 +17,8 @@ namespace BackEnd
         public int idPartepolicial { get; set; }
         public string numeroFolio { get; set; }
         public System.DateTime fecha { get; set; }
-        public System.TimeSpan horaSuceso { get; set; }
-        public System.TimeSpan horaConfeccionDocumento { get; set; }
+        public System.DateTime horaSuceso { get; set; }
+        public System.DateTime horaConfeccionDocumento { get; set; }
         public string provincia { get; set; }
         public string canton { get; set; }
         public int distrito { get; set; }
@@ -28,7 +28,7 @@ namespace BackEnd
         public int idInfractor { get; set; }
         public string edadInfractor { get; set; }
         public int aprehendido { get; set; }
-        public Nullable<System.TimeSpan> horaAprehension { get; set; }
+        public Nullable<System.DateTime> horaAprehension { get; set; }
         public Nullable<int> entendido { get; set; }
         public string vestimenta { get; set; }
         public int ofendido1 { get; set; }

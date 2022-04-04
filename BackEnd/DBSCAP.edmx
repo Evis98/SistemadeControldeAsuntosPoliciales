@@ -89,9 +89,9 @@
           </Key>
           <Property Name="idPartepolicial" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="numeroFolio" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="fecha" Type="date" Nullable="false" />
-          <Property Name="horaSuceso" Type="time" Precision="7" Nullable="false" />
-          <Property Name="horaConfeccionDocumento" Type="time" Precision="7" Nullable="false" />
+          <Property Name="fecha" Type="datetime" Nullable="false" />
+          <Property Name="horaSuceso" Type="datetime" Nullable="false" />
+          <Property Name="horaConfeccionDocumento" Type="datetime" Nullable="false" />
           <Property Name="provincia" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="canton" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="distrito" Type="int" Nullable="false" />
@@ -101,7 +101,7 @@
           <Property Name="idInfractor" Type="int" Nullable="false" />
           <Property Name="edadInfractor" Type="varchar" MaxLength="3" Nullable="false" />
           <Property Name="aprehendido" Type="int" Nullable="false" />
-          <Property Name="horaAprehension" Type="time" Precision="7" />
+          <Property Name="horaAprehension" Type="datetime" />
           <Property Name="entendido" Type="int" />
           <Property Name="vestimenta" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="ofendido1" Type="int" Nullable="false" />
@@ -907,9 +907,9 @@
           </Key>
           <Property Name="idPartepolicial" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="numeroFolio" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="horaSuceso" Type="Time" Nullable="false" Precision="7" />
-          <Property Name="horaConfeccionDocumento" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="horaSuceso" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="horaConfeccionDocumento" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="provincia" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="canton" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="distrito" Type="Int32" Nullable="false" />
@@ -919,7 +919,7 @@
           <Property Name="idInfractor" Type="Int32" Nullable="false" />
           <Property Name="edadInfractor" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="aprehendido" Type="Int32" Nullable="false" />
-          <Property Name="horaAprehension" Type="Time" Precision="7" />
+          <Property Name="horaAprehension" Type="DateTime" Precision="3" />
           <Property Name="entendido" Type="Int32" />
           <Property Name="vestimenta" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ofendido1" Type="Int32" Nullable="false" />

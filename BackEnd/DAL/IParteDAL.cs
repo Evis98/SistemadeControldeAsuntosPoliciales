@@ -15,5 +15,7 @@ namespace BackEnd.DAL
         PartesPoliciales GetPartePolicial(string numeroFolio);
         bool NumeroFolioExiste(string numeroFolio);
         string GetNumeroFolio(string numeroFolio);
+        int GetCount();
+
     }
 }

@@ -104,6 +104,16 @@ namespace BackEnd.DAL
             }
         }
 
+        public int GetCount()
+        {
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                
+                return db.PartesPoliciales.Count();
+            }
+
+        }
+
     }
 
 }

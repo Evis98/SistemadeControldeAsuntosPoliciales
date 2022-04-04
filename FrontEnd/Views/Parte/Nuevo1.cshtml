@@ -3,46 +3,51 @@
     ViewBag.Title = "Agregar Información del Parte Policial";
 }
 
-<div class="container bg-light text-dark border" style="height:220vh;">
+<div class="container bg-light text-dark border" style="height:80vh;">
     <div class="row">
         <div class="col-md-12">
             <div style="text-align:center;">
                 <h2 class="display-4" style="text-align:center;">@ViewBag.Title</h2>
+                <br />
                 <h3>Ubicación del Sitio del Suceso</h3>
             </div>
+
         </div>
     </div>
 
     @using (Html.BeginForm("Nuevo1", "Parte", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         <div class="form-row">
-            <div class="form-group col-md-2">
-                @Html.LabelFor(d => d.Fecha)
-                @Html.EditorFor(d => d.Fecha, "", new { @class = "form-control" })
-                @Html.ValidationMessageFor(d => d.Fecha, "", new { @class = "red" })
-            </div>
-            <div class="form-group col-md-2">
-                @Html.LabelFor(d => d.Hora)
-                @Html.EditorFor(d => d.Hora, "", new { @class = "form-control" })
-                @Html.ValidationMessageFor(d => d.Hora, "", new { @class = "red" })
-            </div>
-            <div class="form-group col-md-4">
+            @*<div class="form-group col-md-2">
+                    @Html.LabelFor(d => d.Fecha)
+                    @Html.EditorFor(d => d.Fecha, "", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(d => d.Fecha, "", new { @class = "red" })
+                </div>
+                <div class="form-group col-md-2">
+                    @Html.LabelFor(d => d.Hora)
+                    @Html.EditorFor(d => d.Hora, "", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(d => d.Hora, "", new { @class = "red" })
+                </div>*@
+            <div class="form-group col-md-3">
                 @Html.LabelFor(d => d.Distrito)
-                @Html.DropDownListFor(d => d.Distrito, Model.Distritos, "--Seleccione--", new { @class = "myselect form-control" })
+                @Html.DropDownListFor(d => d.Distrito, Model.Distritos, "--Seleccione--", new { @id = "idDistrito", @class = "myselect form-control" })
+                @Html.ValidationMessageFor(d => d.Distrito, null, new { @class = "red" })
             </div>
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-3">
                 @Html.LabelFor(d => d.LugarSuceso)
                 @Html.DropDownListFor(d => d.LugarSuceso, Model.TiposLugaresSuceso, "--Seleccione--", new { @class = "myselect form-control" })
+                @Html.ValidationMessageFor(d => d.LugarSuceso, null, new { @class = "red" })
             </div>
-        </div>
-        <div class="form-row">
-
-            <div class="form-group col-md-5">
+            <div class="form-group col-md-6">
                 @Html.LabelFor(d => d.Barrio)
                 @Html.TextAreaFor(d => d.Barrio, new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
                 @Html.ValidationMessageFor(d => d.Barrio, null, new { @class = "red" })
             </div>
-            <div class="form-group col-md-5">
+        </div>
+        <div class="form-row">
+
+
+            <div class="form-group col-md-12">
                 @Html.LabelFor(d => d.Direccion)
                 @Html.TextAreaFor(d => d.Direccion, new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
                 @Html.ValidationMessageFor(d => d.Direccion, null, new { @class = "red" })
@@ -66,27 +71,38 @@
                         <a class="btn btn-danger" data-toggle="modal" data-target="#infractorModalQuitar">Quitar</a>
                     </div>
                 </div>
+                @Html.ValidationMessageFor(d => d.IdentificacionInfractor, null, new { @class = "red" })
             </div>
-        </div>
-        <div class="form-row">
+            <div class="form-group col-md-6">
+                @Html.LabelFor(d => d.NombreInfractor)
+                @Html.TextBoxFor(d => d.NombreInfractor, "", new { @class = "form-control", @id = "NInfractor", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)", @readonly = "readonly" })
+                @Html.ValidationMessageFor(d => d.NombreInfractor, null, new { @class = "red" })
+            </div>
             <div class="form-group col-md-2">
                 @Html.LabelFor(d => d.AprendidoInfractor)
                 @Html.DropDownListFor(d => d.AprendidoInfractor, Model.Aprehendidos, "--Seleccione--", new { @class = "myselect form-control" })
+                @Html.ValidationMessageFor(d => d.AprendidoInfractor, null, new { @class = "red" })
             </div>
-            <div class="form-group col-md-2">
-                @Html.LabelFor(d => d.HoraAprehension)
-                @Html.EditorFor(d => d.HoraAprehension, "", new { @class = "form-control" })
-                @Html.ValidationMessageFor(d => d.HoraAprehension, "", new { @class = "red" })
+        </div>
+        <div class="form-row">
+
+            @*<div class="form-group col-md-2">
+                    @Html.LabelFor(d => d.HoraAprehension)
+                    @Html.EditorFor(d => d.HoraAprehension, "", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(d => d.HoraAprehension, "", new { @class = "red" })
+                </div>*@
+            <div class="form-group col-md-3">
+                @Html.LabelFor(d => d.EntendidoInfractor)
+                @Html.DropDownListFor(d => d.EntendidoInfractor, Model.Entendidos, "--Seleccione--", new { @class = "myselect form-control" })
+                @Html.ValidationMessageFor(d => d.EntendidoInfractor, null, new { @class = "red" })
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-5">
                 @Html.LabelFor(d => d.Vestimenta)
                 @Html.TextAreaFor(d => d.Vestimenta, new { @class = "form-control", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)" })
                 @Html.ValidationMessageFor(d => d.Vestimenta, null, new { @class = "red" })
             </div>
-            <div class="form-group col-md-3">
-                @Html.LabelFor(d => d.EntendidoInfractor)
-                @Html.DropDownListFor(d => d.EntendidoInfractor, Model.Entendidos, "--Seleccione--", new { @class = "myselect form-control" })
-            </div>
+
+
         </div>
 
 
@@ -105,20 +121,22 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-secondary" id="Cancel" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-danger" onclick="document.getElementById('idInfractor').value = ''" id="QuitarInfractor" data-dismiss="modal">Quitar </button>
+                        <button type="button" class="btn btn-danger" onclick="document.getElementById('idInfractor').value = '' , document.getElementById('NInfractor').value = ''" id="QuitarInfractor" data-dismiss="modal">Quitar </button>
                     </div>
                 </div>
             </div>
         </div>
+       
 
         <div class="form-row">
-            <div class="form-group col-md-12">
-                <div style="text-align:center;">
-                    <a class="btn btn-danger" href="~/Parte/Index">Cancelar</a>
-                    <input value="Siguiente" type="submit" class="btn btn-primary" id="btnSave" />
-                </div>
+            <div class="form-group col-md-11">
+                <a class="btn btn-outline-danger" onclick="VaciarParte()" href="~/Parte/Index">Cancelar</a>               
+            </div>
+            <div class="form-group col-md-1">
+                <input value="Siguiente" type="submit" class="btn btn-primary" id="btnSave" />
             </div>
         </div>
+     
     }
 
     <div class="modal fade" id="infractorModalBuscar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -143,15 +161,24 @@
 
 <script>
 
-    function reply_click3(clicked_id3) {
+    function reply_click3(clicked_id3, clicked_name3) {
         var elem = document.getElementById("idInfractor");
+        var elem2 = document.getElementById("NInfractor");
         elem.value = clicked_id3;
+        elem2.value = clicked_name3
         $('#infractorModalBuscar').modal('hide');
     }
     function reply_click4(clicked_id4) {
-        var elem2 = document.getElementById("QuitarInfractor");
-        elem2.value = clicked_id4;
+        var elem3 = document.getElementById("QuitarInfractor");
+        elem3.value = clicked_id4;
         $('#infractorModalQuitar').modal('hide');
     }
+
+    function VaciarParte() {
+	$.post("@Url.Action("SetSession","Home")", function () {
+		//done. Do something else
+	});
+	
+}
 
 </script>

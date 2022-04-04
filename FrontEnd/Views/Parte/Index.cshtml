@@ -1,5 +1,5 @@
-﻿
-@{ ViewBag.Title = "Parte"; }
+﻿@model List<FrontEnd.Models.ViewModels.ListParte1ViewModel>
+@{ ViewBag.Title = "Parte Policial"; }
 
 
 <div class="container bg-light text-dark border" style="height:80vh;">
@@ -13,20 +13,24 @@
 
     @using (Html.BeginForm("Index", "Parte", FormMethod.Get))
     {
-<div class="form-row">
-    <div class="col-sm-4">
-        <select class="form-control" name="filtroSeleccionado" onclick="ocultar()" id="filtroSeleccionado"></select>
-    </div>
-    <div class="col-sm-4">
-        <input class="form-control" name="busqueda" type="text" id="busqueda" onkeyup="this.value = this.value.toUpperCase();" onkeypress="return sololetrasnumerossimbolos(event)" />
-    </div>
-    <div class="col-sm-3">
-        <button class="btn btn-primary">Buscar</button>
-    </div>
-    <div class="col-sm-1">
-        <a href="~/Parte/Nuevo1" class="btn btn-success">Agregar</a>
-    </div>
-</div>}
+        <div class="form-row">
+            <div class="col-sm-4">
+                <select class="form-control" name="filtroSeleccionado" @*onclick="ocultar()"*@ id="filtroSeleccionado">
+                    <option selected>Numero de Folio</option>
+                    <option>Nombre del infractor</option>
+                    <option>Fecha</option>        
+                </select>
+            </div>
+            <div class="col-sm-4">
+                <input class="form-control" name="busqueda" type="text" id="busqueda" onkeyup="this.value = this.value.toUpperCase();" onkeypress="return sololetrasnumerossimbolos(event)" />
+            </div>
+            <div class="col-sm-3">
+                <button class="btn btn-primary">Buscar</button>
+            </div>
+            <div class="col-sm-1">
+                <a href="~/Parte/Nuevo1" class="btn btn-success">Agregar</a>
+            </div>
+        </div>}
 
     <hr />
     <div class="row">
@@ -34,12 +38,29 @@
             <table class="table table-bordered center table-sm">
                 <thead class="thead-dark">
                     <tr>
+                        <th scope="col">Numero de Folio</th>
                         <th scope="col">Fecha</th>
-                        <th scope="col">Hora</th>
                         <th scope="col">Infractor</th>
+                        <th scope="col">Policía Actuante</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
-
+                <tbody>
+                    @foreach (var oElemento in Model)
+                    {
+                        <tr>
+                            <th scope="row">@oElemento.NumeroFolio</th>
+                            <td>@oElemento.Fecha.ToShortDateString()</td>
+                            <td>@oElemento.NombreInfractor</td>
+                            <td>@oElemento.NombrePoliciaActuante</td>
+                            <td>
+                                <div style="text-align:center;">
+                                    <a class="btn btn-sm btn-outline-info" href="~/Parte/Detalle1/@oElemento.IdParte">Ver Detalles</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
 
             </table>
         </div>

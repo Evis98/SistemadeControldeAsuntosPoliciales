@@ -360,6 +360,10 @@
     <Content Include="Views\Bitacora\Detalle.cshtml" />
     <Content Include="Views\Bitacora\Editar.cshtml" />
     <Content Include="Views\Bitacora\Completar.cshtml" />
+    <Content Include="Views\Parte\Detalle1.cshtml" />
+    <Content Include="Views\Parte\Detalle2.cshtml" />
+    <Content Include="Views\Parte\Detalle3.cshtml" />
+    <Content Include="Views\Parte\Detalle4.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,4 +1,4 @@
-﻿@model List<FrontEnd.Models.ViewModels.ListInfractorViewModel>
+﻿@model List<FrontEnd.Models.ViewModels.InfractorViewModel>
 
 <table class="table">
 
@@ -14,7 +14,7 @@
             <tr>
                 <th scope="row">@Html.DisplayFor(modelItem => item.Identificacion)</th>
                 <td>
-                    <label><a href="#" onclick="reply_click3(this.id)" id="@item.Identificacion"> @item.Nombre</a></label>
+                    <label><a href="#" onclick="reply_click3(this.id, this.name)" name="@item.Nombre" id="@item.Identificacion"> @item.Nombre</a></label>
                 </td>
             </tr>
         }

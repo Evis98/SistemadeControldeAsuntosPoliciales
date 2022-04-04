@@ -1,0 +1,72 @@
+﻿@model FrontEnd.Models.ViewModels.ListParte1ViewModel
+
+@{ ViewBag.Title = "Detalle del Parte"; }
+
+<div class="container bg-light text-dark border" style="height:80vh;">
+    <div class="row">
+        <div class="col-md-12">
+            <div style="text-align:center;">
+                <h2 class="display-4">@ViewBag.Title </h2>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <dl class="row">
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.DescripcionHechos)
+        </dt>
+        <dd id="req" class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.DescripcionHechos)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.DiligenciasPoliciales)
+        </dt>
+        <dd id="req" class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.DiligenciasPoliciales)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.ManisfestacionOfendido)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.ManisfestacionOfendido)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.ManisfestacionTestigo)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.ManisfestacionTestigo)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.Alertador)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.Alertador)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.EnteAcargo)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.EnteAcargo)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.Movil)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.Movil)
+        </dd>
+
+    </dl>
+    <div class="form-row">
+        <div class="form-group col-md-11">
+            <a class="btn btn-outline-secondary" href="~/Parte/Detalle3/@HttpContext.Current.Session["idParte"].ToString()">Anterior</a>
+        </div>
+        <div class="form-group col-md-1">
+            <a class="btn btn-primary" href="~/Parte/Detalle4/@HttpContext.Current.Session["idParte"].ToString()">Siguiente</a>
+
+        </div>
+    </div>
+   
+
+</div>

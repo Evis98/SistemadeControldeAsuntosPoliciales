@@ -29,37 +29,37 @@ namespace FrontEnd.Models.ViewModels
         //  [Display(Name = "Cantón")]
         // public string Canton { get; set; }
 
-
+        [Required(ErrorMessage = "Este campo es Obligatorio")]
         [Display(Name = "Distrito")]
         public int Distrito { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Este campo es Obligatorio")]
         [StringLength(250, ErrorMessage = "Descripción de barrio excede los 250 caracteres.")]
         [Display(Name = "Barrio y/o (Avenida-Calle)")]
         public string Barrio { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Este campo es Obligatorio")]
         [StringLength(250, ErrorMessage = "Dirección excede los 250 caracteres.")]
         [Display(Name = "Dirección Exacta")]
         public string Direccion { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Este campo es Obligatorio")]
         [Display(Name = "Lugar del Suceso")]
         public int LugarSuceso { get; set; }
 
         public int IdInfractor { get; set; }
-        [Required]
         [Display(Name = "Tipo de Identificación")]
         public string TipoIdentificacionInfractor { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Este campo es Obligatorio")]
         [Display(Name = "Número de Identificación")]
         public string IdentificacionInfractor { get; set; }
 
 
         //  [Display(Name = "Edad")]
         // public string EdadInfractor { get; set; }
-
-        //[Display(Name = "Nombre")]
-        //  public string NombreInfractor { get; set; }
+        [Required(ErrorMessage = "Este campo es Obligatorio")]
+        [StringLength(250, ErrorMessage = "Nombre excede los 250 caracteres.")]
+        [Display(Name = "Nombre")]
+        public string NombreInfractor { get; set; }
 
         // [Display(Name = "Nacionalidad")]
         // public string NacionalidadInfractor { get; set; }
@@ -78,19 +78,19 @@ namespace FrontEnd.Models.ViewModels
 
         //  [Display(Name = "Conocido Como")]
         // public string ConocidoComoInfractor { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Este campo es Obligatorio")]
         [Display(Name = "Aprehendido")]
         public int AprendidoInfractor { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Este campo es Obligatorio")]
         [DataType(DataType.Time)]
         [Display(Name = "Hora de Aprehension")]
         [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
         public DateTime HoraAprehension { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Este campo es Obligatorio")]
         [Display(Name = "Entendido")]
         public int EntendidoInfractor { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Este campo es Obligatorio")]
         [StringLength(250, ErrorMessage = "Vestimenta excede los 100 caracteres.")]
         [Display(Name = "Vestimenta")]
         public string Vestimenta { get; set; }
@@ -106,11 +106,12 @@ namespace FrontEnd.Models.ViewModels
 
         [Display(Name = "Tipo de Identificación")]
         public int TipoIdentificacionOfendido1 { get; set; }
-
+        [Required(ErrorMessage = "Este campo es Obligatorio")]
         [Display(Name = "Número de Identificación")]
         public string IdentificacionOfendido1 { get; set; }
 
-        [StringLength(250, ErrorMessage = "Nombre excede los 250 caracteres.")]
+        [Required(ErrorMessage = "Este campo es Obligatorio")]
+        // [StringLength(250, ErrorMessage = "Este campo es Obligatorio")]
         [Display(Name = "Nombre")]
         public string NombreOfendido1 { get; set; }
 
@@ -435,42 +436,43 @@ namespace FrontEnd.Models.ViewModels
         //   [Display(Name = "Correo Electrónico ")]
         //   public string CorreoElectronicoTestigo2 { get; set; }
 
-
+        [Required(ErrorMessage = "Este campo es Obligatorio")]
         [Display(Name = "Descripción de Hechos")]
         [StringLength(300, ErrorMessage = "Descripción de hechos excede los 300 caracteres.")]
         public string DescripcionHechos { get; set; }
 
-
+        [Required(ErrorMessage = "Este campo es Obligatorio")]
         [Display(Name = "Diligencias Policiales")]
         [StringLength(300, ErrorMessage = "Diligencias Policiales excede los 300 caracteres.")]
         public string DiligenciasPoliciales { get; set; }
-
+        [Required(ErrorMessage = "Este campo es Obligatorio")]
         [Display(Name = "Manisfestación de los Ofendidos")]
         [StringLength(300, ErrorMessage = "Manisfestación del Ofendido excede los 300 caracteres.")]
         public string ManisfestacionOfendido { get; set; }
-
+        [Required(ErrorMessage = "Este campo es Obligatorio")]
         [Display(Name = "Manisfestación de los Testigos")]
         [StringLength(300, ErrorMessage = "Manisfestación de los Testigos excede los 300 caracteres.")]
         public string ManisfestacionTestigo { get; set; }
 
         //Aspectos Administrativos
+        [Required(ErrorMessage = "Este campo es Obligatorio")]
         [Display(Name = "¿Quién dio la alerta?")]
         public int Alertador { get; set; }
-
+        [Required(ErrorMessage = "Este campo es Obligatorio")]
         [Display(Name = "Ente a Cargo")]
         public int EnteAcargo { get; set; }
 
-
+        [Required(ErrorMessage = "Este campo es Obligatorio")]
         [Display(Name = "Número de Móvil")]
         public string Movil { get; set; }
 
 
         //Policía Actuante
-
+        [Required(ErrorMessage = "Este campo es Obligatorio")]
         [Display(Name = "Nombre")]
         public string NombrePoliciaActuante { get; set; }
 
-
+        [Required(ErrorMessage = "Este campo es Obligatorio")]
         [Display(Name = "Número de Identificación")]
         public string IdentificacionPoliciaActuante { get; set; }
 
@@ -478,7 +480,7 @@ namespace FrontEnd.Models.ViewModels
         [Display(Name = "Teléfono")]
         public string TelefonoPoliciaActuante { get; set; }
 
-
+        [Required(ErrorMessage = "Este campo es Obligatorio")]
         [Display(Name = "Unidad Origen")]
         [StringLength(150, ErrorMessage = "Unidad Origen excede los 150 caracteres.")]
         public string UnidadOrigenPoliciaActuante { get; set; }
@@ -490,11 +492,11 @@ namespace FrontEnd.Models.ViewModels
         public DateTime HoraConfeccionDocumento { get; set; }
 
         //Policía Asiste 
-
+        [Required(ErrorMessage = "Este campo es Obligatorio")]
         [Display(Name = "Nombre")]
         public string NombrePoliciaAsiste { get; set; }
 
-
+        [Required(ErrorMessage = "Este campo es Obligatorio")]
         [Display(Name = "Número de Identificación")]
         public string IdentificacionPoliciaAsiste { get; set; }
 
@@ -502,12 +504,12 @@ namespace FrontEnd.Models.ViewModels
         [Display(Name = "Teléfono")]
         public string TelefonoPoliciaAsiste { get; set; }
 
-
+        [Required(ErrorMessage = "Este campo es Obligatorio")]
         [Display(Name = "Unidad Origen")]
         [StringLength(250, ErrorMessage = "Unidad Origen excede los 250 caracteres.")]
         public string UnidadOrigenPoliciaAsiste { get; set; }
 
-
+        [Required(ErrorMessage = "Este campo es Obligatorio")]
         [StringLength(20, ErrorMessage = "Numero de Móvil excede los 20 caracteres.")]
         [Display(Name = "Número de Móvil")]
 

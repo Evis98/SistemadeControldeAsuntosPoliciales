@@ -23,6 +23,12 @@ namespace FrontEnd.Controllers
             }
             return View();
         }
+        public ActionResult SetSession()
+        {
+            Session["Parte"] = null;
+            return Json(new { status = "success" });
+        }
 
     }
+
 }

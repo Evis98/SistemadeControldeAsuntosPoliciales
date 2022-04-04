@@ -11,7 +11,7 @@
             </div>
         </div>
     </div>
-    <hr/>
+    <hr />
     <h2>Entrega</h2>
     @using (Html.BeginForm("Editar", "Bitacora", FormMethod.Post))
     {
@@ -73,7 +73,7 @@
             </div>
             <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.CargadoresEntregados)
-                @Html.TextBoxFor(d => d.CargadoresEntregados, "", new { @class = "form-control", @type = "number", onkeydown = "javascript: return event.keyCode == 69 ? false : true"})
+                @Html.TextBoxFor(d => d.CargadoresEntregados, "", new { @class = "form-control", @type = "number", onkeydown = "javascript: return event.keyCode == 69 ? false : true" })
                 @Html.ValidationMessageFor(d => d.CargadoresEntregados, null, new { @class = "red" })
             </div>
         </div>
@@ -101,8 +101,8 @@
                     <div class="input-group">
                         @Html.TextBoxFor(d => d.ArmeroReceptor, "", new { @class = "form-control", @id = "idArmeroReceptor", @readonly = "readonly" })
                         <div class="input-group-append ">
-                            <a class="btn btn-primary" data-toggle="modal" data-target="#buscaArmero">Buscar</a>
-                            <a class="btn btn-danger" data-toggle="modal" data-target="#quitaArmero">Quitar</a>
+                            <a class="btn btn-primary" data-book-id="idArmeroReceptor" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
+                            <a class="btn btn-danger" data-book-id="idArmeroReceptor" data-target="#quitaPolicia">Quitar</a>
                         </div>
                     </div>
                     @Html.ValidationMessageFor(d => d.ArmeroReceptor, null, new { @class = "red" })
@@ -242,10 +242,12 @@
         if (aux === "idPoliciaSolicitante") {
             var elem = document.getElementById("idPoliciaSolicitante");
         }
+        if (aux === "idArmeroReceptor") {
+            var elem = document.getElementById("idArmeroReceptor");
+        }
         elem.value = clicked_id;
         $('#modalBusqueda').modal('hide');
     }
-
 
     function reply_click2(clicked_id2) {
         var elem2 = document.getElementByName("quitaPolicia");

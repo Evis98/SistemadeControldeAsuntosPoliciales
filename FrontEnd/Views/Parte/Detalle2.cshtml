@@ -1,0 +1,195 @@
+﻿@model FrontEnd.Models.ViewModels.ListParte1ViewModel
+
+@{ ViewBag.Title = "Detalle del Parte"; }
+
+<div class="container bg-light text-dark border" style="height:80vh;">
+    <div class="row">
+        <div class="col-md-12">
+            <div style="text-align:center;">
+                <h2 class="display-4">@ViewBag.Title </h2>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+    <h4>Lista de Ofendidos</h4>
+    <table class="table table-bordered center table-Lsm">
+
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Identificación</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Edad durante el susceso</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <th scope="row">@Model.IdentificacionOfendido1</th>
+                <td>@Model.NombreOfendido1</td>
+                <td>@Model.EdadOfendido1</td>
+                <td>
+                    <div style="text-align:center;">
+                        <a class="btn btn-sm btn-outline-info" href="~/Persona/Detalle/@Model.IdOfendido1">Ver Detalles</a>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                @if (Model.IdentificacionOfendido2 != null)
+                {
+                    <th scope="row">@Model.IdentificacionOfendido2</th>
+                    <td>@Model.NombreOfendido2</td>
+                    <td>@Model.EdadOfendido2</td>
+                    <td>
+                        <div style="text-align:center;">
+                            <a class="btn btn-sm btn-outline-info" href="~/Persona/Detalle/@Model.IdOfendido2">Ver Detalles</a>
+                        </div>
+                    </td>
+                }
+            </tr>
+            <tr>
+                @if (Model.IdentificacionOfendido3 != null)
+                {
+                    <th scope="row">@Model.IdentificacionOfendido3</th>
+                    <td>@Model.NombreOfendido3</td>
+                    <td>@Model.EdadOfendido3</td>
+                    <td>
+                        <div style="text-align:center;">
+                            <a class="btn btn-sm btn-outline-info" href="~/Persona/Detalle/@Model.IdOfendido3">Ver Detalles</a>
+                        </div>
+                    </td>
+                }
+            </tr>
+            <tr>
+                @if (Model.IdentificacionOfendido4 != null)
+                {
+                    <th scope="row">@Model.IdentificacionOfendido4</th>
+                    <td>@Model.NombreOfendido4</td>
+                    <td>@Model.EdadOfendido4</td>
+                    <td>
+                        <div style="text-align:center;">
+                            <a class="btn btn-sm btn-outline-info" href="~/Persona/Detalle/@Model.IdOfendido4">Ver Detalles</a>
+                        </div>
+                    </td>
+                }
+            </tr>
+            <tr>
+                @if (Model.IdentificacionOfendido5 != null)
+                {
+                    <th scope="row">@Model.IdentificacionOfendido5</th>
+                    <td>@Model.NombreOfendido5</td>
+                    <td>@Model.EdadOfendido5</td>
+                    <td>
+                        <div style="text-align:center;">
+                            <a class="btn btn-sm btn-outline-info" href="~/Persona/Detalle/@Model.IdOfendido5">Ver Detalles</a>
+                        </div>
+                    </td>
+                }
+            </tr>
+
+
+        </tbody>
+    </table>
+    <br />
+    <h4>Lista de Testigos</h4>
+    <table class="table table-bordered center table-Lsm">
+
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Identificación</th>
+                <th scope="col">Nombre</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                @if (Model.IdentificacionTestigo1 != null)
+                {
+                    <th scope="row">@Model.IdentificacionTestigo1</th>
+                    <td>@Model.NombreTestigo1</td>
+                    <td>
+                        <div style="text-align:center;">
+                            <a class="btn btn-sm btn-outline-info" href="~/Persona/Detalle/@Model.IdTestigo1">Ver Detalles</a>
+                        </div>
+                    </td>
+                }
+            </tr>
+            <tr>
+                @if (Model.IdentificacionTestigo2 != null)
+                {
+                    <th scope="row">@Model.IdentificacionTestigo2</th>
+                    <td>@Model.NombreTestigo2</td>
+                    <td>
+                        <div style="text-align:center;">
+                            <a class="btn btn-sm btn-outline-info" href="~/Persona/Detalle/@Model.IdTestigo2">Ver Detalles</a>
+                        </div>
+                    </td>
+                }
+            </tr>
+
+        </tbody>
+    </table>
+
+    @* <dl class="row">
+                <dt class="col-sm-4 ">
+                    @Html.LabelFor(d => d.NombreOfendido1)
+                </dt>
+                <dd id="req" class="col-sm-8 ">
+                    @Html.DisplayTextFor(d => d.NombreOfendido1)
+                </dd>
+                <dt class="col-sm-4 ">
+                    @Html.LabelFor(d => d.IdentificacionOfendido1)
+                </dt>
+                <dd id="req" class="col-sm-8 ">
+                    @Html.DisplayTextFor(d => d.IdentificacionOfendido1)
+                </dd>
+            @if(Model.)
+                <dt class="col-sm-4 ">
+                    @Html.LabelFor(d => d.)
+                </dt>
+                <dd class="col-sm-8 ">
+                    @Html.DisplayTextFor(d => d.)
+                </dd>
+                <dt class="col-sm-4 ">
+                    @Html.LabelFor(d => d.)
+                </dt>
+                <dd class="col-sm-8 ">
+                    @Html.DisplayTextFor(d => d.)
+                </dd>
+                <dt class="col-sm-4 ">
+                    @Html.LabelFor(d => d.)
+                </dt>
+                <dd class="col-sm-8 ">
+                    @Html.DisplayTextFor(d => d.)
+                </dd>
+
+
+        </dl>*@
+
+
+    <div class="form-row">
+        <div class="form-group col-md-11">
+            <a class="btn btn-outline-secondary" href="~/Parte/Detalle4/@HttpContext.Current.Session["idParte"].ToString()">Anterior</a>
+        </div>
+        <div class="form-group col-md-1">
+            <a class="btn btn-primary" href="~/Parte/Detalle3/@HttpContext.Current.Session["idParte"].ToString()">Siguiente</a>
+
+        </div>
+    </div>
+
+</div>
+
+    <!--<div class="form-row">
+        <div class="form-group col-md-12">
+            <div style="text-align:center;">
+                <a class="btn btn-primary" href="~/Parte/Detalle1/@HttpContext.Current.Session["idParte"].ToString()">Anterior</a>
+                <a class="btn btn-primary" href="~/Parte/Detalle3/@HttpContext.Current.Session["idParte"].ToString()">Siguiente</a>-->
+                @*<a class="btn btn-secondary" href="~/Parte/Index">Cancelar</a>*@
+
+            <!--</div>
+
+        </div>
+    </div>-->
+
+@*</div>*@
