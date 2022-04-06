@@ -37,7 +37,7 @@
         <button class="btn btn-primary">Buscar</button>
     </div>
     <div class="col-sm-1">
-        <a href="~/Parte/Nuevo1" class="btn btn-success">Agregar</a>
+        <a href="~/Parte/Nuevo1" onclick="VaciarParteIndex()" class="btn btn-success">Agregar</a>
     </div>
 </div>}
 
@@ -77,3 +77,11 @@
 
 
 </div>
+<script>
+
+    function VaciarParteIndex() {
+        $.post("@Url.Action("SetSession","Home")", function () {
+            //done. Do something else
+        });
+    }
+</script>

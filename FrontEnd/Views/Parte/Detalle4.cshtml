@@ -1,6 +1,6 @@
 ﻿@model FrontEnd.Models.ViewModels.ListParte1ViewModel
 
-@{ ViewBag.Title = "Detalle del Parte"; }
+@{ ViewBag.Title = "Detalle del Parte Policial"; }
 
 <div class="container bg-light text-dark border" style="height:80vh;">
     <div class="row">
@@ -11,6 +11,9 @@
         </div>
     </div>
     <hr />
+
+    <h4>Oficial Actuante</h4>
+
     <dl class="row">
         <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.NombrePoliciaActuante)
@@ -40,8 +43,12 @@
             @Html.LabelFor(d => d.HoraConfeccionDocumento)
         </dt>
         <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.HoraConfeccionDocumento)
+            @{ var hora = Model.HoraConfeccionDocumento.ToShortTimeString(); }
+            @Html.DisplayTextFor(d => hora)
         </dd>
+    </dl>
+    <h4>Oficial que Asiste</h4>
+    <dl class="row">
         <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.NombrePoliciaAsiste)
         </dt>
@@ -78,13 +85,13 @@
     </dl>
     <div class="form-row">
         <div class="form-group col-md-11">
-            <a class="btn btn-outline-secondary" href="~/Parte/Detalle4/@HttpContext.Current.Session["idParte"].ToString()">Anterior</a>
+            <a class="btn btn-outline-secondary" href="~/Parte/Detalle3/@HttpContext.Current.Session["idParte"].ToString()">Anterior</a>
         </div>
         <div class="form-group col-md-1">
             <a class="btn btn-secondary" href="~/Parte/Index">Salir</a>
 
         </div>
     </div>
-    
+
 
 </div>

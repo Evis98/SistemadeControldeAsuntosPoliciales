@@ -268,7 +268,7 @@ namespace FrontEnd.Controllers
             {
                 aux.IdTestigo2 = (int)parte.testigo2;
                 aux.IdentificacionTestigo2 = personaDAL.GetPersona((int)parte.testigo2).identificacion;
-                aux.NombreTestigo1 = personaDAL.GetPersona((int)parte.testigo1).nombre;
+                aux.NombreTestigo2 = personaDAL.GetPersona((int)parte.testigo2).nombre;
             }
             aux.DescripcionHechos = parte.descripcionHechos;
             aux.DiligenciasPoliciales = parte.diligenciasPoliciales;

@@ -128,6 +128,48 @@ function ocultarBitacora() {
         aux10.style.display = "block"
     }
 }
+
+//function parteValidacionesPersonas() {
+//  /*  var auxO1 = document.getElementById("busquedaFechaInicioB");*/
+//    var auxO2 = document.getElementById("idOfendido2");
+//    var auxO3 = document.getElementById("idOfendido3");
+//    //var auxO4 = document.getElementById("textFechaFinal");
+//    //var auxO5 = document.getElementById("estadoBitacora");
+//    //var auxT1 = document.getElementById("filtroSeleccionado");
+//    //var auxT2 = document.getElementById('busqueda');
+//    if (auxO3.value != null) {
+//        auxO2.setAttribute('required', '');
+//        /*auxO3.setAttribute('required', '');*/
+//        //auxO2.removeAttribute('required');
+//        //auxiB.removeAttribute('required');
+//        //auxiBT.style.display = "none";
+//        //auxiAT.style.display = "none";
+//        //aux8.style.display = "block";
+//        //aux10.style.display = "none"
+//    } else /*if (auxO3.value == null ) */{
+//       /* auxO3.removeAttribute('required');*/
+//        auxO2.removeAttribute('required');
+//    }
+//    //else if (aux9.options[aux9.selectedIndex].value === "Fecha de creación") {
+//    //    aux8.style.display = "none";
+//    //    aux10.style.display = "none";
+//    //    auxiB.setAttribute('required', '');
+//    //    auxiA.setAttribute('required', '');
+//    //    auxiB.style.display = "block";
+//    //    auxiA.style.display = "block"
+//    //    auxiBT.style.display = "block";
+//    //    auxiAT.style.display = "block"
+//    //} else {
+//    //    auxiB.style.display = "none";
+//    //    auxiA.style.display = "none";
+//    //    auxiA.removeAttribute('required');
+//    //    auxiB.removeAttribute('required');
+//    //    aux8.style.display = "none";
+//    //    auxiBT.style.display = "none";
+//    //    auxiAT.style.display = "none";
+//    //    aux10.style.display = "block"
+//    //}
+//}
 //function ocultarFechaNacimiento() {
 //    var aux4 = document.getElementById("busquedaFechaInicio");
 //    var aux7 = document.getElementById("busquedaFechaFinal");

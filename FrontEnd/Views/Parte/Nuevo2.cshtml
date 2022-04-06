@@ -42,7 +42,7 @@
             <div class="form-group col-md-5">
                 @Html.LabelFor(d => d.IdentificacionOfendido2)
                 <div class="input-group">
-                    @Html.TextBoxFor(d => d.IdentificacionOfendido2, "", new { @class = "form-control", @id = "idOfendido2", @readonly = "readonly" })
+                    @Html.TextBoxFor(d => d.IdentificacionOfendido2, "", new { @class = "form-control", @id = "idOfendido2", @readonly = "readonly"@*, @onclick = "parteValidacionesPersonas()"*@ })
                     <div class="input-group-append ">
                         <a class="btn btn-primary" data-toggle="modal" data-book-id="idOfendido2" data-target="#modalBusqueda">Buscar</a>
                         <a class="btn btn-danger" data-toggle="modal" data-book-id="idOfendido2" data-target="#quitaPolicia">Quitar</a>
@@ -60,7 +60,7 @@
             <div class="form-group col-md-5">
                 @Html.LabelFor(d => d.IdentificacionOfendido3)
                 <div class="input-group">
-                    @Html.TextBoxFor(d => d.IdentificacionOfendido3, "", new { @class = "form-control", @id = "idOfendido3", @readonly = "readonly" })
+                    @Html.TextBoxFor(d => d.IdentificacionOfendido3, "", new { @class = "form-control", @id = "idOfendido3", @readonly = "readonly"@*, @onclick = "parteValidacionesPersonas()"*@ })
                     <div class="input-group-append ">
                         <a class="btn btn-primary" data-toggle="modal" data-book-id="idOfendido3" data-target="#modalBusqueda">Buscar</a>
                         <a class="btn btn-danger" data-toggle="modal" data-book-id="idOfendido3" data-target="#quitaPolicia">Quitar</a>

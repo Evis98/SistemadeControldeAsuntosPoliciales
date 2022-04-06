@@ -1,20 +1,29 @@
 ﻿@model FrontEnd.Models.ViewModels.ListParte1ViewModel
 
-@{ ViewBag.Title = "Detalle del Parte"; }
+@{ ViewBag.Title = "Detalle del Parte Policial"; }
 
 <div class="container bg-light text-dark border" style="height:80vh;">
     <div class="row">
         <div class="col-md-12">
             <div style="text-align:center;">
                 <h2 class="display-4">@ViewBag.Title </h2>
+
+            </div>
+            <div style="text-align:left;">
+                <hr />
+                <h4>Ubicación del Sitio del Suceso</h4>
             </div>
         </div>
     </div>
 
-    <hr />
 
     <dl class="row">
-
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.NumeroFolio)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.NumeroFolio)
+        </dd>
         <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.Fecha)
         </dt>
@@ -26,7 +35,8 @@
             @Html.LabelFor(d => d.Hora)
         </dt>
         <dd id="req" class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.Hora.TimeOfDay)
+            @{ var horaAprehension = Model.Hora.ToShortTimeString(); }
+            @Html.DisplayTextFor(d => horaAprehension)
         </dd>
         <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.Distrito)
@@ -52,6 +62,15 @@
         <dd class="col-sm-8 ">
             @Html.DisplayTextFor(d => d.LugarSuceso)
         </dd>
+    </dl>
+    <div class="form-row">
+        <div class="col-md-12">
+            <div style="text-align:left">
+                <h4>Información del Imputado</h4>
+            </div>
+        </div>
+    </div>
+    <dl class="row">
         <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.IdentificacionInfractor)
         </dt>
@@ -71,11 +90,15 @@
             @Html.DisplayTextFor(d => d.AprendidoInfractor)
         </dd>
         <dt class="col-sm-4 ">
+
             @Html.LabelFor(d => d.HoraAprehension)
         </dt>
+
         <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.HoraAprehension)
+            @{ var hora= Model.HoraAprehension.ToShortTimeString(); }
+            @Html.DisplayTextFor(d => hora)
         </dd>
+
         <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.EntendidoInfractor)
         </dt>
@@ -101,7 +124,7 @@
         </div>}
     <div class="form-row">
         <div class="form-group col-md-11">
-            <a class="btn btn-outline-secondary" href="~/Parte/Index">Cancelar</a>
+            <a class="btn btn-outline-secondary" href="~/Parte/Index">Regresar</a>
         </div>
         <div class="form-group col-md-1">
             <a class="btn btn-primary" href="~/Parte/Detalle2/@HttpContext.Current.Session["idParte"].ToString()">Siguiente</a>

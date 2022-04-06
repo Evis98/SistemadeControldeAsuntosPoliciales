@@ -12,6 +12,7 @@
             </div>
         </div>
     </div>
+   
     @using (Html.BeginForm("Nuevo4", "Parte", FormMethod.Post))
     {
 
@@ -43,7 +44,7 @@
                 @Html.ValidationMessageFor(d => d.UnidadOrigenPoliciaActuante, null, new { @class = "red" })
             </div>
         </div>
-       
+
         <div class="form-row">
             <div class="col-md-12" style="text-align:center;">
                 <br />
@@ -69,14 +70,14 @@
             </div>
             <div class="form-group col-md-3">
                 @Html.LabelFor(d => d.UnidadOrigenPoliciaAsiste)
-                @Html.TextBoxFor(d => d.UnidadOrigenPoliciaAsiste, "", new { @class = "form-control", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)" })
+                @Html.TextBoxFor(d => d.UnidadOrigenPoliciaAsiste, "", new { @class = "form-control", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)" })
                 @Html.ValidationMessageFor(d => d.UnidadOrigenPoliciaActuante, null, new { @class = "red" })
             </div>
         </div>
-        <div class="form-row">           
+        <div class="form-row">
             <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.NumeroMovilPolciaAsiste)
-                @Html.TextBoxFor(d => d.NumeroMovilPolciaAsiste, "", new { @class = "form-control", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)" })
+                @Html.TextBoxFor(d => d.NumeroMovilPolciaAsiste, "", new { @class = "form-control", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)" })
                 @Html.ValidationMessageFor(d => d.NumeroMovilPolciaAsiste, null, new { @class = "red" })
             </div>
         </div>
@@ -84,10 +85,10 @@
         <br />
         <div class="form-row">
             <div class="form-group col-md-11">
-                <a class="btn btn-outline-secondary" href="~/Parte/Nuevo3">Regresar</a>               
+                <a class="btn btn-outline-secondary" href="~/Parte/Nuevo3">Regresar</a>
             </div>
-            <div class="form-group col-md-1">                
-                <input value="Guardar" class="btn btn-primary" type="button" data-toggle="modal" data-target="#show" />
+            <div class="form-group col-md-1">
+                <input value="Guardar"   class="btn btn-primary" type="button" data-toggle="modal" data-target="#show" />
             </div>
         </div>
 
@@ -96,7 +97,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Quitar un Policía de un Arma</h5>
+                        <h5 class="modal-title">Quitar un Policía de un Parte</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -186,6 +187,6 @@
             document.getElementById("NPoliciaAsiste").value = '';
         }
     }
-
+       
 
 </script>
