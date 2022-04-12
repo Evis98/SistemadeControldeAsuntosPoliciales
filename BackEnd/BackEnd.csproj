@@ -55,6 +55,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActasDecomiso.cs">
+      <DependentUpon>DBSCAP.tt</DependentUpon>
+    </Compile>
     <Compile Include="ActasHallazgo.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
@@ -64,9 +67,11 @@
     <Compile Include="Bitacoras.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
+    <Compile Include="DAL\ActaDecomisoDAL.cs" />
     <Compile Include="DAL\ActaHallazgoDAL.cs" />
     <Compile Include="DAL\ArmaDAL.cs" />
     <Compile Include="DAL\BitacoraDAL.cs" />
+    <Compile Include="DAL\IActaDecomisoDAL.cs" />
     <Compile Include="DAL\IActaHallazgoDAL.cs" />
     <Compile Include="DAL\IArmaDAL.cs" />
     <Compile Include="DAL\IBitacoraDAL.cs" />

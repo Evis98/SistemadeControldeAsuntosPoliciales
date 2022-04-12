@@ -1,6 +1,6 @@
-﻿@model FrontEnd.Models.ViewModels.ActaHallazgoViewModel
+﻿@model FrontEnd.Models.ViewModels.ActaDecomisoViewModel
 
-@{ ViewBag.Title = "Detalle de Acta de Hallazgo"; }
+@{ ViewBag.Title = "Detalle de Acta de Decomiso"; }
 
 
 <div class="container bg-light text-dark border" style="height: 80vh; word-wrap: break-word;">
@@ -23,16 +23,16 @@
             @Html.DisplayTextFor(d => d.NumeroFolio)
         </dd>
         <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.VistaPoliciaEncargado)
+            @Html.LabelFor(d => d.VistaOficialActuante)
         </dt>
         <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.VistaPoliciaEncargado)
+            @Html.DisplayTextFor(d => d.VistaOficialActuante)
         </dd>
         <dt class="col-sm-4">
-            @Html.LabelFor(d => d.VistaPoliciaTestigo)
+            @Html.LabelFor(d => d.VistaOficialAcompanante)
         </dt>
         <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.VistaPoliciaTestigo)
+            @Html.DisplayTextFor(d => d.VistaOficialAcompanante)
         </dd>
         <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.Supervisor)
@@ -40,12 +40,7 @@
         <dd class="col-sm-8 ">
             @Html.DisplayTextFor(d => d.VistaPoliciaSupervisor)
         </dd>
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.VistaDistrito)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.VistaDistrito)
-        </dd>
+
         <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.Fecha)
         </dt>
@@ -60,22 +55,40 @@
             @Html.DisplayTextFor(d => d.Hora.TimeOfDay)
         </dd>
         <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.Avenida)
+            @Html.LabelFor(d => d.CedulaDecomisado)
         </dt>
         <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.Avenida)
+            @Html.DisplayTextFor(d => d.CedulaDecomisado)
         </dd>
         <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.Calle)
+            @Html.LabelFor(d => d.NombreDecomisado)
         </dt>
         <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.Calle)
+            @Html.DisplayTextFor(d => d.NombreDecomisado)
         </dd>
         <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.OtrasSenas)
+            @Html.LabelFor(d => d.VistaTipoEstadoCivil)
         </dt>
         <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.OtrasSenas)
+            @Html.DisplayTextFor(d => d.VistaTipoEstadoCivil)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.TelefonoDecomisado)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.TelefonoDecomisado)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.DireccionDecomisado)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.DireccionDecomisado)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.LugarDelProcedimiento)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.LugarDelProcedimiento)
         </dd>
         <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.Inventario)
@@ -94,25 +107,14 @@
         }
     </dl>
     <hr />
-    @if (@ViewBag.smsnuevaActaH != null)
-    {
-        <div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <h4> @ViewBag.smsnuevaActaH</h4>
-        </div>}
-    @if (@ViewBag.smseditaractaH != null)
-    {
-        <div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <h4> @ViewBag.smseditaractaH</h4>
-        </div>}
+  
 
     <div class="row">
         <div class="col-sm-12">
-            <a href="~/ActaHallazgo/Index/" class="btn btn-outline-secondary">Regresar</a>
+            <a href="~/ActaDecomiso/Index/" class="btn btn-outline-secondary">Regresar</a>
 
             <div style="text-align:center;">
-                <a class="btn btn-primary" href="~/ActaHallazgo/Editar/@Model.IdActaHallazgo">Editar</a>
+                <a class="btn btn-primary" href="~/ActaDecomiso/Editar/@Model.IdActaDecomiso">Editar</a>
 
             </div>
         </div>
@@ -121,3 +123,5 @@
 
 
 </div>
+
+

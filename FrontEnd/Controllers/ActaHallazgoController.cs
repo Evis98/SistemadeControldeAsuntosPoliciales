@@ -120,14 +120,14 @@ namespace FrontEnd.Controllers
             {
                 foreach (ActaHallazgoViewModel actaHallazgo in actasHallazgo)
                 {
-                    if (filtroSeleccionado == "Numero de Folio")
+                    if (filtroSeleccionado == "Número de Folio")
                     {
                         if (actaHallazgo.NumeroFolio.Contains(busqueda))
                         {
                             actasHallazgoFiltradas.Add(actaHallazgo);
                         }
                     }
-                    if (filtroSeleccionado == "Nombre Policia Encargado")
+                    if (filtroSeleccionado == "Nombre Policía Encargado")
                     {
                         if (policiaDAL.GetPoliciaCedula(actaHallazgo.Encargado).nombre.Contains(busqueda))
                         {

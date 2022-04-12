@@ -139,6 +139,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ActaController.cs" />
+    <Compile Include="Controllers\ActaDecomisoController.cs" />
     <Compile Include="Controllers\ActaHallazgoController.cs" />
     <Compile Include="Controllers\ArmaController.cs" />
     <Compile Include="Controllers\BitacoraController.cs" />
@@ -151,6 +152,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModels\ActaDecomisoViewModel.cs" />
     <Compile Include="Models\ViewModels\ActaHallazgoViewModel.cs" />
     <Compile Include="Models\ViewModels\ArmaViewModel.cs" />
     <Compile Include="Models\ViewModels\BitacoraViewModel.cs" />
@@ -364,6 +366,12 @@
     <Content Include="Views\Parte\Detalle2.cshtml" />
     <Content Include="Views\Parte\Detalle3.cshtml" />
     <Content Include="Views\Parte\Detalle4.cshtml" />
+    <Content Include="Views\ActaDecomiso\Index.cshtml" />
+    <Content Include="Views\ActaDecomiso\Nuevo.cshtml" />
+    <Content Include="Views\ActaDecomiso\_ListaPoliciasBuscar.cshtml" />
+    <Content Include="Views\ActaDecomiso\_ListaPoliciasParcial.cshtml" />
+    <Content Include="Views\ActaDecomiso\Detalle.cshtml" />
+    <Content Include="Views\ActaDecomiso\Editar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

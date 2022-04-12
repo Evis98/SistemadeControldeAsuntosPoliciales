@@ -491,14 +491,14 @@ namespace FrontEnd.Controllers
             {
                 foreach (PartesPoliciales parte in partes)
                 {
-                    if (filtroSeleccionado == "Numero de Folio")
+                    if (filtroSeleccionado == "Número de Folio")
                     {
                         if (parte.numeroFolio.Contains(busqueda))
                         {
                             partesFiltrados.Add(parte);
                         }
                     }
-                    if (filtroSeleccionado == "Nombre del infractor")
+                    if (filtroSeleccionado == "Nombre del Infractor")
                     {
                         if (infractorDAL.GetInfractor(parte.idInfractor).nombreCompleto.Contains(busqueda))
                         {

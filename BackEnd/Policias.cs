@@ -24,6 +24,9 @@ namespace BackEnd
             this.Bitacoras1 = new HashSet<Bitacoras>();
             this.PartesPoliciales = new HashSet<PartesPoliciales>();
             this.PartesPoliciales1 = new HashSet<PartesPoliciales>();
+            this.ActasDecomiso = new HashSet<ActasDecomiso>();
+            this.ActasDecomiso1 = new HashSet<ActasDecomiso>();
+            this.ActasDecomiso2 = new HashSet<ActasDecomiso>();
         }
     
         public int idPolicia { get; set; }
@@ -55,5 +58,11 @@ namespace BackEnd
         public virtual ICollection<PartesPoliciales> PartesPoliciales1 { get; set; }
         public virtual TablaGeneral TablaGeneral { get; set; }
         public virtual TablaGeneral TablaGeneral1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ActasDecomiso> ActasDecomiso { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ActasDecomiso> ActasDecomiso1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ActasDecomiso> ActasDecomiso2 { get; set; }
     }
 }

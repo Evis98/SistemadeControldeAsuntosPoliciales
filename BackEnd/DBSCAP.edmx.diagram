@@ -53,6 +53,10 @@
         <AssociationConnector Association="SCAPModel.FK_TipoRequisito" ManuallyRouted="false" />
         <AssociationConnector Association="SCAPModel.FK_TipoRol" ManuallyRouted="false" />
         <AssociationConnector Association="SCAPModel.FK_IdUsuario" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SCAPModel.ActasDecomiso" Width="1.5" PointX="5.25" PointY="27.625" />
+        <AssociationConnector Association="SCAPModel.FK_OficialAcompanante" />
+        <AssociationConnector Association="SCAPModel.FK_OficialActuante" />
+        <AssociationConnector Association="SCAPModel.FK_SupervisorDecomiso" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

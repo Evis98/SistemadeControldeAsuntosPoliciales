@@ -37,5 +37,6 @@ namespace BackEnd
         public virtual DbSet<RolesUsuarios> RolesUsuarios { get; set; }
         public virtual DbSet<TablaGeneral> TablaGeneral { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
+        public virtual DbSet<ActasDecomiso> ActasDecomiso { get; set; }
     }
 }
