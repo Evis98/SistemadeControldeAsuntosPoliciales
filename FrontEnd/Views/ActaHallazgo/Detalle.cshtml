@@ -28,12 +28,15 @@
         <dd class="col-sm-8 ">
             @Html.DisplayTextFor(d => d.VistaPoliciaEncargado)
         </dd>
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.VistaPoliciaTestigo)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.VistaPoliciaTestigo)
-        </dd>
+        @if (Model.VistaPoliciaTestigo != null)
+        {
+            <dt class="col-sm-4">
+                @Html.LabelFor(d => d.VistaPoliciaTestigo)
+            </dt>
+            <dd class="col-sm-8 ">
+                @Html.DisplayTextFor(d => d.VistaPoliciaTestigo)
+            </dd>
+        }
         <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.Supervisor)
         </dt>
@@ -92,20 +95,20 @@
                 @Html.DisplayTextFor(d => d.Observaciones)
             </dd>
         }
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.VistaEstadoActa)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayTextFor(d => d.VistaEstadoActa)
+        </dd>
+        <dd class="col-sm-8">
+            <a class="btn btn-sm btn-warning" data-toggle="modal" data-target="#show3">Cambiar Estado</a>
+        </dd>
+
+
     </dl>
     <hr />
-    @if (@ViewBag.smsnuevaActaH != null)
-    {
-        <div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <h4> @ViewBag.smsnuevaActaH</h4>
-        </div>}
-    @if (@ViewBag.smseditaractaH != null)
-    {
-        <div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <h4> @ViewBag.smseditaractaH</h4>
-        </div>}
+    
 
     <div class="row">
         <div class="col-sm-12">
@@ -120,4 +123,24 @@
     </div>
 
 
+</div>
+
+<div class="modal" id="show3" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modificar Estado</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>¿Está seguro que desea modificar el estado del acta?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger" id="Cancel" data-dismiss="modal">Cancelar</button>
+                <a class="btn btn-primary" id="Save" href="~/ActaHallazgo/CambioEstadoActa/@Model.EstadoActa">Modificar</a>
+            </div>
+        </div>
+    </div>
 </div>

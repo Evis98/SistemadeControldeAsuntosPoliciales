@@ -74,20 +74,27 @@ namespace FrontEnd.Controllers
 
         string ObtenerEdad(DateTime? fechaNacimiento)
         {
-
             var edad = DateTime.Today.Year - fechaNacimiento.Value.Year;
-
             if (fechaNacimiento.Value.Date > DateTime.Today.AddYears(-edad)) edad--;
-
             return edad.ToString();
 
         }
 
-        public ActionResult Index(string filtroSeleccionado, string busqueda)
+        public ActionResult Index(string filtrosSeleccionado, string busqueda)
         {
             infractorDAL = new InfractorDAL();
+            tablaGeneralDAL = new TablaGeneralDAL();
             List<InfractorViewModel> infractores = new List<InfractorViewModel>();
             List<InfractorViewModel> infractoresFiltrados = new List<InfractorViewModel>();
+            List<TablaGeneral> comboindex = tablaGeneralDAL.Get("Infractores", "index");
+            List<SelectListItem> items = comboindex.ConvertAll(d =>
+            {
+                return new SelectListItem()
+                {
+                    Text = d.descripcion
+                };
+            });
+            ViewBag.items = items;
             foreach (Infractores infractor in infractorDAL.Get())
             {
                 infractores.Add(CargarInfractor(infractor));
@@ -96,14 +103,14 @@ namespace FrontEnd.Controllers
             {
                 foreach (InfractorViewModel infractor in infractores)
                 {
-                    if (filtroSeleccionado == "Cédula")
+                    if (filtrosSeleccionado == "Cédula")
                     {
                         if (infractor.Identificacion.Contains(busqueda))
                         {
                             infractoresFiltrados.Add(infractor);
                         }
                     }
-                    if (filtroSeleccionado == "Nombre")
+                    if (filtrosSeleccionado == "Nombre")
                     {
                         if (infractor.Nombre.Contains(busqueda))
                         {
@@ -189,8 +196,6 @@ namespace FrontEnd.Controllers
 
                         infractorDAL.Add(infractor);
                         int aux = infractorDAL.GetInfractorIdentificacion(model.Identificacion).idInfractor;
-                        TempData["smsnuevoinfractor"] = "Infractor creado con éxito";
-                        ViewBag.smsnuevoinfractor = TempData["smsnuevoinfractor"];
                         return Redirect("~/Infractor/Detalle/" + aux);
                     }
                 }
@@ -213,8 +218,6 @@ namespace FrontEnd.Controllers
             infractorDAL = new InfractorDAL();
             InfractorViewModel modelo = CargarInfractor(infractorDAL.GetInfractor(id));
             modelo.Edad = ObtenerEdad(modelo.FechaNacimiento);
-            ViewBag.smseditarinfractor = TempData["smseditarinfractor"];
-            ViewBag.smsnuevoinfractor = TempData["smsnuevoinfractor"];
             return View(modelo);
         }
 
@@ -271,9 +274,7 @@ namespace FrontEnd.Controllers
                     {
                         infractor.imagen = model.Imagen;
                     }
-                    infractorDAL.Edit(infractor);
-                    TempData["smseditarinfractor"] = "Infractor editado con éxito";
-                    ViewBag.smseditarinfractor = TempData["smseditarinfractor"];
+                    infractorDAL.Edit(infractor);                   
                     return Redirect("~/Infractor/Detalle/" + model.IdInfractor);
                 }
                 return View(model);

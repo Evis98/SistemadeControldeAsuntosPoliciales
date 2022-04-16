@@ -17,6 +17,12 @@ namespace BackEnd
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TablaGeneral()
         {
+            this.ActasDecomiso = new HashSet<ActasDecomiso>();
+            this.ActasEntrega = new HashSet<ActasEntrega>();
+            this.ActasEntrega1 = new HashSet<ActasEntrega>();
+            this.ActasEntregaPorOrdenDe = new HashSet<ActasEntregaPorOrdenDe>();
+            this.ActasEntregaPorOrdenDe1 = new HashSet<ActasEntregaPorOrdenDe>();
+            this.ActasHallazgo = new HashSet<ActasHallazgo>();
             this.Armas = new HashSet<Armas>();
             this.Armas1 = new HashSet<Armas>();
             this.Armas2 = new HashSet<Armas>();
@@ -34,6 +40,8 @@ namespace BackEnd
             this.PartesPoliciales3 = new HashSet<PartesPoliciales>();
             this.PartesPoliciales4 = new HashSet<PartesPoliciales>();
             this.PartesPoliciales5 = new HashSet<PartesPoliciales>();
+            this.PartesPoliciales6 = new HashSet<PartesPoliciales>();
+            this.PartesPoliciales7 = new HashSet<PartesPoliciales>();
             this.Personas = new HashSet<Personas>();
             this.Personas1 = new HashSet<Personas>();
             this.Personas2 = new HashSet<Personas>();
@@ -49,6 +57,18 @@ namespace BackEnd
         public string descripcion { get; set; }
         public string tabla { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ActasDecomiso> ActasDecomiso { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ActasEntrega> ActasEntrega { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ActasEntrega> ActasEntrega1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ActasEntregaPorOrdenDe> ActasEntregaPorOrdenDe { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ActasEntregaPorOrdenDe> ActasEntregaPorOrdenDe1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ActasHallazgo> ActasHallazgo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Armas> Armas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -83,6 +103,10 @@ namespace BackEnd
         public virtual ICollection<PartesPoliciales> PartesPoliciales4 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PartesPoliciales> PartesPoliciales5 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PartesPoliciales> PartesPoliciales6 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PartesPoliciales> PartesPoliciales7 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Personas> Personas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

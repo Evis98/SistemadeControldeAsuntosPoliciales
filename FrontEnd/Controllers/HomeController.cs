@@ -28,6 +28,11 @@ namespace FrontEnd.Controllers
             Session["Parte"] = null;
             return Json(new { status = "success" });
         }
+        public ActionResult SetSessionActaHallazgo()
+        {
+            Session["ActaHallazgo"] = null;
+            return Json(new { status = "success" });
+        }
 
     }
 

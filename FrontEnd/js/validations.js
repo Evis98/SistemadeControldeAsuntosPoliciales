@@ -216,6 +216,8 @@ if (document.getElementById("busquedaFechaFinalH")) {
 	}
 }
 
+
+
 if (document.getElementById("busquedaFechaFinalP")) {
 	var fechainicio = document.getElementById("busquedaFechaInicioP");
 	var fechafinal = document.getElementById("busquedaFechaFinalP");
@@ -388,7 +390,10 @@ function aparecerMadre() {
 		text.style.display = "none";
 	}
 }
-
+$('#modalBusquedaActaDecomiso').on('show.bs.modal', function (e) {
+	var bookId = $(e.relatedTarget).data('book-id');
+	document.getElementsByName("agregarActaDesomiso")[0].setAttribute("id", bookId);
+});
 function aparecerObservaciones() {
 	var checkBox = document.getElementById("checkboxObservaciones");
 	var text = document.getElementById("Obs");
@@ -408,3 +413,20 @@ function aparecerTatuajes() {
 		text.style.display = "none";
 	}
 }
+if (document.getElementById("InventarioSeleccion") != null) {
+	document.getElementById("InventarioSeleccion").addEventListener("change", function () {
+		var tipoActa = document.getElementById("InventarioSeleccion")
+		var tipoSeleccion = tipoActa.value;
+		if (tipoSeleccion == 2) {
+			document.getElementById("decomisoLayout").style.display = 'none';
+			document.getElementById("referenciaArticulos").style.display = 'none';
+			document.getElementById("NumInventario").style.display = 'block';
+
+		} else {
+			document.getElementById("decomisoLayout").style.display = 'block';
+			document.getElementById("referenciaArticulos").style.display = 'block';
+			document.getElementById("NumInventario").style.display = 'none';
+		}
+	});
+}
+

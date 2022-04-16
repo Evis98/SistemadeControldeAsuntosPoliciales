@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Armas";
+    List<SelectListItem> items = (List<SelectListItem>)ViewBag.items;
 }
 <div class="container bg-light text-dark border" style="height:80vh;">
     <div class="row">
@@ -16,10 +17,10 @@
     {
         <div class="form-row">
             <div class="col-sm-3">
-                <select class="form-control" name="filtroSeleccionado" id="filtroSeleccionado">
-                    <option selected>Policía Asignado</option>
-                    <option>Número de Serie</option>
-                </select>
+                @Html.DropDownList("filtrosSeleccionado", items, new { @class = "form-control", @id = "filtroSeleccionado", @name = "filtroSeleccionado", @onclick = "ocultarFechaActa()" })
+                <script>
+                    document.getElementById("filtroSeleccionado").value = "Policía Asignado";
+                </script>
             </div>
             <div class="col-sm-4">
                 <input class="form-control" name="busqueda" maxlength="150" type="text" id="busqueda" onkeyup="this.value = this.value.toUpperCase();" onkeypress="return  sololetrasnumeros(event)" />

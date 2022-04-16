@@ -50,11 +50,13 @@ namespace BackEnd
         public int alertador { get; set; }
         public int enteAcargo { get; set; }
         public string movil { get; set; }
-        public string movilPoliciaAsistente { get; set; }
+        public string movilAsistente { get; set; }
         public int idPoliciaActuante { get; set; }
-        public int idPoliciaAsistente { get; set; }
-        public string unidadOrigenPoliciaActuante { get; set; }
-        public string unidadOrigenPoliciaAsiste { get; set; }
+        public string identificacionOficialAsistente { get; set; }
+        public string nombreOficialAsistente { get; set; }
+        public string telefonoOficialAsistente { get; set; }
+        public int unidadOrigenPoliciaActuante { get; set; }
+        public int unidadOrigenPoliciaAsistente { get; set; }
     
         public virtual Infractores Infractores { get; set; }
         public virtual TablaGeneral TablaGeneral { get; set; }
@@ -63,8 +65,9 @@ namespace BackEnd
         public virtual TablaGeneral TablaGeneral3 { get; set; }
         public virtual TablaGeneral TablaGeneral4 { get; set; }
         public virtual Policias Policias { get; set; }
-        public virtual Policias Policias1 { get; set; }
         public virtual TablaGeneral TablaGeneral5 { get; set; }
         public virtual Personas Personas { get; set; }
+        public virtual TablaGeneral TablaGeneral6 { get; set; }
+        public virtual TablaGeneral TablaGeneral7 { get; set; }
     }
 }

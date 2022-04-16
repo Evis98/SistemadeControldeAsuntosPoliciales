@@ -57,39 +57,39 @@ namespace FrontEnd.Controllers
                 VistaEstado = tablaGeneralDAL.Get(policia.estado).descripcion,
             };
         }
-        public ActionResult Index(string filtroSeleccionado, string busqueda )
+        public ActionResult Index(string filtrosSeleccionado, string busqueda )
         {
             policiaDAL = new PoliciaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             List<PoliciaViewModel> policias = new List<PoliciaViewModel>();
             List<PoliciaViewModel> policiasFiltrados = new List<PoliciaViewModel>();
-            List<TablaGeneral> tipoCedulaIndex = tablaGeneralDAL.Get("Generales", "estado");
-            List<SelectListItem> items = tipoCedulaIndex.ConvertAll(d =>
+            List<TablaGeneral> comboindex = tablaGeneralDAL.Get("Policias", "index");
+            List<SelectListItem> items =comboindex.ConvertAll(d =>
             {
                 return new SelectListItem()
-                {
-                    Text = d.descripcion,
-                    Value = d.idTablaGeneral.ToString(),
-                    Selected = false
+                {                    
+                   Text = d.descripcion                    
                 };
             });
-            ViewBag.items = items;
+            ViewBag.items = items;            
             foreach (Policias policia in policiaDAL.Get())
             {
                 policias.Add(CargarPolicia(policia));
             }
+            
             if (busqueda != null)
             {
+                
                 foreach (PoliciaViewModel policia in policias)
                 {
-                    if (filtroSeleccionado == "Cédula")
+                    if (filtrosSeleccionado == "Cédula")
                     {
                         if (policia.Cedula.Contains(busqueda))
                         {
                             policiasFiltrados.Add(policia);
                         }
                     }
-                    if (filtroSeleccionado == "Nombre")
+                    if (filtrosSeleccionado == "Nombre")
                     {
                         if (policia.Nombre.Contains(busqueda))
                         {
@@ -142,8 +142,6 @@ namespace FrontEnd.Controllers
                     {
                         policiaDAL.Add(ConvertirPolicia(model));
                         int aux = policiaDAL.GetPoliciaCedula(model.Cedula).idPolicia;
-                        TempData["smsnuevopolicia"] = "Policía creado con éxito";
-                        ViewBag.smsnuevopolicia = TempData["smsnuevopolicia"];
                         return Redirect("~/Policia/Detalle/" + aux);
                     }
                 }
@@ -162,14 +160,7 @@ namespace FrontEnd.Controllers
             policiaDAL = new PoliciaDAL();
             Session["idPolicia"] = id;
             Session["nombrePolicia"] = policiaDAL.GetPolicia(id).nombre;
-            PoliciaViewModel modelo = CargarPolicia(policiaDAL.GetPolicia(id));
-            try
-            {
-                ViewBag.sms = TempData["sms"];
-                ViewBag.smscambioestado = TempData["smscambioestado"];
-                ViewBag.smsnuevopolicia = TempData["smsnuevopolicia"];
-            }
-            catch { }
+            PoliciaViewModel modelo = CargarPolicia(policiaDAL.GetPolicia(id));            
             return View(modelo);
         }
 
@@ -193,9 +184,7 @@ namespace FrontEnd.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    policiaDAL.Edit(ConvertirPolicia(modelo));
-                    TempData["sms"] = "Policía editado con éxito";
-                    ViewBag.sms = TempData["sms"];
+                    policiaDAL.Edit(ConvertirPolicia(modelo));                   
                     return Redirect("~/Policia/Detalle/" + modelo.IdPolicia);
                 }
                 return View(modelo);
@@ -223,8 +212,6 @@ namespace FrontEnd.Controllers
                     estado = tablaGeneralDAL.Get("Generales", "estado", "Activo").idTablaGeneral;
                 }
                 policiaDAL.CambiaEstadoPolicia((int)Session["idPolicia"], estado);
-                TempData["smscambioestado"] = "Cambio de estado realizado con éxito";
-                ViewBag.smscambioestado = TempData["smscambioestado"];
                 return Redirect("~/Policia/Detalle/" + Session["idPolicia"]);
             }
             catch (Exception ex)

@@ -1,5 +1,8 @@
 ﻿@model List<FrontEnd.Models.ViewModels.BitacoraViewModel>
-@{ ViewBag.Title = "Bitácora"; }
+@{ ViewBag.Title = "Bitácora";
+    List<SelectListItem> items1 = (List<SelectListItem>)ViewBag.items1;
+    List<SelectListItem> items2 = (List<SelectListItem>)ViewBag.items2;
+}
 
 <div class="container bg-light text-dark border" style="height:80vh;">
     <div class="row">
@@ -14,18 +17,14 @@
     {
         <div class="form-row">
             <div class="col-sm-3">
-                <select class="form-control" name="filtroSeleccionado" id="filtroSeleccionado" onclick="ocultarBitacora()">
-                    <option selected>Nombre Policía</option>
-                    <option>Estado de bitácora</option>
-                    <option>Fecha de creación</option>
-                </select>
+                @Html.DropDownList("filtrosSeleccionado", items1, new { @class = "form-control", @id = "filtroSeleccionado", @name = "filtroSeleccionado", @onclick = "ocultarBitacora()" })
+                <script>
+                    document.getElementById("filtroSeleccionado").value = "Nombre Policía";
+                </script>
             </div>
             <div class="col-sm-3">
                 <input class="form-control" name="busqueda" maxlength="150" type="text" id="busqueda" onkeyup="this.value = this.value.toUpperCase();" onkeypress="return  sololetrasnumeros(event)" />
-                <select class="form-control" name="estadoBitacora" id="estadoBitacora" style="display:none">
-                    <option selected="selected">Pendiente</option>
-                    <option>Completada</option>
-                </select>
+                @Html.DropDownList("estadosBitacora", items2, new { @class = "form-control", @id = "estadoBitacora", @name = "estadoBitacora", @style = "display:none" })             
                 <input class="form-control" name="busquedaFechaInicioB" type="date" id="busquedaFechaInicioB" style="display:none" />
                 <label id="textFechaInicio" style="display:none">Fecha de inicio</label>
             </div>
@@ -73,7 +72,7 @@
                                 </div>
                             </td>
                         </tr>
-}
+                    }
                 </tbody>
             </table>
         </div>

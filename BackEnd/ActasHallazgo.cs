@@ -17,7 +17,7 @@ namespace BackEnd
         public int idActaHallazgo { get; set; }
         public string numeroFolio { get; set; }
         public int encargado { get; set; }
-        public int testigo { get; set; }
+        public Nullable<int> testigo { get; set; }
         public int supervisor { get; set; }
         public int distrito { get; set; }
         public Nullable<System.DateTime> fechaHora { get; set; }
@@ -26,9 +26,10 @@ namespace BackEnd
         public string otrasSenas { get; set; }
         public string inventario { get; set; }
         public string observaciones { get; set; }
+        public int estadoActa { get; set; }
     
         public virtual Policias Policias { get; set; }
+        public virtual TablaGeneral TablaGeneral { get; set; }
         public virtual Policias Policias1 { get; set; }
-        public virtual Policias Policias2 { get; set; }
     }
 }

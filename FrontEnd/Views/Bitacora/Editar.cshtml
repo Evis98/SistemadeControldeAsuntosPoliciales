@@ -33,7 +33,7 @@
                })
                     <div class="input-group-append ">
                         <a class="btn btn-primary" data-toggle="modal" data-target="#modalBusquedaArma">Buscar</a>
-                        <a class="btn btn-danger" data-toggle="modal" data-target="#QuitarArma">Quitar</a>
+                        
                     </div>
                 </div>
                 @Html.ValidationMessageFor(d => d.NumeroSerieArma, null, new { @class = "red" })
@@ -49,7 +49,7 @@
                     })
                     <div class="input-group-append ">
                         <a class="btn btn-primary" data-book-id="idArmeroProveedor" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
-                        <a class="btn btn-danger" data-book-id="idArmeroProveedor" data-toggle="modal" data-target="#quitaPolicia">Quitar</a>
+                       
                     </div>
                 </div>
                 @Html.ValidationMessageFor(d => d.ArmeroProveedor, null, new { @class = "red" })
@@ -60,7 +60,7 @@
                     @Html.TextBoxFor(d => d.PoliciaSolicitante, "", new { @class = "form-control", @id = "idPoliciaSolicitante", @readonly = "readonly" })
                     <div class="input-group-append ">
                         <a class="btn btn-primary" data-book-id="idPoliciaSolicitante" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
-                        <a class="btn btn-danger" data-book-id="idPoliciaSolicitante" data-toggle="modal" data-target="#quitaPolicia">Quitar</a>
+                       
                     </div>
                 </div>
             </div>
@@ -102,7 +102,7 @@
                         @Html.TextBoxFor(d => d.ArmeroReceptor, "", new { @class = "form-control", @id = "idArmeroReceptor", @readonly = "readonly" })
                         <div class="input-group-append ">
                             <a class="btn btn-primary" data-book-id="idArmeroReceptor" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
-                            <a class="btn btn-danger" data-book-id="idArmeroReceptor" data-target="#quitaPolicia">Quitar</a>
+                         
                         </div>
                     </div>
                     @Html.ValidationMessageFor(d => d.ArmeroReceptor, null, new { @class = "red" })
@@ -111,12 +111,12 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     @Html.LabelFor(d => d.MunicionDevuelta)
-                    @Html.TextBoxFor(d => d.MunicionDevuelta, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return solonumeros(event)" })
+                    @Html.TextBoxFor(d => d.MunicionEntregada, "", new { @class = "form-control", @min = "0", @onkeyup = "this.value = this.value.toUpperCase();", @type = "number", onkeydown = "javascript: return event.keyCode == 69 ? false : true" })
                     @Html.ValidationMessageFor(d => d.MunicionDevuelta, null, new { @class = "red" })
                 </div>
                 <div class="form-group col-md-4">
                     @Html.LabelFor(d => d.CargadoresDevueltos)
-                    @Html.TextBoxFor(d => d.CargadoresDevueltos, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return solonumeros(event)" })
+                    @Html.TextBoxFor(d => d.CargadoresEntregados, "", new { @class = "form-control", @min = "0", @onkeyup = "this.value = this.value.toUpperCase();", @type = "number", onkeydown = "javascript: return event.keyCode == 69 ? false : true" })
                     @Html.ValidationMessageFor(d => d.CargadoresDevueltos, null, new { @class = "red" })
                 </div>
             </div>
@@ -141,13 +141,13 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Agregar una bitacora</h5>
+                        <h5 class="modal-title">Editar una bitácora</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>¿Está seguro que desea guardar una nueva bitácora?</p>
+                        <p>¿Está seguro que desea editar una bitácora?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-danger" id="Cancel" data-dismiss="modal">Cancelar</button>

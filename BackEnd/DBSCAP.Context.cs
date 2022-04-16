@@ -25,6 +25,9 @@ namespace BackEnd
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<ActasDecomiso> ActasDecomiso { get; set; }
+        public virtual DbSet<ActasEntrega> ActasEntrega { get; set; }
+        public virtual DbSet<ActasEntregaPorOrdenDe> ActasEntregaPorOrdenDe { get; set; }
         public virtual DbSet<ActasHallazgo> ActasHallazgo { get; set; }
         public virtual DbSet<Armas> Armas { get; set; }
         public virtual DbSet<Bitacoras> Bitacoras { get; set; }
@@ -37,6 +40,5 @@ namespace BackEnd
         public virtual DbSet<RolesUsuarios> RolesUsuarios { get; set; }
         public virtual DbSet<TablaGeneral> TablaGeneral { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
-        public virtual DbSet<ActasDecomiso> ActasDecomiso { get; set; }
     }
 }

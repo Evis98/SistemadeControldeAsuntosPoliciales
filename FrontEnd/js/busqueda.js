@@ -1,35 +1,9 @@
-﻿var subjectObject = {
-    "Detalle de Requisito": { },
-    "Tipo de Requisito": { "Carné": [], "Capacitación": [] }
-}
-var variosInput = document.getElementById('busqueda');
-var topicInput = document.getElementById('tipoRequisito');
-
-window.onload = function () {
-
-    document.getElementById("tipoRequisito").style.display = "none";
-  
-    var subjectSel = document.getElementById("filtroSeleccionado");
-    var topicSel = document.getElementById("tipoRequisito");
-    for (var x in subjectObject) {
-        subjectSel.options[subjectSel.options.length] = new Option(x, x);
-    }
-    subjectSel.onchange = function () {
-       topicSel.length = 1;
-        for (var y in subjectObject[this.value]) {
-            topicSel.options[topicSel.options.length] = new Option(y, y);
-        }
-    }
-      
-
-}
-
-function ocultarRequisito() {
+﻿function ocultarRequisito() {
  
     var aux1 = document.getElementById("tipoRequisito");
     var aux2 = document.getElementById("filtroSeleccionado");
     var aux3 = document.getElementById('busqueda');
-    if (aux2.options[aux2.selectedIndex].value === "Tipo de Requisito") {
+    if (aux2.options[aux2.selectedIndex].textContent === "Tipo de Requisito") {
         aux1.style.display = "block";
         aux3.style.display = "none"
     } else {
@@ -64,6 +38,8 @@ function ocultarFechaParte() {
     }
 }
 
+
+
 function ocultarFechaActa() {
     var auxa = document.getElementById("busquedaFechaInicioH");
     var auxb = document.getElementById("busquedaFechaFinalH");
@@ -71,7 +47,7 @@ function ocultarFechaActa() {
     var auxFIT = document.getElementById("textFechaInicioH");
     var auxFFT = document.getElementById("textFechaFinalH");
     var auxd = document.getElementById('busqueda');
-    if (auxc.options[auxc.selectedIndex].value === "Fecha") {
+    if (auxc.options[auxc.selectedIndex].textContent === "Fecha") {
         auxa.setAttribute('required', '');
         auxb.setAttribute('required', '');
         auxFIT.style.display = "block";
@@ -79,7 +55,8 @@ function ocultarFechaActa() {
         auxa.style.display = "block";
         auxb.style.display = "block";
         auxd.style.display = "none"
-    } else {
+    }
+    else {
         auxa.removeAttribute('required');
         auxb.removeAttribute('required');
         auxa.style.display = "none";       
@@ -98,7 +75,7 @@ function ocultarBitacora() {
     var aux8 = document.getElementById("estadoBitacora");
     var aux9 = document.getElementById("filtroSeleccionado");
     var aux10 = document.getElementById('busqueda');
-    if (aux9.options[aux9.selectedIndex].value === "Estado de bitácora") {
+    if (aux9.options[aux9.selectedIndex].value === "Estado de Bitácora") {
         auxiB.style.display = "none";
         auxiA.style.display = "none";
         auxiA.removeAttribute('required');
@@ -108,7 +85,7 @@ function ocultarBitacora() {
         aux8.style.display = "block";
         aux10.style.display = "none"
     } 
-    else if (aux9.options[aux9.selectedIndex].value === "Fecha de creación") {
+    else if (aux9.options[aux9.selectedIndex].value === "Fecha de Creación") {
         aux8.style.display = "none";
         aux10.style.display = "none";
         auxiB.setAttribute('required', '');
@@ -129,67 +106,7 @@ function ocultarBitacora() {
     }
 }
 
-//function parteValidacionesPersonas() {
-//  /*  var auxO1 = document.getElementById("busquedaFechaInicioB");*/
-//    var auxO2 = document.getElementById("idOfendido2");
-//    var auxO3 = document.getElementById("idOfendido3");
-//    //var auxO4 = document.getElementById("textFechaFinal");
-//    //var auxO5 = document.getElementById("estadoBitacora");
-//    //var auxT1 = document.getElementById("filtroSeleccionado");
-//    //var auxT2 = document.getElementById('busqueda');
-//    if (auxO3.value != null) {
-//        auxO2.setAttribute('required', '');
-//        /*auxO3.setAttribute('required', '');*/
-//        //auxO2.removeAttribute('required');
-//        //auxiB.removeAttribute('required');
-//        //auxiBT.style.display = "none";
-//        //auxiAT.style.display = "none";
-//        //aux8.style.display = "block";
-//        //aux10.style.display = "none"
-//    } else /*if (auxO3.value == null ) */{
-//       /* auxO3.removeAttribute('required');*/
-//        auxO2.removeAttribute('required');
-//    }
-//    //else if (aux9.options[aux9.selectedIndex].value === "Fecha de creación") {
-//    //    aux8.style.display = "none";
-//    //    aux10.style.display = "none";
-//    //    auxiB.setAttribute('required', '');
-//    //    auxiA.setAttribute('required', '');
-//    //    auxiB.style.display = "block";
-//    //    auxiA.style.display = "block"
-//    //    auxiBT.style.display = "block";
-//    //    auxiAT.style.display = "block"
-//    //} else {
-//    //    auxiB.style.display = "none";
-//    //    auxiA.style.display = "none";
-//    //    auxiA.removeAttribute('required');
-//    //    auxiB.removeAttribute('required');
-//    //    aux8.style.display = "none";
-//    //    auxiBT.style.display = "none";
-//    //    auxiAT.style.display = "none";
-//    //    aux10.style.display = "block"
-//    //}
-//}
-//function ocultarFechaNacimiento() {
-//    var aux4 = document.getElementById("busquedaFechaInicio");
-//    var aux7 = document.getElementById("busquedaFechaFinal");
-//    var aux5 = document.getElementById("filtroSeleccionado");
-//    var aux6 = document.getElementById('busqueda');
 
-//    if (aux5.options[aux5.selectedIndex].value === "Fecha Nacimiento") {
-//        aux4.style.display = "block";
-//        aux4.setAttribute('required', '');
-//        aux7.setAttribute('required', '');
-//        aux7.style.display = "block";
-//        aux6.style.display = "none"
-//    } else {
-//        aux4.style.display = "none";
-//        aux4.removeAttribute('required');
-//        aux7.removeAttribute('required');
-//        aux7.style.display = "none";
-//        aux6.style.display = "block"
-//    }
-//}
 
 function ocultarFecha() {
     var aux2 = document.getElementById("tiposRequisito");

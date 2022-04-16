@@ -140,6 +140,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ActaController.cs" />
     <Compile Include="Controllers\ActaDecomisoController.cs" />
+    <Compile Include="Controllers\ActaEntregaController.cs" />
+    <Compile Include="Controllers\ActaEntregaPorOrdenDeController.cs" />
     <Compile Include="Controllers\ActaHallazgoController.cs" />
     <Compile Include="Controllers\ArmaController.cs" />
     <Compile Include="Controllers\BitacoraController.cs" />
@@ -153,6 +155,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModels\ActaDecomisoViewModel.cs" />
+    <Compile Include="Models\ViewModels\ActaEntregaPorOrdenDeViewModel.cs" />
+    <Compile Include="Models\ViewModels\ActaEntregaViewModel.cs" />
     <Compile Include="Models\ViewModels\ActaHallazgoViewModel.cs" />
     <Compile Include="Models\ViewModels\ArmaViewModel.cs" />
     <Compile Include="Models\ViewModels\BitacoraViewModel.cs" />
@@ -372,6 +376,22 @@
     <Content Include="Views\ActaDecomiso\_ListaPoliciasParcial.cshtml" />
     <Content Include="Views\ActaDecomiso\Detalle.cshtml" />
     <Content Include="Views\ActaDecomiso\Editar.cshtml" />
+    <Content Include="Views\ActaEntrega\_ListaPoliciasBuscar.cshtml" />
+    <Content Include="Views\ActaEntrega\_ListaPoliciasParcial.cshtml" />
+    <Content Include="Views\ActaEntrega\_ListaHallazgosParcial.cshtml" />
+    <Content Include="Views\ActaEntrega\Index.cshtml" />
+    <Content Include="Views\ActaEntrega\Nuevo.cshtml" />
+    <Content Include="Views\ActaEntrega\Detalle.cshtml" />
+    <Content Include="Views\ActaEntrega\Editar.cshtml" />
+    <Content Include="Views\ActaEntrega\_ListaHallazgosBuscar.cshtml" />
+    <Content Include="Views\ActaEntregaPorOrdenDe\Detalle.cshtml" />
+    <Content Include="Views\ActaEntregaPorOrdenDe\Editar.cshtml" />
+    <Content Include="Views\ActaEntregaPorOrdenDe\Index.cshtml" />
+    <Content Include="Views\ActaEntregaPorOrdenDe\Nuevo.cshtml" />
+    <Content Include="Views\ActaEntregaPorOrdenDe\_ListaActasDecomisoBuscar.cshtml" />
+    <Content Include="Views\ActaEntregaPorOrdenDe\_ListaActasDecomisoParcial.cshtml" />
+    <Content Include="Views\ActaEntregaPorOrdenDe\_ListaPoliciasBuscar.cshtml" />
+    <Content Include="Views\ActaEntregaPorOrdenDe\_ListaPoliciasParcial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

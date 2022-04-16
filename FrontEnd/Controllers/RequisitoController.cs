@@ -54,12 +54,30 @@ namespace FrontEnd.Controllers
         }
 
         //Devuelve la página con el listado de todos los requisitos creados
-        public ActionResult Index(string filtroSeleccionado, string busqueda, string tipoRequisito)
+        public ActionResult Index(string filtrosSeleccionado, string busqueda, string tiposRequisito)
         {
             requisitoDAL = new RequisitoDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             List<RequisitoViewModel> requisitos = new List<RequisitoViewModel>();
             List<RequisitoViewModel> requisitosFiltrados = new List<RequisitoViewModel>();
+            List<TablaGeneral> comboindex1 = tablaGeneralDAL.Get("Requisitos", "index");
+            List<TablaGeneral> comboindex2 = tablaGeneralDAL.Get("Requisitos", "tipoRequisito");
+            List<SelectListItem> items1 = comboindex1.ConvertAll(d =>
+            {
+                return new SelectListItem()
+                {
+                    Text = d.descripcion
+                };
+            });
+            ViewBag.items1 = items1;
+            List<SelectListItem> items2 = comboindex2.ConvertAll(d =>
+            {
+                return new SelectListItem()
+                {
+                    Text = d.descripcion
+                };
+            });
+            ViewBag.items2 = items2;
             foreach (Requisitos requisito in requisitoDAL.Get())
             {
                 requisitos.Add(CargarRequisito(requisito));
@@ -68,16 +86,16 @@ namespace FrontEnd.Controllers
             {
                 foreach (RequisitoViewModel requisito in requisitos)
                 {
-                    if (filtroSeleccionado == "Detalle de Requisito")
+                    if (filtrosSeleccionado == "Detalle de Requisito")
                     {
                         if (requisito.Detalles.Contains(busqueda))
                         {
                             requisitosFiltrados.Add(requisito);
                         }
                     }
-                    if (filtroSeleccionado == "Tipo de Requisito")
+                    if (filtrosSeleccionado == "Tipo de Requisito")
                     {
-                        if (tablaGeneralDAL.GetCodigo("Requisitos", "tipoRequisito", requisito.TipoRequisito.ToString()).descripcion.Contains(tipoRequisito))
+                        if (tablaGeneralDAL.GetCodigo("Requisitos", "tipoRequisito", requisito.TipoRequisito.ToString()).descripcion.Contains(tiposRequisito))
                         {
                             requisitosFiltrados.Add(requisito);
                         }
@@ -89,12 +107,30 @@ namespace FrontEnd.Controllers
         }
 
         //*Devuelve la página con el listado de todos los requisitos creados para el policía seleccionado
-        public ActionResult Listado(int id, string filtroSeleccionado, string busqueda, string tipoRequisito)
+        public ActionResult Listado(int id, string filtrosSeleccionado, string busqueda, string tiposRequisito)
         {
             requisitoDAL = new RequisitoDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             List<RequisitoViewModel> requisitos = new List<RequisitoViewModel>();
             List<RequisitoViewModel> requisitosFiltrados = new List<RequisitoViewModel>();
+            List<TablaGeneral> comboindex1 = tablaGeneralDAL.Get("Requisitos", "index");
+            List<TablaGeneral> comboindex2 = tablaGeneralDAL.Get("Requisitos", "tipoRequisito");
+            List<SelectListItem> items1 = comboindex1.ConvertAll(d =>
+            {
+                return new SelectListItem()
+                {
+                    Text = d.descripcion
+                };
+            });
+            ViewBag.items1 = items1;
+            List<SelectListItem> items2 = comboindex2.ConvertAll(d =>
+            {
+                return new SelectListItem()
+                {
+                    Text = d.descripcion
+                };
+            });
+            ViewBag.items2 = items2;
             foreach (Requisitos requisito in requisitoDAL.Get())
             {
                 if (id == requisito.idPolicia)
@@ -106,16 +142,16 @@ namespace FrontEnd.Controllers
             {
                 foreach (RequisitoViewModel requisito in requisitos)
                 {
-                    if (filtroSeleccionado == "Detalle de Requisito")
+                    if (filtrosSeleccionado == "Detalle de Requisito")
                     {
                         if (requisito.Detalles.Contains(busqueda))
                         {
                             requisitosFiltrados.Add(requisito);
                         }
                     }
-                    if (filtroSeleccionado == "Tipo de Requisito")
+                    if (filtrosSeleccionado == "Tipo de Requisito")
                     {
-                        if (tablaGeneralDAL.GetCodigo("Requisitos", "tipoRequisito", requisito.TipoRequisito.ToString()).descripcion.Contains(tipoRequisito))
+                        if (tablaGeneralDAL.GetCodigo("Requisitos", "tipoRequisito", requisito.TipoRequisito.ToString()).descripcion.Contains(tiposRequisito))
                         {
                             requisitosFiltrados.Add(requisito);
                         }

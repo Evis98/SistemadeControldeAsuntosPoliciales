@@ -16,6 +16,7 @@ namespace FrontEnd.Controllers
         IArmaDAL armaDAL;
         ITablaGeneralDAL tablaGeneralDAL;
         IBitacoraDAL bitacoraDAL;
+        IRequisitoDAL requisitoDAL;
 
         public BitacoraViewModel CargarBitacora(Bitacoras bitacora)
         {
@@ -69,7 +70,7 @@ namespace FrontEnd.Controllers
                 bitacora.fechaCreacion = modelo.FechaCreacion;
                 bitacora.municionEntregada = modelo.MunicionEntregada;
                 bitacora.cargadoresEntregados = modelo.CargadoresEntregados;
-                bitacora.observacionesEntrega = modelo.ObservacionesEntrega;              
+                bitacora.observacionesEntrega = modelo.ObservacionesEntrega;
                 if (modelo.VistaEstadoActual == "Pendiente")
                 {
                     bitacora.estadoActualBitacora = tablaGeneralDAL.GetCodigo("Bitacoras", "estadoActualBitacora", "1").idTablaGeneral;
@@ -89,13 +90,31 @@ namespace FrontEnd.Controllers
         }
 
 
-        public ActionResult Index(string filtroSeleccionado, string busqueda, string estadoBitacora, string busquedaFechaInicioB, string busquedaFechaFinalB)
+        public ActionResult Index(string filtrosSeleccionado, string busqueda, string estadosBitacora, string busquedaFechaInicioB, string busquedaFechaFinalB)
         {
             bitacoraDAL = new BitacoraDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             policiaDAL = new PoliciaDAL();
             List<BitacoraViewModel> bitacoras = new List<BitacoraViewModel>();
             List<BitacoraViewModel> bitacorasFiltradas = new List<BitacoraViewModel>();
+            List<TablaGeneral> comboindex1 = tablaGeneralDAL.Get("Bitacoras", "index");
+            List<TablaGeneral> comboindex2 = tablaGeneralDAL.Get("Bitacoras", "estadoActualBitacora");
+            List<SelectListItem> items1 = comboindex1.ConvertAll(d =>
+            {
+                return new SelectListItem()
+                {
+                    Text = d.descripcion
+                };
+            });
+            ViewBag.items1 = items1;
+            List<SelectListItem> items2 = comboindex2.ConvertAll(d =>
+            {
+                return new SelectListItem()
+                {
+                    Text = d.descripcion
+                };
+            });
+            ViewBag.items2 = items2;
             foreach (Bitacoras bitacora in bitacoraDAL.Get())
             {
                 bitacoras.Add(CargarBitacora(bitacora));
@@ -104,22 +123,22 @@ namespace FrontEnd.Controllers
             {
                 foreach (BitacoraViewModel bitacora in bitacoras)
                 {
-                    if (filtroSeleccionado == "Nombre Policía")
+                    if (filtrosSeleccionado == "Nombre Policía")
                     {
                         if (policiaDAL.GetPoliciaCedula(bitacora.PoliciaSolicitante).nombre.Contains(busqueda))
                         {
                             bitacorasFiltradas.Add(bitacora);
                         }
                     }
-                    if (filtroSeleccionado == "Estado de bitácora")
+                    if (filtrosSeleccionado == "Estado de Bitácora")
                     {
-                        if (tablaGeneralDAL.Get(bitacora.EstadoActual).descripcion.Contains(estadoBitacora))
+                        if (tablaGeneralDAL.Get(bitacora.EstadoActual).descripcion.Contains(estadosBitacora))
                         {
                             bitacorasFiltradas.Add(bitacora);
                         }
                     }
                 }
-                if (filtroSeleccionado == "Fecha de creación")
+                if (filtrosSeleccionado == "Fecha de Creación")
                 {
                     DateTime fechaInicio = DateTime.Parse(busquedaFechaInicioB);
                     DateTime fechaFinal = DateTime.Parse(busquedaFechaFinalB);
@@ -130,7 +149,7 @@ namespace FrontEnd.Controllers
                             bitacorasFiltradas.Add(CargarBitacora(bitacoraFechas));
                         }
                     }
-                   
+
                 }
                 bitacoras = bitacorasFiltradas;
             }
@@ -177,8 +196,7 @@ namespace FrontEnd.Controllers
                         bitacoraDAL.Add(bitacora);
                         armaDAL.Edit(arma);
                         int aux = bitacoraDAL.GetBitacoraConsecutivo(model.NumeroConsecutivo).idBitacora;
-                        TempData["smsnuevabitacora"] = "Bitácora creada con éxito";
-                        ViewBag.smsnuevabitacora = TempData["smsnuevabitacora"];
+
                         return Redirect("~/Bitacora/Detalle/" + aux);
                     }
                 }
@@ -195,13 +213,6 @@ namespace FrontEnd.Controllers
             armaDAL = new ArmaDAL();
             bitacoraDAL = new BitacoraDAL();
             BitacoraViewModel modelo = CargarBitacora(bitacoraDAL.GetBitacora(id));
-            try
-            {              
-                ViewBag.smscompletadabitacora = TempData["smscompletadabitacora"];
-                ViewBag.smsnuevabitacora = TempData["smsnuevabitacora"];
-                ViewBag.smsbitacoraeditada = TempData["smsbitacoraeditada"];                
-            }
-            catch { }
             return View(modelo);
         }
 
@@ -229,8 +240,7 @@ namespace FrontEnd.Controllers
                     arma.policiaAsignado = null;
                     armaDAL.Edit(arma);
                     bitacoraDAL.Edit(ConvertirBitacora(model));
-                    TempData["smscompletadabitacora"] = "Bitácora completada con éxito";
-                    ViewBag.smscompletadabitacora = TempData["smscompletadabitacora"];
+
                     return Redirect("~/Bitacora/Detalle/" + model.IdBitacora);
                 }
                 return View(model);
@@ -272,8 +282,7 @@ namespace FrontEnd.Controllers
                         armaDAL.Edit(arma2);
                     }
                     bitacoraDAL.Edit(ConvertirBitacora(modelo));
-                    TempData["smsbitacoraeditada"] = "Bitácora editada con éxito";
-                    ViewBag.sms = TempData["smsbitacoraeditada"];
+
                     return Redirect("~/Bitacora/Detalle/" + modelo.IdBitacora);
                 }
                 return View(modelo);
@@ -305,9 +314,11 @@ namespace FrontEnd.Controllers
         {
             tablaGeneralDAL = new TablaGeneralDAL();
             policiaDAL = new PoliciaDAL();
+            requisitoDAL = new RequisitoDAL();
             List<Policias> policias = policiaDAL.Get();
             List<Policias> policiasFiltrados = new List<Policias>();
-            if (nombre == "")
+            
+            if (nombre == null)
             {
                 policiasFiltrados = policias;
             }
@@ -315,10 +326,12 @@ namespace FrontEnd.Controllers
             {
                 foreach (Policias policia in policias)
                 {
-                    if (policia.nombre.Contains(nombre))
-                    {
 
+                    if (policia.nombre.Contains(nombre))
+                    {                       
+                        if (requisitoDAL.GetRequisitosPortacion(policia.idPolicia, "PORTACIÓN").Count > 0) { 
                         policiasFiltrados.Add(policia);
+                        }
                     }
                 }
             }

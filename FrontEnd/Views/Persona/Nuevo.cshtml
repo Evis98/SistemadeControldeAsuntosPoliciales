@@ -87,7 +87,7 @@
             </div>
             <div class="form-group col-md-5">
                 @Html.LabelFor(d => d.DireccionExacta)
-                @Html.TextAreaFor(d => d.DireccionExacta, new { @class = "form-control", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)" })
+                @Html.TextAreaFor(d => d.DireccionExacta, new { @class = "form-control", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();" })
                 @Html.ValidationMessageFor(d => d.DireccionExacta, null, new { @class = "red" })
             </div>
 

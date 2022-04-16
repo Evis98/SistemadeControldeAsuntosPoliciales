@@ -1,0 +1,224 @@
+﻿@model FrontEnd.Models.ViewModels.ActaEntregaViewModel
+@{ ViewBag.Title = "Editar Acta de Entrega"; }
+
+<div class="container bg-light text-dark border" style="height:80vh;">
+    <div class="row">
+        <div class="col-md-12">
+            <div style="text-align:center;">
+                <h2 class="display-4" style="text-align:center;">@ViewBag.Title</h2>
+            </div>
+
+        </div>
+    </div>
+    <hr />
+    @using (Html.BeginForm("Editar", "ActaEntrega", FormMethod.Post))
+    {
+<div class="form-row">
+    <div class="form-group col-md-3">
+        @Html.HiddenFor(d => d.IdActaEntrega)
+        @Html.HiddenFor(d => d.NumeroFolio)
+        @Html.LabelFor(d => d.Testigo)
+        <div class="input-group">
+            @Html.TextBoxFor(d => d.Testigo, "", new { @class = "form-control", @id = "idTestigo", @readonly = "readonly" })
+            <div class="input-group-append ">
+                <a class="btn btn-primary" data-book-id="idTestigo" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
+            </div>
+        </div>
+        @Html.ValidationMessageFor(d => d.Testigo, null, new { @class = "red" })
+    </div>
+    <div class="form-group col-md-3">
+        @Html.LabelFor(d => d.Encargado)
+        <div class="input-group">
+            @Html.TextBoxFor(d => d.Encargado, "", new { @class = "form-control", @id = "idEncargado", @readonly = "readonly" })
+            <div class="input-group-append ">
+                <a class="btn btn-primary" data-book-id="idEncargado" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
+            </div>
+        </div>
+        @Html.ValidationMessageFor(d => d.Encargado, null, new { @class = "red" })
+    </div>
+    <div class="form-group col-md-3">
+        @Html.LabelFor(d => d.Supervisor)
+        <div class="input-group">
+            @Html.TextBoxFor(d => d.Supervisor, "", new { @class = "form-control", @id = "idSupervisor", @readonly = "readonly" })
+            <div class="input-group-append ">
+                <a class="btn btn-primary" data-book-id="idSupervisor" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
+            </div>
+        </div>
+        @Html.ValidationMessageFor(d => d.Supervisor, null, new { @class = "red" })
+    </div>
+    <div class="form-group col-md-3">
+        @Html.LabelFor(d => d.Instalaciones)
+        @Html.DropDownListFor(d => d.Instalaciones, Model.TiposInstalaciones, "--Seleccione--", new { @class = "myselect form-control" })
+        @Html.ValidationMessageFor(d => d.Instalaciones, null, new { @class = "red" })
+
+    </div>
+</div>
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        @Html.LabelFor(d => d.Fecha)
+                        @Html.EditorFor(d => d.Fecha, "", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(d => d.Fecha, null, new { @class = "red" })
+                    </div>
+                    <div class="form-group col-md-2">
+                        @Html.LabelFor(d => d.Hora)
+                        @Html.EditorFor(d => d.Hora, "", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(d => d.Hora, null, new { @class = "red" })
+                    </div>
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(d => d.RazonSocial)
+                        @Html.TextBoxFor(d => d.RazonSocial, "", new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "sololetrasnumerossimbolos(event)", autocomplete = "new-password" })
+                        @Html.ValidationMessageFor(d => d.RazonSocial, null, new { @class = "red" })
+                    </div>
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(d => d.CedulaJuridica)
+                        @Html.TextBoxFor(d => d.CedulaJuridica, "", new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimboloss(event)", autocomplete = "new-password" })
+                        @Html.ValidationMessageFor(d => d.CedulaJuridica, null, new { @class = "red" })
+                    </div>
+                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-3">
+                                        @Html.LabelFor(d => d.Recibe)
+                                        @Html.TextBoxFor(d => d.Recibe, "", new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "sololetrasnumerossimbolos(event)", autocomplete = "new-password" })
+                                        @Html.ValidationMessageFor(d => d.Recibe, null, new { @class = "red" })
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        @Html.LabelFor(d => d.CedulaRecibe)
+                                        @Html.TextBoxFor(d => d.CedulaRecibe, "", new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "sololetrasnumerossimbolos(event)", autocomplete = "new-password" })
+                                        @Html.ValidationMessageFor(d => d.CedulaRecibe, null, new { @class = "red" })
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        @Html.LabelFor(d => d.NombreDe)
+                                        @Html.TextBoxFor(d => d.NombreDe, "", new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "sololetrasnumerossimbolos(event)", autocomplete = "new-password" })
+                                        @Html.ValidationMessageFor(d => d.NombreDe, null, new { @class = "red" })
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        @Html.LabelFor(d => d.IdentificacionEntregado)
+                                        @Html.TextBoxFor(d => d.IdentificacionEntregado, "", new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "sololetrasnumerossimbolos(event)", autocomplete = "new-password" })
+                                        @Html.ValidationMessageFor(d => d.IdentificacionEntregado, null, new { @class = "red" })
+                                    </div>
+                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-3">
+                                                        @Html.LabelFor(d => d.TipoActa)
+                                                        @Html.DropDownListFor(d => d.TipoActa, Model.TiposActa, "--Seleccione--", new { @class = "myselect form-control" })
+                                                        @Html.ValidationMessageFor(d => d.TipoActa, null, new { @class = "red" })
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        @Html.LabelFor(d => d.ConsecutivoActa)
+                                                        <div class="input-group">
+                                                            @Html.TextBoxFor(d => d.ConsecutivoActa, "", new { @class = "form-control", @id = "consecutivoActa", @readonly = "readonly" })
+                                                            <div class="input-group-append ">
+                                                                <a class="btn btn-primary" data-book-id="consecutivoActa" data-toggle="modal" data-target="#modalBusquedaHallazgo">Buscar</a>
+                                                            </div>
+                                                        </div>
+                                                        @Html.ValidationMessageFor(d => d.ConsecutivoActa, null, new { @class = "red" })
+                                                    </div>
+
+                                                </div>
+                                                                <div class="form-row">
+                                                                    <div class="form-group col-md-12">
+                                                                        @Html.LabelFor(d => d.InventarioEntregado)
+                                                                        @Html.TextAreaFor(d => d.InventarioEntregado, new { @class = "form-control", @readonly = "readonly", @id = "inventario" })
+                                                                        @Html.ValidationMessageFor(d => d.InventarioEntregado, null, new { @class = "red" })
+                                                                    </div>
+                                                                </div>
+
+                                                                                <hr />
+                                                                                                <div class="form-row">
+                                                                                                    <div class="form-group col-md-12">
+                                                                                                        <div style="text-align:center;">
+
+                                                                                                            <a class="btn btn-secondary" href="~/ActaEntrega/Index">Cancelar</a>
+                                                                                                            <script>$('#btnSave').click(function () {
+                            $('#show').modal('hide');
+                        });</script>
+                                                                                                            <input value="Guardar" class="btn btn-primary" type="button" id="hGuardar" data-toggle="modal" data-target="#show" />
+                                                                                                        </div>
+
+                                                                                                    </div>
+                                                                                                </div>
+
+                                                                                                                <div class="modal" id="show">
+                                                                                                                    <div class="modal-dialog" role="document">
+                                                                                                                        <div class="modal-content">
+                                                                                                                            <div class="modal-header">
+                                                                                                                                <h5 class="modal-title">Agregar una Acta de Entrega</h5>
+                                                                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                                                                </button>
+                                                                                                                            </div>
+                                                                                                                            <div class="modal-body">
+                                                                                                                                <p>¿Está seguro que desea guardar una nueva Acta de Entrega?</p>
+                                                                                                                            </div>
+                                                                                                                            <div class="modal-footer">
+                                                                                                                                <button type="button" class="btn btn-outline-danger" id="Cancel" data-dismiss="modal">Cancelar</button>
+                                                                                                                                <button type="submit" class="btn btn-primary" id="btnSave">Guardar</button>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </div>}
+
+    <div class="modal fade" id="modalBusqueda" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Buscar Policía</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <p hidden name="agregarPolicia" id="" />
+
+                <div class="modal-body">
+                    @{ Html.RenderAction("ListaPoliciasBuscar", "ActaEntrega", new { nombre = "" }); }
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="modalBusquedaHallazgo" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Buscar Acta de Hallazgo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <p hidden name="agregarHallazgo" id="" />
+
+                <div class="modal-body">
+                    @{ Html.RenderAction("ListaHallazgosBuscar", "ActaEntrega", new { numeroFolio = "" }); }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>function reply_click(clicked_id) {
+        var aux = document.getElementsByName("agregarPolicia")[0].getAttribute("id");
+        if (aux === "idTestigo") {
+            var elem = document.getElementById("idTestigo");
+        }
+        if (aux === "idEncargado") {
+            var elem = document.getElementById("idEncargado");
+        }
+        if (aux === "idSupervisor") {
+            var elem = document.getElementById("idSupervisor");
+        }
+        if (aux === "consecutivoActa") {
+            var elem = document.getElementById("consecutivoActa");
+        }
+        elem.value = clicked_id;
+        $('#modalBusqueda').modal('hide');
+    }
+    function reply_click2(clicked_id, inventarioLista) {
+
+        var elem = document.getElementById("consecutivoActa");
+        elem.value = clicked_id;
+        var elem2 = document.getElementById("inventario");
+        elem2.value = inventarioLista;
+        $('#modalBusquedaHallazgo').modal('hide');
+    }</script>
+

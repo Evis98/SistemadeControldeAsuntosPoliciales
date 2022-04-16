@@ -69,5 +69,23 @@ namespace BackEnd.DAL
                 throw;
             }
         }
+
+        public List<Requisitos> GetRequisitosPortacion(int idPolicia,string detalle)
+        {
+            DateTime fecha = DateTime.Now;
+            try
+            {
+                List<Requisitos> resultado;
+                using (SCAPEntities db = new SCAPEntities())
+                {
+                    resultado = db.Requisitos.Where(x => x.idPolicia == idPolicia && x.detalles.Contains(detalle) && x.fechaVencimiento.Value >= fecha ).ToList();
+                }
+                return resultado;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

@@ -52,7 +52,7 @@
    
     <div class="form-group col-md-2">
         @Html.LabelFor(d => d.Estatura)
-        @Html.TextBoxFor(d => d.Estatura, "", new { @class = "form-control inputheight", @maxlength = "4", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)" })
+        @Html.TextBoxFor(d => d.Estatura, "", new { @class = "form-control inputheight", @maxlength = "4", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();"})
         @Html.ValidationMessageFor(d => d.Estatura, null, new { @class = "red" })
 
     </div>

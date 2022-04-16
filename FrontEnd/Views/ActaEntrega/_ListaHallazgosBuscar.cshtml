@@ -1,0 +1,17 @@
+﻿@model List<FrontEnd.Models.ViewModels.ActaHallazgoViewModel>
+
+@{ ViewBag.Title = "ListaHallazgosBuscar"; }
+
+@using (Ajax.BeginForm("ListaHallazgosParcial", "ActaEntrega", new { numeroFolio = "abcd" }, new AjaxOptions { UpdateTargetId = "listaFiltradaHallazgos" }))
+{
+    <label for="recipient-name" class="col-form-label">Numero Folio:</label>
+    <div class="input-group mb-3">
+        <input type="text" name="numeroFolio" id="numeroFolio" class="form-control" aria-describedby="basic-addon2" onkeyup="this.value = this.value.toUpperCase();">
+        <div class="input-group-append">
+            <button class="btn btn-outline-primary" type="submit">Buscar</button>
+        </div>
+    </div>}
+<div id="listaFiltradaHallazgos">
+
+
+</div>

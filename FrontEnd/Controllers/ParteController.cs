@@ -279,14 +279,13 @@ namespace FrontEnd.Controllers
             aux.Movil = parte.movil;
             aux.NombrePoliciaActuante = policiaDAL.GetPolicia(parte.idPoliciaActuante).nombre;
             aux.IdentificacionPoliciaActuante = policiaDAL.GetPolicia(parte.idPoliciaActuante).cedula;
-            aux.UnidadOrigenPoliciaActuante = parte.unidadOrigenPoliciaActuante;
+            aux.UnidadOrigenPoliciaActuante = tablaGeneralDAL.Get(parte.unidadOrigenPoliciaActuante).descripcion;
             aux.TelefonoPoliciaActuante = policiaDAL.GetPolicia(parte.idPoliciaActuante).telefonoCelular;
             aux.HoraConfeccionDocumento = parte.horaConfeccionDocumento;
-            aux.NombrePoliciaAsiste = policiaDAL.GetPolicia(parte.idPoliciaAsistente).nombre;
-            aux.IdentificacionPoliciaAsiste = policiaDAL.GetPolicia(parte.idPoliciaAsistente).cedula;
-            aux.UnidadOrigenPoliciaAsiste = parte.unidadOrigenPoliciaAsiste;
-            aux.NumeroMovilPolciaAsiste = parte.movilPoliciaAsistente;
-            aux.TelefonoPoliciaAsiste = policiaDAL.GetPolicia(parte.idPoliciaAsistente).telefonoCelular;
+            aux.NombrePoliciaAsiste = parte.nombreOficialAsistente;
+            aux.IdentificacionPoliciaAsiste = parte.identificacionOficialAsistente;
+            aux.UnidadOrigenPoliciaAsiste = tablaGeneralDAL.Get(parte.unidadOrigenPoliciaAsistente).descripcion;          
+            aux.TelefonoPoliciaAsiste = parte.telefonoOficialAsistente;
 
             return aux;
 
@@ -362,14 +361,14 @@ namespace FrontEnd.Controllers
                     aux.Movil = parte.movil;
                     aux.NombrePoliciaActuante = policiaDAL.GetPolicia(parte.idPoliciaActuante).nombre;
                     aux.IdentificacionPoliciaActuante = policiaDAL.GetPolicia(parte.idPoliciaActuante).cedula;
-                    aux.UnidadOrigenPoliciaActuante = parte.unidadOrigenPoliciaActuante;
+                    aux.UnidadOrigenPoliciaActuante = tablaGeneralDAL.Get(parte.unidadOrigenPoliciaActuante).descripcion;
                     aux.TelefonoPoliciaActuante = policiaDAL.GetPolicia(parte.idPoliciaActuante).telefonoCelular;
                     aux.HoraConfeccionDocumento = parte.horaConfeccionDocumento;
-                    aux.NombrePoliciaAsiste = policiaDAL.GetPolicia(parte.idPoliciaAsistente).nombre;
-                    aux.IdentificacionPoliciaAsiste = policiaDAL.GetPolicia(parte.idPoliciaAsistente).cedula;
-                    aux.UnidadOrigenPoliciaAsiste = parte.unidadOrigenPoliciaAsiste;
-                    aux.NumeroMovilPolciaAsiste = parte.movilPoliciaAsistente;
-                    aux.TelefonoPoliciaAsiste = policiaDAL.GetPolicia(parte.idPoliciaAsistente).telefonoCelular;
+                    aux.NombrePoliciaAsiste = parte.nombreOficialAsistente;
+                    aux.IdentificacionPoliciaAsiste =parte.identificacionOficialAsistente;
+                    aux.UnidadOrigenPoliciaAsiste = tablaGeneralDAL.Get(parte.unidadOrigenPoliciaAsistente).descripcion;
+                    aux.NumeroMovilPolciaAsiste = parte.movilAsistente;
+                    aux.TelefonoPoliciaAsiste = parte.telefonoOficialAsistente;
                 }
                 modelo.Add(aux);
             }
@@ -442,13 +441,14 @@ namespace FrontEnd.Controllers
             parte.enteAcargo = tablaGeneralDAL.GetCodigo("PartesPoliciales", "enteAcargo", model.EnteAcargo.ToString()).idTablaGeneral;
             parte.movil = model.Movil;
             parte.idPoliciaActuante = policiaDAL.GetPoliciaCedula(model.IdentificacionPoliciaActuante).idPolicia;
-            parte.unidadOrigenPoliciaActuante = model.UnidadOrigenPoliciaActuante;
+            parte.nombreOficialAsistente = model.NombrePoliciaAsiste;
+            parte.identificacionOficialAsistente = model.IdentificacionPoliciaAsiste;
+            parte.telefonoOficialAsistente = model.TelefonoPoliciaAsiste;
+            parte.unidadOrigenPoliciaActuante = tablaGeneralDAL.GetCodigo("PartesPoliciales","enteAcargo","1").idTablaGeneral;
             parte.horaConfeccionDocumento = DateTime.Now;
-            parte.idPoliciaAsistente = policiaDAL.GetPoliciaCedula(model.IdentificacionPoliciaAsiste).idPolicia;
-            parte.unidadOrigenPoliciaAsiste = model.UnidadOrigenPoliciaAsiste;
-            parte.movilPoliciaAsistente = model.NumeroMovilPolciaAsiste;
-
-
+            //parte.unidadOrigenPoliciaAsistente = tablaGeneralDAL.GetCodigo("PartesPoliciales", "enteAcargo", "2").idTablaGeneral;
+            parte.unidadOrigenPoliciaAsistente = tablaGeneralDAL.GetCodigo("PartesPoliciales", "enteAcargo", model.UnidadOrigenPoliciaAsiste.ToString()).idTablaGeneral;
+            parte.movilAsistente = model.NumeroMovilPolciaAsiste;
             return parte;
         }
 
@@ -480,25 +480,34 @@ namespace FrontEnd.Controllers
                         NombrePersona = d.nombre,
                     }).ToList();
         }
-        public ActionResult Index(string filtroSeleccionado, string busqueda, string busquedaFechaInicioP, string busquedaFechaFinalP)
+        public ActionResult Index(string filtrosSeleccionado, string busqueda, string busquedaFechaInicioP, string busquedaFechaFinalP)
         {
             parteDAL = new ParteDAL();
             infractorDAL = new InfractorDAL();
+            tablaGeneralDAL = new TablaGeneralDAL();
             List<PartesPoliciales> partes = parteDAL.Get();
             List<PartesPoliciales> partesFiltrados = new List<PartesPoliciales>();
-            
+            List<TablaGeneral> comboindex = tablaGeneralDAL.Get("PartesPoliciales", "index");
+            List<SelectListItem> items = comboindex.ConvertAll(d =>
+            {
+                return new SelectListItem()
+                {
+                    Text = d.descripcion
+                };
+            });
+            ViewBag.items = items;
             if (busqueda != null)
             {
                 foreach (PartesPoliciales parte in partes)
                 {
-                    if (filtroSeleccionado == "Número de Folio")
+                    if (filtrosSeleccionado == "Número de Folio")
                     {
                         if (parte.numeroFolio.Contains(busqueda))
                         {
                             partesFiltrados.Add(parte);
                         }
                     }
-                    if (filtroSeleccionado == "Nombre del Infractor")
+                    if (filtrosSeleccionado == "Nombre del Infractor")
                     {
                         if (infractorDAL.GetInfractor(parte.idInfractor).nombreCompleto.Contains(busqueda))
                         {
@@ -506,7 +515,7 @@ namespace FrontEnd.Controllers
                         }
                     }
                 }
-                if (filtroSeleccionado == "Fecha")
+                if (filtrosSeleccionado == "Fecha")
                 {
                     DateTime fechaInicio = DateTime.Parse(busquedaFechaInicioP);
                     DateTime fechaFinal = DateTime.Parse(busquedaFechaFinalP);
@@ -685,10 +694,12 @@ namespace FrontEnd.Controllers
                 if (Session["Parte"] != null)
                 {
                     modelo = (Parte1ViewModel)Session["Parte"];
+                    modelo.UnidadesDeOrigen = tablaGeneralDAL.Get("PartesPoliciales", "enteAcargo").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
                 }
                 else
                 {
                     modelo = new Parte1ViewModel();
+                    modelo.UnidadesDeOrigen = tablaGeneralDAL.Get("PartesPoliciales", "enteAcargo").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
                 }
                 return View(modelo);
             }
@@ -713,9 +724,7 @@ namespace FrontEnd.Controllers
                         PartesPoliciales parte = ConvertirParte(modelAux);
                         parte.numeroFolio = (parteDAL.GetCount() + 1).ToString() + "-" + DateTime.Now.Year;
                         parteDAL.Add(parte);
-                        int aux = parteDAL.GetPartePolicial(parte.numeroFolio).idPartepolicial;
-                        TempData["smsnuevoparte"] = "Parte Policial creado con éxito";
-                        ViewBag.smsnuevoparte = TempData["smsnuevoparte"];
+                        int aux = parteDAL.GetPartePolicial(parte.numeroFolio).idPartepolicial;                      
                         return Redirect("~/Parte/Detalle1/" + aux);
                     }
                     Session["Parte"] = null;
@@ -899,7 +908,7 @@ namespace FrontEnd.Controllers
             Session["idParte"] = id;
             parteDAL = new ParteDAL();
             ListParte1ViewModel modelo = ConvertirParteInverso(parteDAL.GetParte(id));
-            ViewBag.smsnuevoparte = TempData["smsnuevoparte"];
+          
             return View(modelo);
         }
 

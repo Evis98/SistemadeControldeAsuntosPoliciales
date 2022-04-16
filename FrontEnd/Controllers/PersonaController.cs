@@ -102,16 +102,26 @@ namespace FrontEnd.Controllers
         }
 
 
-        public ActionResult Index(string filtroSeleccionado, string busqueda)
+        public ActionResult Index(string filtrosSeleccionado, string busqueda)
         {
             personaDAL = new PersonaDAL();
+            tablaGeneralDAL = new TablaGeneralDAL();
             List<Personas> personas = personaDAL.Get();
             List<Personas> personasFiltrados = new List<Personas>();
+            List<TablaGeneral> comboindex = tablaGeneralDAL.Get("Personas", "index");
+            List<SelectListItem> items = comboindex.ConvertAll(d =>
+            {
+                return new SelectListItem()
+                {
+                    Text = d.descripcion
+                };
+            });
+            ViewBag.items = items;            
             if (busqueda != null)
             {
                 foreach (Personas persona in personas)
                 {
-                    if (filtroSeleccionado == "Cédula")
+                    if (filtrosSeleccionado == "Cédula")
                     {
                         if (persona.identificacion.Contains(busqueda))
                         {
@@ -119,7 +129,7 @@ namespace FrontEnd.Controllers
                             personasFiltrados.Add(persona);
                         }
                     }
-                    if (filtroSeleccionado == "Nombre")
+                    if (filtrosSeleccionado == "Nombre")
                     {
                         if (persona.nombre.Contains(busqueda))
                         {

@@ -8,6 +8,7 @@
     <title>@ViewBag.Title - SCAP</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
 </head>
 <body style="background-image: url('https://cdn.discordapp.com/attachments/894600217746354226/920456009607159848/v996-008.jpg'); ">
     <div class="contenedor-imagenes">
@@ -36,13 +37,13 @@
                     <a class="nav-link" href="~/Arma/Index/">Armas</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="~/Infractor/Index/">Infractores</a>
-                </li>
-                <li class="nav-item active">
                     <a class="nav-link" href="~/Bitacora/Index/">Bitácoras</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="~/Persona/Index/">Personas</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="~/Infractor/Index/">Infractores</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="~/Acta/Index/">Actas</a>
@@ -71,7 +72,7 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
+
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/validations")

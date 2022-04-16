@@ -17,6 +17,7 @@ namespace BackEnd.DAL
         string GetFolioActaDecomiso(string numeroFolio);
         int GetCount();
         List<ActasDecomiso> GetActaDecomisoRango(DateTime inicio, DateTime final);
+        void CambiaEstadoActa(int idActa, int estado);
     }
 }
 

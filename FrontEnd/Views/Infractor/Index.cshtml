@@ -1,6 +1,7 @@
 ﻿@model List<FrontEnd.Models.ViewModels.InfractorViewModel>
 @{
     ViewBag.Title = "Infractores";
+    List<SelectListItem> items = (List<SelectListItem>)ViewBag.items;
 }
 
 
@@ -18,10 +19,10 @@
 
         <div class="form-row">
             <div class="col-sm-3">
-                <select class="form-control" name="filtroSeleccionado" id="filtroSeleccionado">
-                    <option selected>Nombre</option>
-                    <option>Cédula</option>
-                </select>
+                @Html.DropDownList("filtrosSeleccionado", items, new { @class = "form-control", @id = "filtroSeleccionado", @name = "filtroSeleccionado" })
+                <script>
+                    document.getElementById("filtroSeleccionado").value = "Nombre";
+                </script>
             </div>
             <div class="col-sm-4">
                 <input class="form-control" name="busqueda" maxlength="150" type="text" id="busqueda" onkeyup="this.value = this.value.toUpperCase();" onkeypress="return  sololetrasnumeros(event)" />

@@ -67,7 +67,7 @@
                     @Html.TextBoxFor(d => d.IdentificacionInfractor, "", new { @class = "form-control", @id = "idInfractor", @readonly = "readonly" })
                     <div class="input-group-append ">
                         <a class="btn btn-primary" data-toggle="modal" data-target="#infractorModalBuscar">Buscar</a>
-                        <a class="btn btn-danger" data-toggle="modal" data-target="#infractorModalQuitar">Quitar</a>
+                       
                     </div>
                 </div>
                 @Html.ValidationMessageFor(d => d.IdentificacionInfractor, null, new { @class = "red" })

@@ -1,5 +1,7 @@
 ﻿@model List<FrontEnd.Models.ViewModels.ListParte1ViewModel>
-@{ ViewBag.Title = "Parte Policial"; }
+@{ ViewBag.Title = "Parte Policial";
+    List<SelectListItem> items = (List<SelectListItem>)ViewBag.items;
+    }
 
 
 <div class="container bg-light text-dark border" style="height:80vh;">
@@ -15,11 +17,10 @@
     {
 <div class="form-row">
     <div class="col-sm-3">
-        <select class="form-control" name="filtroSeleccionado" onclick="ocultarFechaParte()" id="filtroSeleccionado">
-            <option selected>Número de Folio</option>
-            <option>Nombre del Infractor</option>
-            <option>Fecha</option>
-        </select>
+        @Html.DropDownList("filtrosSeleccionado", items, new { @class = "form-control", @id = "filtroSeleccionado", @name = "filtroSeleccionado", @onclick = "ocultarFechaParte()" })
+        <script>
+            document.getElementById("filtroSeleccionado").value = "Número de Folio";
+        </script>       
 
     </div>
     <div class="col-sm-3">

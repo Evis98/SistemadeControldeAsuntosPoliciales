@@ -26,8 +26,7 @@
                         @readonly = "readonly"
                     })
                     <div class="input-group-append ">
-                        <a class="btn btn-primary" data-toggle="modal" data-target="#modalBusquedaArma">Buscar</a>
-                        <a class="btn btn-danger" data-toggle="modal" data-target="#QuitarArma">Quitar</a>
+                        <a class="btn btn-primary" data-toggle="modal" data-target="#modalBusquedaArma">Buscar</a>                    
                     </div>
                 </div>
                 @Html.ValidationMessageFor(d => d.NumeroSerieArma, null, new { @class = "red" })
@@ -43,7 +42,7 @@
                     })
                     <div class="input-group-append ">
                         <a class="btn btn-primary" data-book-id="idArmeroProveedor" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
-                        <a class="btn btn-danger" data-book-id="idArmeroProveedor" data-toggle="modal" data-target="#quitaPolicia">Quitar</a>
+                        
                     </div>
                 </div>
                 @Html.ValidationMessageFor(d => d.ArmeroProveedor, null, new { @class = "red" })
@@ -53,24 +52,20 @@
                 <div class="input-group">
                     @Html.TextBoxFor(d => d.PoliciaSolicitante, "", new { @class = "form-control", @id = "idPoliciaSolicitante", @readonly = "readonly" })
                     <div class="input-group-append ">
-                        <a class="btn btn-primary" data-book-id="idPoliciaSolicitante" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
-                        <a class="btn btn-danger" data-book-id="idPoliciaSolicitante" data-toggle="modal" data-target="#quitaPolicia">Quitar</a>
+                        <a class="btn btn-primary" data-book-id="idPoliciaSolicitante" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>          
                     </div>
-                </div>
-
-               
+                </div>               
             </div>
-
         </div>
         <div class="form-row">
             <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.MunicionEntregada)
-                @Html.TextBoxFor(d => d.MunicionEntregada, "", new { @class = "form-control", @type = "number", onkeydown = "javascript: return event.keyCode == 69 ? false : true" })
+                @Html.TextBoxFor(d => d.MunicionEntregada, "", new { @class = "form-control", @min = "0", @onkeyup = "this.value = this.value.toUpperCase();", @type = "number", onkeydown = "javascript: return event.keyCode == 69 ? false : true" })
                 @Html.ValidationMessageFor(d => d.MunicionEntregada, null, new { @class = "red" })
             </div>
             <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.CargadoresEntregados)
-                @Html.TextBoxFor(d => d.CargadoresEntregados, "", new { @class = "form-control", @type = "number", onkeydown = "javascript: return event.keyCode == 69 ? false : true" })
+                @Html.TextBoxFor(d => d.CargadoresEntregados, "", new { @class = "form-control", @min = "0", @onkeyup = "this.value = this.value.toUpperCase();", @type = "number", onkeydown = "javascript: return event.keyCode == 69 ? false : true" })
                 @Html.ValidationMessageFor(d => d.CargadoresEntregados, null, new { @class = "red" })
             </div>
         </div>

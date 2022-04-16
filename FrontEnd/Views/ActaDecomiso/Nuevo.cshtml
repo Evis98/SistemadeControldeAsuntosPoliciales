@@ -104,7 +104,7 @@
 
             <div class="form-group col-md-6">
                 @Html.LabelFor(d => d.LugarDelProcedimiento)
-                @Html.TextAreaFor(d => d.LugarDelProcedimiento, new { @class = "form-control", @onkeypress = "return sololetrasnumerossimbolos(event)", autocomplete = "new-password" })
+                @Html.TextAreaFor(d => d.LugarDelProcedimiento, new { @class = "form-control", autocomplete = "new-password" , onkeyup = "this.value = this.value.toUpperCase();" })
                 @Html.ValidationMessageFor(d => d.LugarDelProcedimiento, null, new { @class = "red" })
             </div>
             <div class="form-group col-md-6">

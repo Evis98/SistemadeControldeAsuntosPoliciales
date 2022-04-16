@@ -45,6 +45,10 @@ namespace FrontEnd.Models.ViewModels
         [Display(Name = "Teléfono")]
         public string TelefonoDecomisado { get; set; }
 
+        public int EstadoActa { get; set; }
+        [Display(Name = " Estado del Acta")]
+        public string VistaEstadoActa { get; set; }
+
         [Required]
         [Display(Name = "Estado Civil")]
         public int EstadoCivil { get; set; }

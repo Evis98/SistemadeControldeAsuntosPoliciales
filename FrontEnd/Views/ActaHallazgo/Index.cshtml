@@ -1,4 +1,7 @@
-﻿@{ ViewBag.Title = "Actas de Hallazgo"; }
+﻿@{ ViewBag.Title = "Actas de Hallazgo";
+    List<SelectListItem> items = (List<SelectListItem>)ViewBag.items;
+}
+    
 <div class="container bg-light text-dark border" style="height:80vh;">
     <div class="row">
         <div class="col-md-12">
@@ -8,36 +11,37 @@
         </div>
     </div>
 
-    <hr /> 
+    <hr />
     @using (Html.BeginForm("Index", "ActaHallazgo", FormMethod.Get))
     {
-<div class="form-row">
-    <div class="col-sm-3">
-        <select class="form-control" name="filtroSeleccionado" id="filtroSeleccionado" onclick="ocultarFechaActa()">
-            <option selected>Número de Folio</option>
-            <option>Nombre Policía Encargado</option>
-            <option>Fecha</option>
-        </select>
-    </div>
-    <div class="col-sm-3">
-        <input class="form-control" name="busqueda" type="text" id="busqueda" onkeyup="this.value = this.value.toUpperCase();" />
-        <input class="form-control" name="busquedaFechaInicioH" type="date" id="busquedaFechaInicioH" style="display:none" />
-        <label id="textFechaInicioH" style="display:none">Fecha de inicio</label>
-    </div>
+        <div class="form-row">
 
-    <div class="col-sm-3">
-        <input class="form-control" name="busquedaFechaFinalH" type="date" id="busquedaFechaFinalH" style="display:none" />
-        <label id="textFechaFinalH" style="display:none">Fecha final</label>
-        <span id="errorFechaH"></span>
-    </div>
+            <div class="col-sm-3">
+                @Html.DropDownList("filtroSeleccionados", items,new { @class = "form-control", @id = "filtroSeleccionado", @name = "filtroSeleccionado", @onclick = "ocultarFechaActa()" })  
+                <script>
+                    document.getElementById("filtroSeleccionado").value = "Número de Folio";           
+                </script>
+            </div>
 
-    <div class="col-sm-1">
-        <button class="btn btn-primary">Buscar</button>
-    </div>
-    <div class="col-sm-1">
-        <a href="~/ActaHallazgo/Nuevo" class="btn btn-success">Agregar</a>
-    </div>
-</div>}
+            <div class="col-sm-3">
+                <input class="form-control" name="busqueda" type="text" id="busqueda" onkeyup="this.value = this.value.toUpperCase();"   />
+                <input class="form-control" name="busquedaFechaInicioH" type="date" id="busquedaFechaInicioH" style="display:none" />
+                <label id="textFechaInicioH" style="display:none">Fecha de inicio</label>
+            </div>
+
+            <div class="col-sm-3">
+                <input class="form-control" name="busquedaFechaFinalH" type="date" id="busquedaFechaFinalH" style="display:none" />
+                <label id="textFechaFinalH" style="display:none">Fecha final</label>
+                <span id="errorFechaH"></span>
+            </div>
+
+            <div class="col-sm-1">
+                <button class="btn btn-primary" >Buscar</button>
+            </div>
+            <div class="col-sm-1">
+                <a href="~/ActaHallazgo/Nuevo" class="btn btn-success">Agregar</a>
+            </div>
+        </div>}
     <hr />
     <div class="row">
         <div class="col-md-12">
@@ -54,18 +58,19 @@
                 <tbody>
                     @foreach (var oElemento in Model)
                     {
-        <tr>
-            <th scope="row">@oElemento.NumeroFolio</th>
-            <td>@oElemento.VistaPoliciaEncargado</td>
-            <td>@oElemento.Fecha.ToShortDateString()</td>
-            <td>@oElemento.VistaDistrito</td>
-            <td>
-                <div style="text-align:center;">
-                    <a class="btn btn-sm btn-outline-info" href="~/ActaHallazgo/Detalle/@oElemento.IdActaHallazgo">Ver Detalles</a>
-                    @*<a class="btn btn-sm btn-outline-secondary">Aditorí­as</a>*@
-                </div>
-            </td>
-        </tr>}
+                        <tr>
+                            <th scope="row">@oElemento.NumeroFolio</th>
+                            <td>@oElemento.VistaPoliciaEncargado</td>
+                            <td>@oElemento.Fecha.ToShortDateString()</td>
+                            <td>@oElemento.VistaDistrito</td>
+                            <td>
+                                <div style="text-align:center;">
+                                    <a class="btn btn-sm btn-outline-info" href="~/ActaHallazgo/Detalle/@oElemento.IdActaHallazgo">Ver Detalles</a>
+                                    @*<a class="btn btn-sm btn-outline-secondary">Aditorí­as</a>*@
+                                </div>
+                            </td>
+                        </tr>
+}
                 </tbody>
             </table>
         </div>

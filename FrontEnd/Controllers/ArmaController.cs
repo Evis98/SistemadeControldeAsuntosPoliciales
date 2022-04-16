@@ -69,27 +69,37 @@ namespace FrontEnd.Controllers
             return armaCarga;
         }
 
-        public ActionResult Index(string filtroSeleccionado, string busqueda)
+        public ActionResult Index(string filtrosSeleccionado, string busqueda)
         {
             armaDAL = new ArmaDAL();
+            tablaGeneralDAL = new TablaGeneralDAL();
             List<ArmaViewModel> armas = new List<ArmaViewModel>();
             List<ArmaViewModel> armasFiltradas = new List<ArmaViewModel>();
+            List<TablaGeneral> comboindex = tablaGeneralDAL.Get("Armas", "index");
+            List<SelectListItem> items = comboindex.ConvertAll(d =>
+            {
+                return new SelectListItem()
+                {
+                    Text = d.descripcion
+                };
+            });
+            ViewBag.items = items;
             foreach (Armas arma in armaDAL.Get())
             {
                 armas.Add(CargarArma(arma));
             }
-            if (busqueda != null)
+            if (busqueda != null && filtrosSeleccionado != "")
             {
                 foreach (ArmaViewModel arma in armas)
                 {
-                    if (filtroSeleccionado == "Policía Asignado")
+                    if (filtrosSeleccionado == "Policía Asignado")
                     {
                         if (arma.NombrePolicia.Contains(busqueda))
                         {
                             armasFiltradas.Add(arma);
                         }
                     }
-                    if (filtroSeleccionado == "Número de Serie")
+                    if (filtrosSeleccionado == "Número de Serie")
                     {
                         if (arma.NumeroSerie.Contains(busqueda))
                         {
@@ -133,8 +143,7 @@ namespace FrontEnd.Controllers
                         Armas arma = ConvertirArma(model);
                         armaDAL.Add(arma);
                         int aux = armaDAL.GetArmaNumSerie(model.NumeroSerie).idArma;
-                        TempData["smsnuevaarma"] = "Arma creada con éxito";
-                        ViewBag.smsnuevaarma = TempData["smsnuevaarma"];
+                    
                         return Redirect("~/Arma/Detalle/" + aux);
                     }
                 }
@@ -165,13 +174,7 @@ namespace FrontEnd.Controllers
             {
                 modelo.NombrePolicia = "NO ASIGNADO";
             }
-            try
-            {
-                ViewBag.smseditararma = TempData["smseditararma"];
-                ViewBag.smscambioestadoarma = TempData["smscambioestadoarma"];
-                ViewBag.smsnuevaarma = TempData["smsnuevaarma"];
-            }
-            catch { }
+          
             return View(modelo);
         }
         public ActionResult Editar(int id)
@@ -214,8 +217,7 @@ namespace FrontEnd.Controllers
                         arma.policiaAsignado = null;
                     }
                     armaDAL.Edit(arma); 
-                    TempData["smseditararma"] = "Arma editada con éxito";
-                    ViewBag.smseditararma = TempData["smseditararma"];
+                    
                     return Redirect("~/Arma/Detalle/" + modelo.IdArma);
                 }
                
@@ -241,9 +243,7 @@ namespace FrontEnd.Controllers
                 {
                     estado = tablaGeneralDAL.Get("Generales", "estado", "Activo").idTablaGeneral;
                 }
-                armaDAL.CambiaEstadoArma((int)Session["idArma"], estado);
-                TempData["smscambioestadoarma"] = "Cambio de estado realizado con éxito";
-                ViewBag.smscambioestadoarma = TempData["smscambioestadoarma"];
+                armaDAL.CambiaEstadoArma((int)Session["idArma"], estado);                
                 return Redirect("~/Arma/Detalle/" + Session["idArma"]);
             }
             catch (Exception ex)

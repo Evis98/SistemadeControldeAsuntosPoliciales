@@ -76,7 +76,7 @@ namespace BackEnd.DAL
         {
             using (SCAPEntities db = new SCAPEntities())
             {
-                return db.ActasDecomiso.Where(x => x.fecha.Value.Year == DateTime.Now.Year).Count();
+                return db.ActasDecomiso.Where(x => x.fecha.Year == DateTime.Now.Year).Count();
             }
 
         }
@@ -121,6 +121,15 @@ namespace BackEnd.DAL
             catch (Exception)
             {
                 throw;
+            }
+        }
+        public void CambiaEstadoActa(int idActa, int estado)
+        {
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                string comando = "update ActasDecomiso set estadoActa = " + estado + "where idActaDecomiso = " + idActa;
+                db.Database.ExecuteSqlCommand(comando);
+                db.SaveChanges();
             }
         }
     }

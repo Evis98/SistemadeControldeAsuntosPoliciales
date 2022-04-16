@@ -73,13 +73,14 @@
         <dd class="col-sm-8 ">
             @Html.DisplayTextFor(d => d.UnidadOrigenPoliciaAsiste)
         </dd>
+       @if(Model.NumeroMovilPolciaAsiste != null){
         <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.NumeroMovilPolciaAsiste)
         </dt>
         <dd class="col-sm-8 ">
             @Html.DisplayTextFor(d => d.NumeroMovilPolciaAsiste)
         </dd>
-
+        }
 
 
     </dl>

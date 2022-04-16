@@ -123,5 +123,15 @@ namespace BackEnd.DAL
                 throw;
             }
         }
+        public void CambiaEstadoActa(int idActa, int estado)
+        {
+            using (SCAPEntities db = new SCAPEntities())
+            {
+                string comando = "update ActasHallazgo set estadoActa = " + estado + "where idActaHallazgo = " + idActa;
+                db.Database.ExecuteSqlCommand(comando);
+                db.SaveChanges();
+            }
+        }
+
     }
 }

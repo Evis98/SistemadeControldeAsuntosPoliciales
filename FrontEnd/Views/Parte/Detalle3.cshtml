@@ -54,13 +54,14 @@
         <dd class="col-sm-8 ">
             @Html.DisplayTextFor(d => d.EnteAcargo)
         </dd>
+        @if (Model.Movil != null) {
         <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.Movil)
         </dt>
         <dd class="col-sm-8 ">
             @Html.DisplayTextFor(d => d.Movil)
         </dd>
-
+        }
     </dl>
     <div class="form-row">
         <div class="form-group col-md-11">

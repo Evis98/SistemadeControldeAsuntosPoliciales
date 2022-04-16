@@ -28,7 +28,7 @@
                     @Html.TextBoxFor(d => d.IdentificacionPoliciaActuante, "", new { @class = "form-control", @id = "idPoliciaActuante", @readonly = "readonly" })
                     <div class="input-group-append ">
                         <a class="btn btn-primary" data-toggle="modal" data-book-id="idPoliciaActuante" data-target="#modalBusqueda">Buscar</a>
-                        <a class="btn btn-danger" data-toggle="modal" data-book-id="idPoliciaActuante" data-target="#quitaPolicia">Borrar</a>
+                      
                     </div>
                 </div>
                 @Html.ValidationMessageFor(d => d.IdentificacionPoliciaActuante, null, new { @class = "red" })
@@ -38,11 +38,11 @@
                 @Html.TextBoxFor(d => d.NombrePoliciaActuante, "", new { @class = "form-control", @readonly = "readonly", @id = "NPoliciaActuante" })
                 @Html.ValidationMessageFor(d => d.NombrePoliciaActuante, null, new { @class = "red" })
             </div>
-            <div class="form-group col-md-3">
+            @*<div class="form-group col-md-3">
                 @Html.LabelFor(d => d.UnidadOrigenPoliciaActuante)
                 @Html.TextBoxFor(d => d.UnidadOrigenPoliciaActuante, "", new { @class = "form-control", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)" })
                 @Html.ValidationMessageFor(d => d.UnidadOrigenPoliciaActuante, null, new { @class = "red" })
-            </div>
+            </div>*@
         </div>
 
         <div class="form-row">
@@ -52,32 +52,42 @@
             </div>
         </div>
         <div class="form-row">
-            <div class="form-group col-md-4">
-                @Html.LabelFor(d => d.IdentificacionPoliciaAsiste)
-                <div class="input-group">
-                    @Html.TextBoxFor(d => d.IdentificacionPoliciaAsiste, "", new { @class = "form-control", @id = "idPoliciaAsiste", @readonly = "readonly" })
-                    <div class="input-group-append ">
-                        <a class="btn btn-primary" data-toggle="modal" data-book-id="idPoliciaAsiste" data-target="#modalBusqueda">Buscar</a>
-                        <a class="btn btn-danger" data-toggle="modal" data-book-id="idPoliciaAsiste" data-target="#quitaPolicia">Borrar</a>
-                    </div>
+            @*<div class="form-group col-md-4">
+            @Html.LabelFor(d => d.IdentificacionPoliciaAsiste)
+            <div class="input-group">
+                @Html.TextBoxFor(d => d.IdentificacionPoliciaAsiste, "", new { @class = "form-control", @id = "idPoliciaAsiste", @readonly = "readonly" })
+                <div class="input-group-append ">
+                    <a class="btn btn-primary" data-toggle="modal" data-book-id="idPoliciaAsiste" data-target="#modalBusqueda">Buscar</a>
+                    <a class="btn btn-danger" data-toggle="modal" data-book-id="idPoliciaAsiste" data-target="#quitaPolicia">Borrar</a>
                 </div>
-                @Html.ValidationMessageFor(d => d.IdentificacionPoliciaAsiste, null, new { @class = "red" })
             </div>
+            @Html.ValidationMessageFor(d => d.IdentificacionPoliciaAsiste, null, new { @class = "red" })
+        </div>*@
             <div class="form-group col-md-5">
                 @Html.LabelFor(d => d.NombrePoliciaAsiste)
-                @Html.TextBoxFor(d => d.NombrePoliciaActuante, "", new { @class = "form-control", @readonly = "readonly", @id = "NPoliciaAsiste" })
-                @Html.ValidationMessageFor(d => d.NombrePoliciaActuante, null, new { @class = "red" })
+                @Html.TextBoxFor(d => d.NombrePoliciaAsiste, "", new { @class = "form-control"@*, @readonly = "readonly"*@, @id = "NPoliciaAsiste" })
+                @Html.ValidationMessageFor(d => d.NombrePoliciaAsiste, null, new { @class = "red" })
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(d => d.IdentificacionPoliciaAsiste)
+                @Html.TextBoxFor(d => d.IdentificacionPoliciaAsiste, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();"@*, @readonly = "readonly"*@ })
+                @Html.ValidationMessageFor(d => d.IdentificacionPoliciaAsiste, null, new { @class = "red" })
             </div>
             <div class="form-group col-md-3">
-                @Html.LabelFor(d => d.UnidadOrigenPoliciaAsiste)
-                @Html.TextBoxFor(d => d.UnidadOrigenPoliciaAsiste, "", new { @class = "form-control", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)" })
-                @Html.ValidationMessageFor(d => d.UnidadOrigenPoliciaActuante, null, new { @class = "red" })
+                @Html.LabelFor(d => d.TelefonoPoliciaAsiste)
+                @Html.TextBoxFor(d => d.TelefonoPoliciaAsiste, "", new { @class = "inputphone form-control" })
+                @Html.ValidationMessageFor(d => d.TelefonoPoliciaAsiste, "", new { @class = "red" })
             </div>
         </div>
         <div class="form-row">
+            <div class="form-group col-md-3">
+                @Html.LabelFor(d => d.UnidadOrigenPoliciaAsiste)
+                @Html.DropDownListFor(d => d.UnidadOrigenPoliciaAsiste, Model.UnidadesDeOrigen, "--Seleccione--", new { @class = "myselect form-control" })               
+                @Html.ValidationMessageFor(d => d.UnidadOrigenPoliciaAsiste, null, new { @class = "red" })
+            </div>
             <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.NumeroMovilPolciaAsiste)
-                @Html.TextBoxFor(d => d.NumeroMovilPolciaAsiste, "", new { @class = "form-control", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)" })
+                @Html.TextBoxFor(d => d.NumeroMovilPolciaAsiste, "", new { @class = "form-control", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();" })
                 @Html.ValidationMessageFor(d => d.NumeroMovilPolciaAsiste, null, new { @class = "red" })
             </div>
         </div>

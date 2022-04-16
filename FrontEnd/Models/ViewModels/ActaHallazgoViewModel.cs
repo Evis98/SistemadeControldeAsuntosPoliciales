@@ -26,10 +26,14 @@ namespace FrontEnd.Models.ViewModels
 
         [Required]
         [DataType(DataType.Date)]
+        [DateValidationHallazgo(ErrorMessage = "Fecha ingresada invalida")]
         [Display(Name = "Fecha del Suceso")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Fecha { get; set; }
 
+        public int EstadoActa { get; set; }
+        [Display(Name = " Estado del Acta")]
+        public string VistaEstadoActa { get; set; }
 
         [Required]
         [DataType(DataType.Time)]
@@ -69,7 +73,7 @@ namespace FrontEnd.Models.ViewModels
         public string VistaPoliciaEncargado { get; set; }
 
         [Display(Name = "Testigo")]
-        [Required]
+       
         public string Testigo { get; set; }
         [Display(Name = "Testigo")]
         public string VistaPoliciaTestigo { get; set; }
@@ -83,5 +87,12 @@ namespace FrontEnd.Models.ViewModels
 
 
     }
-
+    public class DateValidationHallazgo : ValidationAttribute
+    {
+        public override bool IsValid(object value)
+        {
+            DateTime todayDate = Convert.ToDateTime(value);
+            return todayDate <= DateTime.Now;
+        }
+    }
 }

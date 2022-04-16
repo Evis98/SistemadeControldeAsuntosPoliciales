@@ -1,6 +1,8 @@
 ﻿@model List<FrontEnd.Models.ViewModels.RequisitoViewModel>
 @{
     ViewBag.Title = "Requisitos";
+    List<SelectListItem> items1 = (List<SelectListItem>)ViewBag.items1;
+    List<SelectListItem> items2 = (List<SelectListItem>)ViewBag.items2;
 }
 <div class="container bg-light text-dark border" style="height:80vh;">
     <div class="row">
@@ -15,13 +17,16 @@
     {
         <div class="form-row">
             <div class="col-sm-3">
-                <select class="form-control" name="filtroSeleccionado" onclick="ocultarRequisito()" id="filtroSeleccionado"></select>
+                @Html.DropDownList("filtrosSeleccionado", items1, new { @class = "form-control", @id = "filtroSeleccionado", @name = "filtroSeleccionado", @onclick = "ocultarRequisito()" })
+                <script>
+                    document.getElementById("filtroSeleccionado").value = "Detalle de Requisito";
+                </script>
+              
             </div>
             <div class="col-sm-4">
                 <input class="form-control" name="busqueda" type="text" id="busqueda" onkeyup="this.value = this.value.toUpperCase();" onkeypress="return sololetrasnumerossimbolos(event)" />
-                <select class="form-control" name="tipoRequisito" id="tipoRequisito">
-                    <option value="" selected="selected">Selecione un tipo de requisito</option>
-                </select>
+                @Html.DropDownList("tiposRequisito", items2, new { @class = "form-control", @id = "tipoRequisito", @name = "tipoRequisito", @style = "display:none" })
+                
             </div>
             <div class="col-sm-1">
                 <button class="btn btn-primary">Buscar</button>

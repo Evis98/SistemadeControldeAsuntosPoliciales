@@ -100,24 +100,6 @@
     </dl>
     <hr />
 
-    @if (@ViewBag.sms != null)
-    {
-        <div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <h4> @ViewBag.sms</h4>
-        </div>}
-    @if (@ViewBag.smscambioestado != null)
-    {
-        <div class="alert alert-warning alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <h4> @ViewBag.smscambioestado</h4>
-        </div>}
-    @if (@ViewBag.smsnuevopolicia != null)
-    {
-        <div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <h4> @ViewBag.smsnuevopolicia</h4>
-        </div>}
     <div class="row">
         <div class="col-sm-12">
             <a href="~/Policia/Index/" class="btn btn-outline-secondary">Regresar</a>
