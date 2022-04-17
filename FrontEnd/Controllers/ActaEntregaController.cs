@@ -216,6 +216,7 @@ namespace FrontEnd.Controllers
                 {
                     if (actaDecomiso.numeroFolio.Contains(numeroFolio))
                     {
+                       
                         actasDecomisoFiltradas.Add(actaDecomiso);
                     }
                 }

@@ -273,13 +273,19 @@
             aux1.style.display = "block";
             var elem = document.getElementById("consecutivoActa2");
             elem.value = "";
-            aux3.style.display = "none"
+            aux3.style.display = "none";
+            var elem = document.getElementById("inventario");
+            elem.value = "";
+
         }
         if (aux2.options[aux2.selectedIndex].innerText === "Decomiso") {
             var elem = document.getElementById("consecutivoActa");
             elem.value = "";
             aux1.style.display = "none";
-            aux3.style.display = "block"
+            aux3.style.display = "block";
+            var elem = document.getElementById("inventario");
+            elem.value = "";
+
         }
         if (aux2.options[aux2.selectedIndex].innerText === "--Seleccione--") {
             aux1.style.display = "none";
@@ -287,6 +293,8 @@
             elem.value = "";
             aux3.style.display = "none"
             var elem = document.getElementById("consecutivoActa");
+            elem.value = "";
+            var elem = document.getElementById("inventario");
             elem.value = "";
 
         }

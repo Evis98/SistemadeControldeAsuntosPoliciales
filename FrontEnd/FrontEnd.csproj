@@ -392,6 +392,8 @@
     <Content Include="Views\ActaEntregaPorOrdenDe\_ListaActasDecomisoParcial.cshtml" />
     <Content Include="Views\ActaEntregaPorOrdenDe\_ListaPoliciasBuscar.cshtml" />
     <Content Include="Views\ActaEntregaPorOrdenDe\_ListaPoliciasParcial.cshtml" />
+    <Content Include="Views\ActaEntrega\_ListaDecomisosBuscar.cshtml" />
+    <Content Include="Views\ActaEntrega\_ListaDecomisosParcial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
