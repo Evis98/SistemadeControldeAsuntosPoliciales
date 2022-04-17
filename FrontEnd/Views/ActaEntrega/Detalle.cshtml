@@ -78,12 +78,26 @@
         <dd class="col-sm-8 ">
             @Html.DisplayTextFor(d => d.VistaTipoActa)
         </dd>
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.ConsecutivoActa)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.ConsecutivoActa)
-        </dd>
+        @if (Model.ConsecutivoActaDecomiso != null)
+        {
+            <dt class="col-sm-4 ">
+                @Html.LabelFor(d => d.ConsecutivoActaDecomiso)
+            </dt>
+            <dd class="col-sm-8 ">
+                @Html.DisplayTextFor(d => d.ConsecutivoActaDecomiso)
+            </dd>
+        }
+        else
+        {
+
+            <dt class="col-sm-4 ">
+                @Html.LabelFor(d => d.ConsecutivoActaHallazgo)
+            </dt>
+            <dd class="col-sm-8 ">
+                @Html.DisplayTextFor(d => d.ConsecutivoActaHallazgo)
+            </dd>
+
+        }
         <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.NombreDe)
         </dt>

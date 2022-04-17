@@ -66,14 +66,13 @@ namespace FrontEnd.Models.ViewModels
         [Display(Name = "Tipo Acta")]
         public string VistaTipoActa { get; set; }
 
-
-
-
-
-        [Display(Name = "Consecutivo Acta")]
-        [Required]
+        [Display(Name = "Consecutivo Acta Decomiso")]
         [StringLength(50)]
-        public string ConsecutivoActa { get; set; }
+        public string ConsecutivoActaDecomiso { get; set; }
+
+        [Display(Name = "Consecutivo Acta Hallazgo")]
+        [StringLength(50)]
+        public string ConsecutivoActaHallazgo { get; set; }
 
         [Display(Name = "A Nombre De")]
         [Required]

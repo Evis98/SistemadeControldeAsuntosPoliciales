@@ -18,63 +18,83 @@ namespace FrontEnd.Controllers
         IActaEntregaDAL actaEntregaDAL;
         IPoliciaDAL policiaDAL;
         IActaHallazgoDAL actaHallazgoDAL;
+        IActaDecomisoDAL actaDecomisoDAL;
 
         public ActasEntrega ConvertirActaEntrega(ActaEntregaViewModel model)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
             policiaDAL = new PoliciaDAL();
 
-            return new ActasEntrega
+            ActasEntrega acta = new ActasEntrega();
             {
-                idActaEntrega = model.IdActaEntrega,
-                numeroFolio = model.NumeroFolio,
-                encargado = policiaDAL.GetPoliciaCedula(model.Encargado).idPolicia,
-                testigo = policiaDAL.GetPoliciaCedula(model.Testigo).idPolicia,
-                supervisor = policiaDAL.GetPoliciaCedula(model.Supervisor).idPolicia,
-                instalaciones = tablaGeneralDAL.GetCodigo("ActaEntrega", "instalaciones", model.Instalaciones.ToString()).idTablaGeneral,
-                fechaHora = model.Fecha,
-                razonSocial = model.RazonSocial,
-                cedulaJuridica = model.CedulaJuridica,
-                tipoActa = tablaGeneralDAL.GetCodigo("Actas", "tipoActa", model.TipoActa.ToString()).idTablaGeneral,
-                consecutivoActa = model.ConsecutivoActa,
-                nombreDe = model.NombreDe,
-                identificacionEntregado = model.IdentificacionEntregado,
-                recibe = model.Recibe,
-                cedulaRecibe = model.CedulaJuridica,
-                inventarioEntregado = model.InventarioEntregado
+                acta.idActaEntrega = model.IdActaEntrega;
+                acta.numeroFolio = model.NumeroFolio;
+                acta.encargado = policiaDAL.GetPoliciaCedula(model.Encargado).idPolicia;
+                acta.testigo = policiaDAL.GetPoliciaCedula(model.Testigo).idPolicia;
+                acta.supervisor = policiaDAL.GetPoliciaCedula(model.Supervisor).idPolicia;
+                acta.instalaciones = tablaGeneralDAL.GetCodigo("ActaEntrega", "instalaciones", model.Instalaciones.ToString()).idTablaGeneral;
+                acta.fechaHora = model.Fecha;
+                acta.razonSocial = model.RazonSocial;
+                acta.cedulaJuridica = model.CedulaJuridica;
+                acta.tipoActa = tablaGeneralDAL.GetCodigo("Actas", "tipoActa", model.TipoActa.ToString()).idTablaGeneral;
+                if (tablaGeneralDAL.Get(acta.tipoActa).descripcion == "Hallazgo")
+                {
+                    acta.consecutivoActa = model.ConsecutivoActaHallazgo;
+                }
+                else
+                {
+                    acta.consecutivoActa = model.ConsecutivoActaDecomiso;
+                }
+
+                acta.nombreDe = model.NombreDe;
+                acta.identificacionEntregado = model.IdentificacionEntregado;
+                acta.recibe = model.Recibe;
+                acta.cedulaRecibe = model.CedulaJuridica;
+                acta.inventarioEntregado = model.InventarioEntregado;
 
             };
+
+            return acta;
         }
         public ActaEntregaViewModel CargarActaEntrega(ActasEntrega actaEntrega)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
             policiaDAL = new PoliciaDAL();
 
-            return new ActaEntregaViewModel
+            ActaEntregaViewModel acta = new ActaEntregaViewModel();
             {
-                IdActaEntrega = actaEntrega.idActaEntrega,
-                NumeroFolio = actaEntrega.numeroFolio,
-                Encargado = policiaDAL.GetPolicia(actaEntrega.encargado).cedula,
-                Testigo = policiaDAL.GetPolicia(actaEntrega.testigo).cedula,
-                Supervisor = policiaDAL.GetPolicia(actaEntrega.supervisor).cedula,
-                Instalaciones = int.Parse(tablaGeneralDAL.Get(actaEntrega.instalaciones).codigo),
-                VistaInstalaciones = tablaGeneralDAL.Get(actaEntrega.instalaciones).descripcion,
-                Fecha = actaEntrega.fechaHora,
-                Hora = actaEntrega.fechaHora,
-                RazonSocial = actaEntrega.razonSocial,
-                CedulaJuridica = actaEntrega.cedulaJuridica,
-                TipoActa = int.Parse(tablaGeneralDAL.Get(actaEntrega.tipoActa).codigo),
-                VistaTipoActa = tablaGeneralDAL.Get(actaEntrega.tipoActa).descripcion,
-                ConsecutivoActa = actaEntrega.consecutivoActa,
-                NombreDe = actaEntrega.nombreDe,
-                IdentificacionEntregado = actaEntrega.identificacionEntregado,
-                Recibe = actaEntrega.recibe,
-                CedulaRecibe = actaEntrega.cedulaRecibe,
-                InventarioEntregado = actaEntrega.inventarioEntregado,
-                VistaPoliciaEncargado = policiaDAL.GetPolicia(actaEntrega.encargado).nombre,
-                VistaPoliciaTestigo = policiaDAL.GetPolicia(actaEntrega.testigo).nombre,
-                VistaPoliciaSupervisor = policiaDAL.GetPolicia(actaEntrega.supervisor).nombre
-            };
+                acta.IdActaEntrega = actaEntrega.idActaEntrega;
+                acta.NumeroFolio = actaEntrega.numeroFolio;
+                acta.Encargado = policiaDAL.GetPolicia(actaEntrega.encargado).cedula;
+                acta.Testigo = policiaDAL.GetPolicia(actaEntrega.testigo).cedula;
+                acta.Supervisor = policiaDAL.GetPolicia(actaEntrega.supervisor).cedula;
+                acta.Instalaciones = int.Parse(tablaGeneralDAL.Get(actaEntrega.instalaciones).codigo);
+                acta.VistaInstalaciones = tablaGeneralDAL.Get(actaEntrega.instalaciones).descripcion;
+                acta.Fecha = actaEntrega.fechaHora;
+                acta.Hora = actaEntrega.fechaHora;
+                acta.RazonSocial = actaEntrega.razonSocial;
+                acta.CedulaJuridica = actaEntrega.cedulaJuridica;
+                acta.TipoActa = int.Parse(tablaGeneralDAL.Get(actaEntrega.tipoActa).codigo);
+                acta.VistaTipoActa = tablaGeneralDAL.Get(actaEntrega.tipoActa).descripcion;
+                if (tablaGeneralDAL.Get(actaEntrega.tipoActa).descripcion == "Hallazgo")
+                {
+                    acta.ConsecutivoActaHallazgo = actaEntrega.consecutivoActa;
+                }
+                else
+                {
+                    acta.ConsecutivoActaDecomiso = actaEntrega.consecutivoActa;
+                }
+                acta.ConsecutivoActaHallazgo = actaEntrega.consecutivoActa;
+                acta.NombreDe = actaEntrega.nombreDe;
+                acta.IdentificacionEntregado = actaEntrega.identificacionEntregado;
+                acta.Recibe = actaEntrega.recibe;
+                acta.CedulaRecibe = actaEntrega.cedulaRecibe;
+                acta.InventarioEntregado = actaEntrega.inventarioEntregado;
+                acta.VistaPoliciaEncargado = policiaDAL.GetPolicia(actaEntrega.encargado).nombre;
+                acta.VistaPoliciaTestigo = policiaDAL.GetPolicia(actaEntrega.testigo).nombre;
+                acta.VistaPoliciaSupervisor = policiaDAL.GetPolicia(actaEntrega.supervisor).nombre;
+            }
+            return acta;
         }
         public List<PoliciaViewModel> ConvertirListaPoliciasFiltrados(List<Policias> policias)
         {
@@ -160,6 +180,50 @@ namespace FrontEnd.Controllers
 
             return PartialView("_ListaHallazgosParcial", ConvertirListaHallazgosFiltrados(actasHallazgoFiltradas));
         }
+
+        public List<ActaDecomisoViewModel> ConvertirListaDecomisosFiltrados(List<ActasDecomiso> actasDecomisos)
+        {
+            policiaDAL = new PoliciaDAL();
+            return (from d in actasDecomisos
+                    select new ActaDecomisoViewModel
+                    {
+                        NumeroFolio = d.numeroFolio,
+                        VistaOficialActuante = policiaDAL.GetPolicia(d.oficialActuante).nombre,
+                        Inventario = d.inventario
+                    }).ToList();
+        }
+        public PartialViewResult ListaDecomisosBuscar(string numeroFolio)
+        {
+            List<ActaDecomisoViewModel> actasDecomisos = new List<ActaDecomisoViewModel>();
+
+            return PartialView("_ListaDecomisosBuscar", actasDecomisos);
+        }
+
+        public PartialViewResult ListaDecomisosParcial(string numeroFolio)
+        {
+            tablaGeneralDAL = new TablaGeneralDAL();
+            actaDecomisoDAL = new ActaDecomisoDAL();
+            List<ActasDecomiso> actasDecomisos = actaDecomisoDAL.Get();
+            List<ActasDecomiso> actasDecomisoFiltradas = new List<ActasDecomiso>();
+
+            if (numeroFolio == "")
+            {
+                actasDecomisoFiltradas = actasDecomisos;
+            }
+            else
+            {
+                foreach (ActasDecomiso actaDecomiso in actasDecomisos)
+                {
+                    if (actaDecomiso.numeroFolio.Contains(numeroFolio))
+                    {
+                        actasDecomisoFiltradas.Add(actaDecomiso);
+                    }
+                }
+            }
+            actasDecomisoFiltradas = actasDecomisoFiltradas.OrderBy(x => x.numeroFolio).ToList();
+
+            return PartialView("_ListaDecomisosParcial", ConvertirListaDecomisosFiltrados(actasDecomisoFiltradas));
+        }
         public ActionResult Index(string filtroSeleccionado, string busqueda, string busquedaFechaInicioH, string busquedaFechaFinalH)
         {
             actaEntregaDAL = new ActaEntregaDAL();
@@ -231,6 +295,7 @@ namespace FrontEnd.Controllers
             model.TiposInstalaciones = tablaGeneralDAL.Get("ActaEntrega", "instalaciones").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             model.TiposActa = tablaGeneralDAL.Get("Actas", "tipoActa").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             model.NumeroFolio = (actaEntregaDAL.GetCount() + 1).ToString() + "-" + DateTime.Now.Year;
+
             DateTime newDateTime = model.Fecha.Date + model.Hora.TimeOfDay;
             model.Fecha = newDateTime;
             try
@@ -254,7 +319,6 @@ namespace FrontEnd.Controllers
         public ActionResult Detalle(int id)
         {
             actaEntregaDAL = new ActaEntregaDAL();
-            Session["idActaEntrega"] = id;
             ActaEntregaViewModel modelo = CargarActaEntrega(actaEntregaDAL.GetActaEntrega(id));
             return View(modelo);
         }
