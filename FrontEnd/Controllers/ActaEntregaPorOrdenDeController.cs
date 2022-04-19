@@ -189,12 +189,22 @@ namespace FrontEnd.Controllers
             return PartialView("_ListaActasDecomisoParcial", ConvertirListaActasDecomisoFiltrados(actasDecomisoFiltrados));
         }
 
-        public ActionResult Index(string filtroSeleccionado, string busqueda, string busquedaFechaInicioH, string busquedaFechaFinalH)
+        public ActionResult Index(string filtrosSeleccionado, string busqueda, string busquedaFechaInicioH, string busquedaFechaFinalH)
         {
             actaEntregaPorOrdenDeDAL = new ActaEntregaPorOrdenDeDAL();
             policiaDAL = new PoliciaDAL();
+            tablaGeneralDAL = new TablaGeneralDAL();
             List<ActaEntregaPorOrdenDeViewModel> actasEntregaPorOrdenDe = new List<ActaEntregaPorOrdenDeViewModel>();
             List<ActaEntregaPorOrdenDeViewModel> actasEntregaPorOrdenDeFiltradas = new List<ActaEntregaPorOrdenDeViewModel>();
+            List<TablaGeneral> comboindex = tablaGeneralDAL.Get("ActasEntregaPorOrdenDe", "index");
+            List<SelectListItem> items = comboindex.ConvertAll(d =>
+            {
+                return new SelectListItem()
+                {
+                    Text = d.descripcion
+                };
+            });
+            ViewBag.items = items;
             foreach (ActasEntregaPorOrdenDe actaEntregaPorOrdenDe in actaEntregaPorOrdenDeDAL.Get())
             {
                 actasEntregaPorOrdenDe.Add(CargarActaEntregaPorOrdenDe(actaEntregaPorOrdenDe));
@@ -203,14 +213,14 @@ namespace FrontEnd.Controllers
             {
                 foreach (ActaEntregaPorOrdenDeViewModel actaEntregaPorOrdenDe in actasEntregaPorOrdenDe)
                 {
-                    if (filtroSeleccionado == "Número de Folio")
+                    if (filtrosSeleccionado == "Número de Folio")
                     {
                         if (actaEntregaPorOrdenDe.NumeroFolio.Contains(busqueda))
                         {
                             actasEntregaPorOrdenDeFiltradas.Add(actaEntregaPorOrdenDe);
                         }
                     }
-                    if (filtroSeleccionado == "Nombre funcionario que entrega")
+                    if (filtrosSeleccionado == "Nombre funcionario que entrega")
                     {
                         if (policiaDAL.GetPoliciaCedula(actaEntregaPorOrdenDe.CedulaFuncionarioQueEntrega).nombre.Contains(busqueda))
                         {
@@ -218,7 +228,7 @@ namespace FrontEnd.Controllers
                         }
                     }
                 }
-                if (filtroSeleccionado == "Fecha")
+                if (filtrosSeleccionado == "Fecha")
                 {
                     DateTime fechaInicio = DateTime.Parse(busquedaFechaInicioH);
                     DateTime fechaFinal = DateTime.Parse(busquedaFechaFinalH);

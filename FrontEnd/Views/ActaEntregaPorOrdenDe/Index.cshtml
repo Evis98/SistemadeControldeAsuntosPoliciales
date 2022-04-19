@@ -1,4 +1,6 @@
-﻿@{ ViewBag.Title = "Actas de Entrega por Orden de"; }
+﻿@{ ViewBag.Title = "Actas de Entrega por Orden de";
+    List<SelectListItem> items = (List<SelectListItem>)ViewBag.items;
+    }
 <div class="container bg-light text-dark border" style="height:80vh;">
     <div class="row">
         <div class="col-md-12">
@@ -13,12 +15,12 @@
     {
         <div class="form-row">
             <div class="col-sm-3">
-                <select class="form-control" name="filtroSeleccionado" id="filtroSeleccionado" onclick="ocultarFechaActa()">
-                    <option selected>Número de Folio</option>
-                    <option>Nombre funcionario que entrega</option>
-                    <option>Fecha</option>
-                </select>
+                @Html.DropDownList("filtrosSeleccionado", items, new { @class = "myselect form-control", @id = "filtroSeleccionado", @name = "filtroSeleccionado", @onclick = "ocultarFechaActa()" })
+                <script>
+                    document.getElementById("filtroSeleccionado").value = "Número de Folio";
+                </script>              
             </div>
+
             <div class="col-sm-3">
                 <input class="form-control" name="busqueda" type="text" id="busqueda" onkeyup="this.value = this.value.toUpperCase();" />
                 <input class="form-control" name="busquedaFechaInicioH" type="date" id="busquedaFechaInicioH" style="display:none" />
