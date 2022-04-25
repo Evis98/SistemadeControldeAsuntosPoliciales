@@ -84,7 +84,6 @@ namespace FrontEnd.Controllers
                 {
                     acta.ConsecutivoActaDecomiso = actaEntrega.consecutivoActa;
                 }
-                acta.ConsecutivoActaHallazgo = actaEntrega.consecutivoActa;
                 acta.NombreDe = actaEntrega.nombreDe;
                 acta.IdentificacionEntregado = actaEntrega.identificacionEntregado;
                 acta.Recibe = actaEntrega.recibe;

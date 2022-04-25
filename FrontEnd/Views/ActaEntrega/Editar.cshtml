@@ -100,34 +100,64 @@
         <div class="form-row">
             <div class="form-group col-md-3">
                 @Html.LabelFor(d => d.TipoActa)
-                @Html.DropDownListFor(d => d.TipoActa, Model.TiposActa, "--Seleccione--", new { @class = "myselect form-control" })
+                @Html.DropDownListFor(d => d.TipoActa, Model.TiposActa, "--Seleccione--", new { @class = "myselect form-control", @id = "tipoActaSeleccionado", @onclick = "ocultarActa()" })
                 @Html.ValidationMessageFor(d => d.TipoActa, null, new { @class = "red" })
             </div>
-            <div class="form-group col-md-3" style="display:none;" id="consecutivoActaHallazgo">
-                @Html.LabelFor(d => d.ConsecutivoActaHallazgo)
-                <div class="input-group">
-                    @Html.TextBoxFor(d => d.ConsecutivoActaHallazgo, "", new { @class = "form-control", @id = "consecutivoActa", @readonly = "readonly" })
-                    <div class="input-group-append ">
-                        <a class="btn btn-primary" data-book-id="consecutivoActa" data-toggle="modal" data-target="#modalBusquedaHallazgo">Buscar</a>
+            @if (Model.ConsecutivoActaHallazgo != null)
+            {
+                <div class="form-group col-md-3" id="consecutivoActaHallazgo">
+                    @Html.LabelFor(d => d.ConsecutivoActaHallazgo)
+                    <div class="input-group">
+                        @Html.TextBoxFor(d => d.ConsecutivoActaHallazgo, "", new { @class = "form-control", @id = "consecutivoActa", @readonly = "readonly" })
+                        <div class="input-group-append ">
+                            <a class="btn btn-primary" data-book-id="consecutivoActa" data-toggle="modal" data-target="#modalBusquedaHallazgo">Buscar</a>
+                        </div>
                     </div>
+                    @Html.ValidationMessageFor(d => d.ConsecutivoActaHallazgo, null, new { @class = "red" })
                 </div>
-                @Html.ValidationMessageFor(d => d.ConsecutivoActaHallazgo, null, new { @class = "red" })
-            </div>
-
-            <div class="form-group col-md-3" style="display:none;" id="consecutivoActaDecomiso">
-                @Html.LabelFor(d => d.ConsecutivoActaDecomiso)
-                <div class="input-group">
-                    @Html.TextBoxFor(d => d.ConsecutivoActaDecomiso, "", new { @class = "form-control", @id = "consecutivoActa2", @readonly = "readonly" })
-                    <div class="input-group-append ">
-                        <a class="btn btn-primary" data-book-id="consecutivoActa" data-toggle="modal" data-target="#modalBusquedaDecomiso">Buscar</a>
+            }
+            else
+            {
+                <div class="form-group col-md-3" style="display:none;" id="consecutivoActaHallazgo">
+                    @Html.LabelFor(d => d.ConsecutivoActaHallazgo)
+                    <div class="input-group">
+                        @Html.TextBoxFor(d => d.ConsecutivoActaHallazgo, "", new { @class = "form-control", @id = "consecutivoActa", @readonly = "readonly" })
+                        <div class="input-group-append ">
+                            <a class="btn btn-primary" data-book-id="consecutivoActa" data-toggle="modal" data-target="#modalBusquedaHallazgo">Buscar</a>
+                        </div>
                     </div>
+                    @Html.ValidationMessageFor(d => d.ConsecutivoActaHallazgo, null, new { @class = "red" })
                 </div>
-                @Html.ValidationMessageFor(d => d.ConsecutivoActaDecomiso, null, new { @class = "red" })
-            </div>
 
-
+            }
+            @if (Model.ConsecutivoActaDecomiso != null)
+            {
+                <div class="form-group col-md-3" id="consecutivoActaDecomiso">
+                    @Html.LabelFor(d => d.ConsecutivoActaDecomiso)
+                    <div class="input-group">
+                        @Html.TextBoxFor(d => d.ConsecutivoActaDecomiso, "", new { @class = "form-control", @id = "consecutivoActa2", @readonly = "readonly" })
+                        <div class="input-group-append ">
+                            <a class="btn btn-primary" data-book-id="consecutivoActa" data-toggle="modal" data-target="#modalBusquedaDecomiso">Buscar</a>
+                        </div>
+                    </div>
+                    @Html.ValidationMessageFor(d => d.ConsecutivoActaDecomiso, null, new { @class = "red" })
+                </div>
+            }
+            else
+            {
+                <div class="form-group col-md-3" style="display:none;" id="consecutivoActaDecomiso">
+                    @Html.LabelFor(d => d.ConsecutivoActaDecomiso)
+                    <div class="input-group">
+                        @Html.TextBoxFor(d => d.ConsecutivoActaDecomiso, "", new { @class = "form-control", @id = "consecutivoActa2", @readonly = "readonly" })
+                        <div class="input-group-append ">
+                            <a class="btn btn-primary" data-book-id="consecutivoActa" data-toggle="modal" data-target="#modalBusquedaDecomiso">Buscar</a>
+                        </div>
+                    </div>
+                    @Html.ValidationMessageFor(d => d.ConsecutivoActaDecomiso, null, new { @class = "red" })
+                </div>
+            }
         </div>
-        <div class="form-row">
+        <div class="form-row" onload="ocultarActa()">
             <div class="form-group col-md-12">
                 @Html.LabelFor(d => d.InventarioEntregado)
                 @Html.TextAreaFor(d => d.InventarioEntregado, new { @class = "form-control", @readonly = "readonly", @id = "inventario" })
@@ -174,7 +204,6 @@
         </div>
 
     }
-
     <div class="modal fade" id="modalBusqueda" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -193,7 +222,6 @@
         </div>
     </div>
 
-
     <div class="modal fade" id="modalBusquedaHallazgo" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -211,6 +239,7 @@
             </div>
         </div>
     </div>
+
     <div class="modal fade" id="modalBusquedaDecomiso" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -294,4 +323,16 @@
 
         }
     }
+
+            //function cargaActa(tipoActa) {
+            //    if (tipoActa == '1') {
+            //        var elem = document.getElementById("consecutivoActa");
+            //        elem.value = clicked_id;
+            //        var elem = document.getElementById("consecutivoActa2");
+            //        elem.value = "";
+            //    } else {
+
+            //    }
+            //    document.getElementById("demo").innerHTML = text;
+            //}
 </script>
