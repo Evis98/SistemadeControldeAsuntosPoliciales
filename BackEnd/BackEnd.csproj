@@ -58,6 +58,9 @@
     <Compile Include="ActasDecomiso.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
+    <Compile Include="ActasDeDestruccionDePerecederos.cs">
+      <DependentUpon>DBSCAP.tt</DependentUpon>
+    </Compile>
     <Compile Include="ActasEntrega.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
@@ -74,12 +77,14 @@
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\ActaDecomisoDAL.cs" />
+    <Compile Include="DAL\ActaDeDestruccionDePerecederosDAL.cs" />
     <Compile Include="DAL\ActaEntregaDAL.cs" />
     <Compile Include="DAL\ActaEntregaPorOrdenDeDAL.cs" />
     <Compile Include="DAL\ActaHallazgoDAL.cs" />
     <Compile Include="DAL\ArmaDAL.cs" />
     <Compile Include="DAL\BitacoraDAL.cs" />
     <Compile Include="DAL\IActaDecomisoDAL.cs" />
+    <Compile Include="DAL\IActaDeDestruccionDePerecederosDAL.cs" />
     <Compile Include="DAL\IActaEntregaDAL.cs" />
     <Compile Include="DAL\IActaEntregaPorOrdenDeDAL.cs" />
     <Compile Include="DAL\IActaHallazgoDAL.cs" />

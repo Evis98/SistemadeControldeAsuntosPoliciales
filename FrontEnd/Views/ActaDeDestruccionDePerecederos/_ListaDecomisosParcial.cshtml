@@ -1,0 +1,22 @@
+﻿@model List<FrontEnd.Models.ViewModels.ActaDecomisoViewModel>
+
+<table class="table">
+
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">Numero Folio</th>
+            <th scope="col">Nombre Policia Encargado</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@Html.DisplayFor(modelItem => item.NumeroFolio)</th>
+                <td>
+                    <label><a href="#" onclick="reply_click3(this.id, '@item.Inventario')" id="@item.NumeroFolio"> @item.VistaOficialActuante</a></label>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

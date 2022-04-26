@@ -26,6 +26,7 @@ namespace BackEnd
         }
     
         public virtual DbSet<ActasDecomiso> ActasDecomiso { get; set; }
+        public virtual DbSet<ActasDeDestruccionDePerecederos> ActasDeDestruccionDePerecederos { get; set; }
         public virtual DbSet<ActasEntrega> ActasEntrega { get; set; }
         public virtual DbSet<ActasEntregaPorOrdenDe> ActasEntregaPorOrdenDe { get; set; }
         public virtual DbSet<ActasHallazgo> ActasHallazgo { get; set; }

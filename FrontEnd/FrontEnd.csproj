@@ -140,6 +140,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ActaController.cs" />
     <Compile Include="Controllers\ActaDecomisoController.cs" />
+    <Compile Include="Controllers\ActaDeDestruccionDePerecederosController.cs" />
     <Compile Include="Controllers\ActaEntregaController.cs" />
     <Compile Include="Controllers\ActaEntregaPorOrdenDeController.cs" />
     <Compile Include="Controllers\ActaHallazgoController.cs" />
@@ -155,6 +156,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModels\ActaDecomisoViewModel.cs" />
+    <Compile Include="Models\ViewModels\ActaDeDestruccionDePerecederosViewModel.cs" />
     <Compile Include="Models\ViewModels\ActaEntregaPorOrdenDeViewModel.cs" />
     <Compile Include="Models\ViewModels\ActaEntregaViewModel.cs" />
     <Compile Include="Models\ViewModels\ActaHallazgoViewModel.cs" />
@@ -394,6 +396,16 @@
     <Content Include="Views\ActaEntregaPorOrdenDe\_ListaPoliciasParcial.cshtml" />
     <Content Include="Views\ActaEntrega\_ListaDecomisosBuscar.cshtml" />
     <Content Include="Views\ActaEntrega\_ListaDecomisosParcial.cshtml" />
+    <Content Include="Views\ActaDeDestruccionDePerecederos\Detalle.cshtml" />
+    <Content Include="Views\ActaDeDestruccionDePerecederos\Editar.cshtml" />
+    <Content Include="Views\ActaDeDestruccionDePerecederos\Index.cshtml" />
+    <Content Include="Views\ActaDeDestruccionDePerecederos\Nuevo.cshtml" />
+    <Content Include="Views\ActaDeDestruccionDePerecederos\_ListaDecomisosBuscar.cshtml" />
+    <Content Include="Views\ActaDeDestruccionDePerecederos\_ListaDecomisosParcial.cshtml" />
+    <Content Include="Views\ActaDeDestruccionDePerecederos\_ListaHallazgosBuscar.cshtml" />
+    <Content Include="Views\ActaDeDestruccionDePerecederos\_ListaHallazgosParcial.cshtml" />
+    <Content Include="Views\ActaDeDestruccionDePerecederos\_ListaPoliciasBuscar.cshtml" />
+    <Content Include="Views\ActaDeDestruccionDePerecederos\_ListaPoliciasParcial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

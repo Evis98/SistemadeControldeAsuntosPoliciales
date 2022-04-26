@@ -20,6 +20,9 @@ namespace BackEnd
             this.ActasDecomiso = new HashSet<ActasDecomiso>();
             this.ActasDecomiso1 = new HashSet<ActasDecomiso>();
             this.ActasDecomiso2 = new HashSet<ActasDecomiso>();
+            this.ActasDeDestruccionDePerecederos = new HashSet<ActasDeDestruccionDePerecederos>();
+            this.ActasDeDestruccionDePerecederos1 = new HashSet<ActasDeDestruccionDePerecederos>();
+            this.ActasDeDestruccionDePerecederos2 = new HashSet<ActasDeDestruccionDePerecederos>();
             this.ActasEntrega = new HashSet<ActasEntrega>();
             this.ActasEntrega1 = new HashSet<ActasEntrega>();
             this.ActasEntrega2 = new HashSet<ActasEntrega>();
@@ -51,6 +54,12 @@ namespace BackEnd
         public virtual ICollection<ActasDecomiso> ActasDecomiso1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ActasDecomiso> ActasDecomiso2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ActasDeDestruccionDePerecederos> ActasDeDestruccionDePerecederos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ActasDeDestruccionDePerecederos> ActasDeDestruccionDePerecederos1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ActasDeDestruccionDePerecederos> ActasDeDestruccionDePerecederos2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ActasEntrega> ActasEntrega { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

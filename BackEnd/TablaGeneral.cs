@@ -18,6 +18,7 @@ namespace BackEnd
         public TablaGeneral()
         {
             this.ActasDecomiso = new HashSet<ActasDecomiso>();
+            this.ActasDeDestruccionDePerecederos = new HashSet<ActasDeDestruccionDePerecederos>();
             this.ActasEntrega = new HashSet<ActasEntrega>();
             this.ActasEntrega1 = new HashSet<ActasEntrega>();
             this.ActasEntregaPorOrdenDe = new HashSet<ActasEntregaPorOrdenDe>();
@@ -59,6 +60,8 @@ namespace BackEnd
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ActasDecomiso> ActasDecomiso { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ActasDeDestruccionDePerecederos> ActasDeDestruccionDePerecederos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ActasEntrega> ActasEntrega { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -268,6 +268,7 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             armaDAL = new ArmaDAL();
             policiaDAL = new PoliciaDAL();
+            modelo.TiposCondicion = tablaGeneralDAL.Get("Armas", "condicion").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             try
             {
                 if (ModelState.IsValid)
