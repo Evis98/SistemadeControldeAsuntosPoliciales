@@ -3,7 +3,7 @@
     ViewBag.Title = "Completar Información de Bitácora";
 }
 
-<div class="container bg-light text-dark border" style=" height: auto; min-height: 80vh; padding-bottom: 20px; margin-bottom: 28px; word-wrap: break-word;">
+<div class="container bg-light text-dark border" style="height:80vh;">
     <div class="row">
         <div class="col-md-12">
             <div style="text-align:center;">
@@ -16,8 +16,10 @@
     @using (Html.BeginForm("Completar", "Bitacora", FormMethod.Post))
     {
         @Html.HiddenFor(d => d.IdBitacora)
+        @Html.HiddenFor(d => d.IdArma)
         @Html.HiddenFor(d => d.NumeroConsecutivo)
         @Html.HiddenFor(d => d.ArmeroProveedor)
+        @Html.HiddenFor(d => d.CondicionInicial)
         @Html.HiddenFor(d => d.PoliciaSolicitante)
         @Html.HiddenFor(d => d.NumeroSerieArma)
         @Html.HiddenFor(d => d.FechaCreacion)
@@ -25,6 +27,7 @@
         @Html.HiddenFor(d => d.CargadoresEntregados)
         @Html.HiddenFor(d => d.ObservacionesEntrega)
         @Html.HiddenFor(d => d.VistaEstadoActual)
+        @Html.HiddenFor(d => d.VistaCondicionInicial)
         <div class="form-row">
             <div class="form-group col-md-3">
                 @Html.LabelFor(d => d.CondicionFinal)

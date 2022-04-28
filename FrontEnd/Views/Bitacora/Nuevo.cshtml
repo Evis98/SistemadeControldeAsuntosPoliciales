@@ -3,7 +3,7 @@
     ViewBag.Title = "Agregar Información de Bitácora";
 }
 
-<div class="container bg-light text-dark border" style=" height: auto; min-height: 80vh; padding-bottom: 20px; margin-bottom: 28px; word-wrap: break-word;">
+<div class="container bg-light text-dark border" style="height:80vh;">
     <div class="row">
         <div class="col-md-12">
             <div style="text-align:center;">
@@ -58,6 +58,11 @@
             </div>
         </div>
         <div class="form-row">
+            <div class="form-group col-md-4">
+                @Html.LabelFor(d => d.VistaCondicionInicial)
+                @Html.TextBoxFor(d => d.VistaCondicionInicial, "", new { @class = "form-control", @id = "condicionInicialArma",@readonly = "readonly"})
+                @Html.ValidationMessageFor(d => d.VistaCondicionInicial, null, new { @class = "red" })
+            </div>
             <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.MunicionEntregada)
                 @Html.TextBoxFor(d => d.MunicionEntregada, "", new { @class = "form-control", @min = "0", @onkeyup = "this.value = this.value.toUpperCase();", @type = "number", onkeydown = "javascript: return event.keyCode == 69 ? false : true" })
@@ -205,9 +210,11 @@
         document.getElementById(clicked_id3).value = '';
     }
 
-    function reply_clickArma(clicked_id) {
+    function reply_clickArma(clicked_id, condicionInicial) {
         var elem = document.getElementById("idArma");
         elem.value = clicked_id;
+        var elem2 = document.getElementById("condicionInicialArma");
+        elem2.value = condicionInicial;
         $('#modalBusquedaArma').modal('hide');
     }
     function reply_click2(clicked_id2) {

@@ -20,6 +20,7 @@ namespace BackEnd
         public int idArmeroProveedor { get; set; }
         public Nullable<int> idArmeroReceptor { get; set; }
         public int idPoliciaSolicitante { get; set; }
+        public int condicionInicial { get; set; }
         public Nullable<int> condicionFinal { get; set; }
         public System.DateTime fechaCreacion { get; set; }
         public Nullable<System.DateTime> fechaFinalizacion { get; set; }

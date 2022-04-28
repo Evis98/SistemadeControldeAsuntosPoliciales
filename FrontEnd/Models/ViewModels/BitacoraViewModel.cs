@@ -20,23 +20,19 @@ namespace FrontEnd.Models.ViewModels
         [Required]
         [Display(Name = "Armero que entrega")]
         public string ArmeroProveedor { get; set; }
-      
         [Display(Name = "Armero que entrega")]
         public string VistaArmeroProveedor { get; set; }
-        [Required]
         [Display(Name = "Armero que recibe")]
         public string ArmeroReceptor { get; set; }
-
         [Required]
         [Display(Name = "Policía Solicitante")]
         public string PoliciaSolicitante { get; set; }
         [Display(Name = "Policía Solicitante")]
         public string VistaPoliciaSolicitante { get; set; }
 
-     
         [Display(Name = "Condición del arma al entregarse")]
-        public int CondicionInicial { get; set; }
-        [Required]
+        public string CondicionInicial { get; set; }
+
         [Display(Name = "Condición del arma al devolverse")]
         public int CondicionFinal { get; set; }
 
@@ -52,7 +48,6 @@ namespace FrontEnd.Models.ViewModels
         [Display(Name = "Munición entregada con el arma")]
         public string MunicionEntregada { get; set; }
 
-        [Required]
         [Display(Name = "Munición devuelta con el arma")]
         public string MunicionDevuelta { get; set; }
 
@@ -80,5 +75,8 @@ namespace FrontEnd.Models.ViewModels
         public string VistaArmeroReceptor { get; internal set; }
         public string VistaCondicionFinal { get; internal set; }
         public int IdArma { get; set; }
+
+        [Display(Name = "Condición del arma al entregarse")]
+        public string VistaCondicionInicial { get; set; }
     }
 }

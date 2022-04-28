@@ -40,6 +40,8 @@ namespace FrontEnd.Controllers
                 modelo.ObservacionesEntrega = bitacora.observacionesEntrega;
                 modelo.EstadoActual = tablaGeneralDAL.Get(bitacora.estadoActualBitacora).idTablaGeneral;
                 modelo.VistaEstadoActual = tablaGeneralDAL.Get(bitacora.estadoActualBitacora).descripcion;
+                modelo.CondicionInicial = tablaGeneralDAL.Get((int)bitacora.condicionInicial).codigo;
+                modelo.VistaCondicionInicial = tablaGeneralDAL.Get((int)bitacora.condicionInicial).descripcion;
                 if (modelo.VistaEstadoActual == "Completada")
                 {
                     modelo.ArmeroReceptor = policiaDAL.GetPolicia((int)bitacora.idArmeroReceptor).cedula;
@@ -71,6 +73,7 @@ namespace FrontEnd.Controllers
                 bitacora.municionEntregada = modelo.MunicionEntregada;
                 bitacora.cargadoresEntregados = modelo.CargadoresEntregados;
                 bitacora.observacionesEntrega = modelo.ObservacionesEntrega;
+                bitacora.condicionInicial = tablaGeneralDAL.Get("Armas", "condicion", modelo.VistaCondicionInicial).idTablaGeneral;
                 if (modelo.VistaEstadoActual == "Pendiente")
                 {
                     bitacora.estadoActualBitacora = tablaGeneralDAL.GetCodigo("Bitacoras", "estadoActualBitacora", "1").idTablaGeneral;
@@ -232,12 +235,14 @@ namespace FrontEnd.Controllers
             armaDAL = new ArmaDAL();
             model.FechaFinalizacion = DateTime.Now;
             model.VistaEstadoActual = tablaGeneralDAL.GetCodigo("Bitacoras", "estadoActualBitacora", "2").descripcion;
+            model.TiposCondicion = tablaGeneralDAL.Get("Armas", "condicion").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             try
             {
                 if (ModelState.IsValid)
                 {
                     Armas arma = armaDAL.GetArmaNumSerie(model.NumeroSerieArma);
                     arma.policiaAsignado = null;
+                    arma.condicion = tablaGeneralDAL.GetCodigo("Armas", "condicion", model.CondicionFinal.ToString()).idTablaGeneral;
                     armaDAL.Edit(arma);
                     bitacoraDAL.Edit(ConvertirBitacora(model));
 
@@ -268,7 +273,6 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             armaDAL = new ArmaDAL();
             policiaDAL = new PoliciaDAL();
-            modelo.TiposCondicion = tablaGeneralDAL.Get("Armas", "condicion").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             try
             {
                 if (ModelState.IsValid)
@@ -318,7 +322,7 @@ namespace FrontEnd.Controllers
             requisitoDAL = new RequisitoDAL();
             List<Policias> policias = policiaDAL.Get();
             List<Policias> policiasFiltrados = new List<Policias>();
-            
+
             if (nombre == null)
             {
                 policiasFiltrados = policias;
@@ -329,9 +333,10 @@ namespace FrontEnd.Controllers
                 {
 
                     if (policia.nombre.Contains(nombre))
-                    {                       
-                        if (requisitoDAL.GetRequisitosPortacion(policia.idPolicia, "PORTACIÓN").Count > 0) { 
-                        policiasFiltrados.Add(policia);
+                    {
+                        if (requisitoDAL.GetRequisitosPortacion(policia.idPolicia, "PORTACIÓN").Count > 0)
+                        {
+                            policiasFiltrados.Add(policia);
                         }
                     }
                 }
@@ -344,11 +349,13 @@ namespace FrontEnd.Controllers
         //Busqueda de Armas--------------------------------------------------------------------
         public List<ArmaViewModel> ConvertirListaArmasFiltradas(List<Armas> armas)
         {
+            tablaGeneralDAL = new TablaGeneralDAL();
             return (from d in armas
                     select new ArmaViewModel
                     {
                         NumeroSerie = d.numeroSerie,
                         VistaTipoArma = tablaGeneralDAL.Get(d.tipoArma).descripcion,
+                        VistaEstadoArma = tablaGeneralDAL.Get((int)d.condicion).descripcion,
                     }).ToList();
         }
 

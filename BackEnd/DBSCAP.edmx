@@ -122,6 +122,7 @@
           <Property Name="idArmeroProveedor" Type="int" Nullable="false" />
           <Property Name="idArmeroReceptor" Type="int" />
           <Property Name="idPoliciaSolicitante" Type="int" Nullable="false" />
+          <Property Name="condicionInicial" Type="int" Nullable="false" />
           <Property Name="condicionFinal" Type="int" />
           <Property Name="fechaCreacion" Type="datetime" Nullable="false" />
           <Property Name="fechaFinalizacion" Type="datetime" />
@@ -1316,6 +1317,7 @@
           <Property Name="idArmeroProveedor" Type="Int32" Nullable="false" />
           <Property Name="idArmeroReceptor" Type="Int32" />
           <Property Name="idPoliciaSolicitante" Type="Int32" Nullable="false" />
+          <Property Name="condicionInicial" Type="Int32" Nullable="false" />
           <Property Name="condicionFinal" Type="Int32" />
           <Property Name="fechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="fechaFinalizacion" Type="DateTime" Precision="3" />
@@ -2570,6 +2572,7 @@
                 <ScalarProperty Name="idArmeroProveedor" ColumnName="idArmeroProveedor" />
                 <ScalarProperty Name="idArmeroReceptor" ColumnName="idArmeroReceptor" />
                 <ScalarProperty Name="idPoliciaSolicitante" ColumnName="idPoliciaSolicitante" />
+                <ScalarProperty Name="condicionInicial" ColumnName="condicionInicial" />
                 <ScalarProperty Name="condicionFinal" ColumnName="condicionFinal" />
                 <ScalarProperty Name="fechaCreacion" ColumnName="fechaCreacion" />
                 <ScalarProperty Name="fechaFinalizacion" ColumnName="fechaFinalizacion" />

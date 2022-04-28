@@ -348,26 +348,17 @@
     <Content Include="Views\Persona\Nuevo.cshtml" />
     <Content Include="Views\Persona\Detalle.cshtml" />
     <Content Include="Views\Persona\Editar.cshtml" />
-    <Content Include="Views\Bitacora\Nuevo.cshtml" />
-    <Content Include="Views\Bitacora\Index.cshtml" />
     <Content Include="Views\ActaHallazgo\_ListaPoliciasBuscar.cshtml" />
     <Content Include="Views\ActaHallazgo\_ListaPoliciasParcial.cshtml" />
     <Content Include="Views\ActaHallazgo\Index.cshtml" />
     <Content Include="Views\ActaHallazgo\Nuevo.cshtml" />
     <Content Include="Views\ActaHallazgo\Detalle.cshtml" />
     <Content Include="Views\ActaHallazgo\Editar.cshtml" />
-    <Content Include="Views\Bitacora\_ListaPoliciasBuscar.cshtml" />
-    <Content Include="Views\Bitacora\_ListaPoliciasParcial.cshtml" />
-    <Content Include="Views\Bitacora\_ListaArmasBuscar.cshtml" />
-    <Content Include="Views\Bitacora\_ListaArmasParcial.cshtml" />
     <Content Include="Views\Parte\Nuevo2.cshtml" />
     <Content Include="Views\Parte\Nuevo3.cshtml" />
     <Content Include="Views\Parte\Nuevo4.cshtml" />
     <Content Include="Views\Parte\_ListaPersonasParcial.cshtml" />
     <Content Include="Views\Parte\_ListaPersonasBuscar.cshtml" />
-    <Content Include="Views\Bitacora\Detalle.cshtml" />
-    <Content Include="Views\Bitacora\Editar.cshtml" />
-    <Content Include="Views\Bitacora\Completar.cshtml" />
     <Content Include="Views\Parte\Detalle1.cshtml" />
     <Content Include="Views\Parte\Detalle2.cshtml" />
     <Content Include="Views\Parte\Detalle3.cshtml" />
@@ -406,6 +397,15 @@
     <Content Include="Views\ActaDeDestruccionDePerecederos\_ListaHallazgosParcial.cshtml" />
     <Content Include="Views\ActaDeDestruccionDePerecederos\_ListaPoliciasBuscar.cshtml" />
     <Content Include="Views\ActaDeDestruccionDePerecederos\_ListaPoliciasParcial.cshtml" />
+    <Content Include="Views\Bitacora\Completar.cshtml" />
+    <Content Include="Views\Bitacora\Detalle.cshtml" />
+    <Content Include="Views\Bitacora\Editar.cshtml" />
+    <Content Include="Views\Bitacora\Index.cshtml" />
+    <Content Include="Views\Bitacora\Nuevo.cshtml" />
+    <Content Include="Views\Bitacora\_ListaArmasBuscar.cshtml" />
+    <Content Include="Views\Bitacora\_ListaArmasParcial.cshtml" />
+    <Content Include="Views\Bitacora\_ListaPoliciasBuscar.cshtml" />
+    <Content Include="Views\Bitacora\_ListaPoliciasParcial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
