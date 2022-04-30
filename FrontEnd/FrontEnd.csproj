@@ -164,7 +164,6 @@
     <Compile Include="Models\ViewModels\BitacoraViewModel.cs" />
     <Compile Include="Models\ViewModels\InfractorViewModel.cs" />
     <Compile Include="Models\ViewModels\ListParte1ViewModel.cs" />
-    <Compile Include="Models\ViewModels\ListPersonaViewModel.cs" />
     <Compile Include="Models\ViewModels\Parte1ViewModel.cs" />
     <Compile Include="Models\ViewModels\PersonaViewModel.cs" />
     <Compile Include="Models\ViewModels\PoliciaViewModel.cs" />

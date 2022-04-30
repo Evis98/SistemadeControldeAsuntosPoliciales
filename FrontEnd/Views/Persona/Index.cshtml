@@ -1,4 +1,4 @@
-﻿@model List<FrontEnd.Models.ViewModels.ListPersonaViewModel>
+﻿@model List<FrontEnd.Models.ViewModels.PersonaViewModel>
 
 @{
     ViewBag.Title = "Personas";
@@ -54,7 +54,7 @@
                     @foreach (var oElemento in Model)
                     {
                         <tr>
-                            <th scope="row">@oElemento.IdentificacionPersona</th>
+                            <th scope="row">@oElemento.Identificacion</th>
                             <td>@oElemento.NombrePersona</td>
                             <td>
                                 <div style="text-align:center;">

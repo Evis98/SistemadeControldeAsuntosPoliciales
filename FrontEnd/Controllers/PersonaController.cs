@@ -15,25 +15,7 @@ namespace FrontEnd.Controllers
         IPersonaDAL personaDAL;
        
        
-        public List<ListPersonaViewModel> ConvertirListaPersonas(List<Personas> personas)
-        {
-            tablaGeneralDAL = new TablaGeneralDAL();
-            return (from d in personas
-                    select new ListPersonaViewModel
-                    {
-                        IdPersona = d.idPersona,
-                        IdentificacionPersona = d.identificacion,
-                        NacionalidadPersona = tablaGeneralDAL.Get(d.nacionalidad).descripcion,
-                        NombrePersona = d.nombre,
-                        TelefonoCelularPersona = d.telefonoCelular,
-                        TelefonoHabitacionPersona = d.telefonoCelular,
-                        TelefonoTrabajoPersona = d.telefonoCelular,
-                        DireccionExactaPersona = d.direccionPersona,
-                        CorreoElectronicoPersona = d.correoElectronicoPersona,
-                        ProfesionUOficioPersona = d.profesion,
-                        
-                    }).ToList();
-        }
+
 
         public Personas ConvertirPersona(PersonaViewModel modelo)
         {
@@ -64,8 +46,10 @@ namespace FrontEnd.Controllers
             {
                 IdPersona = persona.idPersona,
                 TipoIdentificacionPersona = int.Parse(tablaGeneralDAL.Get(persona.tipoIdentificacion).codigo),
+                VistaTipoIdentificacionPersona = tablaGeneralDAL.Get(persona.tipoIdentificacion).descripcion,
                 Identificacion = persona.identificacion,
                 NacionalidadPersona = tablaGeneralDAL.Get(persona.nacionalidad).codigo,
+                VistaNacionalidadPersona = tablaGeneralDAL.Get(persona.nacionalidad).descripcion,
                 NombrePersona = persona.nombre,
                 FechaNacimientoPersona = (DateTime)persona.fechaNacimiento,
                 TelefonoCasaPersona = persona.telefonoHabitacion,
@@ -73,41 +57,22 @@ namespace FrontEnd.Controllers
                 TelefonoCelularPersona = persona.telefonoCelular,
                 DireccionExacta = persona.direccionPersona,
                 SexoPersona = int.Parse(tablaGeneralDAL.Get(persona.sexo).codigo),
+                VistaSexoPersona = tablaGeneralDAL.Get(persona.sexo).descripcion,
                 CorreoElectronicoPersona = persona.correoElectronicoPersona,                
                 ProfesionPersona = persona.profesion,
                 LugarTrabajoPersona = persona.lugarTrabajoPersona                
             };
         }
 
-        public ListPersonaViewModel ConvertirPersonaInverso(Personas persona)
-        {
-            tablaGeneralDAL = new TablaGeneralDAL();
-            return new ListPersonaViewModel
-            {
-                IdPersona = persona.idPersona,
-                TipoIdentificacionPersona = tablaGeneralDAL.Get(persona.tipoIdentificacion).descripcion,
-                IdentificacionPersona = persona.identificacion,
-                NacionalidadPersona = tablaGeneralDAL.Get(persona.nacionalidad).descripcion,
-                NombrePersona = persona.nombre,
-                FechaNacimientoPersona = persona.fechaNacimiento.ToShortDateString(),
-                TelefonoHabitacionPersona = persona.telefonoHabitacion,
-                TelefonoTrabajoPersona = persona.telefonoTrabajo,
-                TelefonoCelularPersona = persona.telefonoCelular,
-                DireccionExactaPersona = persona.direccionPersona,
-                Sexo = tablaGeneralDAL.Get(persona.sexo).descripcion,
-                CorreoElectronicoPersona = persona.correoElectronicoPersona,
-                ProfesionUOficioPersona = persona.profesion,
-                LugarTrabajoPersona = persona.lugarTrabajoPersona               
-            };
-        }
+
 
 
         public ActionResult Index(string filtrosSeleccionado, string busqueda)
         {
             personaDAL = new PersonaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
-            List<Personas> personas = personaDAL.Get();
-            List<Personas> personasFiltrados = new List<Personas>();
+            List<PersonaViewModel> personas = new List<PersonaViewModel>();
+            List<PersonaViewModel> personasFiltrados = new List<PersonaViewModel>();
             List<TablaGeneral> comboindex = tablaGeneralDAL.Get("Personas", "index");
             List<SelectListItem> items = comboindex.ConvertAll(d =>
             {
@@ -116,14 +81,18 @@ namespace FrontEnd.Controllers
                     Text = d.descripcion
                 };
             });
+            foreach (Personas persona in personaDAL.Get())
+            {
+                personas.Add(CargarPersona(persona));
+            }
             ViewBag.items = items;            
             if (busqueda != null)
             {
-                foreach (Personas persona in personas)
+                foreach (PersonaViewModel persona in personas)
                 {
                     if (filtrosSeleccionado == "Cédula")
                     {
-                        if (persona.identificacion.Contains(busqueda))
+                        if (persona.Identificacion.Contains(busqueda))
                         {
 
                             personasFiltrados.Add(persona);
@@ -131,7 +100,7 @@ namespace FrontEnd.Controllers
                     }
                     if (filtrosSeleccionado == "Nombre")
                     {
-                        if (persona.nombre.Contains(busqueda))
+                        if (persona.NombrePersona.Contains(busqueda))
                         {
                             personasFiltrados.Add(persona);
                         }
@@ -139,8 +108,7 @@ namespace FrontEnd.Controllers
                 }
                 personas = personasFiltrados;
             }
-            personas = personas.OrderBy(x => x.nombre).ToList();
-            return View(ConvertirListaPersonas(personas));
+            return View(personas.OrderBy(x => x.NombrePersona).ToList());
         }
         
         public ActionResult Nuevo()
@@ -189,7 +157,7 @@ namespace FrontEnd.Controllers
         {
             Session["idPersona"] = id;
             personaDAL = new PersonaDAL();
-            ListPersonaViewModel modelo = ConvertirPersonaInverso(personaDAL.GetPersona(id));
+            PersonaViewModel modelo = CargarPersona(personaDAL.GetPersona(id));
             return View(modelo);
         }
 

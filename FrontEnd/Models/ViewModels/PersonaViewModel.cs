@@ -14,6 +14,8 @@ namespace FrontEnd.Models.ViewModels
         [Required]
         [Display(Name = "Tipo de Identificación")]
         public int TipoIdentificacionPersona { get; set; }
+        [Display(Name = "Tipo de Identificación")]
+        public string VistaTipoIdentificacionPersona { get; set; }
         [Required]
         [StringLength(20, ErrorMessage = "Identificación excede los 20 caracteres")]
         [Display(Name = "Número de Identificación")]
@@ -25,6 +27,8 @@ namespace FrontEnd.Models.ViewModels
         public string NombrePersona { get; set; }
         [Display(Name = "Sexo")]
         public int SexoPersona { get; set; }
+        [Display(Name = "Sexo")]
+        public string VistaSexoPersona { get; set; }
         [DataType(DataType.Date)]
         [DateValidationPersona(ErrorMessage = "Fecha ingresada invalida")]
         [Display(Name = "Fecha de Nacimiento")]
@@ -34,6 +38,8 @@ namespace FrontEnd.Models.ViewModels
         [Required]
         [Display(Name = "Nacionalidad ")]
         public string NacionalidadPersona { get; set; }
+        [Display(Name = "Nacionalidad ")]
+        public string VistaNacionalidadPersona { get; set; }
         [StringLength(250, ErrorMessage = "Direccion exacta excede los 250 caracteres.")]
         [Display(Name = "Dirección Exacta (Opcional)")]
         public string DireccionExacta { get; set; }

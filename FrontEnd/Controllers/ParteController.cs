@@ -471,12 +471,12 @@ namespace FrontEnd.Controllers
                         Nombre = d.nombreCompleto,
                     }).ToList();
         }
-        public List<ListPersonaViewModel> ConvertirListaPersonasFiltrados(List<Personas> personas)
+        public List<PersonaViewModel> ConvertirListaPersonasFiltrados(List<Personas> personas)
         {
             return (from d in personas
-                    select new ListPersonaViewModel
+                    select new PersonaViewModel
                     {
-                        IdentificacionPersona = d.identificacion,
+                        Identificacion = d.identificacion,
                         NombrePersona = d.nombre,
                     }).ToList();
         }
@@ -796,7 +796,7 @@ namespace FrontEnd.Controllers
 
         public PartialViewResult ListaPersonasBuscar(string nombre)
         {
-            List<ListPersonaViewModel> personas = new List<ListPersonaViewModel>();
+            List<PersonaViewModel> personas = new List<PersonaViewModel>();
             return PartialView("_ListaPersonasBuscar", personas);
         }
 

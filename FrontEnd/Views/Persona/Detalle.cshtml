@@ -1,4 +1,4 @@
-﻿@model FrontEnd.Models.ViewModels.ListPersonaViewModel
+﻿@model FrontEnd.Models.ViewModels.PersonaViewModel
 
 @{ ViewBag.Title = "Información de Persona"; }
 
@@ -22,16 +22,16 @@
     <dl class="row">
         @Html.HiddenFor(d => d.IdPersona)
         <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.TipoIdentificacionPersona)
+            @Html.LabelFor(d => d.VistaTipoIdentificacionPersona)
         </dt>
         <dd id="req" class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.TipoIdentificacionPersona)
+            @Html.DisplayTextFor(d => d.VistaTipoIdentificacionPersona)
         </dd>
         <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.IdentificacionPersona)
+            @Html.LabelFor(d => d.Identificacion)
         </dt>
         <dd id="req" class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.IdentificacionPersona)
+            @Html.DisplayTextFor(d => d.Identificacion)
         </dd>
         <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.FechaNacimientoPersona)
@@ -40,24 +40,24 @@
             @Html.DisplayTextFor(d => d.FechaNacimientoPersona)
         </dd>
         <dt class="col-sm-4">
-            @Html.LabelFor(d => d.Sexo)
+            @Html.LabelFor(d => d.VistaSexoPersona)
         </dt>
         <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.Sexo)
+            @Html.DisplayTextFor(d => d.VistaSexoPersona)
         </dd>
         <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.NacionalidadPersona)
+            @Html.LabelFor(d => d.VistaNacionalidadPersona)
         </dt>
         <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.NacionalidadPersona)
+            @Html.DisplayTextFor(d => d.VistaNacionalidadPersona)
         </dd>
-        @if (Model.ProfesionUOficioPersona != null)
+        @if (Model.ProfesionPersona != null)
         {
             <dt class="col-sm-4">
-                @Html.LabelFor(d => d.ProfesionUOficioPersona)
+                @Html.LabelFor(d => d.ProfesionPersona)
             </dt>
             <dd class="col-sm-8 ">
-                @Html.DisplayTextFor(d => d.ProfesionUOficioPersona)
+                @Html.DisplayTextFor(d => d.ProfesionPersona)
             </dd>
         }
         @if (Model.LugarTrabajoPersona != null)
@@ -79,13 +79,13 @@
             </dd>
 
         }
-        @if (Model.TelefonoHabitacionPersona != null)
+        @if (Model.TelefonoCasaPersona != null)
         {
             <dt class="col-sm-4">
-                @Html.LabelFor(d => d.TelefonoHabitacionPersona)
+                @Html.LabelFor(d => d.TelefonoCasaPersona)
             </dt>
             <dd class="col-sm-8 ">
-                @Html.DisplayTextFor(d => d.TelefonoHabitacionPersona)
+                @Html.DisplayTextFor(d => d.TelefonoCasaPersona)
             </dd>
         }
         @if (Model.TelefonoCelularPersona != null)
@@ -106,13 +106,13 @@
                 @Html.DisplayTextFor(d => d.CorreoElectronicoPersona)
             </dd>
         }
-        @if (Model.DireccionExactaPersona != null)
+        @if (Model.DireccionExacta != null)
         {
             <dt class="col-sm-4">
-                @Html.LabelFor(d => d.DireccionExactaPersona)
+                @Html.LabelFor(d => d.DireccionExacta)
             </dt>
             <dd class="col-sm-8 ">
-                @Html.DisplayTextFor(d => d.DireccionExactaPersona)
+                @Html.DisplayTextFor(d => d.DireccionExacta)
             </dd>
         }
 
