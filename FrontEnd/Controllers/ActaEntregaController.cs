@@ -32,7 +32,7 @@ namespace FrontEnd.Controllers
                 acta.encargado = policiaDAL.GetPoliciaCedula(model.Encargado).idPolicia;
                 acta.testigo = policiaDAL.GetPoliciaCedula(model.Testigo).idPolicia;
                 acta.supervisor = policiaDAL.GetPoliciaCedula(model.Supervisor).idPolicia;
-                acta.instalaciones = tablaGeneralDAL.GetCodigo("ActaEntrega", "instalaciones", model.Instalaciones.ToString()).idTablaGeneral;
+                acta.instalaciones = model.Instalaciones;
                 acta.fechaHora = model.Fecha;
                 acta.razonSocial = model.RazonSocial;
                 acta.cedulaJuridica = model.CedulaJuridica;
@@ -68,8 +68,7 @@ namespace FrontEnd.Controllers
                 acta.Encargado = policiaDAL.GetPolicia(actaEntrega.encargado).cedula;
                 acta.Testigo = policiaDAL.GetPolicia(actaEntrega.testigo).cedula;
                 acta.Supervisor = policiaDAL.GetPolicia(actaEntrega.supervisor).cedula;
-                acta.Instalaciones = int.Parse(tablaGeneralDAL.Get(actaEntrega.instalaciones).codigo);
-                acta.VistaInstalaciones = tablaGeneralDAL.Get(actaEntrega.instalaciones).descripcion;
+                acta.Instalaciones = actaEntrega.instalaciones;
                 acta.Fecha = actaEntrega.fechaHora;
                 acta.Hora = actaEntrega.fechaHora;
                 acta.RazonSocial = actaEntrega.razonSocial;
@@ -289,7 +288,6 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             ActaEntregaViewModel modelo = new ActaEntregaViewModel()
             {
-                TiposInstalaciones = tablaGeneralDAL.Get("ActaEntrega", "instalaciones").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
                 TiposActa = tablaGeneralDAL.Get("Actas", "tipoActa").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
                 Fecha = DateTime.Today
 
@@ -302,7 +300,6 @@ namespace FrontEnd.Controllers
         {
             actaEntregaDAL = new ActaEntregaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
-            model.TiposInstalaciones = tablaGeneralDAL.Get("ActaEntrega", "instalaciones").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             model.TiposActa = tablaGeneralDAL.Get("Actas", "tipoActa").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             model.NumeroFolio = (actaEntregaDAL.GetCount() + 1).ToString() + "-" + DateTime.Now.Year;
 
@@ -337,7 +334,6 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             actaEntregaDAL = new ActaEntregaDAL();
             ActaEntregaViewModel model = CargarActaEntrega(actaEntregaDAL.GetActaEntrega(id));
-            model.TiposInstalaciones = tablaGeneralDAL.Get("ActaEntrega", "instalaciones").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             model.TiposActa = tablaGeneralDAL.Get("Actas", "tipoActa").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             return View(model);
         }
@@ -347,7 +343,6 @@ namespace FrontEnd.Controllers
         {
             actaEntregaDAL = new ActaEntregaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
-            model.TiposInstalaciones = tablaGeneralDAL.Get("ActaEntrega", "instalaciones").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             model.TiposActa = tablaGeneralDAL.Get("Actas", "tipoActa").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             DateTime newDateTime = model.Fecha.Date + model.Hora.TimeOfDay;
             model.Fecha = newDateTime;

@@ -36,9 +36,7 @@ namespace FrontEnd.Models.ViewModels
 
         [Display(Name = "Instalaciones")]
         [Required]
-        public int Instalaciones { get; set; }
-        [Display(Name = "Instalaciones")]
-        public string VistaInstalaciones { get; set; }
+        public string Instalaciones { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
@@ -96,7 +94,6 @@ namespace FrontEnd.Models.ViewModels
         [StringLength(1000)]
         public string InventarioEntregado { get; set; }
 
-        public IEnumerable<SelectListItem> TiposInstalaciones { get; set; }
         public IEnumerable<SelectListItem> TiposActa { get; set; }
 
     }
