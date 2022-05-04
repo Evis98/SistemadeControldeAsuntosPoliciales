@@ -84,7 +84,7 @@ namespace FrontEnd.Models.ViewModels
         [Display(Name = "Oficial Acompañante")]
         [Required]
         public string OficialAcompanante { get; set; }
-        [Display(Name = "Oficial Acompalante")]
+        [Display(Name = "Oficial Acompañante")]
         public string VistaOficialAcompanante { get; set; }
         [Display(Name = "Supervisor")]
         [Required]

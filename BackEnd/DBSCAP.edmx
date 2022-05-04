@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="SCAPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="SCAPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ActasDecomiso">
           <Key>
             <PropertyRef Name="idActaDecomiso" />
@@ -38,6 +38,22 @@
           <Property Name="tipoActaD" Type="int" Nullable="false" />
           <Property Name="consecutivoActa" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="inventarioDestruido" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ActasDeObservacionPolicial">
+          <Key>
+            <PropertyRef Name="idActaDeObservacionPolicial" />
+          </Key>
+          <Property Name="idActaDeObservacionPolicial" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="numeroFolio" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="oficialActuante" Type="int" Nullable="false" />
+          <Property Name="oficialAcompanante" Type="int" Nullable="false" />
+          <Property Name="distrito" Type="int" Nullable="false" />
+          <Property Name="fechaHora" Type="datetime" Nullable="false" />
+          <Property Name="nombreDelInteresado" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="identificacionInteresado" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="condicion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="observaciones" Type="varchar(max)" />
+          <Property Name="otrasSenas" Type="varchar" MaxLength="250" Nullable="false" />
         </EntityType>
         <EntityType Name="ActasEntrega">
           <Key>
@@ -286,6 +302,30 @@
           <Property Name="nombre" Type="varchar" MaxLength="150" />
           <Property Name="login" Type="varchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_AcompananteObservacionPolicial">
+          <End Role="Policias" Type="Self.Policias" Multiplicity="1" />
+          <End Role="ActasDeObservacionPolicial" Type="Self.ActasDeObservacionPolicial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Policias">
+              <PropertyRef Name="idPolicia" />
+            </Principal>
+            <Dependent Role="ActasDeObservacionPolicial">
+              <PropertyRef Name="oficialAcompanante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ActuantanteObservacionPolicial">
+          <End Role="Policias" Type="Self.Policias" Multiplicity="1" />
+          <End Role="ActasDeObservacionPolicial" Type="Self.ActasDeObservacionPolicial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Policias">
+              <PropertyRef Name="idPolicia" />
+            </Principal>
+            <Dependent Role="ActasDeObservacionPolicial">
+              <PropertyRef Name="oficialActuante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Alertador">
           <End Role="TablaGeneral" Type="Self.TablaGeneral" Multiplicity="1" />
           <End Role="PartesPoliciales" Type="Self.PartesPoliciales" Multiplicity="*" />
@@ -366,6 +406,18 @@
               <PropertyRef Name="idTablaGeneral" />
             </Principal>
             <Dependent Role="PartesPoliciales">
+              <PropertyRef Name="distrito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DistritoObservacionPolicial">
+          <End Role="TablaGeneral" Type="Self.TablaGeneral" Multiplicity="1" />
+          <End Role="ActasDeObservacionPolicial" Type="Self.ActasDeObservacionPolicial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TablaGeneral">
+              <PropertyRef Name="idTablaGeneral" />
+            </Principal>
+            <Dependent Role="ActasDeObservacionPolicial">
               <PropertyRef Name="distrito" />
             </Dependent>
           </ReferentialConstraint>
@@ -925,6 +977,7 @@
         <EntityContainer Name="SCAPModelStoreContainer">
           <EntitySet Name="ActasDecomiso" EntityType="Self.ActasDecomiso" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ActasDeDestruccionDePerecederos" EntityType="Self.ActasDeDestruccionDePerecederos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ActasDeObservacionPolicial" EntityType="Self.ActasDeObservacionPolicial" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ActasEntrega" EntityType="Self.ActasEntrega" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ActasEntregaPorOrdenDe" EntityType="Self.ActasEntregaPorOrdenDe" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ActasHallazgo" EntityType="Self.ActasHallazgo" Schema="dbo" store:Type="Tables" />
@@ -939,6 +992,14 @@
           <EntitySet Name="RolesUsuarios" EntityType="Self.RolesUsuarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TablaGeneral" EntityType="Self.TablaGeneral" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AcompananteObservacionPolicial" Association="Self.FK_AcompananteObservacionPolicial">
+            <End Role="Policias" EntitySet="Policias" />
+            <End Role="ActasDeObservacionPolicial" EntitySet="ActasDeObservacionPolicial" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ActuantanteObservacionPolicial" Association="Self.FK_ActuantanteObservacionPolicial">
+            <End Role="Policias" EntitySet="Policias" />
+            <End Role="ActasDeObservacionPolicial" EntitySet="ActasDeObservacionPolicial" />
+          </AssociationSet>
           <AssociationSet Name="FK_Alertador" Association="Self.FK_Alertador">
             <End Role="TablaGeneral" EntitySet="TablaGeneral" />
             <End Role="PartesPoliciales" EntitySet="PartesPoliciales" />
@@ -966,6 +1027,10 @@
           <AssociationSet Name="FK_Distrito" Association="Self.FK_Distrito">
             <End Role="TablaGeneral" EntitySet="TablaGeneral" />
             <End Role="PartesPoliciales" EntitySet="PartesPoliciales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DistritoObservacionPolicial" Association="Self.FK_DistritoObservacionPolicial">
+            <End Role="TablaGeneral" EntitySet="TablaGeneral" />
+            <End Role="ActasDeObservacionPolicial" EntitySet="ActasDeObservacionPolicial" />
           </AssociationSet>
           <AssociationSet Name="FK_Encargado" Association="Self.FK_Encargado">
             <End Role="Policias" EntitySet="Policias" />
@@ -1152,7 +1217,8 @@
             <End Role="PartesPoliciales" EntitySet="PartesPoliciales" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SCAPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1179,6 +1245,43 @@
           <NavigationProperty Name="Policias" Relationship="Self.FK_OficialAcompanante" FromRole="ActasDecomiso" ToRole="Policias" />
           <NavigationProperty Name="Policias1" Relationship="Self.FK_OficialActuante" FromRole="ActasDecomiso" ToRole="Policias" />
           <NavigationProperty Name="Policias2" Relationship="Self.FK_SupervisorDecomiso" FromRole="ActasDecomiso" ToRole="Policias" />
+        </EntityType>
+        <EntityType Name="ActasDeDestruccionDePerecederos">
+          <Key>
+            <PropertyRef Name="idActaDeDestruccionDePerecederos" />
+          </Key>
+          <Property Name="idActaDeDestruccionDePerecederos" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="numeroFolio" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="encargado" Type="Int32" Nullable="false" />
+          <Property Name="testigo" Type="Int32" Nullable="false" />
+          <Property Name="supervisor" Type="Int32" Nullable="false" />
+          <Property Name="fechaHora" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="tipoActaD" Type="Int32" Nullable="false" />
+          <Property Name="consecutivoActa" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="inventarioDestruido" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Policias" Relationship="Self.FK_EncargadoDeDestruccionDePerecederos" FromRole="ActasDeDestruccionDePerecederos" ToRole="Policias" />
+          <NavigationProperty Name="Policias1" Relationship="Self.FK_SupervisorDeDestruccionDePerecederos" FromRole="ActasDeDestruccionDePerecederos" ToRole="Policias" />
+          <NavigationProperty Name="Policias2" Relationship="Self.FK_TestigoDeDestruccionDePerecederos" FromRole="ActasDeDestruccionDePerecederos" ToRole="Policias" />
+          <NavigationProperty Name="TablaGeneral" Relationship="Self.FK_TipoActaD" FromRole="ActasDeDestruccionDePerecederos" ToRole="TablaGeneral" />
+        </EntityType>
+        <EntityType Name="ActasDeObservacionPolicial">
+          <Key>
+            <PropertyRef Name="idActaDeObservacionPolicial" />
+          </Key>
+          <Property Name="idActaDeObservacionPolicial" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="numeroFolio" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="oficialActuante" Type="Int32" Nullable="false" />
+          <Property Name="oficialAcompanante" Type="Int32" Nullable="false" />
+          <Property Name="distrito" Type="Int32" Nullable="false" />
+          <Property Name="fechaHora" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="nombreDelInteresado" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="identificacionInteresado" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="condicion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="otrasSenas" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Policias" Relationship="Self.FK_AcompananteObservacionPolicial" FromRole="ActasDeObservacionPolicial" ToRole="Policias" />
+          <NavigationProperty Name="Policias1" Relationship="Self.FK_ActuantanteObservacionPolicial" FromRole="ActasDeObservacionPolicial" ToRole="Policias" />
+          <NavigationProperty Name="TablaGeneral" Relationship="Self.FK_DistritoObservacionPolicial" FromRole="ActasDeObservacionPolicial" ToRole="TablaGeneral" />
         </EntityType>
         <EntityType Name="ActasEntrega">
           <Key>
@@ -1427,6 +1530,11 @@
           <NavigationProperty Name="ActasDecomiso" Relationship="Self.FK_OficialAcompanante" FromRole="Policias" ToRole="ActasDecomiso" />
           <NavigationProperty Name="ActasDecomiso1" Relationship="Self.FK_OficialActuante" FromRole="Policias" ToRole="ActasDecomiso" />
           <NavigationProperty Name="ActasDecomiso2" Relationship="Self.FK_SupervisorDecomiso" FromRole="Policias" ToRole="ActasDecomiso" />
+          <NavigationProperty Name="ActasDeDestruccionDePerecederos" Relationship="Self.FK_EncargadoDeDestruccionDePerecederos" FromRole="Policias" ToRole="ActasDeDestruccionDePerecederos" />
+          <NavigationProperty Name="ActasDeDestruccionDePerecederos1" Relationship="Self.FK_SupervisorDeDestruccionDePerecederos" FromRole="Policias" ToRole="ActasDeDestruccionDePerecederos" />
+          <NavigationProperty Name="ActasDeDestruccionDePerecederos2" Relationship="Self.FK_TestigoDeDestruccionDePerecederos" FromRole="Policias" ToRole="ActasDeDestruccionDePerecederos" />
+          <NavigationProperty Name="ActasDeObservacionPolicial" Relationship="Self.FK_AcompananteObservacionPolicial" FromRole="Policias" ToRole="ActasDeObservacionPolicial" />
+          <NavigationProperty Name="ActasDeObservacionPolicial1" Relationship="Self.FK_ActuantanteObservacionPolicial" FromRole="Policias" ToRole="ActasDeObservacionPolicial" />
           <NavigationProperty Name="ActasEntrega" Relationship="Self.FK_EncargadoEntrega" FromRole="Policias" ToRole="ActasEntrega" />
           <NavigationProperty Name="ActasEntrega1" Relationship="Self.FK_SupervisorEntrega" FromRole="Policias" ToRole="ActasEntrega" />
           <NavigationProperty Name="ActasEntrega2" Relationship="Self.FK_TestigoEntrega" FromRole="Policias" ToRole="ActasEntrega" />
@@ -1439,9 +1547,6 @@
           <NavigationProperty Name="PartesPoliciales" Relationship="Self.FK_IdPoliciaActuante" FromRole="Policias" ToRole="PartesPoliciales" />
           <NavigationProperty Name="TablaGeneral" Relationship="Self.FK_Estado" FromRole="Policias" ToRole="TablaGeneral" />
           <NavigationProperty Name="TablaGeneral1" Relationship="Self.FK_TipoCedula" FromRole="Policias" ToRole="TablaGeneral" />
-          <NavigationProperty Name="ActasDeDestruccionDePerecederos" Relationship="SCAPModel.FK_EncargadoDeDestruccionDePerecederos" FromRole="Policias" ToRole="ActasDeDestruccionDePerecederos" />
-          <NavigationProperty Name="ActasDeDestruccionDePerecederos1" Relationship="SCAPModel.FK_SupervisorDeDestruccionDePerecederos" FromRole="Policias" ToRole="ActasDeDestruccionDePerecederos" />
-          <NavigationProperty Name="ActasDeDestruccionDePerecederos2" Relationship="SCAPModel.FK_TestigoDeDestruccionDePerecederos" FromRole="Policias" ToRole="ActasDeDestruccionDePerecederos" />
         </EntityType>
         <EntityType Name="Requisitos">
           <Key>
@@ -1484,6 +1589,8 @@
           <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="tabla" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ActasDecomiso" Relationship="Self.FK_EstadoActaDecomiso" FromRole="TablaGeneral" ToRole="ActasDecomiso" />
+          <NavigationProperty Name="ActasDeDestruccionDePerecederos" Relationship="Self.FK_TipoActaD" FromRole="TablaGeneral" ToRole="ActasDeDestruccionDePerecederos" />
+          <NavigationProperty Name="ActasDeObservacionPolicial" Relationship="Self.FK_DistritoObservacionPolicial" FromRole="TablaGeneral" ToRole="ActasDeObservacionPolicial" />
           <NavigationProperty Name="ActasEntrega" Relationship="Self.FK_TipoActa" FromRole="TablaGeneral" ToRole="ActasEntrega" />
           <NavigationProperty Name="ActasEntregaPorOrdenDe" Relationship="Self.FK_EstadoActaOrden" FromRole="TablaGeneral" ToRole="ActasEntregaPorOrdenDe" />
           <NavigationProperty Name="ActasEntregaPorOrdenDe1" Relationship="Self.FK_TipoActaLigada" FromRole="TablaGeneral" ToRole="ActasEntregaPorOrdenDe" />
@@ -1514,7 +1621,6 @@
           <NavigationProperty Name="Policias1" Relationship="Self.FK_TipoCedula" FromRole="TablaGeneral" ToRole="Policias" />
           <NavigationProperty Name="Requisitos" Relationship="Self.FK_IdPolicia" FromRole="TablaGeneral" ToRole="Requisitos" />
           <NavigationProperty Name="Requisitos1" Relationship="Self.FK_TipoRequisito" FromRole="TablaGeneral" ToRole="Requisitos" />
-          <NavigationProperty Name="ActasDeDestruccionDePerecederos" Relationship="SCAPModel.FK_TipoActaD" FromRole="TablaGeneral" ToRole="ActasDeDestruccionDePerecederos" />
         </EntityType>
         <EntityType Name="Usuarios">
           <Key>
@@ -1570,6 +1676,90 @@
             </Principal>
             <Dependent Role="ActasDecomiso">
               <PropertyRef Name="supervisorDecomiso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EncargadoDeDestruccionDePerecederos">
+          <End Role="Policias" Type="Self.Policias" Multiplicity="1" />
+          <End Role="ActasDeDestruccionDePerecederos" Type="Self.ActasDeDestruccionDePerecederos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Policias">
+              <PropertyRef Name="idPolicia" />
+            </Principal>
+            <Dependent Role="ActasDeDestruccionDePerecederos">
+              <PropertyRef Name="encargado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SupervisorDeDestruccionDePerecederos">
+          <End Role="Policias" Type="Self.Policias" Multiplicity="1" />
+          <End Role="ActasDeDestruccionDePerecederos" Type="Self.ActasDeDestruccionDePerecederos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Policias">
+              <PropertyRef Name="idPolicia" />
+            </Principal>
+            <Dependent Role="ActasDeDestruccionDePerecederos">
+              <PropertyRef Name="supervisor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TestigoDeDestruccionDePerecederos">
+          <End Role="Policias" Type="Self.Policias" Multiplicity="1" />
+          <End Role="ActasDeDestruccionDePerecederos" Type="Self.ActasDeDestruccionDePerecederos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Policias">
+              <PropertyRef Name="idPolicia" />
+            </Principal>
+            <Dependent Role="ActasDeDestruccionDePerecederos">
+              <PropertyRef Name="testigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TipoActaD">
+          <End Role="TablaGeneral" Type="Self.TablaGeneral" Multiplicity="1" />
+          <End Role="ActasDeDestruccionDePerecederos" Type="Self.ActasDeDestruccionDePerecederos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TablaGeneral">
+              <PropertyRef Name="idTablaGeneral" />
+            </Principal>
+            <Dependent Role="ActasDeDestruccionDePerecederos">
+              <PropertyRef Name="tipoActaD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AcompananteObservacionPolicial">
+          <End Role="Policias" Type="Self.Policias" Multiplicity="1" />
+          <End Role="ActasDeObservacionPolicial" Type="Self.ActasDeObservacionPolicial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Policias">
+              <PropertyRef Name="idPolicia" />
+            </Principal>
+            <Dependent Role="ActasDeObservacionPolicial">
+              <PropertyRef Name="oficialAcompanante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ActuantanteObservacionPolicial">
+          <End Role="Policias" Type="Self.Policias" Multiplicity="1" />
+          <End Role="ActasDeObservacionPolicial" Type="Self.ActasDeObservacionPolicial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Policias">
+              <PropertyRef Name="idPolicia" />
+            </Principal>
+            <Dependent Role="ActasDeObservacionPolicial">
+              <PropertyRef Name="oficialActuante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DistritoObservacionPolicial">
+          <End Role="TablaGeneral" Type="Self.TablaGeneral" Multiplicity="1" />
+          <End Role="ActasDeObservacionPolicial" Type="Self.ActasDeObservacionPolicial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TablaGeneral">
+              <PropertyRef Name="idTablaGeneral" />
+            </Principal>
+            <Dependent Role="ActasDeObservacionPolicial">
+              <PropertyRef Name="distrito" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2115,6 +2305,8 @@
         </Association>
         <EntityContainer Name="SCAPEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ActasDecomiso" EntityType="Self.ActasDecomiso" />
+          <EntitySet Name="ActasDeDestruccionDePerecederos" EntityType="Self.ActasDeDestruccionDePerecederos" />
+          <EntitySet Name="ActasDeObservacionPolicial" EntityType="Self.ActasDeObservacionPolicial" />
           <EntitySet Name="ActasEntrega" EntityType="Self.ActasEntrega" />
           <EntitySet Name="ActasEntregaPorOrdenDe" EntityType="Self.ActasEntregaPorOrdenDe" />
           <EntitySet Name="ActasHallazgo" EntityType="Self.ActasHallazgo" />
@@ -2144,6 +2336,34 @@
           <AssociationSet Name="FK_SupervisorDecomiso" Association="Self.FK_SupervisorDecomiso">
             <End Role="Policias" EntitySet="Policias" />
             <End Role="ActasDecomiso" EntitySet="ActasDecomiso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EncargadoDeDestruccionDePerecederos" Association="Self.FK_EncargadoDeDestruccionDePerecederos">
+            <End Role="Policias" EntitySet="Policias" />
+            <End Role="ActasDeDestruccionDePerecederos" EntitySet="ActasDeDestruccionDePerecederos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SupervisorDeDestruccionDePerecederos" Association="Self.FK_SupervisorDeDestruccionDePerecederos">
+            <End Role="Policias" EntitySet="Policias" />
+            <End Role="ActasDeDestruccionDePerecederos" EntitySet="ActasDeDestruccionDePerecederos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TestigoDeDestruccionDePerecederos" Association="Self.FK_TestigoDeDestruccionDePerecederos">
+            <End Role="Policias" EntitySet="Policias" />
+            <End Role="ActasDeDestruccionDePerecederos" EntitySet="ActasDeDestruccionDePerecederos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TipoActaD" Association="Self.FK_TipoActaD">
+            <End Role="TablaGeneral" EntitySet="TablaGeneral" />
+            <End Role="ActasDeDestruccionDePerecederos" EntitySet="ActasDeDestruccionDePerecederos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AcompananteObservacionPolicial" Association="Self.FK_AcompananteObservacionPolicial">
+            <End Role="Policias" EntitySet="Policias" />
+            <End Role="ActasDeObservacionPolicial" EntitySet="ActasDeObservacionPolicial" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ActuantanteObservacionPolicial" Association="Self.FK_ActuantanteObservacionPolicial">
+            <End Role="Policias" EntitySet="Policias" />
+            <End Role="ActasDeObservacionPolicial" EntitySet="ActasDeObservacionPolicial" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DistritoObservacionPolicial" Association="Self.FK_DistritoObservacionPolicial">
+            <End Role="TablaGeneral" EntitySet="TablaGeneral" />
+            <End Role="ActasDeObservacionPolicial" EntitySet="ActasDeObservacionPolicial" />
           </AssociationSet>
           <AssociationSet Name="FK_EncargadoEntrega" Association="Self.FK_EncargadoEntrega">
             <End Role="Policias" EntitySet="Policias" />
@@ -2325,90 +2545,7 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="RolesUsuarios" EntitySet="RolesUsuarios" />
           </AssociationSet>
-          <EntitySet Name="ActasDeDestruccionDePerecederos" EntityType="SCAPModel.ActasDeDestruccionDePerecederos" />
-          <AssociationSet Name="FK_EncargadoDeDestruccionDePerecederos" Association="SCAPModel.FK_EncargadoDeDestruccionDePerecederos">
-            <End Role="Policias" EntitySet="Policias" />
-            <End Role="ActasDeDestruccionDePerecederos" EntitySet="ActasDeDestruccionDePerecederos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SupervisorDeDestruccionDePerecederos" Association="SCAPModel.FK_SupervisorDeDestruccionDePerecederos">
-            <End Role="Policias" EntitySet="Policias" />
-            <End Role="ActasDeDestruccionDePerecederos" EntitySet="ActasDeDestruccionDePerecederos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TestigoDeDestruccionDePerecederos" Association="SCAPModel.FK_TestigoDeDestruccionDePerecederos">
-            <End Role="Policias" EntitySet="Policias" />
-            <End Role="ActasDeDestruccionDePerecederos" EntitySet="ActasDeDestruccionDePerecederos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TipoActaD" Association="SCAPModel.FK_TipoActaD">
-            <End Role="TablaGeneral" EntitySet="TablaGeneral" />
-            <End Role="ActasDeDestruccionDePerecederos" EntitySet="ActasDeDestruccionDePerecederos" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="ActasDeDestruccionDePerecederos">
-          <Key>
-            <PropertyRef Name="idActaDeDestruccionDePerecederos" />
-          </Key>
-          <Property Name="idActaDeDestruccionDePerecederos" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="numeroFolio" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="encargado" Type="Int32" Nullable="false" />
-          <Property Name="testigo" Type="Int32" Nullable="false" />
-          <Property Name="supervisor" Type="Int32" Nullable="false" />
-          <Property Name="fechaHora" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="tipoActaD" Type="Int32" Nullable="false" />
-          <Property Name="consecutivoActa" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="inventarioDestruido" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Policias" Relationship="SCAPModel.FK_EncargadoDeDestruccionDePerecederos" FromRole="ActasDeDestruccionDePerecederos" ToRole="Policias" />
-          <NavigationProperty Name="Policias1" Relationship="SCAPModel.FK_SupervisorDeDestruccionDePerecederos" FromRole="ActasDeDestruccionDePerecederos" ToRole="Policias" />
-          <NavigationProperty Name="Policias2" Relationship="SCAPModel.FK_TestigoDeDestruccionDePerecederos" FromRole="ActasDeDestruccionDePerecederos" ToRole="Policias" />
-          <NavigationProperty Name="TablaGeneral" Relationship="SCAPModel.FK_TipoActaD" FromRole="ActasDeDestruccionDePerecederos" ToRole="TablaGeneral" />
-        </EntityType>
-        <Association Name="FK_EncargadoDeDestruccionDePerecederos">
-          <End Type="SCAPModel.Policias" Role="Policias" Multiplicity="1" />
-          <End Type="SCAPModel.ActasDeDestruccionDePerecederos" Role="ActasDeDestruccionDePerecederos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Policias">
-              <PropertyRef Name="idPolicia" />
-            </Principal>
-            <Dependent Role="ActasDeDestruccionDePerecederos">
-              <PropertyRef Name="encargado" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SupervisorDeDestruccionDePerecederos">
-          <End Type="SCAPModel.Policias" Role="Policias" Multiplicity="1" />
-          <End Type="SCAPModel.ActasDeDestruccionDePerecederos" Role="ActasDeDestruccionDePerecederos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Policias">
-              <PropertyRef Name="idPolicia" />
-            </Principal>
-            <Dependent Role="ActasDeDestruccionDePerecederos">
-              <PropertyRef Name="supervisor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TestigoDeDestruccionDePerecederos">
-          <End Type="SCAPModel.Policias" Role="Policias" Multiplicity="1" />
-          <End Type="SCAPModel.ActasDeDestruccionDePerecederos" Role="ActasDeDestruccionDePerecederos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Policias">
-              <PropertyRef Name="idPolicia" />
-            </Principal>
-            <Dependent Role="ActasDeDestruccionDePerecederos">
-              <PropertyRef Name="testigo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TipoActaD">
-          <End Type="SCAPModel.TablaGeneral" Role="TablaGeneral" Multiplicity="1" />
-          <End Type="SCAPModel.ActasDeDestruccionDePerecederos" Role="ActasDeDestruccionDePerecederos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TablaGeneral">
-              <PropertyRef Name="idTablaGeneral" />
-            </Principal>
-            <Dependent Role="ActasDeDestruccionDePerecederos">
-              <PropertyRef Name="tipoActaD" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2433,6 +2570,38 @@
                 <ScalarProperty Name="inventario" ColumnName="inventario" />
                 <ScalarProperty Name="observaciones" ColumnName="observaciones" />
                 <ScalarProperty Name="estadoActa" ColumnName="estadoActa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ActasDeDestruccionDePerecederos">
+            <EntityTypeMapping TypeName="SCAPModel.ActasDeDestruccionDePerecederos">
+              <MappingFragment StoreEntitySet="ActasDeDestruccionDePerecederos">
+                <ScalarProperty Name="idActaDeDestruccionDePerecederos" ColumnName="idActaDeDestruccionDePerecederos" />
+                <ScalarProperty Name="numeroFolio" ColumnName="numeroFolio" />
+                <ScalarProperty Name="encargado" ColumnName="encargado" />
+                <ScalarProperty Name="testigo" ColumnName="testigo" />
+                <ScalarProperty Name="supervisor" ColumnName="supervisor" />
+                <ScalarProperty Name="fechaHora" ColumnName="fechaHora" />
+                <ScalarProperty Name="tipoActaD" ColumnName="tipoActaD" />
+                <ScalarProperty Name="consecutivoActa" ColumnName="consecutivoActa" />
+                <ScalarProperty Name="inventarioDestruido" ColumnName="inventarioDestruido" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ActasDeObservacionPolicial">
+            <EntityTypeMapping TypeName="SCAPModel.ActasDeObservacionPolicial">
+              <MappingFragment StoreEntitySet="ActasDeObservacionPolicial">
+                <ScalarProperty Name="idActaDeObservacionPolicial" ColumnName="idActaDeObservacionPolicial" />
+                <ScalarProperty Name="numeroFolio" ColumnName="numeroFolio" />
+                <ScalarProperty Name="oficialActuante" ColumnName="oficialActuante" />
+                <ScalarProperty Name="oficialAcompanante" ColumnName="oficialAcompanante" />
+                <ScalarProperty Name="distrito" ColumnName="distrito" />
+                <ScalarProperty Name="fechaHora" ColumnName="fechaHora" />
+                <ScalarProperty Name="nombreDelInteresado" ColumnName="nombreDelInteresado" />
+                <ScalarProperty Name="identificacionInteresado" ColumnName="identificacionInteresado" />
+                <ScalarProperty Name="condicion" ColumnName="condicion" />
+                <ScalarProperty Name="observaciones" ColumnName="observaciones" />
+                <ScalarProperty Name="otrasSenas" ColumnName="otrasSenas" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2697,21 +2866,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ActasDeDestruccionDePerecederos">
-            <EntityTypeMapping TypeName="SCAPModel.ActasDeDestruccionDePerecederos">
-              <MappingFragment StoreEntitySet="ActasDeDestruccionDePerecederos">
-                <ScalarProperty Name="inventarioDestruido" ColumnName="inventarioDestruido" />
-                <ScalarProperty Name="consecutivoActa" ColumnName="consecutivoActa" />
-                <ScalarProperty Name="tipoActaD" ColumnName="tipoActaD" />
-                <ScalarProperty Name="fechaHora" ColumnName="fechaHora" />
-                <ScalarProperty Name="supervisor" ColumnName="supervisor" />
-                <ScalarProperty Name="testigo" ColumnName="testigo" />
-                <ScalarProperty Name="encargado" ColumnName="encargado" />
-                <ScalarProperty Name="numeroFolio" ColumnName="numeroFolio" />
-                <ScalarProperty Name="idActaDeDestruccionDePerecederos" ColumnName="idActaDeDestruccionDePerecederos" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -2729,7 +2883,7 @@
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

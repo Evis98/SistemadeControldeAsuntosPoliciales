@@ -12,27 +12,22 @@ namespace BackEnd
     using System;
     using System.Collections.Generic;
     
-    public partial class ActasDecomiso
+    public partial class ActasDeObservacionPolicial
     {
-        public int idActaDecomiso { get; set; }
+        public int idActaDeObservacionPolicial { get; set; }
         public string numeroFolio { get; set; }
         public int oficialActuante { get; set; }
         public int oficialAcompanante { get; set; }
-        public int supervisorDecomiso { get; set; }
-        public System.DateTime fecha { get; set; }
-        public string nombreDecomisado { get; set; }
-        public string numeroDeIdentificacionDecomisado { get; set; }
-        public string telefonoDecomisado { get; set; }
-        public int estadoCivilDecomisado { get; set; }
-        public string direccionDecomisado { get; set; }
-        public string lugarProcedimiento { get; set; }
-        public string inventario { get; set; }
+        public int distrito { get; set; }
+        public System.DateTime fechaHora { get; set; }
+        public string nombreDelInteresado { get; set; }
+        public string identificacionInteresado { get; set; }
+        public string condicion { get; set; }
         public string observaciones { get; set; }
-        public int estadoActa { get; set; }
+        public string otrasSenas { get; set; }
     
-        public virtual TablaGeneral TablaGeneral { get; set; }
         public virtual Policias Policias { get; set; }
         public virtual Policias Policias1 { get; set; }
-        public virtual Policias Policias2 { get; set; }
+        public virtual TablaGeneral TablaGeneral { get; set; }
     }
 }
