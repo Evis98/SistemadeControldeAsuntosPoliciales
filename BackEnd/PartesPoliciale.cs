@@ -12,7 +12,7 @@ namespace BackEnd
     using System;
     using System.Collections.Generic;
     
-    public partial class PartesPoliciales
+    public partial class PartesPoliciale
     {
         public int idPartepolicial { get; set; }
         public string numeroFolio { get; set; }
@@ -58,15 +58,15 @@ namespace BackEnd
         public int unidadOrigenPoliciaActuante { get; set; }
         public int unidadOrigenPoliciaAsistente { get; set; }
     
-        public virtual Infractores Infractores { get; set; }
+        public virtual Infractore Infractore { get; set; }
         public virtual TablaGeneral TablaGeneral { get; set; }
         public virtual TablaGeneral TablaGeneral1 { get; set; }
         public virtual TablaGeneral TablaGeneral2 { get; set; }
         public virtual TablaGeneral TablaGeneral3 { get; set; }
         public virtual TablaGeneral TablaGeneral4 { get; set; }
-        public virtual Policias Policias { get; set; }
+        public virtual Policia Policia { get; set; }
         public virtual TablaGeneral TablaGeneral5 { get; set; }
-        public virtual Personas Personas { get; set; }
+        public virtual Persona Persona { get; set; }
         public virtual TablaGeneral TablaGeneral6 { get; set; }
         public virtual TablaGeneral TablaGeneral7 { get; set; }
     }

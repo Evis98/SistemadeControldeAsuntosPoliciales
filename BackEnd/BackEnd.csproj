@@ -58,7 +58,7 @@
     <Compile Include="ActasDecomiso.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
-    <Compile Include="ActasDeDestruccionDePerecederos.cs">
+    <Compile Include="ActasDeDestruccionDePerecedero.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
     <Compile Include="ActasDeObservacionPolicial.cs">
@@ -73,10 +73,10 @@
     <Compile Include="ActasHallazgo.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
-    <Compile Include="Armas.cs">
+    <Compile Include="Arma.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
-    <Compile Include="Bitacoras.cs">
+    <Compile Include="Bitacora.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\ActaDecomisoDAL.cs" />
@@ -124,33 +124,33 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DBSCAP.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Infractores.cs">
+    <Compile Include="Infractore.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
-    <Compile Include="PartesPoliciales.cs">
+    <Compile Include="PartesPoliciale.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
-    <Compile Include="Personas.cs">
+    <Compile Include="Persona.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
-    <Compile Include="Policias.cs">
+    <Compile Include="Policia.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Requisitos.cs">
+    <Compile Include="Requisito.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
-    <Compile Include="Roles.cs">
+    <Compile Include="Role.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
-    <Compile Include="RolesUsuarios.cs">
+    <Compile Include="RolesUsuario.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
     <Compile Include="TablaGeneral.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
-    <Compile Include="Usuarios.cs">
+    <Compile Include="Usuario.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
   </ItemGroup>

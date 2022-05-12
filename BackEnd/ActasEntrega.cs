@@ -31,9 +31,9 @@ namespace BackEnd
         public string cedulaRecibe { get; set; }
         public string inventarioEntregado { get; set; }
     
-        public virtual Policias Policias { get; set; }
-        public virtual Policias Policias1 { get; set; }
-        public virtual Policias Policias2 { get; set; }
+        public virtual Policia Policia { get; set; }
+        public virtual Policia Policia1 { get; set; }
+        public virtual Policia Policia2 { get; set; }
         public virtual TablaGeneral TablaGeneral { get; set; }
     }
 }

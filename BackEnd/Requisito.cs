@@ -12,13 +12,16 @@ namespace BackEnd
     using System;
     using System.Collections.Generic;
     
-    public partial class RolesUsuarios
+    public partial class Requisito
     {
-        public int idRolUsuario { get; set; }
-        public Nullable<int> tipoRol { get; set; }
-        public Nullable<int> idUsuario { get; set; }
+        public int idRequisito { get; set; }
+        public string detalles { get; set; }
+        public Nullable<System.DateTime> fechaVencimiento { get; set; }
+        public int idPolicia { get; set; }
+        public int tipoRequisito { get; set; }
+        public string imagen { get; set; }
     
-        public virtual Roles Roles { get; set; }
-        public virtual Usuarios Usuarios { get; set; }
+        public virtual TablaGeneral TablaGeneral { get; set; }
+        public virtual TablaGeneral TablaGeneral1 { get; set; }
     }
 }

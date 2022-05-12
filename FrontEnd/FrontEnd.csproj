@@ -413,6 +413,8 @@
     <Content Include="Views\ActaDeObservacionPolicial\Nuevo.cshtml" />
     <Content Include="Views\ActaDeObservacionPolicial\Detalle.cshtml" />
     <Content Include="Views\ActaDeObservacionPolicial\Editar.cshtml" />
+    <Content Include="Views\ActaDeObservacionPolicial\_ListaPersonasBuscar.cshtml" />
+    <Content Include="Views\ActaDeObservacionPolicial\_ListaPersonasParcial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

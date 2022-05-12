@@ -12,7 +12,7 @@ namespace BackEnd
     using System;
     using System.Collections.Generic;
     
-    public partial class Bitacoras
+    public partial class Bitacora
     {
         public int idBitacora { get; set; }
         public string numeroConsecutivo { get; set; }
@@ -32,10 +32,10 @@ namespace BackEnd
         public string observacionesDevuelta { get; set; }
         public int estadoActualBitacora { get; set; }
     
-        public virtual Armas Armas { get; set; }
-        public virtual Policias Policias { get; set; }
+        public virtual Arma Arma { get; set; }
+        public virtual Policia Policia { get; set; }
         public virtual TablaGeneral TablaGeneral { get; set; }
         public virtual TablaGeneral TablaGeneral1 { get; set; }
-        public virtual Policias Policias1 { get; set; }
+        public virtual Policia Policia1 { get; set; }
     }
 }

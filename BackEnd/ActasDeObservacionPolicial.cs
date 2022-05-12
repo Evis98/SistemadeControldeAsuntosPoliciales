@@ -20,14 +20,14 @@ namespace BackEnd
         public int oficialAcompanante { get; set; }
         public int distrito { get; set; }
         public System.DateTime fechaHora { get; set; }
-        public string nombreDelInteresado { get; set; }
-        public string identificacionInteresado { get; set; }
+        public int idInteresado { get; set; }
         public string condicion { get; set; }
         public string observaciones { get; set; }
-        public string otrasSenas { get; set; }
+        public string direccion { get; set; }
     
-        public virtual Policias Policias { get; set; }
-        public virtual Policias Policias1 { get; set; }
+        public virtual Policia Policia { get; set; }
+        public virtual Policia Policia1 { get; set; }
         public virtual TablaGeneral TablaGeneral { get; set; }
+        public virtual Persona Persona { get; set; }
     }
 }

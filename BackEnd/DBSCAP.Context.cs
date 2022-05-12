@@ -25,22 +25,22 @@ namespace BackEnd
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<ActasDecomiso> ActasDecomiso { get; set; }
-        public virtual DbSet<ActasDeDestruccionDePerecederos> ActasDeDestruccionDePerecederos { get; set; }
-        public virtual DbSet<ActasDeObservacionPolicial> ActasDeObservacionPolicial { get; set; }
-        public virtual DbSet<ActasEntrega> ActasEntrega { get; set; }
-        public virtual DbSet<ActasEntregaPorOrdenDe> ActasEntregaPorOrdenDe { get; set; }
-        public virtual DbSet<ActasHallazgo> ActasHallazgo { get; set; }
-        public virtual DbSet<Armas> Armas { get; set; }
-        public virtual DbSet<Bitacoras> Bitacoras { get; set; }
-        public virtual DbSet<Infractores> Infractores { get; set; }
-        public virtual DbSet<PartesPoliciales> PartesPoliciales { get; set; }
-        public virtual DbSet<Personas> Personas { get; set; }
-        public virtual DbSet<Policias> Policias { get; set; }
-        public virtual DbSet<Requisitos> Requisitos { get; set; }
-        public virtual DbSet<Roles> Roles { get; set; }
-        public virtual DbSet<RolesUsuarios> RolesUsuarios { get; set; }
-        public virtual DbSet<TablaGeneral> TablaGeneral { get; set; }
-        public virtual DbSet<Usuarios> Usuarios { get; set; }
+        public virtual DbSet<ActasDecomiso> ActasDecomisoes { get; set; }
+        public virtual DbSet<ActasDeDestruccionDePerecedero> ActasDeDestruccionDePerecederos { get; set; }
+        public virtual DbSet<ActasDeObservacionPolicial> ActasDeObservacionPolicials { get; set; }
+        public virtual DbSet<ActasEntrega> ActasEntregas { get; set; }
+        public virtual DbSet<ActasEntregaPorOrdenDe> ActasEntregaPorOrdenDes { get; set; }
+        public virtual DbSet<ActasHallazgo> ActasHallazgoes { get; set; }
+        public virtual DbSet<Arma> Armas { get; set; }
+        public virtual DbSet<Bitacora> Bitacoras { get; set; }
+        public virtual DbSet<Infractore> Infractores { get; set; }
+        public virtual DbSet<PartesPoliciale> PartesPoliciales { get; set; }
+        public virtual DbSet<Persona> Personas { get; set; }
+        public virtual DbSet<Policia> Policias { get; set; }
+        public virtual DbSet<Requisito> Requisitos { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<RolesUsuario> RolesUsuarios { get; set; }
+        public virtual DbSet<TablaGeneral> TablaGenerals { get; set; }
+        public virtual DbSet<Usuario> Usuarios { get; set; }
     }
 }

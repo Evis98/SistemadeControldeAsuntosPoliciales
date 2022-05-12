@@ -29,16 +29,11 @@ namespace FrontEnd.Models.ViewModels
         public DateTime Hora { get; set; }
 
         [Required]
-        [StringLength(25, ErrorMessage = "Número de cédula excede los 25 caracteres.")]
-        [Display(Name = "Número de Cédula")]
-        public string IdentificacionInteresado { get; set; }
+        [Display(Name = "Persona Interesada")]
+        public string  IdInteresado { get; set; }
 
-        [Required]
-        [StringLength(150, ErrorMessage = "Nombre excede los 150 caracteres.")]
-        [Display(Name = "Nombre del Interesado")]
-        public string NombreInteresado { get; set; }
-
-        
+        [Display(Name = "Persona Interesada")]
+        public string VistaPersonaInteresada { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "Condición excede los 150 caracteres.")]
@@ -53,8 +48,8 @@ namespace FrontEnd.Models.ViewModels
 
         [Required]
         [StringLength(250, ErrorMessage = "Otras Señas exacta excede los 250 caracteres.")]
-        [Display(Name = "Otras Señas")]
-        public string OtrasSenas { get; set; }
+        [Display(Name = "Dirección")]
+        public string Direccion { get; set; }
 
         [Display(Name = "Observaciones")]
 

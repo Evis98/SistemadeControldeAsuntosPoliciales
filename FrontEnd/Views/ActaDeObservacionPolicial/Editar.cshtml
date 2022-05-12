@@ -40,7 +40,7 @@
                 </div>
                 @Html.ValidationMessageFor(d => d.OficialAcompanante, null, new { @class = "red" })
             </div>
-          
+
             <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.Distrito)
                 @Html.DropDownListFor(d => d.Distrito, Model.Distritos, "--Seleccione--", new { @class = "myselect form-control" })
@@ -49,42 +49,40 @@
 
         </div>
         <div class="form-row">
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.Fecha)
                 @Html.EditorFor(d => d.Fecha, "", new { @class = "form-control" })
                 @Html.ValidationMessageFor(d => d.Fecha, null, new { @class = "red" })
             </div>
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.Hora)
                 @Html.EditorFor(d => d.Hora, "", new { @class = "form-control" })
                 @Html.ValidationMessageFor(d => d.Hora, null, new { @class = "red" })
             </div>
-            <div class="form-group col-md-3">
-                @Html.LabelFor(d => d.IdentificacionInteresado)
-                @Html.TextBoxFor(d => d.IdentificacionInteresado, "", new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)", autocomplete = "new-password" })
-                @Html.ValidationMessageFor(d => d.IdentificacionInteresado, null, new { @class = "red" })
-
-            </div>
-            <div class="form-group col-md-5">
-                @Html.LabelFor(d => d.NombreInteresado)
-                @Html.TextBoxFor(d => d.NombreInteresado, "", new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)", autocomplete = "new-password" })
-                @Html.ValidationMessageFor(d => d.NombreInteresado, null, new { @class = "red" })
+            <div class="form-group col-md-4">
+                @Html.LabelFor(d => d.IdInteresado)
+                <div class="input-group">
+                    @Html.TextBoxFor(d => d.IdInteresado, "", new { @class = "form-control", @id = "idInteresado", @readonly = "readonly" })
+                    <div class="input-group-append ">
+                        <a class="btn btn-primary" data-book-id="idInteresado" data-toggle="modal" data-target="#modalBusquedaPersona">Buscar</a>
+                    </div>
+                </div>
+                @Html.ValidationMessageFor(d => d.IdInteresado, null, new { @class = "red" })
             </div>
 
 
         </div>
         <div class="form-row">
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-6">
                 @Html.LabelFor(d => d.CondicionInteresado)
-                @Html.TextBoxFor(d => d.CondicionInteresado, "", new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)", autocomplete = "new-password" })
+                @Html.TextAreaFor(d => d.CondicionInteresado,  new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)", autocomplete = "new-password" })
                 @Html.ValidationMessageFor(d => d.CondicionInteresado, null, new { @class = "red" })
             </div>
 
-
-            <div class="form-group col-md-8">
-                @Html.LabelFor(d => d.OtrasSenas)
-                @Html.TextAreaFor(d => d.OtrasSenas, new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)", autocomplete = "new-password" })
-                @Html.ValidationMessageFor(d => d.OtrasSenas, null, new { @class = "red" })
+            <div class="form-group col-md-6">
+                @Html.LabelFor(d => d.Direccion)
+                @Html.TextAreaFor(d => d.Direccion, new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)", autocomplete = "new-password" })
+                @Html.ValidationMessageFor(d => d.Direccion, null, new { @class = "red" })
             </div>
         </div>
 
@@ -155,6 +153,24 @@
         </div>
     </div>
 
+    <div class="modal fade" id="modalBusquedaPersona" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Buscar Persona</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <p hidden name="agregarPersona" id="" />
+
+                <div class="modal-body">
+                    @{ Html.RenderAction("ListaPersonasBuscar", "ActaDeObservacionPolicial", new { nombre = "" }); }
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <script>
@@ -170,7 +186,14 @@
         elem.value = clicked_id;
         $('#modalBusqueda').modal('hide');
     }
-
+    function reply_click4(clicked_id4) {
+        var aux = document.getElementsByName("agregarPersona")[0].getAttribute("id");
+        if (aux === "idInteresado") {
+            var elem = document.getElementById("idInteresado");
+        }
+        elem.value = clicked_id4;
+        $('#modalBusquedaPersona').modal('hide');
+    }
     function reply_click2(clicked_id2) {
         var elem2 = document.getElementByName("quitaPolicia");
         elem2.value = clicked_id2;
@@ -179,4 +202,5 @@
     function reply_click3(clicked_id3) {
         document.getElementById(clicked_id3).value = '';
     }
+
 </script>

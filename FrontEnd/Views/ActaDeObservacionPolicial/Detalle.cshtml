@@ -48,16 +48,10 @@
             @Html.DisplayTextFor(d => d.Hora.TimeOfDay)
         </dd>
         <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.IdentificacionInteresado)
+            @Html.LabelFor(d => d.VistaPersonaInteresada)
         </dt>
         <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.IdentificacionInteresado)
-        </dd>
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.NombreInteresado)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.NombreInteresado)
+            @Html.DisplayTextFor(d => d.VistaPersonaInteresada)
         </dd>
         <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.VistaTipoDistrito)
@@ -73,10 +67,10 @@
         </dd>
        
         <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.OtrasSenas)
+            @Html.LabelFor(d => d.Direccion)
         </dt>
         <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.OtrasSenas)
+            @Html.DisplayTextFor(d => d.Direccion)
         </dd>
         @if (Model.Observaciones != null)
         {

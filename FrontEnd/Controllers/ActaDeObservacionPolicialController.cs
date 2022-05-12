@@ -14,22 +14,22 @@ namespace FrontEnd.Controllers
         ITablaGeneralDAL tablaGeneralDAL;
         IActaDeObservacionPolicialDAL actaDeObservacionPolicialDAL;
         IPoliciaDAL policiaDAL;
+        IPersonaDAL personaDAL;
 
         public ActasDeObservacionPolicial ConvertirActaDeObservacionPolicial(ActaDeObservacionPolicialViewModel modelo)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
             policiaDAL = new PoliciaDAL();
-
+            personaDAL = new PersonaDAL();
             return new ActasDeObservacionPolicial
             {
                 idActaDeObservacionPolicial = modelo.IdActaDeObservacionPolicial,
                 numeroFolio = modelo.NumeroFolio,
                 fechaHora = modelo.Fecha,
-                nombreDelInteresado = modelo.NombreInteresado,
-                identificacionInteresado = modelo.IdentificacionInteresado,
-               distrito = tablaGeneralDAL.GetCodigo("Generales", "distrito", modelo.Distrito.ToString()).idTablaGeneral,
+                idInteresado = personaDAL.GetPersonaIdentificacion(modelo.IdInteresado).idPersona,
+                distrito = tablaGeneralDAL.GetCodigo("Generales", "distrito", modelo.Distrito.ToString()).idTablaGeneral,
                 condicion = modelo.CondicionInteresado,
-                otrasSenas = modelo.OtrasSenas,
+                direccion = modelo.Direccion,
                 observaciones = modelo.Observaciones,
                 oficialAcompanante = policiaDAL.GetPoliciaCedula(modelo.OficialAcompanante).idPolicia,
                 oficialActuante = policiaDAL.GetPoliciaCedula(modelo.OficialActuante).idPolicia,
@@ -40,7 +40,7 @@ namespace FrontEnd.Controllers
         {
             tablaGeneralDAL = new TablaGeneralDAL();
             policiaDAL = new PoliciaDAL();
-
+            personaDAL = new PersonaDAL();
             return new ActaDeObservacionPolicialViewModel
             {
                 IdActaDeObservacionPolicial = actaDeObservacionPolicial.idActaDeObservacionPolicial,
@@ -51,16 +51,15 @@ namespace FrontEnd.Controllers
                 VistaTipoDistrito = tablaGeneralDAL.Get(actaDeObservacionPolicial.distrito).descripcion,
                 Fecha = actaDeObservacionPolicial.fechaHora,
                 Hora = actaDeObservacionPolicial.fechaHora,
-                NombreInteresado = actaDeObservacionPolicial.nombreDelInteresado,
-                IdentificacionInteresado = actaDeObservacionPolicial.identificacionInteresado,
+                IdInteresado = personaDAL.GetPersona(actaDeObservacionPolicial.idInteresado).identificacion,
                 CondicionInteresado = actaDeObservacionPolicial.condicion,
-                OtrasSenas = actaDeObservacionPolicial.otrasSenas,
+                Direccion = actaDeObservacionPolicial.direccion,
                 Observaciones = actaDeObservacionPolicial.observaciones,
                 //EstadoActa = actaDeObservacionPolicial.estadoActa,
                 //VistaEstadoActa = tablaGeneralDAL.Get(actaDeObservacionPolicial.estadoActa).descripcion,
                 VistaOficialAcompanante = policiaDAL.GetPolicia(actaDeObservacionPolicial.oficialAcompanante).nombre,
                 VistaOficialActuante = policiaDAL.GetPolicia(actaDeObservacionPolicial.oficialActuante).nombre,
-               
+                VistaPersonaInteresada = personaDAL.GetPersona(actaDeObservacionPolicial.idInteresado).nombre,
             };
         }
         public List<PoliciaViewModel> ConvertirListaPoliciasFiltrados(List<Policias> policias)
@@ -104,7 +103,45 @@ namespace FrontEnd.Controllers
 
             return PartialView("_ListaPoliciasParcial", ConvertirListaPoliciasFiltrados(policiasFiltrados));
         }
+        public List<PersonaViewModel> ConvertirListaPersonasFiltrados(List<Personas> personas)
+        {
+            return (from d in personas
+                    select new PersonaViewModel
+                    {
+                        Identificacion = d.identificacion,
+                        NombrePersona = d.nombre,
+                    }).ToList();
+        }
+        public PartialViewResult ListaPersonasBuscar(string nombre)
+        {
+            List<PersonaViewModel> personas = new List<PersonaViewModel>();
 
+            return PartialView("_ListaPersonasBuscar", personas);
+        }
+
+        public PartialViewResult ListaPersonasParcial(string nombre)
+        {
+            tablaGeneralDAL = new TablaGeneralDAL();
+            personaDAL = new PersonaDAL();
+            List<Personas> personas = personaDAL.Get();
+            List<Personas> personasFiltradas = new List<Personas>();
+            if (nombre == "")
+            {
+                personasFiltradas = personas;
+            }
+            else
+            {
+                foreach (Personas persona in personas)
+                {
+                    if (persona.nombre.Contains(nombre))
+                    {
+                        personasFiltradas.Add(persona);
+                    }
+                }
+            }
+            personasFiltradas = personasFiltradas.OrderBy(x => x.nombre).ToList();
+            return PartialView("_ListaPersonasParcial", ConvertirListaPersonasFiltrados(personasFiltradas));
+        }
         public ActionResult Index(string filtrosSeleccionado, string busqueda, string busquedaFechaInicioH, string busquedaFechaFinalH)
         {
             actaDeObservacionPolicialDAL = new ActaDeObservacionPolicialDAL();
@@ -127,7 +164,6 @@ namespace FrontEnd.Controllers
             }
             if (busqueda != null)
             {
-
                 foreach (ActaDeObservacionPolicialViewModel actaDeObservacionPolicial in actasDeObservacionPolicial)
                 {
                     if (filtrosSeleccionado == "Número de Folio")

@@ -26,7 +26,10 @@ $('#modalBusqueda').on('show.bs.modal', function (e) {
 	document.getElementsByName("agregarPolicia")[0].setAttribute("id", bookId);
 });
 
-
+$('#modalBusquedaPersona').on('show.bs.modal', function (e) {
+	var bookId = $(e.relatedTarget).data('book-id');
+	document.getElementsByName("agregarPersona")[0].setAttribute("id", bookId);
+});
 
 function backspacerUP(object, e) {
 	if (e) {

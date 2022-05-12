@@ -12,16 +12,18 @@ namespace BackEnd
     using System;
     using System.Collections.Generic;
     
-    public partial class Requisitos
+    public partial class Role
     {
-        public int idRequisito { get; set; }
-        public string detalles { get; set; }
-        public Nullable<System.DateTime> fechaVencimiento { get; set; }
-        public int idPolicia { get; set; }
-        public int tipoRequisito { get; set; }
-        public string imagen { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Role()
+        {
+            this.RolesUsuarios = new HashSet<RolesUsuario>();
+        }
     
-        public virtual TablaGeneral TablaGeneral { get; set; }
-        public virtual TablaGeneral TablaGeneral1 { get; set; }
+        public int idRol { get; set; }
+        public string descripcion { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RolesUsuario> RolesUsuarios { get; set; }
     }
 }

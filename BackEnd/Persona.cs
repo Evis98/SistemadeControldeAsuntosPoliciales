@@ -12,12 +12,13 @@ namespace BackEnd
     using System;
     using System.Collections.Generic;
     
-    public partial class Personas
+    public partial class Persona
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Personas()
+        public Persona()
         {
-            this.PartesPoliciales = new HashSet<PartesPoliciales>();
+            this.ActasDeObservacionPolicials = new HashSet<ActasDeObservacionPolicial>();
+            this.PartesPoliciales = new HashSet<PartesPoliciale>();
         }
     
         public int idPersona { get; set; }
@@ -36,7 +37,9 @@ namespace BackEnd
         public string lugarTrabajoPersona { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PartesPoliciales> PartesPoliciales { get; set; }
+        public virtual ICollection<ActasDeObservacionPolicial> ActasDeObservacionPolicials { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PartesPoliciale> PartesPoliciales { get; set; }
         public virtual TablaGeneral TablaGeneral { get; set; }
         public virtual TablaGeneral TablaGeneral1 { get; set; }
         public virtual TablaGeneral TablaGeneral2 { get; set; }
