@@ -84,20 +84,27 @@
                 @Html.DropDownListFor(d => d.EstadoCivil, Model.EstadosCivil, "--Seleccione--", new { @class = "myselect form-control" })
                 @Html.ValidationMessageFor(d => d.EstadoCivil, null, new { @class = "red" })
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.TelefonoDecomisado)
                 @Html.TextBoxFor(d => d.TelefonoDecomisado, "", new { @class = "inputphone form-control", autocomplete = "new-password" })
                 @Html.ValidationMessageFor(d => d.TelefonoDecomisado, null, new { @class = "red" })
             </div>
-            <div class="form-group col-md-5">
+            <div class="form-group col-md-4">
+                @Html.LabelFor(d => d.Estado)
+                @Html.DropDownListFor(d => d.Estado, Model.Estados, new { @class = "myselect form-control" })
+                @Html.ValidationMessageFor(d => d.Estado, null, new { @class = "red" })
+            </div>
+
+        </div>
+
+        <div class="form-row">
+
+            <div class="form-group col-md-6">
                 @Html.LabelFor(d => d.DireccionDecomisado)
                 @Html.TextAreaFor(d => d.DireccionDecomisado, new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)", autocomplete = "new-password" })
                 @Html.ValidationMessageFor(d => d.DireccionDecomisado, null, new { @class = "red" })
             </div>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-6">
                 @Html.LabelFor(d => d.Inventario)
                 @Html.TextAreaFor(d => d.Inventario, new { @class = "form-control", @onkeypress = "return sololetrasnumerossimbolos(event)", autocomplete = "new-password", onkeyup = "this.value = this.value.toUpperCase();" })
                 @Html.ValidationMessageFor(d => d.Inventario, null, new { @class = "red" })

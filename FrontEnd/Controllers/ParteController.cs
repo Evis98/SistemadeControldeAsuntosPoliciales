@@ -16,8 +16,8 @@ namespace FrontEnd.Controllers
         IInfractorDAL infractorDAL;
         IPersonaDAL personaDAL;
         IParteDAL parteDAL;
-
-
+        IAuditoriaDAL auditoriaDAL;
+        IUsuarioDAL usuarioDAL;
 
         public bool ActualizarParte(Parte1ViewModel model1, Parte1ViewModel model2)
         {
@@ -284,7 +284,7 @@ namespace FrontEnd.Controllers
             aux.HoraConfeccionDocumento = parte.horaConfeccionDocumento;
             aux.NombrePoliciaAsiste = parte.nombreOficialAsistente;
             aux.IdentificacionPoliciaAsiste = parte.identificacionOficialAsistente;
-            aux.UnidadOrigenPoliciaAsiste = tablaGeneralDAL.Get(parte.unidadOrigenPoliciaAsistente).descripcion;          
+            aux.UnidadOrigenPoliciaAsiste = tablaGeneralDAL.Get(parte.unidadOrigenPoliciaAsistente).descripcion;
             aux.TelefonoPoliciaAsiste = parte.telefonoOficialAsistente;
 
             return aux;
@@ -365,7 +365,7 @@ namespace FrontEnd.Controllers
                     aux.TelefonoPoliciaActuante = policiaDAL.GetPolicia(parte.idPoliciaActuante).telefonoCelular;
                     aux.HoraConfeccionDocumento = parte.horaConfeccionDocumento;
                     aux.NombrePoliciaAsiste = parte.nombreOficialAsistente;
-                    aux.IdentificacionPoliciaAsiste =parte.identificacionOficialAsistente;
+                    aux.IdentificacionPoliciaAsiste = parte.identificacionOficialAsistente;
                     aux.UnidadOrigenPoliciaAsiste = tablaGeneralDAL.Get(parte.unidadOrigenPoliciaAsistente).descripcion;
                     aux.NumeroMovilPolciaAsiste = parte.movilAsistente;
                     aux.TelefonoPoliciaAsiste = parte.telefonoOficialAsistente;
@@ -387,7 +387,7 @@ namespace FrontEnd.Controllers
             PartesPoliciales parte = new PartesPoliciales();
 
 
-            parte.idPartepolicial = model.IdPartePolcial;
+            //parte.idPartepolicial = model.IdPartePolcial;
             parte.fecha = DateTime.Today;
             parte.provincia = "Alajuela";
             parte.canton = "Alajuela";
@@ -444,7 +444,7 @@ namespace FrontEnd.Controllers
             parte.nombreOficialAsistente = model.NombrePoliciaAsiste;
             parte.identificacionOficialAsistente = model.IdentificacionPoliciaAsiste;
             parte.telefonoOficialAsistente = model.TelefonoPoliciaAsiste;
-            parte.unidadOrigenPoliciaActuante = tablaGeneralDAL.GetCodigo("PartesPoliciales","enteAcargo","1").idTablaGeneral;
+            parte.unidadOrigenPoliciaActuante = tablaGeneralDAL.GetCodigo("PartesPoliciales", "enteAcargo", "1").idTablaGeneral;
             parte.horaConfeccionDocumento = DateTime.Now;
             //parte.unidadOrigenPoliciaAsistente = tablaGeneralDAL.GetCodigo("PartesPoliciales", "enteAcargo", "2").idTablaGeneral;
             parte.unidadOrigenPoliciaAsistente = tablaGeneralDAL.GetCodigo("PartesPoliciales", "enteAcargo", model.UnidadOrigenPoliciaAsiste.ToString()).idTablaGeneral;
@@ -529,9 +529,9 @@ namespace FrontEnd.Controllers
                             }
                         }
                     }
-                }    
+                }
                 partes = partesFiltrados;
-            }        
+            }
             partes = partes.OrderBy(x => x.numeroFolio).ToList();
             return View(ConvertirListaPartes(partes));
         }
@@ -713,6 +713,10 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public ActionResult Nuevo4(Parte1ViewModel model)
         {
+            tablaGeneralDAL = new TablaGeneralDAL();
+            usuarioDAL = new UsuarioDAL();
+            auditoriaDAL = new AuditoriaDAL();
+           
             try
             {
                 ParteDAL parteDAL = new ParteDAL();
@@ -722,9 +726,15 @@ namespace FrontEnd.Controllers
                     if (ActualizarParte(modelAux, model))
                     {
                         PartesPoliciales parte = ConvertirParte(modelAux);
-                        parte.numeroFolio = (parteDAL.GetCount() + 1).ToString() + "-" + DateTime.Now.Year;
+                        parte.numeroFolio = (parteDAL.GetCount(parte.fecha.Date) + 1).ToString() + "-" + parte.fecha.Date.Year;
+                        
                         parteDAL.Add(parte);
-                        int aux = parteDAL.GetPartePolicial(parte.numeroFolio).idPartepolicial;                      
+                        modelAux.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
+                        modelAux.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "15").idTablaGeneral;
+                        modelAux.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario;
+                        modelAux.IdElemento = parteDAL.GetPartePolicial(parte.numeroFolio).idPartepolicial;
+                        auditoriaDAL.Add(ConvertirAuditoria(modelAux));
+                        int aux = parteDAL.GetPartePolicial(parte.numeroFolio).idPartepolicial;
                         return Redirect("~/Parte/Detalle1/" + aux);
                     }
                     Session["Parte"] = null;
@@ -905,10 +915,12 @@ namespace FrontEnd.Controllers
 
         public ActionResult Detalle1(int id)
         {
-            Session["idParte"] = id;
             parteDAL = new ParteDAL();
+            Session["idParte"] = id;
+            Session["numeroFolio"] = parteDAL.GetParte(id).numeroFolio;
+           
             ListParte1ViewModel modelo = ConvertirParteInverso(parteDAL.GetParte(id));
-          
+
             return View(modelo);
         }
 
@@ -930,11 +942,28 @@ namespace FrontEnd.Controllers
 
         public ActionResult Detalle4(int id)
         {
-            Session["idParte"] = id;
             parteDAL = new ParteDAL();
+            Session["idParte"] = id;
+            Session["numeroFolio"] = parteDAL.GetParte(id).numeroFolio;
             ListParte1ViewModel modelo = ConvertirParteInverso(parteDAL.GetParte(id));
+
             return View(modelo);
         }
 
+        public Auditorias ConvertirAuditoria(Parte1ViewModel modelo)
+        {
+            tablaGeneralDAL = new TablaGeneralDAL();
+            parteDAL = new ParteDAL();
+            return new Auditorias
+            {
+                idAuditoria = modelo.IdAuditoria,
+                idCategoria = modelo.IdCategoria,
+                idElemento = modelo.IdElemento,
+                fecha = DateTime.Now,
+                accion = modelo.Accion,
+                idUsuario = modelo.IdUsuario,
+            };
+
+        }
     }
 }

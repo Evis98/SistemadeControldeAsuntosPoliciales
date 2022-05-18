@@ -28,25 +28,30 @@
         <dd class="col-sm-8 ">
             @Html.DisplayTextFor(d => d.VistaPoliciaEncargado)
         </dd>
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.VistaPoliciaTestigo)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.VistaPoliciaTestigo)
-        </dd>
+        @if (Model.TestigoPolicia != null)
+        {
+            <dt class="col-sm-4">
+                @Html.LabelFor(d => d.VistaTestigoPolicia)
+            </dt>
+            <dd class="col-sm-8 ">
+                @Html.DisplayTextFor(d => d.VistaTestigoPolicia)
+            </dd>
+        }
+        @if (Model.TestigoPersona != null)
+        {
+            <dt class="col-sm-4">
+                @Html.LabelFor(d => d.VistaTestigoPersona)
+            </dt>
+            <dd class="col-sm-8 ">
+                @Html.DisplayTextFor(d => d.VistaTestigoPersona)
+            </dd>
+        }
         <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.Supervisor)
         </dt>
         <dd class="col-sm-8 ">
             @Html.DisplayTextFor(d => d.VistaPoliciaSupervisor)
         </dd>
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.Instalaciones)
-        </dt>
-        <dd id="req" class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.Instalaciones)
-        </dd>
-
         <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.Fecha)
         </dt>
@@ -61,16 +66,16 @@
             @Html.DisplayTextFor(d => d.Hora.TimeOfDay)
         </dd>
         <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.RazonSocial)
+            @Html.LabelFor(d => d.VistaRecibe)
         </dt>
         <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.RazonSocial)
+            @Html.DisplayTextFor(d => d.VistaRecibe)
         </dd>
         <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.CedulaJuridica)
+            @Html.LabelFor(d => d.VistaRazonSocial)
         </dt>
         <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.CedulaJuridica)
+            @Html.DisplayTextFor(d => d.VistaRazonSocial)
         </dd>
         <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.VistaTipoActa)
@@ -98,30 +103,15 @@
             </dd>
 
         }
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.NombreDe)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.NombreDe)
-        </dd>
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.IdentificacionEntregado)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.IdentificacionEntregado)
-        </dd>
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.Recibe)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.Recibe)
-        </dd>
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.CedulaRecibe)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.CedulaRecibe)
-        </dd>
+        @if (Model.NombreDe != null)
+        {
+            <dt class="col-sm-4 ">
+                @Html.LabelFor(d => d.NombreDe)
+            </dt>
+            <dd class="col-sm-8 ">
+                @Html.DisplayTextFor(d => d.NombreDe)
+            </dd>
+        }
         <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.InventarioEntregado)
         </dt>
@@ -137,7 +127,7 @@
 
             <div style="text-align:center;">
                 <a class="btn btn-primary" href="~/ActaEntrega/Editar/@Model.IdActaEntrega">Editar</a>
-
+                <a class="btn btn-secondary" href="~/Auditoria/ListadoActaEntrega/@Model.IdActaEntrega">Ver Auditorias</a>
             </div>
         </div>
 

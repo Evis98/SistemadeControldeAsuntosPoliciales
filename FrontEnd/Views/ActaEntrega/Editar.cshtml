@@ -13,19 +13,107 @@
     <hr />
     @using (Html.BeginForm("Editar", "ActaEntrega", FormMethod.Post))
     {
+<div class="form-row">
+    @Html.HiddenFor(d => d.IdActaEntrega)
+    @Html.HiddenFor(d => d.NumeroFolio)
+    <div class="form-group col-md-2">
+        @Html.LabelFor(d => d.Fecha)
+        @Html.EditorFor(d => d.Fecha, "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(d => d.Fecha, null, new { @class = "red" })
+    </div>
+    <div class="form-group col-md-2">
+        @Html.LabelFor(d => d.Hora)
+        @Html.EditorFor(d => d.Hora, "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(d => d.Hora, null, new { @class = "red" })
+    </div>
+    <div class="form-group col-md-4">
+        @Html.LabelFor(d => d.Estado)
+        @Html.DropDownListFor(d => d.Estado, Model.Estados, new { @class = "myselect form-control" })
+        @Html.ValidationMessageFor(d => d.Estado, null, new { @class = "red" })
+    </div>
+</div>
+
         <div class="form-row">
-            <div class="form-group col-md-3">
-                @Html.HiddenFor(d => d.IdActaEntrega)
-                @Html.HiddenFor(d => d.NumeroFolio)
-                @Html.LabelFor(d => d.Testigo)
+            <div class="form-group col-md-2">
+                @Html.LabelFor(d => d.TipoActa)
+                @Html.DropDownListFor(d => d.TipoActa, Model.TiposActa, "--Seleccione--", new { @class = "myselect form-control", @id = "tipoActaSeleccionado", @onclick = "ocultarActa()" })
+                @Html.ValidationMessageFor(d => d.TipoActa, null, new { @class = "red" })
+            </div>
+            <div class="form-group col-md-3" style="display:none;" id="consecutivoActaHallazgo">
+                @Html.LabelFor(d => d.ConsecutivoActaHallazgo)
                 <div class="input-group">
-                    @Html.TextBoxFor(d => d.Testigo, "", new { @class = "form-control", @id = "idTestigo", @readonly = "readonly" })
+                    @Html.TextBoxFor(d => d.ConsecutivoActaHallazgo, "", new { @class = "form-control", @id = "consecutivoActa", @readonly = "readonly" })
+                    <div class="input-group-append ">
+                        <a class="btn btn-primary" data-book-id="consecutivoActa" data-toggle="modal" data-target="#modalBusquedaHallazgo">Buscar</a>
+                    </div>
+                </div>
+                @Html.ValidationMessageFor(d => d.ConsecutivoActaHallazgo, null, new { @class = "red" })
+            </div>
+            <div class="form-group col-md-3" style="display:none;" id="consecutivoActaDecomiso">
+                @Html.LabelFor(d => d.ConsecutivoActaDecomiso)
+                <div class="input-group">
+                    @Html.TextBoxFor(d => d.ConsecutivoActaDecomiso, "", new { @class = "form-control", @id = "consecutivoActa2", @readonly = "readonly" })
+                    <div class="input-group-append ">
+                        <a class="btn btn-primary" data-book-id="consecutivoActa" data-toggle="modal" data-target="#modalBusquedaDecomiso">Buscar</a>
+                    </div>
+                </div>
+                @Html.ValidationMessageFor(d => d.ConsecutivoActaDecomiso, null, new { @class = "red" })
+            </div>
+
+            <div class="form-group col-md-2">
+                @Html.LabelFor(d => d.TipoTestigo)
+                @Html.DropDownListFor(d => d.TipoTestigo, Model.TiposTestigo, "--Seleccione--", new { @class = "myselect form-control", @id = "tipoTestigoSeleccionado", @onclick = "ocultarTestigo()" })
+                @Html.ValidationMessageFor(d => d.TipoTestigo, null, new { @class = "red" })
+            </div>
+            <div class="form-group col-md-3" style="display:none;" id="idTestigoPolicia">
+                @Html.LabelFor(d => d.TestigoPolicia)
+                <div class="input-group">
+                    @Html.TextBoxFor(d => d.TestigoPolicia, "", new { @class = "form-control", @id = "cedulatestigo1", @readonly = "readonly" })
                     <div class="input-group-append ">
                         <a class="btn btn-primary" data-book-id="idTestigo" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
                     </div>
                 </div>
-                @Html.ValidationMessageFor(d => d.Testigo, null, new { @class = "red" })
+                @Html.ValidationMessageFor(d => d.TestigoPolicia, null, new { @class = "red" })
             </div>
+            <div class="form-group col-md-3" style="display:none;" id="idTestigoPersona">
+                @Html.LabelFor(d => d.TestigoPersona)
+                <div class="input-group">
+                    @Html.TextBoxFor(d => d.TestigoPersona, "", new { @class = "form-control", @id = "cedulatestigo2", @readonly = "readonly" })
+                    <div class="input-group-append ">
+                        <a class="btn btn-primary" data-book-id="idPersona" data-toggle="modal" data-target="#modalBusquedaPersona">Buscar</a>
+                    </div>
+                </div>
+                @Html.ValidationMessageFor(d => d.TestigoPersona, null, new { @class = "red" })
+            </div>
+        </div>
+
+
+        <div class="form-row">
+
+        </div>
+        <div class="form-row">
+
+            <div class="form-group col-md-3">
+                @Html.LabelFor(d => d.RazonSocial)
+                <div class="input-group">
+                    @Html.TextBoxFor(d => d.RazonSocial, "", new { @class = "form-control", @id = "idRazonSocial", @readonly = "readonly" })
+                    <div class="input-group-append ">
+                        <a class="btn btn-primary" data-book-id="idRazonSocial" data-toggle="modal" data-target="#modalBusquedaPersona">Buscar</a>
+                    </div>
+                </div>
+                @Html.ValidationMessageFor(d => d.RazonSocial, null, new { @class = "red" })
+            </div>
+            <div class="form-group col-md-3">
+                @Html.LabelFor(d => d.Recibe)
+                <div class="input-group">
+                    @Html.TextBoxFor(d => d.Recibe, "", new { @class = "form-control", @id = "idRecibe", @readonly = "readonly" })
+                    <div class="input-group-append ">
+                        <a class="btn btn-primary" data-book-id="idRecibe" data-toggle="modal" data-target="#modalBusquedaPersona">Buscar</a>
+                    </div>
+                </div>
+                @Html.ValidationMessageFor(d => d.Recibe, null, new { @class = "red" })
+            </div>
+
             <div class="form-group col-md-3">
                 @Html.LabelFor(d => d.Encargado)
                 <div class="input-group">
@@ -46,118 +134,11 @@
                 </div>
                 @Html.ValidationMessageFor(d => d.Supervisor, null, new { @class = "red" })
             </div>
-            <div class="form-group col-md-3">
-                @Html.LabelFor(d => d.Instalaciones)
-                @Html.TextBoxFor(d => d.Instalaciones, "", new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "sololetrasnumerossimbolos(event)", autocomplete = "new-password" })
-                @Html.ValidationMessageFor(d => d.Instalaciones, null, new { @class = "red" })
+        </div>
 
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-2">
-                @Html.LabelFor(d => d.Fecha)
-                @Html.EditorFor(d => d.Fecha, "", new { @class = "form-control" })
-                @Html.ValidationMessageFor(d => d.Fecha, null, new { @class = "red" })
-            </div>
-            <div class="form-group col-md-2">
-                @Html.LabelFor(d => d.Hora)
-                @Html.EditorFor(d => d.Hora, "", new { @class = "form-control" })
-                @Html.ValidationMessageFor(d => d.Hora, null, new { @class = "red" })
-            </div>
-            <div class="form-group col-md-4">
-                @Html.LabelFor(d => d.RazonSocial)
-                @Html.TextBoxFor(d => d.RazonSocial, "", new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "sololetrasnumerossimbolos(event)", autocomplete = "new-password" })
-                @Html.ValidationMessageFor(d => d.RazonSocial, null, new { @class = "red" })
-            </div>
-            <div class="form-group col-md-4">
-                @Html.LabelFor(d => d.CedulaJuridica)
-                @Html.TextBoxFor(d => d.CedulaJuridica, "", new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimboloss(event)", autocomplete = "new-password" })
-                @Html.ValidationMessageFor(d => d.CedulaJuridica, null, new { @class = "red" })
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-3">
-                @Html.LabelFor(d => d.Recibe)
-                @Html.TextBoxFor(d => d.Recibe, "", new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "sololetrasnumerossimbolos(event)", autocomplete = "new-password" })
-                @Html.ValidationMessageFor(d => d.Recibe, null, new { @class = "red" })
-            </div>
-            <div class="form-group col-md-3">
-                @Html.LabelFor(d => d.CedulaRecibe)
-                @Html.TextBoxFor(d => d.CedulaRecibe, "", new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "sololetrasnumerossimbolos(event)", autocomplete = "new-password" })
-                @Html.ValidationMessageFor(d => d.CedulaRecibe, null, new { @class = "red" })
-            </div>
-            <div class="form-group col-md-3">
-                @Html.LabelFor(d => d.NombreDe)
-                @Html.TextBoxFor(d => d.NombreDe, "", new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "sololetrasnumerossimbolos(event)", autocomplete = "new-password" })
-                @Html.ValidationMessageFor(d => d.NombreDe, null, new { @class = "red" })
-            </div>
-            <div class="form-group col-md-3">
-                @Html.LabelFor(d => d.IdentificacionEntregado)
-                @Html.TextBoxFor(d => d.IdentificacionEntregado, "", new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "sololetrasnumerossimbolos(event)", autocomplete = "new-password" })
-                @Html.ValidationMessageFor(d => d.IdentificacionEntregado, null, new { @class = "red" })
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-3">
-                @Html.LabelFor(d => d.TipoActa)
-                @Html.DropDownListFor(d => d.TipoActa, Model.TiposActa, "--Seleccione--", new { @class = "myselect form-control", @id = "tipoActaSeleccionado", @onclick = "ocultarActa()" })
-                @Html.ValidationMessageFor(d => d.TipoActa, null, new { @class = "red" })
-            </div>
-            @if (Model.ConsecutivoActaHallazgo != null)
-            {
-                <div class="form-group col-md-3" id="consecutivoActaHallazgo">
-                    @Html.LabelFor(d => d.ConsecutivoActaHallazgo)
-                    <div class="input-group">
-                        @Html.TextBoxFor(d => d.ConsecutivoActaHallazgo, "", new { @class = "form-control", @id = "consecutivoActa", @readonly = "readonly" })
-                        <div class="input-group-append ">
-                            <a class="btn btn-primary" data-book-id="consecutivoActa" data-toggle="modal" data-target="#modalBusquedaHallazgo">Buscar</a>
-                        </div>
-                    </div>
-                    @Html.ValidationMessageFor(d => d.ConsecutivoActaHallazgo, null, new { @class = "red" })
-                </div>
-            }
-            else
-            {
-                <div class="form-group col-md-3" style="display:none;" id="consecutivoActaHallazgo">
-                    @Html.LabelFor(d => d.ConsecutivoActaHallazgo)
-                    <div class="input-group">
-                        @Html.TextBoxFor(d => d.ConsecutivoActaHallazgo, "", new { @class = "form-control", @id = "consecutivoActa", @readonly = "readonly" })
-                        <div class="input-group-append ">
-                            <a class="btn btn-primary" data-book-id="consecutivoActa" data-toggle="modal" data-target="#modalBusquedaHallazgo">Buscar</a>
-                        </div>
-                    </div>
-                    @Html.ValidationMessageFor(d => d.ConsecutivoActaHallazgo, null, new { @class = "red" })
-                </div>
 
-            }
-            @if (Model.ConsecutivoActaDecomiso != null)
-            {
-                <div class="form-group col-md-3" id="consecutivoActaDecomiso">
-                    @Html.LabelFor(d => d.ConsecutivoActaDecomiso)
-                    <div class="input-group">
-                        @Html.TextBoxFor(d => d.ConsecutivoActaDecomiso, "", new { @class = "form-control", @id = "consecutivoActa2", @readonly = "readonly" })
-                        <div class="input-group-append ">
-                            <a class="btn btn-primary" data-book-id="consecutivoActa" data-toggle="modal" data-target="#modalBusquedaDecomiso">Buscar</a>
-                        </div>
-                    </div>
-                    @Html.ValidationMessageFor(d => d.ConsecutivoActaDecomiso, null, new { @class = "red" })
-                </div>
-            }
-            else
-            {
-                <div class="form-group col-md-3" style="display:none;" id="consecutivoActaDecomiso">
-                    @Html.LabelFor(d => d.ConsecutivoActaDecomiso)
-                    <div class="input-group">
-                        @Html.TextBoxFor(d => d.ConsecutivoActaDecomiso, "", new { @class = "form-control", @id = "consecutivoActa2", @readonly = "readonly" })
-                        <div class="input-group-append ">
-                            <a class="btn btn-primary" data-book-id="consecutivoActa" data-toggle="modal" data-target="#modalBusquedaDecomiso">Buscar</a>
-                        </div>
-                    </div>
-                    @Html.ValidationMessageFor(d => d.ConsecutivoActaDecomiso, null, new { @class = "red" })
-                </div>
-            }
-        </div>
-        <div class="form-row" onload="ocultarActa()">
+
+        <div class="form-row">
             <div class="form-group col-md-12">
                 @Html.LabelFor(d => d.InventarioEntregado)
                 @Html.TextAreaFor(d => d.InventarioEntregado, new { @class = "form-control", @readonly = "readonly", @id = "inventario" })
@@ -204,6 +185,7 @@
         </div>
 
     }
+
     <div class="modal fade" id="modalBusqueda" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -217,6 +199,24 @@
 
                 <div class="modal-body">
                     @{ Html.RenderAction("ListaPoliciasBuscar", "ActaEntrega", new { nombre = "" }); }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalBusquedaPersona" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Buscar Persona</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <p hidden name="agregarPersona" id="" />
+
+                <div class="modal-body">
+                    @{ Html.RenderAction("ListaPersonasBuscar", "ActaEntrega", new { nombre = "" }); }
                 </div>
             </div>
         </div>
@@ -239,7 +239,6 @@
             </div>
         </div>
     </div>
-
     <div class="modal fade" id="modalBusquedaDecomiso" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -259,21 +258,22 @@
     </div>
 </div>
 
-<script>
+<script  type="text/javascript">
+    $(document).ready(function () {
+        ocultarActa();
+        ocultarTestigo();
+    });
 
     function reply_click(clicked_id) {
         var aux = document.getElementsByName("agregarPolicia")[0].getAttribute("id");
         if (aux === "idTestigo") {
-            var elem = document.getElementById("idTestigo");
+            var elem = document.getElementById("cedulatestigo1");
         }
         if (aux === "idEncargado") {
             var elem = document.getElementById("idEncargado");
         }
         if (aux === "idSupervisor") {
             var elem = document.getElementById("idSupervisor");
-        }
-        if (aux === "consecutivoActa") {
-            var elem = document.getElementById("consecutivoActa");
         }
         elem.value = clicked_id;
         $('#modalBusqueda').modal('hide');
@@ -298,8 +298,20 @@
         elem2.value = inventarioLista;
         $('#modalBusquedaDecomiso').modal('hide');
     }
-
-
+    function reply_click4(clicked_id4) {
+        var aux = document.getElementsByName("agregarPersona")[0].getAttribute("id");
+        if (aux === "idRecibe") {
+            var elem = document.getElementById("idRecibe");
+        }
+        if (aux === "idRazonSocial") {
+            var elem = document.getElementById("idRazonSocial");
+        }
+        if (aux === "idPersona") {
+            var elem = document.getElementById("cedulatestigo2");
+        }
+        elem.value = clicked_id4;
+        $('#modalBusquedaPersona').modal('hide');
+    }
     function ocultarActa() {
 
         var aux1 = document.getElementById("consecutivoActaHallazgo");
@@ -307,32 +319,60 @@
         var aux3 = document.getElementById("consecutivoActaDecomiso");
         if (aux2.options[aux2.selectedIndex].innerText === "Hallazgo") {
             aux1.style.display = "block";
-            aux3.value = "";
-            aux3.style.display = "none"
+            var elem = document.getElementById("consecutivoActa2");
+            elem.value = "";
+            aux3.style.display = "none";
+            var elem = document.getElementById("inventario");
+            elem.value = "";
+
         }
         if (aux2.options[aux2.selectedIndex].innerText === "Decomiso") {
-            aux1.value = "";
+            var elem = document.getElementById("consecutivoActa");
+            elem.value = "";
             aux1.style.display = "none";
-            aux3.style.display = "block"
+            aux3.style.display = "block";
+            var elem = document.getElementById("inventario");
+            elem.value = "";
+
         }
         if (aux2.options[aux2.selectedIndex].innerText === "--Seleccione--") {
             aux1.style.display = "none";
-            aux1.value = "";
+            var elem = document.getElementById("consecutivoActa2");
+            elem.value = "";
             aux3.style.display = "none"
-            aux3.value = "";
+            var elem = document.getElementById("consecutivoActa");
+            elem.value = "";
+            var elem = document.getElementById("inventario");
+            elem.value = "";
 
         }
     }
 
-            //function cargaActa(tipoActa) {
-            //    if (tipoActa == '1') {
-            //        var elem = document.getElementById("consecutivoActa");
-            //        elem.value = clicked_id;
-            //        var elem = document.getElementById("consecutivoActa2");
-            //        elem.value = "";
-            //    } else {
+    function ocultarTestigo() {
 
-            //    }
-            //    document.getElementById("demo").innerHTML = text;
-            //}
+        var aux1 = document.getElementById("idTestigoPolicia");
+        var aux2 = document.getElementById("tipoTestigoSeleccionado");
+        var aux3 = document.getElementById("idTestigoPersona");
+        if (aux2.options[aux2.selectedIndex].innerText === "Policía") {
+            aux1.style.display = "block";
+            var elem = document.getElementById("cedulatestigo2");
+            elem.value = "";
+            aux3.style.display = "none";
+
+        }
+        if (aux2.options[aux2.selectedIndex].innerText === "Persona") {
+            var elem = document.getElementById("cedulatestigo1");
+            elem.value = "";
+            aux1.style.display = "none";
+            aux3.style.display = "block";
+        }
+        if (aux2.options[aux2.selectedIndex].innerText === "--Seleccione--") {
+            aux1.style.display = "none";
+            var elem = document.getElementById("cedulatestigo2");
+            elem.value = "";
+            aux3.style.display = "none"
+            var elem = document.getElementById("cedulatestigo1");
+            elem.value = "";
+        }
+    }
 </script>

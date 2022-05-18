@@ -12,13 +12,17 @@ namespace BackEnd
     using System;
     using System.Collections.Generic;
     
-    public partial class Persona
+    public partial class Personas
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Persona()
+        public Personas()
         {
-            this.ActasDeObservacionPolicials = new HashSet<ActasDeObservacionPolicial>();
-            this.PartesPoliciales = new HashSet<PartesPoliciale>();
+            this.ActasDeNotificacion = new HashSet<ActasDeNotificacion>();
+            this.ActasDeObservacionPolicial = new HashSet<ActasDeObservacionPolicial>();
+            this.ActasEntrega = new HashSet<ActasEntrega>();
+            this.ActasEntrega1 = new HashSet<ActasEntrega>();
+            this.ActasNotificacionVendedorAmbulante = new HashSet<ActasNotificacionVendedorAmbulante>();
+            this.PartesPoliciales = new HashSet<PartesPoliciales>();
         }
     
         public int idPersona { get; set; }
@@ -37,9 +41,17 @@ namespace BackEnd
         public string lugarTrabajoPersona { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ActasDeObservacionPolicial> ActasDeObservacionPolicials { get; set; }
+        public virtual ICollection<ActasDeNotificacion> ActasDeNotificacion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PartesPoliciale> PartesPoliciales { get; set; }
+        public virtual ICollection<ActasDeObservacionPolicial> ActasDeObservacionPolicial { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ActasEntrega> ActasEntrega { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ActasEntrega> ActasEntrega1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ActasNotificacionVendedorAmbulante> ActasNotificacionVendedorAmbulante { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PartesPoliciales> PartesPoliciales { get; set; }
         public virtual TablaGeneral TablaGeneral { get; set; }
         public virtual TablaGeneral TablaGeneral1 { get; set; }
         public virtual TablaGeneral TablaGeneral2 { get; set; }

@@ -1,0 +1,139 @@
+﻿@model FrontEnd.Models.ViewModels.ActaNotificacionVendedorAmbulanteViewModel
+
+@{ ViewBag.Title = "Detalle de Acta de Notificaciones a Vendedor Ambulante"; }
+
+
+<div class="container bg-light text-dark border" style=" height: auto; min-height: 80vh; padding-bottom: 20px; margin-bottom: 28px; word-wrap: break-word;">
+    <div class="row">
+        <div class="col-md-12">
+            <div style="text-align:center;">
+                <h2 class="display-4">@ViewBag.Title </h2>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <dl class="row">
+
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.NumeroFolio)
+        </dt>
+        <dd id="req" class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.NumeroFolio)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.VistaOficialActuante)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.VistaOficialActuante)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.VistaTipoTestigo)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.VistaTipoTestigo)
+        </dd>
+        @if (Model.VistaTestigo != null)
+        {
+            <dt class="col-sm-4 ">
+                @Html.LabelFor(d => d.VistaTestigo)
+            </dt>
+            <dd class="col-sm-8 ">
+                @Html.DisplayTextFor(d => d.VistaTestigo)
+            </dd>
+            <dt class="col-sm-4 ">
+                @Html.LabelFor(d => d.VistaIdTestigo)
+            </dt>
+            <dd class="col-sm-8 ">
+                @Html.DisplayTextFor(d => d.VistaIdTestigo)
+            </dd>
+        }
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.Fecha)
+        </dt>
+        <dd class="col-sm-8 ">
+            @{ var fecha = Model.Fecha.ToShortDateString(); }
+            @Html.DisplayTextFor(d => fecha)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.Hora)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.Hora.TimeOfDay)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.VistaPersonaNotificada)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.VistaPersonaNotificada)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.VistaTipoDistrito)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.VistaTipoDistrito)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.Caserio)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.Caserio)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.DireccionNotificacion)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.DireccionNotificacion)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.VistaFormaDeVenta)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.VistaFormaDeVenta)
+        </dd>
+        @if (Model.PlacaVehiculo != null)
+        {
+            <dt class="col-sm-4 ">
+                @Html.LabelFor(d => d.PlacaVehiculo)
+            </dt>
+            <dd class="col-sm-8 ">
+                @Html.DisplayTextFor(d => d.PlacaVehiculo)
+            </dd>
+        }
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.ActividadVenta)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.ActividadVenta)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.DireccionNotificado)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.DireccionNotificado)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.VistaEstadoActa)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayTextFor(d => d.VistaEstadoActa)
+        </dd>
+    </dl>
+    <hr />
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <a href="~/ActaNotificacionVendedorAmbulante/Index/" class="btn btn-outline-secondary">Regresar</a>
+
+            <div style="text-align:center;">
+                <a class="btn btn-primary" href="~/ActaNotificacionVendedorAmbulante/Editar/@Model.IdActaNotificacionVendedorAmbulante">Editar</a>
+                <a class="btn btn-secondary" href="~/Auditoria/ListadoActaNotificacionVendedorAmbulante/@Model.IdActaNotificacionVendedorAmbulante">Ver Auditorias</a>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>

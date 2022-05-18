@@ -13,6 +13,7 @@ namespace BackEnd.DAL
         void Edit(Requisitos requisito);
         void EliminaRequisito(Requisitos requisito);
         Requisitos GetRequisito(int idRequisito);
+        Requisitos GetRequisitoId(int id);
         List<Requisitos> GetRequisitosPortacion(int idPolicia, string detalle);
 
     }

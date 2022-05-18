@@ -60,14 +60,16 @@
         
                 <a class="btn btn-outline-secondary" onclick="history.go(-1);">Regresar</a>
  
-            <div style="text-align:center;">
-                <a class="btn btn-primary" href="~/Requisito/Editar/@Model.IdRequisito">Editar</a>
-                @if (Model.Imagen != null)
-                {
-                    <a class="btn btn-info" href="@Url.Content(Model.Imagen)" download="@Model.NombrePolicia - @Model.Detalles .pdf">Descargar Archivo Adjunto</a>
-                }
-                <a value="Eliminar" class="btn btn-danger" href="~/Requisito/Eliminar/@Model.IdRequisito" type="button" data-toggle="modal" data-target="#show4">Eliminar</a>
-            </div>
+                <div style="text-align:center;">
+                    <a class="btn btn-primary" href="~/Requisito/Editar/@Model.IdRequisito">Editar</a>
+                    @if (Model.Imagen != null)
+                    {
+                        <a class="btn btn-info" href="@Url.Content(Model.Imagen)" download="@Model.NombrePolicia - @Model.Detalles .pdf">Descargar Archivo Adjunto</a>
+                    }
+                    <a value="Eliminar" class="btn btn-danger" href="~/Requisito/Eliminar/@Model.IdRequisito" type="button" data-toggle="modal" data-target="#show4">Eliminar</a>
+                   
+                    <a class="btn btn-secondary" href="~/Auditoria/ListadoRequisito/@Model.IdRequisito">Ver Auditorias</a>
+                </div>
         </div>
         </div>
     <div class="modal" id="show4" tabindex="-1" role="dialog">

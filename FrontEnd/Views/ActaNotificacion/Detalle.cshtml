@@ -1,0 +1,125 @@
+﻿@model FrontEnd.Models.ViewModels.ActaNotificacionViewModel
+
+@{ ViewBag.Title = "Detalle de Acta de Notificación "; }
+
+
+<div class="container bg-light text-dark border" style=" height: auto; min-height: 80vh; padding-bottom: 20px; margin-bottom: 28px; word-wrap: break-word;">
+    <div class="row">
+        <div class="col-md-12">
+            <div style="text-align:center;">
+                <h2 class="display-4">@ViewBag.Title </h2>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <dl class="row">
+
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.NumeroFolio)
+        </dt>
+        <dd id="req" class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.NumeroFolio)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.VistaOficialActuante)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.VistaOficialActuante)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.VistaTipoTestigo)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.VistaTipoTestigo)
+        </dd>
+        @if (Model.VistaTestigo != null)
+        {
+            <dt class="col-sm-4 ">
+                @Html.LabelFor(d => d.VistaTestigo)
+            </dt>
+            <dd class="col-sm-8 ">
+                @Html.DisplayTextFor(d => d.VistaTestigo)
+            </dd>
+            <dt class="col-sm-4 ">
+                @Html.LabelFor(d => d.VistaIdTestigo)
+            </dt>
+            <dd class="col-sm-8 ">
+                @Html.DisplayTextFor(d => d.VistaIdTestigo)
+            </dd>
+        }
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.Fecha)
+        </dt>
+        <dd class="col-sm-8 ">
+            @{ var fecha = Model.Fecha.ToShortDateString(); }
+            @Html.DisplayTextFor(d => fecha)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.Hora)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.Hora.TimeOfDay)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.VistaPersonaNotificada)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.VistaPersonaNotificada)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.Notificado)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.Notificado)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.VistaDistrito)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.VistaDistrito)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.Barrio)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.Barrio)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.DireccionExactaProcedimiento)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.DireccionExactaProcedimiento)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.Disposiciones)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.Disposiciones)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.VistaEstadoActa)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayTextFor(d => d.VistaEstadoActa)
+        </dd>
+
+    </dl>
+    <hr />
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <a href="~/ActaNotificacion/Index/" class="btn btn-outline-secondary">Regresar</a>
+
+            <div style="text-align:center;">
+                <a class="btn btn-primary" href="~/ActaNotificacion/Editar/@Model.IdActaDeNotificacion">Editar</a>
+                <a class="btn btn-secondary" href="~/Auditoria/ListadoActaNotificacion/@Model.IdActaDeNotificacion">Ver Auditorias</a>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>

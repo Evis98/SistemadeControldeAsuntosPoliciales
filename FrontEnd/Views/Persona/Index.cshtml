@@ -18,14 +18,10 @@
 
         <div class="form-row">
             <div class="col-sm-3">
-                @Html.DropDownList("filtroSeleccionado", items, new { @class = "myselect form-control", @id = "filtroSeleccionado", @name = "filtroSeleccionado" })
+                @Html.DropDownList("filtrosSeleccionado", items, new { @class = "myselect form-control", @id = "filtroSeleccionado", @name = "filtroSeleccionado" })
                 <script>
                     document.getElementById("filtroSeleccionado").value = "Nombre";
-                </script>
-                @*<select class="form-control" name="filtroSeleccionado" id="filtroSeleccionado">
-                    <option>Nombre</option>
-                    <option>Cédula</option>
-                </select>*@
+                </script>            
             </div>
             <div class="col-sm-4">
                 <input class="form-control" name="busqueda" maxlength="150" type="text" id="busqueda" onkeyup="this.value = this.value.toUpperCase();" onkeypress="return  sololetrasnumeros(event)" />

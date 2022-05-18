@@ -12,29 +12,30 @@ namespace BackEnd
     using System;
     using System.Collections.Generic;
     
-    public partial class Policia
+    public partial class Policias
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Policia()
+        public Policias()
         {
-            this.ActasDecomisoes = new HashSet<ActasDecomiso>();
-            this.ActasDecomisoes1 = new HashSet<ActasDecomiso>();
-            this.ActasDecomisoes2 = new HashSet<ActasDecomiso>();
-            this.ActasDeDestruccionDePerecederos = new HashSet<ActasDeDestruccionDePerecedero>();
-            this.ActasDeDestruccionDePerecederos1 = new HashSet<ActasDeDestruccionDePerecedero>();
-            this.ActasDeDestruccionDePerecederos2 = new HashSet<ActasDeDestruccionDePerecedero>();
-            this.ActasDeObservacionPolicials = new HashSet<ActasDeObservacionPolicial>();
-            this.ActasDeObservacionPolicials1 = new HashSet<ActasDeObservacionPolicial>();
-            this.ActasEntregas = new HashSet<ActasEntrega>();
-            this.ActasEntregas1 = new HashSet<ActasEntrega>();
-            this.ActasEntregas2 = new HashSet<ActasEntrega>();
-            this.ActasEntregaPorOrdenDes = new HashSet<ActasEntregaPorOrdenDe>();
-            this.ActasEntregaPorOrdenDes1 = new HashSet<ActasEntregaPorOrdenDe>();
-            this.ActasHallazgoes = new HashSet<ActasHallazgo>();
-            this.ActasHallazgoes1 = new HashSet<ActasHallazgo>();
-            this.Bitacoras = new HashSet<Bitacora>();
-            this.Bitacoras1 = new HashSet<Bitacora>();
-            this.PartesPoliciales = new HashSet<PartesPoliciale>();
+            this.ActasDecomiso = new HashSet<ActasDecomiso>();
+            this.ActasDecomiso1 = new HashSet<ActasDecomiso>();
+            this.ActasDecomiso2 = new HashSet<ActasDecomiso>();
+            this.ActasDeDestruccionDePerecederos = new HashSet<ActasDeDestruccionDePerecederos>();
+            this.ActasDeDestruccionDePerecederos1 = new HashSet<ActasDeDestruccionDePerecederos>();
+            this.ActasDeDestruccionDePerecederos2 = new HashSet<ActasDeDestruccionDePerecederos>();
+            this.ActasDeNotificacion = new HashSet<ActasDeNotificacion>();
+            this.ActasDeObservacionPolicial = new HashSet<ActasDeObservacionPolicial>();
+            this.ActasDeObservacionPolicial1 = new HashSet<ActasDeObservacionPolicial>();
+            this.ActasEntrega = new HashSet<ActasEntrega>();
+            this.ActasEntrega1 = new HashSet<ActasEntrega>();
+            this.ActasEntregaPorOrdenDe = new HashSet<ActasEntregaPorOrdenDe>();
+            this.ActasEntregaPorOrdenDe1 = new HashSet<ActasEntregaPorOrdenDe>();
+            this.ActasHallazgo = new HashSet<ActasHallazgo>();
+            this.ActasHallazgo1 = new HashSet<ActasHallazgo>();
+            this.ActasNotificacionVendedorAmbulante = new HashSet<ActasNotificacionVendedorAmbulante>();
+            this.Bitacoras = new HashSet<Bitacoras>();
+            this.Bitacoras1 = new HashSet<Bitacoras>();
+            this.PartesPoliciales = new HashSet<PartesPoliciales>();
         }
     
         public int idPolicia { get; set; }
@@ -51,41 +52,43 @@ namespace BackEnd
         public int estado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ActasDecomiso> ActasDecomisoes { get; set; }
+        public virtual ICollection<ActasDecomiso> ActasDecomiso { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ActasDecomiso> ActasDecomisoes1 { get; set; }
+        public virtual ICollection<ActasDecomiso> ActasDecomiso1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ActasDecomiso> ActasDecomisoes2 { get; set; }
+        public virtual ICollection<ActasDecomiso> ActasDecomiso2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ActasDeDestruccionDePerecedero> ActasDeDestruccionDePerecederos { get; set; }
+        public virtual ICollection<ActasDeDestruccionDePerecederos> ActasDeDestruccionDePerecederos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ActasDeDestruccionDePerecedero> ActasDeDestruccionDePerecederos1 { get; set; }
+        public virtual ICollection<ActasDeDestruccionDePerecederos> ActasDeDestruccionDePerecederos1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ActasDeDestruccionDePerecedero> ActasDeDestruccionDePerecederos2 { get; set; }
+        public virtual ICollection<ActasDeDestruccionDePerecederos> ActasDeDestruccionDePerecederos2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ActasDeObservacionPolicial> ActasDeObservacionPolicials { get; set; }
+        public virtual ICollection<ActasDeNotificacion> ActasDeNotificacion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ActasDeObservacionPolicial> ActasDeObservacionPolicials1 { get; set; }
+        public virtual ICollection<ActasDeObservacionPolicial> ActasDeObservacionPolicial { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ActasEntrega> ActasEntregas { get; set; }
+        public virtual ICollection<ActasDeObservacionPolicial> ActasDeObservacionPolicial1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ActasEntrega> ActasEntregas1 { get; set; }
+        public virtual ICollection<ActasEntrega> ActasEntrega { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ActasEntrega> ActasEntregas2 { get; set; }
+        public virtual ICollection<ActasEntrega> ActasEntrega1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ActasEntregaPorOrdenDe> ActasEntregaPorOrdenDes { get; set; }
+        public virtual ICollection<ActasEntregaPorOrdenDe> ActasEntregaPorOrdenDe { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ActasEntregaPorOrdenDe> ActasEntregaPorOrdenDes1 { get; set; }
+        public virtual ICollection<ActasEntregaPorOrdenDe> ActasEntregaPorOrdenDe1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ActasHallazgo> ActasHallazgoes { get; set; }
+        public virtual ICollection<ActasHallazgo> ActasHallazgo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ActasHallazgo> ActasHallazgoes1 { get; set; }
+        public virtual ICollection<ActasHallazgo> ActasHallazgo1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Bitacora> Bitacoras { get; set; }
+        public virtual ICollection<ActasNotificacionVendedorAmbulante> ActasNotificacionVendedorAmbulante { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Bitacora> Bitacoras1 { get; set; }
+        public virtual ICollection<Bitacoras> Bitacoras { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PartesPoliciale> PartesPoliciales { get; set; }
+        public virtual ICollection<Bitacoras> Bitacoras1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PartesPoliciales> PartesPoliciales { get; set; }
         public virtual TablaGeneral TablaGeneral { get; set; }
         public virtual TablaGeneral TablaGeneral1 { get; set; }
     }

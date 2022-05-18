@@ -165,7 +165,56 @@ for (i = 0; i < document.querySelectorAll('.inputphone').length; i++) {
 		backspacerUP(this, e);
 	}
 }
+if (document.getElementById("idTipoTestigo") != null) {
+	window.addEventListener("load", function () {
+		var tipoRequisito = document.getElementById("idTipoTestigo")
+		var tipoSeleccion = tipoRequisito.value;
+		if (tipoSeleccion == 1) {
+			document.getElementById("idOficialTestigoCampo").style.display = 'block';
+			document.getElementById("idPersonaTestigoCampo").style.display = 'none';
+		} else if (tipoSeleccion == 2) {
+			document.getElementById("idOficialTestigoCampo").style.display = 'none';
+			document.getElementById("idPersonaTestigoCampo").style.display = 'block';
+		} else {
+			document.getElementById("idOficialTestigoCampo").style.display = 'none';
+			document.getElementById("idPersonaTestigoCampo").style.display = 'none';
+		}
+	})
+	document.getElementById("idTipoTestigo").addEventListener("change", function () {
+		var tipoRequisito = document.getElementById("idTipoTestigo")
+		var tipoSeleccion = tipoRequisito.value;
+		if (tipoSeleccion == 1) {
+			document.getElementById("idOficialTestigoCampo").style.display = 'block';
+			document.getElementById("idPersonaTestigoCampo").style.display = 'none';
+		} else if (tipoSeleccion == 2) {
+			document.getElementById("idOficialTestigoCampo").style.display = 'none';
+			document.getElementById("idPersonaTestigoCampo").style.display = 'block';
+		}
+		else {
+			document.getElementById("idOficialTestigoCampo").style.display = 'none';
+			document.getElementById("idPersonaTestigoCampo").style.display = 'none';
+		}
+	});
+}
 
+if (document.getElementById("idFormaDeVenta") != null) {
+	window.addEventListener("load", function () {
+		var tipoRequisito = document.getElementById("idFormaDeVenta")
+		var tipoSeleccion = tipoRequisito.value;
+		if (tipoSeleccion == 1) {
+			document.getElementById("placaVehiculo").style.display = 'block';
+		}
+	})
+	document.getElementById("idFormaDeVenta").addEventListener("change", function () {
+		var tipoRequisito = document.getElementById("idFormaDeVenta")
+		var tipoSeleccion = tipoRequisito.value;
+		if (tipoSeleccion == 1) {
+			document.getElementById("placaVehiculo").style.display = 'block';
+		} else {
+			document.getElementById("placaVehiculo").style.display = 'none';
+		}
+	});
+}
 if (document.getElementById("TipoRequisito") != null) {
 	document.getElementById("TipoRequisito").addEventListener("change", function () {
 		var tipoRequisito = document.getElementById("TipoRequisito")

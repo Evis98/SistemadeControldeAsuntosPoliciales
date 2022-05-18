@@ -1,0 +1,21 @@
+﻿@model List<FrontEnd.Models.ViewModels.PersonaViewModel>
+
+<table class="table">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">Cédula</th>
+            <th scope="col">Nombre</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@Html.DisplayFor(modelItem => item.Identificacion)</th>
+                <td>
+                    <label><a href="#" onclick="reply_click4(this.id)" id="@item.Identificacion"> @item.NombrePersona</a></label>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

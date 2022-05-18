@@ -118,9 +118,7 @@
         <dd class="col-sm-8 ">
             @Html.DisplayTextFor(d => d.VistaEstadoActa)
         </dd>
-        <dd class="col-sm-8">
-            <a class="btn btn-sm btn-warning" data-toggle="modal" data-target="#show3">Cambiar Estado</a>
-        </dd>
+        
     </dl>
     <hr />
 
@@ -131,13 +129,13 @@
 
             <div style="text-align:center;">
                 <a class="btn btn-primary" href="~/ActaEntregaPorOrdenDe/Editar/@Model.IdActaEntregaPorOrdenDe">Editar</a>
-
+                <a class="btn btn-secondary" href="~/Auditoria/ListadoActaEntregaPorOrdenDe/@Model.IdActaEntregaPorOrdenDe">Ver Auditorias</a>
             </div>
         </div>
 
     </div>
 
-    <div class="modal" id="show3" tabindex="-1" role="dialog">
+    @*<div class="modal" id="show3" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -155,7 +153,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>*@
 
 
 </div>

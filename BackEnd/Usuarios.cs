@@ -12,18 +12,22 @@ namespace BackEnd
     using System;
     using System.Collections.Generic;
     
-    public partial class Role
+    public partial class Usuarios
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Role()
+        public Usuarios()
         {
-            this.RolesUsuarios = new HashSet<RolesUsuario>();
+            this.Auditorias = new HashSet<Auditorias>();
+            this.RolesUsuarios = new HashSet<RolesUsuarios>();
         }
     
-        public int idRol { get; set; }
-        public string descripcion { get; set; }
+        public int idUsuario { get; set; }
+        public string nombre { get; set; }
+        public string login { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RolesUsuario> RolesUsuarios { get; set; }
+        public virtual ICollection<Auditorias> Auditorias { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RolesUsuarios> RolesUsuarios { get; set; }
     }
 }

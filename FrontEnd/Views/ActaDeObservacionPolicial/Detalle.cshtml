@@ -81,15 +81,12 @@
                 @Html.DisplayTextFor(d => d.Observaciones)
             </dd>
         }
-        @*<dt class="col-sm-4">
-            @Html.LabelFor(d => d.VistaEstadoActa)
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.VistaTipoEstado)
         </dt>
         <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.VistaEstadoActa)
-        </dd>
-        <dd class="col-sm-8">
-            <a class="btn btn-sm btn-warning" data-toggle="modal" data-target="#show3">Cambiar Estado</a>
-        </dd>*@
+            @Html.DisplayTextFor(d => d.VistaTipoEstado)
+        </dd>   
 
 
     </dl>
@@ -102,7 +99,7 @@
 
             <div style="text-align:center;">
                 <a class="btn btn-primary" href="~/ActaDeObservacionPolicial/Editar/@Model.IdActaDeObservacionPolicial">Editar</a>
-
+                <a class="btn btn-secondary" href="~/Auditoria/ListadoActaDeObservacionPolicial/@Model.IdActaDeObservacionPolicial">Ver Auditorias</a>
             </div>
         </div>
 

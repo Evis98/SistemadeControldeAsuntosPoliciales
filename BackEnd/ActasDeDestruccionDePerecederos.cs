@@ -12,7 +12,7 @@ namespace BackEnd
     using System;
     using System.Collections.Generic;
     
-    public partial class ActasDeDestruccionDePerecedero
+    public partial class ActasDeDestruccionDePerecederos
     {
         public int idActaDeDestruccionDePerecederos { get; set; }
         public string numeroFolio { get; set; }
@@ -23,10 +23,12 @@ namespace BackEnd
         public int tipoActaD { get; set; }
         public string consecutivoActa { get; set; }
         public string inventarioDestruido { get; set; }
+        public int estado { get; set; }
     
-        public virtual Policia Policia { get; set; }
-        public virtual Policia Policia1 { get; set; }
-        public virtual Policia Policia2 { get; set; }
+        public virtual Policias Policias { get; set; }
         public virtual TablaGeneral TablaGeneral { get; set; }
+        public virtual Policias Policias1 { get; set; }
+        public virtual Policias Policias2 { get; set; }
+        public virtual TablaGeneral TablaGeneral1 { get; set; }
     }
 }

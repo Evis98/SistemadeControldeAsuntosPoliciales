@@ -15,7 +15,9 @@ namespace FrontEnd.Controllers
         IActaDeObservacionPolicialDAL actaDeObservacionPolicialDAL;
         IPoliciaDAL policiaDAL;
         IPersonaDAL personaDAL;
-
+        IAuditoriaDAL auditoriaDAL;
+        IUsuarioDAL usuarioDAL;
+     
         public ActasDeObservacionPolicial ConvertirActaDeObservacionPolicial(ActaDeObservacionPolicialViewModel modelo)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
@@ -33,7 +35,7 @@ namespace FrontEnd.Controllers
                 observaciones = modelo.Observaciones,
                 oficialAcompanante = policiaDAL.GetPoliciaCedula(modelo.OficialAcompanante).idPolicia,
                 oficialActuante = policiaDAL.GetPoliciaCedula(modelo.OficialActuante).idPolicia,
-               //estadoActa = tablaGeneralDAL.GetCodigo("Actas", "estadoActa", "1").idTablaGeneral,
+                estado = tablaGeneralDAL.GetCodigo("Actas", "estadoActa", modelo.Estado.ToString()).idTablaGeneral,
             };
         }
         public ActaDeObservacionPolicialViewModel CargarActaDeObservacionPolicial(ActasDeObservacionPolicial actaDeObservacionPolicial)
@@ -55,8 +57,8 @@ namespace FrontEnd.Controllers
                 CondicionInteresado = actaDeObservacionPolicial.condicion,
                 Direccion = actaDeObservacionPolicial.direccion,
                 Observaciones = actaDeObservacionPolicial.observaciones,
-                //EstadoActa = actaDeObservacionPolicial.estadoActa,
-                //VistaEstadoActa = tablaGeneralDAL.Get(actaDeObservacionPolicial.estadoActa).descripcion,
+                Estado = int.Parse(tablaGeneralDAL.Get(actaDeObservacionPolicial.estado).codigo),
+                VistaTipoEstado = tablaGeneralDAL.Get(actaDeObservacionPolicial.estado).descripcion,
                 VistaOficialAcompanante = policiaDAL.GetPolicia(actaDeObservacionPolicial.oficialAcompanante).nombre,
                 VistaOficialActuante = policiaDAL.GetPolicia(actaDeObservacionPolicial.oficialActuante).nombre,
                 VistaPersonaInteresada = personaDAL.GetPersona(actaDeObservacionPolicial.idInteresado).nombre,
@@ -205,9 +207,8 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             ActaDeObservacionPolicialViewModel modelo = new ActaDeObservacionPolicialViewModel()
             {
-                Distritos = tablaGeneralDAL.Get("Generales", "distrito").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
-                Fecha = DateTime.Today
-
+            Distritos = tablaGeneralDAL.Get("Generales", "distrito").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
+            Fecha = DateTime.Today
             };
             return View(modelo);
         }
@@ -217,15 +218,23 @@ namespace FrontEnd.Controllers
         {
             actaDeObservacionPolicialDAL = new ActaDeObservacionPolicialDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
+            auditoriaDAL = new AuditoriaDAL();
+            usuarioDAL = new UsuarioDAL();
             model.Distritos = tablaGeneralDAL.Get("Generales", "distrito").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             model.NumeroFolio = (actaDeObservacionPolicialDAL.GetCount() + 1).ToString() + "-" + DateTime.Now.Year;
             DateTime newDateTime = model.Fecha.Date + model.Hora.TimeOfDay;
             model.Fecha = newDateTime;
+            model.Estado = int.Parse(tablaGeneralDAL.GetCodigo("Actas", "estadoActa", "1").codigo);
+            model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
+            model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "8").idTablaGeneral;
+            model.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario;
             try
             {
                 if (ModelState.IsValid)
                 {
                     actaDeObservacionPolicialDAL.Add(ConvertirActaDeObservacionPolicial(model));
+                    model.IdElemento = actaDeObservacionPolicialDAL.GetActaDeObservacionPolicialFolio(model.NumeroFolio).idActaDeObservacionPolicial;
+                    auditoriaDAL.Add(ConvertirAuditoria(model));
                     int aux = actaDeObservacionPolicialDAL.GetActaDeObservacionPolicialFolio(model.NumeroFolio).idActaDeObservacionPolicial;
                     return Redirect("~/ActaDeObservacionPolicial/Detalle/" + aux);
 
@@ -240,8 +249,9 @@ namespace FrontEnd.Controllers
         }
         public ActionResult Detalle(int id)
         {
-            Session["idDeObservacionPolicial"] = id;
             actaDeObservacionPolicialDAL = new ActaDeObservacionPolicialDAL();
+            Session["idActaDeObservacionPolicial"] = id;
+            Session["numeroFolio"] = actaDeObservacionPolicialDAL.GetActaDeObservacionPolicial(id).numeroFolio;           
             ActaDeObservacionPolicialViewModel modelo = CargarActaDeObservacionPolicial(actaDeObservacionPolicialDAL.GetActaDeObservacionPolicial(id));
             return View(modelo);
         }
@@ -253,6 +263,7 @@ namespace FrontEnd.Controllers
             actaDeObservacionPolicialDAL = new ActaDeObservacionPolicialDAL();
             ActaDeObservacionPolicialViewModel modelo = CargarActaDeObservacionPolicial(actaDeObservacionPolicialDAL.GetActaDeObservacionPolicial(id));
             modelo.Distritos = tablaGeneralDAL.Get("Generales", "distrito").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            modelo.Estados = tablaGeneralDAL.Get("Actas", "estadoActa").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             return View(modelo);
         }
 
@@ -261,14 +272,27 @@ namespace FrontEnd.Controllers
         {
             actaDeObservacionPolicialDAL = new ActaDeObservacionPolicialDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
+            auditoriaDAL = new AuditoriaDAL();
+            usuarioDAL = new UsuarioDAL();
             model.Distritos = tablaGeneralDAL.Get("Generales", "distrito").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            model.Estados = tablaGeneralDAL.Get("Actas", "estadoActa").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             DateTime newDateTime = model.Fecha.Date + model.Hora.TimeOfDay;
             model.Fecha = newDateTime;
+            model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
+            model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "8").idTablaGeneral;
+            model.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario;
+            int estado = actaDeObservacionPolicialDAL.GetActaDeObservacionPolicial(model.IdActaDeObservacionPolicial).estado;
             try
             {
                 if (ModelState.IsValid)
                 {
+                    if (tablaGeneralDAL.GetCodigo("Actas", "estadoActa", model.Estado.ToString()).idTablaGeneral != estado && model.IdActaDeObservacionPolicial != 0)
+                    {
+                        auditoriaDAL.Add(CambiarEstadoAuditoria(model.IdActaDeObservacionPolicial));
+                    }
                     actaDeObservacionPolicialDAL.Edit(ConvertirActaDeObservacionPolicial(model));
+                    model.IdElemento = actaDeObservacionPolicialDAL.GetActaDeObservacionPolicialFolio(model.NumeroFolio).idActaDeObservacionPolicial;
+                    auditoriaDAL.Add(ConvertirAuditoria(model));
                     return Redirect("~/ActaDeObservacionPolicial/Detalle/" + model.IdActaDeObservacionPolicial);
                 }
                 return View(model);
@@ -278,30 +302,40 @@ namespace FrontEnd.Controllers
                 throw new Exception(ex.Message);
             }
         }
-        //public ActionResult CambioEstadoActa(int id)
-        //{
-        //    int estado;
-        //    actaDecomisoDAL = new ActaDecomisoDAL();
-        //    tablaGeneralDAL = new TablaGeneralDAL();
-        //    try
-        //    {
-        //        if (tablaGeneralDAL.Get((int)id).descripcion == "Activa")
-        //        {
-        //            estado = tablaGeneralDAL.Get("Actas", "estadoActa", "Inactiva").idTablaGeneral;
-        //        }
-        //        else
-        //        {
-        //            estado = tablaGeneralDAL.Get("Actas", "estadoActa", "Activa").idTablaGeneral;
-        //        }
-        //        actaDecomisoDAL.CambiaEstadoActa((int)Session["idActaDecomiso"], estado);
-        //        return Redirect("~/ActaDecomiso/Detalle/" + Session["idActaDecomiso"]);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception(ex.Message);
-        //    }
-        //}
+      
+        public Auditorias ConvertirAuditoria(ActaDeObservacionPolicialViewModel modelo)
+        {
+            tablaGeneralDAL = new TablaGeneralDAL();
+            actaDeObservacionPolicialDAL = new ActaDeObservacionPolicialDAL();
+            return new Auditorias
+            {
+                idAuditoria = modelo.IdAuditoria,
+                idCategoria = modelo.IdCategoria,
+                idElemento = modelo.IdElemento,
+                fecha = DateTime.Now,
+                accion = modelo.Accion,
+                idUsuario = modelo.IdUsuario,
+            };
+        }
 
+        public Auditorias CambiarEstadoAuditoria(int idActaDeObservacionPolicial)
+        {
+            ActaHallazgoViewModel modelo = new ActaHallazgoViewModel();
+            tablaGeneralDAL = new TablaGeneralDAL();
+            actaDeObservacionPolicialDAL = new ActaDeObservacionPolicialDAL();
+            usuarioDAL = new UsuarioDAL();
+            auditoriaDAL = new AuditoriaDAL();
+            return new Auditorias
+            {
+                idAuditoria = modelo.IdAuditoria,
+                accion = modelo.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "3").idTablaGeneral,
+                idCategoria = modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "8").idTablaGeneral,
+                idUsuario = modelo.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario,
+                fecha = DateTime.Now,
+                idElemento = actaDeObservacionPolicialDAL.GetActaDeObservacionPolicial(idActaDeObservacionPolicial).idActaDeObservacionPolicial
+
+            };
+        }
 
     }
 }

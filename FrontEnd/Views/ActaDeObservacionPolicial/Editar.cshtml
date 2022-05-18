@@ -43,18 +43,18 @@
 
             <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.Distrito)
-                @Html.DropDownListFor(d => d.Distrito, Model.Distritos, "--Seleccione--", new { @class = "myselect form-control" })
+                @Html.DropDownListFor(d => d.Distrito, Model.Distritos,  new { @class = "myselect form-control" })
                 @Html.ValidationMessageFor(d => d.Distrito, null, new { @class = "red" })
             </div>
 
         </div>
         <div class="form-row">
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-2">
                 @Html.LabelFor(d => d.Fecha)
                 @Html.EditorFor(d => d.Fecha, "", new { @class = "form-control" })
                 @Html.ValidationMessageFor(d => d.Fecha, null, new { @class = "red" })
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-2">
                 @Html.LabelFor(d => d.Hora)
                 @Html.EditorFor(d => d.Hora, "", new { @class = "form-control" })
                 @Html.ValidationMessageFor(d => d.Hora, null, new { @class = "red" })
@@ -69,7 +69,11 @@
                 </div>
                 @Html.ValidationMessageFor(d => d.IdInteresado, null, new { @class = "red" })
             </div>
-
+            <div class="form-group col-md-4">
+                @Html.LabelFor(d => d.Estado)
+                @Html.DropDownListFor(d => d.Estado, Model.Estados,  new { @class = "myselect form-control" })
+                @Html.ValidationMessageFor(d => d.Estado, null, new { @class = "red" })
+            </div>
 
         </div>
         <div class="form-row">
@@ -87,6 +91,8 @@
         </div>
 
         <div class="form-row">
+
+
             <div class="form-group col-md-12">
                 @Html.LabelFor(d => d.Observaciones)
                 @Html.TextAreaFor(d => d.Observaciones, new { @class = "form-control", autocomplete = "new-password", onkeyup = "this.value = this.value.toUpperCase();" })

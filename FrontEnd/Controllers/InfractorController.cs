@@ -14,6 +14,8 @@ namespace FrontEnd.Controllers
     {
         IInfractorDAL infractorDAL;
         ITablaGeneralDAL tablaGeneralDAL;
+        IAuditoriaDAL auditoriaDAL;
+        IUsuarioDAL usuarioDAL;
         public Infractores ConvertirInfractor(InfractorViewModel modelo)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
@@ -161,7 +163,12 @@ namespace FrontEnd.Controllers
         {
             infractorDAL = new InfractorDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
+            usuarioDAL = new UsuarioDAL();
+            auditoriaDAL = new AuditoriaDAL();
             model.CedulaFiltrada = infractorDAL.GetCedulaInfractor(model.Identificacion);
+            model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
+            model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "3").idTablaGeneral;
+            model.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario;
             try
             {
                 if (!infractorDAL.IdentificacionExiste(model.Identificacion))
@@ -195,6 +202,8 @@ namespace FrontEnd.Controllers
                         }
 
                         infractorDAL.Add(infractor);
+                        model.IdElemento = infractorDAL.GetInfractorIdentificacion(model.Identificacion).idInfractor;
+                        auditoriaDAL.Add(ConvertirAuditoria(model));
                         int aux = infractorDAL.GetInfractorIdentificacion(model.Identificacion).idInfractor;
                         return Redirect("~/Infractor/Detalle/" + aux);
                     }
@@ -214,8 +223,10 @@ namespace FrontEnd.Controllers
         //Muestra la información detallada de un policía
         public ActionResult Detalle(int id)
         {
-            Session["idPolicia"] = id;
-            infractorDAL = new InfractorDAL();
+          
+            infractorDAL = new InfractorDAL();  
+            Session["idInfractor"] = id;
+            Session["nombreInfractor"] = infractorDAL.GetInfractor(id).nombreCompleto;
             InfractorViewModel modelo = CargarInfractor(infractorDAL.GetInfractor(id));
             modelo.Edad = ObtenerEdad(modelo.FechaNacimiento);
             return View(modelo);
@@ -238,9 +249,14 @@ namespace FrontEnd.Controllers
         {
             infractorDAL = new InfractorDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
+            usuarioDAL = new UsuarioDAL();
+            auditoriaDAL = new AuditoriaDAL();
             model.Nacionalidades = tablaGeneralDAL.Get("Generales", "nacionalidad").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             model.TiposDeIdentificacion = tablaGeneralDAL.Get("Generales", "tipoDeIdentificacion").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             model.TiposDeSexo = tablaGeneralDAL.Get("Generales", "sexo").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
+            model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "3").idTablaGeneral;
+            model.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario;
             try
             {
                 if (ModelState.IsValid)
@@ -274,7 +290,10 @@ namespace FrontEnd.Controllers
                     {
                         infractor.imagen = model.Imagen;
                     }
-                    infractorDAL.Edit(infractor);                   
+                   
+                    infractorDAL.Edit(infractor);
+                    model.IdElemento = infractorDAL.GetInfractorIdentificacion(model.Identificacion).idInfractor;
+                    auditoriaDAL.Add(ConvertirAuditoria(model));
                     return Redirect("~/Infractor/Detalle/" + model.IdInfractor);
                 }
                 return View(model);
@@ -284,6 +303,22 @@ namespace FrontEnd.Controllers
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        public Auditorias ConvertirAuditoria(InfractorViewModel modelo)
+        {
+            tablaGeneralDAL = new TablaGeneralDAL();
+            infractorDAL = new InfractorDAL();
+            return new Auditorias
+            {
+                idAuditoria = modelo.IdAuditoria,
+                idCategoria = modelo.IdCategoria,
+                idElemento = modelo.IdElemento,
+                fecha = DateTime.Now,
+                accion = modelo.Accion,
+                idUsuario = modelo.IdUsuario,
+
+            };
         }
     }
 

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace FrontEnd.Models.ViewModels
 {
-    public class ListParte1ViewModel
+    public class ListParte1ViewModel : AuditoriaViewModel
     {
         public int IdParte { get; set; }
         [Display(Name = "Número de Folio")]
@@ -135,6 +135,17 @@ namespace FrontEnd.Models.ViewModels
         [Display(Name = "Hora de Confección")]
         [DisplayFormat(DataFormatString = "{0:HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime HoraConfeccionDocumento { get; set; }
+        public int IdAuditoria { get; set; }
+        public int IdCategoria { get; set; }
+        public string VistaCategoria { get; set; }
+        public int IdElemento { get; set; }
+        public string VistaElemento { get; set; }
+        public DateTime FechaParte { get; set; }
+        public int Accion { get; set; }
+        public string VistaAccion { get; set; }
+        public int IdUsuario { get; set; }
+        public string VistaUsuario { get; set; }
+
 
     }
 }

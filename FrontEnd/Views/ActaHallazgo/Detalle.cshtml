@@ -101,9 +101,9 @@
         <dd class="col-sm-8">
             @Html.DisplayTextFor(d => d.VistaEstadoActa)
         </dd>
-        <dd class="col-sm-8">
+        @*<dd class="col-sm-8">
             <a class="btn btn-sm btn-warning" data-toggle="modal" data-target="#show3">Cambiar Estado</a>
-        </dd>
+        </dd>*@
 
 
     </dl>
@@ -116,7 +116,7 @@
 
             <div style="text-align:center;">
                 <a class="btn btn-primary" href="~/ActaHallazgo/Editar/@Model.IdActaHallazgo">Editar</a>
-
+                <a class="btn btn-secondary" href="~/Auditoria/ListadoActaHallazgo/@Model.IdActaHallazgo">Ver Auditorias</a>
             </div>
         </div>
 
@@ -125,7 +125,7 @@
 
 </div>
 
-<div class="modal" id="show3" tabindex="-1" role="dialog">
+@*<div class="modal" id="show3" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -139,8 +139,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-danger" id="Cancel" data-dismiss="modal">Cancelar</button>
-                <a class="btn btn-primary" id="Save" href="~/ActaHallazgo/CambioEstadoActa/@Model.EstadoActa">Modificar</a>
+                <a class="btn btn-primary" id="Save" href="~/ActaHallazgo/CambioEstadoActa/@Model.Estado">Modificar</a>
             </div>
         </div>
     </div>
-</div>
+</div>*@

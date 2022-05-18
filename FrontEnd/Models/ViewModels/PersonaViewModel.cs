@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace FrontEnd.Models.ViewModels
 {
-    public class PersonaViewModel
+    public class PersonaViewModel : AuditoriaViewModel
     {
         public int IdPersona { get; set; }
         [Required]
@@ -62,6 +62,17 @@ namespace FrontEnd.Models.ViewModels
         [StringLength(100, ErrorMessage = "Lugar de trabajo excede la cantidad maxima de caractéres")]
         [Display(Name = "Lugar de Trabajo (Opcional)")]
         public string LugarTrabajoPersona { get; set; }
+        public int IdAuditoria { get; set; }
+        public int IdCategoria { get; set; }
+        public string VistaCategoria { get; set; }
+        public int IdElemento { get; set; }
+        public string VistaElemento { get; set; }
+        public DateTime Fecha { get; set; }
+        public int Accion { get; set; }
+        public string VistaAccion { get; set; }
+        public int IdUsuario { get; set; }
+        public string VistaUsuario { get; set; }
+        public string Justificacion { get; set; }
         public IEnumerable<SelectListItem> TiposDeIdentificacion { get; set; }
         public IEnumerable<SelectListItem> TiposDeSexo { get; set; }
         public IEnumerable<SelectListItem> Nacionalidades { get; set; }

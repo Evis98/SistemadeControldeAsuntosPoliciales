@@ -17,23 +17,22 @@ namespace BackEnd
         public int idActaEntrega { get; set; }
         public string numeroFolio { get; set; }
         public int encargado { get; set; }
-        public int testigo { get; set; }
+        public Nullable<int> testigo { get; set; }
         public int supervisor { get; set; }
-        public string instalaciones { get; set; }
         public System.DateTime fechaHora { get; set; }
-        public string razonSocial { get; set; }
-        public string cedulaJuridica { get; set; }
+        public Nullable<int> razonSocial { get; set; }
+        public int recibe { get; set; }
         public int tipoActa { get; set; }
+        public Nullable<int> tipoTestigo { get; set; }
+        public int estado { get; set; }
         public string consecutivoActa { get; set; }
-        public string nombreDe { get; set; }
-        public string identificacionEntregado { get; set; }
-        public string recibe { get; set; }
-        public string cedulaRecibe { get; set; }
         public string inventarioEntregado { get; set; }
     
-        public virtual Policia Policia { get; set; }
-        public virtual Policia Policia1 { get; set; }
-        public virtual Policia Policia2 { get; set; }
+        public virtual Policias Policias { get; set; }
         public virtual TablaGeneral TablaGeneral { get; set; }
+        public virtual Personas Personas { get; set; }
+        public virtual Personas Personas1 { get; set; }
+        public virtual Policias Policias1 { get; set; }
+        public virtual TablaGeneral TablaGeneral1 { get; set; }
     }
 }

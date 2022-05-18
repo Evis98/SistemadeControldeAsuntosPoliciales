@@ -58,7 +58,10 @@
     <Compile Include="ActasDecomiso.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
-    <Compile Include="ActasDeDestruccionDePerecedero.cs">
+    <Compile Include="ActasDeDestruccionDePerecederos.cs">
+      <DependentUpon>DBSCAP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ActasDeNotificacion.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
     <Compile Include="ActasDeObservacionPolicial.cs">
@@ -73,26 +76,38 @@
     <Compile Include="ActasHallazgo.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
-    <Compile Include="Arma.cs">
+    <Compile Include="ActasNotificacionVendedorAmbulante.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
-    <Compile Include="Bitacora.cs">
+    <Compile Include="Armas.cs">
+      <DependentUpon>DBSCAP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Auditorias.cs">
+      <DependentUpon>DBSCAP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Bitacoras.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\ActaDecomisoDAL.cs" />
     <Compile Include="DAL\ActaDeDestruccionDePerecederosDAL.cs" />
+    <Compile Include="DAL\ActaDeNotificacionDAL.cs" />
     <Compile Include="DAL\ActaDeObservacionPolicialDAL.cs" />
     <Compile Include="DAL\ActaEntregaDAL.cs" />
     <Compile Include="DAL\ActaEntregaPorOrdenDeDAL.cs" />
     <Compile Include="DAL\ActaHallazgoDAL.cs" />
+    <Compile Include="DAL\ActaNotificacionVendedorAmbulanteDAL.cs" />
     <Compile Include="DAL\ArmaDAL.cs" />
+    <Compile Include="DAL\AuditoriaDAL.cs" />
     <Compile Include="DAL\BitacoraDAL.cs" />
     <Compile Include="DAL\IActaDecomisoDAL.cs" />
     <Compile Include="DAL\IActaDeDestruccionDePerecederosDAL.cs" />
+    <Compile Include="DAL\IActaDeNotificacionDAL.cs" />
     <Compile Include="DAL\IActaDeObservacionPolicialDAL.cs" />
     <Compile Include="DAL\IActaEntregaDAL.cs" />
     <Compile Include="DAL\IActaEntregaPorOrdenDeDAL.cs" />
     <Compile Include="DAL\IActaHallazgoDAL.cs" />
+    <Compile Include="DAL\IActaNotificacionVendedorAmbulanteDAL.cs" />
+    <Compile Include="DAL\IAuditoriaDAL.cs" />
     <Compile Include="DAL\IArmaDAL.cs" />
     <Compile Include="DAL\IBitacoraDAL.cs" />
     <Compile Include="DAL\IInfractorDAL.cs" />
@@ -124,33 +139,33 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DBSCAP.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Infractore.cs">
+    <Compile Include="Infractores.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
-    <Compile Include="PartesPoliciale.cs">
+    <Compile Include="PartesPoliciales.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
-    <Compile Include="Persona.cs">
+    <Compile Include="Personas.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
-    <Compile Include="Policia.cs">
+    <Compile Include="Policias.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Requisito.cs">
+    <Compile Include="Requisitos.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
-    <Compile Include="Role.cs">
+    <Compile Include="Roles.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
-    <Compile Include="RolesUsuario.cs">
+    <Compile Include="RolesUsuarios.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
     <Compile Include="TablaGeneral.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
-    <Compile Include="Usuario.cs">
+    <Compile Include="Usuarios.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
   </ItemGroup>

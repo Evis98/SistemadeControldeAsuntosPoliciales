@@ -12,16 +12,18 @@ namespace BackEnd
     using System;
     using System.Collections.Generic;
     
-    public partial class Requisito
+    public partial class Auditorias
     {
-        public int idRequisito { get; set; }
-        public string detalles { get; set; }
-        public Nullable<System.DateTime> fechaVencimiento { get; set; }
-        public int idPolicia { get; set; }
-        public int tipoRequisito { get; set; }
-        public string imagen { get; set; }
+        public int idAuditoria { get; set; }
+        public int idCategoria { get; set; }
+        public int idElemento { get; set; }
+        public System.DateTime fecha { get; set; }
+        public int accion { get; set; }
+        public string justificacion { get; set; }
+        public int idUsuario { get; set; }
     
         public virtual TablaGeneral TablaGeneral { get; set; }
         public virtual TablaGeneral TablaGeneral1 { get; set; }
+        public virtual Usuarios Usuarios { get; set; }
     }
 }

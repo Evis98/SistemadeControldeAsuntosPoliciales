@@ -70,6 +70,23 @@ namespace BackEnd.DAL
             }
         }
 
+        public Requisitos GetRequisitoId(int id)
+        {
+            try
+            {
+                Requisitos resultado;
+                using (SCAPEntities db = new SCAPEntities())
+                {
+                    resultado = db.Requisitos.Where(x => x.idRequisito == id).FirstOrDefault();
+                }
+                return resultado;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public List<Requisitos> GetRequisitosPortacion(int idPolicia,string detalle)
         {
             DateTime fecha = DateTime.Now;

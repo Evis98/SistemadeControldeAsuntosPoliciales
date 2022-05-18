@@ -12,12 +12,12 @@ namespace BackEnd
     using System;
     using System.Collections.Generic;
     
-    public partial class Arma
+    public partial class Armas
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Arma()
+        public Armas()
         {
-            this.Bitacoras = new HashSet<Bitacora>();
+            this.Bitacoras = new HashSet<Bitacoras>();
         }
     
         public int idArma { get; set; }
@@ -36,7 +36,7 @@ namespace BackEnd
         public virtual TablaGeneral TablaGeneral1 { get; set; }
         public virtual TablaGeneral TablaGeneral2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Bitacora> Bitacoras { get; set; }
+        public virtual ICollection<Bitacoras> Bitacoras { get; set; }
         public virtual TablaGeneral TablaGeneral3 { get; set; }
         public virtual TablaGeneral TablaGeneral4 { get; set; }
         public virtual TablaGeneral TablaGeneral5 { get; set; }

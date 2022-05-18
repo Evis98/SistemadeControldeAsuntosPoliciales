@@ -24,10 +24,12 @@ namespace BackEnd
         public string condicion { get; set; }
         public string observaciones { get; set; }
         public string direccion { get; set; }
+        public int estado { get; set; }
     
-        public virtual Policia Policia { get; set; }
-        public virtual Policia Policia1 { get; set; }
+        public virtual Policias Policias { get; set; }
+        public virtual Policias Policias1 { get; set; }
         public virtual TablaGeneral TablaGeneral { get; set; }
-        public virtual Persona Persona { get; set; }
+        public virtual TablaGeneral TablaGeneral1 { get; set; }
+        public virtual Personas Personas { get; set; }
     }
 }

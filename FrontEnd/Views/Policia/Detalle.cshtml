@@ -14,122 +14,132 @@
         </div>
     </div>
     <hr />
-    <div class="row">
-        <div class="col">
-            <h2> @Html.DisplayTextFor(d => d.Nombre)</h2>
+ 
+        <div class="row">
+            <div class="col">
+                <h2> @Html.DisplayTextFor(d => d.Nombre)</h2>
+            </div>
         </div>
-    </div>
-    <dl class="row">
-        @Html.HiddenFor(d => d.IdPolicia)
-        @Html.HiddenFor(d => d.Estado)
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.VistaTipoCedula)
-        </dt>
-        <dd id="req" class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.VistaTipoCedula)
-        </dd>
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.Cedula)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.Cedula)
-        </dd>
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.FechaNacimiento)
-        </dt>
-        <dd class="col-sm-8 ">
-            @{ var fecha = Model.FechaNacimiento.ToShortDateString(); }
-            @Html.DisplayTextFor(d => fecha)
-        </dd>
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.Edad)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.Edad)
-        </dd>
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.CorreoElectronico)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.CorreoElectronico)
-        </dd>
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.Direccion)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.Direccion)
-        </dd>
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.TelefonoCelular)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.TelefonoCelular)
-        </dd>
-        @if (Model.TelefonoCasa != null)
-        {
-            <dt class="col-sm-4">
-                @Html.Label("Telefono Casa")
+        <dl class="row">
+            @Html.HiddenFor(d => d.IdPolicia)
+            @Html.HiddenFor(d => d.Estado)
+            <dt class="col-sm-4 ">
+                @Html.LabelFor(d => d.VistaTipoCedula)
+            </dt>
+            <dd id="req" class="col-sm-8 ">
+                @Html.DisplayTextFor(d => d.VistaTipoCedula)
+            </dd>
+            <dt class="col-sm-4 ">
+                @Html.LabelFor(d => d.Cedula)
             </dt>
             <dd class="col-sm-8 ">
-                @Html.DisplayTextFor(d => d.TelefonoCasa)
+                @Html.DisplayTextFor(d => d.Cedula)
             </dd>
-        }
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.ContactoEmergencia)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.ContactoEmergencia)
-        </dd>
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.TelefonoEmergencia)
-        </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.TelefonoEmergencia)
-        </dd>
+            <dt class="col-sm-4">
+                @Html.LabelFor(d => d.FechaNacimiento)
+            </dt>
+            <dd class="col-sm-8 ">
+                @{ var fecha = Model.FechaNacimiento.ToShortDateString(); }
+                @Html.DisplayTextFor(d => fecha)
+            </dd>
+            <dt class="col-sm-4 ">
+                @Html.LabelFor(d => d.Edad)
+            </dt>
+            <dd class="col-sm-8 ">
+                @Html.DisplayTextFor(d => d.Edad)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.LabelFor(d => d.CorreoElectronico)
+            </dt>
+            <dd class="col-sm-8 ">
+                @Html.DisplayTextFor(d => d.CorreoElectronico)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.LabelFor(d => d.Direccion)
+            </dt>
+            <dd class="col-sm-8 ">
+                @Html.DisplayTextFor(d => d.Direccion)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.LabelFor(d => d.TelefonoCelular)
+            </dt>
+            <dd class="col-sm-8 ">
+                @Html.DisplayTextFor(d => d.TelefonoCelular)
+            </dd>
+            @if (Model.TelefonoCasa != null)
+            {
+                <dt class="col-sm-4">
+                    @Html.Label("Telefono Casa")
+                </dt>
+                <dd class="col-sm-8 ">
+                    @Html.DisplayTextFor(d => d.TelefonoCasa)
+                </dd>
+            }
+            <dt class="col-sm-4">
+                @Html.LabelFor(d => d.ContactoEmergencia)
+            </dt>
+            <dd class="col-sm-8 ">
+                @Html.DisplayTextFor(d => d.ContactoEmergencia)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.LabelFor(d => d.TelefonoEmergencia)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayTextFor(d => d.TelefonoEmergencia)
+            </dd>
 
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.VistaEstado)
-        </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.VistaEstado)
-        </dd>
+            <dt class="col-sm-4">
+                @Html.LabelFor(d => d.VistaEstado)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayTextFor(d => d.VistaEstado)
+            </dd>
 
-        <dd class="col-sm-9">
-            <a class="btn btn-sm  btn-warning" data-toggle="modal" data-target="#show3">Cambiar Estado</a>
-        </dd>
-    </dl>
-    <hr />
+            <dd class="col-sm-9">
+                <a class="btn btn-sm  btn-warning" data-toggle="modal" data-target="#show3">Cambiar Estado</a>
+            </dd>
+        </dl>
+        <hr />
 
-    <div class="row">
-        <div class="col-sm-12">
-            <a href="~/Policia/Index/" class="btn btn-outline-secondary">Regresar</a>
+        <div class="row">
+            <div class="col-sm-12">
 
-            <div style="text-align:center;">
-                <a class="btn btn-primary" href="~/Policia/Editar/@Model.IdPolicia">Editar</a>
-                <a class="btn btn-info" href="~/Requisito/Listado/@Model.IdPolicia">Ver Requisitos</a>
+                <a href="~/Policia/Index/" class="btn btn-outline-secondary">Regresar</a>
+
+                <div style="text-align:center;">
+                    <a class="btn btn-primary" href="~/Policia/Editar/@Model.IdPolicia">Editar</a>
+                    <a class="btn btn-info" href="~/Requisito/Listado/@Model.IdPolicia">Ver Requisitos</a>
+                    <a class="btn btn-secondary" href="~/Auditoria/ListadoPolicia/@Model.IdPolicia">Ver Auditorias</a>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="modal" id="show3" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Modificar Estado</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+
+        <div class="modal" id="show3" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Modificar Estado</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div> @using (Html.BeginForm("CambioEstado", "Policia", FormMethod.Post))
+                    {
                 <div class="modal-body">
+                    @Html.HiddenFor(d => d.Estado)
+                    @Html.HiddenFor(d => d.IdPolicia)
                     <p>¿Está seguro que desea modificar el estado del policía?</p>
-                    @*<label for="message-text" class="col-form-label">Justificación:</label>
-                    <textarea class="form-control" id="message-text"></textarea>*@
+                    <label for="message-text" class="col-form-label">Justificación:</label>
+                    <textarea class="form-control" name="justificacion" id="justificacion"></textarea>
+                    @*  @Html.TextAreaFor(d => d.Justificacion, new { @class = "form-control", @name = "justificacion" , @id = "justificacion", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)", autocomplete = "new-password" })*@
+
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-danger" id="Cancel" data-dismiss="modal">Cancelar</button>
-                    <a type="button" class="btn btn-primary" id="Save" href="~/Policia/CambioEstado/@Model.Estado">Modificar</a>
-                </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-danger" id="Cancel" data-dismiss="modal">Cancelar</button>
+                            <button class="btn btn-primary" id="Save" href="~/Policia/CambioEstado/@Model.Estado">Modificar</button>
+                        </div>}
+                </div> 
             </div>
         </div>
-    </div>
 
-</div>
+    </div>

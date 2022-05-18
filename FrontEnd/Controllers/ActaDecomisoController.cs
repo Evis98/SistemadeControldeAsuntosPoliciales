@@ -16,7 +16,8 @@ namespace FrontEnd.Controllers
         ITablaGeneralDAL tablaGeneralDAL;
         IActaDecomisoDAL actaDecomisoDAL;
         IPoliciaDAL policiaDAL;
-
+        IAuditoriaDAL auditoriaDAL;
+        IUsuarioDAL usuarioDAL;
         public ActasDecomiso ConvertirActaDecomiso(ActaDecomisoViewModel modelo)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
@@ -38,8 +39,8 @@ namespace FrontEnd.Controllers
                 oficialAcompanante = policiaDAL.GetPoliciaCedula(modelo.OficialAcompanante).idPolicia,
                 oficialActuante = policiaDAL.GetPoliciaCedula(modelo.OficialActuante).idPolicia,
                 supervisorDecomiso = policiaDAL.GetPoliciaCedula(modelo.Supervisor).idPolicia,
-                estadoActa = tablaGeneralDAL.GetCodigo("Actas", "estadoActa", "1").idTablaGeneral,
-            };
+                estado = tablaGeneralDAL.GetCodigo("Actas", "estadoActa", modelo.Estado.ToString()).idTablaGeneral
+        };
         }
         public ActaDecomisoViewModel CargarActaDecomiso(ActasDecomiso actaDecomiso)
         {
@@ -64,8 +65,8 @@ namespace FrontEnd.Controllers
                 LugarDelProcedimiento = actaDecomiso.lugarProcedimiento,
                 Inventario = actaDecomiso.inventario,
                 Observaciones = actaDecomiso.observaciones,
-                EstadoActa = actaDecomiso.estadoActa,
-                VistaEstadoActa = tablaGeneralDAL.Get(actaDecomiso.estadoActa).descripcion,
+                Estado = int.Parse(tablaGeneralDAL.Get(actaDecomiso.estado).codigo),
+                VistaEstadoActa = tablaGeneralDAL.Get(actaDecomiso.estado).descripcion,
                 VistaOficialAcompanante = policiaDAL.GetPolicia(actaDecomiso.oficialAcompanante).nombre,
                 VistaOficialActuante = policiaDAL.GetPolicia(actaDecomiso.oficialActuante).nombre,
                 VistaPoliciaSupervisor = policiaDAL.GetPolicia(actaDecomiso.supervisorDecomiso).nombre
@@ -178,9 +179,9 @@ namespace FrontEnd.Controllers
             ActaDecomisoViewModel modelo = new ActaDecomisoViewModel()
             {
                 EstadosCivil = tablaGeneralDAL.Get("Generales", "estadoCivil").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
-                Fecha = DateTime.Today
-
-            };
+                Fecha = DateTime.Today,
+                Estados = tablaGeneralDAL.Get("Actas", "estadoActa").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo })
+        };
             return View(modelo);
         }
 
@@ -189,8 +190,14 @@ namespace FrontEnd.Controllers
         {
             actaDecomisoDAL = new ActaDecomisoDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
+            usuarioDAL = new UsuarioDAL();
+            auditoriaDAL = new AuditoriaDAL();
             model.EstadosCivil = tablaGeneralDAL.Get("Generales", "estadoCivil").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             model.NumeroFolio = (actaDecomisoDAL.GetCount() + 1).ToString() + "-" + DateTime.Now.Year;
+            model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
+            model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "9").idTablaGeneral;
+            model.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario;
+            model.Estado = int.Parse(tablaGeneralDAL.GetCodigo("Actas", "estadoActa", "1").codigo);
             DateTime newDateTime = model.Fecha.Date + model.Hora.TimeOfDay;
             model.Fecha = newDateTime;
             try
@@ -199,6 +206,8 @@ namespace FrontEnd.Controllers
                 {
                     actaDecomisoDAL.Add(ConvertirActaDecomiso(model));
                     int aux = actaDecomisoDAL.GetActaDecomisoFolio(model.NumeroFolio).idActaDecomiso;
+                    model.IdElemento = actaDecomisoDAL.GetActaDecomisoFolio(model.NumeroFolio).idActaDecomiso;
+                    auditoriaDAL.Add(ConvertirAuditoria(model));
                     return Redirect("~/ActaDecomiso/Detalle/" + aux);
 
                 }
@@ -212,8 +221,9 @@ namespace FrontEnd.Controllers
         }
         public ActionResult Detalle(int id)
         {
-            Session["idActaDecomiso"] = id;
             actaDecomisoDAL = new ActaDecomisoDAL();
+            Session["idActaDecomiso"] = id;     
+            Session["numeroFolio"] = actaDecomisoDAL.GetActaDecomiso(id).numeroFolio;
             ActaDecomisoViewModel modelo = CargarActaDecomiso(actaDecomisoDAL.GetActaDecomiso(id));
             return View(modelo);
         }
@@ -222,9 +232,10 @@ namespace FrontEnd.Controllers
         public ActionResult Editar(int id)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
-            actaDecomisoDAL = new ActaDecomisoDAL();
+            actaDecomisoDAL = new ActaDecomisoDAL();            
             ActaDecomisoViewModel modelo = CargarActaDecomiso(actaDecomisoDAL.GetActaDecomiso(id));
             modelo.EstadosCivil = tablaGeneralDAL.Get("Generales", "estadoCivil").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            modelo.Estados = tablaGeneralDAL.Get("Actas", "estadoActa").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             return View(modelo);
         }
 
@@ -233,14 +244,27 @@ namespace FrontEnd.Controllers
         {
             actaDecomisoDAL = new ActaDecomisoDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
+            usuarioDAL = new UsuarioDAL();
+            auditoriaDAL = new AuditoriaDAL();
             model.EstadosCivil = tablaGeneralDAL.Get("Generales", "estadoCivil").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            model.Estados = tablaGeneralDAL.Get("Actas", "estadoActa").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             DateTime newDateTime = model.Fecha.Date + model.Hora.TimeOfDay;
             model.Fecha = newDateTime;
+            model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
+            model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "9").idTablaGeneral;
+            model.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario;
+            int estado = actaDecomisoDAL.GetActaDecomiso(model.IdActaDecomiso).estado;
             try
             {
                 if (ModelState.IsValid)
                 {
+                    if (tablaGeneralDAL.GetCodigo("Actas", "estadoActa", model.Estado.ToString()).idTablaGeneral != estado && model.IdActaDecomiso != 0)
+                    {
+                        auditoriaDAL.Add(CambiarEstadoAuditoria(model.IdActaDecomiso));
+                    }
                     actaDecomisoDAL.Edit(ConvertirActaDecomiso(model));
+                    model.IdElemento = actaDecomisoDAL.GetActaDecomisoFolio(model.NumeroFolio).idActaDecomiso;
+                    auditoriaDAL.Add(ConvertirAuditoria(model));
                     return Redirect("~/ActaDecomiso/Detalle/" + model.IdActaDecomiso);
                 }
                 return View(model);
@@ -250,30 +274,62 @@ namespace FrontEnd.Controllers
                 throw new Exception(ex.Message);
             }
         }
-        public ActionResult CambioEstadoActa(int id)
-        {
-            int estado;
-            actaDecomisoDAL = new ActaDecomisoDAL();
-            tablaGeneralDAL = new TablaGeneralDAL();
-            try
-            {
-                if (tablaGeneralDAL.Get((int)id).descripcion == "Activa")
-                {
-                    estado = tablaGeneralDAL.Get("Actas", "estadoActa", "Inactiva").idTablaGeneral;
-                }
-                else
-                {
-                    estado = tablaGeneralDAL.Get("Actas", "estadoActa", "Activa").idTablaGeneral;
-                }
-                actaDecomisoDAL.CambiaEstadoActa((int)Session["idActaDecomiso"], estado);
-                return Redirect("~/ActaDecomiso/Detalle/" + Session["idActaDecomiso"]);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
+        //public ActionResult CambioEstadoActa(int id)
+        //{
+        //    int estado;
+        //    actaDecomisoDAL = new ActaDecomisoDAL();
+        //    tablaGeneralDAL = new TablaGeneralDAL();
+        //    try
+        //    {
+        //        if (tablaGeneralDAL.Get((int)id).descripcion == "Activa")
+        //        {
+        //            estado = tablaGeneralDAL.Get("Actas", "estadoActa", "Inactiva").idTablaGeneral;
+        //        }
+        //        else
+        //        {
+        //            estado = tablaGeneralDAL.Get("Actas", "estadoActa", "Activa").idTablaGeneral;
+        //        }
+        //        actaDecomisoDAL.CambiaEstadoActa((int)Session["idActaDecomiso"], estado);
+        //        return Redirect("~/ActaDecomiso/Detalle/" + Session["idActaDecomiso"]);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception(ex.Message);
+        //    }
+        //}
 
+        public Auditorias ConvertirAuditoria(ActaDecomisoViewModel modelo)
+        {
+            tablaGeneralDAL = new TablaGeneralDAL();
+            actaDecomisoDAL = new ActaDecomisoDAL();
+            return new Auditorias
+            {
+                idAuditoria = modelo.IdAuditoria,
+                idCategoria = modelo.IdCategoria,
+                idElemento = modelo.IdElemento,
+                fecha = DateTime.Now,
+                accion = modelo.Accion,
+                idUsuario = modelo.IdUsuario,
+            };
+        }
+        public Auditorias CambiarEstadoAuditoria(int idActaDecomiso)
+        {
+            ActaDecomisoViewModel modelo = new ActaDecomisoViewModel();
+            tablaGeneralDAL = new TablaGeneralDAL();
+            actaDecomisoDAL = new ActaDecomisoDAL();
+            usuarioDAL = new UsuarioDAL();
+            auditoriaDAL = new AuditoriaDAL();
+            return new Auditorias
+            {
+                idAuditoria = modelo.IdAuditoria,
+                accion = modelo.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "3").idTablaGeneral,
+                idCategoria = modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "9").idTablaGeneral,
+                idUsuario = modelo.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario,
+                fecha = DateTime.Now,
+                idElemento = actaDecomisoDAL.GetActaDecomiso(idActaDecomiso).idActaDecomiso
+
+            };
+        }
 
     }
 }

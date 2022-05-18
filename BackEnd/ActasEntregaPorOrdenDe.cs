@@ -26,11 +26,11 @@ namespace BackEnd
         public string numeroInventario { get; set; }
         public string idPersonaQueSeLeEntrega { get; set; }
         public string nombrePersonaQueSeLeEntrega { get; set; }
-        public int estadoActa { get; set; }
+        public int estado { get; set; }
     
         public virtual TablaGeneral TablaGeneral { get; set; }
-        public virtual Policia Policia { get; set; }
-        public virtual Policia Policia1 { get; set; }
+        public virtual Policias Policias { get; set; }
+        public virtual Policias Policias1 { get; set; }
         public virtual TablaGeneral TablaGeneral1 { get; set; }
     }
 }

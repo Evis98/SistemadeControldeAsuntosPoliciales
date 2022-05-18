@@ -104,12 +104,12 @@ namespace BackEnd.DAL
             }
         }
 
-        public int GetCount()
+        public int GetCount(DateTime year)
         {
             using (SCAPEntities db = new SCAPEntities())
             {
-                
-                return db.PartesPoliciales.Count();
+
+                return db.PartesPoliciales.Where(x => x.fecha.Year == year.Year).Count();
             }
 
         }

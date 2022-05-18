@@ -16,6 +16,8 @@ namespace FrontEnd.Controllers
         IRequisitoDAL requisitoDAL;
         IPoliciaDAL policiaDAL;
         ITablaGeneralDAL tablaGeneralDAL;
+        IAuditoriaDAL auditoriaDAL;
+        IUsuarioDAL usuarioDAL;
         public Requisitos ConvertirRequisito(RequisitoViewModel modelo)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
@@ -195,6 +197,11 @@ namespace FrontEnd.Controllers
         {
             requisitoDAL = new RequisitoDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
+            usuarioDAL = new UsuarioDAL();
+            auditoriaDAL = new AuditoriaDAL();
+            modelo.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
+            modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "4").idTablaGeneral;
+            modelo.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario;
             try
             {
                 if (ModelState.IsValid)
@@ -221,6 +228,8 @@ namespace FrontEnd.Controllers
                         requisito.imagen = null;
                     }
                     requisitoDAL.Add(requisito);
+                    modelo.IdElemento = requisitoDAL.GetRequisitoId(requisito.idRequisito).idRequisito;
+                    auditoriaDAL.Add(ConvertirAuditoria(modelo));
                     return Redirect("~/Requisito/Listado/" + Session["idPolicia"].ToString());
                 }
                 modelo.TiposRequisito = tablaGeneralDAL.Get("Requisitos", "tipoRequisito").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
@@ -238,6 +247,8 @@ namespace FrontEnd.Controllers
         {
             policiaDAL = new PoliciaDAL();
             requisitoDAL = new RequisitoDAL();
+            Session["idRequisito"] = id;
+            Session["detalleRequisito"] = requisitoDAL.GetRequisito(id).detalles;
             RequisitoViewModel modelo = CargarRequisito(requisitoDAL.GetRequisito(id));
             return View(modelo);
         }
@@ -246,9 +257,11 @@ namespace FrontEnd.Controllers
         public ActionResult Eliminar(int id)
         {
             requisitoDAL = new RequisitoDAL();
+            auditoriaDAL = new AuditoriaDAL();
             Requisitos requisito = requisitoDAL.GetRequisito(id);
             int? idPolicia = requisito.idPolicia;
-            requisitoDAL.EliminaRequisito(requisito);
+            auditoriaDAL.Add(EliminarAuditoria(requisito.idRequisito));
+            requisitoDAL.EliminaRequisito(requisito);          
             return Redirect("~/Requisito/Listado/" + idPolicia);
         }
 
@@ -267,6 +280,12 @@ namespace FrontEnd.Controllers
         public ActionResult Editar(RequisitoViewModel modelo)
         {
             requisitoDAL = new RequisitoDAL();
+            usuarioDAL = new UsuarioDAL();
+            auditoriaDAL = new AuditoriaDAL();
+            tablaGeneralDAL = new TablaGeneralDAL();
+            modelo.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
+            modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "4").idTablaGeneral;
+            modelo.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario;
             try
             {
                 if (ModelState.IsValid)
@@ -277,6 +296,8 @@ namespace FrontEnd.Controllers
                         modelo.Archivo.SaveAs(modelo.Imagen);
                     }
                     requisitoDAL.Edit(ConvertirRequisito(modelo));
+                    modelo.IdElemento = requisitoDAL.GetRequisitoId(modelo.IdRequisito).idRequisito;
+                    auditoriaDAL.Add(ConvertirAuditoria(modelo));
                     return Redirect("~/Requisito/Listado/" + modelo.IdPolicia);
                 }
                 return View(ConvertirRequisito(modelo));
@@ -285,6 +306,40 @@ namespace FrontEnd.Controllers
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        public Auditorias ConvertirAuditoria(RequisitoViewModel modelo)
+        {
+            tablaGeneralDAL = new TablaGeneralDAL();
+            requisitoDAL = new RequisitoDAL();
+            return new Auditorias
+            {
+                idAuditoria = modelo.IdAuditoria,
+                idCategoria = modelo.IdCategoria,
+                idElemento = modelo.IdElemento,
+                fecha = DateTime.Now,
+                accion = modelo.Accion,
+                idUsuario = modelo.IdUsuario,
+            };
+        }
+
+        public Auditorias EliminarAuditoria(int idRequisito)
+        {
+            RequisitoViewModel modelo = new RequisitoViewModel();
+            tablaGeneralDAL = new TablaGeneralDAL();
+            requisitoDAL = new RequisitoDAL();
+            usuarioDAL = new UsuarioDAL();
+            auditoriaDAL = new AuditoriaDAL();
+            return new Auditorias
+            {
+                idAuditoria = modelo.IdAuditoria,
+                accion = modelo.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "4").idTablaGeneral,
+                idCategoria = modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "4").idTablaGeneral,
+                idUsuario = modelo.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario,
+                fecha = DateTime.Now,
+                idElemento = requisitoDAL.GetRequisitoId(idRequisito).idRequisito
+
+            };
         }
     }
 }

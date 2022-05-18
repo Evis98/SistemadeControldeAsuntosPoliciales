@@ -26,10 +26,10 @@ namespace BackEnd
         public string otrasSenas { get; set; }
         public string inventario { get; set; }
         public string observaciones { get; set; }
-        public int estadoActa { get; set; }
+        public int estado { get; set; }
     
-        public virtual Policia Policia { get; set; }
+        public virtual Policias Policias { get; set; }
         public virtual TablaGeneral TablaGeneral { get; set; }
-        public virtual Policia Policia1 { get; set; }
+        public virtual Policias Policias1 { get; set; }
     }
 }

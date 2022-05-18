@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace FrontEnd.Models.ViewModels
 {
-    public class ActaEntregaViewModel
+    public class ActaEntregaViewModel : AuditoriaViewModel
     {
 
         public int IdActaEntrega { get; set; }
@@ -23,20 +23,22 @@ namespace FrontEnd.Models.ViewModels
         public string Encargado { get; set; }
         [Display(Name = "Encargado")]
         public string VistaPoliciaEncargado { get; set; }
-        [Display(Name = "Testigo")]
-        [Required]
-        public string Testigo { get; set; }
-        [Display(Name = "Testigo")]
-        public string VistaPoliciaTestigo { get; set; }
+        [Display(Name = "Tipo Testigo")]
+        public int? TipoTestigo { get; set; }
+        [Display(Name = "Testigo Persona (Opcional)")]
+        public string TestigoPersona { get; set; }
+        [Display(Name = "Testigo Persona")]
+        public string VistaTestigoPersona { get; set; }
+        [Display(Name = "Testigo Policía (Opcional)")]
+        public string TestigoPolicia { get; set; }
+        [Display(Name = "Testigo Policía")]
+        public string VistaTestigoPolicia { get; set; }
         [Display(Name = "Supervisor")]
         [Required]
         public string Supervisor { get; set; }
         [Display(Name = "Supervisor")]
         public string VistaPoliciaSupervisor { get; set; }
 
-        [Display(Name = "Instalaciones")]
-        [Required]
-        public string Instalaciones { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
@@ -49,14 +51,12 @@ namespace FrontEnd.Models.ViewModels
         [Display(Name = "Hora del Suceso")]
         public DateTime Hora { get; set; }
 
-        [Display(Name = "Razon Social")]
-        [Required]
-        [StringLength(60)]
+        [Display(Name = "Razon Social (Opcional)")]
+
         public string RazonSocial { get; set; }
-        [Display(Name = "Cedula Juridica")]
-        [Required]
-        [StringLength(60)]
-        public string CedulaJuridica { get; set; }
+        [Display(Name = "Razon Social")]
+        public string VistaRazonSocial { get; set; }
+
 
         [Display(Name = "Tipo Acta")]
         [Required]
@@ -73,28 +73,37 @@ namespace FrontEnd.Models.ViewModels
         public string ConsecutivoActaHallazgo { get; set; }
 
         [Display(Name = "A Nombre De")]
-        [Required]
-        [StringLength(150)]
         public string NombreDe { get; set; }
 
-        [Display(Name = "Identificacion Entregado")]
-        [StringLength(25)]
-        public string IdentificacionEntregado { get; set; }
 
         [Display(Name = "Recibe")]
         [Required]
-        [StringLength(150)]
+
         public string Recibe { get; set; }
-        [Display(Name = "Cedula Recibe")]
-        [Required]
-        [StringLength(60)]
-        public string CedulaRecibe { get; set; }
+        [Display(Name = "Recibe")]
+        public string VistaRecibe { get; set; }
         [Display(Name = "Inventario Entregado")]
         [Required]
         [StringLength(1000)]
         public string InventarioEntregado { get; set; }
+        public int Estado { get; set; }
+        [Display(Name = " Estado del Acta")]
 
+        public int IdAuditoria { get; set; }
+        public int IdCategoria { get; set; }
+        public string VistaCategoria { get; set; }
+        public int IdElemento { get; set; }
+        public string VistaElemento { get; set; }
+        public DateTime FechaAuditoria { get; set; }
+        public int Accion { get; set; }
+        public string VistaAccion { get; set; }
+        public int IdUsuario { get; set; }
+        public string VistaUsuario { get; set; }
+
+        public string VistaEstadoActa { get; set; }
+        public IEnumerable<SelectListItem> Estados { get; set; }
         public IEnumerable<SelectListItem> TiposActa { get; set; }
+        public IEnumerable<SelectListItem> TiposTestigo { get; set; }
 
     }
 }

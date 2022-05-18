@@ -11,6 +11,33 @@
         aux3.style.display = "block"
     }
 }
+function ocultarFechaAuditoriaPolicia() {
+    var auxaP = document.getElementById("busquedaFechaInicioP");
+    var auxbP = document.getElementById("busquedaFechaFinalP");
+    var auxcP = document.getElementById("filtrosSeleccionado");
+    var auxFITP = document.getElementById("textFechaInicioP");
+    var auxFFTP = document.getElementById("textFechaFinalP");
+    var auxBFTP = document.getElementById("tiposAccion");
+    if (auxcP.options[auxcP.selectedIndex].textContent === "Fecha") {
+        auxaP.setAttribute('required', '');
+        auxbP.setAttribute('required', '');
+        auxFITP.style.display = "block";
+        auxFFTP.style.display = "block";
+        auxaP.style.display = "block";
+        auxbP.style.display = "block";
+        auxBFTP.style.display = "none";
+    }
+    else {
+        auxaP.removeAttribute('required');
+        auxbP.removeAttribute('required');
+        auxaP.style.display = "none";
+        auxbP.style.display = "none";
+        auxFFTP.style.display = "none";
+        auxFITP.style.display = "none";
+        auxBFTP.style.display = "block";
+
+    }
+}
 
 function ocultarFechaParte() {
     var auxQ = document.getElementById("busquedaFechaInicioP");
@@ -105,6 +132,7 @@ function ocultarBitacora() {
         aux10.style.display = "block"
     }
 }
+
 
 
 

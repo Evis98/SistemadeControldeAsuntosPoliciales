@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace FrontEnd.Models.ViewModels
 {
-    public class ActaHallazgoViewModel
+    public class ActaHallazgoViewModel : AuditoriaViewModel
     {
 
         public int IdActaHallazgo { get; set; }
@@ -31,7 +31,7 @@ namespace FrontEnd.Models.ViewModels
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Fecha { get; set; }
 
-        public int EstadoActa { get; set; }
+        public int Estado { get; set; }
         [Display(Name = " Estado del Acta")]
         public string VistaEstadoActa { get; set; }
 
@@ -83,6 +83,18 @@ namespace FrontEnd.Models.ViewModels
         [Display(Name = "Supervisor")]
         public string VistaPoliciaSupervisor { get; set; }
 
+        public int IdAuditoria { get; set; }
+        public int IdCategoria { get; set; }
+        public string VistaCategoria { get; set; }
+        public int IdElemento { get; set; }
+        public string VistaElemento { get; set; }
+        public DateTime FechaAuditoria { get; set; }
+        public int Accion { get; set; }
+        public string VistaAccion { get; set; }
+        public int IdUsuario { get; set; }
+        public string VistaUsuario { get; set; }       
+
+        public IEnumerable<SelectListItem> Estados { get; set; }
         public IEnumerable<SelectListItem> Distritos { get; set; }
 
 

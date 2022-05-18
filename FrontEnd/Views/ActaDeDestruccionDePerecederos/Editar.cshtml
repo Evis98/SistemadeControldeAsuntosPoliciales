@@ -119,7 +119,12 @@
             }
         </div>
         <div class="form-row" onload="ocultarActa()">
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-4">
+                @Html.LabelFor(d => d.Estado)
+                @Html.DropDownListFor(d => d.Estado, Model.Estados, new { @class = "myselect form-control" })
+                @Html.ValidationMessageFor(d => d.Estado, null, new { @class = "red" })
+            </div>
+            <div class="form-group col-md-8">
                 @Html.LabelFor(d => d.InventarioDestruido)
                 @Html.TextAreaFor(d => d.InventarioDestruido, new { @class = "form-control", @readonly = "readonly", @id = "inventario" })
                 @Html.ValidationMessageFor(d => d.InventarioDestruido, null, new { @class = "red" })

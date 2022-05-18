@@ -15,7 +15,8 @@ namespace FrontEnd.Controllers
     {
         IPoliciaDAL policiaDAL;
         ITablaGeneralDAL tablaGeneralDAL;
-
+        IAuditoriaDAL auditoriaDAL;
+        IUsuarioDAL usuarioDAL;
         public Policias ConvertirPolicia(PoliciaViewModel modelo)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
@@ -75,11 +76,9 @@ namespace FrontEnd.Controllers
             foreach (Policias policia in policiaDAL.Get())
             {
                 policias.Add(CargarPolicia(policia));
-            }
-            
+            }            
             if (busqueda != null)
-            {
-                
+            {                
                 foreach (PoliciaViewModel policia in policias)
                 {
                     if (filtrosSeleccionado == "Cédula")
@@ -96,9 +95,7 @@ namespace FrontEnd.Controllers
                             policiasFiltrados.Add(policia);
                         }
                     }
-
-                }
-                
+                }                
                 policias = policiasFiltrados;
             }
             return View(policias.OrderBy(x => x.Nombre).ToList());
@@ -112,7 +109,6 @@ namespace FrontEnd.Controllers
             {
                 TiposCedula = tablaGeneralDAL.Get("Policias", "tipoCedula").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
                 FechaNacimiento = DateTime.Today
-
             };
             return View(modelo);
         }
@@ -132,8 +128,13 @@ namespace FrontEnd.Controllers
             CrearCarpetaPolicia(model);
             policiaDAL = new PoliciaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
+            usuarioDAL = new UsuarioDAL();
+            auditoriaDAL = new AuditoriaDAL();
             model.TiposCedula = tablaGeneralDAL.Get("Policias", "tipoCedula").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             model.CedulaPoliciaFiltrada = policiaDAL.GetCedulaPolicia(model.Cedula);
+            model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
+            model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "1").idTablaGeneral;
+            model.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario;           
             try
             {
                 if (!policiaDAL.CedulaPoliciaExiste(model.Cedula))
@@ -141,6 +142,8 @@ namespace FrontEnd.Controllers
                     if (ModelState.IsValid)
                     {
                         policiaDAL.Add(ConvertirPolicia(model));
+                        model.IdElemento = policiaDAL.GetPoliciaCedula(model.Cedula).idPolicia;
+                        auditoriaDAL.Add(ConvertirAuditoria(model));
                         int aux = policiaDAL.GetPoliciaCedula(model.Cedula).idPolicia;
                         return Redirect("~/Policia/Detalle/" + aux);
                     }
@@ -151,7 +154,6 @@ namespace FrontEnd.Controllers
             {
                 throw new Exception(ex.Message);
             }
-
         }
 
         //Muestra la información detallada de un policía
@@ -179,12 +181,19 @@ namespace FrontEnd.Controllers
         {
             policiaDAL = new PoliciaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
+            usuarioDAL = new UsuarioDAL();
+            auditoriaDAL = new AuditoriaDAL();
             modelo.TiposCedula = tablaGeneralDAL.Get("Policias", "tipoCedula").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            modelo.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
+            modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "1").idTablaGeneral;
+            modelo.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    policiaDAL.Edit(ConvertirPolicia(modelo));                   
+                    policiaDAL.Edit(ConvertirPolicia(modelo));
+                    modelo.IdElemento = policiaDAL.GetPoliciaCedula(modelo.Cedula).idPolicia;
+                    auditoriaDAL.Add(ConvertirAuditoria(modelo));
                     return Redirect("~/Policia/Detalle/" + modelo.IdPolicia);
                 }
                 return View(modelo);
@@ -195,23 +204,28 @@ namespace FrontEnd.Controllers
             }
         }
 
+      [HttpPost]
         //Se encarga del cambio de estado de un policía entre activo e inactivo
-        public ActionResult CambioEstado(int? id)
+        public ActionResult CambioEstado(int? estado,string justificacion,int idPolicia)
         {
-            int estado;
+            int estadoFinal;
             policiaDAL = new PoliciaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
+            auditoriaDAL = new AuditoriaDAL();
             try
             {
-                if (tablaGeneralDAL.Get((int)id).descripcion == "Activo")
+                if (tablaGeneralDAL.Get((int)estado).descripcion == "Activo")
                 {
-                    estado = tablaGeneralDAL.Get("Generales", "estado", "Inactivo").idTablaGeneral;
+                    estadoFinal = tablaGeneralDAL.Get("Generales", "estado", "Inactivo").idTablaGeneral;
                 }
                 else
                 {
-                    estado = tablaGeneralDAL.Get("Generales", "estado", "Activo").idTablaGeneral;
+                    estadoFinal = tablaGeneralDAL.Get("Generales", "estado", "Activo").idTablaGeneral;
                 }
-                policiaDAL.CambiaEstadoPolicia((int)Session["idPolicia"], estado);
+                policiaDAL.CambiaEstadoPolicia((int)Session["idPolicia"], estadoFinal);
+                //modelo.IdElemento = policiaDAL.GetPolicia(idPolicia).idPolicia;
+                //justificacion = modelo.Justificacion;
+                auditoriaDAL.Add(CambiarEstadoAuditoria(justificacion,idPolicia));
                 return Redirect("~/Policia/Detalle/" + Session["idPolicia"]);
             }
             catch (Exception ex)
@@ -243,6 +257,42 @@ namespace FrontEnd.Controllers
 
             return edad.ToString();
 
+        }
+
+        public Auditorias ConvertirAuditoria(PoliciaViewModel modelo)
+        {
+            tablaGeneralDAL = new TablaGeneralDAL();
+            policiaDAL = new PoliciaDAL();
+            return new Auditorias
+            {
+                idAuditoria = modelo.IdAuditoria,
+                idCategoria = modelo.IdCategoria,
+                idElemento = modelo.IdElemento,
+                fecha = DateTime.Now,
+                accion = modelo.Accion,
+                idUsuario = modelo.IdUsuario,
+
+            };
+        }
+
+        public Auditorias CambiarEstadoAuditoria(string justificacion,int idPolicia)
+        {
+           PoliciaViewModel modelo = new PoliciaViewModel();
+            tablaGeneralDAL = new TablaGeneralDAL();
+            policiaDAL = new PoliciaDAL();
+            usuarioDAL = new UsuarioDAL();
+            auditoriaDAL = new AuditoriaDAL();
+            return new Auditorias
+            {
+                idAuditoria = modelo.IdAuditoria,
+                accion = modelo.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "3").idTablaGeneral,
+                idCategoria = modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "1").idTablaGeneral,
+                idUsuario = modelo.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario,
+                fecha = DateTime.Now,
+                justificacion = justificacion,
+                idElemento = policiaDAL.GetPolicia(idPolicia).idPolicia
+
+            };
         }
     }
 }

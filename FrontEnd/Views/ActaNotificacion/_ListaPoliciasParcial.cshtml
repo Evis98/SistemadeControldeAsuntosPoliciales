@@ -1,0 +1,22 @@
+﻿@model List<FrontEnd.Models.ViewModels.PoliciaViewModel>
+
+<table class="table">
+
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">Cédula</th>
+            <th scope="col">Nombre</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@Html.DisplayFor(modelItem => item.Cedula)</th>
+                <td>
+                    <label><a href="#" onclick="reply_click(this.id)" id="@item.Cedula"> @item.Nombre</a></label>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

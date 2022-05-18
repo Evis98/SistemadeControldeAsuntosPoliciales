@@ -12,12 +12,12 @@ namespace BackEnd
     using System;
     using System.Collections.Generic;
     
-    public partial class Infractore
+    public partial class Infractores
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Infractore()
+        public Infractores()
         {
-            this.PartesPoliciales = new HashSet<PartesPoliciale>();
+            this.PartesPoliciales = new HashSet<PartesPoliciales>();
         }
     
         public int idInfractor { get; set; }
@@ -41,7 +41,7 @@ namespace BackEnd
         public string imagen { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PartesPoliciale> PartesPoliciales { get; set; }
+        public virtual ICollection<PartesPoliciales> PartesPoliciales { get; set; }
         public virtual TablaGeneral TablaGeneral { get; set; }
         public virtual TablaGeneral TablaGeneral1 { get; set; }
         public virtual TablaGeneral TablaGeneral2 { get; set; }

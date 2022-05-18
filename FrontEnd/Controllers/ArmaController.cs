@@ -16,6 +16,8 @@ namespace FrontEnd.Controllers
         IPoliciaDAL policiaDAL;
         IArmaDAL armaDAL;
         ITablaGeneralDAL tablaGeneralDAL;
+        IAuditoriaDAL auditoriaDAL;
+        IUsuarioDAL usuarioDAL;
         public Armas ConvertirArma(ArmaViewModel modelo)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
@@ -132,8 +134,12 @@ namespace FrontEnd.Controllers
         {
             armaDAL = new ArmaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
-                model.SerieFiltrada = armaDAL.GetSerieArma(model.NumeroSerie);
-
+            usuarioDAL = new UsuarioDAL();
+            auditoriaDAL = new AuditoriaDAL();
+            model.SerieFiltrada = armaDAL.GetSerieArma(model.NumeroSerie);
+            model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
+            model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "5").idTablaGeneral;
+            model.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario;
             try
             {
                 if (!armaDAL.SerieExiste(model.NumeroSerie))
@@ -142,8 +148,9 @@ namespace FrontEnd.Controllers
                     {
                         Armas arma = ConvertirArma(model);
                         armaDAL.Add(arma);
-                        int aux = armaDAL.GetArmaNumSerie(model.NumeroSerie).idArma;
-                    
+                        model.IdElemento = armaDAL.GetArmaNumSerie(model.NumeroSerie).idArma;
+                        auditoriaDAL.Add(ConvertirAuditoria(model));
+                        int aux = armaDAL.GetArmaNumSerie(model.NumeroSerie).idArma;                    
                         return Redirect("~/Arma/Detalle/" + aux);
                     }
                 }
@@ -162,9 +169,11 @@ namespace FrontEnd.Controllers
         }
 
         public ActionResult Detalle(int id)
-        {
-            Session["idArma"] = id;
+        {  
             armaDAL = new ArmaDAL();
+            Session["idArma"] = id;           
+            Session["numeroSerie"] = armaDAL.GetArma(id).numeroSerie;
+
             ArmaViewModel modelo = CargarArma(armaDAL.GetArma(id));
             if (modelo.PoliciaAsignado != null)
             {
@@ -203,6 +212,11 @@ namespace FrontEnd.Controllers
         {
             armaDAL = new ArmaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
+            usuarioDAL = new UsuarioDAL();
+            auditoriaDAL = new AuditoriaDAL();
+            modelo.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
+            modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "5").idTablaGeneral;
+            modelo.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario;
             try
             {
                 if (ModelState.IsValid)
@@ -216,8 +230,9 @@ namespace FrontEnd.Controllers
                     {
                         arma.policiaAsignado = null;
                     }
-                    armaDAL.Edit(arma); 
-                    
+                    armaDAL.Edit(arma);
+                    modelo.IdElemento = armaDAL.GetArmaNumSerie(modelo.NumeroSerie).idArma;
+                    auditoriaDAL.Add(ConvertirAuditoria(modelo));
                     return Redirect("~/Arma/Detalle/" + modelo.IdArma);
                 }
                
@@ -228,28 +243,68 @@ namespace FrontEnd.Controllers
                 throw new Exception(ex.Message);
             }
         }
-        public ActionResult CambioEstadoArma(int id)
+        [HttpPost]
+        public ActionResult CambioEstadoArma(int estadoArma, string justificacion, int idArma)
         {
-            int estado;
+            int estadoFinal;
             armaDAL = new ArmaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
+             auditoriaDAL = new AuditoriaDAL();
             try
             {
-                if (tablaGeneralDAL.Get((int)id).descripcion == "Activo")
+                if (tablaGeneralDAL.Get((int)estadoArma).descripcion == "Activo")
                 {
-                    estado = tablaGeneralDAL.Get("Generales", "estado", "Inactivo").idTablaGeneral;
+                    estadoFinal = tablaGeneralDAL.Get("Generales", "estado", "Inactivo").idTablaGeneral;
                 }
                 else
                 {
-                    estado = tablaGeneralDAL.Get("Generales", "estado", "Activo").idTablaGeneral;
+                    estadoFinal = tablaGeneralDAL.Get("Generales", "estado", "Activo").idTablaGeneral;
                 }
-                armaDAL.CambiaEstadoArma((int)Session["idArma"], estado);                
+                armaDAL.CambiaEstadoArma((int)Session["idArma"], estadoFinal);
+                auditoriaDAL.Add(CambiarEstadoArma(justificacion, idArma));
                 return Redirect("~/Arma/Detalle/" + Session["idArma"]);
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        public Auditorias ConvertirAuditoria(ArmaViewModel modelo)
+        {
+            tablaGeneralDAL = new TablaGeneralDAL();
+            armaDAL = new ArmaDAL();
+            return new Auditorias
+            {
+                idAuditoria = modelo.IdAuditoria,
+                idCategoria = modelo.IdCategoria,
+                idElemento = modelo.IdElemento,
+                fecha = DateTime.Now,
+                accion = modelo.Accion,
+                idUsuario = modelo.IdUsuario,
+
+            };
+        }
+
+        public Auditorias CambiarEstadoArma(string justificacion, int idArma)
+        {
+            ArmaViewModel modelo = new ArmaViewModel();
+            tablaGeneralDAL = new TablaGeneralDAL();
+            armaDAL = new ArmaDAL();
+            usuarioDAL = new UsuarioDAL();
+            auditoriaDAL = new AuditoriaDAL();
+            return new Auditorias
+            {
+                idAuditoria = modelo.IdAuditoria,
+                accion = modelo.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "3").idTablaGeneral,
+                idCategoria = modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "5").idTablaGeneral,
+                idUsuario = modelo.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario,
+                fecha = DateTime.Now,
+                justificacion = justificacion,
+                idElemento = armaDAL.GetArma(idArma).idArma
+                
+
+            };
         }
     }
 }

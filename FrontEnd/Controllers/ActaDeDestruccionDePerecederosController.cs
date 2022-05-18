@@ -18,7 +18,8 @@ namespace FrontEnd.Controllers
         IPoliciaDAL policiaDAL;
         IActaHallazgoDAL actaHallazgoDAL;
         IActaDecomisoDAL actaDecomisoDAL;
-
+        IAuditoriaDAL auditoriaDAL;
+        IUsuarioDAL usuarioDAL;
         public ActasDeDestruccionDePerecederos ConvertirActaDeDestruccionDePerecederos(ActaDeDestruccionDePerecederosViewModel model)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
@@ -32,7 +33,8 @@ namespace FrontEnd.Controllers
                 acta.testigo = policiaDAL.GetPoliciaCedula(model.Testigo).idPolicia;
                 acta.supervisor = policiaDAL.GetPoliciaCedula(model.Supervisor).idPolicia;
                 acta.fechaHora = model.Fecha;
-                acta.tipoActaD = tablaGeneralDAL.GetCodigo("Actas", "tipoActa"/*D*/, model.TipoActaD.ToString()).idTablaGeneral;
+                acta.estado = tablaGeneralDAL.GetCodigo("Actas", "estadoActa", model.Estado.ToString()).idTablaGeneral;
+                acta.tipoActaD = tablaGeneralDAL.GetCodigo("Actas", "tipoActa", model.TipoActaD.ToString()).idTablaGeneral;
                 if (tablaGeneralDAL.Get(acta.tipoActaD).descripcion == "Hallazgo")
                 {
                     acta.consecutivoActa = model.ConsecutivoActaHallazgo;
@@ -62,6 +64,8 @@ namespace FrontEnd.Controllers
                 acta.Hora = actaDeDestruccionDePerecederos.fechaHora;
                 acta.TipoActaD = int.Parse(tablaGeneralDAL.Get(actaDeDestruccionDePerecederos.tipoActaD).codigo);
                 acta.VistaTipoActaD = tablaGeneralDAL.Get(actaDeDestruccionDePerecederos.tipoActaD).descripcion;
+                acta.Estado = int.Parse(tablaGeneralDAL.Get(actaDeDestruccionDePerecederos.estado).codigo);
+                acta.VistaEstadoActa = tablaGeneralDAL.Get(actaDeDestruccionDePerecederos.estado).descripcion;
                 if (tablaGeneralDAL.Get(actaDeDestruccionDePerecederos.tipoActaD).descripcion == "Hallazgo")
                 {
                     acta.ConsecutivoActaHallazgo = actaDeDestruccionDePerecederos.consecutivoActa;
@@ -273,7 +277,7 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             ActaDeDestruccionDePerecederosViewModel modelo = new ActaDeDestruccionDePerecederosViewModel()
             {
-                TiposActaD = tablaGeneralDAL.Get("Actas", "tipoActa"/*D*/).Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
+                TiposActaD = tablaGeneralDAL.Get("Actas", "tipoActa").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
                 Fecha = DateTime.Today
 
             };
@@ -285,15 +289,23 @@ namespace FrontEnd.Controllers
         {
             actaDeDestruccionDePerecederosDAL = new ActaDeDestruccionDePerecederosDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
-            model.TiposActaD = tablaGeneralDAL.Get("Actas", "tipoActa"/*D*/).Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            usuarioDAL = new UsuarioDAL();
+            auditoriaDAL = new AuditoriaDAL();
+            model.TiposActaD = tablaGeneralDAL.Get("Actas", "tipoActa").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             model.NumeroFolio = (actaDeDestruccionDePerecederosDAL.GetCount() + 1).ToString() + "-" + DateTime.Now.Year;
             DateTime newDateTime = model.Fecha.Date + model.Hora.TimeOfDay;
             model.Fecha = newDateTime;
+            model.Estado = int.Parse(tablaGeneralDAL.GetCodigo("Actas", "estadoActa", "1").codigo);
+            model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
+            model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "11").idTablaGeneral;
+            model.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario;
             try
             {
                 if (ModelState.IsValid)
                 {
                     actaDeDestruccionDePerecederosDAL.Add(ConvertirActaDeDestruccionDePerecederos(model));
+                    model.IdElemento = actaDeDestruccionDePerecederosDAL.GetActaDeDestruccionDePerecederosFolio(model.NumeroFolio).idActaDeDestruccionDePerecederos;
+                    auditoriaDAL.Add(ConvertirAuditoria(model));
                     int aux = actaDeDestruccionDePerecederosDAL.GetActaDeDestruccionDePerecederosFolio(model.NumeroFolio).idActaDeDestruccionDePerecederos;
                     return Redirect("~/ActaDeDestruccionDePerecederos/Detalle/" + aux);
 
@@ -309,6 +321,8 @@ namespace FrontEnd.Controllers
         public ActionResult Detalle(int id)
         {
             actaDeDestruccionDePerecederosDAL = new ActaDeDestruccionDePerecederosDAL();
+            Session["idActaDeDestruccionDePerecederos"] = id;
+            Session["numeroFolio"] = actaDeDestruccionDePerecederosDAL.GetActaDeDestruccionDePerecederos(id).numeroFolio;
             ActaDeDestruccionDePerecederosViewModel modelo = CargarActaDeDestruccionDePerecederos(actaDeDestruccionDePerecederosDAL.GetActaDeDestruccionDePerecederos(id));
             return View(modelo);
         }
@@ -318,7 +332,8 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             actaDeDestruccionDePerecederosDAL = new ActaDeDestruccionDePerecederosDAL();
             ActaDeDestruccionDePerecederosViewModel model = CargarActaDeDestruccionDePerecederos(actaDeDestruccionDePerecederosDAL.GetActaDeDestruccionDePerecederos(id));
-            model.TiposActaD = tablaGeneralDAL.Get("Actas", "tipoActa"/*D*/).Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            model.TiposActaD = tablaGeneralDAL.Get("Actas", "tipoActa").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            model.Estados = tablaGeneralDAL.Get("Actas", "estadoActa").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             return View(model);
         }
 
@@ -327,14 +342,27 @@ namespace FrontEnd.Controllers
         {
             actaDeDestruccionDePerecederosDAL = new ActaDeDestruccionDePerecederosDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
-            model.TiposActaD = tablaGeneralDAL.Get("Actas", "tipoActa"/*D*/).Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            usuarioDAL = new UsuarioDAL();
+            auditoriaDAL = new AuditoriaDAL();
+            model.TiposActaD = tablaGeneralDAL.Get("Actas", "tipoActa").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            model.Estados = tablaGeneralDAL.Get("Actas", "estadoActa").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             DateTime newDateTime = model.Fecha.Date + model.Hora.TimeOfDay;
             model.Fecha = newDateTime;
+            model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
+            model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "11").idTablaGeneral;
+            model.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario;
+            int estado = actaDeDestruccionDePerecederosDAL.GetActaDeDestruccionDePerecederos(model.IdActaDeDestruccionDePerecederos).estado;
             try
             {
                 if (ModelState.IsValid)
                 {
+                    if (tablaGeneralDAL.GetCodigo("Actas", "estadoActa", model.Estado.ToString()).idTablaGeneral != estado && model.IdActaDeDestruccionDePerecederos != 0)
+                    {
+                        auditoriaDAL.Add(CambiarEstadoAuditoria(model.IdActaDeDestruccionDePerecederos));
+                    }
                     actaDeDestruccionDePerecederosDAL.Edit(ConvertirActaDeDestruccionDePerecederos(model));
+                    model.IdElemento = actaDeDestruccionDePerecederosDAL.GetActaDeDestruccionDePerecederosFolio(model.NumeroFolio).idActaDeDestruccionDePerecederos;
+                    auditoriaDAL.Add(ConvertirAuditoria(model));
                     return Redirect("~/ActaDeDestruccionDePerecederos/Detalle/" + model.IdActaDeDestruccionDePerecederos);
                 }
                 return View(model);
@@ -343,6 +371,39 @@ namespace FrontEnd.Controllers
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        public Auditorias ConvertirAuditoria(ActaDeDestruccionDePerecederosViewModel modelo)
+        {
+            tablaGeneralDAL = new TablaGeneralDAL();
+            actaHallazgoDAL = new ActaHallazgoDAL();
+            return new Auditorias
+            {
+                idAuditoria = modelo.IdAuditoria,
+                idCategoria = modelo.IdCategoria,
+                idElemento = modelo.IdElemento,
+                fecha = DateTime.Now,
+                accion = modelo.Accion,
+                idUsuario = modelo.IdUsuario,
+            };
+        }
+        public Auditorias CambiarEstadoAuditoria(int idActaDeDestruccionDePerecederos)
+        {
+            ActaDeDestruccionDePerecederosViewModel modelo = new ActaDeDestruccionDePerecederosViewModel();
+            tablaGeneralDAL = new TablaGeneralDAL();
+            actaDeDestruccionDePerecederosDAL = new ActaDeDestruccionDePerecederosDAL();
+            usuarioDAL = new UsuarioDAL();
+            auditoriaDAL = new AuditoriaDAL();
+            return new Auditorias
+            {
+                idAuditoria = modelo.IdAuditoria,
+                accion = modelo.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "3").idTablaGeneral,
+                idCategoria = modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "11").idTablaGeneral,
+                idUsuario = modelo.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario,
+                fecha = DateTime.Now,
+                idElemento = actaDeDestruccionDePerecederosDAL.GetActaDeDestruccionDePerecederos(idActaDeDestruccionDePerecederos).idActaDeDestruccionDePerecederos
+
+            };
         }
 
     }

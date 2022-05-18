@@ -1,4 +1,4 @@
-﻿@model List<FrontEnd.Models.ViewModels.ListPersonaViewModel>
+﻿@model List<FrontEnd.Models.ViewModels.PersonaViewModel>
 
 <table class="table">
 
@@ -13,9 +13,9 @@
         @foreach (var item in Model)
         {
             <tr>
-                <th scope="row">@Html.DisplayFor(modelItem => item.IdentificacionPersona)</th>
+                <th scope="row">@Html.DisplayFor(modelItem => item.Identificacion)</th>
                 <td>
-                    <label><a href="#" onclick="reply_click5(this.id,this.name)" id="@item.IdentificacionPersona" name="@item.NombrePersona"> @item.NombrePersona</a></label>
+                    <label><a href="#" onclick="reply_click5(this.id,this.name)" id="@item.Identificacion" name="@item.NombrePersona"> @item.NombrePersona</a></label>
                 </td>
             </tr>
         }
