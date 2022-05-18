@@ -21,15 +21,16 @@ namespace BackEnd
         public Nullable<int> idActaLigada { get; set; }
         public int tipoInventario { get; set; }
         public Nullable<System.DateTime> fechaHoraEntrega { get; set; }
-        public string porOrdenDe { get; set; }
+        public int idPorOrdenDe { get; set; }
         public string numeroResolucion { get; set; }
         public string numeroInventario { get; set; }
-        public string idPersonaQueSeLeEntrega { get; set; }
-        public string nombrePersonaQueSeLeEntrega { get; set; }
+        public Nullable<int> idPersonaQueSeLeEntrega { get; set; }
         public int estado { get; set; }
     
         public virtual TablaGeneral TablaGeneral { get; set; }
         public virtual Policias Policias { get; set; }
+        public virtual Personas Personas { get; set; }
+        public virtual Personas Personas1 { get; set; }
         public virtual Policias Policias1 { get; set; }
         public virtual TablaGeneral TablaGeneral1 { get; set; }
     }

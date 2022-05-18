@@ -34,7 +34,7 @@ namespace FrontEnd.Controllers
             acta.numeroFolio = modelo.NumeroFolio;
             acta.idFuncionarioQueEntrega = policiaDAL.GetPoliciaCedula(modelo.CedulaFuncionarioQueEntrega).idPolicia;
             acta.idTestigoEntrega = policiaDAL.GetPoliciaCedula(modelo.CedulaTestigoDeLaEntrega).idPolicia;
-
+         
             if (actaDecomisoDAL.FolioExiste(modelo.NumeroActaLigada))
             {
                 string cod = "1";
@@ -48,10 +48,10 @@ namespace FrontEnd.Controllers
                 acta.numeroInventario = modelo.NumeroInventario;
             }
             acta.fechaHoraEntrega = modelo.Fecha;
-            acta.porOrdenDe = modelo.PorOrdenDe;
+            acta.idPorOrdenDe = personaDAL.GetPersonaIdentificacion(modelo.IdentificacionPorOrdenDe).idPersona;
             acta.numeroResolucion = modelo.NumeroResolucion;
-            acta.idPersonaQueSeLeEntrega = modelo.CedulaPersonaQueSeLeEntrega;
-            acta.nombrePersonaQueSeLeEntrega = modelo.NombrePersonaQueSeLeEntrega;
+            acta.idPersonaQueSeLeEntrega = personaDAL.GetPersonaIdentificacion(modelo.IdentificacionPorOrdenDe).idPersona;
+            //acta.nombrePersonaQueSeLeEntrega = modelo.NombrePersonaQueSeLeEntrega;
             acta.estado = tablaGeneralDAL.GetCodigo("Actas", "estadoActa", modelo.Estado.ToString()).idTablaGeneral;
 
             return acta;
@@ -80,7 +80,8 @@ namespace FrontEnd.Controllers
             acta.Hora = actaEntregaPorOrdenDe.fechaHoraEntrega.Value;
             acta.TipoInventario = int.Parse(tablaGeneralDAL.Get(actaEntregaPorOrdenDe.tipoInventario).codigo);
             acta.VistaTipoInventario = tablaGeneralDAL.Get(actaEntregaPorOrdenDe.tipoInventario).descripcion;
-            acta.PorOrdenDe = actaEntregaPorOrdenDe.porOrdenDe;
+            acta.IdentificacionPorOrdenDe = personaDAL.GetPersona(actaEntregaPorOrdenDe.idPorOrdenDe).identificacion;
+            acta.NombrePorOrdenDe = personaDAL.GetPersona(actaEntregaPorOrdenDe.idPorOrdenDe).nombre;
             acta.Estado = int.Parse(tablaGeneralDAL.Get(actaEntregaPorOrdenDe.estado).codigo);
             acta.VistaEstadoActa = tablaGeneralDAL.Get(actaEntregaPorOrdenDe.estado).descripcion;
             if (tablaGeneralDAL.Get(actaEntregaPorOrdenDe.tipoInventario).codigo == "1") {
@@ -94,9 +95,9 @@ namespace FrontEnd.Controllers
 
             acta.NumeroResolucion = actaEntregaPorOrdenDe.numeroResolucion;
             acta.NumeroInventario = actaEntregaPorOrdenDe.numeroInventario;
-            acta.NombrePersonaQueSeLeEntrega = actaEntregaPorOrdenDe.nombrePersonaQueSeLeEntrega;
-            acta.CedulaPersonaQueSeLeEntrega = actaEntregaPorOrdenDe.idPersonaQueSeLeEntrega;
-         
+            acta.NombrePersonaQueSeLeEntrega = personaDAL.GetPersona(actaEntregaPorOrdenDe.idPorOrdenDe).nombre;
+            acta.CedulaPersonaQueSeLeEntrega = personaDAL.GetPersona(actaEntregaPorOrdenDe.idPorOrdenDe).identificacion;
+
 
             return acta;
         }
@@ -188,7 +189,45 @@ namespace FrontEnd.Controllers
 
             return PartialView("_ListaActasDecomisoParcial", ConvertirListaActasDecomisoFiltrados(actasDecomisoFiltrados));
         }
+        public List<PersonaViewModel> ConvertirListaPersonasFiltrados(List<Personas> personas)
+        {
+            return (from d in personas
+                    select new PersonaViewModel
+                    {
+                        Identificacion = d.identificacion,
+                        NombrePersona = d.nombre,
+                    }).ToList();
+        }
+        public PartialViewResult ListaPersonasBuscar(string nombre)
+        {
+            List<PersonaViewModel> personas = new List<PersonaViewModel>();
 
+            return PartialView("_ListaPersonasBuscar", personas);
+        }
+
+        public PartialViewResult ListaPersonasParcial(string nombre)
+        {
+            tablaGeneralDAL = new TablaGeneralDAL();
+            personaDAL = new PersonaDAL();
+            List<Personas> personas = personaDAL.Get();
+            List<Personas> personasFiltradas = new List<Personas>();
+            if (nombre == "")
+            {
+                personasFiltradas = personas;
+            }
+            else
+            {
+                foreach (Personas persona in personas)
+                {
+                    if (persona.nombre.Contains(nombre))
+                    {
+                        personasFiltradas.Add(persona);
+                    }
+                }
+            }
+            personasFiltradas = personasFiltradas.OrderBy(x => x.nombre).ToList();
+            return PartialView("_ListaPersonasParcial", ConvertirListaPersonasFiltrados(personasFiltradas));
+        }
         public ActionResult Index(string filtrosSeleccionado, string busqueda, string busquedaFechaInicioH, string busquedaFechaFinalH)
         {
             actaEntregaPorOrdenDeDAL = new ActaEntregaPorOrdenDeDAL();

@@ -62,11 +62,16 @@
                 </div>
 
                 <div class="form-group col-md-4">
-                    @Html.LabelFor(d => d.PorOrdenDe)
-                    @Html.TextBoxFor(d => d.PorOrdenDe, "", new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "sololetrasnumerossimbolos(event)", autocomplete = "new-password" })
-                    @Html.ValidationMessageFor(d => d.PorOrdenDe, null, new { @class = "red" })
-                </div>
+                    @Html.LabelFor(d => d.IdentificacionPorOrdenDe)
+                    <div class="input-group">
+                        @Html.TextBoxFor(d => d.IdentificacionPorOrdenDe, "", new { @class = "form-control", @id = "idInteresado", @readonly = "readonly" })
+                        <div class="input-group-append ">
+                            <a class="btn btn-primary" data-book-id="idInteresado" data-toggle="modal" data-target="#modalBusquedaPersona">Buscar</a>
 
+                        </div>
+                    </div>
+                    @Html.ValidationMessageFor(d => d.IdentificacionPorOrdenDe, null, new { @class = "red" })
+                </div>
                 <div class="form-group col-md-2">
                     @Html.LabelFor(d => d.Fecha)
                     @Html.EditorFor(d => d.Fecha, "", new { @class = "form-control" })
@@ -84,16 +89,28 @@
         <div>
             <div class="form-row">
 
-                <div class="form-group col-md-4">
-                    @Html.LabelFor(d => d.NombrePersonaQueSeLeEntrega)
-                    @Html.TextBoxFor(d => d.NombrePersonaQueSeLeEntrega, "", new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimboloss(event)", autocomplete = "new-password" })
-                    @Html.ValidationMessageFor(d => d.NombrePersonaQueSeLeEntrega, null, new { @class = "red" })
-                </div>
+                @*<div class="form-group col-md-4">
+                        @Html.LabelFor(d => d.NombrePersonaQueSeLeEntrega)
+                        @Html.TextBoxFor(d => d.NombrePersonaQueSeLeEntrega, "", new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimboloss(event)", autocomplete = "new-password" })
+                        @Html.ValidationMessageFor(d => d.NombrePersonaQueSeLeEntrega, null, new { @class = "red" })
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(d => d.CedulaPersonaQueSeLeEntrega)
+                        @Html.TextBoxFor(d => d.CedulaPersonaQueSeLeEntrega, "", new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimboloss(event)", autocomplete = "new-password" })
+                        @Html.ValidationMessageFor(d => d.CedulaPersonaQueSeLeEntrega, null, new { @class = "red" })
+                    </div>*@
 
                 <div class="form-group col-md-4">
                     @Html.LabelFor(d => d.CedulaPersonaQueSeLeEntrega)
-                    @Html.TextBoxFor(d => d.CedulaPersonaQueSeLeEntrega, "", new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimboloss(event)", autocomplete = "new-password" })
-                    @Html.ValidationMessageFor(d => d.CedulaPersonaQueSeLeEntrega, null, new { @class = "red" })
+                    <div class="input-group">
+                        @Html.TextBoxFor(d => d.CedulaPersonaQueSeLeEntrega, "", new { @class = "form-control", @id = "idFuncionarioQueEntrega", @readonly = "readonly" })
+                        <div class="input-group-append ">
+                            <a class="btn btn-primary" data-book-id="idFuncionarioQueEntrega" data-toggle="modal" data-target="#modalBusquedaPersona">Buscar</a>
+
+                        </div>
+                    </div>
+                    @Html.ValidationMessageFor(d => d.CedulaFuncionarioQueEntrega, null, new { @class = "red" })
                 </div>
 
                 <div class="form-group col-md-4">
@@ -238,7 +255,23 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="modalBusquedaPersona" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Buscar Persona</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <p hidden name="agregarPersona" id="" />
 
+                <div class="modal-body">
+                    @{ Html.RenderAction("ListaPersonasBuscar", "ActaEntregaPorOrdenDe", new { nombre = "" }); }
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 
@@ -288,7 +321,19 @@
         elem2.value = clicked_name4;
         $('#modalBusquedaActaDecomiso').modal('hide');
     }
-
+    function reply_click5(clicked_id5) {
+        var aux = document.getElementsByName("agregarPersona")[0].getAttribute("id");
+        if (aux === "idInteresado") {
+            var elem = document.getElementById("idInteresado");
+            elem.value = clicked_id5;
+        }
+        if (aux === "idFuncionarioQueEntrega") {
+            var elem = document.getElementById("idFuncionarioQueEntrega");
+            elem.value = clicked_id5;
+        }
+        elem.value = clicked_id5;
+        $('#modalBusquedaPersona').modal('hide');
+    }
     function reply_click2(clicked_id2) {
         var elem2 = document.getElementByName("quitaPolicia");
         elem2.value = clicked_id2;

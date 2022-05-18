@@ -1,0 +1,13 @@
+﻿@model List<FrontEnd.Models.ViewModels.PersonaViewModel>
+@{ ViewBag.Title = "ListaPersonasBuscar"; }
+@using (Ajax.BeginForm("ListaPersonasParcial", "ActaEntregaPorOrdenDe", new { nombre = "abcd" }, new AjaxOptions { UpdateTargetId = "listaFiltradaPersonas" }))
+{
+    <label for="recipient-name" class="col-form-label">Nombre Persona:</label>
+    <div class="input-group mb-3">
+        <input type="text" name="nombre" id="nombre" class="form-control" aria-describedby="basic-addon2" onkeyup="this.value = this.value.toUpperCase();">
+        <div class="input-group-append">
+            <button class="btn btn-outline-primary" type="submit">Buscar</button>
+        </div>
+    </div>}
+<div id="listaFiltradaPersonas">
+</div>

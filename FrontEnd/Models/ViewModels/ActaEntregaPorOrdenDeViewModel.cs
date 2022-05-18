@@ -33,10 +33,13 @@ namespace FrontEnd.Models.ViewModels
         [StringLength(int.MaxValue)]
         public string NumeroInventario { get; set; }
 
+
+        [Display(Name = "Identificación Orden De")]
         [Required(ErrorMessage = "Este campo es Obligatorio")]
-        [Display(Name = "Por orden de")]
-        [StringLength(150, ErrorMessage = "Descripción de barrio excede los 150 caracteres.")]
-        public string PorOrdenDe { get; set; }
+        public string IdentificacionPorOrdenDe { get; set; }
+
+        [Display(Name = "Por Orden De")]
+        public string NombrePorOrdenDe { get; set; }
 
         [Display(Name = "Número de Identificación")]
         [Required(ErrorMessage = "Este campo es Obligatorio")]
@@ -50,14 +53,14 @@ namespace FrontEnd.Models.ViewModels
         public string CedulaTestigoDeLaEntrega { get; set; }
 
         [Display(Name = "Testigo de la Entrega")]
-        [StringLength(150, ErrorMessage = "Descripción de barrio excede los 150 caracteres.")]
+        [StringLength(150, ErrorMessage = "Testigo de la entrega excede los 150 caracteres.")]
         public string NombreTestigoDeLaEntrega { get; set; }
 
         [Display(Name = "Número de Acta Referenciada")]
         public string NumeroActaLigada { get; set; }
 
         [Display(Name = "Número de Resolución")]
-        [StringLength(150, ErrorMessage = "Descripción de barrio excede los 150 caracteres.")]
+        [StringLength(150, ErrorMessage = "Número de Resolución excede los 150 caracteres.")]
         [Required(ErrorMessage = "Este campo es Obligatorio")]
         public string NumeroResolucion { get; set; }
 
@@ -65,9 +68,9 @@ namespace FrontEnd.Models.ViewModels
         [Required(ErrorMessage = "Este campo es Obligatorio")]
         public string CedulaPersonaQueSeLeEntrega { get; set; }
 
-        [Required(ErrorMessage = "Este campo es Obligatorio")]
+       
         [Display(Name = "Nombre de la persona a entregar")]
-        [StringLength(150, ErrorMessage = "Descripción de barrio excede los 150 caracteres.")]
+       
         public string NombrePersonaQueSeLeEntrega { get; set; }
 
         [Display(Name = "Descripción de los artículos")]

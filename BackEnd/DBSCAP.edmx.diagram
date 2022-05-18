@@ -4,27 +4,27 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1396f0f2f0a04d0f83f931ea509fa889" Name="Diagram1">
-        <EntityTypeShape EntityType="SCAPModel.ActasDecomiso" Width="1.5" PointX="5.25" PointY="69.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SCAPModel.ActasDeDestruccionDePerecederos" Width="1.5" PointX="8.25" PointY="69.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SCAPModel.ActasDeNotificacion" Width="1.5" PointX="8.25" PointY="74.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SCAPModel.ActasDeObservacionPolicial" Width="1.5" PointX="8.25" PointY="64.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SCAPModel.ActasEntrega" Width="1.5" PointX="5.25" PointY="75.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SCAPModel.ActasEntregaPorOrdenDe" Width="1.5" PointX="5.25" PointY="63.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SCAPModel.ActasHallazgo" Width="1.5" PointX="11.25" PointY="69.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SCAPModel.ActasNotificacionVendedorAmbulante" Width="1.5" PointX="11.25" PointY="75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SCAPModel.Armas" Width="1.5" PointX="3" PointY="71.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="SCAPModel.Auditorias" Width="1.5" PointX="3" PointY="43.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="SCAPModel.Bitacoras" Width="1.5" PointX="11.25" PointY="62.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="SCAPModel.Infractores" Width="1.5" PointX="3" PointY="80.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SCAPModel.PartesPoliciales" Width="1.5" PointX="14.25" PointY="72.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SCAPModel.Personas" Width="1.5" PointX="3" PointY="86.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SCAPModel.Policias" Width="1.5" PointX="3" PointY="96.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="SCAPModel.Requisitos" Width="1.5" PointX="3" PointY="93" IsExpanded="true" />
-        <EntityTypeShape EntityType="SCAPModel.Roles" Width="1.5" PointX="0.75" PointY="32.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="SCAPModel.RolesUsuarios" Width="1.5" PointX="3" PointY="35.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SCAPModel.TablaGeneral" Width="1.5" PointX="0.75" PointY="39.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SCAPModel.Usuarios" Width="1.5" PointX="0.75" PointY="35.75" IsExpanded="true" />
+      <Diagram DiagramId="0c840a8fd61743c38db68ca0577a6473" Name="Diagram1">
+        <EntityTypeShape EntityType="SCAPModel.ActasDecomiso" Width="1.5" PointX="5.25" PointY="69.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCAPModel.ActasDeDestruccionDePerecederos" Width="1.5" PointX="8.25" PointY="70" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCAPModel.ActasDeNotificacion" Width="1.5" PointX="8.25" PointY="74.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCAPModel.ActasDeObservacionPolicial" Width="1.5" PointX="8.25" PointY="65" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCAPModel.ActasEntrega" Width="1.5" PointX="5.25" PointY="75.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCAPModel.ActasEntregaPorOrdenDe" Width="1.5" PointX="11.25" PointY="75.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCAPModel.ActasHallazgo" Width="1.5" PointX="5.25" PointY="64" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCAPModel.ActasNotificacionVendedorAmbulante" Width="1.5" PointX="11.25" PointY="69.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCAPModel.Armas" Width="1.5" PointX="3" PointY="72" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCAPModel.Auditorias" Width="1.5" PointX="3" PointY="43.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCAPModel.Bitacoras" Width="1.5" PointX="11.25" PointY="63.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCAPModel.Infractores" Width="1.5" PointX="3" PointY="80.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCAPModel.PartesPoliciales" Width="1.5" PointX="14.25" PointY="73.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCAPModel.Personas" Width="1.5" PointX="3" PointY="87.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCAPModel.Policias" Width="1.5" PointX="3" PointY="97" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCAPModel.Requisitos" Width="1.5" PointX="3" PointY="93.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCAPModel.Roles" Width="1.5" PointX="0.75" PointY="33.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCAPModel.RolesUsuarios" Width="1.5" PointX="3" PointY="36" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCAPModel.TablaGeneral" Width="1.5" PointX="0.75" PointY="39.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCAPModel.Usuarios" Width="1.5" PointX="0.75" PointY="36" IsExpanded="true" />
         <AssociationConnector Association="SCAPModel.FK_EstadoActaDecomiso" ManuallyRouted="false" />
         <AssociationConnector Association="SCAPModel.FK_OficialAcompanante" ManuallyRouted="false" />
         <AssociationConnector Association="SCAPModel.FK_OficialActuante" ManuallyRouted="false" />
@@ -52,6 +52,8 @@
         <AssociationConnector Association="SCAPModel.FK_TipoActa" ManuallyRouted="false" />
         <AssociationConnector Association="SCAPModel.FK_EstadoActaOrden" ManuallyRouted="false" />
         <AssociationConnector Association="SCAPModel.FK_FuncionarioQueEntrega" ManuallyRouted="false" />
+        <AssociationConnector Association="SCAPModel.FK_PersonaQueSeEntregaOrden" ManuallyRouted="false" />
+        <AssociationConnector Association="SCAPModel.FK_PorOrdenDeEntregaOrden" ManuallyRouted="false" />
         <AssociationConnector Association="SCAPModel.FK_TestigoEntregaOrden" ManuallyRouted="false" />
         <AssociationConnector Association="SCAPModel.FK_TipoActaLigada" ManuallyRouted="false" />
         <AssociationConnector Association="SCAPModel.FK_Encargado" ManuallyRouted="false" />

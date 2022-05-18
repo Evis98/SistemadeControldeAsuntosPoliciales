@@ -21,6 +21,8 @@ namespace BackEnd
             this.ActasDeObservacionPolicial = new HashSet<ActasDeObservacionPolicial>();
             this.ActasEntrega = new HashSet<ActasEntrega>();
             this.ActasEntrega1 = new HashSet<ActasEntrega>();
+            this.ActasEntregaPorOrdenDe = new HashSet<ActasEntregaPorOrdenDe>();
+            this.ActasEntregaPorOrdenDe1 = new HashSet<ActasEntregaPorOrdenDe>();
             this.ActasNotificacionVendedorAmbulante = new HashSet<ActasNotificacionVendedorAmbulante>();
             this.PartesPoliciales = new HashSet<PartesPoliciales>();
         }
@@ -48,6 +50,10 @@ namespace BackEnd
         public virtual ICollection<ActasEntrega> ActasEntrega { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ActasEntrega> ActasEntrega1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ActasEntregaPorOrdenDe> ActasEntregaPorOrdenDe { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ActasEntregaPorOrdenDe> ActasEntregaPorOrdenDe1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ActasNotificacionVendedorAmbulante> ActasNotificacionVendedorAmbulante { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

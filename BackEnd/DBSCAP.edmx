@@ -102,11 +102,10 @@
           <Property Name="idActaLigada" Type="int" />
           <Property Name="tipoInventario" Type="int" Nullable="false" />
           <Property Name="fechaHoraEntrega" Type="datetime" />
-          <Property Name="porOrdenDe" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="idPorOrdenDe" Type="int" Nullable="false" />
           <Property Name="numeroResolucion" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="numeroInventario" Type="varchar(max)" />
-          <Property Name="idPersonaQueSeLeEntrega" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="nombrePersonaQueSeLeEntrega" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="idPersonaQueSeLeEntrega" Type="int" />
           <Property Name="estado" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ActasHallazgo">
@@ -949,6 +948,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PersonaQueSeEntregaOrden">
+          <End Role="Personas" Type="Self.Personas" Multiplicity="0..1" />
+          <End Role="ActasEntregaPorOrdenDe" Type="Self.ActasEntregaPorOrdenDe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personas">
+              <PropertyRef Name="idPersona" />
+            </Principal>
+            <Dependent Role="ActasEntregaPorOrdenDe">
+              <PropertyRef Name="idPersonaQueSeLeEntrega" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PoliciaSolicitante">
           <End Role="Policias" Type="Self.Policias" Multiplicity="1" />
           <End Role="Bitacoras" Type="Self.Bitacoras" Multiplicity="*" />
@@ -958,6 +969,18 @@
             </Principal>
             <Dependent Role="Bitacoras">
               <PropertyRef Name="idPoliciaSolicitante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PorOrdenDeEntregaOrden">
+          <End Role="Personas" Type="Self.Personas" Multiplicity="1" />
+          <End Role="ActasEntregaPorOrdenDe" Type="Self.ActasEntregaPorOrdenDe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personas">
+              <PropertyRef Name="idPersona" />
+            </Principal>
+            <Dependent Role="ActasEntregaPorOrdenDe">
+              <PropertyRef Name="idPorOrdenDe" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1470,9 +1493,17 @@
             <End Role="Personas" EntitySet="Personas" />
             <End Role="ActasDeNotificacion" EntitySet="ActasDeNotificacion" />
           </AssociationSet>
+          <AssociationSet Name="FK_PersonaQueSeEntregaOrden" Association="Self.FK_PersonaQueSeEntregaOrden">
+            <End Role="Personas" EntitySet="Personas" />
+            <End Role="ActasEntregaPorOrdenDe" EntitySet="ActasEntregaPorOrdenDe" />
+          </AssociationSet>
           <AssociationSet Name="FK_PoliciaSolicitante" Association="Self.FK_PoliciaSolicitante">
             <End Role="Policias" EntitySet="Policias" />
             <End Role="Bitacoras" EntitySet="Bitacoras" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PorOrdenDeEntregaOrden" Association="Self.FK_PorOrdenDeEntregaOrden">
+            <End Role="Personas" EntitySet="Personas" />
+            <End Role="ActasEntregaPorOrdenDe" EntitySet="ActasEntregaPorOrdenDe" />
           </AssociationSet>
           <AssociationSet Name="FK_RazonSocial" Association="Self.FK_RazonSocial">
             <End Role="Personas" EntitySet="Personas" />
@@ -1698,14 +1729,15 @@
           <Property Name="idActaLigada" Type="Int32" />
           <Property Name="tipoInventario" Type="Int32" Nullable="false" />
           <Property Name="fechaHoraEntrega" Type="DateTime" Precision="3" />
-          <Property Name="porOrdenDe" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idPorOrdenDe" Type="Int32" Nullable="false" />
           <Property Name="numeroResolucion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="numeroInventario" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="idPersonaQueSeLeEntrega" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="nombrePersonaQueSeLeEntrega" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idPersonaQueSeLeEntrega" Type="Int32" />
           <Property Name="estado" Type="Int32" Nullable="false" />
           <NavigationProperty Name="TablaGeneral" Relationship="Self.FK_EstadoActaOrden" FromRole="ActasEntregaPorOrdenDe" ToRole="TablaGeneral" />
           <NavigationProperty Name="Policias" Relationship="Self.FK_FuncionarioQueEntrega" FromRole="ActasEntregaPorOrdenDe" ToRole="Policias" />
+          <NavigationProperty Name="Personas" Relationship="Self.FK_PersonaQueSeEntregaOrden" FromRole="ActasEntregaPorOrdenDe" ToRole="Personas" />
+          <NavigationProperty Name="Personas1" Relationship="Self.FK_PorOrdenDeEntregaOrden" FromRole="ActasEntregaPorOrdenDe" ToRole="Personas" />
           <NavigationProperty Name="Policias1" Relationship="Self.FK_TestigoEntregaOrden" FromRole="ActasEntregaPorOrdenDe" ToRole="Policias" />
           <NavigationProperty Name="TablaGeneral1" Relationship="Self.FK_TipoActaLigada" FromRole="ActasEntregaPorOrdenDe" ToRole="TablaGeneral" />
         </EntityType>
@@ -1930,6 +1962,8 @@
           <NavigationProperty Name="ActasDeObservacionPolicial" Relationship="Self.FK_InteresadoObservacionPolicial" FromRole="Personas" ToRole="ActasDeObservacionPolicial" />
           <NavigationProperty Name="ActasEntrega" Relationship="Self.FK_RazonSocial" FromRole="Personas" ToRole="ActasEntrega" />
           <NavigationProperty Name="ActasEntrega1" Relationship="Self.FK_Recibe" FromRole="Personas" ToRole="ActasEntrega" />
+          <NavigationProperty Name="ActasEntregaPorOrdenDe" Relationship="Self.FK_PersonaQueSeEntregaOrden" FromRole="Personas" ToRole="ActasEntregaPorOrdenDe" />
+          <NavigationProperty Name="ActasEntregaPorOrdenDe1" Relationship="Self.FK_PorOrdenDeEntregaOrden" FromRole="Personas" ToRole="ActasEntregaPorOrdenDe" />
           <NavigationProperty Name="ActasNotificacionVendedorAmbulante" Relationship="Self.FK_IdNotificado" FromRole="Personas" ToRole="ActasNotificacionVendedorAmbulante" />
           <NavigationProperty Name="PartesPoliciales" Relationship="Self.FK_Ofendido1" FromRole="Personas" ToRole="PartesPoliciales" />
           <NavigationProperty Name="TablaGeneral" Relationship="Self.FK_NacionalidadPersona" FromRole="Personas" ToRole="TablaGeneral" />
@@ -2391,6 +2425,30 @@
             </Principal>
             <Dependent Role="ActasEntregaPorOrdenDe">
               <PropertyRef Name="idFuncionarioQueEntrega" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonaQueSeEntregaOrden">
+          <End Role="Personas" Type="Self.Personas" Multiplicity="0..1" />
+          <End Role="ActasEntregaPorOrdenDe" Type="Self.ActasEntregaPorOrdenDe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personas">
+              <PropertyRef Name="idPersona" />
+            </Principal>
+            <Dependent Role="ActasEntregaPorOrdenDe">
+              <PropertyRef Name="idPersonaQueSeLeEntrega" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PorOrdenDeEntregaOrden">
+          <End Role="Personas" Type="Self.Personas" Multiplicity="1" />
+          <End Role="ActasEntregaPorOrdenDe" Type="Self.ActasEntregaPorOrdenDe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personas">
+              <PropertyRef Name="idPersona" />
+            </Principal>
+            <Dependent Role="ActasEntregaPorOrdenDe">
+              <PropertyRef Name="idPorOrdenDe" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3099,6 +3157,14 @@
             <End Role="Policias" EntitySet="Policias" />
             <End Role="ActasEntregaPorOrdenDe" EntitySet="ActasEntregaPorOrdenDe" />
           </AssociationSet>
+          <AssociationSet Name="FK_PersonaQueSeEntregaOrden" Association="Self.FK_PersonaQueSeEntregaOrden">
+            <End Role="Personas" EntitySet="Personas" />
+            <End Role="ActasEntregaPorOrdenDe" EntitySet="ActasEntregaPorOrdenDe" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PorOrdenDeEntregaOrden" Association="Self.FK_PorOrdenDeEntregaOrden">
+            <End Role="Personas" EntitySet="Personas" />
+            <End Role="ActasEntregaPorOrdenDe" EntitySet="ActasEntregaPorOrdenDe" />
+          </AssociationSet>
           <AssociationSet Name="FK_TestigoEntregaOrden" Association="Self.FK_TestigoEntregaOrden">
             <End Role="Policias" EntitySet="Policias" />
             <End Role="ActasEntregaPorOrdenDe" EntitySet="ActasEntregaPorOrdenDe" />
@@ -3399,11 +3465,10 @@
                 <ScalarProperty Name="idActaLigada" ColumnName="idActaLigada" />
                 <ScalarProperty Name="tipoInventario" ColumnName="tipoInventario" />
                 <ScalarProperty Name="fechaHoraEntrega" ColumnName="fechaHoraEntrega" />
-                <ScalarProperty Name="porOrdenDe" ColumnName="porOrdenDe" />
+                <ScalarProperty Name="idPorOrdenDe" ColumnName="idPorOrdenDe" />
                 <ScalarProperty Name="numeroResolucion" ColumnName="numeroResolucion" />
                 <ScalarProperty Name="numeroInventario" ColumnName="numeroInventario" />
                 <ScalarProperty Name="idPersonaQueSeLeEntrega" ColumnName="idPersonaQueSeLeEntrega" />
-                <ScalarProperty Name="nombrePersonaQueSeLeEntrega" ColumnName="nombrePersonaQueSeLeEntrega" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
               </MappingFragment>
             </EntityTypeMapping>

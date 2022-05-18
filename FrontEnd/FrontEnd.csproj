@@ -471,6 +471,8 @@
     <Content Include="Views\Auditoria\DetalleActaEntrega.cshtml" />
     <Content Include="Views\Auditoria\ListadoPartePolicial.cshtml" />
     <Content Include="Views\Auditoria\DetallePartePolicial.cshtml" />
+    <Content Include="Views\ActaEntregaPorOrdenDe\_ListaPersonasParcial.cshtml" />
+    <Content Include="Views\ActaEntregaPorOrdenDe\_ListaPersonasBuscar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

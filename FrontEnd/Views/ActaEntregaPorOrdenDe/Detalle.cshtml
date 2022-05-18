@@ -35,6 +35,12 @@
             @Html.DisplayTextFor(d => d.CedulaFuncionarioQueEntrega)
         </dd>
         <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.CedulaPersonaQueSeLeEntrega)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.CedulaPersonaQueSeLeEntrega)
+        </dd>
+        <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.NombrePersonaQueSeLeEntrega)
         </dt>
         <dd class="col-sm-8 ">
@@ -53,10 +59,16 @@
             @Html.DisplayTextFor(d => d.CedulaTestigoDeLaEntrega)
         </dd>
         <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.PorOrdenDe)
+            @Html.LabelFor(d => d.IdentificacionPorOrdenDe)
         </dt>
         <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.PorOrdenDe)
+            @Html.DisplayTextFor(d => d.IdentificacionPorOrdenDe)
+        </dd>
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.NombrePorOrdenDe)
+        </dt>
+        <dd class="col-sm-8 ">
+            @Html.DisplayTextFor(d => d.NombrePorOrdenDe)
         </dd>
         <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.NumeroResolucion)
@@ -118,7 +130,7 @@
         <dd class="col-sm-8 ">
             @Html.DisplayTextFor(d => d.VistaEstadoActa)
         </dd>
-        
+
     </dl>
     <hr />
 
