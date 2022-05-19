@@ -84,7 +84,10 @@ namespace FrontEnd.Controllers
 
         public ActionResult Index(string filtrosSeleccionado, string busqueda)
         {
-            infractorDAL = new InfractorDAL();
+
+            if (Session["userID"] != null)
+            {
+                infractorDAL = new InfractorDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             List<InfractorViewModel> infractores = new List<InfractorViewModel>();
             List<InfractorViewModel> infractoresFiltrados = new List<InfractorViewModel>();
@@ -123,6 +126,11 @@ namespace FrontEnd.Controllers
                 infractores = infractoresFiltrados;
             }
             return View(infractores.OrderBy(x => x.Nombre).ToList());
+            }
+            else
+            {
+                return Redirect("~/Shared/Error.cshtml");
+            }
         }
 
         public ActionResult Nuevo()

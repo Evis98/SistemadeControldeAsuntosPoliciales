@@ -57,6 +57,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
@@ -152,6 +153,7 @@
     <Compile Include="Controllers\BitacoraController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InfractorController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ParteController.cs" />
     <Compile Include="Controllers\PersonaController.cs" />
     <Compile Include="Controllers\PoliciaController.cs" />
@@ -171,6 +173,7 @@
     <Compile Include="Models\ViewModels\AuditoriaViewModel.cs" />
     <Compile Include="Models\ViewModels\BitacoraViewModel.cs" />
     <Compile Include="Models\ViewModels\InfractorViewModel.cs" />
+    <Compile Include="Models\ViewModels\LdapAuthentication.cs" />
     <Compile Include="Models\ViewModels\ListParte1ViewModel.cs" />
     <Compile Include="Models\ViewModels\Parte1ViewModel.cs" />
     <Compile Include="Models\ViewModels\PersonaViewModel.cs" />
@@ -473,6 +476,11 @@
     <Content Include="Views\Auditoria\DetallePartePolicial.cshtml" />
     <Content Include="Views\ActaEntregaPorOrdenDe\_ListaPersonasParcial.cshtml" />
     <Content Include="Views\ActaEntregaPorOrdenDe\_ListaPersonasBuscar.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\ActaDeDestruccionDePerecederos\_ListaPersonasBuscar.cshtml" />
+    <Content Include="Views\ActaDeDestruccionDePerecederos\_ListaPersonasParcial.cshtml" />
+    <Content Include="Views\ActaHallazgo\_ListaPersonasBuscar.cshtml" />
+    <Content Include="Views\ActaHallazgo\_ListaPersonasParcial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

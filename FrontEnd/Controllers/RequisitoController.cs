@@ -58,7 +58,9 @@ namespace FrontEnd.Controllers
         //Devuelve la página con el listado de todos los requisitos creados
         public ActionResult Index(string filtrosSeleccionado, string busqueda, string tiposRequisito)
         {
-            requisitoDAL = new RequisitoDAL();
+            if (Session["userID"] != null)
+            {
+                requisitoDAL = new RequisitoDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             List<RequisitoViewModel> requisitos = new List<RequisitoViewModel>();
             List<RequisitoViewModel> requisitosFiltrados = new List<RequisitoViewModel>();
@@ -106,6 +108,11 @@ namespace FrontEnd.Controllers
                 requisitos = requisitosFiltrados;
             }
             return View(requisitos.OrderBy(x => x.FechaVencimiento).ToList());
+            }
+            else
+            {
+                return Redirect("~/Shared/Error.cshtml");
+            }
         }
 
         //*Devuelve la página con el listado de todos los requisitos creados para el policía seleccionado

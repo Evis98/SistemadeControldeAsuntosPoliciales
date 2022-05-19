@@ -340,7 +340,10 @@ namespace FrontEnd.Controllers
         }
         public ActionResult Index(string filtrosSeleccionado, string busqueda, string busquedaFechaInicioH, string busquedaFechaFinalH)
         {
-            actaEntregaDAL = new ActaEntregaDAL();
+            if (Session["userID"] != null)
+            {
+
+                actaEntregaDAL = new ActaEntregaDAL();
             policiaDAL = new PoliciaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             List<ActaEntregaViewModel> actasEntrega = new List<ActaEntregaViewModel>();
@@ -396,6 +399,12 @@ namespace FrontEnd.Controllers
                 actasEntrega = actasEntregaFiltradas;
             }
             return View(actasEntrega.OrderBy(x => x.NumeroFolio).ToList());
+        
+            }
+            else
+            {
+                return Redirect("~/Shared/Error.cshtml");
+            }
         }
 
         public ActionResult Nuevo()

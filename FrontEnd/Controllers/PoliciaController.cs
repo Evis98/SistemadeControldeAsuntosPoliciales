@@ -60,7 +60,9 @@ namespace FrontEnd.Controllers
         }
         public ActionResult Index(string filtrosSeleccionado, string busqueda )
         {
-            policiaDAL = new PoliciaDAL();
+            if (Session["userID"] != null)
+            {
+                policiaDAL = new PoliciaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             List<PoliciaViewModel> policias = new List<PoliciaViewModel>();
             List<PoliciaViewModel> policiasFiltrados = new List<PoliciaViewModel>();
@@ -99,18 +101,30 @@ namespace FrontEnd.Controllers
                 policias = policiasFiltrados;
             }
             return View(policias.OrderBy(x => x.Nombre).ToList());
+            }
+            else
+            {
+                return Redirect("~/Shared/Error");
+            }
         }
 
         //Devuelve la página que agrega nuevos policías
         public ActionResult Nuevo()
         {
-            tablaGeneralDAL = new TablaGeneralDAL();
+            if (Session["userID"] != null)
+            {
+                tablaGeneralDAL = new TablaGeneralDAL();
             PoliciaViewModel modelo = new PoliciaViewModel()
             {
                 TiposCedula = tablaGeneralDAL.Get("Policias", "tipoCedula").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
                 FechaNacimiento = DateTime.Today
             };
             return View(modelo);
+            }
+            else
+            {
+                return Redirect("~/Shared/Error");
+            }
         }
         public void CrearCarpetaPolicia(PoliciaViewModel model)
         {

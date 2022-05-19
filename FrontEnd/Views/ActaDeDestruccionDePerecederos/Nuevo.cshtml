@@ -14,16 +14,8 @@
     @using (Html.BeginForm("Nuevo", "ActaDeDestruccionDePerecederos", FormMethod.Post))
     {
         <div class="form-row">
-            <div class="form-group col-md-3">
-                @Html.LabelFor(d => d.Testigo)
-                <div class="input-group">
-                    @Html.TextBoxFor(d => d.Testigo, "", new { @class = "form-control", @id = "idTestigo", @readonly = "readonly" })
-                    <div class="input-group-append ">
-                        <a class="btn btn-primary" data-book-id="idTestigo" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
-                    </div>
-                </div>
-                @Html.ValidationMessageFor(d => d.Testigo, null, new { @class = "red" })
-            </div>
+
+
             <div class="form-group col-md-3">
                 @Html.LabelFor(d => d.Encargado)
                 <div class="input-group">
@@ -43,6 +35,32 @@
                     </div>
                 </div>
                 @Html.ValidationMessageFor(d => d.Supervisor, null, new { @class = "red" })
+            </div>
+
+            <div class="form-group col-md-3">
+                @Html.LabelFor(d => d.TipoTestigo)
+                @Html.DropDownListFor(d => d.TipoTestigo, Model.TiposTestigo, "--Seleccione--", new { @class = "myselect form-control", @id = "idTipoTestigo" })
+                @Html.ValidationMessageFor(d => d.TipoTestigo, null, new { @class = "red" })
+            </div>
+
+            <div class="form-group col-md-3" id="idOficialTestigoCampo" style="display:none">
+                @Html.LabelFor(d => d.IdTestigoPolicia)
+                <div class="input-group">
+                    @Html.TextBoxFor(d => d.IdTestigoPolicia, "", new { @class = "form-control", @id = "idTestigoPolicia", @readonly = "readonly" })
+                    <div class="input-group-append">
+                        <a class="btn btn-primary" data-book-id="idTestigoPolicia" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-3" id="idPersonaTestigoCampo" style="display:none">
+                @Html.LabelFor(d => d.IdTestigoPersona)
+                <div class="input-group">
+                    @Html.TextBoxFor(d => d.IdTestigoPersona, "", new { @class = "form-control", @id = "idTestigoPersona", @readonly = "readonly" })
+                    <div class="input-group-append">
+                        <a class="btn btn-primary" data-book-id="idTestigoPersona" data-toggle="modal" data-target="#modalBusquedaPersona">Buscar</a>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -182,6 +200,27 @@
             </div>
         </div>
     </div>
+
+
+
+    <div class="modal fade" id="modalBusquedaPersona" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Buscar Persona</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <p hidden name="agregarPersona" id="" />
+
+                <div class="modal-body">
+                    @{ Html.RenderAction("ListaPersonasBuscar", "ActaDeDestruccionDePerecederos", new { nombre = "" }); }
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <script>
@@ -197,9 +236,23 @@
         if (aux === "idSupervisor") {
             var elem = document.getElementById("idSupervisor");
         }
+        if (aux === "idTestigoPolicia") {
+            var elem = document.getElementById("idTestigoPolicia");
+        }
         elem.value = clicked_id;
         $('#modalBusqueda').modal('hide');
     }
+
+    function reply_click4(clicked_id4) {
+        var aux = document.getElementsByName("agregarPersona")[0].getAttribute("id");
+
+        if (aux === "idTestigoPersona") {
+            var elem = document.getElementById("idTestigoPersona");
+        }
+        elem.value = clicked_id4;
+        $('#modalBusquedaPersona').modal('hide');
+    }
+
     function reply_click2(clicked_id, inventarioLista) {
 
         var elem = document.getElementById("consecutivoActa");

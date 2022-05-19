@@ -168,7 +168,7 @@ namespace FrontEnd.Controllers
                 {
                     model1.TelefonoPoliciaActuante = model2.TelefonoPoliciaActuante;
                 }
-                if (model2.UnidadOrigenPoliciaActuante != null)
+                if (model2.UnidadOrigenPoliciaActuante != 0)
                 {
                     model1.UnidadOrigenPoliciaActuante = model2.UnidadOrigenPoliciaActuante;
                 }
@@ -188,7 +188,7 @@ namespace FrontEnd.Controllers
                 {
                     model1.TelefonoPoliciaAsiste = model2.TelefonoPoliciaAsiste;
                 }
-                if (model2.UnidadOrigenPoliciaAsiste != null)
+                if (model2.UnidadOrigenPoliciaAsiste != 0)
                 {
                     model1.UnidadOrigenPoliciaAsiste = model2.UnidadOrigenPoliciaAsiste;
                 }
@@ -482,7 +482,9 @@ namespace FrontEnd.Controllers
         }
         public ActionResult Index(string filtrosSeleccionado, string busqueda, string busquedaFechaInicioP, string busquedaFechaFinalP)
         {
-            parteDAL = new ParteDAL();
+            if (Session["userID"] != null)
+            {
+                parteDAL = new ParteDAL();
             infractorDAL = new InfractorDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             List<PartesPoliciales> partes = parteDAL.Get();
@@ -535,6 +537,11 @@ namespace FrontEnd.Controllers
             partes = partes.OrderBy(x => x.numeroFolio).ToList();
             return View(ConvertirListaPartes(partes));
         }
+            else
+            {
+                return Redirect("~/Shared/Error.cshtml");
+    }
+}
         public ActionResult Nuevo1()
         {
             tablaGeneralDAL = new TablaGeneralDAL();
@@ -544,6 +551,7 @@ namespace FrontEnd.Controllers
             {
                 if (Session["Parte"] != null)
                 {
+                    ActualizarParte(modelo, (Parte1ViewModel)Session["Parte"]);
                     modelo = (Parte1ViewModel)Session["Parte"];
                     modelo.TiposLugaresSuceso = tablaGeneralDAL.Get("PartesPoliciales", "lugarSuceso").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
                     modelo.Distritos = tablaGeneralDAL.Get("Generales", "distrito").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
@@ -716,10 +724,11 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             usuarioDAL = new UsuarioDAL();
             auditoriaDAL = new AuditoriaDAL();
-           
+            parteDAL = new ParteDAL();
+
             try
             {
-                ParteDAL parteDAL = new ParteDAL();
+
                 if (Session["Parte"] != null)
                 {
                     Parte1ViewModel modelAux = (Parte1ViewModel)Session["Parte"];
@@ -727,7 +736,7 @@ namespace FrontEnd.Controllers
                     {
                         PartesPoliciales parte = ConvertirParte(modelAux);
                         parte.numeroFolio = (parteDAL.GetCount(parte.fecha.Date) + 1).ToString() + "-" + parte.fecha.Date.Year;
-                        
+
                         parteDAL.Add(parte);
                         modelAux.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
                         modelAux.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "15").idTablaGeneral;

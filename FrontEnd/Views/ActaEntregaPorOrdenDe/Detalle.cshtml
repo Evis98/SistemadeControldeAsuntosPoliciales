@@ -47,16 +47,31 @@
             @Html.DisplayTextFor(d => d.NombrePersonaQueSeLeEntrega)
         </dd>
         <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.NombreTestigoDeLaEntrega)
+            @Html.LabelFor(d => d.VistaTipoTestigo)
         </dt>
         <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.NombreTestigoDeLaEntrega)
+            @Html.DisplayTextFor(d => d.VistaTipoTestigo)
         </dd>
+        @if (Model.VistaTestigo != null)
+        {
+            <dt class="col-sm-4 ">
+                @Html.LabelFor(d => d.VistaTestigo)
+            </dt>
+            <dd class="col-sm-8 ">
+                @Html.DisplayTextFor(d => d.VistaTestigo)
+            </dd>
+            <dt class="col-sm-4 ">
+                @Html.LabelFor(d => d.VistaIdTestigo)
+            </dt>
+            <dd class="col-sm-8 ">
+                @Html.DisplayTextFor(d => d.VistaIdTestigo)
+            </dd>
+        }
         <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.CedulaTestigoDeLaEntrega)
+            @Html.LabelFor(d => d.NombrePorOrdenDe)
         </dt>
         <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.CedulaTestigoDeLaEntrega)
+            @Html.DisplayTextFor(d => d.NombrePorOrdenDe)
         </dd>
         <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.IdentificacionPorOrdenDe)
@@ -64,12 +79,7 @@
         <dd class="col-sm-8 ">
             @Html.DisplayTextFor(d => d.IdentificacionPorOrdenDe)
         </dd>
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.NombrePorOrdenDe)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.NombrePorOrdenDe)
-        </dd>
+
         <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.NumeroResolucion)
         </dt>
@@ -148,24 +158,24 @@
     </div>
 
     @*<div class="modal" id="show3" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Modificar Estado</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>¿Está seguro que desea modificar el estado del acta?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-danger" id="Cancel" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-primary" id="Save" href="~/ActaEntregaPorOrdenDe/CambioEstadoActa/@Model.EstadoActa">Modificar</a>
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Modificar Estado</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>¿Está seguro que desea modificar el estado del acta?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-danger" id="Cancel" data-dismiss="modal">Cancelar</button>
+                        <a class="btn btn-primary" id="Save" href="~/ActaEntregaPorOrdenDe/CambioEstadoActa/@Model.EstadoActa">Modificar</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>*@
+        </div>*@
 
 
 </div>

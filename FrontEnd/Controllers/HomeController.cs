@@ -11,17 +11,21 @@ namespace FrontEnd.Controllers
 {
     public class HomeController : Controller
     {
-        IUsuarioDAL usuarioDAL;
+
         //Devuelve la pantalla inicial
         public ActionResult Index()
         {
-            usuarioDAL = new UsuarioDAL();
-            var usuario = usuarioDAL.GetUsuario(1);
-            if (usuario != null)
+       
+            
+            if (Session["userID"] != null)
             {
-                Session.Add("Username", usuario.nombre);
+                return View();
             }
-            return View();
+            else
+            {
+                return  Redirect("~/Shared/Error.cshtml");
+            }
+            
         }
         public ActionResult SetSession()
         {

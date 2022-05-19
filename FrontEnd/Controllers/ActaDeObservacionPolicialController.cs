@@ -146,6 +146,9 @@ namespace FrontEnd.Controllers
         }
         public ActionResult Index(string filtrosSeleccionado, string busqueda, string busquedaFechaInicioH, string busquedaFechaFinalH)
         {
+            if (Session["userID"] != null)
+            {
+      
             actaDeObservacionPolicialDAL = new ActaDeObservacionPolicialDAL();
             policiaDAL = new PoliciaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
@@ -201,6 +204,11 @@ namespace FrontEnd.Controllers
                 actasDeObservacionPolicial = actasDeObservacionPolicialFiltradas;
             }
             return View(actasDeObservacionPolicial.OrderBy(x => x.NumeroFolio).ToList());
+            }
+            else
+            {
+                return Redirect("~/Shared/Error.cshtml");
+            }
         }
         public ActionResult Nuevo()
         {

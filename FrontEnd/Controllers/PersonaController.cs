@@ -67,7 +67,9 @@ namespace FrontEnd.Controllers
 
         public ActionResult Index(string filtrosSeleccionado, string busqueda)
         {
-            personaDAL = new PersonaDAL();
+            if (Session["userID"] != null)
+            {
+                personaDAL = new PersonaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             List<PersonaViewModel> personas = new List<PersonaViewModel>();
             List<PersonaViewModel> personasFiltrados = new List<PersonaViewModel>();
@@ -106,6 +108,11 @@ namespace FrontEnd.Controllers
                 personas = personasFiltrados;
             }
             return View(personas.OrderBy(x => x.NombrePersona).ToList());
+            }
+            else
+            {
+                return Redirect("~/Shared/Error.cshtml");
+            }
         }
         
         public ActionResult Nuevo()

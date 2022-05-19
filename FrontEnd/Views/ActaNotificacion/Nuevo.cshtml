@@ -47,9 +47,9 @@
             </div>
 
             <div class="form-group col-md-3" id="idOficialTestigoCampo" style="display:none">
-                @Html.LabelFor(d => d.IdTestigo)
+                @Html.LabelFor(d => d.IdTestigoPolicia)
                 <div class="input-group">
-                    @Html.TextBoxFor(d => d.IdTestigo, "", new { @class = "form-control", @id = "idTestigoPolicia", @readonly = "readonly" })
+                    @Html.TextBoxFor(d => d.IdTestigoPolicia, "", new { @class = "form-control", @id = "idTestigoPolicia", @readonly = "readonly" })
                     <div class="input-group-append">
                         <a class="btn btn-primary" data-book-id="idTestigoPolicia" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
                     </div>
@@ -57,9 +57,9 @@
             </div>
 
             <div class="form-group col-md-3" id="idPersonaTestigoCampo" style="display:none">
-                @Html.LabelFor(d => d.IdTestigo)
+                @Html.LabelFor(d => d.IdTestigoPersona)
                 <div class="input-group">
-                    @Html.TextBoxFor(d => d.IdTestigo, "", new { @class = "form-control", @id = "idTestigoPersona", @readonly = "readonly" })
+                    @Html.TextBoxFor(d => d.IdTestigoPersona, "", new { @class = "form-control", @id = "idTestigoPersona", @readonly = "readonly" })
                     <div class="input-group-append">
                         <a class="btn btn-primary" data-book-id="idTestigoPersona" data-toggle="modal" data-target="#modalBusquedaPersona">Buscar</a>
                     </div>

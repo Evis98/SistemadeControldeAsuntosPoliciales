@@ -49,19 +49,22 @@ namespace FrontEnd.Models.ViewModels
         [Display(Name = "Tipo de Testigo")]
         public int TipoTestigo { get; set; }
 
-       
         [Display(Name = "Tipo de Testigo")]
         public string VistaTipoTestigo { get; set; }
 
+
         [Display(Name = "Testigo")]
-        public string IdTestigo { get; set; }
+        public string IdTestigoPolicia { get; set; }
+
+        [Display(Name = "Testigo")]
+        public string IdTestigoPersona { get; set; }
 
         [Display(Name = "Cédula")]
         public string VistaIdTestigo { get; set; }
 
         [Display(Name = "Testigo")]
         public string VistaTestigo { get; set; }
-        
+
         [Required]
         [StringLength(250, ErrorMessage = "Dirección excede los 250 caracteres.")]
         [Display(Name = "Dirección del suceso(notificación)")]
@@ -110,7 +113,7 @@ namespace FrontEnd.Models.ViewModels
         public int IdUsuario { get; set; }
         public string VistaUsuario { get; set; }
         public IEnumerable<SelectListItem> Estados { get; set; }
-       
+
         public IEnumerable<SelectListItem> Distritos { get; set; }
         public IEnumerable<SelectListItem> TiposTestigo { get; set; }
         public IEnumerable<SelectListItem> FormasVenta { get; set; }

@@ -33,24 +33,25 @@ namespace FrontEnd.Controllers
             acta.distrito = tablaGeneralDAL.GetCodigo("Generales", "distrito", modelo.Distrito.ToString()).idTablaGeneral;
             acta.caserio = modelo.Caserio;
             acta.tipoTestigo = tablaGeneralDAL.GetCodigo("Actas", "tipoTestigo", modelo.TipoTestigo.ToString()).idTablaGeneral;
-            
-            if(modelo.TipoTestigo != 3)
+
+            if (modelo.TipoTestigo != 3)
             {
-                if(modelo.TipoTestigo == 1)
+                if (modelo.TipoTestigo == 1)
                 {
-                    if (modelo.IdTestigo != null && policiaDAL.CedulaPoliciaExiste(modelo.IdTestigo))
+                    if (modelo.IdTestigoPolicia != null && policiaDAL.CedulaPoliciaExiste(modelo.IdTestigoPolicia))
                     {
-                        acta.testigo = policiaDAL.GetPoliciaCedula(modelo.IdTestigo).idPolicia;
+                        acta.testigo = policiaDAL.GetPoliciaCedula(modelo.IdTestigoPolicia).idPolicia;
                     }
                     else
                     {
                         acta.tipoTestigo = tablaGeneralDAL.GetCodigo("Actas", "tipoTestigo", "3").idTablaGeneral;
                     }
                 }
-                else if(modelo.TipoTestigo == 2) 
+                else if (modelo.TipoTestigo == 2)
                 {
-                    if (modelo.IdTestigo != null && personaDAL.IdentificacionExiste(modelo.IdTestigo)) {
-                        acta.testigo = personaDAL.GetPersonaIdentificacion(modelo.IdTestigo).idPersona;
+                    if (modelo.IdTestigoPersona != null && personaDAL.IdentificacionExiste(modelo.IdTestigoPersona))
+                    {
+                        acta.testigo = personaDAL.GetPersonaIdentificacion(modelo.IdTestigoPersona).idPersona;
                     }
                     else
                     {
@@ -88,19 +89,19 @@ namespace FrontEnd.Controllers
             acta.VistaEstadoActa = tablaGeneralDAL.Get(actaNotificacionVendedorAmbulante.estado).descripcion;
             if (int.Parse(tablaGeneralDAL.Get(actaNotificacionVendedorAmbulante.tipoTestigo).codigo) != 3 && actaNotificacionVendedorAmbulante.testigo != null)
             {
-              if(int.Parse(tablaGeneralDAL.Get(actaNotificacionVendedorAmbulante.tipoTestigo).codigo) == 1 && policiaDAL.GetPolicia((int)actaNotificacionVendedorAmbulante.testigo) != null)
+                if (int.Parse(tablaGeneralDAL.Get(actaNotificacionVendedorAmbulante.tipoTestigo).codigo) == 1 && policiaDAL.GetPolicia((int)actaNotificacionVendedorAmbulante.testigo) != null)
                 {
                     acta.VistaTestigo = policiaDAL.GetPolicia((int)actaNotificacionVendedorAmbulante.testigo).nombre;
-                    acta.IdTestigo = policiaDAL.GetPolicia((int)actaNotificacionVendedorAmbulante.testigo).cedula;
+                    acta.IdTestigoPolicia = policiaDAL.GetPolicia((int)actaNotificacionVendedorAmbulante.testigo).cedula;
                     acta.VistaIdTestigo = policiaDAL.GetPolicia((int)actaNotificacionVendedorAmbulante.testigo).cedula;
                 }
-              else if (int.Parse(tablaGeneralDAL.Get(actaNotificacionVendedorAmbulante.tipoTestigo).codigo) == 2 && personaDAL.GetPersona((int)actaNotificacionVendedorAmbulante.testigo) != null) {
+                else if (int.Parse(tablaGeneralDAL.Get(actaNotificacionVendedorAmbulante.tipoTestigo).codigo) == 2 && personaDAL.GetPersona((int)actaNotificacionVendedorAmbulante.testigo) != null)
+                {
                     acta.VistaTestigo = personaDAL.GetPersona((int)actaNotificacionVendedorAmbulante.testigo).nombre;
-                    acta.IdTestigo = personaDAL.GetPersona((int)actaNotificacionVendedorAmbulante.testigo).identificacion;
+                    acta.IdTestigoPersona = personaDAL.GetPersona((int)actaNotificacionVendedorAmbulante.testigo).identificacion;
                     acta.VistaIdTestigo = personaDAL.GetPersona((int)actaNotificacionVendedorAmbulante.testigo).identificacion;
                 }
             }
-
             acta.Distrito = int.Parse(tablaGeneralDAL.Get(actaNotificacionVendedorAmbulante.distrito).codigo);
             acta.VistaTipoDistrito = tablaGeneralDAL.Get(actaNotificacionVendedorAmbulante.distrito).descripcion;
             acta.VistaTipoTestigo = tablaGeneralDAL.Get(actaNotificacionVendedorAmbulante.tipoTestigo).descripcion;
@@ -206,7 +207,9 @@ namespace FrontEnd.Controllers
         }
         public ActionResult Index(string filtrosSeleccionado, string busqueda, string busquedaFechaInicioH, string busquedaFechaFinalH)
         {
-            actaNotificacionVendedorAmbulanteDAL = new ActaNotificacionVendedorAmbulanteDAL();
+            if (Session["userID"] != null)
+            {
+                actaNotificacionVendedorAmbulanteDAL = new ActaNotificacionVendedorAmbulanteDAL();
             policiaDAL = new PoliciaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             List<ActaNotificacionVendedorAmbulanteViewModel> actasNotificacionVendedorAmbulante = new List<ActaNotificacionVendedorAmbulanteViewModel>();
@@ -262,6 +265,11 @@ namespace FrontEnd.Controllers
             }
             return View(actasNotificacionVendedorAmbulante.OrderBy(x => x.NumeroFolio).ToList());
         }
+            else
+            {
+                return Redirect("~/Shared/Error.cshtml");
+    }
+}
         public ActionResult Nuevo()
         {
             tablaGeneralDAL = new TablaGeneralDAL();

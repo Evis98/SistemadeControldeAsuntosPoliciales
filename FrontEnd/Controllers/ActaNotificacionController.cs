@@ -41,9 +41,9 @@ namespace FrontEnd.Controllers
                 {
                     if (model.TipoTestigo == 1)
                     {
-                        if (model.IdTestigo != null && policiaDAL.CedulaPoliciaExiste(model.IdTestigo))
+                        if (model.IdTestigoPolicia != null && policiaDAL.CedulaPoliciaExiste(model.IdTestigoPolicia))
                         {
-                            acta.testigo = policiaDAL.GetPoliciaCedula(model.IdTestigo).idPolicia;
+                            acta.testigo = policiaDAL.GetPoliciaCedula(model.IdTestigoPolicia).idPolicia;
                         }
                         else
                         {
@@ -52,9 +52,9 @@ namespace FrontEnd.Controllers
                     }
                     else if (model.TipoTestigo == 2)
                     {
-                        if (model.IdTestigo != null && personaDAL.IdentificacionExiste(model.IdTestigo))
+                        if (model.IdTestigoPersona != null && personaDAL.IdentificacionExiste(model.IdTestigoPersona))
                         {
-                            acta.testigo = personaDAL.GetPersonaIdentificacion(model.IdTestigo).idPersona;
+                            acta.testigo = personaDAL.GetPersonaIdentificacion(model.IdTestigoPersona).idPersona;
                         }
                         else
                         {
@@ -84,13 +84,13 @@ namespace FrontEnd.Controllers
                 if (int.Parse(tablaGeneralDAL.Get(actaDeNotificacion.tipoTestigo).codigo) == 1 && policiaDAL.GetPolicia((int)actaDeNotificacion.testigo) != null)
                 {
                     acta.VistaTestigo = policiaDAL.GetPolicia((int)actaDeNotificacion.testigo).nombre;
-                    acta.IdTestigo = policiaDAL.GetPolicia((int)actaDeNotificacion.testigo).cedula;
+                    acta.IdTestigoPolicia = policiaDAL.GetPolicia((int)actaDeNotificacion.testigo).cedula;
                     acta.VistaIdTestigo = policiaDAL.GetPolicia((int)actaDeNotificacion.testigo).cedula;
                 }
                 else if (int.Parse(tablaGeneralDAL.Get(actaDeNotificacion.tipoTestigo).codigo) == 2 && personaDAL.GetPersona((int)actaDeNotificacion.testigo) != null)
                 {
                     acta.VistaTestigo = personaDAL.GetPersona((int)actaDeNotificacion.testigo).nombre;
-                    acta.IdTestigo = personaDAL.GetPersona((int)actaDeNotificacion.testigo).identificacion;
+                    acta.IdTestigoPersona = personaDAL.GetPersona((int)actaDeNotificacion.testigo).identificacion;
                     acta.VistaIdTestigo = personaDAL.GetPersona((int)actaDeNotificacion.testigo).identificacion;
                 }
             }
@@ -200,7 +200,9 @@ namespace FrontEnd.Controllers
 
         public ActionResult Index(string filtrosSeleccionado, string busqueda, string busquedaFechaInicioH, string busquedaFechaFinalH)
         {
-            actaDeNotificacionDAL = new ActaDeNotificacionDAL();
+            if (Session["userID"] != null)
+            {
+                actaDeNotificacionDAL = new ActaDeNotificacionDAL();
             policiaDAL = new PoliciaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             List<ActaNotificacionViewModel> actasNotificacion = new List<ActaNotificacionViewModel>();
@@ -271,6 +273,11 @@ namespace FrontEnd.Controllers
                 actasNotificacion = actasNotificacionFiltradas;
             }
             return View(actasNotificacion.OrderBy(x => x.NumeroFolio).ToList());
+            }
+            else
+            {
+                return Redirect("~/Shared/Error.cshtml");
+            }
         }
 
         public ActionResult Nuevo()

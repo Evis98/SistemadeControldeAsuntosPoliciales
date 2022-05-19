@@ -73,7 +73,9 @@ namespace FrontEnd.Controllers
 
         public ActionResult Index(string filtrosSeleccionado, string busqueda)
         {
-            armaDAL = new ArmaDAL();
+            if (Session["userID"] != null)
+            {
+                armaDAL = new ArmaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             List<ArmaViewModel> armas = new List<ArmaViewModel>();
             List<ArmaViewModel> armasFiltradas = new List<ArmaViewModel>();
@@ -112,6 +114,12 @@ namespace FrontEnd.Controllers
                 armas = armasFiltradas;
             }
             return View(armas.OrderByDescending(x => x.PoliciaAsignado).ToList());
+            }
+            else
+            {
+                return Redirect("~/Shared/Error.cshtml");
+            }
+
         }
 
         public ActionResult Nuevo()

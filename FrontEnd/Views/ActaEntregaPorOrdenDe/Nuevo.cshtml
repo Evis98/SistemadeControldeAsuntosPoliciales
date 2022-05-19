@@ -46,18 +46,9 @@
                     @Html.ValidationMessageFor(d => d.CedulaFuncionarioQueEntrega, null, new { @class = "red" })
                 </div>
 
-                <div class="form-group col-md-4">
-                    @Html.LabelFor(d => d.NombreTestigoDeLaEntrega)
-                    <div class="input-group">
-                        @Html.TextBoxFor(d => d.CedulaTestigoDeLaEntrega, "", new { @class = "form-control", @id = "idTestigoEntrega", @readonly = "readonly" })
-                        <div class="input-group-append ">
-                            <a class="btn btn-primary" data-book-id="idTestigoEntrega" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
-                        </div>
-                    </div>
-                    @Html.ValidationMessageFor(d => d.CedulaTestigoDeLaEntrega, null, new { @class = "red" })
-                </div>
 
-                <div class="form-group col-md-4">
+
+                <div class="form-group col-md-3">
                     @Html.LabelFor(d => d.IdentificacionPorOrdenDe)
                     <div class="input-group">
                         @Html.TextBoxFor(d => d.IdentificacionPorOrdenDe, "", new { @class = "form-control", @id = "idInteresado", @readonly = "readonly" })
@@ -69,27 +60,42 @@
                     @Html.ValidationMessageFor(d => d.IdentificacionPorOrdenDe, null, new { @class = "red" })
                 </div>
 
-                <div class="form-group col-md-2">
-                    @Html.LabelFor(d => d.Fecha)
-                    @Html.EditorFor(d => d.Fecha, "", new { @class = "form-control" })
-                    @Html.ValidationMessageFor(d => d.Fecha, null, new { @class = "red" })
+
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(d => d.TipoTestigo)
+                    @Html.DropDownListFor(d => d.TipoTestigo, Model.TiposTestigo, "--Seleccione--", new { @class = "myselect form-control", @id = "idTipoTestigo" })
+                    @Html.ValidationMessageFor(d => d.TipoTestigo, null, new { @class = "red" })
                 </div>
 
-                <div class="form-group col-md-2">
-                    @Html.LabelFor(d => d.Hora)
-                    @Html.EditorFor(d => d.Hora, "", new { @class = "form-control" })
-                    @Html.ValidationMessageFor(d => d.Hora, null, new { @class = "red" })
+                <div class="form-group col-md-3" id="idOficialTestigoCampo" style="display:none">
+                    @Html.LabelFor(d => d.IdTestigoPolicia)
+                    <div class="input-group">
+                        @Html.TextBoxFor(d => d.IdTestigoPolicia, "", new { @class = "form-control", @id = "idTestigoPolicia", @readonly = "readonly" })
+                        <div class="input-group-append">
+                            <a class="btn btn-primary" data-book-id="idTestigoPolicia" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
+                        </div>
+                    </div>
                 </div>
+
+                <div class="form-group col-md-3" id="idPersonaTestigoCampo" style="display:none">
+                    @Html.LabelFor(d => d.IdTestigoPersona)
+                    <div class="input-group">
+                        @Html.TextBoxFor(d => d.IdTestigoPersona, "", new { @class = "form-control", @id = "idTestigoPersona", @readonly = "readonly" })
+                        <div class="input-group-append">
+                            <a class="btn btn-primary" data-book-id="idTestigoPersona" data-toggle="modal" data-target="#modalBusquedaPersona">Buscar</a>
+                        </div>
+                    </div>
+                </div>
+
 
             </div>
+
+
+
+
         </div>
         <div class="form-row">
 
-            @*<div class="form-group col-md-4">
-            @Html.LabelFor(d => d.NombrePersonaQueSeLeEntrega)
-            @Html.TextBoxFor(d => d.NombrePersonaQueSeLeEntrega, "", new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimboloss(event)", autocomplete = "new-password" })
-            @Html.ValidationMessageFor(d => d.NombrePersonaQueSeLeEntrega, null, new { @class = "red" })
-        </div>*@
 
             <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.CedulaPersonaQueSeLeEntrega)
@@ -108,6 +114,21 @@
                 @Html.TextBoxFor(d => d.NumeroResolucion, "", new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimboloss(event)", autocomplete = "new-password" })
                 @Html.ValidationMessageFor(d => d.NumeroResolucion, null, new { @class = "red" })
             </div>
+
+
+            <div class="form-group col-md-2">
+                @Html.LabelFor(d => d.Fecha)
+                @Html.EditorFor(d => d.Fecha, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.Fecha, null, new { @class = "red" })
+            </div>
+
+            <div class="form-group col-md-2">
+                @Html.LabelFor(d => d.Hora)
+                @Html.EditorFor(d => d.Hora, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.Hora, null, new { @class = "red" })
+            </div>
+
+
         </div>
         <div class="form-row">
 
@@ -264,15 +285,15 @@
 
     function reply_click(clicked_id) {
         var aux = document.getElementsByName("agregarPolicia")[0].getAttribute("id");
-        if (aux === "idTestigoEntrega") {
-            var elem = document.getElementById("idTestigoEntrega");
+        if (aux === "idTestigoPolicia") {
+            var elem = document.getElementById("idTestigoPolicia");
             elem.value = clicked_id;
         }
         if (aux === "idEncargadoEntrega") {
             var elem = document.getElementById("idEncargadoEntrega");
             elem.value = clicked_id;
         }
-        
+
         $('#modalBusqueda').modal('hide');
     }
 
@@ -297,6 +318,10 @@
             var elem = document.getElementById("idFuncionarioQueEntrega");
             elem.value = clicked_id5;
         }
+        if (aux === "idTestigoPersona") {
+            var elem = document.getElementById("idTestigoPersona");
+            elem.value = clicked_id5;
+        }
         elem.value = clicked_id5;
         $('#modalBusquedaPersona').modal('hide');
     }
@@ -310,3 +335,7 @@
         document.getElementById(clicked_id3).value = '';
     }
 </script>
+
+
+
+

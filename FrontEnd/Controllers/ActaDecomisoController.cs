@@ -116,6 +116,9 @@ namespace FrontEnd.Controllers
 
         public ActionResult Index(string filtrosSeleccionado, string busqueda, string busquedaFechaInicioH, string busquedaFechaFinalH)
         {
+            if (Session["userID"] != null)
+            {
+        
             actaDecomisoDAL = new ActaDecomisoDAL();
             policiaDAL = new PoliciaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
@@ -172,6 +175,12 @@ namespace FrontEnd.Controllers
                 actasDecomiso = actasDecomisoFiltradas;
             }
             return View(actasDecomiso.OrderBy(x => x.NumeroFolio).ToList());
+        
+            }
+            else
+            {
+                return Redirect("~/Shared/Error.cshtml");
+            }
         }
         public ActionResult Nuevo()
         {

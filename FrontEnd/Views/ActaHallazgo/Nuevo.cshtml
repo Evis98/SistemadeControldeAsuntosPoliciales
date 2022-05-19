@@ -1,4 +1,6 @@
-﻿@model FrontEnd.Models.ViewModels.ActaHallazgoViewModel
+﻿
+
+@model FrontEnd.Models.ViewModels.ActaHallazgoViewModel
 @{ ViewBag.Title = "Nueva Acta de Hallazgo"; }
 
 <div class="container bg-light text-dark border" style=" height: auto; min-height: 80vh; padding-bottom: 20px; margin-bottom: 28px; word-wrap: break-word;">
@@ -14,39 +16,55 @@
     @using (Html.BeginForm("Nuevo", "ActaHallazgo", FormMethod.Post))
     {
         <div class="form-row">
-            <div class="form-group col-md-4">
-                @Html.LabelFor(d => d.Testigo)
-                <div class="input-group">
-                    @Html.TextBoxFor(d => d.Testigo, "", new { @class = "form-control", @id = "idTestigo", @readonly = "readonly" })
-                    <div class="input-group-append ">
-                        <a class="btn btn-primary" data-book-id="idTestigo" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
-                        <a class="btn btn-danger" data-book-id="idTestigo" data-toggle="modal" data-target="#quitaPolicia">Quitar</a>
-                    </div>
-                </div>
-                @Html.ValidationMessageFor(d => d.Testigo, null, new { @class = "red" })
-            </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-3">
                 @Html.LabelFor(d => d.Encargado)
                 <div class="input-group">
                     @Html.TextBoxFor(d => d.Encargado, "", new { @class = "form-control", @id = "idEncargado", @readonly = "readonly" })
                     <div class="input-group-append ">
                         <a class="btn btn-primary" data-book-id="idEncargado" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
-                        
+
                     </div>
                 </div>
                 @Html.ValidationMessageFor(d => d.Encargado, null, new { @class = "red" })
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-3">
                 @Html.LabelFor(d => d.Supervisor)
                 <div class="input-group">
                     @Html.TextBoxFor(d => d.Supervisor, "", new { @class = "form-control", @id = "idSupervisor", @readonly = "readonly" })
                     <div class="input-group-append ">
                         <a class="btn btn-primary" data-book-id="idSupervisor" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
-                       
+
                     </div>
                 </div>
                 @Html.ValidationMessageFor(d => d.Supervisor, null, new { @class = "red" })
             </div>
+
+            <div class="form-group col-md-3">
+                @Html.LabelFor(d => d.TipoTestigo)
+                @Html.DropDownListFor(d => d.TipoTestigo, Model.TiposTestigo, "--Seleccione--", new { @class = "myselect form-control", @id = "idTipoTestigo" })
+                @Html.ValidationMessageFor(d => d.TipoTestigo, null, new { @class = "red" })
+            </div>
+
+            <div class="form-group col-md-3" id="idOficialTestigoCampo" style="display:none">
+                @Html.LabelFor(d => d.IdTestigoPolicia)
+                <div class="input-group">
+                    @Html.TextBoxFor(d => d.IdTestigoPolicia, "", new { @class = "form-control", @id = "idTestigoPolicia", @readonly = "readonly" })
+                    <div class="input-group-append">
+                        <a class="btn btn-primary" data-book-id="idTestigoPolicia" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-3" id="idPersonaTestigoCampo" style="display:none">
+                @Html.LabelFor(d => d.IdTestigoPersona)
+                <div class="input-group">
+                    @Html.TextBoxFor(d => d.IdTestigoPersona, "", new { @class = "form-control", @id = "idTestigoPersona", @readonly = "readonly" })
+                    <div class="input-group-append">
+                        <a class="btn btn-primary" data-book-id="idTestigoPersona" data-toggle="modal" data-target="#modalBusquedaPersona">Buscar</a>
+                    </div>
+                </div>
+            </div>
+
         </div>
         <div class="form-row">
             <div class="form-group col-md-2">
@@ -85,7 +103,7 @@
             </div>
             <div class="form-group col-md-6">
                 @Html.LabelFor(d => d.Observaciones)
-                @Html.TextAreaFor(d => d.Observaciones, new { @class = "form-control", @onkeypress = "return sololetrasnumerossimbolos(event)", autocomplete = "new-password" , onkeyup = "this.value = this.value.toUpperCase();" })
+                @Html.TextAreaFor(d => d.Observaciones, new { @class = "form-control", @onkeypress = "return sololetrasnumerossimbolos(event)", autocomplete = "new-password", onkeyup = "this.value = this.value.toUpperCase();" })
                 @Html.ValidationMessageFor(d => d.Observaciones, null, new { @class = "red" })
             </div>
         </div>
@@ -177,6 +195,27 @@
         </div>
     </div>
 
+
+
+    <div class="modal fade" id="modalBusquedaPersona" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Buscar Persona</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <p hidden name="agregarPersona" id="" />
+
+                <div class="modal-body">
+                    @{ Html.RenderAction("ListaPersonasBuscar", "ActaHallazgo", new { nombre = "" }); }
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </div>
 
 <script>
@@ -185,14 +224,22 @@
         var aux = document.getElementsByName("agregarPolicia")[0].getAttribute("id");
         if (aux === "idTestigo") {
             var elem = document.getElementById("idTestigo");
+            elem.value = clicked_id;
         }
         if (aux === "idEncargado") {
             var elem = document.getElementById("idEncargado");
+            elem.value = clicked_id;
         }
         if (aux === "idSupervisor") {
             var elem = document.getElementById("idSupervisor");
+            elem.value = clicked_id;
         }
-        elem.value = clicked_id;
+        if (aux === "idTestigoPolicia") {
+            var elem = document.getElementById("idTestigoPolicia");
+            elem.value = clicked_id;
+        }
+
+
         $('#modalBusqueda').modal('hide');
     }
 
@@ -203,7 +250,27 @@
         $('#showQu').modal('hide');
     }
 
+
+
+    function reply_click4(clicked_id4) {
+        var aux = document.getElementsByName("agregarPersona")[0].getAttribute("id");
+        if (aux === "idNotificado") {
+            var elem = document.getElementById("idNotificado");
+        }
+        if (aux === "idTestigoPersona") {
+            var elem = document.getElementById("idTestigoPersona");
+        }
+        elem.value = clicked_id4;
+        $('#modalBusquedaPersona').modal('hide');
+    }
+
+
     function reply_click3(clicked_id3) {
         document.getElementById(clicked_id3).value = '';
     }
 </script>
+
+
+
+
+

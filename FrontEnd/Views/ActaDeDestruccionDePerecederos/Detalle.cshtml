@@ -28,12 +28,27 @@
         <dd class="col-sm-8 ">
             @Html.DisplayTextFor(d => d.VistaPoliciaEncargado)
         </dd>
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.VistaPoliciaTestigo)
+        <dt class="col-sm-4 ">
+            @Html.LabelFor(d => d.VistaTipoTestigo)
         </dt>
         <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.VistaPoliciaTestigo)
+            @Html.DisplayTextFor(d => d.VistaTipoTestigo)
         </dd>
+        @if (Model.VistaTestigo != null)
+        {
+            <dt class="col-sm-4 ">
+                @Html.LabelFor(d => d.VistaTestigo)
+            </dt>
+            <dd class="col-sm-8 ">
+                @Html.DisplayTextFor(d => d.VistaTestigo)
+            </dd>
+            <dt class="col-sm-4 ">
+                @Html.LabelFor(d => d.VistaIdTestigo)
+            </dt>
+            <dd class="col-sm-8 ">
+                @Html.DisplayTextFor(d => d.VistaIdTestigo)
+            </dd>
+        }
         <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.Supervisor)
         </dt>
@@ -61,33 +76,31 @@
         </dd>
         @if (Model.ConsecutivoActaDecomiso != null)
         {
-            <dt class="col-sm-4 ">
-                @Html.LabelFor(d => d.ConsecutivoActaDecomiso)
-            </dt>
-            <dd class="col-sm-8 ">
-                @Html.DisplayTextFor(d => d.ConsecutivoActaDecomiso)
-            </dd>
-        }
-        else
-        {
-            <dt class="col-sm-4 ">
-                @Html.LabelFor(d => d.ConsecutivoActaHallazgo)
-            </dt>
-            <dd class="col-sm-8 ">
-                @Html.DisplayTextFor(d => d.ConsecutivoActaHallazgo)
-            </dd>
-        }
+    <dt class="col-sm-4 ">
+        @Html.LabelFor(d => d.ConsecutivoActaDecomiso)
+    </dt>
+                    <dd class="col-sm-8 ">
+                        <a href="~/ActaDecomiso/Detalle/@Model.IdActaDecomiso" target="_blank">
+                            @Html.DisplayTextFor(d => d.ConsecutivoActaDecomiso)
+                        </a>
+                    </dd>
+ }
+                else
+                {
+    <dt class="col-sm-4 ">
+        @Html.LabelFor(d => d.ConsecutivoActaHallazgo)
+    </dt>
+                    <dd class="col-sm-8 ">
+                        <a href="~/ActaHallazgo/Detalle/@Model.IdActaHallazgo" target="_blank">
+                            @Html.DisplayTextFor(d => d.ConsecutivoActaHallazgo)
+                        </a>
+                    </dd>
+}
         <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.InventarioDestruido)
         </dt>
         <dd class="col-sm-8 ">
             @Html.DisplayTextFor(d => d.InventarioDestruido)
-        </dd>
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.VistaEstadoActa)
-        </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.VistaEstadoActa)
         </dd>
     </dl>
     <hr />
@@ -95,9 +108,10 @@
     <div class="row">
         <div class="col-sm-12">
             <a href="~/ActaDeDestruccionDePerecederos/Index/" class="btn btn-outline-secondary">Regresar</a>
+
             <div style="text-align:center;">
                 <a class="btn btn-primary" href="~/ActaDeDestruccionDePerecederos/Editar/@Model.IdActaDeDestruccionDePerecederos">Editar</a>
-                <a class="btn btn-secondary" href="~/Auditoria/ListadoActaDeDestruccionDePerecederos/@Model.IdActaDeDestruccionDePerecederos">Ver Auditorias</a>
+
             </div>
         </div>
 

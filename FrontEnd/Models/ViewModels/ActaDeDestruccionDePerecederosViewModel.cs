@@ -12,6 +12,10 @@ namespace FrontEnd.Models.ViewModels
 
         public int IdActaDeDestruccionDePerecederos { get; set; }
 
+        public int IdActaDecomiso { get; set; }
+
+        public int IdActaHallazgo { get; set; }
+
         [Display(Name = "Número de Folio")]
         [StringLength(30)]
         public string NumeroFolio { get; set; }
@@ -22,11 +26,30 @@ namespace FrontEnd.Models.ViewModels
         [Display(Name = "Encargado")]
         public string VistaPoliciaEncargado { get; set; }
 
-        [Display(Name = "Testigo")]
+
+
         [Required]
-        public string Testigo { get; set; }
+        [Display(Name = "Tipo de Testigo")]
+        public int TipoTestigo { get; set; }
+
+
+        [Display(Name = "Tipo de Testigo")]
+        public string VistaTipoTestigo { get; set; }
+
+
+
         [Display(Name = "Testigo")]
-        public string VistaPoliciaTestigo { get; set; }
+        public string IdTestigoPolicia { get; set; }
+
+        [Display(Name = "Testigo")]
+        public string IdTestigoPersona { get; set; }
+
+        [Display(Name = "Cédula")]
+        public string VistaIdTestigo { get; set; }
+
+        [Display(Name = "Testigo")]
+        public string VistaTestigo { get; set; }
+
 
         [Display(Name = "Supervisor")]
         [Required]
@@ -79,5 +102,6 @@ namespace FrontEnd.Models.ViewModels
 
         public IEnumerable<SelectListItem> TiposActaD { get; set; }
 
+        public IEnumerable<SelectListItem> TiposTestigo { get; set; }
     }
 }

@@ -96,7 +96,10 @@ namespace FrontEnd.Controllers
 
         public ActionResult Index(string filtrosSeleccionado, string busqueda, string estadosBitacora, string busquedaFechaInicioB, string busquedaFechaFinalB)
         {
-            bitacoraDAL = new BitacoraDAL();
+
+            if (Session["userID"] != null)
+            {
+                bitacoraDAL = new BitacoraDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             policiaDAL = new PoliciaDAL();
             List<BitacoraViewModel> bitacoras = new List<BitacoraViewModel>();
@@ -159,6 +162,11 @@ namespace FrontEnd.Controllers
             }
             return View(bitacoras.OrderBy(x => x.EstadoActual).ToList());
         }
+            else
+            {
+                return Redirect("~/Shared/Error.cshtml");
+    }
+}
 
         // Este Nuevo funciona para cargar la información para el View Nuevo
         public ActionResult Nuevo()

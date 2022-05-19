@@ -12,6 +12,14 @@ namespace FrontEnd.Models.ViewModels
     { 
         public int IdUsuario { get; set; }
         public string Nombre { get; set; }
+        [Display(Name = "Error")]
+        public string LoginErrorMessage { get;  set; }
+        [Display(Name = "Usuario")]
+        [Required]
+        public string UserName { get;  set; }
+        [Required]
+        [Display(Name = "Contraseña")]
+        public string Password { get;  set; }
     }
 
 }

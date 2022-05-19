@@ -9,6 +9,8 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 </head>
 <body style="background-image: url('https://cdn.discordapp.com/attachments/894600217746354226/920456009607159848/v996-008.jpg'); ">
     <div class="contenedor-imagenes">
@@ -55,9 +57,12 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
                     <a class="navbar-brand">
-                        @*@Session["Username"]*@
+                        @Session["Nombre"] @Session["cedula"]
                     </a>
 
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="~/Login/LogOut/">Cerrar Sesión</a>
                 </li>
             </ul>
         </div>

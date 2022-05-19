@@ -12,6 +12,8 @@ namespace FrontEnd.Models.ViewModels
     {
         public int IdActaEntregaPorOrdenDe { get; set; }
 
+        public int IdActaLigada { get; set; }
+
         [Display(Name = "Número de Folio")]
         [StringLength(30)]
         public string NumeroFolio { get; set; }
@@ -48,13 +50,30 @@ namespace FrontEnd.Models.ViewModels
         [Display(Name = "Funcionario que entrega")]
         public string NombreFuncionarioQueEntrega { get; set; }
 
-        [Display(Name = "Número de Identificación")]
-        [Required(ErrorMessage = "Este campo es Obligatorio")]
-        public string CedulaTestigoDeLaEntrega { get; set; }
 
-        [Display(Name = "Testigo de la Entrega")]
-        [StringLength(150, ErrorMessage = "Testigo de la entrega excede los 150 caracteres.")]
-        public string NombreTestigoDeLaEntrega { get; set; }
+
+        [Required]
+        [Display(Name = "Tipo de Testigo")]
+        public int TipoTestigo { get; set; }
+
+        [Display(Name = "Tipo de Testigo")]
+        public string VistaTipoTestigo { get; set; }
+
+
+        [Display(Name = "Testigo")]
+        public string IdTestigoPolicia { get; set; }
+
+        [Display(Name = "Testigo")]
+        public string IdTestigoPersona { get; set; }
+
+        [Display(Name = "Cédula")]
+        public string VistaIdTestigo { get; set; }
+
+        [Display(Name = "Testigo")]
+        public string VistaTestigo { get; set; }
+
+
+
 
         [Display(Name = "Número de Acta Referenciada")]
         public string NumeroActaLigada { get; set; }
@@ -68,9 +87,9 @@ namespace FrontEnd.Models.ViewModels
         [Required(ErrorMessage = "Este campo es Obligatorio")]
         public string CedulaPersonaQueSeLeEntrega { get; set; }
 
-       
+
         [Display(Name = "Nombre de la persona a entregar")]
-       
+
         public string NombrePersonaQueSeLeEntrega { get; set; }
 
         [Display(Name = "Descripción de los artículos")]
@@ -100,6 +119,7 @@ namespace FrontEnd.Models.ViewModels
         public string VistaUsuario { get; set; }
         public IEnumerable<SelectListItem> Estados { get; set; }
         public IEnumerable<SelectListItem> TiposDeInventario { get; set; }
+        public IEnumerable<SelectListItem> TiposTestigo { get; set; }
         public class DateValidation : ValidationAttribute
         {
             public override bool IsValid(object value)

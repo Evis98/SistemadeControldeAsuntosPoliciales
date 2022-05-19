@@ -11,7 +11,14 @@ namespace FrontEnd.Controllers
         // GET: Acta
         public ActionResult Index()
         {
-            return View();
+            if (Session["userID"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return Redirect("~/Shared/Error.cshtml");
+            }
         }
     }
 }

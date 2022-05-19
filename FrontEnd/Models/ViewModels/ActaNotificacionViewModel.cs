@@ -33,13 +33,15 @@ namespace FrontEnd.Models.ViewModels
         [Display(Name = "Tipo de Testigo")]
         public int TipoTestigo { get; set; }
 
-
         [Display(Name = "Tipo de Testigo")]
         public string VistaTipoTestigo { get; set; }
 
 
         [Display(Name = "Testigo")]
-        public string IdTestigo { get; set; }
+        public string IdTestigoPolicia { get; set; }
+
+        [Display(Name = "Testigo")]
+        public string IdTestigoPersona { get; set; }
 
         [Display(Name = "Cédula")]
         public string VistaIdTestigo { get; set; }

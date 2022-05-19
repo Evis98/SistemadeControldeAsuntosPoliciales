@@ -91,7 +91,15 @@ namespace BackEnd.DAL
             }
 
         }
+        public int GetCount(DateTime year)
+        {
+            using (SCAPEntities db = new SCAPEntities())
+            {
 
+                return db.PartesPoliciales.Where(x => x.fecha.Year == year.Year).Count();
+            }
+
+        }
         public string GetNumeroFolio(string numeroFolio)
         {
             if (NumeroFolioExiste(numeroFolio))
@@ -104,15 +112,6 @@ namespace BackEnd.DAL
             }
         }
 
-        public int GetCount(DateTime year)
-        {
-            using (SCAPEntities db = new SCAPEntities())
-            {
-
-                return db.PartesPoliciales.Where(x => x.fecha.Year == year.Year).Count();
-            }
-
-        }
 
         public List<PartesPoliciales> GetPartesRango(DateTime inicio, DateTime final)
         {
