@@ -114,6 +114,7 @@ namespace FrontEnd.Controllers
             return PartialView("_ListaPoliciasParcial", ConvertirListaPoliciasFiltrados(policiasFiltrados));
         }
 
+        //[Authorize(Users = "juanpablo@scap.com")]
         public ActionResult Index(string filtrosSeleccionado, string busqueda, string busquedaFechaInicioH, string busquedaFechaFinalH)
         {
             if (Session["userID"] != null)

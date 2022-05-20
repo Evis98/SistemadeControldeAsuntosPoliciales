@@ -159,9 +159,6 @@
     <Compile Include="Roles.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>
-    <Compile Include="RolesUsuarios.cs">
-      <DependentUpon>DBSCAP.tt</DependentUpon>
-    </Compile>
     <Compile Include="TablaGeneral.cs">
       <DependentUpon>DBSCAP.tt</DependentUpon>
     </Compile>

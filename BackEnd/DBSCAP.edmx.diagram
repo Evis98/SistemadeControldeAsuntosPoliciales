@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0f960c39df574ef682848513804d8a5b" Name="Diagram1">
+      <Diagram DiagramId="991f6d02cfc44f848f4c00ee91a5e0fb" Name="Diagram1">
         <EntityTypeShape EntityType="SCAPModel.ActasDecomiso" Width="1.5" PointX="5.25" PointY="70" IsExpanded="true" />
         <EntityTypeShape EntityType="SCAPModel.ActasDeDestruccionDePerecederos" Width="1.5" PointX="8.25" PointY="70.375" IsExpanded="true" />
         <EntityTypeShape EntityType="SCAPModel.ActasDeNotificacion" Width="1.5" PointX="8.25" PointY="75.25" IsExpanded="true" />
@@ -21,10 +21,9 @@
         <EntityTypeShape EntityType="SCAPModel.Personas" Width="1.5" PointX="3" PointY="88.25" IsExpanded="true" />
         <EntityTypeShape EntityType="SCAPModel.Policias" Width="1.5" PointX="3" PointY="98.125" IsExpanded="true" />
         <EntityTypeShape EntityType="SCAPModel.Requisitos" Width="1.5" PointX="3" PointY="94.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="SCAPModel.Roles" Width="1.5" PointX="0.75" PointY="33.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SCAPModel.RolesUsuarios" Width="1.5" PointX="3" PointY="36.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCAPModel.Roles" Width="1.5" PointX="1.5" PointY="33.375" IsExpanded="true" />
         <EntityTypeShape EntityType="SCAPModel.TablaGeneral" Width="1.5" PointX="0.75" PointY="39.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="SCAPModel.Usuarios" Width="1.5" PointX="0.75" PointY="36.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCAPModel.Usuarios" Width="1.5" PointX="0.75" PointY="36" IsExpanded="true" />
         <AssociationConnector Association="SCAPModel.FK_EstadoActaDecomiso" ManuallyRouted="false" />
         <AssociationConnector Association="SCAPModel.FK_OficialAcompanante" ManuallyRouted="false" />
         <AssociationConnector Association="SCAPModel.FK_OficialActuante" ManuallyRouted="false" />
@@ -102,7 +101,6 @@
         <AssociationConnector Association="SCAPModel.FK_IdPolicia" ManuallyRouted="false" />
         <AssociationConnector Association="SCAPModel.FK_TipoRequisito" ManuallyRouted="false" />
         <AssociationConnector Association="SCAPModel.FK_TipoRol" ManuallyRouted="false" />
-        <AssociationConnector Association="SCAPModel.FK_IdUsuario" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

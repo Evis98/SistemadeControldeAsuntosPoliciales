@@ -9,7 +9,9 @@ namespace BackEnd.DAL
     public interface IUsuarioDAL
     {
         Usuarios GetUsuario(int? idUsuario);
-        bool GetRolesUsuario(int idUsuario);
+       
         Usuarios GetUsuarioCorreo(string correo);
+
+     
     }
 }

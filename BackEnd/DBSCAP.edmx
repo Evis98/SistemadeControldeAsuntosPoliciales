@@ -325,14 +325,6 @@
           <Property Name="idRol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="descripcion" Type="varchar" MaxLength="30" />
         </EntityType>
-        <EntityType Name="RolesUsuarios">
-          <Key>
-            <PropertyRef Name="idRolUsuario" />
-          </Key>
-          <Property Name="idRolUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="tipoRol" Type="int" />
-          <Property Name="idUsuario" Type="int" />
-        </EntityType>
         <EntityType Name="TablaGeneral">
           <Key>
             <PropertyRef Name="idTablaGeneral" />
@@ -351,6 +343,7 @@
           <Property Name="usuario" Type="varchar" MaxLength="150" />
           <Property Name="nombre" Type="varchar" MaxLength="150" />
           <Property Name="cedula" Type="varchar" MaxLength="150" />
+          <Property Name="rol" Type="int" />
         </EntityType>
         <Association Name="FK_AcompananteObservacionPolicial">
           <End Role="Policias" Type="Self.Policias" Multiplicity="1" />
@@ -808,18 +801,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_IdUsuario">
-          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
-          <End Role="RolesUsuarios" Type="Self.RolesUsuarios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuarios">
-              <PropertyRef Name="idUsuario" />
-            </Principal>
-            <Dependent Role="RolesUsuarios">
-              <PropertyRef Name="idUsuario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_IdUsuarioAuditoria">
           <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
           <End Role="Auditorias" Type="Self.Auditorias" Multiplicity="*" />
@@ -1182,13 +1163,13 @@
         </Association>
         <Association Name="FK_TipoRol">
           <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
-          <End Role="RolesUsuarios" Type="Self.RolesUsuarios" Multiplicity="*" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Roles">
               <PropertyRef Name="idRol" />
             </Principal>
-            <Dependent Role="RolesUsuarios">
-              <PropertyRef Name="tipoRol" />
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="rol" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1306,7 +1287,6 @@
           <EntitySet Name="Policias" EntityType="Self.Policias" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Requisitos" EntityType="Self.Requisitos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="RolesUsuarios" EntityType="Self.RolesUsuarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TablaGeneral" EntityType="Self.TablaGeneral" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_AcompananteObservacionPolicial" Association="Self.FK_AcompananteObservacionPolicial">
@@ -1461,10 +1441,6 @@
             <End Role="Policias" EntitySet="Policias" />
             <End Role="PartesPoliciales" EntitySet="PartesPoliciales" />
           </AssociationSet>
-          <AssociationSet Name="FK_IdUsuario" Association="Self.FK_IdUsuario">
-            <End Role="Usuarios" EntitySet="Usuarios" />
-            <End Role="RolesUsuarios" EntitySet="RolesUsuarios" />
-          </AssociationSet>
           <AssociationSet Name="FK_IdUsuarioAuditoria" Association="Self.FK_IdUsuarioAuditoria">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="Auditorias" EntitySet="Auditorias" />
@@ -1587,7 +1563,7 @@
           </AssociationSet>
           <AssociationSet Name="FK_TipoRol" Association="Self.FK_TipoRol">
             <End Role="Roles" EntitySet="Roles" />
-            <End Role="RolesUsuarios" EntitySet="RolesUsuarios" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
           </AssociationSet>
           <AssociationSet Name="FK_TipoTestigoActaDestruccionPerecederos" Association="Self.FK_TipoTestigoActaDestruccionPerecederos">
             <End Role="TablaGeneral" EntitySet="TablaGeneral" />
@@ -2049,17 +2025,7 @@
           </Key>
           <Property Name="idRol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="descripcion" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="RolesUsuarios" Relationship="Self.FK_TipoRol" FromRole="Roles" ToRole="RolesUsuarios" />
-        </EntityType>
-        <EntityType Name="RolesUsuarios">
-          <Key>
-            <PropertyRef Name="idRolUsuario" />
-          </Key>
-          <Property Name="idRolUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="tipoRol" Type="Int32" />
-          <Property Name="idUsuario" Type="Int32" />
-          <NavigationProperty Name="Roles" Relationship="Self.FK_TipoRol" FromRole="RolesUsuarios" ToRole="Roles" />
-          <NavigationProperty Name="Usuarios" Relationship="Self.FK_IdUsuario" FromRole="RolesUsuarios" ToRole="Usuarios" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK_TipoRol" FromRole="Roles" ToRole="Usuarios" />
         </EntityType>
         <EntityType Name="TablaGeneral">
           <Key>
@@ -2127,8 +2093,9 @@
           <Property Name="usuario" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="cedula" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="rol" Type="Int32" />
           <NavigationProperty Name="Auditorias" Relationship="Self.FK_IdUsuarioAuditoria" FromRole="Usuarios" ToRole="Auditorias" />
-          <NavigationProperty Name="RolesUsuarios" Relationship="Self.FK_IdUsuario" FromRole="Usuarios" ToRole="RolesUsuarios" />
+          <NavigationProperty Name="Roles" Relationship="Self.FK_TipoRol" FromRole="Usuarios" ToRole="Roles" />
         </EntityType>
         <Association Name="FK_EstadoActaDecomiso">
           <End Role="TablaGeneral" Type="Self.TablaGeneral" Multiplicity="1" />
@@ -3044,25 +3011,13 @@
         </Association>
         <Association Name="FK_TipoRol">
           <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
-          <End Role="RolesUsuarios" Type="Self.RolesUsuarios" Multiplicity="*" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Roles">
               <PropertyRef Name="idRol" />
             </Principal>
-            <Dependent Role="RolesUsuarios">
-              <PropertyRef Name="tipoRol" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_IdUsuario">
-          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
-          <End Role="RolesUsuarios" Type="Self.RolesUsuarios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuarios">
-              <PropertyRef Name="idUsuario" />
-            </Principal>
-            <Dependent Role="RolesUsuarios">
-              <PropertyRef Name="idUsuario" />
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="rol" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3084,7 +3039,6 @@
           <EntitySet Name="Policias" EntityType="Self.Policias" />
           <EntitySet Name="Requisitos" EntityType="Self.Requisitos" />
           <EntitySet Name="Roles" EntityType="Self.Roles" />
-          <EntitySet Name="RolesUsuarios" EntityType="Self.RolesUsuarios" />
           <EntitySet Name="TablaGeneral" EntityType="Self.TablaGeneral" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
           <AssociationSet Name="FK_EstadoActaDecomiso" Association="Self.FK_EstadoActaDecomiso">
@@ -3393,11 +3347,7 @@
           </AssociationSet>
           <AssociationSet Name="FK_TipoRol" Association="Self.FK_TipoRol">
             <End Role="Roles" EntitySet="Roles" />
-            <End Role="RolesUsuarios" EntitySet="RolesUsuarios" />
-          </AssociationSet>
-          <AssociationSet Name="FK_IdUsuario" Association="Self.FK_IdUsuario">
             <End Role="Usuarios" EntitySet="Usuarios" />
-            <End Role="RolesUsuarios" EntitySet="RolesUsuarios" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -3743,15 +3693,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="RolesUsuarios">
-            <EntityTypeMapping TypeName="SCAPModel.RolesUsuarios">
-              <MappingFragment StoreEntitySet="RolesUsuarios">
-                <ScalarProperty Name="idRolUsuario" ColumnName="idRolUsuario" />
-                <ScalarProperty Name="tipoRol" ColumnName="tipoRol" />
-                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TablaGeneral">
             <EntityTypeMapping TypeName="SCAPModel.TablaGeneral">
               <MappingFragment StoreEntitySet="TablaGeneral">
@@ -3770,6 +3711,7 @@
                 <ScalarProperty Name="usuario" ColumnName="usuario" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="cedula" ColumnName="cedula" />
+                <ScalarProperty Name="rol" ColumnName="rol" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3790,7 +3732,7 @@
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

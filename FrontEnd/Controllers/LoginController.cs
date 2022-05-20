@@ -14,6 +14,7 @@ namespace FrontEnd.Controllers
     public class LoginController : Controller
     {
         private IUsuarioDAL usuarioDAL;
+       
         // GET: Login
         public ActionResult Index()
         {
@@ -31,7 +32,7 @@ namespace FrontEnd.Controllers
         public ActionResult Autherize(UsuarioViewModel userModel)
         {
             usuarioDAL = new UsuarioDAL();
-
+           
             string adPath = "LDAP://munialajuela.priv/DC=munialajuela.DC=priv";
 
             LdapAuthentication authentication = new LdapAuthentication(adPath);
@@ -49,24 +50,26 @@ namespace FrontEnd.Controllers
             if (usuarioDAL.GetUsuarioCorreo(userModel.UserName) != null)
             {
                 userDetails = usuarioDAL.GetUsuarioCorreo(userModel.UserName);
-            }
-         
+              
+            }        
        
                 if (userDetails.usuario == null)
                 {
                     userModel.LoginErrorMessage = "Usuario no Autorizado";
                     return View("Index", userModel);  
-                }
-                if (usuarioDAL.GetRolesUsuario(userDetails.idUsuario) == false)
-                {
-                    userModel.LoginErrorMessage = "Usuario no tiene Roles";
-                    return View("Index", userModel);
-                }
+                }                
 
                 Session["userID"] = userDetails.idUsuario;
                 Session["userName"] = userDetails.usuario;
                 Session["Nombre"] = userDetails.nombre;
                 Session["cedula"] = userDetails.cedula;
+                Session["Rol"] = userDetails.rol;
+             
+            
+            //List<RolesUsuarios> roles = usuarioDAL.GetRolesPorUsuario(userDetails.idUsuario).ToList();
+            //ViewBag.roles = roles;
+
+            //Session["Rol"] = rolUsuarioDAL.GetUsuario(userDetails.idUsuario).tipoRol;
                 var authTicket = new FormsAuthenticationTicket(userDetails.usuario, true, 100000);
                 var cookie = new HttpCookie(FormsAuthentication.FormsCookieName,
                                             FormsAuthentication.Encrypt(authTicket));

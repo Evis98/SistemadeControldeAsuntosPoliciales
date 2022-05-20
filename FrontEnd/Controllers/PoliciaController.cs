@@ -58,6 +58,7 @@ namespace FrontEnd.Controllers
                 VistaEstado = tablaGeneralDAL.Get(policia.estado).descripcion,
             };
         }
+        //[Authorize( = "1,3")]
         public ActionResult Index(string filtrosSeleccionado, string busqueda )
         {
             if (Session["userID"] != null)
@@ -200,7 +201,7 @@ namespace FrontEnd.Controllers
             modelo.TiposCedula = tablaGeneralDAL.Get("Policias", "tipoCedula").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             modelo.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
             modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "1").idTablaGeneral;
-            modelo.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario;
+            modelo.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
             try
             {
                 if (ModelState.IsValid)

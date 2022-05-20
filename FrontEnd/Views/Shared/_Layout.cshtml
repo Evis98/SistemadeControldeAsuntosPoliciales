@@ -26,32 +26,53 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
+
                 <li class="nav-item active">
                     <a class="nav-link" href="~/Home/Index/">Inicio <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="~/Policia/Index/">Policías</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="~/Requisito/Index/">Requisitos</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="~/Arma/Index/">Armas</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="~/Bitacora/Index/">Bitácoras</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="~/Persona/Index/">Personas</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="~/Infractor/Index/">Infractores</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="~/Acta/Index/">Actas</a>
-                </li>
-
-            </ul>
+                @*@if (Session["Rol"].ToString() == "2" && Session["Rol"].ToString() == "3" && Session["Rol"].ToString() == "5")
+                {*@
+                    <li class="nav-item active">
+                        <a class="nav-link" href="~/Policia/Index/">Policías</a>
+                    </li>
+                @*}
+                @if (Session["Rol"].ToString() == "2" && Session["Rol"].ToString() == "3" && Session["Rol"].ToString() == "5")
+                {*@
+                    <li class="nav-item active">
+                        <a class="nav-link" href="~/Requisito/Index/">Requisitos</a>
+                    </li>
+                @*}
+                @if (Session["Rol"].ToString() == "2" && Session["Rol"].ToString() == "3" && Session["Rol"].ToString() == "4" && Session["Rol"].ToString() == "5")
+                {*@
+                    <li class="nav-item active">
+                        <a class="nav-link" href="~/Arma/Index/">Armas</a>
+                    </li>
+                @*}
+                @if (Session["Rol"].ToString() == "2" && Session["Rol"].ToString() == "3" && Session["Rol"].ToString() == "4" && Session["Rol"].ToString() == "5")
+                {*@
+                    <li class="nav-item active">
+                        <a class="nav-link" href="~/Bitacora/Index/">Bitácoras</a>
+                    </li>
+                @*}
+                @if (Session["Rol"].ToString() == "2" && Session["Rol"].ToString() == "3" && Session["Rol"].ToString() == "1" && Session["Rol"].ToString() == "5")
+                {*@
+                    <li class="nav-item active">
+                        <a class="nav-link" href="~/Persona/Index/">Personas</a>
+                    </li>
+                @*}
+                @if (Session["Rol"].ToString() == "2" && Session["Rol"].ToString() == "3" && Session["Rol"].ToString() == "1" && Session["Rol"].ToString() == "5")
+                {*@
+                    <li class="nav-item active">
+                        <a class="nav-link" href="~/Infractor/Index/">Infractores</a>
+                    </li>
+                @*}
+                @if (Session["Rol"].ToString() == "2" && Session["Rol"].ToString() == "3" && Session["Rol"].ToString() == "1" && Session["Rol"].ToString() == "5")
+                {*@
+                    <li class="nav-item active">
+                        <a class="nav-link" href="~/Acta/Index/">Actas</a>
+                    </li>
+                @*}*@
+                </ul>
         </div>
         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
             <ul class="navbar-nav ml-auto">

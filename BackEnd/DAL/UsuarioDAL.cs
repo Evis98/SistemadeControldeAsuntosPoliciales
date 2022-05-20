@@ -44,27 +44,8 @@ namespace BackEnd.DAL
 
         }
 
-        public bool GetRolesUsuario(int idUsuario){
+        
 
-            bool result = false;
-            List<RolesUsuarios> lista;
-            List<RolesUsuarios> aux = new List<RolesUsuarios>();
-
-            using (SCAPEntities db = new SCAPEntities())
-            {
-                lista = db.RolesUsuarios.ToList();
-                foreach(RolesUsuarios rol in lista)
-                {
-                    if(rol.idUsuario == idUsuario)
-                    {
-                        aux.Add(rol);
-                    }
-                }
-                if (lista.Count != 0) {
-                    result = true;
-                }
-            }
-            return result;
-            }
+      
     }
 }
