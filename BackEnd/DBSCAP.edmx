@@ -15,11 +15,8 @@
           <Property Name="oficialAcompanante" Type="int" Nullable="false" />
           <Property Name="supervisorDecomiso" Type="int" Nullable="false" />
           <Property Name="fecha" Type="datetime" Nullable="false" />
-          <Property Name="nombreDecomisado" Type="varchar" MaxLength="150" Nullable="false" />
-          <Property Name="numeroDeIdentificacionDecomisado" Type="varchar" MaxLength="60" Nullable="false" />
-          <Property Name="telefonoDecomisado" Type="varchar" MaxLength="9" />
+          <Property Name="idDecomisado" Type="int" Nullable="false" />
           <Property Name="estadoCivilDecomisado" Type="int" Nullable="false" />
-          <Property Name="direccionDecomisado" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="lugarProcedimiento" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="inventario" Type="varchar(max)" Nullable="false" />
           <Property Name="observaciones" Type="varchar(max)" />
@@ -37,7 +34,7 @@
           <Property Name="supervisor" Type="int" Nullable="false" />
           <Property Name="fechaHora" Type="datetime" Nullable="false" />
           <Property Name="tipoActaD" Type="int" Nullable="false" />
-          <Property Name="consecutivoActa" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="idActaLigada" Type="int" Nullable="false" />
           <Property Name="inventarioDestruido" Type="varchar(max)" Nullable="false" />
           <Property Name="estado" Type="int" Nullable="false" />
         </EntityType>
@@ -89,7 +86,7 @@
           <Property Name="tipoActa" Type="int" Nullable="false" />
           <Property Name="tipoTestigo" Type="int" />
           <Property Name="estado" Type="int" Nullable="false" />
-          <Property Name="consecutivoActa" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="idActaLigada" Type="int" Nullable="false" />
           <Property Name="inventarioEntregado" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="ActasEntregaPorOrdenDe">
@@ -921,6 +918,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PersonaDecomisado">
+          <End Role="Personas" Type="Self.Personas" Multiplicity="1" />
+          <End Role="ActasDecomiso" Type="Self.ActasDecomiso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personas">
+              <PropertyRef Name="idPersona" />
+            </Principal>
+            <Dependent Role="ActasDecomiso">
+              <PropertyRef Name="idDecomisado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PersonaNotificadaNotificacion">
           <End Role="Personas" Type="Self.Personas" Multiplicity="1" />
           <End Role="ActasDeNotificacion" Type="Self.ActasDeNotificacion" Multiplicity="*" />
@@ -1481,6 +1490,10 @@
             <End Role="Policias" EntitySet="Policias" />
             <End Role="ActasDeNotificacion" EntitySet="ActasDeNotificacion" />
           </AssociationSet>
+          <AssociationSet Name="FK_PersonaDecomisado" Association="Self.FK_PersonaDecomisado">
+            <End Role="Personas" EntitySet="Personas" />
+            <End Role="ActasDecomiso" EntitySet="ActasDecomiso" />
+          </AssociationSet>
           <AssociationSet Name="FK_PersonaNotificadaNotificacion" Association="Self.FK_PersonaNotificadaNotificacion">
             <End Role="Personas" EntitySet="Personas" />
             <End Role="ActasDeNotificacion" EntitySet="ActasDeNotificacion" />
@@ -1613,11 +1626,8 @@
           <Property Name="oficialAcompanante" Type="Int32" Nullable="false" />
           <Property Name="supervisorDecomiso" Type="Int32" Nullable="false" />
           <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="nombreDecomisado" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="numeroDeIdentificacionDecomisado" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="telefonoDecomisado" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="idDecomisado" Type="Int32" Nullable="false" />
           <Property Name="estadoCivilDecomisado" Type="Int32" Nullable="false" />
-          <Property Name="direccionDecomisado" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="lugarProcedimiento" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="inventario" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -1625,6 +1635,7 @@
           <NavigationProperty Name="TablaGeneral" Relationship="Self.FK_EstadoActaDecomiso" FromRole="ActasDecomiso" ToRole="TablaGeneral" />
           <NavigationProperty Name="Policias" Relationship="Self.FK_OficialAcompanante" FromRole="ActasDecomiso" ToRole="Policias" />
           <NavigationProperty Name="Policias1" Relationship="Self.FK_OficialActuante" FromRole="ActasDecomiso" ToRole="Policias" />
+          <NavigationProperty Name="Personas" Relationship="Self.FK_PersonaDecomisado" FromRole="ActasDecomiso" ToRole="Personas" />
           <NavigationProperty Name="Policias2" Relationship="Self.FK_SupervisorDecomiso" FromRole="ActasDecomiso" ToRole="Policias" />
         </EntityType>
         <EntityType Name="ActasDeDestruccionDePerecederos">
@@ -1639,7 +1650,7 @@
           <Property Name="supervisor" Type="Int32" Nullable="false" />
           <Property Name="fechaHora" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="tipoActaD" Type="Int32" Nullable="false" />
-          <Property Name="consecutivoActa" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idActaLigada" Type="Int32" Nullable="false" />
           <Property Name="inventarioDestruido" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="estado" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Policias" Relationship="Self.FK_EncargadoDeDestruccionDePerecederos" FromRole="ActasDeDestruccionDePerecederos" ToRole="Policias" />
@@ -1706,7 +1717,7 @@
           <Property Name="tipoActa" Type="Int32" Nullable="false" />
           <Property Name="tipoTestigo" Type="Int32" />
           <Property Name="estado" Type="Int32" Nullable="false" />
-          <Property Name="consecutivoActa" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idActaLigada" Type="Int32" Nullable="false" />
           <Property Name="inventarioEntregado" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Policias" Relationship="Self.FK_EncargadoEntrega" FromRole="ActasEntrega" ToRole="Policias" />
           <NavigationProperty Name="TablaGeneral" Relationship="Self.FK_EstadoActa2" FromRole="ActasEntrega" ToRole="TablaGeneral" />
@@ -1958,6 +1969,7 @@
           <Property Name="profesion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="correoElectronicoPersona" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="lugarTrabajoPersona" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ActasDecomiso" Relationship="Self.FK_PersonaDecomisado" FromRole="Personas" ToRole="ActasDecomiso" />
           <NavigationProperty Name="ActasDeNotificacion" Relationship="Self.FK_PersonaNotificadaNotificacion" FromRole="Personas" ToRole="ActasDeNotificacion" />
           <NavigationProperty Name="ActasDeObservacionPolicial" Relationship="Self.FK_InteresadoObservacionPolicial" FromRole="Personas" ToRole="ActasDeObservacionPolicial" />
           <NavigationProperty Name="ActasEntrega" Relationship="Self.FK_RazonSocial" FromRole="Personas" ToRole="ActasEntrega" />
@@ -2130,6 +2142,18 @@
             </Principal>
             <Dependent Role="ActasDecomiso">
               <PropertyRef Name="oficialActuante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonaDecomisado">
+          <End Role="Personas" Type="Self.Personas" Multiplicity="1" />
+          <End Role="ActasDecomiso" Type="Self.ActasDecomiso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personas">
+              <PropertyRef Name="idPersona" />
+            </Principal>
+            <Dependent Role="ActasDecomiso">
+              <PropertyRef Name="idDecomisado" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3053,6 +3077,10 @@
             <End Role="Policias" EntitySet="Policias" />
             <End Role="ActasDecomiso" EntitySet="ActasDecomiso" />
           </AssociationSet>
+          <AssociationSet Name="FK_PersonaDecomisado" Association="Self.FK_PersonaDecomisado">
+            <End Role="Personas" EntitySet="Personas" />
+            <End Role="ActasDecomiso" EntitySet="ActasDecomiso" />
+          </AssociationSet>
           <AssociationSet Name="FK_SupervisorDecomiso" Association="Self.FK_SupervisorDecomiso">
             <End Role="Policias" EntitySet="Policias" />
             <End Role="ActasDecomiso" EntitySet="ActasDecomiso" />
@@ -3365,11 +3393,8 @@
                 <ScalarProperty Name="oficialAcompanante" ColumnName="oficialAcompanante" />
                 <ScalarProperty Name="supervisorDecomiso" ColumnName="supervisorDecomiso" />
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
-                <ScalarProperty Name="nombreDecomisado" ColumnName="nombreDecomisado" />
-                <ScalarProperty Name="numeroDeIdentificacionDecomisado" ColumnName="numeroDeIdentificacionDecomisado" />
-                <ScalarProperty Name="telefonoDecomisado" ColumnName="telefonoDecomisado" />
+                <ScalarProperty Name="idDecomisado" ColumnName="idDecomisado" />
                 <ScalarProperty Name="estadoCivilDecomisado" ColumnName="estadoCivilDecomisado" />
-                <ScalarProperty Name="direccionDecomisado" ColumnName="direccionDecomisado" />
                 <ScalarProperty Name="lugarProcedimiento" ColumnName="lugarProcedimiento" />
                 <ScalarProperty Name="inventario" ColumnName="inventario" />
                 <ScalarProperty Name="observaciones" ColumnName="observaciones" />
@@ -3388,7 +3413,7 @@
                 <ScalarProperty Name="supervisor" ColumnName="supervisor" />
                 <ScalarProperty Name="fechaHora" ColumnName="fechaHora" />
                 <ScalarProperty Name="tipoActaD" ColumnName="tipoActaD" />
-                <ScalarProperty Name="consecutivoActa" ColumnName="consecutivoActa" />
+                <ScalarProperty Name="idActaLigada" ColumnName="idActaLigada" />
                 <ScalarProperty Name="inventarioDestruido" ColumnName="inventarioDestruido" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
               </MappingFragment>
@@ -3443,7 +3468,7 @@
                 <ScalarProperty Name="tipoActa" ColumnName="tipoActa" />
                 <ScalarProperty Name="tipoTestigo" ColumnName="tipoTestigo" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="consecutivoActa" ColumnName="consecutivoActa" />
+                <ScalarProperty Name="idActaLigada" ColumnName="idActaLigada" />
                 <ScalarProperty Name="inventarioEntregado" ColumnName="inventarioEntregado" />
               </MappingFragment>
             </EntityTypeMapping>

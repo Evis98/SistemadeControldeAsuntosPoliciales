@@ -141,8 +141,6 @@ namespace FrontEnd.Controllers
             acta.NumeroInventario = actaEntregaPorOrdenDe.numeroInventario;
             acta.NombrePersonaQueSeLeEntrega = personaDAL.GetPersona(actaEntregaPorOrdenDe.idPorOrdenDe).nombre;
             acta.CedulaPersonaQueSeLeEntrega = personaDAL.GetPersona(actaEntregaPorOrdenDe.idPorOrdenDe).identificacion;
-
-
             return acta;
         }
 
@@ -255,15 +253,11 @@ namespace FrontEnd.Controllers
             personaDAL = new PersonaDAL();
             List<Personas> personas = personaDAL.Get();
             List<Personas> personasFiltradas = new List<Personas>();
-            if (nombre == "")
+            foreach (Personas persona in personas)
             {
-                personasFiltradas = personas;
-            }
-            else
-            {
-                foreach (Personas persona in personas)
+                if (persona.nombre.Contains(nombre))
                 {
-                    if (persona.nombre.Contains(nombre))
+                    if (tablaGeneralDAL.Get(persona.tipoIdentificacion).descripcion != "Cédula Jurídica")
                     {
                         personasFiltradas.Add(persona);
                     }
@@ -272,14 +266,45 @@ namespace FrontEnd.Controllers
             personasFiltradas = personasFiltradas.OrderBy(x => x.nombre).ToList();
             return PartialView("_ListaPersonasParcial", ConvertirListaPersonasFiltrados(personasFiltradas));
         }
-        public ActionResult Index(string filtrosSeleccionado, string busqueda, string busquedaFechaInicioH, string busquedaFechaFinalH)
+
+        public void Autorizar()
         {
             if (Session["userID"] != null)
             {
+                if (Session["Rol"].ToString() == "4")
+                {
+                    Session["Error"] = "Usuario no autorizado";
+                    Response.Redirect("~/Error/ErrorUsuario.cshtml");
+                }
+            }
+            else
+            {
+                Response.Redirect("~/Login/Index");
+            }
+        }
+        public void AutorizarEditar()
+        {
+            if (Session["userID"] != null)
+            {
+                if (Session["Rol"].ToString() == "4" || Session["Rol"].ToString() == "1")
+                {
+                    Session["Error"] = "Usuario no autorizado";
+                    Response.Redirect("~/Error/ErrorUsuario.cshtml");
+                }
+            }
+            else
+            {
+                Response.Redirect("~/Login/Index");
+            }
+        }
 
-                actaEntregaPorOrdenDeDAL = new ActaEntregaPorOrdenDeDAL();
+        public ActionResult Index(string filtrosSeleccionado, string busqueda, string busquedaFechaInicioH, string busquedaFechaFinalH)
+        {
+            Autorizar();
+            actaEntregaPorOrdenDeDAL = new ActaEntregaPorOrdenDeDAL();
             policiaDAL = new PoliciaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
+            personaDAL = new PersonaDAL();
             List<ActaEntregaPorOrdenDeViewModel> actasEntregaPorOrdenDe = new List<ActaEntregaPorOrdenDeViewModel>();
             List<ActaEntregaPorOrdenDeViewModel> actasEntregaPorOrdenDeFiltradas = new List<ActaEntregaPorOrdenDeViewModel>();
             List<TablaGeneral> comboindex = tablaGeneralDAL.Get("ActasEntregaPorOrdenDe", "index");
@@ -313,6 +338,13 @@ namespace FrontEnd.Controllers
                             actasEntregaPorOrdenDeFiltradas.Add(actaEntregaPorOrdenDe);
                         }
                     }
+                    if (filtrosSeleccionado == "Persona que se le entrega")
+                    {
+                        if (personaDAL.GetPersonaIdentificacion(actaEntregaPorOrdenDe.CedulaPersonaQueSeLeEntrega).nombre.Contains(busqueda))
+                        {
+                            actasEntregaPorOrdenDeFiltradas.Add(actaEntregaPorOrdenDe);
+                        }
+                    }
                 }
                 if (filtrosSeleccionado == "Fecha")
                 {
@@ -333,14 +365,12 @@ namespace FrontEnd.Controllers
                 actasEntregaPorOrdenDe = actasEntregaPorOrdenDeFiltradas;
             }
             return View(actasEntregaPorOrdenDe.OrderBy(x => x.NumeroFolio).ToList());
-            }
-            else
-            {
-                return Redirect("~/Shared/Error.cshtml");
-            }
+            
+           
         }
         public ActionResult Nuevo()
         {
+            Autorizar();
             tablaGeneralDAL = new TablaGeneralDAL();
             ActaEntregaPorOrdenDeViewModel modelo = new ActaEntregaPorOrdenDeViewModel()
             {
@@ -355,6 +385,7 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public ActionResult Nuevo(ActaEntregaPorOrdenDeViewModel model)
         {
+            Autorizar();
             actaEntregaPorOrdenDeDAL = new ActaEntregaPorOrdenDeDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             usuarioDAL = new UsuarioDAL();
@@ -367,7 +398,7 @@ namespace FrontEnd.Controllers
             model.Estado = int.Parse(tablaGeneralDAL.GetCodigo("Actas", "estadoActa", "1").codigo);
             model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
             model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "10").idTablaGeneral;
-            model.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario;
+            model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
             try
             {
                 if (ModelState.IsValid)
@@ -389,6 +420,7 @@ namespace FrontEnd.Controllers
         }
         public ActionResult Detalle(int id)
         {
+            Autorizar();
             actaEntregaPorOrdenDeDAL = new ActaEntregaPorOrdenDeDAL();
             Session["idActaEntregaPorOrdenDe"] = id;
             Session["numeroFolio"] = actaEntregaPorOrdenDeDAL.GetActaEntregaPorOrdenDe(id).numeroFolio;
@@ -399,6 +431,7 @@ namespace FrontEnd.Controllers
         //Devuelve la página de edición de policías con sus apartados llenos
         public ActionResult Editar(int id)
         {
+            AutorizarEditar();
             tablaGeneralDAL = new TablaGeneralDAL();
             actaEntregaPorOrdenDeDAL = new ActaEntregaPorOrdenDeDAL();
             ActaEntregaPorOrdenDeViewModel modelo = CargarActaEntregaPorOrdenDe(actaEntregaPorOrdenDeDAL.GetActaEntregaPorOrdenDe(id));
@@ -411,6 +444,7 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public ActionResult Editar(ActaEntregaPorOrdenDeViewModel model)
         {
+            AutorizarEditar();
             actaEntregaPorOrdenDeDAL = new ActaEntregaPorOrdenDeDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             usuarioDAL = new UsuarioDAL();
@@ -419,7 +453,7 @@ namespace FrontEnd.Controllers
             model.TiposTestigo = tablaGeneralDAL.Get("Actas", "tipoTestigo").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
             model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "10").idTablaGeneral;
-            model.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario;
+            model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
             int estado = actaEntregaPorOrdenDeDAL.GetActaEntregaPorOrdenDe(model.IdActaEntregaPorOrdenDe).estado;
             model.TiposDeInventario = tablaGeneralDAL.Get("ActasEntregaPorOrdenDe", "tipoInventario").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             DateTime newDateTime = model.Fecha.Date + model.Hora.TimeOfDay;
@@ -470,7 +504,7 @@ namespace FrontEnd.Controllers
                 idAuditoria = modelo.IdAuditoria,
                 accion = modelo.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "3").idTablaGeneral,
                 idCategoria = modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "10").idTablaGeneral,
-                idUsuario = modelo.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario,
+                idUsuario = modelo.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario,
                 fecha = DateTime.Now,
                 idElemento = actaEntregaPorOrdenDeDAL.GetActaEntregaPorOrdenDe(idActaEntregaPorOrdenDe).idActaEntregaPorOrdenDe
 

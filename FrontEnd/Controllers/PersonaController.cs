@@ -63,13 +63,41 @@ namespace FrontEnd.Controllers
         }
 
 
-
-
-        public ActionResult Index(string filtrosSeleccionado, string busqueda)
+        public void Autorizar()
         {
             if (Session["userID"] != null)
             {
-                personaDAL = new PersonaDAL();
+                if (Session["Rol"].ToString() == "4")
+                {
+                    Session["Error"] = "Usuario no autorizado";
+                    Response.Redirect("~/Error/ErrorUsuario.cshtml");
+                }
+            }
+            else
+            {
+                Response.Redirect("~/Login/Index");
+            }
+        }
+        public void AutorizarEditar()
+        {
+            if (Session["userID"] != null)
+            {
+                if (Session["Rol"].ToString() == "4" || Session["Rol"].ToString() == "1")
+                {
+                    Session["Error"] = "Usuario no autorizado";
+                    Response.Redirect("~/Error/ErrorUsuario.cshtml");
+                }
+            }
+            else
+            {
+                Response.Redirect("~/Login/Index");
+            }
+        }
+
+        public ActionResult Index(string filtrosSeleccionado, string busqueda)
+        {
+            Autorizar();
+            personaDAL = new PersonaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             List<PersonaViewModel> personas = new List<PersonaViewModel>();
             List<PersonaViewModel> personasFiltrados = new List<PersonaViewModel>();
@@ -109,14 +137,11 @@ namespace FrontEnd.Controllers
             }
             return View(personas.OrderBy(x => x.NombrePersona).ToList());
             }
-            else
-            {
-                return Redirect("~/Shared/Error.cshtml");
-            }
-        }
+           
         
         public ActionResult Nuevo()
         {
+            Autorizar();
             tablaGeneralDAL = new TablaGeneralDAL();
             PersonaViewModel modelo = new PersonaViewModel()
             {                
@@ -130,7 +155,8 @@ namespace FrontEnd.Controllers
 
         [HttpPost]
         public ActionResult Nuevo(PersonaViewModel model)
-        {            
+        {
+            Autorizar();
             personaDAL = new PersonaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             usuarioDAL = new UsuarioDAL();
@@ -141,7 +167,7 @@ namespace FrontEnd.Controllers
             model.IdentificacionPersonaFiltrada = personaDAL.GetCedulaPersona(model.Identificacion);
             model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
             model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "2").idTablaGeneral;
-            model.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario;
+            model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
             try
             {
                 if (!personaDAL.IdentificacionExiste(model.Identificacion))
@@ -164,7 +190,9 @@ namespace FrontEnd.Controllers
         }
         
         public ActionResult Detalle(int id)
-        {  personaDAL = new PersonaDAL();
+        {
+            Autorizar();
+            personaDAL = new PersonaDAL();
             Session["idPersona"] = id;           
             Session["nombrePersona"] = personaDAL.GetPersona(id).nombre;
           
@@ -174,6 +202,7 @@ namespace FrontEnd.Controllers
 
         public ActionResult Editar(int id)
         {
+            AutorizarEditar();
             personaDAL = new PersonaDAL();
             PersonaViewModel modelo = CargarPersona(personaDAL.GetPersona(id));
             modelo.TiposDeIdentificacion = tablaGeneralDAL.Get("Generales", "tipoDeIdentificacion").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
@@ -186,6 +215,7 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public ActionResult Editar(PersonaViewModel modelo)
         {
+            AutorizarEditar();
             personaDAL = new PersonaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             usuarioDAL = new UsuarioDAL();
@@ -195,7 +225,7 @@ namespace FrontEnd.Controllers
             modelo.TiposDeSexo = tablaGeneralDAL.Get("Generales", "sexo").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             modelo.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
             modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "2").idTablaGeneral;
-            modelo.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario;
+            modelo.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
             try
             {
                 if (ModelState.IsValid)

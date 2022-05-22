@@ -16,9 +16,14 @@ namespace FrontEnd.Models.ViewModels
 
         public int IdActaHallazgo { get; set; }
 
+        [Display(Name = "Número de Acta Referenciada")]
+        public string NumeroActaLigada { get; set; }
+
         [Display(Name = "Número de Folio")]
         [StringLength(30)]
         public string NumeroFolio { get; set; }
+
+
 
         [Display(Name = "Nombre del Encargado")]
         [Required]

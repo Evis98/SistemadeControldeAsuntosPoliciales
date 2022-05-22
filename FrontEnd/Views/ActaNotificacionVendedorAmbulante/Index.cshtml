@@ -47,11 +47,12 @@
     <hr />
     <div class="row">
         <div class="col-md-12">
-            <table class="table table-bordered center table-sm">
+            <table class="table table-bordered center table-sm" id="idtablaNotificacionVendedor">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">Número de Folio</th>
                         <th scope="col">Policía Actuante </th>
+                        <th scope="col">Persona que Recibe</th>
                         <th scope="col">Fecha</th>
                         <th scope="col"></th>
                     </tr>
@@ -62,6 +63,7 @@
                         <tr>
                             <th scope="row">@oElemento.NumeroFolio</th>
                             <td>@oElemento.VistaOficialActuante</td>
+                            <td>@oElemento.VistaPersonaNotificada</td>
                             <td>@oElemento.Fecha.ToShortDateString()</td>
                             @*<td>@oElemento.VistaDistrito</td>*@
                             <td>
@@ -78,3 +80,27 @@
     </div>
 
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('#idtablaNotificacionVendedor').DataTable({
+            searching: false,
+            lengthMenu: [[6], [6]],
+            lengthChange: false,
+            language: {
+                lengthMenu: "Mostrar _MENU_ entradas",
+                info: "Se muestran de _START_ a _END_ de _TOTAL_ entradas totales",
+                infoEmpty: "Se muestran de 0 a 0 de 0 entradas totales",
+                paginate: {
+                    first: "Primero",
+                    last: "Último",
+                    next: "Siguiente",
+                    previous: "Anterior"
+                }
+            }
+
+        });
+    });
+
+
+</script>

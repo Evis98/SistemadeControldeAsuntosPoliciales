@@ -1,5 +1,5 @@
 ﻿@model FrontEnd.Models.ViewModels.ActaNotificacionVendedorAmbulanteViewModel
-@{ ViewBag.Title = "Agregar Información de Acta de Notificacion a Vendedor Ambulante"; }
+@{ ViewBag.Title = "Agregar Información de Acta de Notificación a Vendedor Ambulante"; }
 
 <div class="container bg-light text-dark border" style=" height: auto; min-height: 80vh; padding-bottom: 20px; margin-bottom: 28px; word-wrap: break-word;">
     <div class="row">
@@ -65,17 +65,7 @@
                 @Html.EditorFor(d => d.Hora, "", new { @class = "form-control" })
                 @Html.ValidationMessageFor(d => d.Hora, null, new { @class = "red" })
             </div>
-
-            <div class="form-group col-md-4">
-                @Html.LabelFor(d => d.Distrito)
-                @Html.DropDownListFor(d => d.Distrito, Model.Distritos, "--Seleccione--", new { @class = "myselect form-control" })
-                @Html.ValidationMessageFor(d => d.Distrito, null, new { @class = "red" })
-            </div>
-
-        </div>
-        <div class="form-row">
-
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-3">
                 @Html.LabelFor(d => d.IdNotificado)
                 <div class="input-group">
                     @Html.TextBoxFor(d => d.IdNotificado, "", new { @class = "form-control", @id = "idNotificado", @readonly = "readonly" })
@@ -86,17 +76,27 @@
                 </div>
                 @Html.ValidationMessageFor(d => d.IdNotificado, null, new { @class = "red" })
             </div>
+            <div class="form-group col-md-2">
+                @Html.LabelFor(d => d.Distrito)
+                @Html.DropDownListFor(d => d.Distrito, Model.Distritos, "--Seleccione--", new { @class = "myselect form-control" })
+                @Html.ValidationMessageFor(d => d.Distrito, null, new { @class = "red" })
+            </div>
+            <div class="form-group col-md-3">
+                @Html.LabelFor(d => d.Caserio)
+                @Html.TextBoxFor(d => d.Caserio, new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)", autocomplete = "new-password" })
+                @Html.ValidationMessageFor(d => d.Caserio, null, new { @class = "red" })
+            </div>
+        </div>
+        <div class="form-row">
+
+          
             <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.ActividadVenta)
                 @Html.TextBoxFor(d => d.ActividadVenta, new { @class = "form-control", autocomplete = "new-password", onkeyup = "this.value = this.value.toUpperCase();" })
                 @Html.ValidationMessageFor(d => d.ActividadVenta, null, new { @class = "red" })
             </div>
 
-            <div class="form-group col-md-4">
-                @Html.LabelFor(d => d.Caserio)
-                @Html.TextBoxFor(d => d.Caserio, new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)", autocomplete = "new-password" })
-                @Html.ValidationMessageFor(d => d.Caserio, null, new { @class = "red" })
-            </div>
+           
 
             <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.FormaDeVenta)

@@ -180,15 +180,11 @@ namespace FrontEnd.Controllers
             personaDAL = new PersonaDAL();
             List<Personas> personas = personaDAL.Get();
             List<Personas> personasFiltradas = new List<Personas>();
-            if (nombre == "")
+            foreach (Personas persona in personas)
             {
-                personasFiltradas = personas;
-            }
-            else
-            {
-                foreach (Personas persona in personas)
+                if (persona.nombre.Contains(nombre))
                 {
-                    if (persona.nombre.Contains(nombre))
+                    if (tablaGeneralDAL.Get(persona.tipoIdentificacion).descripcion != "Cédula Jurídica")
                     {
                         personasFiltradas.Add(persona);
                     }
@@ -197,11 +193,44 @@ namespace FrontEnd.Controllers
             personasFiltradas = personasFiltradas.OrderBy(x => x.nombre).ToList();
             return PartialView("_ListaPersonasParcial", ConvertirListaPersonasFiltrados(personasFiltradas));
         }
-        public ActionResult Index(string filtroSeleccionados, string busqueda, string busquedaFechaInicioH, string busquedaFechaFinalH)
+        public void Autorizar()
         {
             if (Session["userID"] != null)
             {
-                actaHallazgoDAL = new ActaHallazgoDAL();
+                if (Session["Rol"].ToString() == "4")
+                {
+                    Session["Error"] = "Usuario no autorizado";
+                    Response.Redirect("~/Error/ErrorUsuario.cshtml");
+                }
+            }
+            else
+            {
+                Response.Redirect("~/Login/Index");
+            }
+        }
+        public void AutorizarEditar()
+        {
+            if (Session["userID"] != null)
+            {
+                if (Session["Rol"].ToString() == "4" || Session["Rol"].ToString() == "1")
+                {
+                    Session["Error"] = "Usuario no autorizado";
+                    Response.Redirect("~/Error/ErrorUsuario.cshtml");
+                }
+            }
+            else
+            {
+                Response.Redirect("~/Login/Index");
+            }
+        }
+
+
+
+
+        public ActionResult Index(string filtroSeleccionados, string busqueda, string busquedaFechaInicioH, string busquedaFechaFinalH)
+        {
+            Autorizar();
+            actaHallazgoDAL = new ActaHallazgoDAL();
             policiaDAL = new PoliciaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             List<ActaHallazgoViewModel> actasHallazgo = new List<ActaHallazgoViewModel>();
@@ -257,23 +286,18 @@ namespace FrontEnd.Controllers
                 }                
                 actasHallazgo = actasHallazgoFiltradas;                
             }            
-            return View(actasHallazgo.OrderBy(x => x.NumeroFolio).ToList());
-        }
-            else
-            {
-                return Redirect("~/Shared/Error.cshtml");
-    }
+            return View(actasHallazgo.OrderBy(x => x.NumeroFolio).ToList());       
+            
 }
         public ActionResult Nuevo()
         {
+            Autorizar();
             tablaGeneralDAL = new TablaGeneralDAL();
             ActaHallazgoViewModel modelo = new ActaHallazgoViewModel()
             {
                 Distritos = tablaGeneralDAL.Get("Generales", "distrito").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
                 Fecha = DateTime.Today,
                 TiposTestigo = tablaGeneralDAL.Get("Actas", "tipoTestigo").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo })
-
-
             };
             return View(modelo);
         }
@@ -281,6 +305,7 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public ActionResult Nuevo(ActaHallazgoViewModel model)
         {
+            Autorizar();
             actaHallazgoDAL = new ActaHallazgoDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             usuarioDAL = new UsuarioDAL();
@@ -293,7 +318,7 @@ namespace FrontEnd.Controllers
             model.Fecha = newDateTime;
             model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
             model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "7").idTablaGeneral;
-            model.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario;
+            model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
             try
             {
                 if (ModelState.IsValid)
@@ -316,18 +341,18 @@ namespace FrontEnd.Controllers
         }
         public ActionResult Detalle(int id)
         {
+            Autorizar();
             actaHallazgoDAL = new ActaHallazgoDAL();
             Session["idActaHallazgo"] = id;
-            Session["numeroFolio"] = actaHallazgoDAL.GetActaHallazgo(id).numeroFolio;      
-       
+            Session["numeroFolio"] = actaHallazgoDAL.GetActaHallazgo(id).numeroFolio;  
             ActaHallazgoViewModel modelo = CargarActaHallazgo(actaHallazgoDAL.GetActaHallazgo(id));
-           
-            return View(modelo);
+           return View(modelo);
         }
 
         //Devuelve la página de edición de policías con sus apartados llenos
         public ActionResult Editar(int id)
         {
+            AutorizarEditar();
             tablaGeneralDAL = new TablaGeneralDAL();
             actaHallazgoDAL = new ActaHallazgoDAL();
             ActaHallazgoViewModel modelo = CargarActaHallazgo(actaHallazgoDAL.GetActaHallazgo(id));
@@ -340,6 +365,7 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public ActionResult Editar(ActaHallazgoViewModel model)
         {
+            AutorizarEditar();
             actaHallazgoDAL = new ActaHallazgoDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             usuarioDAL = new UsuarioDAL();
@@ -351,7 +377,7 @@ namespace FrontEnd.Controllers
             model.Fecha = newDateTime;
             model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
             model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "7").idTablaGeneral;
-            model.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario;
+            model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
             int estado = actaHallazgoDAL.GetActaHallazgo(model.IdActaHallazgo).estado;
             try
             {
@@ -399,7 +425,7 @@ namespace FrontEnd.Controllers
                 idAuditoria = modelo.IdAuditoria,
                 accion = modelo.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "3").idTablaGeneral,
                 idCategoria = modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "7").idTablaGeneral,
-                idUsuario = modelo.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario,
+                idUsuario = modelo.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario,
                 fecha = DateTime.Now,
                 idElemento = actaHallazgoDAL.GetActaHallazgo(idActaHallazgo).idActaHallazgo
 

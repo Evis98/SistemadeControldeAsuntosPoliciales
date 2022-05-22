@@ -27,7 +27,7 @@
             <div class="col-sm-3">
                 <input class="form-control" name="busqueda" type="text" id="busqueda" onkeyup="this.value = this.value.toUpperCase();" />
             </div>
-            
+
             <div class="col-sm-1">
                 <button class="btn btn-primary">Buscar</button>
             </div>
@@ -41,7 +41,7 @@
     <hr />
     <div class="row">
         <div class="col-md-12">
-            <table class="table table-bordered center table-sm">
+            <table class="table table-bordered center table-sm" id="idtablaPolicias">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">Cédula</th>
@@ -68,3 +68,26 @@
     </div>
 </div>
 
+<script>
+    $(document).ready(function () {
+        $('#idtablaPolicias').DataTable({
+            searching: false,
+            lengthMenu: [[6], [6]],
+            lengthChange: false,
+            language: {
+                lengthMenu: "Mostrar _MENU_ entradas",
+                info: "Se muestran de _START_ a _END_ de _TOTAL_ entradas totales",
+                infoEmpty: "Se muestran de 0 a 0 de 0 entradas totales",
+                paginate: {
+                    first: "Primero",
+                    last: "Último",
+                    next: "Siguiente",
+                    previous: "Anterior"
+                }
+            }
+
+        });
+    });
+
+
+</script>

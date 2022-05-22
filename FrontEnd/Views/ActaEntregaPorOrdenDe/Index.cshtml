@@ -1,6 +1,6 @@
 ﻿@{ ViewBag.Title = "Actas de Entrega por Orden de";
     List<SelectListItem> items = (List<SelectListItem>)ViewBag.items;
-    }
+}
 <div class="container bg-light text-dark border" style=" height: auto; min-height: 80vh; margin-bottom: 20px; word-wrap: break-word;">
     <div class="row">
         <div class="col-md-12">
@@ -18,7 +18,7 @@
                 @Html.DropDownList("filtrosSeleccionado", items, new { @class = "myselect form-control", @id = "filtroSeleccionado", @name = "filtroSeleccionado", @onclick = "ocultarFechaActa()" })
                 <script>
                     document.getElementById("filtroSeleccionado").value = "Número de Folio";
-                </script>              
+                </script>
             </div>
 
             <div class="col-sm-3">
@@ -43,7 +43,7 @@
     <hr />
     <div class="row">
         <div class="col-md-12">
-            <table class="table table-bordered center table-sm">
+            <table class="table table-bordered center table-sm" id="idtablaEntregaPorOrden">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">Numero de Folio</th>
@@ -68,10 +68,35 @@
                                 </div>
                             </td>
                         </tr>
-}
+                    }
                 </tbody>
             </table>
         </div>
     </div>
 
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('#idtablaEntregaPorOrden').DataTable({
+            searching: false,
+            lengthMenu: [[6], [6]],
+            lengthChange: false,
+            language: {
+                lengthMenu: "Mostrar _MENU_ entradas",
+                info: "Se muestran de _START_ a _END_ de _TOTAL_ entradas totales",
+                infoEmpty: "Se muestran de 0 a 0 de 0 entradas totales",
+                paginate: {
+                    first: "Primero",
+                    last: "Último",
+                    next: "Siguiente",
+                    previous: "Anterior"
+                }
+            }
+
+        });
+    });
+
+
+</script>
+

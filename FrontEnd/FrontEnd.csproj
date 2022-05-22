@@ -151,6 +151,7 @@
     <Compile Include="Controllers\ArmaController.cs" />
     <Compile Include="Controllers\AuditoriaController.cs" />
     <Compile Include="Controllers\BitacoraController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InfractorController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -481,10 +482,17 @@
     <Content Include="Views\ActaDeDestruccionDePerecederos\_ListaPersonasParcial.cshtml" />
     <Content Include="Views\ActaHallazgo\_ListaPersonasBuscar.cshtml" />
     <Content Include="Views\ActaHallazgo\_ListaPersonasParcial.cshtml" />
+    <Content Include="Views\Shared\ErrorRol.cshtml" />
+    <Content Include="Views\Error\Error.cshtml" />
+    <Content Include="Views\Error\ErrorUsuario.cshtml" />
+    <Content Include="Views\Requisito\DetalleIndex.cshtml" />
+    <Content Include="Views\ActaDecomiso\_ListaPersonasBuscar.cshtml" />
+    <Content Include="Views\ActaDecomiso\_ListaPersonasParcial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
+    <Folder Include="PDFs\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

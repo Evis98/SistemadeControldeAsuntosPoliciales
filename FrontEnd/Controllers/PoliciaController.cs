@@ -58,12 +58,30 @@ namespace FrontEnd.Controllers
                 VistaEstado = tablaGeneralDAL.Get(policia.estado).descripcion,
             };
         }
-        //[Authorize( = "1,3")]
-        public ActionResult Index(string filtrosSeleccionado, string busqueda )
+
+        public void Autorizar()
         {
             if (Session["userID"] != null)
             {
-                policiaDAL = new PoliciaDAL();
+                if (Session["Rol"].ToString() == "4" || Session["Rol"].ToString() == "1")
+                {
+                    Session["Error"] = "Usuario no autorizado";
+                    Response.Redirect("~/Error/ErrorUsuario.cshtml");
+                }
+            }
+            else
+            {
+                Response.Redirect("~/Login/Index");
+            }
+        }
+     
+
+
+
+        public ActionResult Index(string filtrosSeleccionado, string busqueda )
+        {
+            Autorizar();
+            policiaDAL = new PoliciaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             List<PoliciaViewModel> policias = new List<PoliciaViewModel>();
             List<PoliciaViewModel> policiasFiltrados = new List<PoliciaViewModel>();
@@ -103,17 +121,12 @@ namespace FrontEnd.Controllers
             }
             return View(policias.OrderBy(x => x.Nombre).ToList());
             }
-            else
-            {
-                return Redirect("~/Shared/Error");
-            }
-        }
+          
 
         //Devuelve la página que agrega nuevos policías
         public ActionResult Nuevo()
         {
-            if (Session["userID"] != null)
-            {
+            Autorizar();
                 tablaGeneralDAL = new TablaGeneralDAL();
             PoliciaViewModel modelo = new PoliciaViewModel()
             {
@@ -122,11 +135,8 @@ namespace FrontEnd.Controllers
             };
             return View(modelo);
             }
-            else
-            {
-                return Redirect("~/Shared/Error");
-            }
-        }
+          
+        
         public void CrearCarpetaPolicia(PoliciaViewModel model)
         {
             string folderPath = Server.MapPath(@"~\ArchivosSCAP\Policias\" + model.Cedula.ToString() + " - " + model.Nombre.ToString());
@@ -140,6 +150,7 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public ActionResult Nuevo(PoliciaViewModel model)
         {
+            Autorizar();
             CrearCarpetaPolicia(model);
             policiaDAL = new PoliciaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
@@ -149,7 +160,7 @@ namespace FrontEnd.Controllers
             model.CedulaPoliciaFiltrada = policiaDAL.GetCedulaPolicia(model.Cedula);
             model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
             model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "1").idTablaGeneral;
-            model.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario;           
+            model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;           
             try
             {
                 if (!policiaDAL.CedulaPoliciaExiste(model.Cedula))
@@ -174,6 +185,7 @@ namespace FrontEnd.Controllers
         //Muestra la información detallada de un policía
         public ActionResult Detalle(int id)
         {
+            Autorizar();
             policiaDAL = new PoliciaDAL();
             Session["idPolicia"] = id;
             Session["nombrePolicia"] = policiaDAL.GetPolicia(id).nombre;
@@ -184,6 +196,7 @@ namespace FrontEnd.Controllers
         //Devuelve la página de edición de policías con sus apartados llenos
         public ActionResult Editar(int id)
         {
+            Autorizar();
             policiaDAL = new PoliciaDAL();
             PoliciaViewModel modelo = CargarPolicia(policiaDAL.GetPolicia(id));
             modelo.TiposCedula = tablaGeneralDAL.Get("Policias", "tipoCedula").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
@@ -194,6 +207,7 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public ActionResult Editar(PoliciaViewModel modelo)
         {
+            Autorizar();
             policiaDAL = new PoliciaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             usuarioDAL = new UsuarioDAL();
@@ -223,6 +237,7 @@ namespace FrontEnd.Controllers
         //Se encarga del cambio de estado de un policía entre activo e inactivo
         public ActionResult CambioEstado(int? estado,string justificacion,int idPolicia)
         {
+            Autorizar();
             int estadoFinal;
             policiaDAL = new PoliciaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
@@ -238,8 +253,6 @@ namespace FrontEnd.Controllers
                     estadoFinal = tablaGeneralDAL.Get("Generales", "estado", "Activo").idTablaGeneral;
                 }
                 policiaDAL.CambiaEstadoPolicia((int)Session["idPolicia"], estadoFinal);
-                //modelo.IdElemento = policiaDAL.GetPolicia(idPolicia).idPolicia;
-                //justificacion = modelo.Justificacion;
                 auditoriaDAL.Add(CambiarEstadoAuditoria(justificacion,idPolicia));
                 return Redirect("~/Policia/Detalle/" + Session["idPolicia"]);
             }
@@ -302,7 +315,7 @@ namespace FrontEnd.Controllers
                 idAuditoria = modelo.IdAuditoria,
                 accion = modelo.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "3").idTablaGeneral,
                 idCategoria = modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "1").idTablaGeneral,
-                idUsuario = modelo.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario,
+                idUsuario = modelo.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario,
                 fecha = DateTime.Now,
                 justificacion = justificacion,
                 idElemento = policiaDAL.GetPolicia(idPolicia).idPolicia

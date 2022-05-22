@@ -14,6 +14,13 @@ namespace FrontEnd.Models.ViewModels
 
         public int IdActaEntrega { get; set; }
 
+        public int IdActaDecomiso { get; set; }
+
+        public int IdActaHallazgo { get; set; }
+
+        [Display(Name = "Número de Acta Referenciada")]
+        public string NumeroActaLigada { get; set; }
+
         [Display(Name = "Número de Folio")]
         [StringLength(30)]
         public string NumeroFolio { get; set; }
@@ -78,7 +85,6 @@ namespace FrontEnd.Models.ViewModels
 
         [Display(Name = "Recibe")]
         [Required]
-
         public string Recibe { get; set; }
         [Display(Name = "Recibe")]
         public string VistaRecibe { get; set; }

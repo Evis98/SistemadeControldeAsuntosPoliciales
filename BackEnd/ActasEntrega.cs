@@ -25,7 +25,7 @@ namespace BackEnd
         public int tipoActa { get; set; }
         public Nullable<int> tipoTestigo { get; set; }
         public int estado { get; set; }
-        public string consecutivoActa { get; set; }
+        public int idActaLigada { get; set; }
         public string inventarioEntregado { get; set; }
     
         public virtual Policias Policias { get; set; }

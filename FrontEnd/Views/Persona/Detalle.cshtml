@@ -122,11 +122,14 @@
     <div class="row">
         <div class="col-sm-12">
             <a class="btn btn-outline-secondary" href="~/Persona/Index">Regresar</a>
-            <div style="text-align:center;">
-                <a class="btn btn-primary" href="~/Persona/Editar/@Model.IdPersona">Editar</a>
-                <a class="btn btn-secondary" href="~/Auditoria/ListadoPersona/@Model.IdPersona">Ver Auditorias</a>
+            @if (Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "5")
+            {
+                <div style="text-align:center;">
+                    <a class="btn btn-primary" href="~/Persona/Editar/@Model.IdPersona">Editar</a>
+                    <a class="btn btn-secondary" href="~/Auditoria/ListadoPersona/@Model.IdPersona">Ver Auditorias</a>
+                </div>}
+
             </div>
-        </div>
     </div>
 
 </div>

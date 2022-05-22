@@ -105,13 +105,15 @@
             <div class="col-sm-12">
 
                 <a href="~/Policia/Index/" class="btn btn-outline-secondary">Regresar</a>
-
-                <div style="text-align:center;">
-                    <a class="btn btn-primary" href="~/Policia/Editar/@Model.IdPolicia">Editar</a>
-                    <a class="btn btn-info" href="~/Requisito/Listado/@Model.IdPolicia">Ver Requisitos</a>
-                    <a class="btn btn-secondary" href="~/Auditoria/ListadoPolicia/@Model.IdPolicia">Ver Auditorias</a>
+                @if (Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "5")
+                {
+                    <div style="text-align:center;">
+                        <a class="btn btn-primary" href="~/Policia/Editar/@Model.IdPolicia">Editar</a>
+                        <a class="btn btn-info" href="~/Requisito/Listado/@Model.IdPolicia">Ver Requisitos</a>
+                        <a class="btn btn-secondary" href="~/Auditoria/ListadoPolicia/@Model.IdPolicia">Ver Auditorias</a>
+                    </div>
+                }
                 </div>
-            </div>
         </div>
 
         <div class="modal" id="show3" tabindex="-1" role="dialog">

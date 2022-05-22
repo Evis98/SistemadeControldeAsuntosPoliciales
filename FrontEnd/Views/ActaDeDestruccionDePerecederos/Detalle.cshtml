@@ -76,26 +76,27 @@
         </dd>
         @if (Model.ConsecutivoActaDecomiso != null)
         {
-    <dt class="col-sm-4 ">
-        @Html.LabelFor(d => d.ConsecutivoActaDecomiso)
-    </dt>
-                    <dd class="col-sm-8 ">
-                        <a href="~/ActaDecomiso/Detalle/@Model.IdActaDecomiso" target="_blank">
-                            @Html.DisplayTextFor(d => d.ConsecutivoActaDecomiso)
-                        </a>
-                    </dd>
- }
-                else
-                {
-    <dt class="col-sm-4 ">
-        @Html.LabelFor(d => d.ConsecutivoActaHallazgo)
-    </dt>
-                    <dd class="col-sm-8 ">
-                        <a href="~/ActaHallazgo/Detalle/@Model.IdActaHallazgo" target="_blank">
-                            @Html.DisplayTextFor(d => d.ConsecutivoActaHallazgo)
-                        </a>
-                    </dd>
-}
+            <dt class="col-sm-4 ">
+                @Html.LabelFor(d => d.ConsecutivoActaDecomiso)
+            </dt>
+            <dd class="col-sm-8 ">
+                <a href="~/ActaDecomiso/Detalle/@Model.IdActaDecomiso" target="_blank">
+                    @Html.DisplayTextFor(d => d.NumeroActaLigada)
+                </a>
+            </dd>
+        }
+        else
+        {
+            <dt class="col-sm-4 ">
+                @Html.LabelFor(d => d.ConsecutivoActaHallazgo)
+            </dt>
+            <dd class="col-sm-8 ">
+                <a href="~/ActaHallazgo/Detalle/@Model.IdActaHallazgo" target="_blank">
+                    @Html.DisplayTextFor(d => d.NumeroActaLigada)
+                </a>
+            </dd>
+        }
+
         <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.InventarioDestruido)
         </dt>
@@ -108,12 +109,14 @@
     <div class="row">
         <div class="col-sm-12">
             <a href="~/ActaDeDestruccionDePerecederos/Index/" class="btn btn-outline-secondary">Regresar</a>
-
-            <div style="text-align:center;">
+            @if (Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "5")
+            {
+                <div style="text-align:center;">
                 <a class="btn btn-primary" href="~/ActaDeDestruccionDePerecederos/Editar/@Model.IdActaDeDestruccionDePerecederos">Editar</a>
-
+                <a class="btn btn-secondary" href="~/Auditoria/ListadoActaDeDestruccionDePerecederos/@Model.IdActaDeDestruccionDePerecederos">Ver Auditorias</a>
+                   
+                </div> }
             </div>
-        </div>
 
     </div>
 

@@ -1,0 +1,40 @@
+﻿
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Error</title>
+</head>
+<body>
+    <hgroup>
+        @*@if (@Session["Error"] == null || Session["Error"].ToString() != "Usuario no autorizado")
+        {
+            <h1>Error al procesar la solicitud.</h1>
+        }
+        <h1>@Session["Error"]</h1>*@
+        @if (Session["Error"] != null)
+        {
+
+            if (Session["Error"].ToString() == "Usuario no autorizado")
+            {
+                <h1>@Session["Error"]</h1>
+            }
+            else
+            {
+                    <h1>Pagina no existe</h1>
+            }
+        }
+        else
+        {
+            <h1>Error al procesar la solicitud.</h1>
+        }
+
+    </hgroup>
+
+</body>
+</html>
+
+

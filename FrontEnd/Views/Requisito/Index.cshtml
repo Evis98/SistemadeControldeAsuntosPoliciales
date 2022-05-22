@@ -21,12 +21,12 @@
                 <script>
                     document.getElementById("filtroSeleccionado").value = "Detalle de Requisito";
                 </script>
-              
+
             </div>
             <div class="col-sm-4">
                 <input class="form-control" name="busqueda" type="text" id="busqueda" onkeyup="this.value = this.value.toUpperCase();" onkeypress="return sololetrasnumerossimbolos(event)" />
                 @Html.DropDownList("tiposRequisito", items2, new { @class = "form-control", @id = "tipoRequisito", @name = "tipoRequisito", @style = "display:none" })
-                
+
             </div>
             <div class="col-sm-1">
                 <button class="btn btn-primary">Buscar</button>
@@ -36,7 +36,7 @@
     <hr />
     <div class="row">
         <div class="col-md-12">
-            <table class="table table-bordered center table-sm">
+            <table class="table table-bordered center table-sm" id="idtablaRequisitos">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">Tipo</th>
@@ -54,7 +54,7 @@
                             <td>@oElemento.Detalles</td>
                             <td>
                                 <div style="text-align:center;">
-                                    <a class="btn btn-sm btn-outline-info" href="~/Requisito/Detalle/@oElemento.IdRequisito">Ver Detalles</a>
+                                    <a class="btn btn-sm btn-outline-info" href="~/Requisito/DetalleIndex/@oElemento.IdRequisito">Ver Detalles</a>
                                 </div>
                             </td>
                         </tr>
@@ -64,3 +64,27 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('#idtablaRequisitos').DataTable({
+            searching: false,
+            lengthMenu: [[6], [6]],
+            lengthChange: false,
+            language: {
+                lengthMenu: "Mostrar _MENU_ entradas",
+                info: "Se muestran de _START_ a _END_ de _TOTAL_ entradas totales",
+                infoEmpty: "Se muestran de 0 a 0 de 0 entradas totales",
+                paginate: {
+                    first: "Primero",
+                    last: "Último",
+                    next: "Siguiente",
+                    previous: "Anterior"
+                }
+            }
+
+        });
+    });
+
+
+</script>

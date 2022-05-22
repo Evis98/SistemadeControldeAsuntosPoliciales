@@ -3,7 +3,7 @@
     ViewBag.Title = "Editar Información de Bitácora";
 }
 
-<div class="container bg-light text-dark border" style="height:80vh;">
+<div class="container bg-light text-dark border" style=" height: auto; min-height: 80vh; padding-bottom: 20px; margin-bottom: 28px; word-wrap: break-word;">
     <div class="row">
         <div class="col-md-12">
             <div style="text-align:center;">
@@ -33,7 +33,7 @@
                })
                     <div class="input-group-append ">
                         <a class="btn btn-primary" data-toggle="modal" data-target="#modalBusquedaArma">Buscar</a>
-                        
+
                     </div>
                 </div>
                 @Html.ValidationMessageFor(d => d.NumeroSerieArma, null, new { @class = "red" })
@@ -49,7 +49,7 @@
                     })
                     <div class="input-group-append ">
                         <a class="btn btn-primary" data-book-id="idArmeroProveedor" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
-                       
+
                     </div>
                 </div>
                 @Html.ValidationMessageFor(d => d.ArmeroProveedor, null, new { @class = "red" })
@@ -60,7 +60,7 @@
                     @Html.TextBoxFor(d => d.PoliciaSolicitante, "", new { @class = "form-control", @id = "idPoliciaSolicitante", @readonly = "readonly" })
                     <div class="input-group-append ">
                         <a class="btn btn-primary" data-book-id="idPoliciaSolicitante" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
-                       
+
                     </div>
                 </div>
             </div>
@@ -108,7 +108,7 @@
                         @Html.TextBoxFor(d => d.ArmeroReceptor, "", new { @class = "form-control", @id = "idArmeroReceptor", @readonly = "readonly" })
                         <div class="input-group-append ">
                             <a class="btn btn-primary" data-book-id="idArmeroReceptor" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
-                         
+
                         </div>
                     </div>
                     @Html.ValidationMessageFor(d => d.ArmeroReceptor, null, new { @class = "red" })
@@ -117,12 +117,12 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     @Html.LabelFor(d => d.MunicionDevuelta)
-                    @Html.TextBoxFor(d => d.MunicionEntregada, "", new { @class = "form-control", @min = "0", @onkeyup = "this.value = this.value.toUpperCase();", @type = "number", onkeydown = "javascript: return event.keyCode == 69 ? false : true" })
+                    @Html.TextBoxFor(d => d.MunicionDevuelta, "", new { @class = "form-control", @min = "0", @onkeyup = "this.value = this.value.toUpperCase();", @type = "number", onkeydown = "javascript: return event.keyCode == 69 ? false : true" })
                     @Html.ValidationMessageFor(d => d.MunicionDevuelta, null, new { @class = "red" })
                 </div>
                 <div class="form-group col-md-4">
                     @Html.LabelFor(d => d.CargadoresDevueltos)
-                    @Html.TextBoxFor(d => d.CargadoresEntregados, "", new { @class = "form-control", @min = "0", @onkeyup = "this.value = this.value.toUpperCase();", @type = "number", onkeydown = "javascript: return event.keyCode == 69 ? false : true" })
+                    @Html.TextBoxFor(d => d.CargadoresDevueltos, "", new { @class = "form-control", @min = "0", @onkeyup = "this.value = this.value.toUpperCase();", @type = "number", onkeydown = "javascript: return event.keyCode == 69 ? false : true" })
                     @Html.ValidationMessageFor(d => d.CargadoresDevueltos, null, new { @class = "red" })
                 </div>
             </div>

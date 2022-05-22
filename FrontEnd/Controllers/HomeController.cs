@@ -11,7 +11,7 @@ namespace FrontEnd.Controllers
 {
     public class HomeController : Controller
     {
-
+     
         //Devuelve la pantalla inicial
         public ActionResult Index()
         {
@@ -23,7 +23,7 @@ namespace FrontEnd.Controllers
             }
             else
             {
-                return  Redirect("~/Shared/Error.cshtml");
+                return  Redirect("~/Login/Index");
             }
             
         }

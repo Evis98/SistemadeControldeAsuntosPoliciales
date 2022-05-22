@@ -1,6 +1,6 @@
 ﻿@model List<FrontEnd.Models.ViewModels.ActaDecomisoViewModel>
 
-<table class="table">
+<table class="table" id="idtablaDecomiso">
 
     <thead class="thead-light">
         <tr>
@@ -17,6 +17,30 @@
                     <label><a href="#" onclick="reply_click4(this.id, this.name)" id="@item.NumeroFolio" name="@item.Inventario"> @item.Fecha</a></label>
                 </td>
             </tr>
-}
+        }
     </tbody>
 </table>
+
+<script>
+    $(document).ready(function () {
+        $('#idtablaDecomiso').DataTable({
+            searching: false,
+            lengthMenu: [[6], [6]],
+            lengthChange: false,
+            language: {
+                lengthMenu: "Mostrar _MENU_ entradas",
+                info: "Se muestran de _START_ a _END_ de _TOTAL_ entradas totales",
+                infoEmpty: "Se muestran de 0 a 0 de 0 entradas totales",
+                paginate: {
+                    first: "Primero",
+                    last: "Último",
+                    next: "Siguiente",
+                    previous: "Anterior"
+                }
+            }
+
+        });
+    });
+
+
+</script>

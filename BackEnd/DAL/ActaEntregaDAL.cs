@@ -107,6 +107,8 @@ namespace BackEnd.DAL
                 return null;
             }
         }
+
+       
         public List<ActasEntrega> GetActaEntregaRango(DateTime inicio, DateTime final)
         {
             try

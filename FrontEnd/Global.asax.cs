@@ -1,3 +1,4 @@
+using FrontEnd.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,30 @@ namespace FrontEnd
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+        }
+        protected void Application_Error()
+        {
+            Exception ex = Server.GetLastError();
+            HttpException httpException = ex as HttpException;
+            String accion = "";
+            if (httpException.GetHttpCode() == 404)
+            {
+                accion = "Error";
+
+            }
+            else
+            {
+                accion = "Error";
+            }
+            Context.ClearError();
+            RouteData rutaerror = new RouteData();
+            rutaerror.Values.Add("controller", "Error");
+            rutaerror.Values.Add("action", accion);
+            IController controlador = new ErrorController();
+            controlador.Execute(
+                new RequestContext(new HttpContextWrapper(Context), rutaerror)
+                );
+            Session["Error"] = "AYUDA";
         }
     }
 }

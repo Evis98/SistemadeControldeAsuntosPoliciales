@@ -36,7 +36,7 @@
     <hr />
     <div class="row">
         <div class="col-md-12">
-            <table class="table table-bordered center table-sm">
+            <table class="table table-bordered center table-sm" id="idtablaArma">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">Policía Asignado</th>
@@ -55,7 +55,7 @@
                             <td>
                                 <div style="text-align:center;">
                                     <a class="btn btn-sm btn-outline-info" href="~/Arma/Detalle/@oElemento.IdArma">Ver Detalles</a>
-                                    </div>
+                                </div>
                             </td>
                         </tr>
                     }
@@ -63,5 +63,29 @@
             </table>
         </div>
     </div>
-    
+
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('#idtablaArma').DataTable({
+            searching: false,
+            lengthMenu: [[6], [6]],
+            lengthChange: false,
+            language: {
+                lengthMenu: "Mostrar _MENU_ entradas",
+                info: "Se muestran de _START_ a _END_ de _TOTAL_ entradas totales",
+                infoEmpty: "Se muestran de 0 a 0 de 0 entradas totales",
+                paginate: {
+                    first: "Primero",
+                    last: "Último",
+                    next: "Siguiente",
+                    previous: "Anterior"
+                }
+            }
+
+        });
+    });
+
+
+</script>

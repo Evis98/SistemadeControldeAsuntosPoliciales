@@ -93,13 +93,42 @@ namespace FrontEnd.Controllers
             return bitacora;
         }
 
+        public void Autorizar()
+        {
+            if (Session["userID"] != null)
+            {
+                if (Session["Rol"].ToString() == "1")
+                {
+                    Session["Error"] = "Usuario no autorizado";
+                    Response.Redirect("~/Error/ErrorUsuario.cshtml");
+                }
+            }
+            else
+            {
+                Response.Redirect("~/Login/Index");
+            }
+        }
+        public void AutorizarEditar()
+        {
+            if (Session["userID"] != null)
+            {
+                if (Session["Rol"].ToString() == "4" || Session["Rol"].ToString() == "1")
+                {
+                    Session["Error"] = "Usuario no autorizado";
+                    Response.Redirect("~/Error/ErrorUsuario.cshtml");
+                }
+            }
+            else
+            {
+                Response.Redirect("~/Login/Index");
+            }
+        }        
+
 
         public ActionResult Index(string filtrosSeleccionado, string busqueda, string estadosBitacora, string busquedaFechaInicioB, string busquedaFechaFinalB)
         {
-
-            if (Session["userID"] != null)
-            {
-                bitacoraDAL = new BitacoraDAL();
+            Autorizar();
+            bitacoraDAL = new BitacoraDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             policiaDAL = new PoliciaDAL();
             List<BitacoraViewModel> bitacoras = new List<BitacoraViewModel>();
@@ -161,16 +190,13 @@ namespace FrontEnd.Controllers
                 bitacoras = bitacorasFiltradas;
             }
             return View(bitacoras.OrderBy(x => x.EstadoActual).ToList());
-        }
-            else
-            {
-                return Redirect("~/Shared/Error.cshtml");
-    }
+        
 }
 
         // Este Nuevo funciona para cargar la información para el View Nuevo
         public ActionResult Nuevo()
         {
+            Autorizar();
             bitacoraDAL = new BitacoraDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             BitacoraViewModel modelo = new BitacoraViewModel();
@@ -181,6 +207,7 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public ActionResult Nuevo(BitacoraViewModel model)
         {
+            Autorizar();
             bitacoraDAL = new BitacoraDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             policiaDAL = new PoliciaDAL();
@@ -192,7 +219,7 @@ namespace FrontEnd.Controllers
             model.NumeroConsecutivo = (bitacoraDAL.GetCount() + 1).ToString() + "-" + DateTime.Now.Year;
             model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
             model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "6").idTablaGeneral;
-            model.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario;
+            model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
             if (armaDAL.GetArmaNumSerie(model.NumeroSerieArma).policiaAsignado == null)
             {
                 model.ArmaPoliciaAsignado = true;
@@ -230,6 +257,7 @@ namespace FrontEnd.Controllers
 
         public ActionResult Detalle(int id)
         {
+            Autorizar();
             armaDAL = new ArmaDAL();
             bitacoraDAL = new BitacoraDAL();
             Session["idBitacora"] = id;
@@ -240,6 +268,7 @@ namespace FrontEnd.Controllers
 
         public ActionResult Completar(int id)
         {
+            Autorizar();
             bitacoraDAL = new BitacoraDAL();
             BitacoraViewModel model = CargarBitacora(bitacoraDAL.GetBitacora(id));
             model.TiposCondicion = tablaGeneralDAL.Get("Armas", "condicion").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
@@ -249,6 +278,7 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public ActionResult Completar(BitacoraViewModel model)
         {
+            Autorizar();
             bitacoraDAL = new BitacoraDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             armaDAL = new ArmaDAL();
@@ -257,9 +287,9 @@ namespace FrontEnd.Controllers
             model.FechaFinalizacion = DateTime.Now;
             model.VistaEstadoActual = tablaGeneralDAL.GetCodigo("Bitacoras", "estadoActualBitacora", "2").descripcion;
             model.TiposCondicion = tablaGeneralDAL.Get("Armas", "condicion").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
-            model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "5").idTablaGeneral;
+            model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
             model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "6").idTablaGeneral;
-            model.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario;
+            model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
             try
             {
                 if (ModelState.IsValid)
@@ -285,6 +315,7 @@ namespace FrontEnd.Controllers
 
         public ActionResult Editar(int id)
         {
+            AutorizarEditar();
             bitacoraDAL = new BitacoraDAL();
             BitacoraViewModel model = CargarBitacora(bitacoraDAL.GetBitacora(id));
             model.TiposCondicion = tablaGeneralDAL.Get("Armas", "condicion").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
@@ -296,6 +327,7 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public ActionResult Editar(BitacoraViewModel modelo)
         {
+            AutorizarEditar();
             bitacoraDAL = new BitacoraDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             armaDAL = new ArmaDAL();
@@ -304,7 +336,7 @@ namespace FrontEnd.Controllers
             usuarioDAL = new UsuarioDAL();
             modelo.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
             modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "6").idTablaGeneral;
-            modelo.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario;
+            modelo.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
             try
             {
                 if (ModelState.IsValid)
@@ -439,7 +471,7 @@ namespace FrontEnd.Controllers
                 idAuditoria = modelo.IdAuditoria,
                 accion = modelo.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral,
                 idCategoria = modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "5").idTablaGeneral,
-                idUsuario = modelo.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario,
+                idUsuario = modelo.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario,
                 fecha = DateTime.Now,
                 idElemento = armaDAL.GetArma(idArma).idArma
 

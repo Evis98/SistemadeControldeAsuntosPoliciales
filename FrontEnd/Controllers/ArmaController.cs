@@ -71,11 +71,41 @@ namespace FrontEnd.Controllers
             return armaCarga;
         }
 
-        public ActionResult Index(string filtrosSeleccionado, string busqueda)
+        public void Autorizar()
         {
             if (Session["userID"] != null)
             {
-                armaDAL = new ArmaDAL();
+                if (Session["Rol"].ToString() == "1")
+                {
+                    Session["Error"] = "Usuario no autorizado";
+                    Response.Redirect("~/Error/ErrorUsuario.cshtml");
+                }
+            }
+            else
+            {
+                Response.Redirect("~/Login/Index");
+            }
+        }
+        public void AutorizarEditar()
+        {
+            if (Session["userID"] != null)
+            {
+                if (Session["Rol"].ToString() == "4" || Session["Rol"].ToString() == "1")
+                {
+                    Session["Error"] = "Usuario no autorizado";
+                    Response.Redirect("~/Error/ErrorUsuario.cshtml");
+                }
+            }
+            else
+            {
+                Response.Redirect("~/Login/Index");
+            }
+        }
+
+        public ActionResult Index(string filtrosSeleccionado, string busqueda)
+        {
+            Autorizar();
+            armaDAL = new ArmaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             List<ArmaViewModel> armas = new List<ArmaViewModel>();
             List<ArmaViewModel> armasFiltradas = new List<ArmaViewModel>();
@@ -114,16 +144,12 @@ namespace FrontEnd.Controllers
                 armas = armasFiltradas;
             }
             return View(armas.OrderByDescending(x => x.PoliciaAsignado).ToList());
-            }
-            else
-            {
-                return Redirect("~/Shared/Error.cshtml");
-            }
-
-        }
+    }
+            
 
         public ActionResult Nuevo()
         {
+            Autorizar();
             tablaGeneralDAL = new TablaGeneralDAL();
             ArmaViewModel modelo = new ArmaViewModel()
             {
@@ -140,6 +166,7 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public ActionResult Nuevo(ArmaViewModel model)
         {
+            Autorizar();
             armaDAL = new ArmaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             usuarioDAL = new UsuarioDAL();
@@ -147,7 +174,7 @@ namespace FrontEnd.Controllers
             model.SerieFiltrada = armaDAL.GetSerieArma(model.NumeroSerie);
             model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
             model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "5").idTablaGeneral;
-            model.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario;
+            model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
             try
             {
                 if (!armaDAL.SerieExiste(model.NumeroSerie))
@@ -177,7 +204,8 @@ namespace FrontEnd.Controllers
         }
 
         public ActionResult Detalle(int id)
-        {  
+        {
+            Autorizar();
             armaDAL = new ArmaDAL();
             Session["idArma"] = id;           
             Session["numeroSerie"] = armaDAL.GetArma(id).numeroSerie;
@@ -196,6 +224,7 @@ namespace FrontEnd.Controllers
         }
         public ActionResult Editar(int id)
         {
+            AutorizarEditar();
             armaDAL = new ArmaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             ArmaViewModel modelo = CargarArma(armaDAL.GetArma(id));
@@ -218,13 +247,14 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public ActionResult Editar(ArmaViewModel modelo)
         {
+            AutorizarEditar();
             armaDAL = new ArmaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             usuarioDAL = new UsuarioDAL();
             auditoriaDAL = new AuditoriaDAL();
             modelo.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
             modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "5").idTablaGeneral;
-            modelo.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario;
+            modelo.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
             try
             {
                 if (ModelState.IsValid)
@@ -254,6 +284,7 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public ActionResult CambioEstadoArma(int estadoArma, string justificacion, int idArma)
         {
+            Autorizar();
             int estadoFinal;
             armaDAL = new ArmaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
@@ -280,6 +311,7 @@ namespace FrontEnd.Controllers
 
         public Auditorias ConvertirAuditoria(ArmaViewModel modelo)
         {
+
             tablaGeneralDAL = new TablaGeneralDAL();
             armaDAL = new ArmaDAL();
             return new Auditorias
@@ -306,7 +338,7 @@ namespace FrontEnd.Controllers
                 idAuditoria = modelo.IdAuditoria,
                 accion = modelo.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "3").idTablaGeneral,
                 idCategoria = modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "5").idTablaGeneral,
-                idUsuario = modelo.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario,
+                idUsuario = modelo.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario,
                 fecha = DateTime.Now,
                 justificacion = justificacion,
                 idElemento = armaDAL.GetArma(idArma).idArma

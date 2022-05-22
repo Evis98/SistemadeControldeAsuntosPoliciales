@@ -20,11 +20,8 @@ namespace BackEnd
         public int oficialAcompanante { get; set; }
         public int supervisorDecomiso { get; set; }
         public System.DateTime fecha { get; set; }
-        public string nombreDecomisado { get; set; }
-        public string numeroDeIdentificacionDecomisado { get; set; }
-        public string telefonoDecomisado { get; set; }
+        public int idDecomisado { get; set; }
         public int estadoCivilDecomisado { get; set; }
-        public string direccionDecomisado { get; set; }
         public string lugarProcedimiento { get; set; }
         public string inventario { get; set; }
         public string observaciones { get; set; }
@@ -33,6 +30,7 @@ namespace BackEnd
         public virtual TablaGeneral TablaGeneral { get; set; }
         public virtual Policias Policias { get; set; }
         public virtual Policias Policias1 { get; set; }
+        public virtual Personas Personas { get; set; }
         public virtual Policias Policias2 { get; set; }
     }
 }

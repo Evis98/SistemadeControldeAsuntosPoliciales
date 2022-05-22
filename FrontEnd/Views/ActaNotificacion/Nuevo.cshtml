@@ -89,7 +89,7 @@
 
             <div class="form-group col-md-5">
                 @Html.LabelFor(d => d.Barrio)
-                @Html.TextBoxFor(d => d.Barrio, new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)", autocomplete = "new-password" })
+                @Html.TextBoxFor(d => d.Barrio, new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)", autocomplete = "new-password" })
                 @Html.ValidationMessageFor(d => d.Barrio, null, new { @class = "red" })
             </div>
 

@@ -132,5 +132,23 @@ namespace BackEnd.DAL
                 db.SaveChanges();
             }
         }
+        public Personas GetPersonaPorIdActa(int id)
+        {
+            try
+            {
+                ActasDecomiso resultado;
+                Personas persona;
+                using (SCAPEntities db = new SCAPEntities())
+                {
+                    resultado = db.ActasDecomiso.Where(x => x.idActaDecomiso == id).FirstOrDefault();
+                    persona = db.Personas.Where(x => x.idPersona == resultado.idDecomisado).FirstOrDefault();
+                }                
+                return persona;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

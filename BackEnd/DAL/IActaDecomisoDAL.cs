@@ -18,6 +18,8 @@ namespace BackEnd.DAL
         int GetCount();
         List<ActasDecomiso> GetActaDecomisoRango(DateTime inicio, DateTime final);
         void CambiaEstadoActa(int idActa, int estado);
+
+        Personas GetPersonaPorIdActa(int id);
     }
 }
 

@@ -29,12 +29,26 @@ namespace FrontEnd.Controllers
         IActaDeNotificacionDAL actaDeNotificacionDAL;
         IActaEntregaDAL actaEntregaDAL;
         IParteDAL parteDAL;
-        public ActionResult Index()
+        public void Autorizar()
         {
-            return View();
+            if (Session["userID"] != null)
+            {
+                if (Session["Rol"].ToString() == "4" || Session["Rol"].ToString() =="1")
+                {
+                    Session["Error"] = "Usuario no autorizado";
+                    Response.Redirect("~/Error/ErrorUsuario.cshtml");
+                }
+            }
+            else
+            {
+                Response.Redirect("~/Login/Index");
+            }
         }
+        
+
         public AuditoriaViewModel CargarAuditoriaPolicia(Auditorias auditoria)
         {
+            
             tablaGeneralDAL = new TablaGeneralDAL();
             policiaDAL = new PoliciaDAL();
             auditoriaDAL = new AuditoriaDAL();
@@ -56,6 +70,7 @@ namespace FrontEnd.Controllers
         }
         public ActionResult ListadoPolicia(int id, string tiposAccion, string filtrosSeleccionado, string busquedaFechaInicioP, string busquedaFechaFinalP)
         {
+            Autorizar();
             auditoriaDAL = new AuditoriaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             List<PoliciaViewModel> auditorias = new List<PoliciaViewModel>();
@@ -103,6 +118,7 @@ namespace FrontEnd.Controllers
 
         public ActionResult DetallePolicia(int id)
         {
+            Autorizar();
             policiaDAL = new PoliciaDAL();
             auditoriaDAL = new AuditoriaDAL();
             PoliciaViewModel modelo = (PoliciaViewModel)CargarAuditoriaPolicia(auditoriaDAL.GetAuditoria(id));
@@ -111,6 +127,7 @@ namespace FrontEnd.Controllers
 
         public AuditoriaViewModel CargarAuditoriaPersona(Auditorias auditoria)
         {
+        
             tablaGeneralDAL = new TablaGeneralDAL();
             personaDAL = new PersonaDAL();
             auditoriaDAL = new AuditoriaDAL();
@@ -132,6 +149,7 @@ namespace FrontEnd.Controllers
         }
         public ActionResult ListadoPersona(int id, string tiposAccion, string filtrosSeleccionado, string busquedaFechaInicioP, string busquedaFechaFinalP)
         {
+            Autorizar();
             auditoriaDAL = new AuditoriaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             List<PersonaViewModel> auditorias = new List<PersonaViewModel>();
@@ -182,6 +200,7 @@ namespace FrontEnd.Controllers
 
         public ActionResult DetallePersona(int id)
         {
+            Autorizar();
             personaDAL = new PersonaDAL();
             auditoriaDAL = new AuditoriaDAL();
             PersonaViewModel modelo = (PersonaViewModel)CargarAuditoriaPersona(auditoriaDAL.GetAuditoria(id));
@@ -190,6 +209,7 @@ namespace FrontEnd.Controllers
 
         public AuditoriaViewModel CargarAuditoriaInfractor(Auditorias auditoria)
         {
+           
             tablaGeneralDAL = new TablaGeneralDAL();
             infractorDAL = new InfractorDAL();
             auditoriaDAL = new AuditoriaDAL();
@@ -211,6 +231,7 @@ namespace FrontEnd.Controllers
         }
         public ActionResult ListadoInfractor(int id, string tiposAccion, string filtrosSeleccionado, string busquedaFechaInicioP, string busquedaFechaFinalP)
         {
+            Autorizar();
             auditoriaDAL = new AuditoriaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             List<InfractorViewModel> auditorias = new List<InfractorViewModel>();
@@ -261,6 +282,7 @@ namespace FrontEnd.Controllers
 
         public ActionResult DetalleInfractor(int id)
         {
+            Autorizar();
             infractorDAL = new InfractorDAL();
             auditoriaDAL = new AuditoriaDAL();
             InfractorViewModel modelo = (InfractorViewModel)CargarAuditoriaInfractor(auditoriaDAL.GetAuditoria(id));
@@ -269,6 +291,7 @@ namespace FrontEnd.Controllers
 
         public AuditoriaViewModel CargarAuditoriaRequisito(Auditorias auditoria)
         {
+
             tablaGeneralDAL = new TablaGeneralDAL();
             requisitoDAL = new RequisitoDAL();
             auditoriaDAL = new AuditoriaDAL();
@@ -290,6 +313,7 @@ namespace FrontEnd.Controllers
         }
         public ActionResult ListadoRequisito(int id, string tiposAccion, string filtrosSeleccionado, string busquedaFechaInicioP, string busquedaFechaFinalP)
         {
+            Autorizar();
             auditoriaDAL = new AuditoriaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             List<RequisitoViewModel> auditorias = new List<RequisitoViewModel>();
@@ -340,6 +364,7 @@ namespace FrontEnd.Controllers
 
         public ActionResult DetalleRequisito(int id)
         {
+            Autorizar();
             policiaDAL = new PoliciaDAL();
             auditoriaDAL = new AuditoriaDAL();
             RequisitoViewModel modelo = (RequisitoViewModel)CargarAuditoriaRequisito(auditoriaDAL.GetAuditoria(id));
@@ -369,6 +394,7 @@ namespace FrontEnd.Controllers
         }
         public ActionResult ListadoArma(int id, string tiposAccion, string filtrosSeleccionado, string busquedaFechaInicioP, string busquedaFechaFinalP)
         {
+            Autorizar();
             auditoriaDAL = new AuditoriaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             List<ArmaViewModel> auditorias = new List<ArmaViewModel>();
@@ -420,6 +446,7 @@ namespace FrontEnd.Controllers
 
         public ActionResult DetalleArma(int id)
         {
+            Autorizar();
             armaDAL = new ArmaDAL();
             auditoriaDAL = new AuditoriaDAL();
             ArmaViewModel modelo = (ArmaViewModel)CargarAuditoriaArma(auditoriaDAL.GetAuditoria(id));
@@ -449,6 +476,7 @@ namespace FrontEnd.Controllers
         }
         public ActionResult ListadoBitacora(int id, string tiposAccion, string filtrosSeleccionado, string busquedaFechaInicioP, string busquedaFechaFinalP)
         {
+            Autorizar();
             auditoriaDAL = new AuditoriaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             List<BitacoraViewModel> auditorias = new List<BitacoraViewModel>();
@@ -499,6 +527,7 @@ namespace FrontEnd.Controllers
 
         public ActionResult DetalleBitacora(int id)
         {
+            Autorizar();
             bitacoraDAL = new BitacoraDAL();
             auditoriaDAL = new AuditoriaDAL();
             BitacoraViewModel modelo = (BitacoraViewModel)CargarAuditoriaBitacora(auditoriaDAL.GetAuditoria(id));
@@ -528,6 +557,7 @@ namespace FrontEnd.Controllers
         }
         public ActionResult ListadoActaDeObservacionPolicial(int id, string tiposAccion, string filtrosSeleccionado, string busquedaFechaInicioP, string busquedaFechaFinalP)
         {
+            Autorizar();
             auditoriaDAL = new AuditoriaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             List<ActaDeObservacionPolicialViewModel> auditorias = new List<ActaDeObservacionPolicialViewModel>();
@@ -578,7 +608,7 @@ namespace FrontEnd.Controllers
 
         public ActionResult DetalleActaDeObservacionPolicial(int id)
         {
-          
+            Autorizar();
             auditoriaDAL = new AuditoriaDAL();
             ActaDeObservacionPolicialViewModel modelo = (ActaDeObservacionPolicialViewModel)CargarAuditoriaActaDeObservacionPolicial(auditoriaDAL.GetAuditoria(id));
             return View(modelo);
@@ -607,6 +637,7 @@ namespace FrontEnd.Controllers
         }
         public ActionResult ListadoActaHallazgo(int id, string tiposAccion, string filtrosSeleccionado, string busquedaFechaInicioP, string busquedaFechaFinalP)
         {
+            Autorizar();
             auditoriaDAL = new AuditoriaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             List<ActaHallazgoViewModel> auditorias = new List<ActaHallazgoViewModel>();
@@ -657,6 +688,7 @@ namespace FrontEnd.Controllers
 
         public ActionResult DetalleActaHallazgo(int id)
         {
+            Autorizar();
             auditoriaDAL = new AuditoriaDAL();
             ActaHallazgoViewModel modelo = (ActaHallazgoViewModel)CargarAuditoriaActaHallazgo(auditoriaDAL.GetAuditoria(id));
             return View(modelo);
@@ -685,6 +717,7 @@ namespace FrontEnd.Controllers
         }
         public ActionResult ListadoActaDecomiso(int id, string tiposAccion, string filtrosSeleccionado, string busquedaFechaInicioP, string busquedaFechaFinalP)
         {
+            Autorizar();
             auditoriaDAL = new AuditoriaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             List<ActaDecomisoViewModel> auditorias = new List<ActaDecomisoViewModel>();
@@ -735,6 +768,7 @@ namespace FrontEnd.Controllers
 
         public ActionResult DetalleActaDecomiso(int id)
         {
+            Autorizar();
             auditoriaDAL = new AuditoriaDAL();
             ActaDecomisoViewModel modelo = (ActaDecomisoViewModel)CargarAuditoriaActaDecomiso(auditoriaDAL.GetAuditoria(id));
             return View(modelo);
@@ -763,6 +797,7 @@ namespace FrontEnd.Controllers
         }
         public ActionResult ListadoActaDeDestruccionDePerecederos(int id, string tiposAccion, string filtrosSeleccionado, string busquedaFechaInicioP, string busquedaFechaFinalP)
         {
+            Autorizar();
             auditoriaDAL = new AuditoriaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             List<ActaDeDestruccionDePerecederosViewModel> auditorias = new List<ActaDeDestruccionDePerecederosViewModel>();
@@ -814,6 +849,7 @@ namespace FrontEnd.Controllers
 
         public ActionResult DetalleActaDeDestruccionDePerecederos(int id)
         {
+            Autorizar();
             auditoriaDAL = new AuditoriaDAL();
             ActaDeDestruccionDePerecederosViewModel modelo = (ActaDeDestruccionDePerecederosViewModel)CargarAuditoriaActaDeDestruccionDePerecederos(auditoriaDAL.GetAuditoria(id));
             return View(modelo);
@@ -841,6 +877,7 @@ namespace FrontEnd.Controllers
         }
         public ActionResult ListadoActaEntregaPorOrdenDe(int id, string tiposAccion, string filtrosSeleccionado, string busquedaFechaInicioP, string busquedaFechaFinalP)
         {
+            Autorizar();
             auditoriaDAL = new AuditoriaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             List<ActaEntregaPorOrdenDeViewModel> auditorias = new List<ActaEntregaPorOrdenDeViewModel>();
@@ -890,6 +927,7 @@ namespace FrontEnd.Controllers
 
         public ActionResult DetalleActaEntregaPorOrdenDe(int id)
         {
+            Autorizar();
             auditoriaDAL = new AuditoriaDAL();
             ActaEntregaPorOrdenDeViewModel modelo = (ActaEntregaPorOrdenDeViewModel)CargarAuditoriaActaEntregaPorOrdenDe(auditoriaDAL.GetAuditoria(id));
             return View(modelo);
@@ -917,6 +955,7 @@ namespace FrontEnd.Controllers
         }
         public ActionResult ListadoActaNotificacionVendedorAmbulante(int id, string tiposAccion, string filtrosSeleccionado, string busquedaFechaInicioP, string busquedaFechaFinalP)
         {
+            Autorizar();
             auditoriaDAL = new AuditoriaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             List<ActaNotificacionVendedorAmbulanteViewModel> auditorias = new List<ActaNotificacionVendedorAmbulanteViewModel>();
@@ -967,6 +1006,7 @@ namespace FrontEnd.Controllers
 
         public ActionResult DetalleActaNotificacionVendedorAmbulante(int id)
         {
+            Autorizar();
             auditoriaDAL = new AuditoriaDAL();
             ActaNotificacionVendedorAmbulanteViewModel modelo = (ActaNotificacionVendedorAmbulanteViewModel)CargarAuditoriaActaNotificacionVendedorAmbulante(auditoriaDAL.GetAuditoria(id));
             return View(modelo);
@@ -974,6 +1014,7 @@ namespace FrontEnd.Controllers
 
         public AuditoriaViewModel CargarAuditoriaActaNotificacion(Auditorias auditoria)
         {
+   
             tablaGeneralDAL = new TablaGeneralDAL();
             actaDeNotificacionDAL = new ActaDeNotificacionDAL();
             auditoriaDAL = new AuditoriaDAL();
@@ -994,6 +1035,7 @@ namespace FrontEnd.Controllers
         }
         public ActionResult ListadoActaNotificacion(int id, string tiposAccion, string filtrosSeleccionado, string busquedaFechaInicioP, string busquedaFechaFinalP)
         {
+            Autorizar();
             auditoriaDAL = new AuditoriaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             List<ActaNotificacionViewModel> auditorias = new List<ActaNotificacionViewModel>();
@@ -1044,6 +1086,7 @@ namespace FrontEnd.Controllers
 
         public ActionResult DetalleActaNotificacion(int id)
         {
+            Autorizar();
             auditoriaDAL = new AuditoriaDAL();
             ActaNotificacionViewModel modelo = (ActaNotificacionViewModel)CargarAuditoriaActaNotificacion(auditoriaDAL.GetAuditoria(id));
             return View(modelo);
@@ -1071,6 +1114,7 @@ namespace FrontEnd.Controllers
         }
         public ActionResult ListadoActaEntrega(int id, string tiposAccion, string filtrosSeleccionado, string busquedaFechaInicioP, string busquedaFechaFinalP)
         {
+            Autorizar();
             auditoriaDAL = new AuditoriaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             List<ActaEntregaViewModel> auditorias = new List<ActaEntregaViewModel>();
@@ -1122,6 +1166,7 @@ namespace FrontEnd.Controllers
 
         public ActionResult DetalleActaEntrega(int id)
         {
+            Autorizar();
             auditoriaDAL = new AuditoriaDAL();
             ActaEntregaViewModel modelo = (ActaEntregaViewModel)CargarAuditoriaActaEntrega(auditoriaDAL.GetAuditoria(id));
             return View(modelo);
@@ -1149,6 +1194,7 @@ namespace FrontEnd.Controllers
         }
         public ActionResult ListadoPartePolicial(int id, string tiposAccion, string filtrosSeleccionado, string busquedaFechaInicioP, string busquedaFechaFinalP)
         {
+            Autorizar();
             auditoriaDAL = new AuditoriaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             List<Parte1ViewModel> auditorias = new List<Parte1ViewModel>();
@@ -1201,6 +1247,7 @@ namespace FrontEnd.Controllers
 
         public ActionResult DetallePartePolicial(int id)
         {
+            Autorizar();
             auditoriaDAL = new AuditoriaDAL();
             Parte1ViewModel modelo = (Parte1ViewModel)CargarAuditoriaPartePolicial(auditoriaDAL.GetAuditoria(id));
             return View(modelo);

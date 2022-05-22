@@ -89,7 +89,9 @@
                 @Html.LabelFor(d => d.ConsecutivoActaDecomiso)
             </dt>
             <dd class="col-sm-8 ">
-                @Html.DisplayTextFor(d => d.ConsecutivoActaDecomiso)
+                <a href="~/ActaDecomiso/Detalle/@Model.IdActaDecomiso" target="_blank">
+                    @Html.DisplayTextFor(d => d.ConsecutivoActaDecomiso)
+                </a>
             </dd>
         }
         else
@@ -99,7 +101,9 @@
                 @Html.LabelFor(d => d.ConsecutivoActaHallazgo)
             </dt>
             <dd class="col-sm-8 ">
-                @Html.DisplayTextFor(d => d.ConsecutivoActaHallazgo)
+                <a href="~/ActaHallazgo/Detalle/@Model.IdActaHallazgo" target="_blank">
+                    @Html.DisplayTextFor(d => d.ConsecutivoActaHallazgo)
+                </a>
             </dd>
 
         }
@@ -125,11 +129,13 @@
         <div class="col-sm-12">
             <a href="~/ActaEntrega/Index/" class="btn btn-outline-secondary">Regresar</a>
 
-            <div style="text-align:center;">
-                <a class="btn btn-primary" href="~/ActaEntrega/Editar/@Model.IdActaEntrega">Editar</a>
-                <a class="btn btn-secondary" href="~/Auditoria/ListadoActaEntrega/@Model.IdActaEntrega">Ver Auditorias</a>
-            </div>
-        </div>
+            @if (Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "5")
+            {
+                <div style="text-align:center;">
+                    <a class="btn btn-primary" href="~/ActaEntrega/Editar/@Model.IdActaEntrega">Editar</a>
+                    <a class="btn btn-secondary" href="~/Auditoria/ListadoActaEntrega/@Model.IdActaEntrega">Ver Auditorias</a>
+                </div>
+            } </div>
 
     </div>
 

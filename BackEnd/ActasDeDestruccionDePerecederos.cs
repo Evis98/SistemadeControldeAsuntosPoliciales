@@ -22,7 +22,7 @@ namespace BackEnd
         public int supervisor { get; set; }
         public System.DateTime fechaHora { get; set; }
         public int tipoActaD { get; set; }
-        public string consecutivoActa { get; set; }
+        public int idActaLigada { get; set; }
         public string inventarioDestruido { get; set; }
         public int estado { get; set; }
     

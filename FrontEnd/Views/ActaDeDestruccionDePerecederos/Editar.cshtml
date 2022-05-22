@@ -13,135 +13,141 @@
     <hr />
     @using (Html.BeginForm("Editar", "ActaDeDestruccionDePerecederos", FormMethod.Post))
     {
-        <div class="form-row">
-            @Html.HiddenFor(d => d.IdActaDeDestruccionDePerecederos)
-            @Html.HiddenFor(d => d.NumeroFolio)
 
-            <div class="form-group col-md-3">
-                @Html.LabelFor(d => d.Encargado)
-                <div class="input-group">
-                    @Html.TextBoxFor(d => d.Encargado, "", new { @class = "form-control", @id = "idEncargado", @readonly = "readonly" })
-                    <div class="input-group-append ">
-                        <a class="btn btn-primary" data-book-id="idEncargado" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
-                    </div>
-                </div>
-                @Html.ValidationMessageFor(d => d.Encargado, null, new { @class = "red" })
-            </div>
-            <div class="form-group col-md-3">
-                @Html.LabelFor(d => d.Supervisor)
-                <div class="input-group">
-                    @Html.TextBoxFor(d => d.Supervisor, "", new { @class = "form-control", @id = "idSupervisor", @readonly = "readonly" })
-                    <div class="input-group-append ">
-                        <a class="btn btn-primary" data-book-id="idSupervisor" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
-                    </div>
-                </div>
-                @Html.ValidationMessageFor(d => d.Supervisor, null, new { @class = "red" })
-            </div>
+<div class="form-row">
+    @Html.HiddenFor(d => d.IdActaDeDestruccionDePerecederos)
+    @Html.HiddenFor(d => d.NumeroFolio)
 
-            <div class="form-group col-md-3">
-                @Html.LabelFor(d => d.TipoTestigo)
-                @Html.DropDownListFor(d => d.TipoTestigo, Model.TiposTestigo, new { @class = "myselect form-control", @id = "idTipoTestigo" })
-                @Html.ValidationMessageFor(d => d.TipoTestigo, null, new { @class = "red" })
-            </div>
-
-            <div class="form-group col-md-3" id="idOficialTestigoCampo" style="display:none">
-                @Html.LabelFor(d => d.IdTestigoPolicia)
-                <div class="input-group">
-                    @Html.TextBoxFor(d => d.IdTestigoPolicia, "", new { @class = "form-control", @id = "idTestigoPolicia", @readonly = "readonly" })
-                    <div class="input-group-append">
-                        <a class="btn btn-primary" data-book-id="idTestigoPolicia" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
-                    </div>
+    <div class="form-group col-md-3">
+        @Html.LabelFor(d => d.TipoActaD)
+        @Html.DropDownListFor(d => d.TipoActaD, Model.TiposActaD, "--Seleccione--", new { @class = "myselect form-control", @id = "tipoActaSeleccionado", @onclick = "ocultarActa()" })
+        @Html.ValidationMessageFor(d => d.TipoActaD, null, new { @class = "red" })
+    </div>
+    @if (Model.ConsecutivoActaHallazgo != null)
+    {
+        <div class="form-group col-md-3" id="consecutivoActaHallazgo">
+            @Html.LabelFor(d => d.ConsecutivoActaHallazgo)
+            <div class="input-group">
+                @Html.TextBoxFor(d => d.ConsecutivoActaHallazgo, "", new { @class = "form-control", @id = "consecutivoActa", @readonly = "readonly" })
+                <div class="input-group-append ">
+                    <a class="btn btn-primary" data-book-id="consecutivoActa" data-toggle="modal" data-target="#modalBusquedaHallazgo">Buscar</a>
                 </div>
             </div>
-
-            <div class="form-group col-md-3" id="idPersonaTestigoCampo" style="display:none">
-                @Html.LabelFor(d => d.IdTestigoPersona)
-                <div class="input-group">
-                    @Html.TextBoxFor(d => d.IdTestigoPersona, "", new { @class = "form-control", @id = "idTestigoPersona", @readonly = "readonly" })
-                    <div class="input-group-append">
-                        <a class="btn btn-primary" data-book-id="idTestigoPersona" data-toggle="modal" data-target="#modalBusquedaPersona">Buscar</a>
-                    </div>
-                </div>
-            </div>
-
+            @Html.ValidationMessageFor(d => d.ConsecutivoActaHallazgo, null, new { @class = "red" })
         </div>
-        <div class="form-row">
-            <div class="form-group col-md-2">
-                @Html.LabelFor(d => d.Fecha)
-                @Html.EditorFor(d => d.Fecha, "", new { @class = "form-control" })
-                @Html.ValidationMessageFor(d => d.Fecha, null, new { @class = "red" })
+    }
+    else
+    {
+        <div class="form-group col-md-3" style="display:none;" id="consecutivoActaHallazgo">
+            @Html.LabelFor(d => d.ConsecutivoActaHallazgo)
+            <div class="input-group">
+                @Html.TextBoxFor(d => d.ConsecutivoActaHallazgo, "", new { @class = "form-control", @id = "consecutivoActa", @readonly = "readonly" })
+                <div class="input-group-append ">
+                    <a class="btn btn-primary" data-book-id="consecutivoActa" data-toggle="modal" data-target="#modalBusquedaHallazgo">Buscar</a>
+                </div>
             </div>
-            <div class="form-group col-md-2">
-                @Html.LabelFor(d => d.Hora)
-                @Html.EditorFor(d => d.Hora, "", new { @class = "form-control" })
-                @Html.ValidationMessageFor(d => d.Hora, null, new { @class = "red" })
-            </div>
-            <div class="form-group col-md-3">
-                @Html.LabelFor(d => d.TipoActaD)
-                @Html.DropDownListFor(d => d.TipoActaD, Model.TiposActaD, "--Seleccione--", new { @class = "myselect form-control", @id = "tipoActaSeleccionado", @onclick = "ocultarActa()" })
-                @Html.ValidationMessageFor(d => d.TipoActaD, null, new { @class = "red" })
-            </div>
-            @if (Model.ConsecutivoActaHallazgo != null)
-            {
-                <div class="form-group col-md-3" id="consecutivoActaHallazgo">
-                    @Html.LabelFor(d => d.ConsecutivoActaHallazgo)
-                    <div class="input-group">
-                        @Html.TextBoxFor(d => d.ConsecutivoActaHallazgo, "", new { @class = "form-control", @id = "consecutivoActa", @readonly = "readonly" })
-                        <div class="input-group-append ">
-                            <a class="btn btn-primary" data-book-id="consecutivoActa" data-toggle="modal" data-target="#modalBusquedaHallazgo">Buscar</a>
-                        </div>
-                    </div>
-                    @Html.ValidationMessageFor(d => d.ConsecutivoActaHallazgo, null, new { @class = "red" })
-                </div>
-            }
-            else
-            {
-                <div class="form-group col-md-3" style="display:none;" id="consecutivoActaHallazgo">
-                    @Html.LabelFor(d => d.ConsecutivoActaHallazgo)
-                    <div class="input-group">
-                        @Html.TextBoxFor(d => d.ConsecutivoActaHallazgo, "", new { @class = "form-control", @id = "consecutivoActa", @readonly = "readonly" })
-                        <div class="input-group-append ">
-                            <a class="btn btn-primary" data-book-id="consecutivoActa" data-toggle="modal" data-target="#modalBusquedaHallazgo">Buscar</a>
-                        </div>
-                    </div>
-                    @Html.ValidationMessageFor(d => d.ConsecutivoActaHallazgo, null, new { @class = "red" })
-                </div>
-
-            }
-            @if (Model.ConsecutivoActaDecomiso != null)
-            {
-                <div class="form-group col-md-3" id="consecutivoActaDecomiso">
-                    @Html.LabelFor(d => d.ConsecutivoActaDecomiso)
-                    <div class="input-group">
-                        @Html.TextBoxFor(d => d.ConsecutivoActaDecomiso, "", new { @class = "form-control", @id = "consecutivoActa2", @readonly = "readonly" })
-                        <div class="input-group-append ">
-                            <a class="btn btn-primary" data-book-id="consecutivoActa" data-toggle="modal" data-target="#modalBusquedaDecomiso">Buscar</a>
-                        </div>
-                    </div>
-                    @Html.ValidationMessageFor(d => d.ConsecutivoActaDecomiso, null, new { @class = "red" })
-                </div>
-            }
-            else
-            {
-                <div class="form-group col-md-3" style="display:none;" id="consecutivoActaDecomiso">
-                    @Html.LabelFor(d => d.ConsecutivoActaDecomiso)
-                    <div class="input-group">
-                        @Html.TextBoxFor(d => d.ConsecutivoActaDecomiso, "", new { @class = "form-control", @id = "consecutivoActa2", @readonly = "readonly" })
-                        <div class="input-group-append ">
-                            <a class="btn btn-primary" data-book-id="consecutivoActa" data-toggle="modal" data-target="#modalBusquedaDecomiso">Buscar</a>
-                        </div>
-                    </div>
-                    @Html.ValidationMessageFor(d => d.ConsecutivoActaDecomiso, null, new { @class = "red" })
-                </div>
-            }
+            @Html.ValidationMessageFor(d => d.ConsecutivoActaHallazgo, null, new { @class = "red" })
         </div>
+
+    }
+    @if (Model.ConsecutivoActaDecomiso != null)
+    {
+        <div class="form-group col-md-3" id="consecutivoActaDecomiso">
+            @Html.LabelFor(d => d.ConsecutivoActaDecomiso)
+            <div class="input-group">
+                @Html.TextBoxFor(d => d.ConsecutivoActaDecomiso, "", new { @class = "form-control", @id = "consecutivoActa2", @readonly = "readonly" })
+                <div class="input-group-append ">
+                    <a class="btn btn-primary" data-book-id="consecutivoActa" data-toggle="modal" data-target="#modalBusquedaDecomiso">Buscar</a>
+                </div>
+            </div>
+            @Html.ValidationMessageFor(d => d.ConsecutivoActaDecomiso, null, new { @class = "red" })
+        </div>
+    }
+    else
+    {
+        <div class="form-group col-md-3" style="display:none;" id="consecutivoActaDecomiso">
+            @Html.LabelFor(d => d.ConsecutivoActaDecomiso)
+            <div class="input-group">
+                @Html.TextBoxFor(d => d.ConsecutivoActaDecomiso, "", new { @class = "form-control", @id = "consecutivoActa2", @readonly = "readonly" })
+                <div class="input-group-append ">
+                    <a class="btn btn-primary" data-book-id="consecutivoActa" data-toggle="modal" data-target="#modalBusquedaDecomiso">Buscar</a>
+                </div>
+            </div>
+            @Html.ValidationMessageFor(d => d.ConsecutivoActaDecomiso, null, new { @class = "red" })
+        </div>
+    }
+
+    <div class="form-group col-md-3">
+        @Html.LabelFor(d => d.Encargado)
+        <div class="input-group">
+            @Html.TextBoxFor(d => d.Encargado, "", new { @class = "form-control", @id = "idEncargado", @readonly = "readonly" })
+            <div class="input-group-append ">
+                <a class="btn btn-primary" data-book-id="idEncargado" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
+            </div>
+        </div>
+        @Html.ValidationMessageFor(d => d.Encargado, null, new { @class = "red" })
+    </div>
+    <div class="form-group col-md-3">
+        @Html.LabelFor(d => d.Supervisor)
+        <div class="input-group">
+            @Html.TextBoxFor(d => d.Supervisor, "", new { @class = "form-control", @id = "idSupervisor", @readonly = "readonly" })
+            <div class="input-group-append ">
+                <a class="btn btn-primary" data-book-id="idSupervisor" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
+            </div>
+        </div>
+        @Html.ValidationMessageFor(d => d.Supervisor, null, new { @class = "red" })
+    </div>
+
+</div>
+
+<div class="form-row">
+
+    <div class="form-group col-md-3">
+        @Html.LabelFor(d => d.TipoTestigo)
+        @Html.DropDownListFor(d => d.TipoTestigo, Model.TiposTestigo, new { @class = "myselect form-control", @id = "idTipoTestigo" })
+        @Html.ValidationMessageFor(d => d.TipoTestigo, null, new { @class = "red" })
+    </div>
+
+    <div class="form-group col-md-3" id="idOficialTestigoCampo" style="display:none">
+        @Html.LabelFor(d => d.IdTestigoPolicia)
+        <div class="input-group">
+            @Html.TextBoxFor(d => d.IdTestigoPolicia, "", new { @class = "form-control", @id = "idTestigoPolicia", @readonly = "readonly" })
+            <div class="input-group-append">
+                <a class="btn btn-primary" data-book-id="idTestigoPolicia" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group col-md-3" id="idPersonaTestigoCampo" style="display:none">
+        @Html.LabelFor(d => d.IdTestigoPersona)
+        <div class="input-group">
+            @Html.TextBoxFor(d => d.IdTestigoPersona, "", new { @class = "form-control", @id = "idTestigoPersona", @readonly = "readonly" })
+            <div class="input-group-append">
+                <a class="btn btn-primary" data-book-id="idTestigoPersona" data-toggle="modal" data-target="#modalBusquedaPersona">Buscar</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group col-md-2">
+        @Html.LabelFor(d => d.Fecha)
+        @Html.EditorFor(d => d.Fecha, "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(d => d.Fecha, null, new { @class = "red" })
+    </div>
+    <div class="form-group col-md-2">
+        @Html.LabelFor(d => d.Hora)
+        @Html.EditorFor(d => d.Hora, "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(d => d.Hora, null, new { @class = "red" })
+    </div>
+    <div class="form-group col-md-2">
+        @Html.LabelFor(d => d.Estado)
+        @Html.DropDownListFor(d => d.Estado, Model.Estados, new { @class = "myselect form-control" })
+        @Html.ValidationMessageFor(d => d.Estado, null, new { @class = "red" })
+    </div>
+</div>
+      
         <div class="form-row" onload="ocultarActa()">
-            <div class="form-group col-md-4">
-                @Html.LabelFor(d => d.Estado)
-                @Html.DropDownListFor(d => d.Estado, Model.Estados, new { @class = "myselect form-control" })
-                @Html.ValidationMessageFor(d => d.Estado, null, new { @class = "red" })
-            </div>
-            <div class="form-group col-md-8">
+           
+            <div class="form-group col-md-12">
                 @Html.LabelFor(d => d.InventarioDestruido)
                 @Html.TextAreaFor(d => d.InventarioDestruido, new { @class = "form-control", @readonly = "readonly", @id = "inventario" })
                 @Html.ValidationMessageFor(d => d.InventarioDestruido, null, new { @class = "red" })

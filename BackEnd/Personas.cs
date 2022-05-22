@@ -17,6 +17,7 @@ namespace BackEnd
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Personas()
         {
+            this.ActasDecomiso = new HashSet<ActasDecomiso>();
             this.ActasDeNotificacion = new HashSet<ActasDeNotificacion>();
             this.ActasDeObservacionPolicial = new HashSet<ActasDeObservacionPolicial>();
             this.ActasEntrega = new HashSet<ActasEntrega>();
@@ -42,6 +43,8 @@ namespace BackEnd
         public string correoElectronicoPersona { get; set; }
         public string lugarTrabajoPersona { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ActasDecomiso> ActasDecomiso { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ActasDeNotificacion> ActasDeNotificacion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

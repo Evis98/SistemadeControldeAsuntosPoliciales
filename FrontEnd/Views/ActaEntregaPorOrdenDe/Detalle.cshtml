@@ -118,10 +118,12 @@
         @if (Model.NumeroActaLigada != null)
         {
             <dt class="col-sm-4 ">
-                @Html.LabelFor(d => d.DescripcionDeArticulos)
+                @Html.LabelFor(d => d.NumeroActaLigada)
             </dt>
             <dd class="col-sm-8 ">
-                @Html.DisplayTextFor(d => d.DescripcionDeArticulos)
+                <a href="~/ActaDecomiso/Detalle/@Model.IdActaLigada" target="_blank">
+                    @Html.DisplayTextFor(d => d.NumeroActaLigada)
+                </a>
             </dd>
         }
         @if (Model.NumeroInventario != null)
@@ -149,10 +151,13 @@
         <div class="col-sm-12">
             <a href="~/ActaEntregaPorOrdenDe/Index/" class="btn btn-outline-secondary">Regresar</a>
 
-            <div style="text-align:center;">
-                <a class="btn btn-primary" href="~/ActaEntregaPorOrdenDe/Editar/@Model.IdActaEntregaPorOrdenDe">Editar</a>
-                <a class="btn btn-secondary" href="~/Auditoria/ListadoActaEntregaPorOrdenDe/@Model.IdActaEntregaPorOrdenDe">Ver Auditorias</a>
-            </div>
+            @if (Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "5")
+            {
+                <div style="text-align:center;">
+                    <a class="btn btn-primary" href="~/ActaEntregaPorOrdenDe/Editar/@Model.IdActaEntregaPorOrdenDe">Editar</a>
+                    <a class="btn btn-secondary" href="~/Auditoria/ListadoActaEntregaPorOrdenDe/@Model.IdActaEntregaPorOrdenDe">Ver Auditorias</a>
+                </div>
+            }
         </div>
 
     </div>

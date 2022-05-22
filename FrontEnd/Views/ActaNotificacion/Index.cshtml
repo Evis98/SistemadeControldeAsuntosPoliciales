@@ -47,7 +47,7 @@
     <hr />
     <div class="row">
         <div class="col-md-12">
-            <table class="table table-bordered center table-sm">
+            <table class="table table-bordered center table-sm" id="idtablaNotificacion">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">Número de Folio</th>
@@ -61,20 +61,20 @@
                 <tbody>
                     @foreach (var oElemento in Model)
                     {
-                    <tr>
-                        <th scope="row">@oElemento.NumeroFolio</th>
-                        <td>@oElemento.VistaPersonaNotificada</td>
-                        <td>@oElemento.Notificado</td>
-                        <td>@oElemento.VistaOficialActuante</td>
-                        <td>@oElemento.Fecha.ToShortDateString()</td>
+                        <tr>
+                            <th scope="row">@oElemento.NumeroFolio</th>
+                            <td>@oElemento.VistaPersonaNotificada</td>
+                            <td>@oElemento.Notificado</td>
+                            <td>@oElemento.VistaOficialActuante</td>
+                            <td>@oElemento.Fecha.ToShortDateString()</td>
 
-                        <td>
-                            <div style="text-align:center;">
-                                <a class="btn btn-sm btn-outline-info" href="~/ActaNotificacion/Detalle/@oElemento.IdActaDeNotificacion">Ver Detalles</a>
-                                @*<a class="btn btn-sm btn-outline-secondary">Aditorí­as</a>*@
-                            </div>
-                        </td>
-                    </tr>
+                            <td>
+                                <div style="text-align:center;">
+                                    <a class="btn btn-sm btn-outline-info" href="~/ActaNotificacion/Detalle/@oElemento.IdActaDeNotificacion">Ver Detalles</a>
+                                    @*<a class="btn btn-sm btn-outline-secondary">Aditorí­as</a>*@
+                                </div>
+                            </td>
+                        </tr>
                     }
                 </tbody>
             </table>
@@ -82,3 +82,27 @@
     </div>
 
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('#idtablaNotificacion').DataTable({
+            searching: false,
+            lengthMenu: [[6], [6]],
+            lengthChange: false,
+            language: {
+                lengthMenu: "Mostrar _MENU_ entradas",
+                info: "Se muestran de _START_ a _END_ de _TOTAL_ entradas totales",
+                infoEmpty: "Se muestran de 0 a 0 de 0 entradas totales",
+                paginate: {
+                    first: "Primero",
+                    last: "Último",
+                    next: "Siguiente",
+                    previous: "Anterior"
+                }
+            }
+
+        });
+    });
+
+
+</script>

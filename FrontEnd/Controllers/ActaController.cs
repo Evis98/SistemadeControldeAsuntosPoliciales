@@ -12,12 +12,21 @@ namespace FrontEnd.Controllers
         public ActionResult Index()
         {
             if (Session["userID"] != null)
-            {
-                return View();
+            { 
+                if(Session["Rol"].ToString() != "4") { 
+              
+                    return View();}
+                else
+                {
+                    
+                    Session["Error"] = "Usuario no autorizado";
+                    return Redirect("~/Error/Error.cshtml");
+                }
             }
             else
             {
-                return Redirect("~/Shared/Error.cshtml");
+                Session["Error"] = "Solicitud no procesada";
+                return Redirect("~/Error/Error.cshtml");
             }
         }
     }

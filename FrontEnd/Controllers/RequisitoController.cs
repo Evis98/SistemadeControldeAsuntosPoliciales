@@ -55,12 +55,46 @@ namespace FrontEnd.Controllers
             };
         }
 
-        //Devuelve la página con el listado de todos los requisitos creados
-        public ActionResult Index(string filtrosSeleccionado, string busqueda, string tiposRequisito)
+        public void Autorizar()
         {
             if (Session["userID"] != null)
             {
-                requisitoDAL = new RequisitoDAL();
+                if (Session["Rol"].ToString() == "1")
+                {
+                    Session["Error"] = "Usuario no autorizado";
+                    Response.Redirect("~/Error/ErrorUsuario.cshtml");
+                }
+            }
+            else
+            {
+                Response.Redirect("~/Login/Index");
+            }
+        }
+        public void AutorizarEditar()
+        {
+            if (Session["userID"] != null)
+            {
+                if (Session["Rol"].ToString() == "4" || Session["Rol"].ToString() == "1")
+                {
+                    Session["Error"] = "Usuario no autorizado";
+                    Response.Redirect("~/Error/ErrorUsuario.cshtml");
+                }
+                else
+                {
+                    Session["Error"] = "wwwww";
+                }
+            }
+            else
+            {
+                Response.Redirect("~/Login/Index");
+            }
+        }
+
+        //Devuelve la página con el listado de todos los requisitos creados
+        public ActionResult Index(string filtrosSeleccionado, string busqueda, string tiposRequisito)
+        {
+            Autorizar();
+            requisitoDAL = new RequisitoDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             List<RequisitoViewModel> requisitos = new List<RequisitoViewModel>();
             List<RequisitoViewModel> requisitosFiltrados = new List<RequisitoViewModel>();
@@ -109,15 +143,12 @@ namespace FrontEnd.Controllers
             }
             return View(requisitos.OrderBy(x => x.FechaVencimiento).ToList());
             }
-            else
-            {
-                return Redirect("~/Shared/Error.cshtml");
-            }
-        }
+           
 
         //*Devuelve la página con el listado de todos los requisitos creados para el policía seleccionado
         public ActionResult Listado(int id, string filtrosSeleccionado, string busqueda, string tiposRequisito)
         {
+            AutorizarEditar();
             requisitoDAL = new RequisitoDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             List<RequisitoViewModel> requisitos = new List<RequisitoViewModel>();
@@ -174,6 +205,7 @@ namespace FrontEnd.Controllers
         //Devuelve la página que agrega nuevos requisitos
         public ActionResult Nuevo(int id)
         {
+            AutorizarEditar();
             tablaGeneralDAL = new TablaGeneralDAL();
             policiaDAL = new PoliciaDAL();
             RequisitoViewModel requisito = new RequisitoViewModel
@@ -202,13 +234,14 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public ActionResult Nuevo(RequisitoViewModel modelo)
         {
+            AutorizarEditar();
             requisitoDAL = new RequisitoDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             usuarioDAL = new UsuarioDAL();
             auditoriaDAL = new AuditoriaDAL();
             modelo.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
             modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "4").idTablaGeneral;
-            modelo.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario;
+            modelo.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
             try
             {
                 if (ModelState.IsValid)
@@ -252,6 +285,7 @@ namespace FrontEnd.Controllers
         //Muestra la información detallada del requisito seleccionado
         public ActionResult Detalle(int id)
         {
+            Autorizar();
             policiaDAL = new PoliciaDAL();
             requisitoDAL = new RequisitoDAL();
             Session["idRequisito"] = id;
@@ -260,9 +294,20 @@ namespace FrontEnd.Controllers
             return View(modelo);
         }
 
+        public ActionResult DetalleIndex(int id)
+        {
+            Autorizar();
+            policiaDAL = new PoliciaDAL();
+            requisitoDAL = new RequisitoDAL();
+            Session["idRequisito"] = id;
+            Session["detalleRequisito"] = requisitoDAL.GetRequisito(id).detalles;
+            RequisitoViewModel modelo = CargarRequisito(requisitoDAL.GetRequisito(id));
+            return View(modelo);
+        }
         //Permite la eliminación de requisitos de la base de datos
         public ActionResult Eliminar(int id)
         {
+            AutorizarEditar();
             requisitoDAL = new RequisitoDAL();
             auditoriaDAL = new AuditoriaDAL();
             Requisitos requisito = requisitoDAL.GetRequisito(id);
@@ -275,6 +320,7 @@ namespace FrontEnd.Controllers
         //Devuelve la página de edición de requisitos con sus apartados llenos
         public ActionResult Editar(int id)
         {
+            AutorizarEditar();
             tablaGeneralDAL = new TablaGeneralDAL();
             requisitoDAL = new RequisitoDAL();
             RequisitoViewModel modelo = CargarRequisito(requisitoDAL.GetRequisito(id));
@@ -286,13 +332,14 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public ActionResult Editar(RequisitoViewModel modelo)
         {
+            AutorizarEditar();
             requisitoDAL = new RequisitoDAL();
             usuarioDAL = new UsuarioDAL();
             auditoriaDAL = new AuditoriaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             modelo.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
             modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "4").idTablaGeneral;
-            modelo.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario;
+            modelo.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
             try
             {
                 if (ModelState.IsValid)
@@ -342,7 +389,7 @@ namespace FrontEnd.Controllers
                 idAuditoria = modelo.IdAuditoria,
                 accion = modelo.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "4").idTablaGeneral,
                 idCategoria = modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "4").idTablaGeneral,
-                idUsuario = modelo.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario,
+                idUsuario = modelo.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario,
                 fecha = DateTime.Now,
                 idElemento = requisitoDAL.GetRequisitoId(idRequisito).idRequisito
 

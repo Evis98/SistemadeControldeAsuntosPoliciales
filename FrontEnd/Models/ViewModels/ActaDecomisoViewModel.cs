@@ -30,18 +30,18 @@ namespace FrontEnd.Models.ViewModels
         [Display(Name = "Hora del Suceso")]
         public DateTime Hora { get; set; }
 
-        [Required]
-        [StringLength(150, ErrorMessage = "Nombre excede los 150 caracteres.")]
+      
+       
         [Display(Name = "Nombre de a quién se le decomisa")]
         public string NombreDecomisado { get; set; }
 
         [Required]
-        [StringLength(25, ErrorMessage = "Número de cédula excede los 25 caracteres.")]
-        [Display(Name = "Número de Cédula")]
-        public string CedulaDecomisado { get; set; }
 
-        [Required]
-        [StringLength(9, ErrorMessage = "Escriba un número de teléfono con 8 digitos.", MinimumLength = 9)]
+        [Display(Name = "Persona Decomisada")]
+        public string IdDecomisado { get; set; }
+
+       
+        
         [Display(Name = "Teléfono")]
         public string TelefonoDecomisado { get; set; }
 
@@ -55,13 +55,13 @@ namespace FrontEnd.Models.ViewModels
         [Display(Name = "Estado Civil")]
         public string VistaTipoEstadoCivil { get; set; }
 
-        [Required]
-        [StringLength(250, ErrorMessage = "Dirección exacta excede los 250 caracteres.")]
+   
+      
         [Display(Name = "Dirección")]
         public string DireccionDecomisado { get; set; }
 
         [Required]
-        [StringLength(250, ErrorMessage = "Dirección exacta excede los 250 caracteres.")]
+        [StringLength(250, ErrorMessage = "Lugar del procedimiento excede los 250 caracteres.")]
         [Display(Name = "Lugar del procedimiento")]
         public string LugarDelProcedimiento { get; set; }
 

@@ -18,7 +18,7 @@
     @using (Html.BeginForm("ListadoPartePolicial", "Auditoria", FormMethod.Get))
     {
         <div class="row">
-           <div class="col mb-3">
+            <div class="col mb-3">
                 <h1 class="h2">@HttpContext.Current.Session["numeroFolio"].ToString()</h1>
             </div>
         </div>
@@ -34,8 +34,8 @@
                 <select class="form-control" name="tiposAccion" id="tiposAccion">
                     <option value="0" selected="selected">--Seleccione--</option>
                     <option value="Agregar">Agregar</option>
-                    <option value="Editar">Editar</option>
-                    <option value="Modificar Estado">Modificar Estado</option>
+                    @*<option value="Editar">Editar</option>
+                        <option value="Modificar estado">Modificar estado</option>*@
 
                 </select>
                 <input class="form-control" name="busquedaFechaInicioP" type="date" id="busquedaFechaInicioP" style="display:none" />
@@ -55,7 +55,7 @@
         <hr />
         <div class="row">
             <div class="col-sm-12">
-                <table class="table table-bordered center table-sm">
+                <table class="table table-bordered center table-sm" id="idtablaParte">
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col"> Usuario</th>
@@ -91,6 +91,31 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    $(document).ready(function () {
+        $('#idtablaParte').DataTable({
+            searching: false,
+            lengthMenu: [[6], [6]],
+            lengthChange: false,
+            language: {
+                lengthMenu: "Mostrar _MENU_ entradas",
+                info: "Se muestran de _START_ a _END_ de _TOTAL_ entradas totales",
+                infoEmpty: "Se muestran de 0 a 0 de 0 entradas totales",
+                paginate: {
+                    first: "Primero",
+                    last: "Último",
+                    next: "Siguiente",
+                    previous: "Anterior"
+                }
+            }
+
+        });
+    });
+
+
+</script>
 
 
 

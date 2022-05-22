@@ -82,12 +82,42 @@ namespace FrontEnd.Controllers
 
         }
 
-        public ActionResult Index(string filtrosSeleccionado, string busqueda)
+        public void Autorizar()
         {
-
             if (Session["userID"] != null)
             {
-                infractorDAL = new InfractorDAL();
+                if (Session["Rol"].ToString() == "4")
+                {
+                    Session["Error"] = "Usuario no autorizado";
+                    Response.Redirect("~/Error/ErrorUsuario.cshtml");
+                }
+            }
+            else
+            {
+                Response.Redirect("~/Login/Index");
+            }
+        }
+        public void AutorizarEditar()
+        {
+            if (Session["userID"] != null)
+            {
+                if (Session["Rol"].ToString() == "4" || Session["Rol"].ToString() == "1")
+                {
+                    Session["Error"] = "Usuario no autorizado";
+                    Response.Redirect("~/Error/ErrorUsuario.cshtml");
+                }
+            }
+            else
+            {
+                Response.Redirect("~/Login/Index");
+            }
+        }
+
+
+        public ActionResult Index(string filtrosSeleccionado, string busqueda)
+        {
+            Autorizar();
+            infractorDAL = new InfractorDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             List<InfractorViewModel> infractores = new List<InfractorViewModel>();
             List<InfractorViewModel> infractoresFiltrados = new List<InfractorViewModel>();
@@ -127,14 +157,11 @@ namespace FrontEnd.Controllers
             }
             return View(infractores.OrderBy(x => x.Nombre).ToList());
             }
-            else
-            {
-                return Redirect("~/Shared/Error.cshtml");
-            }
-        }
+           
 
         public ActionResult Nuevo()
         {
+            Autorizar();
             tablaGeneralDAL = new TablaGeneralDAL();
             InfractorViewModel modelo = new InfractorViewModel()
             {
@@ -169,6 +196,7 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public ActionResult Nuevo(InfractorViewModel model)
         {
+            Autorizar();
             infractorDAL = new InfractorDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             usuarioDAL = new UsuarioDAL();
@@ -176,7 +204,7 @@ namespace FrontEnd.Controllers
             model.CedulaFiltrada = infractorDAL.GetCedulaInfractor(model.Identificacion);
             model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
             model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "3").idTablaGeneral;
-            model.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario;
+            model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
             try
             {
                 if (!infractorDAL.IdentificacionExiste(model.Identificacion))
@@ -228,10 +256,10 @@ namespace FrontEnd.Controllers
 
         }
 
-        //Muestra la información detallada de un policía
+     
         public ActionResult Detalle(int id)
         {
-          
+            Autorizar();
             infractorDAL = new InfractorDAL();  
             Session["idInfractor"] = id;
             Session["nombreInfractor"] = infractorDAL.GetInfractor(id).nombreCompleto;
@@ -243,6 +271,7 @@ namespace FrontEnd.Controllers
         //Devuelve la página de edición de policías con sus apartados llenos
         public ActionResult Editar(int id)
         {
+            AutorizarEditar();
             infractorDAL = new InfractorDAL();
             InfractorViewModel model = CargarInfractor(infractorDAL.GetInfractor(id));
             model.Nacionalidades = tablaGeneralDAL.Get("Generales", "nacionalidad").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
@@ -255,6 +284,7 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public ActionResult Editar(InfractorViewModel model)
         {
+            AutorizarEditar();
             infractorDAL = new InfractorDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             usuarioDAL = new UsuarioDAL();
@@ -264,7 +294,7 @@ namespace FrontEnd.Controllers
             model.TiposDeSexo = tablaGeneralDAL.Get("Generales", "sexo").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
             model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "3").idTablaGeneral;
-            model.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario;
+            model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
             try
             {
                 if (ModelState.IsValid)

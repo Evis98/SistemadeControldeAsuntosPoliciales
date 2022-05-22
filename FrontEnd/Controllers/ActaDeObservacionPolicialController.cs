@@ -127,15 +127,11 @@ namespace FrontEnd.Controllers
             personaDAL = new PersonaDAL();
             List<Personas> personas = personaDAL.Get();
             List<Personas> personasFiltradas = new List<Personas>();
-            if (nombre == "")
+            foreach (Personas persona in personas)
             {
-                personasFiltradas = personas;
-            }
-            else
-            {
-                foreach (Personas persona in personas)
+                if (persona.nombre.Contains(nombre))
                 {
-                    if (persona.nombre.Contains(nombre))
+                    if (tablaGeneralDAL.Get(persona.tipoIdentificacion).descripcion != "Cédula Jurídica")
                     {
                         personasFiltradas.Add(persona);
                     }
@@ -144,17 +140,48 @@ namespace FrontEnd.Controllers
             personasFiltradas = personasFiltradas.OrderBy(x => x.nombre).ToList();
             return PartialView("_ListaPersonasParcial", ConvertirListaPersonasFiltrados(personasFiltradas));
         }
-        public ActionResult Index(string filtrosSeleccionado, string busqueda, string busquedaFechaInicioH, string busquedaFechaFinalH)
+
+        public void Autorizar()
         {
             if (Session["userID"] != null)
             {
-      
+                if (Session["Rol"].ToString() == "4")
+                {
+                    Session["Error"] = "Usuario no autorizado";
+                    Response.Redirect("~/Error/ErrorUsuario.cshtml");
+                }
+            }
+            else
+            {
+                Response.Redirect("~/Login/Index");
+            }
+        }
+        public void AutorizarEditar()
+        {
+            if (Session["userID"] != null)
+            {
+                if (Session["Rol"].ToString() == "4" || Session["Rol"].ToString() == "1")
+                {
+                    Session["Error"] = "Usuario no autorizado";
+                    Response.Redirect("~/Error/ErrorUsuario.cshtml");
+                }
+            }
+            else
+            {
+                Response.Redirect("~/Login/Index");
+            }
+        }
+
+        public ActionResult Index(string filtrosSeleccionado, string busqueda, string busquedaFechaInicioH, string busquedaFechaFinalH)
+        {
+            Autorizar();
             actaDeObservacionPolicialDAL = new ActaDeObservacionPolicialDAL();
             policiaDAL = new PoliciaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
+            personaDAL = new PersonaDAL();
             List<ActaDeObservacionPolicialViewModel> actasDeObservacionPolicial = new List<ActaDeObservacionPolicialViewModel>();
             List<ActaDeObservacionPolicialViewModel> actasDeObservacionPolicialFiltradas = new List<ActaDeObservacionPolicialViewModel>();
-            List<TablaGeneral> comboindex = tablaGeneralDAL.Get("ActasDecomiso", "index");
+            List<TablaGeneral> comboindex = tablaGeneralDAL.Get("ActasDeObservacionPolicial", "index");
             List<SelectListItem> items = comboindex.ConvertAll(d =>
             {
                 return new SelectListItem()
@@ -185,6 +212,13 @@ namespace FrontEnd.Controllers
                             actasDeObservacionPolicialFiltradas.Add(actaDeObservacionPolicial);
                         }
                     }
+                    if (filtrosSeleccionado == "Persona Interesada")
+                    {
+                        if (personaDAL.GetPersonaIdentificacion(actaDeObservacionPolicial.IdInteresado).nombre.Contains(busqueda))
+                        {
+                            actasDeObservacionPolicialFiltradas.Add(actaDeObservacionPolicial);
+                        }
+                    }
                 }
                 if (filtrosSeleccionado == "Fecha")
                 {
@@ -204,14 +238,12 @@ namespace FrontEnd.Controllers
                 actasDeObservacionPolicial = actasDeObservacionPolicialFiltradas;
             }
             return View(actasDeObservacionPolicial.OrderBy(x => x.NumeroFolio).ToList());
-            }
-            else
-            {
-                return Redirect("~/Shared/Error.cshtml");
-            }
+            
+            
         }
         public ActionResult Nuevo()
         {
+            Autorizar();
             tablaGeneralDAL = new TablaGeneralDAL();
             ActaDeObservacionPolicialViewModel modelo = new ActaDeObservacionPolicialViewModel()
             {
@@ -224,6 +256,7 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public ActionResult Nuevo(ActaDeObservacionPolicialViewModel model)
         {
+            Autorizar();
             actaDeObservacionPolicialDAL = new ActaDeObservacionPolicialDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             auditoriaDAL = new AuditoriaDAL();
@@ -235,7 +268,7 @@ namespace FrontEnd.Controllers
             model.Estado = int.Parse(tablaGeneralDAL.GetCodigo("Actas", "estadoActa", "1").codigo);
             model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
             model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "8").idTablaGeneral;
-            model.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario;
+            model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
             try
             {
                 if (ModelState.IsValid)
@@ -257,6 +290,7 @@ namespace FrontEnd.Controllers
         }
         public ActionResult Detalle(int id)
         {
+            Autorizar();
             actaDeObservacionPolicialDAL = new ActaDeObservacionPolicialDAL();
             Session["idActaDeObservacionPolicial"] = id;
             Session["numeroFolio"] = actaDeObservacionPolicialDAL.GetActaDeObservacionPolicial(id).numeroFolio;           
@@ -267,6 +301,7 @@ namespace FrontEnd.Controllers
         //Devuelve la página de edición de policías con sus apartados llenos
         public ActionResult Editar(int id)
         {
+            AutorizarEditar();
             tablaGeneralDAL = new TablaGeneralDAL();
             actaDeObservacionPolicialDAL = new ActaDeObservacionPolicialDAL();
             ActaDeObservacionPolicialViewModel modelo = CargarActaDeObservacionPolicial(actaDeObservacionPolicialDAL.GetActaDeObservacionPolicial(id));
@@ -278,6 +313,7 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public ActionResult Editar(ActaDeObservacionPolicialViewModel model)
         {
+            AutorizarEditar();
             actaDeObservacionPolicialDAL = new ActaDeObservacionPolicialDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             auditoriaDAL = new AuditoriaDAL();
@@ -288,7 +324,7 @@ namespace FrontEnd.Controllers
             model.Fecha = newDateTime;
             model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
             model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "8").idTablaGeneral;
-            model.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario;
+            model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
             int estado = actaDeObservacionPolicialDAL.GetActaDeObservacionPolicial(model.IdActaDeObservacionPolicial).estado;
             try
             {
@@ -338,7 +374,7 @@ namespace FrontEnd.Controllers
                 idAuditoria = modelo.IdAuditoria,
                 accion = modelo.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "3").idTablaGeneral,
                 idCategoria = modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "8").idTablaGeneral,
-                idUsuario = modelo.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario,
+                idUsuario = modelo.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario,
                 fecha = DateTime.Now,
                 idElemento = actaDeObservacionPolicialDAL.GetActaDeObservacionPolicial(idActaDeObservacionPolicial).idActaDeObservacionPolicial
 

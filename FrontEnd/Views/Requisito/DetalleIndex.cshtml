@@ -1,0 +1,78 @@
+﻿@model FrontEnd.Models.ViewModels.RequisitoViewModel
+
+@{
+    ViewBag.Title = "Información del Requisito";
+}
+
+<div class="container bg-light text-dark border" style=" height: auto; min-height: 80vh; padding-bottom: 20px; margin-bottom: 28px; word-wrap: break-word;">
+    <div class="row">
+        <div class="col-md-12">
+            <div style="text-align:center;">
+                <h2 class="display-4">@ViewBag.Title</h2>
+            </div>
+        </div>
+    </div>
+    <hr />
+
+    <div class="row">
+        <div class="col">
+            <h2>
+
+                @Html.DisplayTextFor(d => d.NombrePolicia)
+            </h2>
+        </div>
+    </div>
+    <dl class=" row">
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.VistaTipoRequisito)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayTextFor(d => d.VistaTipoRequisito)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.LabelFor(d => d.Detalles)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayTextFor(d => d.Detalles)
+        </dd>
+        @if (Model.FechaVencimiento != null)
+        {
+            <dt class="col-sm-4">
+                @Html.LabelFor(d => d.VistaFechaVencimiento)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayTextFor(d => d.VistaFechaVencimiento)
+            </dd>
+        }
+        @if (Model.Imagen != null)
+        {
+            <dt class="col-sm-4">
+                @Html.Label("Archivo: ")
+            </dt>
+            <dd class="col-sm-8">
+                @Model.NombrePolicia - @Model.Detalles .pdf
+            </dd>
+        }
+    </dl>
+    <hr />
+    <div class="row">
+        <div class="col-sm-12">
+
+            <a class="btn btn-outline-secondary" onclick="history.go(-1);">Regresar</a>
+            @if (Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "5")
+            {
+                <div style="text-align:center;">
+                  
+                    @if (Model.Imagen != null)
+                    {
+                        <a class="btn btn-info" href="@Url.Content(Model.Imagen)" download="@Model.NombrePolicia - @Model.Detalles .pdf">Descargar Archivo Adjunto</a>
+                    }
+                  
+
+                    <a class="btn btn-secondary" href="~/Auditoria/ListadoRequisito/@Model.IdRequisito">Ver Auditorias</a>
+                </div>}
+        </div>
+    </div>
+   
+
+</div>

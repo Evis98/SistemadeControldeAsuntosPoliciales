@@ -385,8 +385,6 @@ namespace FrontEnd.Controllers
             personaDAL = new PersonaDAL();
             parteDAL = new ParteDAL();
             PartesPoliciales parte = new PartesPoliciales();
-
-
             //parte.idPartepolicial = model.IdPartePolcial;
             parte.fecha = DateTime.Today;
             parte.provincia = "Alajuela";
@@ -480,11 +478,28 @@ namespace FrontEnd.Controllers
                         NombrePersona = d.nombre,
                     }).ToList();
         }
-        public ActionResult Index(string filtrosSeleccionado, string busqueda, string busquedaFechaInicioP, string busquedaFechaFinalP)
+
+        public void Autorizar()
         {
             if (Session["userID"] != null)
             {
-                parteDAL = new ParteDAL();
+                if (Session["Rol"].ToString() == "4")
+                {
+                    Session["Error"] = "Usuario no autorizado";
+                    Response.Redirect("~/Error/ErrorUsuario.cshtml");
+                }
+            }
+            else
+            {
+                Response.Redirect("~/Login/Index");
+            }
+        }
+       
+
+        public ActionResult Index(string filtrosSeleccionado, string busqueda, string busquedaFechaInicioP, string busquedaFechaFinalP)
+        {
+            Autorizar();
+            parteDAL = new ParteDAL();
             infractorDAL = new InfractorDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             List<PartesPoliciales> partes = parteDAL.Get();
@@ -532,18 +547,16 @@ namespace FrontEnd.Controllers
                         }
                     }
                 }
+
                 partes = partesFiltrados;
             }
             partes = partes.OrderBy(x => x.numeroFolio).ToList();
             return View(ConvertirListaPartes(partes));
         }
-            else
-            {
-                return Redirect("~/Shared/Error.cshtml");
-    }
-}
+           
         public ActionResult Nuevo1()
         {
+            Autorizar();
             tablaGeneralDAL = new TablaGeneralDAL();
             Parte1ViewModel modelo = null;
 
@@ -586,6 +599,7 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public ActionResult Nuevo1(Parte1ViewModel model)
         {
+            Autorizar();
             if (Session["Parte"] != null)
             {
                 Parte1ViewModel modelAux = (Parte1ViewModel)Session["Parte"];
@@ -606,6 +620,7 @@ namespace FrontEnd.Controllers
 
         public ActionResult Nuevo2()
         {
+            Autorizar();
             tablaGeneralDAL = new TablaGeneralDAL();
             Parte1ViewModel modelo = null;
             try
@@ -630,6 +645,7 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public ActionResult Nuevo2(Parte1ViewModel model)
         {
+            Autorizar();
             if (Session["Parte"] != null)
             {
                 Parte1ViewModel modelAux = (Parte1ViewModel)Session["Parte"];
@@ -647,6 +663,7 @@ namespace FrontEnd.Controllers
         }
         public ActionResult Nuevo3()
         {
+            Autorizar();
             try
             {
                 tablaGeneralDAL = new TablaGeneralDAL();
@@ -677,6 +694,7 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public ActionResult Nuevo3(Parte1ViewModel model)
         {
+            Autorizar();
             if (Session["Parte"] != null)
             {
                 Parte1ViewModel modelAux = (Parte1ViewModel)Session["Parte"];
@@ -695,6 +713,7 @@ namespace FrontEnd.Controllers
 
         public ActionResult Nuevo4()
         {
+            Autorizar();
             try
             {
                 Parte1ViewModel modelo = null;
@@ -721,6 +740,7 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public ActionResult Nuevo4(Parte1ViewModel model)
         {
+            Autorizar();
             tablaGeneralDAL = new TablaGeneralDAL();
             usuarioDAL = new UsuarioDAL();
             auditoriaDAL = new AuditoriaDAL();
@@ -736,11 +756,10 @@ namespace FrontEnd.Controllers
                     {
                         PartesPoliciales parte = ConvertirParte(modelAux);
                         parte.numeroFolio = (parteDAL.GetCount(parte.fecha.Date) + 1).ToString() + "-" + parte.fecha.Date.Year;
-
                         parteDAL.Add(parte);
                         modelAux.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
                         modelAux.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "15").idTablaGeneral;
-                        modelAux.IdUsuario = usuarioDAL.GetUsuario(1).idUsuario;
+                        modelAux.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
                         modelAux.IdElemento = parteDAL.GetPartePolicial(parte.numeroFolio).idPartepolicial;
                         auditoriaDAL.Add(ConvertirAuditoria(modelAux));
                         int aux = parteDAL.GetPartePolicial(parte.numeroFolio).idPartepolicial;
@@ -825,15 +844,11 @@ namespace FrontEnd.Controllers
             personaDAL = new PersonaDAL();
             List<Personas> personas = personaDAL.Get();
             List<Personas> personasFiltrados = new List<Personas>();
-            if (nombre == "")
+            foreach (Personas persona in personas)
             {
-                personasFiltrados = personas;
-            }
-            else
-            {
-                foreach (Personas persona in personas)
+                if (persona.nombre.Contains(nombre))
                 {
-                    if (persona.nombre.Contains(nombre))
+                    if (tablaGeneralDAL.Get(persona.tipoIdentificacion).descripcion != "Cédula Jurídica")
                     {
                         personasFiltrados.Add(persona);
                     }
@@ -924,10 +939,10 @@ namespace FrontEnd.Controllers
 
         public ActionResult Detalle1(int id)
         {
+            Autorizar();
             parteDAL = new ParteDAL();
             Session["idParte"] = id;
-            Session["numeroFolio"] = parteDAL.GetParte(id).numeroFolio;
-           
+            Session["numeroFolio"] = parteDAL.GetParte(id).numeroFolio;           
             ListParte1ViewModel modelo = ConvertirParteInverso(parteDAL.GetParte(id));
 
             return View(modelo);
@@ -935,6 +950,7 @@ namespace FrontEnd.Controllers
 
         public ActionResult Detalle2(int id)
         {
+            Autorizar();
             Session["idParte"] = id;
             parteDAL = new ParteDAL();
             ListParte1ViewModel modelo = ConvertirParteInverso(parteDAL.GetParte(id));
@@ -943,6 +959,7 @@ namespace FrontEnd.Controllers
 
         public ActionResult Detalle3(int id)
         {
+            Autorizar();
             Session["idParte"] = id;
             parteDAL = new ParteDAL();
             ListParte1ViewModel modelo = ConvertirParteInverso(parteDAL.GetParte(id));
@@ -951,6 +968,7 @@ namespace FrontEnd.Controllers
 
         public ActionResult Detalle4(int id)
         {
+            Autorizar();
             parteDAL = new ParteDAL();
             Session["idParte"] = id;
             Session["numeroFolio"] = parteDAL.GetParte(id).numeroFolio;

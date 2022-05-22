@@ -13,26 +13,15 @@
     <hr />
     @using (Html.BeginForm("Nuevo", "ActaEntrega", FormMethod.Post))
     {
-        <div class="form-row">
-            <div class="form-group col-md-2">
-                @Html.LabelFor(d => d.Fecha)
-                @Html.EditorFor(d => d.Fecha, "", new { @class = "form-control" })
-                @Html.ValidationMessageFor(d => d.Fecha, null, new { @class = "red" })
-            </div>
-            <div class="form-group col-md-2">
-                @Html.LabelFor(d => d.Hora)
-                @Html.EditorFor(d => d.Hora, "", new { @class = "form-control" })
-                @Html.ValidationMessageFor(d => d.Hora, null, new { @class = "red" })
-            </div>
-        </div>
+
 
         <div class="form-row">
             <div class="form-group col-md-2">
                 @Html.LabelFor(d => d.TipoActa)
-                @Html.DropDownListFor(d => d.TipoActa, Model.TiposActa, "--Seleccione--", new { @class = "myselect form-control", @id = "tipoActaSeleccionado", @onclick = "ocultarActa()" })
+                @Html.DropDownListFor(d => d.TipoActa, Model.TiposActa, "", new { @class = "myselect form-control", @id = "tipoActaSeleccionado", @onclick = "ocultarActa()" })
                 @Html.ValidationMessageFor(d => d.TipoActa, null, new { @class = "red" })
             </div>
-            <div class="form-group col-md-3" style="display:none;" id="consecutivoActaHallazgo">
+            <div class="form-group col-md-4" style="display:none;" id="consecutivoActaHallazgo">
                 @Html.LabelFor(d => d.ConsecutivoActaHallazgo)
                 <div class="input-group">
                     @Html.TextBoxFor(d => d.ConsecutivoActaHallazgo, "", new { @class = "form-control", @id = "consecutivoActa", @readonly = "readonly" })
@@ -42,7 +31,7 @@
                 </div>
                 @Html.ValidationMessageFor(d => d.ConsecutivoActaHallazgo, null, new { @class = "red" })
             </div>
-            <div class="form-group col-md-3" style="display:none;" id="consecutivoActaDecomiso">
+            <div class="form-group col-md-4" style="display:none;" id="consecutivoActaDecomiso">
                 @Html.LabelFor(d => d.ConsecutivoActaDecomiso)
                 <div class="input-group">
                     @Html.TextBoxFor(d => d.ConsecutivoActaDecomiso, "", new { @class = "form-control", @id = "consecutivoActa2", @readonly = "readonly" })
@@ -58,7 +47,7 @@
                 @Html.DropDownListFor(d => d.TipoTestigo, Model.TiposTestigo, "--Seleccione--", new { @class = "myselect form-control", @id = "tipoTestigoSeleccionado", @onclick = "ocultarTestigo()" })
                 @Html.ValidationMessageFor(d => d.TipoTestigo, null, new { @class = "red" })
             </div>
-            <div class="form-group col-md-3" style="display:none;" id="idTestigoPolicia">
+            <div class="form-group col-md-4" style="display:none;" id="idTestigoPolicia">
                 @Html.LabelFor(d => d.TestigoPolicia)
                 <div class="input-group">
                     @Html.TextBoxFor(d => d.TestigoPolicia, "", new { @class = "form-control", @id = "cedulatestigo1", @readonly = "readonly" })
@@ -68,7 +57,7 @@
                 </div>
                 @Html.ValidationMessageFor(d => d.TestigoPolicia, null, new { @class = "red" })
             </div>
-            <div class="form-group col-md-3" style="display:none;" id="idTestigoPersona">
+            <div class="form-group col-md-4" style="display:none;" id="idTestigoPersona">
                 @Html.LabelFor(d => d.TestigoPersona)
                 <div class="input-group">
                     @Html.TextBoxFor(d => d.TestigoPersona, "", new { @class = "form-control", @id = "cedulatestigo2", @readonly = "readonly" })
@@ -82,7 +71,7 @@
 
         <div class="form-row">
 
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.RazonSocial)
                 <div class="input-group">
                     @Html.TextBoxFor(d => d.RazonSocial, "", new { @class = "form-control", @id = "idRazonSocial", @readonly = "readonly" })
@@ -92,7 +81,7 @@
                 </div>
                 @Html.ValidationMessageFor(d => d.RazonSocial, null, new { @class = "red" })
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.Recibe)
                 <div class="input-group">
                     @Html.TextBoxFor(d => d.Recibe, "", new { @class = "form-control", @id = "idRecibe", @readonly = "readonly" })
@@ -103,7 +92,7 @@
                 @Html.ValidationMessageFor(d => d.Recibe, null, new { @class = "red" })
             </div>
 
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.Encargado)
                 <div class="input-group">
                     @Html.TextBoxFor(d => d.Encargado, "", new { @class = "form-control", @id = "idEncargado", @readonly = "readonly" })
@@ -113,7 +102,11 @@
                 </div>
                 @Html.ValidationMessageFor(d => d.Encargado, null, new { @class = "red" })
             </div>
-            <div class="form-group col-md-3">
+            
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.Supervisor)
                 <div class="input-group">
                     @Html.TextBoxFor(d => d.Supervisor, "", new { @class = "form-control", @id = "idSupervisor", @readonly = "readonly" })
@@ -123,9 +116,17 @@
                 </div>
                 @Html.ValidationMessageFor(d => d.Supervisor, null, new { @class = "red" })
             </div>
+            <div class="form-group col-md-3">
+                @Html.LabelFor(d => d.Fecha)
+                @Html.EditorFor(d => d.Fecha, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.Fecha, null, new { @class = "red" })
+            </div>
+            <div class="form-group col-md-2">
+                @Html.LabelFor(d => d.Hora)
+                @Html.EditorFor(d => d.Hora, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.Hora, null, new { @class = "red" })
+            </div>
         </div>
-
-
 
         <div class="form-row">
             <div class="form-group col-md-12">
