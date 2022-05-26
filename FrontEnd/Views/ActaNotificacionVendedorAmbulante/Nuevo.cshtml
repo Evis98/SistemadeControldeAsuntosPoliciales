@@ -13,46 +13,61 @@
     <hr />
     @using (Html.BeginForm("Nuevo", "ActaNotificacionVendedorAmbulante", FormMethod.Post))
     {
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                @Html.LabelFor(d => d.OficialActuante)
-                <div class="input-group">
-                    @Html.TextBoxFor(d => d.OficialActuante, "", new { @class = "form-control", @id = "idActuante", @readonly = "readonly" })
-                    <div class="input-group-append ">
-                        <a class="btn btn-primary" data-book-id="idActuante" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
-
-                    </div>
-                </div>
-                @Html.ValidationMessageFor(d => d.OficialActuante, null, new { @class = "red" })
-            </div>
-
-            <div class="form-group col-md-4">
-                @Html.LabelFor(d => d.TipoTestigo)
-                @Html.DropDownListFor(d => d.TipoTestigo, Model.TiposTestigo, "--Seleccione--", new { @class = "myselect form-control", @id = "idTipoTestigo" })
-                @Html.ValidationMessageFor(d => d.TipoTestigo, null, new { @class = "red" })
-            </div>
-
-            <div class="form-group col-md-4" id="idOficialTestigoCampo" style="display:none">
-                @Html.LabelFor(d => d.IdTestigoPolicia)
-                <div class="input-group">
-                    @Html.TextBoxFor(d => d.IdTestigoPolicia, "", new { @class = "form-control", @id = "idTestigoPolicia", @readonly = "readonly" })
-                    <div class="input-group-append">
-                        <a class="btn btn-primary" data-book-id="idTestigoPolicia" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
-                    </div>
+<div class="form-row">
+    @if (Session["Rol"].ToString() == "1" || Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3")
+    {
+        <div class="form-group col-md-4">
+            @Html.LabelFor(d => d.OficialActuante)
+            <div class="input-group">
+                @Html.TextBoxFor(d => d.OficialActuante, "", new { @class = "form-control", @Value = @Session["cedula"].ToString(), @id = "idActuante", @readonly = "readonly" })
+                <div class="input-group-append ">
+                    <a class="btn btn-primary" data-book-id="idActuante" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
                 </div>
             </div>
-
-            <div class="form-group col-md-4" id="idPersonaTestigoCampo" style="display:none">
-                @Html.LabelFor(d => d.IdTestigoPersona)
-                <div class="input-group">
-                    @Html.TextBoxFor(d => d.IdTestigoPersona, "", new { @class = "form-control", @id = "idTestigoPersona", @readonly = "readonly" })
-                    <div class="input-group-append">
-                        <a class="btn btn-primary" data-book-id="idTestigoPersona" data-toggle="modal" data-target="#modalBusquedaPersona">Buscar</a>
-                    </div>
-                </div>
-            </div>
-
+            @Html.ValidationMessageFor(d => d.OficialActuante, null, new { @class = "red" })
         </div>
+    }
+    else
+    {
+        <div class="form-group col-md-4">
+            @Html.LabelFor(d => d.OficialActuante)
+            <div class="input-group">
+                @Html.TextBoxFor(d => d.OficialActuante, "", new { @class = "form-control", @id = "idActuante", @readonly = "readonly" })
+                <div class="input-group-append ">
+                    <a class="btn btn-primary" data-book-id="idActuante" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
+                </div>
+            </div>
+            @Html.ValidationMessageFor(d => d.OficialActuante, null, new { @class = "red" })
+        </div>
+    }
+
+    <div class="form-group col-md-4">
+        @Html.LabelFor(d => d.TipoTestigo)
+        @Html.DropDownListFor(d => d.TipoTestigo, Model.TiposTestigo, "--Seleccione--", new { @class = "myselect form-control", @id = "idTipoTestigo" })
+        @Html.ValidationMessageFor(d => d.TipoTestigo, null, new { @class = "red" })
+    </div>
+
+    <div class="form-group col-md-4" id="idOficialTestigoCampo" style="display:none">
+        @Html.LabelFor(d => d.IdTestigoPolicia)
+        <div class="input-group">
+            @Html.TextBoxFor(d => d.IdTestigoPolicia, "", new { @class = "form-control", @id = "idTestigoPolicia", @readonly = "readonly" })
+            <div class="input-group-append">
+                <a class="btn btn-primary" data-book-id="idTestigoPolicia" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group col-md-4" id="idPersonaTestigoCampo" style="display:none">
+        @Html.LabelFor(d => d.IdTestigoPersona)
+        <div class="input-group">
+            @Html.TextBoxFor(d => d.IdTestigoPersona, "", new { @class = "form-control", @id = "idTestigoPersona", @readonly = "readonly" })
+            <div class="input-group-append">
+                <a class="btn btn-primary" data-book-id="idTestigoPersona" data-toggle="modal" data-target="#modalBusquedaPersona">Buscar</a>
+            </div>
+        </div>
+    </div>
+
+</div>
         <div class="form-row">
             <div class="form-group col-md-2">
                 @Html.LabelFor(d => d.Fecha)

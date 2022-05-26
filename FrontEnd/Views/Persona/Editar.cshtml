@@ -18,7 +18,7 @@
         <div class="form-row">
             <div class="form-group col-md-3">
                 @Html.LabelFor(d => d.TipoIdentificacionPersona)
-                @Html.DropDownListFor(d => d.TipoIdentificacionPersona, Model.TiposDeIdentificacion, "--Seleccione--", new { @class = "myselect form-control" })
+                @Html.DropDownListFor(d => d.TipoIdentificacionPersona, Model.TiposDeIdentificacion, "--Seleccione--", new { @class = "myselect form-control", @id = "tipoDeIdentificacion" })
                 @Html.ValidationMessageFor(d => d.TipoIdentificacionPersona, null, new { @class = "red" })
             </div>
             <div class="form-group col-md-3">
@@ -34,31 +34,31 @@
             </div>
         </div>
         <div class="form-row">
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-2" id="fechaNacimiento" style="display:block">
                 @Html.LabelFor(d => d.FechaNacimientoPersona)
                 @Html.EditorFor(d => d.FechaNacimientoPersona, "", new { @class = "form-control" })
                 @Html.ValidationMessageFor(d => d.FechaNacimientoPersona, "", new { @class = "red" })
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-3" id="sexo" style="display:block">
                 @Html.LabelFor(d => d.SexoPersona)
                 @Html.DropDownListFor(d => d.SexoPersona, Model.TiposDeSexo, "--Seleccione--", new { @class = "myselect form-control" })
                 @Html.ValidationMessageFor(d => d.SexoPersona, null, new { @class = "red" })
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-3" style="display:block" id="nacionalidades">
                 @Html.LabelFor(d => d.NacionalidadPersona)
                 @Html.DropDownListFor(d => d.NacionalidadPersona, Model.Nacionalidades, "--Seleccione--", new { @class = "myselect form-control" })
                 @Html.ValidationMessageFor(d => d.NacionalidadPersona, null, new { @class = "red" })
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-4" style="display:block" id="profesion">
                 @Html.LabelFor(d => d.ProfesionPersona)
-                @Html.TextBoxFor(d => d.ProfesionPersona, "", new { @class = "form-control", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();" })
+                @Html.TextBoxFor(d => d.ProfesionPersona, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();" })
                 @Html.ValidationMessageFor(d => d.ProfesionPersona, null, new { @class = "red" })
             </div>
         </div>
         <div class="form-row">
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-3" style="display:block" id="lugarDeTrabajo">
                 @Html.LabelFor(d => d.LugarTrabajoPersona)
-                @Html.TextBoxFor(d => d.LugarTrabajoPersona, "", new { @class = "form-control", @autocomplete = "new-password" , @onkeyup = "this.value = this.value.toUpperCase();" })
+                @Html.TextBoxFor(d => d.LugarTrabajoPersona, "", new { @class = "form-control", @autocomplete = "new-password", @onkeyup = "this.value = this.value.toUpperCase();" })
                 @Html.ValidationMessageFor(d => d.LugarTrabajoPersona, null, new { @class = "red" })
             </div>
             <div class="form-group col-md-3">
@@ -67,12 +67,12 @@
                 @Html.ValidationMessageFor(d => d.TelefonoTrabajoPersona, "", new { @class = "red" })
 
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-3" style="display:block" id="telefonoCasa">
                 @Html.LabelFor(d => d.TelefonoCasaPersona)
                 @Html.TextBoxFor(d => d.TelefonoCasaPersona, "", new { @class = "inputphone form-control" })
                 @Html.ValidationMessageFor(d => d.TelefonoCasaPersona, "", new { @class = "red" })
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-3" style="display:block" id="telefonoCelular">
                 @Html.LabelFor(d => d.TelefonoCelularPersona)
                 @Html.TextBoxFor(d => d.TelefonoCelularPersona, "", new { @class = "inputphone form-control" })
                 @Html.ValidationMessageFor(d => d.TelefonoCelularPersona, "", new { @class = "red" })
@@ -84,10 +84,15 @@
                 @Html.TextBoxFor(d => d.CorreoElectronicoPersona, "", new { @class = "form-control", @autocomplete = "new-password" })
                 @Html.ValidationMessageFor(d => d.CorreoElectronicoPersona, null, new { @class = "red" })
             </div>
-            <div class="form-group col-md-5">
+            <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.DireccionExacta)
-                @Html.TextAreaFor(d => d.DireccionExacta, new { @class = "form-control", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();" })
+                @Html.TextAreaFor(d => d.DireccionExacta, new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();" })
                 @Html.ValidationMessageFor(d => d.DireccionExacta, null, new { @class = "red" })
+            </div>
+            <div class="form-group col-md-4" style="display:none" id="instalaciones">
+                @Html.LabelFor(d => d.Instalaciones)
+                @Html.TextAreaFor(d => d.Instalaciones, new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();" })
+                @Html.ValidationMessageFor(d => d.Instalaciones, null, new { @class = "red" })
             </div>
 
 

@@ -15,48 +15,76 @@
 
     @using (Html.BeginForm("Nuevo", "Bitacora", FormMethod.Post))
     {
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                @Html.LabelFor(d => d.NumeroSerieArma)
-                <div class="input-group">
-                    @Html.TextBoxFor(d => d.NumeroSerieArma, "", new
-                    {
-                        @class = "form-control",
-                        @id = "idArma",
-                        @readonly = "readonly"
-                    })
-                    <div class="input-group-append ">
-                        <a class="btn btn-primary" data-toggle="modal" data-target="#modalBusquedaArma">Buscar</a>                    
-                    </div>
-                </div>
-                @Html.ValidationMessageFor(d => d.NumeroSerieArma, null, new { @class = "red" })
-            </div>
-            <div class="form-group col-md-4">
-                @Html.LabelFor(d => d.ArmeroProveedor)
-                <div class="input-group">
-                    @Html.TextBoxFor(d => d.ArmeroProveedor, "", new
-                    {
-                        @class = "form-control",
-                        @id = "idArmeroProveedor",
-                        @readonly = "readonly"
-                    })
-                    <div class="input-group-append ">
-                        <a class="btn btn-primary" data-book-id="idArmeroProveedor" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
-                        
-                    </div>
-                </div>
-                @Html.ValidationMessageFor(d => d.ArmeroProveedor, null, new { @class = "red" })
-            </div>
-            <div class="form-group col-md-4">
-                @Html.LabelFor(d => d.PoliciaSolicitante)
-                <div class="input-group">
-                    @Html.TextBoxFor(d => d.PoliciaSolicitante, "", new { @class = "form-control", @id = "idPoliciaSolicitante", @readonly = "readonly" })
-                    <div class="input-group-append ">
-                        <a class="btn btn-primary" data-book-id="idPoliciaSolicitante" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>          
-                    </div>
-                </div>               
+<div class="form-row">
+    <div class="form-group col-md-4">
+        @Html.LabelFor(d => d.NumeroSerieArma)
+        <div class="input-group">
+            @Html.TextBoxFor(d => d.NumeroSerieArma, "", new
+            {
+                @class = "form-control",
+                @id = "idArma",
+                @readonly = "readonly"
+            })
+            <div class="input-group-append ">
+                <a class="btn btn-primary" data-toggle="modal" data-target="#modalBusquedaArma">Buscar</a>
             </div>
         </div>
+        @Html.ValidationMessageFor(d => d.NumeroSerieArma, null, new { @class = "red" })
+    </div>
+    @if (Session["Rol"].ToString() == "4" )
+    {
+        <div class="form-group col-md-4">
+            @Html.LabelFor(d => d.ArmeroProveedor)
+            <div class="input-group">
+                @Html.TextBoxFor(d => d.ArmeroProveedor, "", new
+           {
+               @class = "form-control",
+               @id = "idArmeroProveedor",
+               @readonly = "readonly",
+               @Value = @Session["cedula"].ToString()
+           })
+                <div class="input-group-append ">
+                    <a class="btn btn-primary" data-book-id="idArmeroProveedor" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
+
+                </div>
+            </div>
+            @Html.ValidationMessageFor(d => d.ArmeroProveedor, null, new { @class = "red" })
+        </div>
+    }
+    else
+    {
+
+        <div class="form-group col-md-4">
+            @Html.LabelFor(d => d.ArmeroProveedor)
+            <div class="input-group">
+                @Html.TextBoxFor(d => d.ArmeroProveedor, "", new
+           {
+               @class = "form-control",
+               @id = "idArmeroProveedor",
+               @readonly = "readonly"
+           })
+                <div class="input-group-append ">
+                    <a class="btn btn-primary" data-book-id="idArmeroProveedor" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
+
+                </div>
+            </div>
+            @Html.ValidationMessageFor(d => d.ArmeroProveedor, null, new { @class = "red" })
+        </div>
+
+
+
+
+    }
+    <div class="form-group col-md-4">
+        @Html.LabelFor(d => d.PoliciaSolicitante)
+        <div class="input-group">
+            @Html.TextBoxFor(d => d.PoliciaSolicitante, "", new { @class = "form-control", @id = "idPoliciaSolicitante", @readonly = "readonly" })
+            <div class="input-group-append ">
+                <a class="btn btn-primary" data-book-id="idPoliciaSolicitante" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
+            </div>
+        </div>
+    </div>
+</div>
         <div class="form-row">
             <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.VistaCondicionInicial)

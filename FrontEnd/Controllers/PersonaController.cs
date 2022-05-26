@@ -1,4 +1,4 @@
-﻿using BackEnd;
+using BackEnd;
 using BackEnd.DAL;
 using FrontEnd.Models.ViewModels;
 using System;
@@ -18,48 +18,88 @@ namespace FrontEnd.Controllers
         public Personas ConvertirPersona(PersonaViewModel modelo)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
-            return new Personas
+
+            Personas persona = new Personas();
             {
-                idPersona = modelo.IdPersona,
-                tipoIdentificacion = tablaGeneralDAL.GetCodigo("Generales", "tipoDeIdentificacion", modelo.TipoIdentificacionPersona.ToString()).idTablaGeneral,
-                identificacion = modelo.Identificacion,
-                nacionalidad = tablaGeneralDAL.GetCodigo("Generales", "nacionalidad", modelo.NacionalidadPersona.ToString()).idTablaGeneral,
-                nombre = modelo.NombrePersona,
-                fechaNacimiento = modelo.FechaNacimientoPersona,
-                telefonoHabitacion = modelo.TelefonoCasaPersona,
-                telefonoCelular = modelo.TelefonoCelularPersona,
-                telefonoTrabajo = modelo.TelefonoTrabajoPersona,
-                direccionPersona = modelo.DireccionExacta,
-                sexo = tablaGeneralDAL.GetCodigo("Generales", "sexo", modelo.SexoPersona.ToString()).idTablaGeneral,
-                correoElectronicoPersona = modelo.CorreoElectronicoPersona,                
-                profesion = modelo.ProfesionPersona,
-                lugarTrabajoPersona = modelo.LugarTrabajoPersona     
+                persona.idPersona = modelo.IdPersona;
+                persona.tipoIdentificacion = tablaGeneralDAL.GetCodigo("Generales", "tipoDeIdentificacion", modelo.TipoIdentificacionPersona.ToString()).idTablaGeneral;
+                persona.identificacion = modelo.Identificacion;
+                if(modelo.NacionalidadPersona != null ) {
+                    persona.nacionalidad = tablaGeneralDAL.GetCodigo("Generales", "nacionalidad", modelo.NacionalidadPersona.ToString()).idTablaGeneral;
+                }
+                persona.nombre = modelo.NombrePersona;
+                if(persona.tipoIdentificacion == 77)
+                {
+                    persona.fechaNacimiento = null;
+                }
+                else
+                {
+                    persona.fechaNacimiento = modelo.FechaNacimientoPersona;
+                }
+                
+                persona.telefonoHabitacion = modelo.TelefonoCasaPersona;
+                persona.telefonoCelular = modelo.TelefonoCelularPersona;
+                persona.telefonoTrabajo = modelo.TelefonoTrabajoPersona;
+                persona.direccionPersona = modelo.DireccionExacta;
+                if(modelo.SexoPersona != null)
+                {
+                    persona.sexo = tablaGeneralDAL.GetCodigo("Generales", "sexo", modelo.SexoPersona.ToString()).idTablaGeneral;
+                }
+                persona.correoElectronicoPersona = modelo.CorreoElectronicoPersona;
+                persona.profesion = modelo.ProfesionPersona;
+                persona.lugarTrabajoPersona = modelo.LugarTrabajoPersona;
+                persona.instalaciones = modelo.Instalaciones;
             };
+            return persona;
         }
 
         public PersonaViewModel CargarPersona(Personas persona)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
-            return new PersonaViewModel
+            PersonaViewModel personaViewModel = new PersonaViewModel();
             {
-                IdPersona = persona.idPersona,
-                TipoIdentificacionPersona = int.Parse(tablaGeneralDAL.Get(persona.tipoIdentificacion).codigo),
-                VistaTipoIdentificacionPersona = tablaGeneralDAL.Get(persona.tipoIdentificacion).descripcion,
-                Identificacion = persona.identificacion,
-                NacionalidadPersona = tablaGeneralDAL.Get(persona.nacionalidad).codigo,
-                VistaNacionalidadPersona = tablaGeneralDAL.Get(persona.nacionalidad).descripcion,
-                NombrePersona = persona.nombre,
-                FechaNacimientoPersona = (DateTime)persona.fechaNacimiento,
-                TelefonoCasaPersona = persona.telefonoHabitacion,
-                TelefonoTrabajoPersona = persona.telefonoTrabajo,
-                TelefonoCelularPersona = persona.telefonoCelular,
-                DireccionExacta = persona.direccionPersona,
-                SexoPersona = int.Parse(tablaGeneralDAL.Get(persona.sexo).codigo),
-                VistaSexoPersona = tablaGeneralDAL.Get(persona.sexo).descripcion,
-                CorreoElectronicoPersona = persona.correoElectronicoPersona,                
-                ProfesionPersona = persona.profesion,
-                LugarTrabajoPersona = persona.lugarTrabajoPersona                
+                personaViewModel.IdPersona = persona.idPersona;
+                if (persona.nacionalidad != null)
+                {
+                    personaViewModel.NacionalidadPersona = tablaGeneralDAL.Get((int)persona.nacionalidad).codigo;
+                    personaViewModel.VistaNacionalidadPersona = tablaGeneralDAL.Get((int)persona.nacionalidad).descripcion;
+                }
+                else
+                {
+                   
+                    personaViewModel.VistaNacionalidadPersona = null; 
+                }
+                if (persona.sexo != null)
+                {
+                    personaViewModel.SexoPersona = tablaGeneralDAL.Get((int)persona.sexo).codigo;
+                    personaViewModel.VistaSexoPersona = tablaGeneralDAL.Get((int)persona.sexo).descripcion;
+                }
+                else
+                {
+                    personaViewModel.VistaSexoPersona = null;                    
+                }
+          
+                personaViewModel.TipoIdentificacionPersona = int.Parse(tablaGeneralDAL.Get(persona.tipoIdentificacion).codigo);
+                personaViewModel.VistaTipoIdentificacionPersona = tablaGeneralDAL.Get(persona.tipoIdentificacion).descripcion;
+                personaViewModel.Identificacion = persona.identificacion;
+              
+                personaViewModel.NombrePersona = persona.nombre;
+                if (persona.fechaNacimiento != null)
+                {
+                    personaViewModel.FechaNacimientoPersona = (DateTime)persona.fechaNacimiento;
+                }
+         
+                personaViewModel.TelefonoCasaPersona = persona.telefonoHabitacion;
+                personaViewModel.TelefonoTrabajoPersona = persona.telefonoTrabajo;
+                personaViewModel.TelefonoCelularPersona = persona.telefonoCelular;
+                personaViewModel.DireccionExacta = persona.direccionPersona;               
+                personaViewModel.CorreoElectronicoPersona = persona.correoElectronicoPersona;
+                personaViewModel.ProfesionPersona = persona.profesion;
+                personaViewModel.LugarTrabajoPersona = persona.lugarTrabajoPersona;
+                personaViewModel.Instalaciones = persona.instalaciones;
+                
             };
+            return personaViewModel;
         }
 
 

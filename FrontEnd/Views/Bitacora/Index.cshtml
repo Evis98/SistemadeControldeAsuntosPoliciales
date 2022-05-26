@@ -22,7 +22,7 @@
                     document.getElementById("filtroSeleccionado").value = "Nombre Policía";
                 </script>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <input class="form-control" name="busqueda" maxlength="150" type="text" id="busqueda" onkeyup="this.value = this.value.toUpperCase();" onkeypress="return  sololetrasnumeros(event)" />
                 @Html.DropDownList("estadosBitacora", items2, new { @class = "form-control", @id = "estadoBitacora", @name = "estadoBitacora", @style = "display:none" })
                 <input class="form-control" name="busquedaFechaInicioB" type="date" id="busquedaFechaInicioB" style="display:none" />

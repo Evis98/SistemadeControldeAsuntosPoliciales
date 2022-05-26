@@ -23,7 +23,7 @@
                 <h1 class="h2">@HttpContext.Current.Session["nombrePolicia"].ToString()</h1>
             </div>
         </div>
-        <div class="row">
+        <div class="form-row">
             <div class="col-sm-3">
                 @Html.DropDownList("filtrosSeleccionado", items1, new { @class = "form-control", @id = "filtroSeleccionado", @name = "filtroSeleccionado", @onclick = "ocultarRequisito()" })
                 <script>
@@ -35,11 +35,11 @@
                 @Html.DropDownList("tiposRequisito", items2, new { @class = "form-control", @id = "tipoRequisito", @name = "tipoRequisito", @style = "display:none" })
 
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <button class="btn btn-primary">Buscar</button>
             </div>
-            <div class="col-sm-2">
-                <a class="btn btn-success" href="~/Requisito/Nuevo/@HttpContext.Current.Session["idPolicia"].ToString()">Agregar Requisito</a>
+            <div class="col-sm-1">
+                <a class="btn btn-success" href="~/Requisito/Nuevo/@HttpContext.Current.Session["idPolicia"].ToString()">Agregar</a>
             </div>
         </div>
         <hr />

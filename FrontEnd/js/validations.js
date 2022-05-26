@@ -444,3 +444,69 @@ if (document.getElementById("tipoActaSeleccionado") != null) {
 	});
 }
 
+if (document.getElementById("tipoDeIdentificacion") != null) {
+	window.addEventListener("load", function () {
+
+		vartipoDeIdentificacion = document.getElementById("tipoDeIdentificacion")
+		var tipoSeleccion = tipoDeIdentificacion.value;
+		if (tipoSeleccion == 5) {
+			document.getElementById("telefonoCelular").style.display = 'none';
+			document.getElementById("telefonoCasa").style.display = 'none';
+			document.getElementById("lugarDeTrabajo").style.display = 'none';
+			document.getElementById("profesion").style.display = 'none';
+			document.getElementById("nacionalidades").style.display = 'none';
+			document.getElementById("sexo").style.display = 'none';
+			document.getElementById("fechaNacimiento").style.display = 'none';
+			document.getElementById("instalaciones").style.display = 'block';
+			document.getElementById("sexo").removeAttribute('required');
+			document.getElementById("fechaNacimiento").removeAttribute('required');
+			document.getElementById("nacionalidades").removeAttribute('required');
+
+		} else {
+			document.getElementById("telefonoCelular").style.display = 'block';
+			document.getElementById("telefonoCasa").style.display = 'block';
+			document.getElementById("lugarDeTrabajo").style.display = 'block';
+			document.getElementById("profesion").style.display = 'block';
+			document.getElementById("nacionalidades").style.display = 'block';
+			document.getElementById("sexo").style.display = 'block';
+			document.getElementById("fechaNacimiento").style.display = 'block';
+			document.getElementById("instalaciones").style.display = 'none';
+			document.getElementById("sexo").setAttribute('required');
+			document.getElementById("fechaNacimiento").setAttribute('required');
+			document.getElementById("nacionalidades").setAttribute('required');
+		}
+	});
+}
+if (document.getElementById("tipoDeIdentificacion") != null) {
+	document.getElementById("tipoDeIdentificacion").addEventListener("change", function () {
+		vartipoDeIdentificacion = document.getElementById("tipoDeIdentificacion")
+		var tipoSeleccion = tipoDeIdentificacion.value;
+		if (tipoSeleccion == 5) {
+			document.getElementById("telefonoCelular").style.display = 'none';
+			document.getElementById("telefonoCasa").style.display = 'none';
+			document.getElementById("lugarDeTrabajo").style.display = 'none';
+			document.getElementById("profesion").style.display = 'none';
+			document.getElementById("nacionalidades").style.display = 'none';
+			document.getElementById("sexo").style.display = 'none';
+			document.getElementById("fechaNacimiento").style.display = 'none';
+			document.getElementById("instalaciones").style.display = 'block';
+			document.getElementById("sexo").removeAttribute('required');
+			document.getElementById("fechaNacimiento").removeAttribute('required');
+			document.getElementById("nacionalidades").removeAttribute('required');
+
+		} else {
+			document.getElementById("telefonoCelular").style.display = 'block';
+			document.getElementById("telefonoCasa").style.display = 'block';
+			document.getElementById("lugarDeTrabajo").style.display = 'block';
+			document.getElementById("profesion").style.display = 'block';
+			document.getElementById("nacionalidades").style.display = 'block';
+			document.getElementById("sexo").style.display = 'block';
+			document.getElementById("fechaNacimiento").style.display = 'block';
+			document.getElementById("instalaciones").style.display = 'none';
+			document.getElementById("sexo").setAttribute('required');
+			document.getElementById("fechaNacimiento").setAttribute('required');
+			document.getElementById("nacionalidades").setAttribute('required');
+		}
+	});
+}
+

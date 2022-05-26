@@ -8,6 +8,7 @@ using BackEnd;
 using FrontEnd.Models;
 using FrontEnd.Models.ViewModels;
 using System.IO;
+using Microsoft.Reporting.WinForms;
 
 namespace FrontEnd.Controllers
 {
@@ -412,6 +413,87 @@ namespace FrontEnd.Controllers
 
             };
         }
+        public void CreatePDF(int id)
+        {
+            //--------------------------Creacion de los DataSet--------------------------
+            actaDecomisoDAL = new ActaDecomisoDAL();
+            tablaGeneralDAL = new TablaGeneralDAL();
+            policiaDAL = new PoliciaDAL();
+            personaDAL = new PersonaDAL();
 
+            ReportViewer viewer = new ReportViewer();
+            viewer.ProcessingMode = ProcessingMode.Local;
+            viewer.LocalReport.ReportPath = Path.Combine(Server.MapPath("~/PDFs"), "ReporteDecomiso.rdlc");
+
+            //Decomisos
+            ActasDecomiso decomiso = actaDecomisoDAL.GetActaDecomiso(id);
+            List<ActasDecomiso> decomisos = new List<ActasDecomiso>();
+            decomisos.Add(decomiso);
+
+            //Policias
+            Policias policiaActuante = policiaDAL.GetPolicia(decomiso.oficialActuante);
+            List<Policias> policiasA = new List<Policias>();
+            policiasA.Add(policiaActuante);
+
+            Policias policiaAcompañante = policiaDAL.GetPolicia(decomiso.oficialAcompanante);
+            List<Policias> policiasAc = new List<Policias>();
+            policiasAc.Add(policiaAcompañante);
+
+            Policias policiaSupervisor = policiaDAL.GetPolicia(decomiso.supervisorDecomiso);
+            List<Policias> policiasS = new List<Policias>();
+            policiasS.Add(policiaSupervisor);
+
+            //Persona
+            Personas decomisado = personaDAL.GetPersona(decomiso.idDecomisado);
+            List<Personas> decomisados = new List<Personas>();
+            if (decomisado.telefonoCelular == null)
+            {
+                decomisado.telefonoCelular = "N/A";
+            }
+            if (decomisado.direccionPersona == null)
+            {
+                decomisado.direccionPersona = "N/A";
+            }
+            decomisados.Add(decomisado);
+
+            TablaGeneral estadoCivil = tablaGeneralDAL.Get(decomiso.estadoCivilDecomisado);
+            List<TablaGeneral> estadosCiviles = new List<TablaGeneral>();
+            estadosCiviles.Add(estadoCivil);
+
+            //Agregado a Data Set
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("DecomisoDataSet", decomisos));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("ActuanteDataSet", policiasA));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("AcompañanteDataSet", policiasAc));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("SupervisorDataSet", policiasS));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("DecomisadoDataSet", decomisados));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("EstadoCivilDataSet", estadosCiviles));
+
+            //--------------------------Creacion de las variables--------------------------
+            Warning[] warnings;
+            string[] streamIds;
+            string mimeType = string.Empty;
+            string encoding = string.Empty;
+            string extension = string.Empty;
+
+            var deviceInfo = @"<DeviceInfo>
+            <EmbedFonts>None</EmbedFonts>
+            <OutputFormat>PDF</OutputFormat>
+            <PageWidth>8.5in</PageWidth>
+            <PageHeight>11in</PageHeight>
+            <MarginTop>0.25in</MarginTop>
+            <MarginLeft>0.25in</MarginLeft>
+            <MarginRight>0.25in</MarginRight>
+            <MarginBottom>0.25in</MarginBottom>
+            </DeviceInfo>";
+
+            byte[] bytes = viewer.LocalReport.Render("PDF", deviceInfo, out mimeType, out encoding, out extension, out streamIds, out warnings);
+
+            Response.Buffer = true;
+            Response.Clear();
+            Response.ContentType = mimeType;
+            Response.AddHeader("content-disposition", "attachment; filename=" + "Acta de decomiso No. " + decomiso.numeroFolio + "." + extension);
+            Response.BinaryWrite(bytes);
+            Response.Flush();
+        }
     }
 }

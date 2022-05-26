@@ -33,25 +33,28 @@
         <dd id="req" class="col-sm-8 ">
             @Html.DisplayTextFor(d => d.Identificacion)
         </dd>
+        @if (Model.FechaNacimientoPersona != null) {
         <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.FechaNacimientoPersona)
         </dt>
         <dd class="col-sm-8 ">
             @{ var fecha = Model.FechaNacimientoPersona.ToShortDateString(); }
             @Html.DisplayTextFor(d => fecha)
-        </dd>
+        </dd>} 
+        @if(Model.VistaSexoPersona != null) { 
         <dt class="col-sm-4">
             @Html.LabelFor(d => d.VistaSexoPersona)
         </dt>
         <dd class="col-sm-8 ">
             @Html.DisplayTextFor(d => d.VistaSexoPersona)
-        </dd>
+        </dd>}
+        @if(Model.VistaNacionalidadPersona != null) { 
         <dt class="col-sm-4 ">
             @Html.LabelFor(d => d.VistaNacionalidadPersona)
         </dt>
         <dd class="col-sm-8 ">
             @Html.DisplayTextFor(d => d.VistaNacionalidadPersona)
-        </dd>
+        </dd>}
         @if (Model.ProfesionPersona != null)
         {
             <dt class="col-sm-4">
@@ -114,6 +117,15 @@
             </dt>
             <dd class="col-sm-8 ">
                 @Html.DisplayTextFor(d => d.DireccionExacta)
+            </dd>
+        }
+        @if (Model.Instalaciones != null)
+        {
+            <dt class="col-sm-4">
+                @Html.Label("Instalaciones")
+            </dt>
+            <dd class="col-sm-8 ">
+                @Html.DisplayTextFor(d => d.Instalaciones)
             </dd>
         }
 

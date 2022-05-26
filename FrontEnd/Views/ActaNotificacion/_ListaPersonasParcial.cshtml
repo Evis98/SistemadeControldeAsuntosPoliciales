@@ -1,10 +1,11 @@
 ﻿@model List<FrontEnd.Models.ViewModels.PersonaViewModel>
 
-<table class="table" id="idtablaPersona">
+<table class="table" id="idPersonasParcial">
     <thead class="thead-light">
         <tr>
             <th scope="col">Cédula</th>
             <th scope="col">Nombre</th>
+            <th scope="col">Veces Notificado</th>
         </tr>
     </thead>
     <tbody>
@@ -15,14 +16,14 @@
                 <td>
                     <label><a href="#" onclick="reply_click4(this.id)" id="@item.Identificacion"> @item.NombrePersona</a></label>
                 </td>
+                <th scope="row">@Html.DisplayFor(modelItem => item.VecesNotificado)</th>
             </tr>
         }
     </tbody>
 </table>
-
 <script>
     $(document).ready(function () {
-        $('#idtablaPersona').DataTable({
+        $('#idPersonasParcial').DataTable({
             searching: false,
             lengthMenu: [[6], [6]],
             lengthChange: false,

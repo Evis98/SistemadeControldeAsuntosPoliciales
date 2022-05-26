@@ -1,0 +1,83 @@
+﻿@model FrontEnd.Models.ViewModels.UsuarioViewModel
+@{ ViewBag.Title = "Editar Información de Usuario"; }
+
+
+<div class="container bg-light text-dark border" style=" height: auto; min-height: 80vh; padding-bottom: 20px; margin-bottom: 28px; word-wrap: break-word;">
+    <div class="row">
+        <div class="col-md-12">
+            <div style="text-align:center;">
+                <h2 class="display-4" style="text-align:center;">@ViewBag.Title</h2>
+            </div>
+
+        </div>
+    </div>
+    <hr />
+    @using (Html.BeginForm("Editar", "Usuario", FormMethod.Post))
+    {
+<div class="form-row">
+    @Html.HiddenFor(d => d.IdUsuario)
+    <div class="form-group col-md-4">
+        @Html.LabelFor(d => d.Cedula)
+        @Html.TextBoxFor(d => d.Cedula, "", new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)", autocomplete = "new-password" })
+        @Html.ValidationMessageFor(d => d.Cedula, null, new { @class = "red" })
+        @if (Model.CedulaUsuarioFiltrada != null)
+        {@Html.ValidationMessageFor(d => d.Cedula, "La cedula ya existe", new { @class = "red" })}
+    </div>
+    <div class="form-group col-md-6">
+        @Html.LabelFor(d => d.Nombre)
+        @Html.TextBoxFor(d => d.Nombre, "", new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)", autocomplete = "new-password" })
+        @Html.ValidationMessageFor(d => d.Nombre, null, new { @class = "red" })
+    </div>
+    <div class="form-group col-md-4">
+        @Html.LabelFor(d => d.UserName)
+        @Html.TextBoxFor(d => d.UserName, "", new { @class = "form-control", autocomplete = "new-password" })
+        @Html.ValidationMessageFor(d => d.UserName, null, new { @class = "red" })
+    </div>
+    <div class="form-group col-md-2">
+        @Html.LabelFor(d => d.Rol)
+        @Html.DropDownListFor(d => d.Rol, Model.TiposDeRol, "--Seleccione--", new { @class = "myselect form-control" })
+        @Html.ValidationMessageFor(d => d.Rol, null, new { @class = "red" })
+    </div>
+
+</div>
+
+        <hr />
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <div style="text-align:center;">
+
+                    <a class="btn btn-secondary" href="~/Usuario/Detalle/@Model.IdUsuario">Cancelar</a>
+                    <script>
+                        $('#btnSave').click(function () {
+                            $('#show').modal('hide');
+                        });
+
+                    </script>
+                    <input value="Guardar" class="btn btn-primary" type="button" id="hGuardar" data-toggle="modal" data-target="#show" />
+                </div>
+
+            </div>
+        </div>
+
+        <div class="modal" id="show" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Agregar un Usuario</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>¿Está seguro que desea guardar los cambios?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-danger" id="Cancel" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" id="btnSave">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

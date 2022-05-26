@@ -19,5 +19,7 @@ namespace BackEnd.DAL
         List<ActasDeNotificacion> GetActaDeNotificacionRango(DateTime inicio, DateTime final);
 
         bool NotificadoExiste(int idNotificado);
+
+        int VecesNotificado(int id);
     }
 }

@@ -55,6 +55,24 @@
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1484.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1484.0\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1484.0\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1484.0\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1484.0\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.1016.290\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.DirectoryServices" />
@@ -74,6 +92,7 @@
     <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -159,8 +178,29 @@
     <Compile Include="Controllers\PersonaController.cs" />
     <Compile Include="Controllers\PoliciaController.cs" />
     <Compile Include="Controllers\RequisitoController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="DecomisoDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DecomisoDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DestruccionDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DestruccionDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="EntregaDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntregaDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="HallazgoDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HallazgoDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModels\ActaDecomisoViewModel.cs" />
     <Compile Include="Models\ViewModels\ActaDeDestruccionDePerecederosViewModel.cs" />
@@ -180,7 +220,13 @@
     <Compile Include="Models\ViewModels\PersonaViewModel.cs" />
     <Compile Include="Models\ViewModels\PoliciaViewModel.cs" />
     <Compile Include="Models\ViewModels\RequisitoViewModel.cs" />
+    <Compile Include="NotificacionDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NotificacionDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlServerTypes\Loader.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -219,6 +265,61 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="DecomisoDataSet.xsc">
+      <DependentUpon>DecomisoDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="DecomisoDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DecomisoDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="DecomisoDataSet.xss">
+      <DependentUpon>DecomisoDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="DestruccionDataSet.xsc">
+      <DependentUpon>DestruccionDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="DestruccionDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DestruccionDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="DestruccionDataSet.xss">
+      <DependentUpon>DestruccionDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="HallazgoDataSet.xsc">
+      <DependentUpon>HallazgoDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="EntregaDataSet.xsc">
+      <DependentUpon>EntregaDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="EntregaDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>EntregaDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="EntregaDataSet.xss">
+      <DependentUpon>EntregaDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="HallazgoDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>HallazgoDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="HallazgoDataSet.xss">
+      <DependentUpon>HallazgoDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="NotificacionDataSet.xsc">
+      <DependentUpon>NotificacionDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="NotificacionDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>NotificacionDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="NotificacionDataSet.xss">
+      <DependentUpon>NotificacionDataSet.xsd</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -307,6 +408,19 @@
     <Content Include="SourcesSCAP\MuniLogo.png" />
     <Content Include="SourcesSCAP\ScapLogo.png" />
     <Content Include="SourcesSCAP\ScapLogo2.png" />
+    <Content Include="SqlServerTypes\readme.htm" />
+    <Content Include="SqlServerTypes\x64\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -488,11 +602,14 @@
     <Content Include="Views\Requisito\DetalleIndex.cshtml" />
     <Content Include="Views\ActaDecomiso\_ListaPersonasBuscar.cshtml" />
     <Content Include="Views\ActaDecomiso\_ListaPersonasParcial.cshtml" />
+    <Content Include="Views\Usuario\Detalle.cshtml" />
+    <Content Include="Views\Usuario\Editar.cshtml" />
+    <Content Include="Views\Usuario\Index.cshtml" />
+    <Content Include="Views\Usuario\Nuevo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
-    <Folder Include="PDFs\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -510,6 +627,13 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PDFs\ReporteDecomiso.rdlc" />
+    <EmbeddedResource Include="PDFs\ReporteDestruccionDePerecederos.rdlc" />
+    <EmbeddedResource Include="PDFs\ReporteEntrega.rdlc" />
+    <EmbeddedResource Include="PDFs\ReporteHallazgo.rdlc" />
+    <EmbeddedResource Include="PDFs\ReporteNotificacion.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

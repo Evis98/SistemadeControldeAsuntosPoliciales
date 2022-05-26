@@ -41,16 +41,35 @@
         @Html.ValidationMessageFor(d => d.ConsecutivoActaDecomiso, null, new { @class = "red" })
     </div>
 
-    <div class="form-group col-md-3">
-        @Html.LabelFor(d => d.Encargado)
-        <div class="input-group">
-            @Html.TextBoxFor(d => d.Encargado, "", new { @class = "form-control", @id = "idEncargado", @readonly = "readonly" })
-            <div class="input-group-append ">
-                <a class="btn btn-primary" data-book-id="idEncargado" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
+    @if (Session["Rol"].ToString() == "1" || Session["Rol"].ToString() == "2"|| Session["Rol"].ToString() == "3")
+    {
+        <div class="form-group col-md-3">
+            @Html.LabelFor(d => d.Encargado)
+            <div class="input-group">
+                @Html.TextBoxFor(d => d.Encargado, "", new { @class = "form-control", @Value = @Session["cedula"].ToString(), @id = "idEncargado", @readonly = "readonly" })
+                <div class="input-group-append ">
+                    <a class="btn btn-primary" data-book-id="idEncargado" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
+                </div>
             </div>
+            @Html.ValidationMessageFor(d => d.Encargado, null, new { @class = "red" })
         </div>
-        @Html.ValidationMessageFor(d => d.Encargado, null, new { @class = "red" })
-    </div>
+
+    }
+    else
+    {
+        <div class="form-group col-md-3">
+            @Html.LabelFor(d => d.Encargado)
+            <div class="input-group">
+                @Html.TextBoxFor(d => d.Encargado, "", new { @class = "form-control", @id = "idEncargado", @readonly = "readonly" })
+                <div class="input-group-append ">
+                    <a class="btn btn-primary" data-book-id="idEncargado" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
+                </div>
+            </div>
+            @Html.ValidationMessageFor(d => d.Encargado, null, new { @class = "red" })
+        </div>
+    }
+
+
 
     <div class="form-group col-md-3">
         @Html.LabelFor(d => d.Supervisor)

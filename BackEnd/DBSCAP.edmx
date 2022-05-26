@@ -276,9 +276,10 @@
           <Property Name="nombre" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="tipoIdentificacion" Type="int" Nullable="false" />
           <Property Name="identificacion" Type="varchar" MaxLength="25" Nullable="false" />
-          <Property Name="sexo" Type="int" Nullable="false" />
-          <Property Name="fechaNacimiento" Type="date" Nullable="false" />
-          <Property Name="nacionalidad" Type="int" Nullable="false" />
+          <Property Name="sexo" Type="int" />
+          <Property Name="fechaNacimiento" Type="date" />
+          <Property Name="nacionalidad" Type="int" />
+          <Property Name="instalaciones" Type="varchar" MaxLength="300" />
           <Property Name="direccionPersona" Type="varchar" MaxLength="250" />
           <Property Name="telefonoHabitacion" Type="varchar" MaxLength="9" />
           <Property Name="telefonoTrabajo" Type="varchar" MaxLength="9" />
@@ -858,18 +859,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_NacionalidadPersona">
-          <End Role="TablaGeneral" Type="Self.TablaGeneral" Multiplicity="1" />
-          <End Role="Personas" Type="Self.Personas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TablaGeneral">
-              <PropertyRef Name="idTablaGeneral" />
-            </Principal>
-            <Dependent Role="Personas">
-              <PropertyRef Name="nacionalidad" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Ofendido1">
           <End Role="Personas" Type="Self.Personas" Multiplicity="1" />
           <End Role="PartesPoliciales" Type="Self.PartesPoliciales" Multiplicity="*" />
@@ -1010,18 +999,6 @@
               <PropertyRef Name="idTablaGeneral" />
             </Principal>
             <Dependent Role="Infractores">
-              <PropertyRef Name="sexo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SexoPersona">
-          <End Role="TablaGeneral" Type="Self.TablaGeneral" Multiplicity="1" />
-          <End Role="Personas" Type="Self.Personas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TablaGeneral">
-              <PropertyRef Name="idTablaGeneral" />
-            </Principal>
-            <Dependent Role="Personas">
               <PropertyRef Name="sexo" />
             </Dependent>
           </ReferentialConstraint>
@@ -1470,10 +1447,6 @@
             <End Role="TablaGeneral" EntitySet="TablaGeneral" />
             <End Role="Infractores" EntitySet="Infractores" />
           </AssociationSet>
-          <AssociationSet Name="FK_NacionalidadPersona" Association="Self.FK_NacionalidadPersona">
-            <End Role="TablaGeneral" EntitySet="TablaGeneral" />
-            <End Role="Personas" EntitySet="Personas" />
-          </AssociationSet>
           <AssociationSet Name="FK_Ofendido1" Association="Self.FK_Ofendido1">
             <End Role="Personas" EntitySet="Personas" />
             <End Role="PartesPoliciales" EntitySet="PartesPoliciales" />
@@ -1521,10 +1494,6 @@
           <AssociationSet Name="FK_Sexo" Association="Self.FK_Sexo">
             <End Role="TablaGeneral" EntitySet="TablaGeneral" />
             <End Role="Infractores" EntitySet="Infractores" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SexoPersona" Association="Self.FK_SexoPersona">
-            <End Role="TablaGeneral" EntitySet="TablaGeneral" />
-            <End Role="Personas" EntitySet="Personas" />
           </AssociationSet>
           <AssociationSet Name="FK_Supervisor" Association="Self.FK_Supervisor">
             <End Role="Policias" EntitySet="Policias" />
@@ -1959,9 +1928,10 @@
           <Property Name="nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="tipoIdentificacion" Type="Int32" Nullable="false" />
           <Property Name="identificacion" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="sexo" Type="Int32" Nullable="false" />
-          <Property Name="fechaNacimiento" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="nacionalidad" Type="Int32" Nullable="false" />
+          <Property Name="sexo" Type="Int32" />
+          <Property Name="fechaNacimiento" Type="DateTime" Precision="0" />
+          <Property Name="nacionalidad" Type="Int32" />
+          <Property Name="instalaciones" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="direccionPersona" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="telefonoHabitacion" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
           <Property Name="telefonoTrabajo" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
@@ -1978,9 +1948,7 @@
           <NavigationProperty Name="ActasEntregaPorOrdenDe1" Relationship="Self.FK_PorOrdenDeEntregaOrden" FromRole="Personas" ToRole="ActasEntregaPorOrdenDe" />
           <NavigationProperty Name="ActasNotificacionVendedorAmbulante" Relationship="Self.FK_IdNotificado" FromRole="Personas" ToRole="ActasNotificacionVendedorAmbulante" />
           <NavigationProperty Name="PartesPoliciales" Relationship="Self.FK_Ofendido1" FromRole="Personas" ToRole="PartesPoliciales" />
-          <NavigationProperty Name="TablaGeneral" Relationship="Self.FK_NacionalidadPersona" FromRole="Personas" ToRole="TablaGeneral" />
-          <NavigationProperty Name="TablaGeneral1" Relationship="Self.FK_SexoPersona" FromRole="Personas" ToRole="TablaGeneral" />
-          <NavigationProperty Name="TablaGeneral2" Relationship="Self.FK_TipoIdentificacionPersona" FromRole="Personas" ToRole="TablaGeneral" />
+          <NavigationProperty Name="TablaGeneral" Relationship="Self.FK_TipoIdentificacionPersona" FromRole="Personas" ToRole="TablaGeneral" />
         </EntityType>
         <EntityType Name="Policias">
           <Key>
@@ -2089,9 +2057,7 @@
           <NavigationProperty Name="PartesPoliciales5" Relationship="Self.FK_LugarSuceso" FromRole="TablaGeneral" ToRole="PartesPoliciales" />
           <NavigationProperty Name="PartesPoliciales6" Relationship="Self.FK_UnidadOrigenPoliciaActuante" FromRole="TablaGeneral" ToRole="PartesPoliciales" />
           <NavigationProperty Name="PartesPoliciales7" Relationship="Self.FK_UnidadOrigenPoliciaAsiste" FromRole="TablaGeneral" ToRole="PartesPoliciales" />
-          <NavigationProperty Name="Personas" Relationship="Self.FK_NacionalidadPersona" FromRole="TablaGeneral" ToRole="Personas" />
-          <NavigationProperty Name="Personas1" Relationship="Self.FK_SexoPersona" FromRole="TablaGeneral" ToRole="Personas" />
-          <NavigationProperty Name="Personas2" Relationship="Self.FK_TipoIdentificacionPersona" FromRole="TablaGeneral" ToRole="Personas" />
+          <NavigationProperty Name="Personas" Relationship="Self.FK_TipoIdentificacionPersona" FromRole="TablaGeneral" ToRole="Personas" />
           <NavigationProperty Name="Policias" Relationship="Self.FK_Estado" FromRole="TablaGeneral" ToRole="Policias" />
           <NavigationProperty Name="Policias1" Relationship="Self.FK_TipoCedula" FromRole="TablaGeneral" ToRole="Policias" />
           <NavigationProperty Name="Requisitos" Relationship="Self.FK_IdPolicia" FromRole="TablaGeneral" ToRole="Requisitos" />
@@ -2949,30 +2915,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_NacionalidadPersona">
-          <End Role="TablaGeneral" Type="Self.TablaGeneral" Multiplicity="1" />
-          <End Role="Personas" Type="Self.Personas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TablaGeneral">
-              <PropertyRef Name="idTablaGeneral" />
-            </Principal>
-            <Dependent Role="Personas">
-              <PropertyRef Name="nacionalidad" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SexoPersona">
-          <End Role="TablaGeneral" Type="Self.TablaGeneral" Multiplicity="1" />
-          <End Role="Personas" Type="Self.Personas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TablaGeneral">
-              <PropertyRef Name="idTablaGeneral" />
-            </Principal>
-            <Dependent Role="Personas">
-              <PropertyRef Name="sexo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_TipoIdentificacionPersona">
           <End Role="TablaGeneral" Type="Self.TablaGeneral" Multiplicity="1" />
           <End Role="Personas" Type="Self.Personas" Multiplicity="*" />
@@ -3345,14 +3287,6 @@
             <End Role="TablaGeneral" EntitySet="TablaGeneral" />
             <End Role="PartesPoliciales" EntitySet="PartesPoliciales" />
           </AssociationSet>
-          <AssociationSet Name="FK_NacionalidadPersona" Association="Self.FK_NacionalidadPersona">
-            <End Role="TablaGeneral" EntitySet="TablaGeneral" />
-            <End Role="Personas" EntitySet="Personas" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SexoPersona" Association="Self.FK_SexoPersona">
-            <End Role="TablaGeneral" EntitySet="TablaGeneral" />
-            <End Role="Personas" EntitySet="Personas" />
-          </AssociationSet>
           <AssociationSet Name="FK_TipoIdentificacionPersona" Association="Self.FK_TipoIdentificacionPersona">
             <End Role="TablaGeneral" EntitySet="TablaGeneral" />
             <End Role="Personas" EntitySet="Personas" />
@@ -3670,6 +3604,7 @@
                 <ScalarProperty Name="sexo" ColumnName="sexo" />
                 <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
                 <ScalarProperty Name="nacionalidad" ColumnName="nacionalidad" />
+                <ScalarProperty Name="instalaciones" ColumnName="instalaciones" />
                 <ScalarProperty Name="direccionPersona" ColumnName="direccionPersona" />
                 <ScalarProperty Name="telefonoHabitacion" ColumnName="telefonoHabitacion" />
                 <ScalarProperty Name="telefonoTrabajo" ColumnName="telefonoTrabajo" />
@@ -3757,7 +3692,7 @@
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

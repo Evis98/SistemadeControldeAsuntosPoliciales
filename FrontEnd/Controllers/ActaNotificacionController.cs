@@ -1,8 +1,10 @@
 ﻿using BackEnd;
 using BackEnd.DAL;
 using FrontEnd.Models.ViewModels;
+using Microsoft.Reporting.WinForms;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -159,12 +161,20 @@ namespace FrontEnd.Controllers
 
         public List<PersonaViewModel> ConvertirListaPersonasFiltrados(List<Personas> personas)
         {
-            return (from d in personas
-                    select new PersonaViewModel
-                    {
-                        Identificacion = d.identificacion,
-                        NombrePersona = d.nombre,
-                    }).ToList();
+            actaDeNotificacionDAL = new ActaDeNotificacionDAL();
+            List<PersonaViewModel> lista = new List<PersonaViewModel>();
+            foreach (Personas persona in personas)
+            {
+                PersonaViewModel aux = new PersonaViewModel
+                {
+                    Identificacion = persona.identificacion,
+                    NombrePersona = persona.nombre,
+                    VecesNotificado = actaDeNotificacionDAL.VecesNotificado(persona.idPersona)
+                };
+                //aux.VecesNotificado = actaDeNotificacionDAL.VecesNotificado(persona.idPersona);
+                lista.Add(aux);
+            }
+            return lista;
         }
         public PartialViewResult ListaPersonasBuscar(string nombre)
         {
@@ -446,6 +456,146 @@ namespace FrontEnd.Controllers
                 idElemento = actaDeNotificacionDAL.GetActaDeNotificacion(idActaDeNotificacion).idActaDeNotificacion
 
             };
+        }
+
+        public void CreatePDF(int id)
+        {
+            //--------------------------Creacion de los DataSet--------------------------
+            actaDeNotificacionDAL = new ActaDeNotificacionDAL();
+            tablaGeneralDAL = new TablaGeneralDAL();
+            policiaDAL = new PoliciaDAL();
+            personaDAL = new PersonaDAL();
+
+            ReportViewer viewer = new ReportViewer();
+            viewer.ProcessingMode = ProcessingMode.Local;
+            viewer.LocalReport.ReportPath = Path.Combine(Server.MapPath("~/PDFs"), "ReporteNotificacion.rdlc");
+
+            //Notificacion
+            ActasDeNotificacion notificacion = actaDeNotificacionDAL.GetActaDeNotificacion(id);
+            List<ActasDeNotificacion> notificaciones = new List<ActasDeNotificacion>();
+            notificaciones.Add(notificacion);
+
+            //Persona
+            Personas notificado = personaDAL.GetPersona(notificacion.personaNotificada);
+            List<Personas> notificados = new List<Personas>();
+            notificados.Add(notificado);
+
+            //Policia
+            Policias actuante = policiaDAL.GetPolicia(notificacion.oficialActuante);
+            List<Policias> actuantes = new List<Policias>();
+            actuantes.Add(actuante);
+
+            //TablaGeneral
+            TablaGeneral tipoTestigo = new TablaGeneral();
+            List<TablaGeneral> tiposTestigos = new List<TablaGeneral>();
+            tipoTestigo.descripcion = tablaGeneralDAL.Get(notificacion.tipoTestigo).descripcion;
+            tiposTestigos.Add(tipoTestigo);
+
+            TablaGeneral distrito = new TablaGeneral();
+            List<TablaGeneral> distritos = new List<TablaGeneral>();
+            distrito.descripcion = tablaGeneralDAL.Get(notificacion.distrito).descripcion;
+            distritos.Add(distrito);
+
+            //Agregado a Data Set
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("NotificacionDataSet", notificaciones));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("NotificadoDataSet", notificados));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("ActuanteDataSet", actuantes));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("tipoTestigoDataSet", tiposTestigos));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("TGDistritoDataSet", distritos));
+
+            //Tipos de Testigo
+            if (tipoTestigo.descripcion == "Policía")
+            {
+                Policias policiaT = policiaDAL.GetPolicia((int)notificacion.testigo);
+                List<Policias> policiasT = new List<Policias>();
+                policiasT.Add(policiaT);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("PoliciaTDataSet", policiasT));
+
+                Personas persona = new Personas();
+                List<Personas> personas = new List<Personas>();
+                personas.Add(persona);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("PersonaTDataSet", personas));
+
+                TablaGeneral noAplica = new TablaGeneral();
+                List<TablaGeneral> noAplican = new List<TablaGeneral>();
+                noAplican.Add(noAplica);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("aplicaDataSet", noAplican));
+            }
+            else
+            {
+                if (tipoTestigo.descripcion == "Persona")
+                {
+                    Personas personaTestigo = personaDAL.GetPersona((int)notificacion.testigo);
+                    List<Personas> personasTestigo = new List<Personas>();
+                    personasTestigo.Add(personaTestigo);
+
+                    viewer.LocalReport.DataSources.Add(new ReportDataSource("PersonaTDataSet", personasTestigo));
+
+                    Policias policiaTestigo = new Policias();
+                    List<Policias> policiasT = new List<Policias>();
+                    policiasT.Add(policiaTestigo);
+
+                    viewer.LocalReport.DataSources.Add(new ReportDataSource("PoliciaTDataSet", policiasT));
+
+                    TablaGeneral noAplica = new TablaGeneral();
+                    List<TablaGeneral> noAplican = new List<TablaGeneral>();
+                    noAplican.Add(noAplica);
+
+                    viewer.LocalReport.DataSources.Add(new ReportDataSource("aplicaDataSet", noAplican));
+                }
+                else
+                {
+                    TablaGeneral noAplica = new TablaGeneral();
+                    List<TablaGeneral> noAplican = new List<TablaGeneral>();
+                    noAplica.descripcion = "N/A";
+                    noAplican.Add(noAplica);
+
+                    viewer.LocalReport.DataSources.Add(new ReportDataSource("aplicaDataSet", noAplican));
+
+                    Policias policiaTestigo = new Policias();
+                    List<Policias> policiasT = new List<Policias>();
+                    policiasT.Add(policiaTestigo);
+
+                    viewer.LocalReport.DataSources.Add(new ReportDataSource("PoliciaTDataSet", policiasT));
+
+                    Personas persona = new Personas();
+                    List<Personas> personas = new List<Personas>();
+                    personas.Add(persona);
+
+                    viewer.LocalReport.DataSources.Add(new ReportDataSource("PersonaTDataSet", personas));
+                }
+
+            }
+
+            //--------------------------Creacion de las variables--------------------------
+            Warning[] warnings;
+            string[] streamIds;
+            string mimeType = string.Empty;
+            string encoding = string.Empty;
+            string extension = string.Empty;
+
+            var deviceInfo = @"<DeviceInfo>
+            <EmbedFonts>None</EmbedFonts>
+            <OutputFormat>PDF</OutputFormat>
+            <PageWidth>8.5in</PageWidth>
+            <PageHeight>11in</PageHeight>
+            <MarginTop>0.25in</MarginTop>
+            <MarginLeft>0.25in</MarginLeft>
+            <MarginRight>0.25in</MarginRight>
+            <MarginBottom>0.25in</MarginBottom>
+            </DeviceInfo>";
+
+            byte[] bytes = viewer.LocalReport.Render("PDF", deviceInfo, out mimeType, out encoding, out extension, out streamIds, out warnings);
+
+            Response.Buffer = true;
+            Response.Clear();
+            Response.ContentType = mimeType;
+            Response.AddHeader("content-disposition", "attachment; filename=" + "Acta de notificación No. " + notificacion.numeroFolio + "." + extension);
+            Response.BinaryWrite(bytes);
+            Response.Flush();
         }
     }
 }

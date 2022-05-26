@@ -8,6 +8,7 @@ using BackEnd;
 using FrontEnd.Models;
 using FrontEnd.Models.ViewModels;
 using System.IO;
+using Microsoft.Reporting.WinForms;
 
 namespace FrontEnd.Controllers
 {
@@ -430,6 +431,145 @@ namespace FrontEnd.Controllers
                 idElemento = actaHallazgoDAL.GetActaHallazgo(idActaHallazgo).idActaHallazgo
 
             };
+        }
+
+        public void CreatePDF(int id)
+        {
+            //--------------------------Creacion de los DataSet--------------------------
+            actaHallazgoDAL = new ActaHallazgoDAL();
+            tablaGeneralDAL = new TablaGeneralDAL();
+            policiaDAL = new PoliciaDAL();
+            personaDAL = new PersonaDAL();
+
+            ReportViewer viewer = new ReportViewer();
+            viewer.ProcessingMode = ProcessingMode.Local;
+            viewer.LocalReport.ReportPath = Path.Combine(Server.MapPath("~/PDFs"), "ReporteHallazgo.rdlc");
+
+            //Hallazgos
+            ActasHallazgo hallazgo = actaHallazgoDAL.GetActaHallazgo(id);
+            List<ActasHallazgo> hallazgos = new List<ActasHallazgo>();
+            hallazgos.Add(hallazgo);
+
+            //Policias
+            Policias policiaSupervisor = policiaDAL.GetPolicia(hallazgo.supervisor);
+            List<Policias> policiasS = new List<Policias>();
+            policiasS.Add(policiaSupervisor);
+
+            Policias policiaEncargado = policiaDAL.GetPolicia(hallazgo.encargado);
+            List<Policias> policiasE = new List<Policias>();
+            policiasE.Add(policiaEncargado);
+
+            //TablaGeneral
+            TablaGeneral distrito = new TablaGeneral();
+            List<TablaGeneral> distritos = new List<TablaGeneral>();
+            distrito.descripcion = tablaGeneralDAL.Get(hallazgo.distrito).descripcion;
+            distritos.Add(distrito);
+
+            TablaGeneral tipoDeTestigo = new TablaGeneral();
+            List<TablaGeneral> tiposDeTestigos = new List<TablaGeneral>();
+            tipoDeTestigo.descripcion = tablaGeneralDAL.Get(hallazgo.tipoTestigo).descripcion;
+            tiposDeTestigos.Add(tipoDeTestigo);
+
+            //Agregado a Data Set
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("HallazgoDataSet", hallazgos));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("PEncargadoDataSet", policiasE));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("PSupervisorDataSet", policiasS));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("TGTestigoDataSet", tiposDeTestigos));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("TGDistritoDataSet", distritos));
+
+            //Tipos de Testigo
+            if (tipoDeTestigo.descripcion == "PolicÃ­a")
+            {
+                Policias policiaTestigo = policiaDAL.GetPolicia((int)hallazgo.testigo);
+                List<Policias> policiasT = new List<Policias>();
+                policiasT.Add(policiaTestigo);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("PTestigoDataSet", policiasT));
+
+                Personas persona = new Personas();
+                List<Personas> personas = new List<Personas>();
+                personas.Add(persona);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("PerTestigoDataSet", personas));
+
+                TablaGeneral noAplica = new TablaGeneral();
+                List<TablaGeneral> noAplican = new List<TablaGeneral>();
+                noAplican.Add(noAplica);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("aplicaDataSet", noAplican));
+            }
+            else
+            {
+                if (tipoDeTestigo.descripcion == "Persona")
+                {
+                    Personas personaTestigo = personaDAL.GetPersona((int)hallazgo.testigo);
+                    List<Personas> personasTestigo = new List<Personas>();
+                    personasTestigo.Add(personaTestigo);
+
+                    viewer.LocalReport.DataSources.Add(new ReportDataSource("PerTestigoDataSet", personasTestigo));
+
+                    Policias policiaTestigo = new Policias();
+                    List<Policias> policiasT = new List<Policias>();
+                    policiasT.Add(policiaTestigo);
+
+                    viewer.LocalReport.DataSources.Add(new ReportDataSource("PTestigoDataSet", policiasT));
+
+                    TablaGeneral noAplica = new TablaGeneral();
+                    List<TablaGeneral> noAplican = new List<TablaGeneral>();
+                    noAplican.Add(noAplica);
+
+                    viewer.LocalReport.DataSources.Add(new ReportDataSource("aplicaDataSet", noAplican));
+                }
+                else
+                {
+                    TablaGeneral noAplica = new TablaGeneral();
+                    List<TablaGeneral> noAplican = new List<TablaGeneral>();
+                    noAplica.descripcion = "N/A";
+                    noAplican.Add(noAplica);
+
+                    viewer.LocalReport.DataSources.Add(new ReportDataSource("aplicaDataSet", noAplican));
+
+                    Policias policiaTestigo = new Policias();
+                    List<Policias> policiasT = new List<Policias>();
+                    policiasT.Add(policiaTestigo);
+
+                    viewer.LocalReport.DataSources.Add(new ReportDataSource("PTestigoDataSet", policiasT));
+
+                    Personas persona = new Personas();
+                    List<Personas> personas = new List<Personas>();
+                    personas.Add(persona);
+
+                    viewer.LocalReport.DataSources.Add(new ReportDataSource("PerTestigoDataSet", personas));
+                }
+
+            }
+
+            //--------------------------Creacion de las variables--------------------------
+            Warning[] warnings;
+            string[] streamIds;
+            string mimeType = string.Empty;
+            string encoding = string.Empty;
+            string extension = string.Empty;
+
+            var deviceInfo = @"<DeviceInfo>
+            <EmbedFonts>None</EmbedFonts>
+            <OutputFormat>PDF</OutputFormat>
+            <PageWidth>8.5in</PageWidth>
+            <PageHeight>11in</PageHeight>
+            <MarginTop>0.25in</MarginTop>
+            <MarginLeft>0.25in</MarginLeft>
+            <MarginRight>0.25in</MarginRight>
+            <MarginBottom>0.25in</MarginBottom>
+            </DeviceInfo>";
+
+            byte[] bytes = viewer.LocalReport.Render("PDF", deviceInfo, out mimeType, out encoding, out extension, out streamIds, out warnings);
+
+            Response.Buffer = true;
+            Response.Clear();
+            Response.ContentType = mimeType;
+            Response.AddHeader("content-disposition", "attachment; filename=" + "Acta de hallazgo No. " + hallazgo.numeroFolio + "." + extension);
+            Response.BinaryWrite(bytes);
+            Response.Flush();
         }
     }
 }

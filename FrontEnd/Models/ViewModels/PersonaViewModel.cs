@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -14,28 +14,38 @@ namespace FrontEnd.Models.ViewModels
         [Required]
         [Display(Name = "Tipo de Identificación")]
         public int TipoIdentificacionPersona { get; set; }
+
         [Display(Name = "Tipo de Identificación")]
         public string VistaTipoIdentificacionPersona { get; set; }
+
+
         [Required]
         [StringLength(20, ErrorMessage = "Identificación excede los 20 caracteres")]
         [Display(Name = "Número de Identificación")]
         public string Identificacion { get; set; }
+
         public string IdentificacionPersonaFiltrada { get; set; }
+
+
         [Required]
         [StringLength(250, ErrorMessage = "Nombre excede los 250 caractéres")]
         [Display(Name = "Nombre")]
         public string NombrePersona { get; set; }
+
+
         [Display(Name = "Sexo")]
-        public int SexoPersona { get; set; }
+        public string SexoPersona { get; set; }
+        
         [Display(Name = "Sexo")]
         public string VistaSexoPersona { get; set; }
         [DataType(DataType.Date)]
+        
         [DateValidationPersona(ErrorMessage = "Fecha ingresada invalida")]
         [Display(Name = "Fecha de Nacimiento")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaNacimientoPersona { get; set; }
         [StringLength(50, ErrorMessage = "Nacionalidad excede los 50 caracteres.")]
-        [Required]
+     
         [Display(Name = "Nacionalidad ")]
         public string NacionalidadPersona { get; set; }
         [Display(Name = "Nacionalidad ")]
@@ -62,6 +72,10 @@ namespace FrontEnd.Models.ViewModels
         [StringLength(100, ErrorMessage = "Lugar de trabajo excede la cantidad maxima de caractéres")]
         [Display(Name = "Lugar de Trabajo (Opcional)")]
         public string LugarTrabajoPersona { get; set; }
+
+        [StringLength(300, ErrorMessage = "Instalaciones excede la cantidad maxima de caractéres")]
+        [Display(Name = "Instalaciones")]
+        public string Instalaciones { get; set; }
         public int IdAuditoria { get; set; }
         public int IdCategoria { get; set; }
         public string VistaCategoria { get; set; }
@@ -76,6 +90,7 @@ namespace FrontEnd.Models.ViewModels
         public IEnumerable<SelectListItem> TiposDeIdentificacion { get; set; }
         public IEnumerable<SelectListItem> TiposDeSexo { get; set; }
         public IEnumerable<SelectListItem> Nacionalidades { get; set; }
+        public int VecesNotificado { get; set; }
     }
     public class DateValidationPersona : ValidationAttribute
     {

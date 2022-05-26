@@ -144,7 +144,29 @@ namespace BackEnd.DAL
             }
         }
 
+        public int VecesNotificado(int id)
+        {
+            int contador = 0;
+            try
+            {
+                if (NotificadoExiste(id))
+                {
+                    using (SCAPEntities db = new SCAPEntities())
+                    {
+                        contador = db.ActasDeNotificacion.Where(x => x.personaNotificada == id).Count();
+                    }
 
+                    return contador;
+                }
+
+                return contador;
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
     }
 }
