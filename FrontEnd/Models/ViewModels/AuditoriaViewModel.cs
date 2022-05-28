@@ -7,17 +7,19 @@ namespace FrontEnd.Models.ViewModels
 {
     public  class AuditoriaViewModel 
     {
-        int IdAuditoria { get; set; }        
-        int IdCategoria { get; set; }
-        string VistaCategoria { get; set; }
-        int IdElemento { get; set; }
-        string VistaElemento { get; set; }
-        DateTime Fecha { get; set;  }
-        int Accion { get; set; }
-        string VistaAccion { get; set; }
-        int IdUsuario { get; set; }
-        string VistaUsuario { get; set; }
-        string Justificacion { get; set; }
-  
+
+
+        public int IdAuditoria { get; set; }
+        public int IdCategoria { get; set; }
+        public string VistaCategoria { get; set; }
+        public int IdElemento { get; set; }
+        public string VistaElemento { get; set; }
+        public DateTime Fecha { get; set; }
+        public int Accion { get; set; }
+        public string VistaAccion { get; set; }
+        public int IdUsuario { get; set; }
+        public string VistaUsuario { get; set; }
+       
+
     }
 }

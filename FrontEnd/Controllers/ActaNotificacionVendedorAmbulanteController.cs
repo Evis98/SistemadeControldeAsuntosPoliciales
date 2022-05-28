@@ -324,6 +324,7 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             usuarioDAL = new UsuarioDAL();
             auditoriaDAL = new AuditoriaDAL();
+            AuditoriaViewModel auditoria_model = new AuditoriaViewModel();
             model.Distritos = tablaGeneralDAL.Get("Generales", "distrito").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             model.TiposTestigo = tablaGeneralDAL.Get("Actas", "tipoTestigo").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             model.FormasVenta = tablaGeneralDAL.Get("ActasNotificacionVendedorAmbulante", "formaDeVenta").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
@@ -331,16 +332,16 @@ namespace FrontEnd.Controllers
             DateTime newDateTime = model.Fecha.Date + model.Hora.TimeOfDay;
             model.Fecha = newDateTime;
             model.Estado = int.Parse(tablaGeneralDAL.GetCodigo("Actas", "estadoActa", "1").codigo);
-            model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
-            model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "13").idTablaGeneral;
-            model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
+            auditoria_model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
+            auditoria_model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "13").idTablaGeneral;
+            auditoria_model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
             try
             {
                 if (ModelState.IsValid)
                 {
                     actaNotificacionVendedorAmbulanteDAL.Add(ConvertirActaNotificacionVendedorAmbulante(model));
-                    model.IdElemento = actaNotificacionVendedorAmbulanteDAL.GetActaNotificacionVendedorAmbulanteFolio(model.NumeroFolio).idNotificacionVendedorAmbulante;
-                    auditoriaDAL.Add(ConvertirAuditoria(model));
+                    auditoria_model.IdElemento = actaNotificacionVendedorAmbulanteDAL.GetActaNotificacionVendedorAmbulanteFolio(model.NumeroFolio).idNotificacionVendedorAmbulante;
+                    auditoriaDAL.Add(ConvertirAuditoria(auditoria_model));
                     int aux = actaNotificacionVendedorAmbulanteDAL.GetActaNotificacionVendedorAmbulanteFolio(model.NumeroFolio).idNotificacionVendedorAmbulante;
                     return Redirect("~/ActaNotificacionVendedorAmbulante/Detalle/" + aux);
 
@@ -358,7 +359,8 @@ namespace FrontEnd.Controllers
             Autorizar();
             actaNotificacionVendedorAmbulanteDAL = new ActaNotificacionVendedorAmbulanteDAL();
             Session["idActaNotificacionVendedorAmbulante"] = id;
-            Session["numeroFolio"] = actaNotificacionVendedorAmbulanteDAL.GetActaNotificacionVendedorAmbulante(id).numeroFolio;         
+            Session["auditoria"] = actaNotificacionVendedorAmbulanteDAL.GetActaNotificacionVendedorAmbulante(id).numeroFolio;
+            Session["tabla"] = "Acta de Notificación a Vendedor Ambulante";
             ActaNotificacionVendedorAmbulanteViewModel modelo = CargarActaNotificacionVendedorAmbulante(actaNotificacionVendedorAmbulanteDAL.GetActaNotificacionVendedorAmbulante(id));
             return View(modelo);
         }
@@ -385,15 +387,16 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             usuarioDAL = new UsuarioDAL();
             auditoriaDAL = new AuditoriaDAL();
+            AuditoriaViewModel auditoria_model = new AuditoriaViewModel();
             model.Distritos = tablaGeneralDAL.Get("Generales", "distrito").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             model.FormasVenta = tablaGeneralDAL.Get("ActasNotificacionVendedorAmbulante", "formaDeVenta").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             model.TiposTestigo = tablaGeneralDAL.Get("Actas", "tipoTestigo").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             model.Estados = tablaGeneralDAL.Get("Actas", "estadoActa").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             DateTime newDateTime = model.Fecha.Date + model.Hora.TimeOfDay;
             model.Fecha = newDateTime;
-            model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
-            model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "13").idTablaGeneral;
-            model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
+            auditoria_model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
+            auditoria_model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "13").idTablaGeneral;
+            auditoria_model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
             int estado = actaNotificacionVendedorAmbulanteDAL.GetActaNotificacionVendedorAmbulante(model.IdActaNotificacionVendedorAmbulante).estado;
             try
             {
@@ -404,8 +407,8 @@ namespace FrontEnd.Controllers
                         auditoriaDAL.Add(CambiarEstadoAuditoria(model.IdActaNotificacionVendedorAmbulante));
                     }
                     actaNotificacionVendedorAmbulanteDAL.Edit(ConvertirActaNotificacionVendedorAmbulante(model));
-                    model.IdElemento = actaNotificacionVendedorAmbulanteDAL.GetActaNotificacionVendedorAmbulanteFolio(model.NumeroFolio).idNotificacionVendedorAmbulante;
-                    auditoriaDAL.Add(ConvertirAuditoria(model));
+                    auditoria_model.IdElemento = actaNotificacionVendedorAmbulanteDAL.GetActaNotificacionVendedorAmbulanteFolio(model.NumeroFolio).idNotificacionVendedorAmbulante;
+                    auditoriaDAL.Add(ConvertirAuditoria(auditoria_model));
                     return Redirect("~/ActaNotificacionVendedorAmbulante/Detalle/" + model.IdActaNotificacionVendedorAmbulante);
                 }
                 return View(model);
@@ -416,7 +419,7 @@ namespace FrontEnd.Controllers
             }
         }
 
-        public Auditorias ConvertirAuditoria(ActaNotificacionVendedorAmbulanteViewModel modelo)
+        public Auditorias ConvertirAuditoria(AuditoriaViewModel modelo)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
             actaNotificacionVendedorAmbulanteDAL = new ActaNotificacionVendedorAmbulanteDAL();
@@ -432,7 +435,7 @@ namespace FrontEnd.Controllers
         }
         public Auditorias CambiarEstadoAuditoria(int idActaNotificacionVendedorAmbulante)
         {
-            ActaNotificacionVendedorAmbulanteViewModel modelo = new ActaNotificacionVendedorAmbulanteViewModel();
+            AuditoriaViewModel modelo = new AuditoriaViewModel();
             tablaGeneralDAL = new TablaGeneralDAL();
             actaNotificacionVendedorAmbulanteDAL = new ActaNotificacionVendedorAmbulanteDAL();
             usuarioDAL = new UsuarioDAL();

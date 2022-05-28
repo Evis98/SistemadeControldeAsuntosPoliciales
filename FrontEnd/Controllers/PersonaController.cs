@@ -201,13 +201,14 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             usuarioDAL = new UsuarioDAL();
             auditoriaDAL = new AuditoriaDAL();
+            AuditoriaViewModel auditoria_modelo = new AuditoriaViewModel();
             model.TiposDeIdentificacion = tablaGeneralDAL.Get("Generales", "tipoDeIdentificacion").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             model.Nacionalidades = tablaGeneralDAL.Get("Generales", "nacionalidad").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             model.TiposDeSexo = tablaGeneralDAL.Get("Generales", "sexo").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             model.IdentificacionPersonaFiltrada = personaDAL.GetCedulaPersona(model.Identificacion);
-            model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
-            model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "2").idTablaGeneral;
-            model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
+            auditoria_modelo.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
+            auditoria_modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "2").idTablaGeneral;
+            auditoria_modelo.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
             try
             {
                 if (!personaDAL.IdentificacionExiste(model.Identificacion))
@@ -215,8 +216,8 @@ namespace FrontEnd.Controllers
                     if (ModelState.IsValid)
                     {
                         personaDAL.Add(ConvertirPersona(model));
-                        model.IdElemento = personaDAL.GetPersonaIdentificacion(model.Identificacion).idPersona;
-                        auditoriaDAL.Add(ConvertirAuditoria(model));
+                        auditoria_modelo.IdElemento = personaDAL.GetPersonaIdentificacion(model.Identificacion).idPersona;
+                        auditoriaDAL.Add(ConvertirAuditoria(auditoria_modelo));
                         int aux = personaDAL.GetPersonaIdentificacion(model.Identificacion).idPersona;
                         return Redirect("~/Persona/Detalle/" + aux);
                     }
@@ -234,8 +235,8 @@ namespace FrontEnd.Controllers
             Autorizar();
             personaDAL = new PersonaDAL();
             Session["idPersona"] = id;           
-            Session["nombrePersona"] = personaDAL.GetPersona(id).nombre;
-          
+            Session["auditoria"] = personaDAL.GetPersona(id).nombre;
+            Session["tabla"] = "Persona";
             PersonaViewModel modelo = CargarPersona(personaDAL.GetPersona(id));
             return View(modelo);
         }
@@ -260,19 +261,20 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             usuarioDAL = new UsuarioDAL();
             auditoriaDAL = new AuditoriaDAL();
+            AuditoriaViewModel auditoria_modelo = new AuditoriaViewModel();
             modelo.TiposDeIdentificacion = tablaGeneralDAL.Get("Generales", "tipoDeIdentificacion").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             modelo.Nacionalidades = tablaGeneralDAL.Get("Generales", "nacionalidad").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             modelo.TiposDeSexo = tablaGeneralDAL.Get("Generales", "sexo").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
-            modelo.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
-            modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "2").idTablaGeneral;
-            modelo.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
+            auditoria_modelo.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
+            auditoria_modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "2").idTablaGeneral;
+            auditoria_modelo.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
             try
             {
                 if (ModelState.IsValid)
                 {
                     personaDAL.Edit(ConvertirPersona(modelo));
-                    modelo.IdElemento = personaDAL.GetPersonaIdentificacion(modelo.Identificacion).idPersona;
-                    auditoriaDAL.Add(ConvertirAuditoria(modelo));
+                    auditoria_modelo.IdElemento = personaDAL.GetPersonaIdentificacion(modelo.Identificacion).idPersona;
+                    auditoriaDAL.Add(ConvertirAuditoria(auditoria_modelo));
                     return Redirect("~/Persona/Detalle/" + modelo.IdPersona);
 
                 }
@@ -284,7 +286,7 @@ namespace FrontEnd.Controllers
             }
         }
 
-        public Auditorias ConvertirAuditoria(PersonaViewModel modelo)
+        public Auditorias ConvertirAuditoria(AuditoriaViewModel modelo)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
             personaDAL = new PersonaDAL();

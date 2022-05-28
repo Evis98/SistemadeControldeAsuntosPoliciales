@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace FrontEnd.Models.ViewModels
 {
-    public class UsuarioViewModel : AuditoriaViewModel
+    public class UsuarioViewModel
     { 
         public int IdUsuario { get; set; }
         [Required]
@@ -31,16 +31,8 @@ namespace FrontEnd.Models.ViewModels
         public int Rol { get; set; }
         [Display(Name = "Rol del Usuario")]
         public string VsitaRol { get; set; }
-        public int IdAuditoria { get; set; }
-        public int IdCategoria { get; set; }
-        public string VistaCategoria { get; set; }
-        public int IdElemento { get; set; }
-        public string VistaElemento { get; set; }
-        public DateTime Fecha { get; set; }
-        public int Accion { get; set; }
-        public string VistaAccion { get; set; }
-        public int IdUsuarioAuditoria { get; set; }
-        public string VistaUsuario { get; set; }
+       
+       public string VistaUsuario { get; set; }
         public string CedulaUsuarioFiltrada { get; set; }
 
         public IEnumerable<SelectListItem> TiposDeRol { get; set; }

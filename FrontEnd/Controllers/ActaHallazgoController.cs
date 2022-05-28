@@ -311,22 +311,23 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             usuarioDAL = new UsuarioDAL();
             auditoriaDAL = new AuditoriaDAL();
+            AuditoriaViewModel auditoria_model = new AuditoriaViewModel();
             model.Estado = int.Parse(tablaGeneralDAL.GetCodigo("Actas", "estadoActa", "1").codigo);
             model.Distritos = tablaGeneralDAL.Get("Generales", "distrito").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             model.TiposTestigo = tablaGeneralDAL.Get("Actas", "tipoTestigo").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             model.NumeroFolio = (actaHallazgoDAL.GetCount() + 1).ToString() + "-" + DateTime.Now.Year;
             DateTime newDateTime = model.Fecha.Date + model.Hora.TimeOfDay;
             model.Fecha = newDateTime;
-            model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
-            model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "7").idTablaGeneral;
-            model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
+            auditoria_model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
+            auditoria_model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "7").idTablaGeneral;
+            auditoria_model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
             try
             {
                 if (ModelState.IsValid)
                 {
                     actaHallazgoDAL.Add(ConvertirActaHallazgo(model));
-                    model.IdElemento = actaHallazgoDAL.GetActaHallazgoFolio(model.NumeroFolio).idActaHallazgo;
-                    auditoriaDAL.Add(ConvertirAuditoria(model));
+                    auditoria_model.IdElemento = actaHallazgoDAL.GetActaHallazgoFolio(model.NumeroFolio).idActaHallazgo;
+                    auditoriaDAL.Add(ConvertirAuditoria(auditoria_model));
                     int aux = actaHallazgoDAL.GetActaHallazgoFolio(model.NumeroFolio).idActaHallazgo;
                    
                     return Redirect("~/ActaHallazgo/Detalle/" + aux);
@@ -345,7 +346,8 @@ namespace FrontEnd.Controllers
             Autorizar();
             actaHallazgoDAL = new ActaHallazgoDAL();
             Session["idActaHallazgo"] = id;
-            Session["numeroFolio"] = actaHallazgoDAL.GetActaHallazgo(id).numeroFolio;  
+            Session["auditoria"] = actaHallazgoDAL.GetActaHallazgo(id).numeroFolio;
+            Session["tabla"] = "Acta de Hallazgo";
             ActaHallazgoViewModel modelo = CargarActaHallazgo(actaHallazgoDAL.GetActaHallazgo(id));
            return View(modelo);
         }
@@ -371,14 +373,15 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             usuarioDAL = new UsuarioDAL();
             auditoriaDAL = new AuditoriaDAL();
+            AuditoriaViewModel auditoria_model = new AuditoriaViewModel();
             model.Distritos = tablaGeneralDAL.Get("Generales", "distrito").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             model.Estados = tablaGeneralDAL.Get("Actas", "estadoActa").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             model.TiposTestigo = tablaGeneralDAL.Get("Actas", "tipoTestigo").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             DateTime newDateTime = model.Fecha.Date + model.Hora.TimeOfDay;
             model.Fecha = newDateTime;
-            model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
-            model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "7").idTablaGeneral;
-            model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
+            auditoria_model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
+            auditoria_model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "7").idTablaGeneral;
+            auditoria_model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
             int estado = actaHallazgoDAL.GetActaHallazgo(model.IdActaHallazgo).estado;
             try
             {
@@ -389,8 +392,8 @@ namespace FrontEnd.Controllers
                         auditoriaDAL.Add(CambiarEstadoAuditoria(model.IdActaHallazgo));
                     }
                     actaHallazgoDAL.Edit(ConvertirActaHallazgo(model));
-                    model.IdElemento = actaHallazgoDAL.GetActaHallazgoFolio(model.NumeroFolio).idActaHallazgo;
-                    auditoriaDAL.Add(ConvertirAuditoria(model));
+                    auditoria_model.IdElemento = actaHallazgoDAL.GetActaHallazgoFolio(model.NumeroFolio).idActaHallazgo;
+                    auditoriaDAL.Add(ConvertirAuditoria(auditoria_model));
                     return Redirect("~/ActaHallazgo/Detalle/" + model.IdActaHallazgo);
                 }
                 return View(model);
@@ -400,7 +403,7 @@ namespace FrontEnd.Controllers
                 throw new Exception(ex.Message);
             }
         }
-        public Auditorias ConvertirAuditoria(ActaHallazgoViewModel modelo)
+        public Auditorias ConvertirAuditoria(AuditoriaViewModel modelo)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
             actaHallazgoDAL = new ActaHallazgoDAL();
@@ -416,7 +419,7 @@ namespace FrontEnd.Controllers
         }
         public Auditorias CambiarEstadoAuditoria(int idActaHallazgo)
         {
-            ActaHallazgoViewModel modelo = new ActaHallazgoViewModel();
+            AuditoriaViewModel modelo = new AuditoriaViewModel();
             tablaGeneralDAL = new TablaGeneralDAL();
             actaHallazgoDAL = new ActaHallazgoDAL();
             usuarioDAL = new UsuarioDAL();

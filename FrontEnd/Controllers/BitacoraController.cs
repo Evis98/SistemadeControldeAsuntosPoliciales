@@ -214,12 +214,14 @@ namespace FrontEnd.Controllers
             armaDAL = new ArmaDAL();
             auditoriaDAL = new AuditoriaDAL();
             usuarioDAL = new UsuarioDAL();
+            AuditoriaViewModel auditoria_model = new AuditoriaViewModel();
             model.FechaCreacion = DateTime.Now;
             model.VistaEstadoActual = tablaGeneralDAL.GetCodigo("Bitacoras", "estadoActualBitacora", "1").descripcion;
             model.NumeroConsecutivo = (bitacoraDAL.GetCount() + 1).ToString() + "-" + DateTime.Now.Year;
-            model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
-            model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "6").idTablaGeneral;
-            model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
+            auditoria_model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
+            auditoria_model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "6").idTablaGeneral;
+            auditoria_model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
+
             if (armaDAL.GetArmaNumSerie(model.NumeroSerieArma).policiaAsignado == null)
             {
                 model.ArmaPoliciaAsignado = true;
@@ -238,8 +240,8 @@ namespace FrontEnd.Controllers
                         Bitacoras bitacora = ConvertirBitacora(model);
                         arma.policiaAsignado = policiaDAL.GetPoliciaCedula(model.PoliciaSolicitante).idPolicia;
                         bitacoraDAL.Add(bitacora);
-                        model.IdElemento = bitacoraDAL.GetBitacoraConsecutivo(model.NumeroConsecutivo).idBitacora;
-                        auditoriaDAL.Add(ConvertirAuditoria(model));
+                        auditoria_model.IdElemento = bitacoraDAL.GetBitacoraConsecutivo(model.NumeroConsecutivo).idBitacora;
+                        auditoriaDAL.Add(ConvertirAuditoria(auditoria_model));
                         armaDAL.Edit(arma);
                         auditoriaDAL.Add(EditarAuditoriaArma(arma.idArma));
                         int aux = bitacoraDAL.GetBitacoraConsecutivo(model.NumeroConsecutivo).idBitacora;
@@ -261,6 +263,8 @@ namespace FrontEnd.Controllers
             armaDAL = new ArmaDAL();
             bitacoraDAL = new BitacoraDAL();
             Session["idBitacora"] = id;
+            Session["auditoria"] = bitacoraDAL.GetBitacora(id).numeroConsecutivo;
+            Session["tabla"] = "Bitacora";
             Session["consecutivo"] = bitacoraDAL.GetBitacora(id).numeroConsecutivo;
             BitacoraViewModel modelo = CargarBitacora(bitacoraDAL.GetBitacora(id));
             return View(modelo);
@@ -284,12 +288,13 @@ namespace FrontEnd.Controllers
             armaDAL = new ArmaDAL();
             auditoriaDAL = new AuditoriaDAL();
             usuarioDAL = new UsuarioDAL();
+            AuditoriaViewModel auditoria_model = new AuditoriaViewModel();
             model.FechaFinalizacion = DateTime.Now;
             model.VistaEstadoActual = tablaGeneralDAL.GetCodigo("Bitacoras", "estadoActualBitacora", "2").descripcion;
             model.TiposCondicion = tablaGeneralDAL.Get("Armas", "condicion").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
-            model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
-            model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "6").idTablaGeneral;
-            model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
+            auditoria_model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "5").idTablaGeneral;
+            auditoria_model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "6").idTablaGeneral;
+            auditoria_model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
             try
             {
                 if (ModelState.IsValid)
@@ -300,8 +305,8 @@ namespace FrontEnd.Controllers
                     armaDAL.Edit(arma);
                     auditoriaDAL.Add(EditarAuditoriaArma(arma.idArma));
                     bitacoraDAL.Edit(ConvertirBitacora(model));
-                    model.IdElemento = bitacoraDAL.GetBitacoraConsecutivo(model.NumeroConsecutivo).idBitacora;
-                    auditoriaDAL.Add(ConvertirAuditoria(model));
+                    auditoria_model.IdElemento = bitacoraDAL.GetBitacoraConsecutivo(model.NumeroConsecutivo).idBitacora;
+                    auditoriaDAL.Add(ConvertirAuditoria(auditoria_model));
 
                     return Redirect("~/Bitacora/Detalle/" + model.IdBitacora);
                 }
@@ -334,9 +339,10 @@ namespace FrontEnd.Controllers
             policiaDAL = new PoliciaDAL();
             auditoriaDAL = new AuditoriaDAL();
             usuarioDAL = new UsuarioDAL();
-            modelo.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
-            modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "6").idTablaGeneral;
-            modelo.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
+            AuditoriaViewModel auditoria_modelo = new AuditoriaViewModel();
+            auditoria_modelo.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
+            auditoria_modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "6").idTablaGeneral;
+            auditoria_modelo.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
             try
             {
                 if (ModelState.IsValid)
@@ -353,8 +359,8 @@ namespace FrontEnd.Controllers
                         auditoriaDAL.Add(EditarAuditoriaArma(arma2.idArma));
                     }
                     bitacoraDAL.Edit(ConvertirBitacora(modelo));
-                    modelo.IdElemento = bitacoraDAL.GetBitacoraConsecutivo(modelo.NumeroConsecutivo).idBitacora;
-                    auditoriaDAL.Add(ConvertirAuditoria(modelo));
+                    auditoria_modelo.IdElemento = bitacoraDAL.GetBitacoraConsecutivo(modelo.NumeroConsecutivo).idBitacora;
+                    auditoriaDAL.Add(ConvertirAuditoria(auditoria_modelo));
                     return Redirect("~/Bitacora/Detalle/" + modelo.IdBitacora);
                 }
                 return View(modelo);
@@ -461,7 +467,7 @@ namespace FrontEnd.Controllers
         //--------------------------------------------------------------------------------------------------
         public Auditorias EditarAuditoriaArma(int idArma)
         {
-            ArmaViewModel modelo = new ArmaViewModel();
+            AuditoriaViewModel modelo = new AuditoriaViewModel();
             tablaGeneralDAL = new TablaGeneralDAL();
             armaDAL = new ArmaDAL();
             usuarioDAL = new UsuarioDAL();
@@ -479,7 +485,7 @@ namespace FrontEnd.Controllers
             };
         }
 
-        public Auditorias ConvertirAuditoria(BitacoraViewModel modelo)
+        public Auditorias ConvertirAuditoria(AuditoriaViewModel modelo)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
             bitacoraDAL = new BitacoraDAL();

@@ -334,22 +334,23 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             usuarioDAL = new UsuarioDAL();
             auditoriaDAL = new AuditoriaDAL();
+            AuditoriaViewModel auditoria_model = new AuditoriaViewModel();
             model.Distritos = tablaGeneralDAL.Get("Generales", "distrito").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             model.TiposTestigo = tablaGeneralDAL.Get("Actas", "tipoTestigo").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             model.NumeroFolio = (actaDeNotificacionDAL.GetCount(model.Fecha.Date) + 1).ToString() + "-" + model.Fecha.Date.Year;
             DateTime newDateTime = model.Fecha.Date + model.Hora.TimeOfDay;
             model.Fecha = newDateTime;
             model.Estado = int.Parse(tablaGeneralDAL.GetCodigo("Actas", "estadoActa", "1").codigo);
-            model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
-            model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "12").idTablaGeneral;
-            model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
+            auditoria_model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
+            auditoria_model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "12").idTablaGeneral;
+            auditoria_model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
             try
             {   
                 if (ModelState.IsValid)
                 {
                     actaDeNotificacionDAL.Add(ConvertirActaDeNotificacion(model));
-                    model.IdElemento = actaDeNotificacionDAL.GetActaDeNotificacionFolio(model.NumeroFolio).idActaDeNotificacion;
-                    auditoriaDAL.Add(ConvertirAuditoria(model));
+                    auditoria_model.IdElemento = actaDeNotificacionDAL.GetActaDeNotificacionFolio(model.NumeroFolio).idActaDeNotificacion;
+                    auditoriaDAL.Add(ConvertirAuditoria(auditoria_model));
                     int aux = actaDeNotificacionDAL.GetActaDeNotificacionFolio(model.NumeroFolio).idActaDeNotificacion;
                     return Redirect("~/ActaNotificacion/Detalle/" + aux);
 
@@ -367,8 +368,10 @@ namespace FrontEnd.Controllers
         {
             Autorizar();
             actaDeNotificacionDAL = new ActaDeNotificacionDAL();
-            Session["idActaNotificacion"] = id;            
-            Session["numeroFolio"] = actaDeNotificacionDAL.GetActaDeNotificacion(id).numeroFolio;
+            Session["idActaNotificacion"] = id;
+            Session["auditoria"] = actaDeNotificacionDAL.GetActaDeNotificacion(id).numeroFolio;
+            Session["tabla"] = "Acta de Notificación";
+      
             ActaNotificacionViewModel modelo = CargarActaNotificacion(actaDeNotificacionDAL.GetActaDeNotificacion(id));
             return View(modelo);
         }
@@ -394,14 +397,15 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             usuarioDAL = new UsuarioDAL();
             auditoriaDAL = new AuditoriaDAL();
+            AuditoriaViewModel auditoria_model = new AuditoriaViewModel();
             model.Distritos = tablaGeneralDAL.Get("Generales", "distrito").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             model.Estados = tablaGeneralDAL.Get("Actas", "estadoActa").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             model.TiposTestigo = tablaGeneralDAL.Get("Actas", "tipoTestigo").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             DateTime newDateTime = model.Fecha.Date + model.Hora.TimeOfDay;
             model.Fecha = newDateTime;
-            model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
-            model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "12").idTablaGeneral;
-            model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
+            auditoria_model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
+            auditoria_model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "12").idTablaGeneral;
+            auditoria_model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
             int estado = actaDeNotificacionDAL.GetActaDeNotificacion(model.IdActaDeNotificacion).estado;
             try
             {
@@ -413,8 +417,8 @@ namespace FrontEnd.Controllers
                     }
 
                     actaDeNotificacionDAL.Edit(ConvertirActaDeNotificacion(model));
-                    model.IdElemento = actaDeNotificacionDAL.GetActaDeNotificacionFolio(model.NumeroFolio).idActaDeNotificacion;
-                    auditoriaDAL.Add(ConvertirAuditoria(model));
+                    auditoria_model.IdElemento = actaDeNotificacionDAL.GetActaDeNotificacionFolio(model.NumeroFolio).idActaDeNotificacion;
+                    auditoriaDAL.Add(ConvertirAuditoria(auditoria_model));
                     return Redirect("~/ActaNotificacion/Detalle/" + model.IdActaDeNotificacion);
                 }
                 return View(model);
@@ -425,7 +429,7 @@ namespace FrontEnd.Controllers
             }
         }
 
-        public Auditorias ConvertirAuditoria(ActaNotificacionViewModel modelo)
+        public Auditorias ConvertirAuditoria(AuditoriaViewModel modelo)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
             actaDeNotificacionDAL = new ActaDeNotificacionDAL();
@@ -441,7 +445,7 @@ namespace FrontEnd.Controllers
         }
         public Auditorias CambiarEstadoAuditoria(int idActaDeNotificacion)
         {
-            ActaNotificacionViewModel modelo = new ActaNotificacionViewModel();
+            AuditoriaViewModel modelo = new AuditoriaViewModel();
             tablaGeneralDAL = new TablaGeneralDAL();
             actaDeNotificacionDAL = new ActaDeNotificacionDAL();
             usuarioDAL = new UsuarioDAL();

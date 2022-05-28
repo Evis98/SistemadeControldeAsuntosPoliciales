@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace FrontEnd.Models.ViewModels
 {
-    public class Parte1ViewModel : AuditoriaViewModel
+    public class Parte1ViewModel 
     {
         //1 Ubicación del sitio
         public int IdPartePolcial { get; set; }
@@ -513,16 +513,7 @@ namespace FrontEnd.Models.ViewModels
         [Display(Name = "Número de Móvil")]
 
         public string NumeroMovilPolciaAsiste { get; set; }
-        public int IdAuditoria { get; set; }
-        public int IdCategoria { get; set; }
-        public string VistaCategoria { get; set; }
-        public int IdElemento { get; set; }
-        public string VistaElemento { get; set; }
-        public DateTime FechaParte { get; set; }
-        public int Accion { get; set; }
-        public string VistaAccion { get; set; }
-        public int IdUsuario { get; set; }
-        public string VistaUsuario { get; set; }
+
 
         public IEnumerable<SelectListItem> TiposLugaresSuceso { get; set; }
         public IEnumerable<SelectListItem> Distritos { get; set; }

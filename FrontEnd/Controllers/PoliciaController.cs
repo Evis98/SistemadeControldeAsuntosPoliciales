@@ -156,11 +156,13 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             usuarioDAL = new UsuarioDAL();
             auditoriaDAL = new AuditoriaDAL();
+            AuditoriaViewModel auditoria_modelo = new AuditoriaViewModel();
             model.TiposCedula = tablaGeneralDAL.Get("Policias", "tipoCedula").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             model.CedulaPoliciaFiltrada = policiaDAL.GetCedulaPolicia(model.Cedula);
-            model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
-            model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "1").idTablaGeneral;
-            model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;           
+            auditoria_modelo.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
+            auditoria_modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "1").idTablaGeneral;
+            auditoria_modelo.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
+           
             try
             {
                 if (!policiaDAL.CedulaPoliciaExiste(model.Cedula))
@@ -168,8 +170,8 @@ namespace FrontEnd.Controllers
                     if (ModelState.IsValid)
                     {
                         policiaDAL.Add(ConvertirPolicia(model));
-                        model.IdElemento = policiaDAL.GetPoliciaCedula(model.Cedula).idPolicia;
-                        auditoriaDAL.Add(ConvertirAuditoria(model));
+                        auditoria_modelo.IdElemento = policiaDAL.GetPoliciaCedula(model.Cedula).idPolicia;
+                        auditoriaDAL.Add(ConvertirAuditoria(auditoria_modelo));
                         int aux = policiaDAL.GetPoliciaCedula(model.Cedula).idPolicia;
                         return Redirect("~/Policia/Detalle/" + aux);
                     }
@@ -188,7 +190,9 @@ namespace FrontEnd.Controllers
             Autorizar();
             policiaDAL = new PoliciaDAL();
             Session["idPolicia"] = id;
+            Session["tabla"] = "Policia";
             Session["nombrePolicia"] = policiaDAL.GetPolicia(id).nombre;
+            Session["auditoria"] = policiaDAL.GetPolicia(id).nombre;
             PoliciaViewModel modelo = CargarPolicia(policiaDAL.GetPolicia(id));            
             return View(modelo);
         }
@@ -212,17 +216,18 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             usuarioDAL = new UsuarioDAL();
             auditoriaDAL = new AuditoriaDAL();
+            AuditoriaViewModel auditoria_modelo = new AuditoriaViewModel();
             modelo.TiposCedula = tablaGeneralDAL.Get("Policias", "tipoCedula").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
-            modelo.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
-            modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "1").idTablaGeneral;
-            modelo.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
+            auditoria_modelo.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
+            auditoria_modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "1").idTablaGeneral;
+            auditoria_modelo.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
             try
             {
                 if (ModelState.IsValid)
                 {
                     policiaDAL.Edit(ConvertirPolicia(modelo));
-                    modelo.IdElemento = policiaDAL.GetPoliciaCedula(modelo.Cedula).idPolicia;
-                    auditoriaDAL.Add(ConvertirAuditoria(modelo));
+                    auditoria_modelo.IdElemento = policiaDAL.GetPoliciaCedula(modelo.Cedula).idPolicia;
+                    auditoriaDAL.Add(ConvertirAuditoria(auditoria_modelo));
                     return Redirect("~/Policia/Detalle/" + modelo.IdPolicia);
                 }
                 return View(modelo);
@@ -235,7 +240,7 @@ namespace FrontEnd.Controllers
 
       [HttpPost]
         //Se encarga del cambio de estado de un policía entre activo e inactivo
-        public ActionResult CambioEstado(int? estado,string justificacion,int idPolicia)
+        public ActionResult CambioEstado(int? estado, int idPolicia)
         {
             Autorizar();
             int estadoFinal;
@@ -253,7 +258,7 @@ namespace FrontEnd.Controllers
                     estadoFinal = tablaGeneralDAL.Get("Generales", "estado", "Activo").idTablaGeneral;
                 }
                 policiaDAL.CambiaEstadoPolicia((int)Session["idPolicia"], estadoFinal);
-                auditoriaDAL.Add(CambiarEstadoAuditoria(justificacion,idPolicia));
+                auditoriaDAL.Add(CambiarEstadoAuditoria(idPolicia));
                 return Redirect("~/Policia/Detalle/" + Session["idPolicia"]);
             }
             catch (Exception ex)
@@ -280,17 +285,14 @@ namespace FrontEnd.Controllers
         {
 
             var edad = DateTime.Today.Year - fechaNacimiento.Value.Year;
-
             if (fechaNacimiento.Value.Date > DateTime.Today.AddYears(-edad)) edad--;
-
             return edad.ToString();
 
         }
 
-        public Auditorias ConvertirAuditoria(PoliciaViewModel modelo)
+        public Auditorias ConvertirAuditoria(AuditoriaViewModel modelo)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
-            policiaDAL = new PoliciaDAL();
             return new Auditorias
             {
                 idAuditoria = modelo.IdAuditoria,
@@ -303,9 +305,9 @@ namespace FrontEnd.Controllers
             };
         }
 
-        public Auditorias CambiarEstadoAuditoria(string justificacion,int idPolicia)
+        public Auditorias CambiarEstadoAuditoria(int idPolicia)
         {
-           PoliciaViewModel modelo = new PoliciaViewModel();
+           AuditoriaViewModel modelo = new AuditoriaViewModel();
             tablaGeneralDAL = new TablaGeneralDAL();
             policiaDAL = new PoliciaDAL();
             usuarioDAL = new UsuarioDAL();
@@ -317,7 +319,6 @@ namespace FrontEnd.Controllers
                 idCategoria = modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "1").idTablaGeneral,
                 idUsuario = modelo.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario,
                 fecha = DateTime.Now,
-                justificacion = justificacion,
                 idElemento = policiaDAL.GetPolicia(idPolicia).idPolicia
 
             };

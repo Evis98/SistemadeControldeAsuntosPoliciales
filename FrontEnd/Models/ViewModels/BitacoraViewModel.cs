@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace FrontEnd.Models.ViewModels
 {
-    public class BitacoraViewModel : AuditoriaViewModel
+    public class BitacoraViewModel 
     {
         public int IdBitacora { get; set; }
         public string NumeroConsecutivo { get; set; }
@@ -70,16 +70,6 @@ namespace FrontEnd.Models.ViewModels
         public int EstadoActual { get; set; }
         [Display(Name = "Estado actual de bitácora")]
         public string VistaEstadoActual { get; set; }
-        public int IdAuditoria { get; set; }
-        public int IdCategoria { get; set; }
-        public string VistaCategoria { get; set; }
-        public int IdElemento { get; set; }
-        public string VistaElemento { get; set; }
-        public DateTime Fecha { get; set; }
-        public int Accion { get; set; }
-        public string VistaAccion { get; set; }
-        public int IdUsuario { get; set; }
-        public string VistaUsuario { get; set; }
         public IEnumerable<SelectListItem> TiposCondicion { get; set; }
         public string VistaArmeroReceptor { get; internal set; }
         public string VistaCondicionFinal { get; internal set; }

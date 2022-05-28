@@ -745,7 +745,7 @@ namespace FrontEnd.Controllers
             usuarioDAL = new UsuarioDAL();
             auditoriaDAL = new AuditoriaDAL();
             parteDAL = new ParteDAL();
-
+            AuditoriaViewModel auditoria_modelo = new AuditoriaViewModel();
             try
             {
 
@@ -757,11 +757,11 @@ namespace FrontEnd.Controllers
                         PartesPoliciales parte = ConvertirParte(modelAux);
                         parte.numeroFolio = (parteDAL.GetCount(parte.fecha.Date) + 1).ToString() + "-" + parte.fecha.Date.Year;
                         parteDAL.Add(parte);
-                        modelAux.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
-                        modelAux.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "15").idTablaGeneral;
-                        modelAux.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
-                        modelAux.IdElemento = parteDAL.GetPartePolicial(parte.numeroFolio).idPartepolicial;
-                        auditoriaDAL.Add(ConvertirAuditoria(modelAux));
+                        auditoria_modelo.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
+                        auditoria_modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "15").idTablaGeneral;
+                        auditoria_modelo.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
+                        auditoria_modelo.IdElemento = parteDAL.GetPartePolicial(parte.numeroFolio).idPartepolicial;
+                        auditoriaDAL.Add(ConvertirAuditoria(auditoria_modelo));
                         int aux = parteDAL.GetPartePolicial(parte.numeroFolio).idPartepolicial;
                         return Redirect("~/Parte/Detalle1/" + aux);
                     }
@@ -781,8 +781,6 @@ namespace FrontEnd.Controllers
                 throw new Exception(ex.Message);
             }
         }
-
-        //Métodos vista parciales Infractor
 
         public PartialViewResult ListaInfractoresBuscar(string nombre)
         {
@@ -830,8 +828,6 @@ namespace FrontEnd.Controllers
             return infractores;
         }
 
-        //Métodos vista parciales Persona
-
         public PartialViewResult ListaPersonasBuscar(string nombre)
         {
             List<PersonaViewModel> personas = new List<PersonaViewModel>();
@@ -874,8 +870,6 @@ namespace FrontEnd.Controllers
             }
             return personas;
         }
-
-        //Métodos vista parciales Policia
 
         public PartialViewResult ListaPoliciasBuscar(string nombre)
         {
@@ -942,7 +936,8 @@ namespace FrontEnd.Controllers
             Autorizar();
             parteDAL = new ParteDAL();
             Session["idParte"] = id;
-            Session["numeroFolio"] = parteDAL.GetParte(id).numeroFolio;           
+            Session["auditoria"] = parteDAL.GetParte(id).numeroFolio;
+            Session["tabla"] = "Parte Policial";
             ListParte1ViewModel modelo = ConvertirParteInverso(parteDAL.GetParte(id));
 
             return View(modelo);
@@ -973,14 +968,11 @@ namespace FrontEnd.Controllers
             Session["idParte"] = id;
             Session["numeroFolio"] = parteDAL.GetParte(id).numeroFolio;
             ListParte1ViewModel modelo = ConvertirParteInverso(parteDAL.GetParte(id));
-
             return View(modelo);
         }
 
-        public Auditorias ConvertirAuditoria(Parte1ViewModel modelo)
+        public Auditorias ConvertirAuditoria(AuditoriaViewModel modelo)
         {
-            tablaGeneralDAL = new TablaGeneralDAL();
-            parteDAL = new ParteDAL();
             return new Auditorias
             {
                 idAuditoria = modelo.IdAuditoria,

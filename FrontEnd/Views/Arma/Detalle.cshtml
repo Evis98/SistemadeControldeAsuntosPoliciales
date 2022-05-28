@@ -12,119 +12,119 @@
         </div>
     </div>
     <hr />
-
-    <dl class=" row">
-        @Html.HiddenFor(d => d.IdArma)
-        @Html.HiddenFor(d => d.EstadoArma)
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.NumeroSerie)
-        </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.NumeroSerie)
-        </dd>
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.NombrePolicia)
-        </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.NombrePolicia)
-        </dd>
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.VistaTipoArma)
-        </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.VistaTipoArma)
-        </dd>
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.VistaMarca)
-        </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.VistaMarca)
-        </dd>
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.ModeloArma)
-        </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.ModeloArma)
-        </dd>
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.VistaCalibre)
-        </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.VistaCalibre)
-        </dd>
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.VistaCondicion)
-        </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.VistaCondicion)
-        </dd>
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.VistaUbicacion)
-        </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.VistaUbicacion)
-        </dd>
-        @if (Model.Observacion != null)
-        {
+    @using (Html.BeginForm("CambioEstadoArma", "Arma", FormMethod.Post))
+    {
+        <dl class=" row">
+            @Html.HiddenFor(d => d.IdArma)
+            @Html.HiddenFor(d => d.EstadoArma)
             <dt class="col-sm-4">
-                @Html.Label("Observaciones")
+                @Html.LabelFor(d => d.NumeroSerie)
             </dt>
             <dd class="col-sm-8">
-                @Html.DisplayTextFor(d => d.Observacion)
+                @Html.DisplayTextFor(d => d.NumeroSerie)
             </dd>
-        }
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.VistaEstadoArma)
-        </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.VistaEstadoArma)
-        </dd>
-        <dd class="col-sm-8">
-            <a class="btn btn-sm btn-warning" data-toggle="modal" data-target="#show3">Cambiar Estado</a>
-        </dd>
-    </dl>
-    <hr />
-    
-    <div class="row">
-        <div class="col-sm-12">
-            <a href="~/Arma/Index/" class="btn btn-outline-secondary">Regresar</a>
-            @if (Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "5")
+            <dt class="col-sm-4">
+                @Html.LabelFor(d => d.NombrePolicia)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayTextFor(d => d.NombrePolicia)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.LabelFor(d => d.VistaTipoArma)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayTextFor(d => d.VistaTipoArma)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.LabelFor(d => d.VistaMarca)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayTextFor(d => d.VistaMarca)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.LabelFor(d => d.ModeloArma)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayTextFor(d => d.ModeloArma)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.LabelFor(d => d.VistaCalibre)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayTextFor(d => d.VistaCalibre)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.LabelFor(d => d.VistaCondicion)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayTextFor(d => d.VistaCondicion)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.LabelFor(d => d.VistaUbicacion)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayTextFor(d => d.VistaUbicacion)
+            </dd>
+            @if (Model.Observacion != null)
             {
-                <div style="text-align:center;">
-                    <a class="btn btn-primary" href="~/Arma/Editar/@Model.IdArma">Editar</a>
-                    <a class="btn btn-secondary" href="~/Auditoria/ListadoArma/@Model.IdArma">Ver Auditorias</a>
-                </div>
+                <dt class="col-sm-4">
+                    @Html.Label("Observaciones")
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayTextFor(d => d.Observacion)
+                </dd>
             }
+            <dt class="col-sm-4">
+                @Html.LabelFor(d => d.VistaEstadoArma)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayTextFor(d => d.VistaEstadoArma)
+            </dd>
+            <dd class="col-sm-8">
+                <a class="btn btn-sm btn-warning" data-toggle="modal" data-target="#show3">Cambiar Estado</a>
+            </dd>
+        </dl>
+        <hr />
+
+        <div class="row">
+            <div class="col-sm-12">
+                <a href="~/Arma/Index/" class="btn btn-outline-secondary">Regresar</a>
+                @if (Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "5")
+                {
+                    <div style="text-align:center;">
+                        <a class="btn btn-primary" href="~/Arma/Editar/@Model.IdArma">Editar</a>
+                        <a class="btn btn-secondary" href="~/Auditoria/ListadoAuditoria/@Model.IdArma">Ver Auditorias</a>
+                    </div>
+                }
             </div>
 
-    </div>
-   
-</div>
-
-
-<div class="modal" id="show3" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Modificar Estado</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            @using (Html.BeginForm("CambioEstadoArma", "Arma", FormMethod.Post))
-            {
-        <div class="modal-body">
-            @Html.HiddenFor(d => d.EstadoArma)
-            @Html.HiddenFor(d => d.IdArma)
-            <p>¿Está seguro que desea modificar el estado del arma?</p>
-            <label for="message-text" class="col-form-label">Justificación:</label>
-            <textarea class="form-control" name="justificacion" id="justificacion"></textarea>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-outline-danger" id="Cancel" data-dismiss="modal">Cancelar</button>
-            <button class="btn btn-primary" id="Save" href="~/Arma/CambioEstadoArma/@Model.EstadoArma">Modificar</button>
 
-        </div>}
+        <div class="modal" id="show3" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Modificar Estado</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <p>¿Está seguro que desea modificar el estado del arma?</p>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-danger" id="Cancel" data-dismiss="modal">Cancelar</button>
+                        <button class="btn btn-primary" id="Save" href="~/Arma/CambioEstadoArma/@Model.EstadoArma">Modificar</button>
+
+                    </div>
+                </div>
+
             </div>
-    </div>
-</div>
+        </div>
+    }</div>
+
+ 

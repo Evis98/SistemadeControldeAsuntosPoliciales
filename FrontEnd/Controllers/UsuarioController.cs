@@ -124,10 +124,11 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             usuarioDAL = new UsuarioDAL();
             auditoriaDAL = new AuditoriaDAL();
+            AuditoriaViewModel auditoria_model = new AuditoriaViewModel();
             model.CedulaUsuarioFiltrada = usuarioDAL.GetCedulaUsuario(model.Cedula);
-            model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
-            model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "1").idTablaGeneral;
-            model.IdUsuarioAuditoria = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
+            auditoria_model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
+            auditoria_model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "16").idTablaGeneral;
+            auditoria_model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
             try
             {
                 if (!usuarioDAL.CedulaUsuarioExiste(model.Cedula))
@@ -135,8 +136,8 @@ namespace FrontEnd.Controllers
                     if (ModelState.IsValid)
                     {
                         usuarioDAL.Add(ConvertirUsuario(model));
-                        model.IdElemento = usuarioDAL.GetUsuarioCedula(model.Cedula).idUsuario;
-                        auditoriaDAL.Add(ConvertirAuditoria(model));
+                        auditoria_model.IdElemento = usuarioDAL.GetUsuarioCedula(model.Cedula).idUsuario;
+                        auditoriaDAL.Add(ConvertirAuditoria(auditoria_model));
                         int aux = usuarioDAL.GetUsuarioCedula(model.Cedula).idUsuario;
                         return Redirect("~/Usuario/Detalle/" + aux);
                     }
@@ -163,16 +164,17 @@ namespace FrontEnd.Controllers
             usuarioDAL = new UsuarioDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             auditoriaDAL = new AuditoriaDAL();
-            model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
-            model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "1").idTablaGeneral;
-            model.IdUsuarioAuditoria = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
+            AuditoriaViewModel auditoria_model = new AuditoriaViewModel();
+            auditoria_model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
+            auditoria_model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "16").idTablaGeneral;
+            auditoria_model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
             try
             {
                 if (ModelState.IsValid)
                 {
                     usuarioDAL.Edit(ConvertirUsuario(model));
-                    model.IdElemento = usuarioDAL.GetUsuarioCedula(model.Cedula).idUsuario;
-                    auditoriaDAL.Add(ConvertirAuditoria(model));
+                    auditoria_model.IdElemento = usuarioDAL.GetUsuarioCedula(model.Cedula).idUsuario;
+                    auditoriaDAL.Add(ConvertirAuditoria(auditoria_model));
                     return Redirect("~/Usuario/Detalle/" + model.IdUsuario);
                 }
                 return View(model);
@@ -186,13 +188,15 @@ namespace FrontEnd.Controllers
         public ActionResult Detalle(int id)
         {
             usuarioDAL = new UsuarioDAL();
-            Session["idPolicia"] = id;
-            Session["nombrePolicia"] = usuarioDAL.GetUsuario(id).nombre;
+            Session["idUsuario"] = id;
+            //Session["nombrePolicia"] = usuarioDAL.GetUsuario(id).nombre;
+            Session["auditoria"] = usuarioDAL.GetUsuario(id).nombre;
+            Session["tabla"] = "Usuario";
             UsuarioViewModel modelo = CargarUsuario(usuarioDAL.GetUsuario(id));
             return View(modelo);
         }
 
-        public Auditorias ConvertirAuditoria(UsuarioViewModel modelo)
+        public Auditorias ConvertirAuditoria(AuditoriaViewModel modelo)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
             usuarioDAL = new UsuarioDAL();
@@ -203,7 +207,7 @@ namespace FrontEnd.Controllers
                 idElemento = modelo.IdElemento,
                 fecha = DateTime.Now,
                 accion = modelo.Accion,
-                idUsuario = modelo.IdUsuarioAuditoria,
+                idUsuario = modelo.IdUsuario,
 
             };
         }

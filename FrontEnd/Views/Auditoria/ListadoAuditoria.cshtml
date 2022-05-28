@@ -1,4 +1,4 @@
-﻿@model List<FrontEnd.Models.ViewModels.ActaNotificacionViewModel>
+﻿@model List<FrontEnd.Models.ViewModels.AuditoriaViewModel>
 
 
 @{
@@ -15,11 +15,11 @@
             <hr />
         </div>
     </div>
-    @using (Html.BeginForm("ListadoActaNotificacion", "Auditoria", FormMethod.Get))
+    @using (Html.BeginForm("ListadoAuditoria", "Auditoria", FormMethod.Get))
     {
         <div class="row">
             <div class="col mb-3">
-                <h1 class="h2">@HttpContext.Current.Session["numeroFolio"].ToString()</h1>
+                <h1 class="h2">@Session["tabla"] : @HttpContext.Current.Session["auditoria"].ToString()</h1>
             </div>
         </div>
         <div class="row">
@@ -36,7 +36,6 @@
                     <option value="Agregar">Agregar</option>
                     <option value="Editar">Editar</option>
                     <option value="Modificar estado">Modificar estado</option>
-
                 </select>
                 <input class="form-control" name="busquedaFechaInicioP" type="date" id="busquedaFechaInicioP" style="display:none" />
                 <label id="textFechaInicioP" style="display:none">Fecha de inicio</label>
@@ -55,13 +54,13 @@
         <hr />
         <div class="row">
             <div class="col-sm-12">
-                <table class="table table-bordered center table-sm" id="idtablaNotificacion">
+                <table class="table table-bordered center table-sm" id="idtablaPolicia">
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col"> Usuario</th>
                             <th scope="col"> Acción</th>
                             <th scope="col"> Fecha</th>
-                            <th scope="col"></th>
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -71,11 +70,7 @@
                                 <th scope="row">@oElemento.VistaUsuario</th>
                                 <td>@oElemento.VistaAccion</td>
                                 <td>@oElemento.Fecha</td>
-                                <td>
-                                    <div style="text-align:center;">
-                                        <a class="btn btn-sm btn-outline-info" href="~/Auditoria/DetalleActaNotificacion/@oElemento.IdAuditoria">Ver Detalles</a>
-                                    </div>
-                                </td>
+                                
                             </tr>
                         }
                     </tbody>
@@ -83,19 +78,14 @@
             </div>
         </div>
     }
-
+  
     <hr />
-    <div class="row">
-        <div class="col-sm-9">
-            <a class="btn btn-outline-secondary" href="~/ActaNotificacion/Detalle/@HttpContext.Current.Session["idActaNotificacion"].ToString()">Regresar</a>
-        </div>
-    </div>
+    
 </div>
-
 
 <script>
     $(document).ready(function () {
-        $('#idtablaNotificacion').DataTable({
+        $('#idtablaPolicia').DataTable({
             searching: false,
             lengthMenu: [[6], [6]],
             lengthChange: false,
@@ -116,6 +106,11 @@
 
 
 </script>
+
+
+
+
+
 
 
 
