@@ -1,6 +1,5 @@
 ﻿@model List<FrontEnd.Models.ViewModels.RequisitoViewModel>
 
-
 @{
     ViewBag.Title = "Listado de Requisitos";
     List<SelectListItem> items1 = (List<SelectListItem>)ViewBag.items1;
@@ -8,14 +7,10 @@
 }
 
 <div class="container bg-light text-dark border" style=" height: auto; min-height: 80vh; margin-bottom: 20px; word-wrap: break-word;">
-    <div class="row">
-        <div class="col-md-12">
-            <div style="text-align:center;">
-                <h3 class="display-4">@ViewBag.Title </h3>
-            </div>
-            <hr />
-        </div>
+    <div style="text-align:center;">
+        <h1 class="display-5">@ViewBag.Title</h1>
     </div>
+    <hr />
     @using (Html.BeginForm("Listado", "Requisito", FormMethod.Get))
     {
         <div class="row">
@@ -23,16 +18,16 @@
                 <h1 class="h2">@HttpContext.Current.Session["nombrePolicia"].ToString()</h1>
             </div>
         </div>
-        <div class="form-row">
+        <div class="row">
             <div class="col-sm-3">
-                @Html.DropDownList("filtrosSeleccionado", items1, new { @class = "form-control", @id = "filtroSeleccionado", @name = "filtroSeleccionado", @onclick = "ocultarRequisito()" })
+                @Html.DropDownList("filtrosSeleccionado", items1, new { @class = "form-select", @id = "filtroSeleccionado", @name = "filtroSeleccionado", @onclick = "ocultarRequisito()" })
                 <script>
                     document.getElementById("filtroSeleccionado").value = "Detalle de Requisito";
                 </script>
             </div>
             <div class="col-sm-4">
                 <input class="form-control" name="busqueda" type="text" id="busqueda" onkeyup="this.value = this.value.toUpperCase();" onkeypress="return sololetrasnumerossimbolos(event)" />
-                @Html.DropDownList("tiposRequisito", items2, new { @class = "form-control", @id = "tipoRequisito", @name = "tipoRequisito", @style = "display:none" })
+                @Html.DropDownList("tiposRequisito", items2, new { @class = "form-select", @id = "tipoRequisito", @name = "tipoRequisito", @style = "display:none" })
 
             </div>
             <div class="col-sm-4">
@@ -42,39 +37,36 @@
                 <a class="btn btn-success" href="~/Requisito/Nuevo/@HttpContext.Current.Session["idPolicia"].ToString()">Agregar</a>
             </div>
         </div>
-        <hr />
-        <div class="row">
-            <div class="col-sm-12">
-                <table class="table table-bordered center table-sm" id="idtablaRequisitosList">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col"> Tipo Requisito</th>
-                            <th scope="col"> Descripción</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var oElemento in Model.Take(10))
-                        {
-                            <tr>
-                                <th scope="row">@oElemento.VistaTipoRequisito</th>
-                                <td>@oElemento.Detalles</td>
-                                <td>
-                                    <div style="text-align:center;">
-                                        <a class="btn btn-sm btn-outline-info" href="~/Requisito/Detalle/@oElemento.IdRequisito">Ver Detalles</a>
-                                    </div>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
     }
-   
+    <hr />
+
+    <table class="table table-bordered table-sm" id="idtablaRequisitosList">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col"> Tipo Requisito</th>
+                <th scope="col"> Descripción</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var oElemento in Model.Take(10))
+            {
+                <tr>
+                    <th scope="row">@oElemento.VistaTipoRequisito</th>
+                    <td>@oElemento.Detalles</td>
+                    <td>
+                        <div style="text-align:center;">
+                            <a class="btn btn-sm btn-outline-secondary" href="~/Requisito/Detalle/@oElemento.IdRequisito">Ver Detalles</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
     <hr />
     <div class="row">
-        <div class="col-sm-9">
+        <div class="col-sm-12">
             <a class="btn btn-outline-secondary" href="~/Policia/Detalle/@HttpContext.Current.Session["idPolicia"].ToString()">Regresar</a>
         </div>
     </div>
@@ -84,7 +76,7 @@
     $(document).ready(function () {
         $('#idtablaRequisitosList').DataTable({
             searching: false,
-            lengthMenu: [[6], [6]],
+            lengthMenu: [[10], [10]],
             lengthChange: false,
             language: {
                 lengthMenu: "Mostrar _MENU_ entradas",

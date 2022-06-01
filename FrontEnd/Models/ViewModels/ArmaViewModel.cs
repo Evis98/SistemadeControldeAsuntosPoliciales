@@ -10,10 +10,9 @@ namespace FrontEnd.Models.ViewModels
     public class ArmaViewModel
     {
         public int IdArma { get; set; }
-        public string SerieFiltrada { get; set; }
 
         [Display(Name = "Policía Asignado")]
-        public string PoliciaAsignado { get; set; }
+        public string PoliciaAsignado { get; set; } //revisar esto si puede ser int
         [Display(Name = "Policía Asignado")]
         public string NombrePolicia { get; set; }
 
@@ -65,15 +64,11 @@ namespace FrontEnd.Models.ViewModels
         [Display(Name = " Estado del Arma")]
         public string VistaEstadoArma { get; set; }
 
-           
-
-
         //ComboBoxes
         public IEnumerable<SelectListItem> TiposArma { get; set; }
         public IEnumerable<SelectListItem> TiposCalibre { get; set; }
         public IEnumerable<SelectListItem> TiposCondicion { get; set; }
         public IEnumerable<SelectListItem> TiposUbicacion { get; set; }
         public IEnumerable<SelectListItem> TiposMarcas { get; set; }
-        public IEnumerable<SelectListItem> ListaPolicias { get; set; }
     }
 }

@@ -5,92 +5,86 @@
 }
 
 <div class="container bg-light text-dark border" style=" height: auto; min-height: 80vh; padding-bottom: 20px; margin-bottom: 28px; word-wrap: break-word;">
-    <div class="row">
-        <div class="col-md-12">
-            <div style="text-align:center;">
-                <h2 class="display-4">@ViewBag.Title</h2>
+    <div style="text-align:center;">
+        <h1 class="display-5">@ViewBag.Title</h1>
+    </div>
+    <hr />
+    <div class="card col-md-12">
+        <div class="card-header">
+            <h2> @Html.DisplayTextFor(d => d.NombrePolicia)</h2>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4">@Html.LabelFor(d => d.VistaTipoRequisito)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.VistaTipoRequisito)</text>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4">@Html.LabelFor(d => d.Detalles)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.Detalles)</text>
+                </div>
+            </li>
+            @if (Model.FechaVencimiento != null)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.VistaFechaVencimiento)</b>
+                        <text class="col-sm-8">@Html.DisplayTextFor(d => d.VistaFechaVencimiento)</text>
+                    </div>
+                </li>
+            }
+            @if (Model.RutaArchivo != null)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4">  @Html.Label("Archivo: ")</b>
+                        <text class="col-sm-8">@Model.NombrePolicia-@Model.Detalles .pdf</text>
+                    </div>
+                </li>
+            }
+            </ul>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-sm-2">
+                </div>
             </div>
         </div>
     </div>
     <hr />
-
-    <div class="row">
-        <div class="col">
-            <h2>
-              
-                @Html.DisplayTextFor(d => d.NombrePolicia)
-            </h2>
-        </div>
-    </div>
-    <dl class=" row">
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.VistaTipoRequisito)
-        </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.VistaTipoRequisito)
-        </dd>
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.Detalles)
-        </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.Detalles)
-        </dd>
-        @if (Model.FechaVencimiento != null)
-        {
-            <dt class="col-sm-4">
-                @Html.LabelFor(d => d.VistaFechaVencimiento)
-            </dt>
-            <dd class="col-sm-8">
-                @Html.DisplayTextFor(d => d.VistaFechaVencimiento)
-            </dd>
-        }
-        @if (Model.Imagen != null)
-        {
-            <dt class="col-sm-4">
-                @Html.Label("Archivo: ")
-            </dt>
-            <dd class="col-sm-8">
-                @Model.NombrePolicia - @Model.Detalles .pdf
-            </dd>
-        }
-    </dl>
-    <hr />
     <div class="row">
         <div class="col-sm-12">
-
             <a class="btn btn-outline-secondary" onclick="history.go(-1);">Regresar</a>
             @if (Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "5")
             {
                 <div style="text-align:center;">
                     <a class="btn btn-primary" href="~/Requisito/Editar/@Model.IdRequisito">Editar</a>
-                    @if (Model.Imagen != null)
+                    @if (Model.RutaArchivo != null)
                     {
-                        <a class="btn btn-info" href="@Url.Content(Model.Imagen)" download="@Model.NombrePolicia - @Model.Detalles .pdf">Descargar Archivo Adjunto</a>
+                        <a class="btn btn-info" href="@Url.Content(Model.RutaArchivo)" download="@Model.NombrePolicia - @Model.Detalles .pdf">Descargar Archivo Adjunto</a>
                     }
-                    <a value="Eliminar" class="btn btn-danger" href="~/Requisito/Eliminar/@Model.IdRequisito" type="button" data-toggle="modal" data-target="#show4">Eliminar</a>
-
+                    <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#show">Eliminar</a>
                     <a class="btn btn-secondary" href="~/Auditoria/ListadoAuditoria/@Model.IdRequisito">Ver Auditorias</a>
-                </div>}
-            </div>
+                </div>
+            }
         </div>
-    <div class="modal" id="show4" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
+    </div>
+    <div class="modal fade" id="show" tabindex="-1" aria-labelledby="showLabel" aria-hidden="true">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Eliminar Requisito</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h5 class="modal-title" id="showLabel">Eliminar Requisito</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" />
                 </div>
                 <div class="modal-body">
                     <p>¿Está seguro que desea eliminar el requisito?</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" id="Cancel" data-dismiss="modal">Cancelar</button>
-                    <a href="~/Requisito/Eliminar/@Model.IdRequisito" type="submit" class="btn btn-danger" id="Save">Eliminar</a>
+                    <button type="button" class="btn btn-outline-secondary" id="Cancel" data-bs-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-danger" id="btnSave" href="~/Requisito/Eliminar/@Model.IdRequisito">Eliminar</a>                 
                 </div>
             </div>
         </div>
     </div>
-
 </div>

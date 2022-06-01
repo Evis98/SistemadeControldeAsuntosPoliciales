@@ -86,20 +86,22 @@ namespace BackEnd.DAL
                 throw;
             }
         }
-
-        public string GetCedulaUsuario(string cedula)
+        public bool UsernameUsuarioExiste(string username)
         {
-            if (CedulaUsuarioExiste(cedula))
+            try
             {
-                return cedula;
+                int contador;
+                using (SCAPEntities db = new SCAPEntities())
+                {
+                    contador = db.Usuarios.Where(x => x.usuario == username).Count();
+                }
+                return contador > 0 ? true : false;
             }
-            else
+            catch (Exception)
             {
-                return null;
+                throw;
             }
         }
-
-
         public Usuarios GetUsuarioCedula(string cedula)
         {
             try

@@ -5,27 +5,23 @@
     List<SelectListItem> items = (List<SelectListItem>)ViewBag.items;
 }
 <div class="container bg-light text-dark border" style=" height: auto; min-height: 80vh; margin-bottom: 20px; word-wrap: break-word;">
-    <div class="row">
-        <div class="col-md-12">
-            <div style="text-align:center;">
-                <h2 class="display-4">@ViewBag.Title</h2>
-            </div>
-        </div>
+    <div style="text-align:center;">
+        <h1 class="display-5">@ViewBag.Title</h1>
     </div>
     <hr />
     @using (Html.BeginForm("Index", "Usuario", FormMethod.Get))
     {
 
-        <div class="form-row">
+        <div class="row">
             <div class="col-sm-3">
-                @Html.DropDownList("filtrosSeleccionado", items, new { @class = "myselect form-control", @id = "filtroSeleccionado", @name = "filtroSeleccionado" })
+                @Html.DropDownList("filtrosSeleccionado", items, new { @class = "form-select", @id = "filtroSeleccionado", @name = "filtroSeleccionado" })
                 <script>
                     document.getElementById("filtroSeleccionado").value = "Nombre";
                 </script>
             </div>
 
             <div class="col-sm-3">
-                <input class="form-control" name="busqueda" type="text" id="busqueda" onkeyup="this.value = this.value.toUpperCase();" />
+                <input class="form-control" name="busqueda" type="text" id="busqueda" maxlength="151" style="text-transform:uppercase" onkeydown="return /[0-9A-ZÁáéÉíÍóÓúÚ]/i.test(event.key)" />
             </div>
 
             <div class="col-sm-1">
@@ -37,33 +33,29 @@
             </div>
         </div>
     }
-
     <hr />
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table table-bordered center table-sm">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">Cédula</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var oElemento in Model)
-                    {
-                        <tr>
-                            <th scope="row">@oElemento.Cedula</th>
-                            <td>@oElemento.Nombre</td>
-                            <td>
-                                <div style="text-align:center;">
-                                    <a class="btn btn-sm btn-outline-info" href="~/Usuario/Detalle/@oElemento.IdUsuario">Ver Detalles</a>
-                                </div>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
+    <table class="table table-sm table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">Cédula</th>
+                <th scope="col">Nombre</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var oElemento in Model)
+            {
+                <tr>
+                    <th scope="row">@oElemento.Cedula</th>
+                    <td>@oElemento.Nombre</td>
+                    <td>
+                        <div style="text-align:center;">
+                            <a class="btn btn-sm btn-outline-secondary" href="~/Usuario/Detalle/@oElemento.IdUsuario">Ver Detalles</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
 </div>

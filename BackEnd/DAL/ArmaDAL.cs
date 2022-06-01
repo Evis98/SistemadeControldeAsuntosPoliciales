@@ -83,7 +83,7 @@ namespace BackEnd.DAL
             }
         }
 
-        public bool SerieExiste(string numeroSerie)
+        public bool ArmaExiste(string numeroSerie)
         {
             try
             {
@@ -97,17 +97,6 @@ namespace BackEnd.DAL
             catch (Exception)
             {
                 throw;
-            }
-        }
-        public string GetSerieArma(string serie)
-        {
-            if (SerieExiste(serie))
-            {
-                return serie;
-            }
-            else
-            {
-                return null;
             }
         }
     }

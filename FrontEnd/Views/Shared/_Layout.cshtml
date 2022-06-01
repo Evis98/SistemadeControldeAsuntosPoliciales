@@ -5,129 +5,145 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>@ViewBag.Title - SCAP</title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jquery")
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <style>
-        .clear {
-            margin-bottom: 40px; /* how high is your footer */
-            visibility: hidden;
-        }
-    </style>
-</head>
-<body style="background-image: url('https://cdn.discordapp.com/attachments/894600217746354226/920456009607159848/v996-008.jpg'); ">
-    <div class="contenedor-imagenes">
-
-        <img src="~/SourcesSCAP/ScapLogo2.png">
-        <img src="~/SourcesSCAP/MuniLogo.png">
-
-    </div>
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#00277B;">
-
-        <a class="navbar-brand" href="#">SCAP</a>
-        @if (Session["userID"] != null)
-        {
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-
-                <ul class="navbar-nav">
-
-                    <li class="nav-item active">
-
-                        <a class="nav-link" href="~/Home/Index/">Inicio <span class="sr-only">(current)</span></a>
-                    </li>
-                    @if (Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "5")
-                    {
-                        <li class="nav-item active">
-                            <a class="nav-link" href="~/Policia/Index/">Policías</a>
-                        </li>
-                    }
-                    @if (Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "5" || Session["Rol"].ToString() == "4")
-                    {
-                        <li class="nav-item active">
-                            <a class="nav-link" href="~/Requisito/Index/">Requisitos</a>
-                        </li>
-                    }
-                    @if (Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "4" || Session["Rol"].ToString() == "5")
-                    {
-                        <li class="nav-item active">
-                            <a class="nav-link" href="~/Arma/Index/">Armas</a>
-                        </li>
-                    }
-                    @if (Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "4" || Session["Rol"].ToString() == "5")
-                    {
-
-                        <li class="nav-item active">
-                            <a class="nav-link" href="~/Bitacora/Index/">Bitácoras</a>
-                        </li>
-                    }
-                    @if (Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "1" || Session["Rol"].ToString() == "5")
-                    {
-                        <li class="nav-item active">
-                            <a class="nav-link" href="~/Persona/Index/">Personas</a>
-                        </li>
-                    }
-                    @if (Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "1" || Session["Rol"].ToString() == "5")
-                    {
-                        <li class="nav-item active">
-                            <a class="nav-link" href="~/Infractor/Index/">Infractores</a>
-                        </li>
-                    }
-                    @if (Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "1" || Session["Rol"].ToString() == "5")
-                    {
-                        <li class="nav-item active">
-                            <a class="nav-link" href="~/Acta/Index/">Actas</a>
-                        </li>
-                    }
-                    @if ( Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "5")
-                    {
-                        <li class="nav-item active">
-                            <a class="nav-link" href="~/Usuario/Index/">Usuarios</a>
-                        </li>
-                    }
-                </ul>
-
-            </div>
-            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="navbar-brand">
-                            @Session["Nombre"] @Session["cedula"]
-                        </a>
-
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="~/Login/LogOut/">Cerrar Sesión</a>
-                    </li>
-                </ul>
-
-            </div>
-        }
-    </nav>
-
-
-    <div class="container body-content">
-        @RenderBody()
-        <div class="clear"></div>
-        <footer class="fixed-bottom" style="background-color:#00277B;">
-            <p style="color:white; text-align:center">&copy; @DateTime.Now.Year - Municipalidad de Alajuela</p>
-        </footer>
-    </div>
-
-
-    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/validations")
-    @Scripts.Render("~/bundles/busqueda")
-    @Scripts.Render("~/bundles/ValidarEstatura")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/modernizr")
     @RenderSection("scripts", required: false)
-</body>
 
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.css" />
 
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
+    <script type="module" src="~/js/validations.js" asp-append-version="true"></script>
+    <script type="module" src="~/js/busqueda.js" asp-append-version="true"></script>
+    <script type="module" src="~/js/ValidarEstatura.js" asp-append-version="true"></script>
+    <script>
+        var settings = {
+            validClass: "is-valid",
+            errorClass: "is-invalid"
 
+        };
+        $.validator.setDefaults(settings);
+        $.validator.unobtrusive.options = settings;
+
+        $(document).ready(function () {
+            $(".navbar li a").click(function () {
+                var id = $(this).attr("id");
+
+                $('#' + id).siblings().find(".active").removeClass("active");
+                $('#' + id).addClass("active");
+                localStorage.setItem("selectedolditem", id);
+            });
+
+            var selectedolditem = localStorage.getItem('selectedolditem');
+
+            if (selectedolditem != null) {
+                $('#' + selectedolditem).siblings().find(".active").removeClass("active");
+                $('#' + selectedolditem).addClass("active");
+            }
+        });
+    </script>
+</head>
+@if (Session["userID"] != null)
+{
+    <body style="background-image: url('https://cdn.discordapp.com/attachments/894600217746354226/920456009607159848/v996-008.jpg'); ">
+        <div class="contenedor-imagenes">
+            <img src="~/SourcesSCAP/ScapLogo2.png">
+            <img src="~/SourcesSCAP/MuniLogo.png">
+        </div>
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#00277B;">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                        <li class="nav-item">
+                            <a class="nav-link active" id="link1" href="~/Home/Index/">Inicio</a>
+                        </li>
+                        @if (Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "5")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" id="link2" href="~/Policia/Index/">Policías</a>
+                            </li>
+                        }
+                        @if (Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "5" || Session["Rol"].ToString() == "4")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" id="link3" href="~/Requisito/Index/">Requisitos</a>
+                            </li>
+                        }
+                        @if (Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "4" || Session["Rol"].ToString() == "5")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" id="link4" href="~/Arma/Index/">Armas</a>
+                            </li>
+                        }
+                        @if (Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "4" || Session["Rol"].ToString() == "5")
+                        {
+
+                            <li class="nav-item">
+                                <a class="nav-link" id="link5" href="~/Bitacora/Index/">Bitácoras</a>
+                            </li>
+                        }
+                        @if (Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "1" || Session["Rol"].ToString() == "5")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" id="link5" href="~/Persona/Index/">Personas</a>
+                            </li>
+                        }
+                        @if (Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "1" || Session["Rol"].ToString() == "5")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" id="link6" href="~/Infractor/Index/">Infractores</a>
+                            </li>
+                        }
+                        @if (Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "1" || Session["Rol"].ToString() == "5")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" id="link7" href="~/Acta/Index/">Actas</a>
+                            </li>
+                        }
+                        @if (Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "5")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" id="link8" href="~/Usuario/Index/">Usuarios</a>
+                            </li>
+                        }
+                    </ul>
+
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active">
+                                @Session["Nombre"] @Session["cedula"]
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link active" href="~/Login/LogOut/">Cerrar Sesión</a>
+                        </li>
+                    </ul>
+                </div>
+                
+            </div>
+        </nav>
+
+        <div class="container body-content">
+            @RenderBody()
+            <div class="clear"></div>
+            <footer class="fixed-bottom" style="background-color:#00277B;">
+                <p style="color:white; text-align:center">&copy; @DateTime.Now.Year - Municipalidad de Alajuela</p>
+            </footer>
+        </div>
+    </body>
+}
+else
+{
+    @RenderBody()
+}
 </html>

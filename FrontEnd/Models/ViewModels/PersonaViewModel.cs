@@ -24,11 +24,8 @@ namespace FrontEnd.Models.ViewModels
         [Display(Name = "Número de Identificación")]
         public string Identificacion { get; set; }
 
-        public string IdentificacionPersonaFiltrada { get; set; }
-
-
         [Required]
-        [StringLength(250, ErrorMessage = "Nombre excede los 250 caractéres")]
+        [StringLength(150, ErrorMessage = "Nombre excede los 250 caractéres")]
         [Display(Name = "Nombre")]
         public string NombrePersona { get; set; }
 

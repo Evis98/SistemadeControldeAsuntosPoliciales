@@ -30,11 +30,7 @@ namespace FrontEnd.Models.ViewModels
         [Display(Name = "Rol del Usuario")]
         public int Rol { get; set; }
         [Display(Name = "Rol del Usuario")]
-        public string VsitaRol { get; set; }
-       
-       public string VistaUsuario { get; set; }
-        public string CedulaUsuarioFiltrada { get; set; }
-
+        public string VsitaRol { get; set; }      
         public IEnumerable<SelectListItem> TiposDeRol { get; set; }
     }
 

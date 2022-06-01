@@ -4,15 +4,13 @@
 
 @using (Ajax.BeginForm("ListaArmasParcial", "Bitacora", new { nombre = "abcd" }, new AjaxOptions { UpdateTargetId = "listaFiltrada" }))
 {
-<label for="recipient-name" class="col-form-label">Numero de Serie:</label>
-                <div class="input-group mb-3">
-                    <input type="text" name="serie" id="serie" class="form-control" aria-describedby="basic-addon2" onkeyup="this.value = this.value.toUpperCase();">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-primary" type="submit">Buscar</button>
-                    </div>
-                </div>}
+    <label for="recipient-name" class="col-form-label">Numero de Serie:</label>
+    <div class="input-group mb-3">
+        <input type="text" name="serie" id="serie" class="form-control" aria-describedby="basic-addon2" onkeyup="this.value = this.value.toUpperCase();">
+        <button class="btn btn-outline-primary" type="submit">Buscar</button>
+    </div>
+}
+
 <div id="listaFiltrada">
-
-
 </div>
 

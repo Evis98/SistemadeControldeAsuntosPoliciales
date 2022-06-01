@@ -5,161 +5,165 @@
 }
 
 <div class="container bg-light text-dark border" style=" height: auto; min-height: 80vh; padding-bottom: 20px; margin-bottom: 28px; word-wrap: break-word;">
-    <div class="row">
-        <div class="col-md-12">
-            <div style="text-align:center;">
-                <h2 class="display-4" style="text-align:center;">@ViewBag.Title</h2>
+    <div style="text-align:center;">
+        <h1 class="display-5">@ViewBag.Title</h1>
+    </div>
+    <hr />
+    <div class="card col-md-12">
+        <div class="card-header">
+            <h2> @Html.DisplayTextFor(d => d.Nombre)</h2>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.VistaTipoidentifiacion)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.VistaTipoidentifiacion)</text>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.Identificacion)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.Identificacion)</text>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.VistaNacionalidad)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.VistaNacionalidad)</text>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.FechaNacimiento)</b>
+                    <text class="col-sm-8">
+                        @{ var fecha = Model.FechaNacimiento.ToShortDateString(); }
+                        @Html.DisplayTextFor(d => fecha)
+                    </text>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.Edad)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.Edad)</text>
+                </div>
+            </li>
+            @if (Model.ApodoInfractor != null)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.ApodoInfractor)</b>
+                        <text class="col-sm-8">@Html.DisplayTextFor(d => d.ApodoInfractor)</text>
+                    </div>
+                </li>
+            }
+            @if (Model.RasgosFisicos != null)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.RasgosFisicos)</b>
+                        <text class="col-sm-8">@Html.DisplayTextFor(d => d.RasgosFisicos)</text>
+                    </div>
+                </li>
+            }
+            @if (Model.Telefono != null)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.Telefono)</b>
+                        <text class="col-sm-8">@Html.DisplayTextFor(d => d.Telefono)</text>
+                    </div>
+                </li>
+            }
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.DireccionExacta)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.DireccionExacta)</text>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.VistaSexo)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.VistaSexo)</text>
+                </div>
+            </li>
+            @if (Model.CorreoElectronico != null)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.CorreoElectronico)</b>
+                        <text class="col-sm-8">@Html.DisplayTextFor(d => d.CorreoElectronico)</text>
+                    </div>
+                </li>
+            }
+
+            @if (Model.ProfesionUOficio != null)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.ProfesionUOficio)</b>
+                        <text class="col-sm-8">@Html.DisplayTextFor(d => d.ProfesionUOficio)</text>
+                    </div>
+                </li>
+            }
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.Estatura)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.Estatura)</text>
+                </div>
+            </li>
+            @if (Model.Tatuajes != null)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.Tatuajes)</b>
+                        <text class="col-sm-8">@Html.DisplayTextFor(d => d.Tatuajes)</text>
+                    </div>
+                </li>
+            }
+            @if (Model.NombrePadre != null)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.NombrePadre)</b>
+                        <text class="col-sm-8">@Html.DisplayTextFor(d => d.NombrePadre)</text>
+                    </div>
+                </li>
+            }
+            @if (Model.NombreMadre != null)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.NombreMadre)</b>
+                        <text class="col-sm-8">@Html.DisplayTextFor(d => d.NombreMadre)</text>
+                    </div>
+                </li>
+            }
+            @if (Model.Observaciones != null)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.Observaciones)</b>
+                        <text class="col-sm-8">@Html.DisplayTextFor(d => d.Observaciones)</text>
+                    </div>
+                </li>
+            }
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.Imagen)</b>
+                    <img src="@Url.Content(Model.Imagen)" style="width:100px;height:100px;">
+                </div>
+            </li>
+        </ul>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-sm-2">
+                </div>
             </div>
         </div>
     </div>
-    <hr />
-    <div class="row">
-        <div class="col">
-            <h2> @Html.DisplayTextFor(d => d.Nombre)</h2>
-        </div>
-    </div>
-    <dl class=" row">
-        @Html.HiddenFor(d => d.IdInfractor)
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.VistaTipoidentifiacion)
-        </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.VistaTipoidentifiacion)
-        </dd>
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.Identificacion)
-        </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.Identificacion)
-        </dd>
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.VistaNacionalidad)
-        </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.VistaNacionalidad)
-        </dd>
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.FechaNacimiento)
-        </dt>
-        <dd class="col-sm-8">
-            @{ var fecha = Model.FechaNacimiento.ToShortDateString(); }
-            @Html.DisplayTextFor(d => fecha)
-        </dd>
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.Edad)
-        </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.Edad)
-        </dd>
-        @if (Model.ApodoInfractor != null)
-        {
-            <dt class="col-sm-4">
-                @Html.Label("Conocido como")
-            </dt>
-            <dd class="col-sm-8">
-                @Html.DisplayTextFor(d => d.ApodoInfractor)
-            </dd>
-        }
-        @if (Model.RasgosFisicos != null)
-        {
-            <dt class="col-sm-4">
-                @Html.Label("Rasgos Físicos")
-            </dt>
-            <dd class="col-sm-8">
-                @Html.DisplayTextFor(d => d.RasgosFisicos)
-            </dd>
-        }
-        @if (Model.Telefono != null)
-        {
-            <dt class="col-sm-4">
-                @Html.Label("Teléfono")
-            </dt>
 
-            <dd class="col-sm-8">
-                @Html.DisplayTextFor(d => d.Telefono)
-            </dd>
-        }
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.DireccionExacta)
-        </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.DireccionExacta)
-        </dd>
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.VistaSexo)
-        </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.VistaSexo)
-        </dd>
-        @if (Model.CorreoElectronico != null)
-        {
-            <dt class="col-sm-4">
-                @Html.Label("Correo Electrónico")
-            </dt>
-            <dd class="col-sm-8">
-                @Html.DisplayTextFor(d => d.CorreoElectronico)
-            </dd>
-        }
-        @if (Model.ProfesionUOficio != null)
-        {
-            <dt class="col-sm-4">
-                @Html.Label("Profesión u Oficio")
-            </dt>
-            <dd class="col-sm-8">
-                @Html.DisplayTextFor(d => d.ProfesionUOficio)
-            </dd>
-        }
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.Estatura)
-        </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.Estatura)
-        </dd>
-        @if (Model.Tatuajes != null)
-        {
-            <dt class="col-sm-4">
-                @Html.Label("Tatuaje")
-            </dt>
-            <dd class="col-sm-8">
-                @Html.DisplayTextFor(d => d.Tatuajes)
-            </dd>
-        }
-        @if (Model.NombrePadre != null)
-        {
-            <dt class="col-sm-4">
-                @Html.Label("Nombre del Padre")
-            </dt>
-            <dd class="col-sm-8">
-                @Html.DisplayTextFor(d => d.NombrePadre)
-            </dd>
-        }
-        @if (Model.NombreMadre != null)
-        {
-            <dt class="col-sm-4">
-                @Html.Label("Nombre de la Madre")
-            </dt>
-            <dd class="col-sm-8">
-                @Html.DisplayTextFor(d => d.NombreMadre)
-            </dd>
-        }
-        @if (Model.Observaciones != null)
-        {
-            <dt class="col-sm-4">
-                @Html.Label("Observación")
-            </dt>
-            <dd class="col-sm-8">
-                @Html.DisplayTextFor(d => d.Observaciones)
-            </dd>
-        }
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.Imagen)
-        </dt>
-        <dd class="col-sm-8">
-            <img src="@Url.Content(Model.Imagen)" style="width:100px;height:100px;">
-        </dd>
-    </dl>
     <hr />
-   
+
     <div class="row">
         <div class="col-sm-12">
             <a href="~/Infractor/Index/" class="btn btn-outline-secondary">Regresar</a>
@@ -170,6 +174,6 @@
                     <a class="btn btn-secondary" href="~/Auditoria/ListadoAuditoria/@Model.IdInfractor">Ver Auditorias</a>
                 </div>
             }
-            </div>
+        </div>
     </div>
 </div>

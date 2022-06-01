@@ -39,7 +39,7 @@ namespace FrontEnd.Controllers
             {
                 if (modelo.TipoTestigo == 1)
                 {
-                    if (modelo.IdTestigoPolicia != null && policiaDAL.CedulaPoliciaExiste(modelo.IdTestigoPolicia))
+                    if (modelo.IdTestigoPolicia != null && policiaDAL.PoliciaExiste(modelo.IdTestigoPolicia))
                     {
                         acta.testigo = policiaDAL.GetPoliciaCedula(modelo.IdTestigoPolicia).idPolicia;
                     }

@@ -3,133 +3,158 @@
 @{ ViewBag.Title = "Información de Persona"; }
 
 <div class="container bg-light text-dark border" style=" height: auto; min-height: 80vh; padding-bottom: 20px; margin-bottom: 28px; word-wrap: break-word;">
-    <div class="row">
-        <div class="col-md-12">
-            <div style="text-align:center;">
-                <h2 class="display-4">@ViewBag.Title </h2>
-            </div>
-        </div>
+    <div style="text-align:center;">
+        <h1 class="display-5">@ViewBag.Title</h1>
     </div>
 
     <hr />
-
-    <div class="row">
-        <div class="col">
+    <div class="card col-md-12">
+        <div class="card-header">
             <h2> @Html.DisplayTextFor(d => d.NombrePersona)</h2>
         </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.VistaTipoIdentificacionPersona)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.VistaTipoIdentificacionPersona)</text>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.Identificacion)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.Identificacion)</text>
+                </div>
+            </li>
+            @if (Model.FechaNacimientoPersona != null)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.FechaNacimientoPersona)</b>
+                        <text class="col-sm-8">
+                            @{ var fecha = Model.FechaNacimientoPersona.ToShortDateString(); }
+                            @Html.DisplayTextFor(d => fecha)
+                        </text>
+                    </div>
+                </li>
+            }
+            @if (Model.VistaSexoPersona != null)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.VistaSexoPersona)</b>
+                        <text class="col-sm-8">@Html.DisplayTextFor(d => d.VistaSexoPersona)</text>
+                    </div>
+                </li>
+            }
+            @if (Model.VistaNacionalidadPersona != null)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.VistaNacionalidadPersona)</b>
+                        <text class="col-sm-8">@Html.DisplayTextFor(d => d.VistaNacionalidadPersona)</text>
+                    </div>
+                </li>
+            }
+            @if (Model.VistaSexoPersona != null)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.VistaSexoPersona)</b>
+                        <text class="col-sm-8">@Html.DisplayTextFor(d => d.VistaSexoPersona)</text>
+                    </div>
+                </li>
+            }
+            @if (Model.VistaNacionalidadPersona != null)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.VistaNacionalidadPersona)</b>
+                        <text class="col-sm-8">@Html.DisplayTextFor(d => d.VistaNacionalidadPersona)</text>
+                    </div>
+                </li>
+            }
+            @if (Model.ProfesionPersona != null)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.ProfesionPersona)</b>
+                        <text class="col-sm-8">@Html.DisplayTextFor(d => d.ProfesionPersona)</text>
+                    </div>
+                </li>
+            }
+            @if (Model.LugarTrabajoPersona != null)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.LugarTrabajoPersona)</b>
+                        <text class="col-sm-8">@Html.DisplayTextFor(d => d.LugarTrabajoPersona)</text>
+                    </div>
+                </li>
+            }
+            @if (Model.TelefonoTrabajoPersona != null)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.TelefonoTrabajoPersona)</b>
+                        <text class="col-sm-8">@Html.DisplayTextFor(d => d.TelefonoTrabajoPersona)</text>
+                    </div>
+                </li>
+            }
+            @if (Model.TelefonoCasaPersona != null)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.TelefonoCasaPersona)</b>
+                        <text class="col-sm-8">@Html.DisplayTextFor(d => d.TelefonoCasaPersona)</text>
+                    </div>
+                </li>
+            }
+            @if (Model.TelefonoCelularPersona != null)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.TelefonoCelularPersona)</b>
+                        <text class="col-sm-8">@Html.DisplayTextFor(d => d.TelefonoCelularPersona)</text>
+                    </div>
+                </li>
+            }
+            @if (Model.CorreoElectronicoPersona != null)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.CorreoElectronicoPersona)</b>
+                        <text class="col-sm-8">@Html.DisplayTextFor(d => d.CorreoElectronicoPersona)</text>
+                    </div>
+                </li>
+            }
+            @if (Model.DireccionExacta != null)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.DireccionExacta)</b>
+                        <text class="col-sm-8">@Html.DisplayTextFor(d => d.DireccionExacta)</text>
+                    </div>
+                </li>
+            }
+            @if (Model.Instalaciones != null)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.Instalaciones)</b>
+                        <text class="col-sm-8">@Html.DisplayTextFor(d => d.Instalaciones)</text>
+                    </div>
+                </li>
+            }
+        </ul>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-sm-2">
+
+                </div>
+            </div>
+        </div>
     </div>
-
-    <dl class="row">
-        @Html.HiddenFor(d => d.IdPersona)
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.VistaTipoIdentificacionPersona)
-        </dt>
-        <dd id="req" class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.VistaTipoIdentificacionPersona)
-        </dd>
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.Identificacion)
-        </dt>
-        <dd id="req" class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.Identificacion)
-        </dd>
-        @if (Model.FechaNacimientoPersona != null) {
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.FechaNacimientoPersona)
-        </dt>
-        <dd class="col-sm-8 ">
-            @{ var fecha = Model.FechaNacimientoPersona.ToShortDateString(); }
-            @Html.DisplayTextFor(d => fecha)
-        </dd>} 
-        @if(Model.VistaSexoPersona != null) { 
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.VistaSexoPersona)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.VistaSexoPersona)
-        </dd>}
-        @if(Model.VistaNacionalidadPersona != null) { 
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.VistaNacionalidadPersona)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.VistaNacionalidadPersona)
-        </dd>}
-        @if (Model.ProfesionPersona != null)
-        {
-            <dt class="col-sm-4">
-                @Html.Label("Profesión")
-            </dt>
-            <dd class="col-sm-8 ">
-                @Html.DisplayTextFor(d => d.ProfesionPersona)
-            </dd>
-        }
-        @if (Model.LugarTrabajoPersona != null)
-        {
-            <dt class="col-sm-4">
-                @Html.Label("Lugar de Trabajo")
-            </dt>
-            <dd class="col-sm-8 ">
-                @Html.DisplayTextFor(d => d.LugarTrabajoPersona)
-            </dd>
-        }
-        @if (Model.TelefonoTrabajoPersona != null)
-        {
-            <dt class="col-sm-4">
-                @Html.Label("Teléfono de Trabajo")
-            </dt>
-            <dd class="col-sm-8 ">
-                @Html.DisplayTextFor(d => d.TelefonoTrabajoPersona)
-            </dd>
-
-        }
-        @if (Model.TelefonoCasaPersona != null)
-        {
-            <dt class="col-sm-4">
-                @Html.Label("Telefono de Casa")
-            </dt>
-            <dd class="col-sm-8 ">
-                @Html.DisplayTextFor(d => d.TelefonoCasaPersona)
-            </dd>
-        }
-        @if (Model.TelefonoCelularPersona != null)
-        {
-            <dt class="col-sm-4">
-                @Html.Label("Telefono de Celular")
-            </dt>
-            <dd class="col-sm-8 ">
-                @Html.DisplayTextFor(d => d.TelefonoCelularPersona)
-            </dd>
-        }
-        @if (Model.CorreoElectronicoPersona != null)
-        {
-            <dt class="col-sm-4">
-                @Html.Label("Correo Electrónico")
-            </dt>
-            <dd class="col-sm-8 ">
-                @Html.DisplayTextFor(d => d.CorreoElectronicoPersona)
-            </dd>
-        }
-        @if (Model.DireccionExacta != null)
-        {
-            <dt class="col-sm-4">
-                @Html.Label("Direccion Exacta")
-            </dt>
-            <dd class="col-sm-8 ">
-                @Html.DisplayTextFor(d => d.DireccionExacta)
-            </dd>
-        }
-        @if (Model.Instalaciones != null)
-        {
-            <dt class="col-sm-4">
-                @Html.Label("Instalaciones")
-            </dt>
-            <dd class="col-sm-8 ">
-                @Html.DisplayTextFor(d => d.Instalaciones)
-            </dd>
-        }
-
-    </dl>
+    <hr />
 
     <div class="row">
         <div class="col-sm-12">
@@ -141,7 +166,7 @@
                     <a class="btn btn-secondary" href="~/Auditoria/ListadoAuditoria/@Model.IdPersona">Ver Auditorias</a>
                 </div>}
 
-            </div>
+        </div>
     </div>
 
 </div>

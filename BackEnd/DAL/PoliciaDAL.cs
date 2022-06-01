@@ -41,17 +41,6 @@ namespace BackEnd.DAL
 
         }
 
-        //Permite cambiar el atributo "estado" de un policía al recibir el dato "idPolicia" y "estado" 
-        public void CambiaEstadoPolicia(int idPolicia, int estado)
-        {
-            using (SCAPEntities db = new SCAPEntities())
-            {
-                string comando = "update Policias set estado = " + estado + "where idPolicia = " + idPolicia;
-                db.Database.ExecuteSqlCommand(comando);
-                db.SaveChanges();
-            }
-        }
-
 
         //Permite recibir un policía con toda su información a través de su atributo "idPolicia"
         public Policias GetPolicia(int idPolicia)
@@ -89,7 +78,7 @@ namespace BackEnd.DAL
             }
         }
 
-        public bool CedulaPoliciaExiste(string cedula)
+        public bool PoliciaExiste(string cedula)
         {
             try
             {
@@ -106,18 +95,7 @@ namespace BackEnd.DAL
             }
         }
 
-        public string GetCedulaPolicia(string cedula)
-        {
-            if (CedulaPoliciaExiste(cedula))
-            {
-                return cedula;
-            }
-            else
-            {
-                return null;
-            }
-        }
-        public List<Policias> GetPoliciasRango(DateTime inicio, DateTime final)
+        public List<Policias> GetPoliciasRango(DateTime inicio, DateTime final)//revisar si hay que borrar
         {
             try
             {

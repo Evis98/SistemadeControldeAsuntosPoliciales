@@ -18,43 +18,8 @@ namespace FrontEnd.Controllers
         ITablaGeneralDAL tablaGeneralDAL;
         IAuditoriaDAL auditoriaDAL;
         IUsuarioDAL usuarioDAL;
-        public Requisitos ConvertirRequisito(RequisitoViewModel modelo)
-        {
-            tablaGeneralDAL = new TablaGeneralDAL();
-            return new Requisitos
-            {
-                idRequisito = modelo.IdRequisito,
-                idPolicia = (int)Session["idPolicia"],
-                detalles = modelo.Detalles,
-                fechaVencimiento = modelo.FechaVencimiento,
-                tipoRequisito = tablaGeneralDAL.GetCodigo("Requisitos", "tipoRequisito", modelo.TipoRequisito.ToString()).idTablaGeneral,
-                imagen = modelo.Imagen
-            };
-        }
 
-        public RequisitoViewModel CargarRequisito(Requisitos requisito)
-        {
-            tablaGeneralDAL = new TablaGeneralDAL();
-            policiaDAL = new PoliciaDAL();
-            string fechaVencimiento = null;
-            if (requisito.fechaVencimiento.HasValue)
-            {
-                fechaVencimiento = requisito.fechaVencimiento.Value.ToShortDateString();
-            }
-            return new RequisitoViewModel
-            {
-                Imagen = requisito.imagen,
-                IdRequisito = requisito.idRequisito,
-                FechaVencimiento = requisito.fechaVencimiento,
-                VistaFechaVencimiento = fechaVencimiento,
-                TipoRequisito = int.Parse(tablaGeneralDAL.Get(requisito.tipoRequisito).codigo),
-                VistaTipoRequisito = tablaGeneralDAL.Get(requisito.tipoRequisito).descripcion,
-                Detalles = requisito.detalles,
-                IdPolicia = requisito.idPolicia,
-                NombrePolicia = policiaDAL.GetPolicia(requisito.idPolicia).nombre,
-            };
-        }
-
+        //Metodos Útiles
         public void Autorizar()
         {
             if (Session["userID"] != null)
@@ -89,15 +54,107 @@ namespace FrontEnd.Controllers
                 Response.Redirect("~/Login/Index");
             }
         }
+        [HttpPost]//revisar si este post es necesario
+        public void CrearCarpetaRequisitos()
+        {
+            policiaDAL = new PoliciaDAL();
+            string folderPath = Server.MapPath(@"~\ArchivosSCAP\Policias\" + policiaDAL.GetPolicia((int)Session["idPolicia"]).cedula + "-" + policiaDAL.GetPolicia((int)Session["idPolicia"]).nombre + @"\Requisitos\");
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+                Console.WriteLine(folderPath);
+            }
+        }
 
-        //Devuelve la página con el listado de todos los requisitos creados
+        public Requisitos ConvertirRequisito(RequisitoViewModel modelo)
+        {
+            tablaGeneralDAL = new TablaGeneralDAL();
+            Requisitos requisito;
+            requisito = new Requisitos()
+            {
+                idRequisito = modelo.IdRequisito,
+                idPolicia = (int)Session["idPolicia"],
+                detalles = modelo.Detalles.ToUpper(),
+                fechaVencimiento = modelo.FechaVencimiento,
+                tipoRequisito = tablaGeneralDAL.GetCodigo("Requisitos", "tipoRequisito", modelo.TipoRequisito.ToString()).idTablaGeneral,
+                archivo = modelo.RutaArchivo
+            };
+            if (modelo.FechaVencimiento != null)
+            {
+                requisito.fechaVencimiento = modelo.FechaVencimiento;
+            }
+            else
+            {
+                requisito.fechaVencimiento = null;
+            }
+            return requisito;
+        }
+
+        public RequisitoViewModel CargarRequisito(Requisitos requisito)
+        {
+            tablaGeneralDAL = new TablaGeneralDAL();
+            policiaDAL = new PoliciaDAL();
+
+            RequisitoViewModel modelo = new RequisitoViewModel()
+            {
+                RutaArchivo = requisito.archivo,
+                IdRequisito = requisito.idRequisito,
+                FechaVencimiento = requisito.fechaVencimiento,
+                TipoRequisito = int.Parse(tablaGeneralDAL.Get(requisito.tipoRequisito).codigo),
+                VistaTipoRequisito = tablaGeneralDAL.Get(requisito.tipoRequisito).descripcion,
+                Detalles = requisito.detalles,
+                IdPolicia = requisito.idPolicia,
+                NombrePolicia = policiaDAL.GetPolicia(requisito.idPolicia).nombre
+            };
+            if (requisito.fechaVencimiento.HasValue)
+            {
+                modelo.VistaFechaVencimiento = requisito.fechaVencimiento.Value.ToShortDateString();
+            }
+            return modelo;
+        }
+
+        public Auditorias ConvertirAuditoria(AuditoriaViewModel modelo)
+        {
+            tablaGeneralDAL = new TablaGeneralDAL();
+            requisitoDAL = new RequisitoDAL();
+            return new Auditorias
+            {
+                idAuditoria = modelo.IdAuditoria,
+                idCategoria = modelo.IdCategoria,
+                idElemento = modelo.IdElemento,
+                fecha = DateTime.Now,
+                accion = modelo.Accion,
+                idUsuario = modelo.IdUsuario
+            };
+        }
+
+        public Auditorias EliminarAuditoria(int idRequisito)
+        {
+            AuditoriaViewModel modelo = new AuditoriaViewModel();
+            tablaGeneralDAL = new TablaGeneralDAL();
+            requisitoDAL = new RequisitoDAL();
+            usuarioDAL = new UsuarioDAL();
+            auditoriaDAL = new AuditoriaDAL();
+            return new Auditorias
+            {
+                idAuditoria = modelo.IdAuditoria,
+                accion = modelo.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "4").idTablaGeneral,
+                idCategoria = modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "4").idTablaGeneral,
+                idUsuario = modelo.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario,
+                fecha = DateTime.Now,
+                idElemento = requisitoDAL.GetRequisitoId(idRequisito).idRequisito
+
+            };
+        }
+
+        //Metodos de las Vistas
         public ActionResult Index(string filtrosSeleccionado, string busqueda, string tiposRequisito)
         {
             Autorizar();
             requisitoDAL = new RequisitoDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
-            List<RequisitoViewModel> requisitos = new List<RequisitoViewModel>();
-            List<RequisitoViewModel> requisitosFiltrados = new List<RequisitoViewModel>();
+
+            //Carga combobox busqueda
             List<TablaGeneral> comboindex1 = tablaGeneralDAL.Get("Requisitos", "index");
             List<TablaGeneral> comboindex2 = tablaGeneralDAL.Get("Requisitos", "tipoRequisito");
             List<SelectListItem> items1 = comboindex1.ConvertAll(d =>
@@ -116,6 +173,10 @@ namespace FrontEnd.Controllers
                 };
             });
             ViewBag.items2 = items2;
+
+            //Carga lista de requisitos
+            List<RequisitoViewModel> requisitos = new List<RequisitoViewModel>();
+            List<RequisitoViewModel> requisitosFiltrados = new List<RequisitoViewModel>();
             foreach (Requisitos requisito in requisitoDAL.Get())
             {
                 requisitos.Add(CargarRequisito(requisito));
@@ -142,17 +203,15 @@ namespace FrontEnd.Controllers
                 requisitos = requisitosFiltrados;
             }
             return View(requisitos.OrderBy(x => x.FechaVencimiento).ToList());
-            }
-           
+        }
 
-        //*Devuelve la página con el listado de todos los requisitos creados para el policía seleccionado
         public ActionResult Listado(int id, string filtrosSeleccionado, string busqueda, string tiposRequisito)
         {
             AutorizarEditar();
             requisitoDAL = new RequisitoDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
-            List<RequisitoViewModel> requisitos = new List<RequisitoViewModel>();
-            List<RequisitoViewModel> requisitosFiltrados = new List<RequisitoViewModel>();
+
+            //Carga combobox busqueda
             List<TablaGeneral> comboindex1 = tablaGeneralDAL.Get("Requisitos", "index");
             List<TablaGeneral> comboindex2 = tablaGeneralDAL.Get("Requisitos", "tipoRequisito");
             List<SelectListItem> items1 = comboindex1.ConvertAll(d =>
@@ -171,6 +230,10 @@ namespace FrontEnd.Controllers
                 };
             });
             ViewBag.items2 = items2;
+
+            //Carga lista de requisitos
+            List<RequisitoViewModel> requisitos = new List<RequisitoViewModel>();
+            List<RequisitoViewModel> requisitosFiltrados = new List<RequisitoViewModel>();
             foreach (Requisitos requisito in requisitoDAL.Get())
             {
                 if (id == requisito.idPolicia)
@@ -202,7 +265,6 @@ namespace FrontEnd.Controllers
             return View(requisitos.OrderBy(x => x.FechaVencimiento).ToList());
         }
 
-        //Devuelve la página que agrega nuevos requisitos
         public ActionResult Nuevo(int id)
         {
             AutorizarEditar();
@@ -217,20 +279,6 @@ namespace FrontEnd.Controllers
             return View(requisito);
         }
 
-        //Guarda la información ingresada en la página para crear requisitos
-        [HttpPost]
-        public void CrearCarpetaRequisitos()
-        {
-            policiaDAL = new PoliciaDAL();
-            string folderPath = Server.MapPath(@"~\ArchivosSCAP\Policias\" + policiaDAL.GetPolicia((int)Session["idPolicia"]).cedula + " - " + policiaDAL.GetPolicia((int)Session["idPolicia"]).nombre + @"\Requisitos\");
-            if (!Directory.Exists(folderPath))
-            {
-                Directory.CreateDirectory(folderPath);
-                Console.WriteLine(folderPath);
-            }
-        }
-
-        //Guarda la información ingresada en la página para crear requisitos
         [HttpPost]
         public ActionResult Nuevo(RequisitoViewModel modelo)
         {
@@ -239,34 +287,30 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             usuarioDAL = new UsuarioDAL();
             auditoriaDAL = new AuditoriaDAL();
-            AuditoriaViewModel auditoria_modelo = new AuditoriaViewModel();
-            auditoria_modelo.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
-            auditoria_modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "4").idTablaGeneral;
-            auditoria_modelo.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
+
+            AuditoriaViewModel auditoria_modelo = new AuditoriaViewModel
+            {
+                Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral,
+                IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "4").idTablaGeneral,
+                IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario
+            };
+
             try
             {
                 if (ModelState.IsValid)
-                {
-                    CrearCarpetaRequisitos();
-                    string rutaSitio = Server.MapPath("~/");
-                    string pathArchivo = Path.Combine(rutaSitio + @"ArchivosSCAP\Policias\" + policiaDAL.GetPolicia((int)Session["idPolicia"]).cedula + " - " + policiaDAL.GetPolicia((int)Session["idPolicia"]).nombre + @"\Requisitos\" + modelo.Detalles + " - " + policiaDAL.GetPolicia((int)Session["idPolicia"]).nombre + ".pdf");
+                {                 
                     Requisitos requisito = ConvertirRequisito(modelo);
-                    if (modelo.FechaVencimiento != null)
-                    {
-                        requisito.fechaVencimiento = modelo.FechaVencimiento;
-                    }
-                    else
-                    {
-                        requisito.fechaVencimiento = null;
-                    }
+            
                     if (modelo.Archivo != null)
                     {
-                        requisito.imagen = @"~\ArchivosSCAP\Policias\" + policiaDAL.GetPolicia((int)Session["idPolicia"]).cedula + " - " + policiaDAL.GetPolicia((int)Session["idPolicia"]).nombre + @"\Requisitos\" + modelo.Detalles + " - " + policiaDAL.GetPolicia((int)Session["idPolicia"]).nombre + ".pdf";
-                        modelo.Archivo.SaveAs(pathArchivo);
+                        CrearCarpetaRequisitos();
+                        string pathArchivo = Path.Combine("~/" + @"ArchivosSCAP\Policias\" + policiaDAL.GetPolicia((int)Session["idPolicia"]).cedula + "-" + policiaDAL.GetPolicia((int)Session["idPolicia"]).nombre + @"\Requisitos\" + modelo.Detalles + "-" + policiaDAL.GetPolicia((int)Session["idPolicia"]).nombre + ".pdf");
+                        requisito.archivo = pathArchivo;
+                        modelo.Archivo.SaveAs(Server.MapPath(pathArchivo));
                     }
                     else
                     {
-                        requisito.imagen = null;
+                        requisito.archivo = null;
                     }
                     requisitoDAL.Add(requisito);
                     auditoria_modelo.IdElemento = requisitoDAL.GetRequisitoId(requisito.idRequisito).idRequisito;
@@ -282,8 +326,6 @@ namespace FrontEnd.Controllers
             }
         }
 
-
-        //Muestra la información detallada del requisito seleccionado
         public ActionResult Detalle(int id)
         {
             Autorizar();
@@ -308,20 +350,19 @@ namespace FrontEnd.Controllers
             RequisitoViewModel modelo = CargarRequisito(requisitoDAL.GetRequisito(id));
             return View(modelo);
         }
-        //Permite la eliminación de requisitos de la base de datos
+
         public ActionResult Eliminar(int id)
         {
             AutorizarEditar();
             requisitoDAL = new RequisitoDAL();
             auditoriaDAL = new AuditoriaDAL();
             Requisitos requisito = requisitoDAL.GetRequisito(id);
-            int? idPolicia = requisito.idPolicia;
+            int idPolicia = requisito.idPolicia;
             auditoriaDAL.Add(EliminarAuditoria(requisito.idRequisito));
-            requisitoDAL.EliminaRequisito(requisito);          
+            requisitoDAL.EliminaRequisito(requisito);
             return Redirect("~/Requisito/Listado/" + idPolicia);
         }
 
-        //Devuelve la página de edición de requisitos con sus apartados llenos
         public ActionResult Editar(int id)
         {
             AutorizarEditar();
@@ -332,7 +373,6 @@ namespace FrontEnd.Controllers
             return View(modelo);
         }
 
-        //Guarda la información modificada de los requisitos
         [HttpPost]
         public ActionResult Editar(RequisitoViewModel modelo)
         {
@@ -341,64 +381,33 @@ namespace FrontEnd.Controllers
             usuarioDAL = new UsuarioDAL();
             auditoriaDAL = new AuditoriaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
-            AuditoriaViewModel auditoria_modelo = new AuditoriaViewModel();
-            auditoria_modelo.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
-            auditoria_modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "4").idTablaGeneral;
-            auditoria_modelo.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
+
+            AuditoriaViewModel auditoria_modelo = new AuditoriaViewModel
+            {
+                Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral,
+                IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "4").idTablaGeneral,
+                IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario
+            };
             try
             {
                 if (ModelState.IsValid)
                 {
-                    if (modelo.Archivo != null && System.IO.File.Exists(requisitoDAL.GetRequisito(modelo.IdRequisito).imagen))
+                    if (modelo.Archivo != null && System.IO.File.Exists(requisitoDAL.GetRequisito(modelo.IdRequisito).archivo))
                     {
-                        System.IO.File.Delete(requisitoDAL.GetRequisito(modelo.IdRequisito).imagen);
-                        modelo.Archivo.SaveAs(modelo.Imagen);
+                        System.IO.File.Delete(requisitoDAL.GetRequisito(modelo.IdRequisito).archivo);
+                        modelo.Archivo.SaveAs(modelo.RutaArchivo);
                     }
                     requisitoDAL.Edit(ConvertirRequisito(modelo));
                     auditoria_modelo.IdElemento = requisitoDAL.GetRequisitoId(modelo.IdRequisito).idRequisito;
                     auditoriaDAL.Add(ConvertirAuditoria(auditoria_modelo));
                     return Redirect("~/Requisito/Listado/" + modelo.IdPolicia);
                 }
-                return View(ConvertirRequisito(modelo));
+                return View(modelo);
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
-        }
-
-        public Auditorias ConvertirAuditoria(AuditoriaViewModel modelo)
-        {
-            tablaGeneralDAL = new TablaGeneralDAL();
-            requisitoDAL = new RequisitoDAL();
-            return new Auditorias
-            {
-                idAuditoria = modelo.IdAuditoria,
-                idCategoria = modelo.IdCategoria,
-                idElemento = modelo.IdElemento,
-                fecha = DateTime.Now,
-                accion = modelo.Accion,
-                idUsuario = modelo.IdUsuario,
-            };
-        }
-
-        public Auditorias EliminarAuditoria(int idRequisito)
-        {
-            AuditoriaViewModel modelo = new AuditoriaViewModel();
-            tablaGeneralDAL = new TablaGeneralDAL();
-            requisitoDAL = new RequisitoDAL();
-            usuarioDAL = new UsuarioDAL();
-            auditoriaDAL = new AuditoriaDAL();
-            return new Auditorias
-            {
-                idAuditoria = modelo.IdAuditoria,
-                accion = modelo.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "4").idTablaGeneral,
-                idCategoria = modelo.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "4").idTablaGeneral,
-                idUsuario = modelo.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario,
-                fecha = DateTime.Now,
-                idElemento = requisitoDAL.GetRequisitoId(idRequisito).idRequisito
-
-            };
         }
     }
 }

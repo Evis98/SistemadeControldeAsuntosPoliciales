@@ -5,36 +5,30 @@
 }
 
 <div class="container bg-light text-dark border" style="height:80vh;">
-    <div class="row">
-        <div class="col-md-12">
-            <div style="text-align:center;">
-                <h2 class="display-4">@ViewBag.Title</h2>
-            </div>
-        </div>
+    <div style="text-align:center;">
+        <h1 class="display-5">@ViewBag.Title</h1>
     </div>
     <hr />
     @using (Html.BeginForm("Index", "Bitacora", FormMethod.Get))
     {
-        <div class="form-row">
+        <div class="row">
             <div class="col-sm-3">
-                @Html.DropDownList("filtrosSeleccionado", items1, new { @class = "form-control", @id = "filtroSeleccionado", @name = "filtroSeleccionado", @onclick = "ocultarBitacora()" })
+                @Html.DropDownList("filtrosSeleccionado", items1, new { @class = "form-select", @id = "filtroSeleccionado", @name = "filtroSeleccionado", @onclick = "ocultarBitacora()" })
                 <script>
                     document.getElementById("filtroSeleccionado").value = "Nombre Policía";
                 </script>
             </div>
             <div class="col-sm-4">
-                <input class="form-control" name="busqueda" maxlength="150" type="text" id="busqueda" onkeyup="this.value = this.value.toUpperCase();" onkeypress="return  sololetrasnumeros(event)" />
-                @Html.DropDownList("estadosBitacora", items2, new { @class = "form-control", @id = "estadoBitacora", @name = "estadoBitacora", @style = "display:none" })
+                <input class="form-control" name="busqueda" maxlength="150" type="text" id="busqueda" onkeyup="this.value = this.value.toUpperCase();" />
+                @Html.DropDownList("estadosBitacora", items2, new { @class = "form-select", @id = "estadoBitacora", @name = "estadoBitacora", @style = "display:none" })
                 <input class="form-control" name="busquedaFechaInicioB" type="date" id="busquedaFechaInicioB" style="display:none" />
                 <label id="textFechaInicio" style="display:none">Fecha de inicio</label>
             </div>
-
             <div class="col-sm-3">
                 <input class="form-control" name="busquedaFechaFinalB" type="date" id="busquedaFechaFinalB" style="display:none" />
                 <label id="textFechaFinal" style="display:none">Fecha final</label>
                 <span id="errorFecha"></span>
             </div>
-
             <div class="col-sm-1">
                 <button class="btn btn-primary">Buscar</button>
             </div>
@@ -42,42 +36,37 @@
                 <a class="btn btn-success" href="~/Bitacora/Nuevo">Agregar</a>
             </div>
         </div>}
-
     <hr />
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table table-bordered center table-sm" id="idtablaBitacora">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">Número Consecutivo</th>
-                        <th scope="col">Policía Solicitante</th>
-                        <th scope="col">Serie Arma</th>
-                        <th scope="col">Estado de la Bitacora</th>
-                        <th scope="col">Fecha</th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var oElemento in Model)
-                    {
-                        <tr>
-                            <th scope="row">@oElemento.NumeroConsecutivo</th>
-                            <td>@oElemento.VistaPoliciaSolicitante</td>
-                            <td>@oElemento.NumeroSerieArma</td>
-                            <td>@oElemento.VistaEstadoActual</td>
-                            <td>@oElemento.FechaCreacion</td>
-                            <td>
-                                <div style="text-align:center;">
-                                    <a class="btn btn-sm btn-outline-info" href="~/Bitacora/Detalle/@oElemento.IdBitacora">Ver Detalles</a>
-                                </div>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
 
+    <table class="table table-bordered table-sm" id="idtablaBitacora">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">Número Consecutivo</th>
+                <th scope="col">Policía Solicitante</th>
+                <th scope="col">Serie Arma</th>
+                <th scope="col">Estado de la Bitacora</th>
+                <th scope="col">Fecha</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var oElemento in Model)
+            {
+                <tr>
+                    <th scope="row">@oElemento.NumeroConsecutivo</th>
+                    <td>@oElemento.VistaPoliciaSolicitante</td>
+                    <td>@oElemento.NumeroSerieArma</td>
+                    <td>@oElemento.VistaEstadoActual</td>
+                    <td>@oElemento.FechaCreacion</td>
+                    <td>
+                        <div style="text-align:center;">
+                            <a class="btn btn-sm btn-outline-secondary" href="~/Bitacora/Detalle/@oElemento.IdBitacora">Ver Detalles</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
 </div>
 

@@ -21,7 +21,6 @@
           <Property Name="inventario" Type="varchar(max)" Nullable="false" />
           <Property Name="observaciones" Type="varchar(max)" />
           <Property Name="estado" Type="int" Nullable="false" />
-          <Property Name="distrito" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ActasDeDestruccionDePerecederos">
           <Key>
@@ -314,7 +313,7 @@
           <Property Name="fechaVencimiento" Type="date" />
           <Property Name="idPolicia" Type="int" Nullable="false" />
           <Property Name="tipoRequisito" Type="int" Nullable="false" />
-          <Property Name="imagen" Type="varchar" MaxLength="300" />
+          <Property Name="archivo" Type="varchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -471,18 +470,6 @@
               <PropertyRef Name="idTablaGeneral" />
             </Principal>
             <Dependent Role="PartesPoliciales">
-              <PropertyRef Name="distrito" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DistritoActaDecomiso">
-          <End Role="TablaGeneral" Type="Self.TablaGeneral" Multiplicity="1" />
-          <End Role="ActasDecomiso" Type="Self.ActasDecomiso" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TablaGeneral">
-              <PropertyRef Name="idTablaGeneral" />
-            </Principal>
-            <Dependent Role="ActasDecomiso">
               <PropertyRef Name="distrito" />
             </Dependent>
           </ReferentialConstraint>
@@ -1331,10 +1318,6 @@
             <End Role="TablaGeneral" EntitySet="TablaGeneral" />
             <End Role="PartesPoliciales" EntitySet="PartesPoliciales" />
           </AssociationSet>
-          <AssociationSet Name="FK_DistritoActaDecomiso" Association="Self.FK_DistritoActaDecomiso">
-            <End Role="TablaGeneral" EntitySet="TablaGeneral" />
-            <End Role="ActasDecomiso" EntitySet="ActasDecomiso" />
-          </AssociationSet>
           <AssociationSet Name="FK_DistritoNotificacion" Association="Self.FK_DistritoNotificacion">
             <End Role="TablaGeneral" EntitySet="TablaGeneral" />
             <End Role="ActasDeNotificacion" EntitySet="ActasDeNotificacion" />
@@ -1617,9 +1600,7 @@
           <Property Name="inventario" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="estado" Type="Int32" Nullable="false" />
-          <Property Name="distrito" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="TablaGeneral" Relationship="Self.FK_DistritoActaDecomiso" FromRole="ActasDecomiso" ToRole="TablaGeneral" />
-          <NavigationProperty Name="TablaGeneral1" Relationship="Self.FK_EstadoActaDecomiso" FromRole="ActasDecomiso" ToRole="TablaGeneral" />
+          <NavigationProperty Name="TablaGeneral" Relationship="Self.FK_EstadoActaDecomiso" FromRole="ActasDecomiso" ToRole="TablaGeneral" />
           <NavigationProperty Name="Policias" Relationship="Self.FK_OficialAcompanante" FromRole="ActasDecomiso" ToRole="Policias" />
           <NavigationProperty Name="Policias1" Relationship="Self.FK_OficialActuante" FromRole="ActasDecomiso" ToRole="Policias" />
           <NavigationProperty Name="Personas" Relationship="Self.FK_PersonaDecomisado" FromRole="ActasDecomiso" ToRole="Personas" />
@@ -2012,7 +1993,7 @@
           <Property Name="fechaVencimiento" Type="DateTime" Precision="0" />
           <Property Name="idPolicia" Type="Int32" Nullable="false" />
           <Property Name="tipoRequisito" Type="Int32" Nullable="false" />
-          <Property Name="imagen" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="archivo" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="TablaGeneral" Relationship="Self.FK_IdPolicia" FromRole="Requisitos" ToRole="TablaGeneral" />
           <NavigationProperty Name="TablaGeneral1" Relationship="Self.FK_TipoRequisito" FromRole="Requisitos" ToRole="TablaGeneral" />
         </EntityType>
@@ -2033,8 +2014,7 @@
           <Property Name="codigo" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="tabla" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="ActasDecomiso" Relationship="Self.FK_DistritoActaDecomiso" FromRole="TablaGeneral" ToRole="ActasDecomiso" />
-          <NavigationProperty Name="ActasDecomiso1" Relationship="Self.FK_EstadoActaDecomiso" FromRole="TablaGeneral" ToRole="ActasDecomiso" />
+          <NavigationProperty Name="ActasDecomiso" Relationship="Self.FK_EstadoActaDecomiso" FromRole="TablaGeneral" ToRole="ActasDecomiso" />
           <NavigationProperty Name="ActasDeDestruccionDePerecederos" Relationship="Self.FK_EstadoActaDeDestruccionDePerecederos" FromRole="TablaGeneral" ToRole="ActasDeDestruccionDePerecederos" />
           <NavigationProperty Name="ActasDeDestruccionDePerecederos1" Relationship="Self.FK_TipoActaD" FromRole="TablaGeneral" ToRole="ActasDeDestruccionDePerecederos" />
           <NavigationProperty Name="ActasDeDestruccionDePerecederos2" Relationship="Self.FK_TipoTestigoActaDestruccionPerecederos" FromRole="TablaGeneral" ToRole="ActasDeDestruccionDePerecederos" />
@@ -2093,18 +2073,6 @@
           <NavigationProperty Name="Auditorias" Relationship="Self.FK_IdUsuarioAuditoria" FromRole="Usuarios" ToRole="Auditorias" />
           <NavigationProperty Name="Roles" Relationship="Self.FK_TipoRol" FromRole="Usuarios" ToRole="Roles" />
         </EntityType>
-        <Association Name="FK_DistritoActaDecomiso">
-          <End Role="TablaGeneral" Type="Self.TablaGeneral" Multiplicity="1" />
-          <End Role="ActasDecomiso" Type="Self.ActasDecomiso" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TablaGeneral">
-              <PropertyRef Name="idTablaGeneral" />
-            </Principal>
-            <Dependent Role="ActasDecomiso">
-              <PropertyRef Name="distrito" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_EstadoActaDecomiso">
           <End Role="TablaGeneral" Type="Self.TablaGeneral" Multiplicity="1" />
           <End Role="ActasDecomiso" Type="Self.ActasDecomiso" Multiplicity="*" />
@@ -3037,10 +3005,6 @@
           <EntitySet Name="Roles" EntityType="Self.Roles" />
           <EntitySet Name="TablaGeneral" EntityType="Self.TablaGeneral" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
-          <AssociationSet Name="FK_DistritoActaDecomiso" Association="Self.FK_DistritoActaDecomiso">
-            <End Role="TablaGeneral" EntitySet="TablaGeneral" />
-            <End Role="ActasDecomiso" EntitySet="ActasDecomiso" />
-          </AssociationSet>
           <AssociationSet Name="FK_EstadoActaDecomiso" Association="Self.FK_EstadoActaDecomiso">
             <End Role="TablaGeneral" EntitySet="TablaGeneral" />
             <End Role="ActasDecomiso" EntitySet="ActasDecomiso" />
@@ -3367,7 +3331,6 @@
                 <ScalarProperty Name="inventario" ColumnName="inventario" />
                 <ScalarProperty Name="observaciones" ColumnName="observaciones" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="distrito" ColumnName="distrito" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3675,7 +3638,7 @@
                 <ScalarProperty Name="fechaVencimiento" ColumnName="fechaVencimiento" />
                 <ScalarProperty Name="idPolicia" ColumnName="idPolicia" />
                 <ScalarProperty Name="tipoRequisito" ColumnName="tipoRequisito" />
-                <ScalarProperty Name="imagen" ColumnName="imagen" />
+                <ScalarProperty Name="archivo" ColumnName="archivo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3726,7 +3689,7 @@
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

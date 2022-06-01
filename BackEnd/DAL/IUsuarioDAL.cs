@@ -13,8 +13,8 @@ namespace BackEnd.DAL
         void Edit(Usuarios usuario);
         Usuarios GetUsuario(int? idUsuario);
         Usuarios GetUsuarioCorreo(string correo);
-        string GetCedulaUsuario(string cedula);
         bool CedulaUsuarioExiste(string cedula);
+        bool UsernameUsuarioExiste(string username);
         Usuarios GetUsuarioCedula(string cedula);
     }
 }

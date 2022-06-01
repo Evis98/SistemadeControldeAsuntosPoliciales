@@ -11,7 +11,6 @@ namespace FrontEnd.Models.ViewModels
     public class InfractorViewModel 
     {
         public int IdInfractor { get; set; }
-        public string CedulaFiltrada { get; set; }
 
         [Required]
         [Display(Name = "Tipo de Identificación")]

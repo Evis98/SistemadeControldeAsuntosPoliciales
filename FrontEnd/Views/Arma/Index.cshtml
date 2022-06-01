@@ -5,19 +5,15 @@
     List<SelectListItem> items = (List<SelectListItem>)ViewBag.items;
 }
 <div class="container bg-light text-dark border" style=" height: auto; min-height: 80vh; margin-bottom: 20px; word-wrap: break-word;">
-    <div class="row">
-        <div class="col-md-12">
-            <div style="text-align:center;">
-                <h2 class="display-4">@ViewBag.Title</h2>
-            </div>
-        </div>
+    <div style="text-align:center;">
+        <h1 class="display-5">@ViewBag.Title</h1>
     </div>
     <hr />
     @using (Html.BeginForm("Index", "Arma", FormMethod.Get))
     {
-        <div class="form-row">
+        <div class="row">
             <div class="col-sm-3">
-                @Html.DropDownList("filtrosSeleccionado", items, new { @class = "form-control", @id = "filtroSeleccionado", @name = "filtroSeleccionado", @onclick = "ocultarFechaActa()" })
+                @Html.DropDownList("filtrosSeleccionado", items, new { @class = "form-select", @id = "filtroSeleccionado", @name = "filtroSeleccionado", @onclick = "ocultarFechaActa()" })
                 <script>
                     document.getElementById("filtroSeleccionado").value = "Policía Asignado";
                 </script>
@@ -34,43 +30,48 @@
         </div>
     }
     <hr />
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table table-bordered center table-sm" id="idtablaArma">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">Policía Asignado</th>
-                        <th scope="col">Número de Serie</th>
-                        <th scope="col">Tipo de Arma</th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var oElemento in Model)
-                    {
-                        <tr>
-                            <th scope="row">@oElemento.NombrePolicia</th>
-                            <td>@oElemento.NumeroSerie</td>
-                            <td>@oElemento.VistaTipoArma</td>
-                            <td>
-                                <div style="text-align:center;">
-                                    <a class="btn btn-sm btn-outline-info" href="~/Arma/Detalle/@oElemento.IdArma">Ver Detalles</a>
-                                </div>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
 
+    <table class="table table-bordered table-sm" id="idtablaArma">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">Policía Asignado</th>
+                <th scope="col">Número de Serie</th>
+                <th scope="col">Tipo de Arma</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var oElemento in Model)
+            {
+                <tr>
+                    <th scope="row">@oElemento.NombrePolicia</th>
+                    <td>@oElemento.NumeroSerie</td>
+                    <td>@oElemento.VistaTipoArma</td>
+                    <td>
+                        <div style="text-align:center;">
+                            <a class="btn btn-sm btn-outline-secondary" href="~/Arma/Detalle/@oElemento.IdArma">Ver Detalles</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
 
 <script>
+    if (sessionStorage.getItem("SelectedItem" != null)) {
+        var selectedItem = sessionStorage.getItem("SelectedItem");//revisar el filtro
+        $('#filtroSeleccionado').val(selectedItem);
+    }
+    $('#filtroSeleccionado').change(function () {
+        var dropVal = $(this).val();
+        sessionStorage.setItem("SelectedItem", dropVal);
+
+    });
     $(document).ready(function () {
         $('#idtablaArma').DataTable({
             searching: false,
-            lengthMenu: [[6], [6]],
+            lengthMenu: [[10], [10]],
             lengthChange: false,
             language: {
                 lengthMenu: "Mostrar _MENU_ entradas",
@@ -86,6 +87,4 @@
 
         });
     });
-
-
 </script>

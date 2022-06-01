@@ -3,126 +3,142 @@
 @{ ViewBag.Title = "Detalle de la Bitácora"; }
 
 <div class="container bg-light text-dark border" style=" height: auto; min-height: 80vh; padding-bottom: 20px; margin-bottom: 28px; word-wrap: break-word;">
-    <div class="row">
-        <div class="col-md-12">
-            <div style="text-align:center;">
-                <h2 class="display-4">@ViewBag.Title </h2>
-            </div>
-        </div>
+    <div style="text-align:center;">
+        <h1 class="display-5">@ViewBag.Title</h1>
     </div>
     <h2>Bitácora @Html.DisplayTextFor(d => d.VistaEstadoActual) </h2>
     <hr />
-    <h2>Entrega</h2>
-    <dl class="row">
 
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.NumeroSerieArma)
-        </dt>
-        <dd id="req" class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.NumeroSerieArma)
-        </dd>
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.VistaCondicionInicial)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.VistaCondicionInicial)
-        </dd>
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.VistaArmeroProveedor)
-        </dt>
-        <dd id="req" class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.VistaArmeroProveedor)
-        </dd>
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.VistaPoliciaSolicitante)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.VistaPoliciaSolicitante)
-        </dd>
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.FechaCreacion)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.FechaCreacion)
-        </dd>
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.MunicionEntregada)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.MunicionEntregada)
-        </dd>
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.CargadoresEntregados)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.CargadoresEntregados)
-        </dd>
-        @if (Model.ObservacionesEntrega != null)
-        {
-            <dt class="col-sm-4 ">
-                @Html.Label("Observaciones de Entrega")
-            </dt>
-            <dd class="col-sm-8 ">
-                @Html.DisplayTextFor(d => d.ObservacionesEntrega)
-            </dd>
-        }
-    </dl>
+    <div class="card col-md-12">
+        <div class="card-header">
+            <h2>Entrega</h2>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.NumeroSerieArma)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.NumeroSerieArma)</text>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.VistaCondicionInicial)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.VistaCondicionInicial)</text>
+                </div>
+            </li>
+
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.VistaArmeroProveedor)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.VistaArmeroProveedor)</text>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.VistaPoliciaSolicitante)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.VistaPoliciaSolicitante)</text>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.FechaCreacion)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.FechaCreacion)</text>
+                </div>
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.MunicionEntregada)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.MunicionEntregada)</text>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.CargadoresEntregados)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.CargadoresEntregados)</text>
+                </div>
+            </li>
+            @if (Model.ObservacionesEntrega != null)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.ObservacionesEntrega)</b>
+                        <text class="col-sm-8">@Html.DisplayTextFor(d => d.ObservacionesEntrega)</text>
+                    </div>
+                </li>
+            }
+        </ul>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-sm-2">
+                </div>
+            </div>
+        </div>
+    </div>
+
     @if (Model.VistaEstadoActual == "Completada")
     {
         <hr />
-        <h2>Devuelta</h2>
-        <dl class="row">
+        <div class="card col-md-12">
+            <div class="card-header">
+                <h2>Devuelta</h2>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.VistaArmeroReceptor)</b>
+                        <text class="col-sm-8">@Html.DisplayTextFor(d => d.VistaArmeroReceptor)</text>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.VistaCondicionFinal)</b>
+                        <text class="col-sm-8">@Html.DisplayTextFor(d => d.VistaCondicionFinal)</text>
+                    </div>
+                </li>
 
-            <dt class="col-sm-4 ">
-                @Html.LabelFor(d => d.ArmeroReceptor)
-            </dt>
-            <dd class="col-sm-8 ">
-                @Html.DisplayTextFor(d => d.VistaArmeroReceptor)
-            </dd>
-            <dt class="col-sm-4 ">
-                @Html.LabelFor(d => d.CondicionFinal)
-            </dt>
-            <dd class="col-sm-8 ">
-                @Html.DisplayTextFor(d => d.VistaCondicionFinal)
-            </dd>
-            <dt class="col-sm-4 ">
-                @Html.LabelFor(d => d.FechaFinalizacion)
-            </dt>
-            <dd class="col-sm-8 ">
-                @Html.DisplayTextFor(d => d.FechaFinalizacion)
-            </dd>
-            <dt class="col-sm-4 ">
-                @Html.LabelFor(d => d.MunicionDevuelta)
-            </dt>
-            <dd class="col-sm-8 ">
-                @Html.DisplayTextFor(d => d.MunicionDevuelta)
-            </dd>
-            <dt class="col-sm-4 ">
-                @Html.LabelFor(d => d.CargadoresDevueltos)
-            </dt>
-            <dd class="col-sm-8 ">
-                @Html.DisplayTextFor(d => d.CargadoresDevueltos)
-            </dd>
-            @if (Model.ObservacionesDevuelta != null)
-            {
-                <dt class="col-sm-4 ">
-                    @Html.LabelFor(d => d.ObservacionesDevuelta)
-                </dt>
-                <dd class="col-sm-8 ">
-                    @Html.DisplayTextFor(d => d.ObservacionesDevuelta)
-                </dd>
-            }
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.FechaFinalizacion)</b>
+                        <text class="col-sm-8">@Html.DisplayTextFor(d => d.FechaFinalizacion)</text>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.MunicionDevuelta)</b>
+                        <text class="col-sm-8">@Html.DisplayTextFor(d => d.MunicionDevuelta)</text>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.CargadoresDevueltos)</b>
+                        <text class="col-sm-8">@Html.DisplayTextFor(d => d.CargadoresDevueltos)</text>
+                    </div>
+                </li>
 
-        </dl>
+                @if (Model.ObservacionesDevuelta != null)
+                {
+                    <li class="list-group-item">
+                        <div class="row">
+                            <b class="col-sm-4"> @Html.LabelFor(d => d.ObservacionesDevuelta)</b>
+                            <text class="col-sm-8">@Html.DisplayTextFor(d => d.ObservacionesDevuelta)</text>
+                        </div>
+                    </li>
+                }
+            </ul>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-sm-2">
+                    </div>
+                </div>
+            </div>
+        </div>
     }
     <hr />
 
     <div class="row">
         <div class="col-sm-12">
-
             <a class="btn btn-outline-secondary" href="~/Bitacora/Index" ;">Regresar</a>
             <div style="text-align:center;">
-                @if (Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "5")
+                @if (Session["Rol"].ToString() == "4" || Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "5")
                 {
 
                     <a class="btn btn-primary" href="~/Bitacora/Editar/@Model.IdBitacora">Editar</a>}

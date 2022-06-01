@@ -13,36 +13,40 @@
     </div>
 
     <hr />
+    <div class="card col-md-12">
+        <div class="card-header">
+            <h2> @Html.DisplayTextFor(d => d.Nombre)</h2>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4">@Html.LabelFor(d => d.UserName)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.UserName)</text>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4">@Html.LabelFor(d => d.Cedula)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.Cedula)</text>
+                </div>
+            </li>
 
-    <dl class="row">
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.VsitaRol)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.VsitaRol)</text>
+                </div>
+            </li>
 
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.UserName)
-        </dt>
-        <dd id="req" class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.UserName)
-        </dd>
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.Nombre)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.Nombre)
-        </dd>
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.Cedula)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.Cedula)
-        </dd>
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.VsitaRol)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.VsitaRol)
-        </dd>
-    </dl>
+        </ul>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-sm-2">
+                </div>
+            </div>
+        </div>
+    </div>
     <hr />
-
 
     <div class="row">
         <div class="col-sm-12">

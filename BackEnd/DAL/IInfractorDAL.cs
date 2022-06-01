@@ -13,7 +13,7 @@ namespace BackEnd.DAL
         void Edit(Infractores infractor);
         Infractores GetInfractor(int idInfractor);
         Infractores GetInfractorIdentificacion(string identificacionInfractor);
-        bool IdentificacionExiste(string identificacionInfractor);
-        string GetCedulaInfractor(string cedula);
+        bool InfractorExiste(string identificacionInfractor);
+
     }
 }

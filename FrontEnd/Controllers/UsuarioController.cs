@@ -12,53 +12,71 @@ namespace FrontEnd.Controllers
 {
     public class UsuarioController : Controller
     {
-        
+
         ITablaGeneralDAL tablaGeneralDAL;
         IAuditoriaDAL auditoriaDAL;
         IUsuarioDAL usuarioDAL;
         IRolDAL rolDAL;
 
+        //Metodos Útiles
         public Usuarios ConvertirUsuario(UsuarioViewModel modelo)
         {
             usuarioDAL = new UsuarioDAL();
             rolDAL = new RolDAL();
-            Usuarios usuario = new Usuarios();
-
-            usuario.idUsuario = modelo.IdUsuario;
-            usuario.nombre = modelo.Nombre;
-            usuario.cedula = modelo.Cedula;
-            usuario.usuario = modelo.UserName;
-            usuario.rol = rolDAL.GetRol(modelo.Rol).idRol;
+            Usuarios usuario = new Usuarios
+            {
+                idUsuario = modelo.IdUsuario,
+                nombre = modelo.Nombre.ToUpper(),
+                cedula = modelo.Cedula.ToUpper(),
+                usuario = modelo.UserName,
+                rol = rolDAL.GetRol(modelo.Rol).idRol
+            };
 
             return usuario;
         }
 
-        public UsuarioViewModel CargarUsuario(Usuarios usuario) 
+        public UsuarioViewModel CargarUsuario(Usuarios usuario)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
             usuarioDAL = new UsuarioDAL();
             rolDAL = new RolDAL();
-            UsuarioViewModel modelo = new UsuarioViewModel();
-
-            modelo.IdUsuario = usuario.idUsuario;
-            modelo.Nombre = usuario.nombre;
-            modelo.Cedula = usuario.cedula;
-            modelo.UserName = usuario.usuario;
-            modelo.Rol = (int)usuario.rol;
-            modelo.VsitaRol = rolDAL.GetRol(usuario.rol).descripcion;
+            UsuarioViewModel modelo = new UsuarioViewModel
+            {
+                IdUsuario = usuario.idUsuario,
+                Nombre = usuario.nombre,
+                Cedula = usuario.cedula,
+                UserName = usuario.usuario,
+                Rol = (int)usuario.rol,
+                VsitaRol = rolDAL.GetRol(usuario.rol).descripcion
+            };
 
             return modelo;
         }
+        public Auditorias ConvertirAuditoria(AuditoriaViewModel modelo)
+        {
+            tablaGeneralDAL = new TablaGeneralDAL();
+            usuarioDAL = new UsuarioDAL();
+            return new Auditorias
+            {
+                idAuditoria = modelo.IdAuditoria,
+                idCategoria = modelo.IdCategoria,
+                idElemento = modelo.IdElemento,
+                fecha = DateTime.Now,
+                accion = modelo.Accion,
+                idUsuario = modelo.IdUsuario,
 
+            };
+        }
 
+        //Metodos de las Vistas
         public ActionResult Index(string filtrosSeleccionado, string busqueda)
         {
             if (Session["userID"] != null)
             {
                 usuarioDAL = new UsuarioDAL();
                 tablaGeneralDAL = new TablaGeneralDAL();
-                List<UsuarioViewModel> usuarios = new List<UsuarioViewModel>();
-                List<UsuarioViewModel> usuariosFiltrados = new List<UsuarioViewModel>();
+
+                //Carga combobox busqueda
                 List<TablaGeneral> comboindex = tablaGeneralDAL.Get("Usuarios", "index");
                 List<SelectListItem> items = comboindex.ConvertAll(d =>
                 {
@@ -68,6 +86,10 @@ namespace FrontEnd.Controllers
                     };
                 });
                 ViewBag.items = items;
+
+                //Carga lista de policias
+                List<UsuarioViewModel> usuarios = new List<UsuarioViewModel>();
+                List<UsuarioViewModel> usuariosFiltrados = new List<UsuarioViewModel>();
                 foreach (Usuarios usuario in usuarioDAL.Get())
                 {
                     usuarios.Add(CargarUsuario(usuario));
@@ -101,15 +123,15 @@ namespace FrontEnd.Controllers
             }
         }
 
-
-
         public ActionResult Nuevo()
         {
             if (Session["userID"] != null)
             {
                 rolDAL = new RolDAL();
-                UsuarioViewModel modelo = new UsuarioViewModel();
-                modelo.TiposDeRol = rolDAL.Get().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.idRol.ToString() });
+                UsuarioViewModel modelo = new UsuarioViewModel
+                {
+                    TiposDeRol = rolDAL.Get().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.idRol.ToString() })
+                };
                 return View(modelo);
             }
             else
@@ -119,30 +141,46 @@ namespace FrontEnd.Controllers
         }
 
         [HttpPost]
-        public ActionResult Nuevo(UsuarioViewModel model)
+        public ActionResult Nuevo(UsuarioViewModel modelo)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
             usuarioDAL = new UsuarioDAL();
             auditoriaDAL = new AuditoriaDAL();
-            AuditoriaViewModel auditoria_model = new AuditoriaViewModel();
-            model.CedulaUsuarioFiltrada = usuarioDAL.GetCedulaUsuario(model.Cedula);
-            auditoria_model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
-            auditoria_model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "16").idTablaGeneral;
-            auditoria_model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
+            rolDAL = new RolDAL();
+
+            AuditoriaViewModel auditoria_model = new AuditoriaViewModel
+            {
+                Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral,
+                IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "16").idTablaGeneral,
+                IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario
+            };
+
             try
             {
-                if (!usuarioDAL.CedulaUsuarioExiste(model.Cedula))
+                if (ModelState.IsValid)
                 {
-                    if (ModelState.IsValid)
+                    int errores = 0;
+                    if (usuarioDAL.CedulaUsuarioExiste(modelo.Cedula))
                     {
-                        usuarioDAL.Add(ConvertirUsuario(model));
-                        auditoria_model.IdElemento = usuarioDAL.GetUsuarioCedula(model.Cedula).idUsuario;
+                        ModelState.AddModelError(nameof(modelo.Cedula), "La cédula ingresada ya existe");
+                        errores++;
+                    }
+                    if (usuarioDAL.UsernameUsuarioExiste(modelo.UserName))
+                    {
+                        ModelState.AddModelError(nameof(modelo.UserName), "El username ingresada ya existe");
+                        errores++;
+                    }
+                    if (errores == 0)
+                    {
+                        usuarioDAL.Add(ConvertirUsuario(modelo));
+                        auditoria_model.IdElemento = usuarioDAL.GetUsuarioCedula(modelo.Cedula).idUsuario;
                         auditoriaDAL.Add(ConvertirAuditoria(auditoria_model));
-                        int aux = usuarioDAL.GetUsuarioCedula(model.Cedula).idUsuario;
+                        int aux = usuarioDAL.GetUsuarioCedula(modelo.Cedula).idUsuario;
                         return Redirect("~/Usuario/Detalle/" + aux);
                     }
                 }
-                return View(model);
+                modelo.TiposDeRol = rolDAL.Get().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.idRol.ToString() });
+                return View(modelo);
             }
             catch
             {
@@ -153,31 +191,52 @@ namespace FrontEnd.Controllers
         public ActionResult Editar(int id)
         {
             usuarioDAL = new UsuarioDAL();
+            rolDAL = new RolDAL();
             UsuarioViewModel modelo = CargarUsuario(usuarioDAL.GetUsuario(id));
             modelo.TiposDeRol = rolDAL.Get().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.idRol.ToString() });
             return View(modelo);
         }
 
         [HttpPost]
-        public ActionResult Editar(UsuarioViewModel model)
+        public ActionResult Editar(UsuarioViewModel modelo)
         {
             usuarioDAL = new UsuarioDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             auditoriaDAL = new AuditoriaDAL();
-            AuditoriaViewModel auditoria_model = new AuditoriaViewModel();
-            auditoria_model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
-            auditoria_model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "16").idTablaGeneral;
-            auditoria_model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
+            rolDAL = new RolDAL();
+
+            AuditoriaViewModel auditoria_model = new AuditoriaViewModel
+            {
+                Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral,
+                IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "16").idTablaGeneral,
+                IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario
+            };
+
             try
             {
                 if (ModelState.IsValid)
                 {
-                    usuarioDAL.Edit(ConvertirUsuario(model));
-                    auditoria_model.IdElemento = usuarioDAL.GetUsuarioCedula(model.Cedula).idUsuario;
-                    auditoriaDAL.Add(ConvertirAuditoria(auditoria_model));
-                    return Redirect("~/Usuario/Detalle/" + model.IdUsuario);
+                    int errores = 0;
+                    if (usuarioDAL.CedulaUsuarioExiste(modelo.Cedula) && modelo.Cedula != usuarioDAL.GetUsuario(modelo.IdUsuario).cedula)
+                    {
+                        ModelState.AddModelError(nameof(modelo.Cedula), "La cédula ingresada ya existe");
+                        errores++;
+                    }
+                    if (usuarioDAL.UsernameUsuarioExiste(modelo.UserName) && modelo.UserName != usuarioDAL.GetUsuario(modelo.IdUsuario).usuario)
+                    {
+                        ModelState.AddModelError(nameof(modelo.UserName), "El username ingresada ya existe");
+                        errores++;
+                    }
+                    if (errores == 0)
+                    {
+                        usuarioDAL.Edit(ConvertirUsuario(modelo));
+                        auditoria_model.IdElemento = usuarioDAL.GetUsuarioCedula(modelo.Cedula).idUsuario;
+                        auditoriaDAL.Add(ConvertirAuditoria(auditoria_model));
+                        return Redirect("~/Usuario/Detalle/" + modelo.IdUsuario);
+                    }
                 }
-                return View(model);
+                modelo.TiposDeRol = rolDAL.Get().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.idRol.ToString() });
+                return View(modelo);
             }
             catch (Exception ex)
             {
@@ -195,22 +254,5 @@ namespace FrontEnd.Controllers
             UsuarioViewModel modelo = CargarUsuario(usuarioDAL.GetUsuario(id));
             return View(modelo);
         }
-
-        public Auditorias ConvertirAuditoria(AuditoriaViewModel modelo)
-        {
-            tablaGeneralDAL = new TablaGeneralDAL();
-            usuarioDAL = new UsuarioDAL();
-            return new Auditorias
-            {
-                idAuditoria = modelo.IdAuditoria,
-                idCategoria = modelo.IdCategoria,
-                idElemento = modelo.IdElemento,
-                fecha = DateTime.Now,
-                accion = modelo.Accion,
-                idUsuario = modelo.IdUsuario,
-
-            };
-        }
-
     }
 }

@@ -139,7 +139,7 @@ function ocultarBitacora() {
 function ocultarFecha() {
     var aux2 = document.getElementById("tiposRequisito");
     var aux3 = document.getElementById("fechaVencimiento");
-    if (aux2.val() == "Capacitación") {
+    if (aux2.selectedOptions[0].innerHTML === "Carné") {
         aux3.style.display = "block"
     } else {
         aux3.style.display = "none"

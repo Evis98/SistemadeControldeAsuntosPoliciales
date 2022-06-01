@@ -4,189 +4,105 @@
 }
 
 <div class="container bg-light text-dark border" style="height:80vh;">
-    <div class="row">
-        <div class="col-md-12">
-            <div style="text-align:center;">
-                <h2 class="display-4" style="text-align:center;">@ViewBag.Title</h2>
-            </div>
-        </div>
+    <div style="text-align:center;">
+        <h1 class="display-5">@ViewBag.Title</h1>
     </div>
     <hr />
 
     @using (Html.BeginForm("Nuevo", "Bitacora", FormMethod.Post))
     {
-<div class="form-row">
-    <div class="form-group col-md-4">
-        @Html.LabelFor(d => d.NumeroSerieArma)
-        <div class="input-group">
-            @Html.TextBoxFor(d => d.NumeroSerieArma, "", new
+        <div class="row mb-4">
+            <div class="form-group col-md-4">
+                @Html.LabelFor(d => d.NumeroSerieArma)
+                <div class="input-group">
+                    @Html.TextBoxFor(d => d.NumeroSerieArma, "", new { @class = "form-control", @id = "idArma", @readonly = "readonly" })
+                    <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalBusquedaArma">Buscar</a>
+                </div>
+                @Html.ValidationMessageFor(d => d.NumeroSerieArma, null, new { @class = "red" })
+            </div>
+            @if (Session["Rol"].ToString() == "4")
             {
-                @class = "form-control",
-                @id = "idArma",
-                @readonly = "readonly"
-            })
-            <div class="input-group-append ">
-                <a class="btn btn-primary" data-toggle="modal" data-target="#modalBusquedaArma">Buscar</a>
-            </div>
-        </div>
-        @Html.ValidationMessageFor(d => d.NumeroSerieArma, null, new { @class = "red" })
-    </div>
-    @if (Session["Rol"].ToString() == "4" )
-    {
-        <div class="form-group col-md-4">
-            @Html.LabelFor(d => d.ArmeroProveedor)
-            <div class="input-group">
-                @Html.TextBoxFor(d => d.ArmeroProveedor, "", new
-           {
-               @class = "form-control",
-               @id = "idArmeroProveedor",
-               @readonly = "readonly",
-               @Value = @Session["cedula"].ToString()
-           })
-                <div class="input-group-append ">
-                    <a class="btn btn-primary" data-book-id="idArmeroProveedor" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
-
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(d => d.ArmeroProveedor)
+                    @Html.TextBoxFor(d => d.ArmeroProveedor, "", new { @class = "form-control", @id = "idArmeroProveedor", @readonly = "readonly", @Value = @Session["cedula"].ToString() })
+                    @Html.ValidationMessageFor(d => d.ArmeroProveedor, null, new { @class = "red" })
+                </div>
+            }
+            @if (Session["Rol"].ToString() == "5")
+            {
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(d => d.ArmeroProveedor)
+                    @Html.TextBoxFor(d => d.ArmeroProveedor, "", new { @class = "form-control", @id = "idArmeroProveedor", @Value = @Session["cedula"].ToString() })
+                    @Html.ValidationMessageFor(d => d.ArmeroProveedor, null, new { @class = "red" })
+                </div>
+            }
+            <div class="form-group col-md-4">
+                @Html.LabelFor(d => d.PoliciaSolicitante)
+                <div class="input-group">
+                    @Html.TextBoxFor(d => d.PoliciaSolicitante, "", new { @class = "form-control", @id = "idPoliciaSolicitante", @readonly = "readonly" })
+                    <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalBusquedaPolicia">Buscar</a>
                 </div>
             </div>
-            @Html.ValidationMessageFor(d => d.ArmeroProveedor, null, new { @class = "red" })
         </div>
-    }
-    else
-    {
-
-        <div class="form-group col-md-4">
-            @Html.LabelFor(d => d.ArmeroProveedor)
-            <div class="input-group">
-                @Html.TextBoxFor(d => d.ArmeroProveedor, "", new
-           {
-               @class = "form-control",
-               @id = "idArmeroProveedor",
-               @readonly = "readonly"
-           })
-                <div class="input-group-append ">
-                    <a class="btn btn-primary" data-book-id="idArmeroProveedor" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
-
-                </div>
-            </div>
-            @Html.ValidationMessageFor(d => d.ArmeroProveedor, null, new { @class = "red" })
-        </div>
-
-
-
-
-    }
-    <div class="form-group col-md-4">
-        @Html.LabelFor(d => d.PoliciaSolicitante)
-        <div class="input-group">
-            @Html.TextBoxFor(d => d.PoliciaSolicitante, "", new { @class = "form-control", @id = "idPoliciaSolicitante", @readonly = "readonly" })
-            <div class="input-group-append ">
-                <a class="btn btn-primary" data-book-id="idPoliciaSolicitante" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
-            </div>
-        </div>
-    </div>
-</div>
-        <div class="form-row">
+        <div class="row mb-4">
             <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.VistaCondicionInicial)
-                @Html.TextBoxFor(d => d.VistaCondicionInicial, "", new { @class = "form-control", @id = "condicionInicialArma",@readonly = "readonly"})
+                @Html.TextBoxFor(d => d.VistaCondicionInicial, "", new { @class = "form-control", @id = "condicionInicialArma", @readonly = "readonly" })
                 @Html.ValidationMessageFor(d => d.VistaCondicionInicial, null, new { @class = "red" })
             </div>
             <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.MunicionEntregada)
-                @Html.TextBoxFor(d => d.MunicionEntregada, "", new { @class = "form-control", @min = "0", @onkeyup = "this.value = this.value.toUpperCase();", @type = "number", onkeydown = "javascript: return event.keyCode == 69 ? false : true" })
+                @Html.TextBoxFor(d => d.MunicionEntregada, "", new { @class = "form-control", @min = "0", @type = "number" })
                 @Html.ValidationMessageFor(d => d.MunicionEntregada, null, new { @class = "red" })
             </div>
             <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.CargadoresEntregados)
-                @Html.TextBoxFor(d => d.CargadoresEntregados, "", new { @class = "form-control", @min = "0", @onkeyup = "this.value = this.value.toUpperCase();", @type = "number", onkeydown = "javascript: return event.keyCode == 69 ? false : true" })
+                @Html.TextBoxFor(d => d.CargadoresEntregados, "", new { @class = "form-control", @min = "0", @type = "number" })
                 @Html.ValidationMessageFor(d => d.CargadoresEntregados, null, new { @class = "red" })
             </div>
         </div>
-        <div class="form-row">
+        <div class="row mb-4">
             <div class="form-group col-md-12">
                 @Html.LabelFor(d => d.ObservacionesEntrega)
-                @Html.TextAreaFor(d => d.ObservacionesEntrega, new { @class = "form-control", onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumerossimbolos(event)", autocomplete = "new-password" })
+                @Html.TextAreaFor(d => d.ObservacionesEntrega, new { @class = "form-control", @maxlenth = "250", @style = "text-transform:uppercase", autocomplete = "new-password" })
                 @Html.ValidationMessageFor(d => d.ObservacionesEntrega, null, new { @class = "red" })
             </div>
         </div>
-        <div class="form-row">
+        <hr />
+        <div class="row">
             <div class="form-group col-md-12">
                 <div style="text-align:center;">
                     <a class="btn btn-secondary" href="~/Bitacora/Index">Cancelar</a>
-                    <input value="Guardar" class="btn btn-primary" type="button" id="hGuardar" data-toggle="modal" data-target="#show" />
+                    <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#show">Guardar</a>
                 </div>
             </div>
         </div>
 
-        <div class="modal" id="show" tabindex="-1" role="dialog">
+        <div class="modal fade" id="show" tabindex="-1" aria-labelledby="showLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Agregar una Bitácora</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <h5 class="modal-title" id="showLabel">Agregar una Bitácora</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" />
                     </div>
                     <div class="modal-body">
                         <p>¿Está seguro que desea guardar una nueva bitácora?</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-danger" id="Cancel" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary" id="btnSave">Guardar</button>
+                        <button type="button" class="btn btn-outline-danger" id="Cancel" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" id="btnSave" data-bs-dismiss="modal">Guardar</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="modal" id="QuitarArma" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Quitar un Arma de la Bitácora</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>¿Está seguro que desea quitar un arma de la bitácora?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" id="Cancel" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-danger" onclick="document.getElementById('idArma').value = ''" id="QuitarArma" data-dismiss="modal">Quitar </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="modal" id="quitaPolicia">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Quitar un  de un Arma</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>¿Está seguro que desea quitar un policía de un arma?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" id="Cancel" data-dismiss="modal">Cancelar</button>
-                        <a name="quitarPolicia" class="btn btn-danger" onclick="reply_click4(this.id)" data-dismiss="modal">Quitar </a>
-                    </div>
-                </div>
-            </div>
-        </div>
     }
-    <div class="modal fade" id="modalBusqueda" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    <div class="modal fade" id="modalBusquedaPolicia" tabindex="-1" role="dialog" aria-labelledby="modalBusquedaPoliciaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Buscar Policía</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h5 class="modal-title" id="modalBusquedaPoliciaLabel">Buscar Policía</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" />
                 </div>
                 <p hidden name="agregarPolicia" id="" />
                 <div class="modal-body">
@@ -195,14 +111,12 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="modalBusquedaArma" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    <div class="modal fade" id="modalBusquedaArma" tabindex="-1" role="dialog" aria-labelledby="modalBusquedaArmaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Armas Disponibles</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h5 class="modal-title" id="modalBusquedaArmaLabel">Armas Disponibles</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" />
                 </div>
                 <div class="modal-body">
                     @{ Html.RenderAction("ListaArmasBuscar", "Bitacora", new { nombre = "" }); }
@@ -216,27 +130,11 @@
 <script>
 
     function reply_clickB(clicked_id) {
-        var aux = document.getElementsByName("agregarPolicia")[0].getAttribute("id");
-        if (aux === "idArmeroProveedor") {
-            var elem = document.getElementById("idArmeroProveedor");
-        }
-        if (aux === "idPoliciaSolicitante") {
-            var elem = document.getElementById("idPoliciaSolicitante");
-        }
+        var elem = document.getElementById("idPoliciaSolicitante");
         elem.value = clicked_id;
         $('#modalBusqueda').modal('hide');
     }
 
-
-    function reply_click2(clicked_id2) {
-        var elem2 = document.getElementByName("quitaPolicia");
-        elem2.value = clicked_id2;
-        $('#showQu').modal('hide');
-    }
-
-    function reply_click4(clicked_id3) {
-        document.getElementById(clicked_id3).value = '';
-    }
 
     function reply_clickArma(clicked_id, condicionInicial) {
         var elem = document.getElementById("idArma");
@@ -244,11 +142,6 @@
         var elem2 = document.getElementById("condicionInicialArma");
         elem2.value = condicionInicial;
         $('#modalBusquedaArma').modal('hide');
-    }
-    function reply_click2(clicked_id2) {
-        var elem2 = document.getElementById("QuitarArma");
-        elem2.value = clicked_id2;
-        $('#QuitarArma').modal('hide');
     }
 
 </script>

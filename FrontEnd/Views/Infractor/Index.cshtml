@@ -6,26 +6,21 @@
 
 
 <div class="container bg-light text-dark border" style=" height: auto; min-height: 80vh; margin-bottom: 20px; word-wrap: break-word;">
-    <div class="row">
-        <div class="col-md-12">
-            <div style="text-align:center;">
-                <h2 class="display-4">@ViewBag.Title</h2>
-            </div>
-        </div>
+    <div style="text-align:center;">
+        <h1 class="display-5">@ViewBag.Title</h1>
     </div>
     <hr />
     @using (Html.BeginForm("Index", "Infractor", FormMethod.Get))
     {
-
-        <div class="form-row">
+        <div class="row">
             <div class="col-sm-3">
-                @Html.DropDownList("filtrosSeleccionado", items, new { @class = "form-control", @id = "filtroSeleccionado", @name = "filtroSeleccionado" })
+                @Html.DropDownList("filtrosSeleccionado", items, new { @class = "form-select", @id = "filtroSeleccionado", @name = "filtroSeleccionado" })
                 <script>
                     document.getElementById("filtroSeleccionado").value = "Nombre";
                 </script>
             </div>
             <div class="col-sm-4">
-                <input class="form-control" name="busqueda" maxlength="150" type="text" id="busqueda" onkeyup="this.value = this.value.toUpperCase();" onkeypress="return  sololetrasnumeros(event)" />
+                <input class="form-control" name="busqueda" maxlength="150" type="text" id="busqueda" style = "text-transform:uppercase" onkeydown="return /[0-9A-ZÁáéÉíÍóÓúÚ]/i.test(event.key)"  />
             </div>
             <div class="col-sm-4">
                 <button class="btn btn-primary">Buscar</button>
@@ -33,41 +28,34 @@
             <div class="col-sm-1">
                 <a href="~/Infractor/Nuevo" class="btn btn-success">Agregar</a>
             </div>
-
         </div>
     }
     <hr />
+    <table class="table table-bordered table-sm" id="idtablaInfractor">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">Identificación</th>
+                <th scope="col">Nombre</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var oElemento in Model)
+            {
+                <tr>
+                    <th scope="row">@oElemento.Identificacion</th>
+                    <td>@oElemento.Nombre</td>
+                    <td>
+                        <div style="text-align:center;">
+                            <a class="btn btn-sm btn-outline-secondary" href="~/Infractor/Detalle/@oElemento.IdInfractor">Ver Detalles</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table table-bordered center table-sm" id="idtablaInfractor">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">Identificación</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col"></th>
-                    </tr>
-
-                </thead>
-                <tbody>
-                    @foreach (var oElemento in Model)
-                    {
-                        <tr>
-                            <th scope="row">@oElemento.Identificacion</th>
-                            <td>@oElemento.Nombre</td>
-                            <td>
-                                <div style="text-align:center;">
-                                    <a class="btn btn-sm btn-outline-info" href="~/Infractor/Detalle/@oElemento.IdInfractor">Ver Detalles</a>
-                                </div>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
 </div>
-
 
 <script>
     $(document).ready(function () {
@@ -89,17 +77,4 @@
 
         });
     });
-
-
 </script>
-
-
-
-
-
-
-
-
-
-
-

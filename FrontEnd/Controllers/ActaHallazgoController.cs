@@ -20,55 +20,40 @@ namespace FrontEnd.Controllers
         IAuditoriaDAL auditoriaDAL;
         IUsuarioDAL usuarioDAL;
         IPersonaDAL personaDAL;
-
+        //metodos útiles
         public ActasHallazgo ConvertirActaHallazgo(ActaHallazgoViewModel modelo)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
             policiaDAL = new PoliciaDAL();
             personaDAL = new PersonaDAL();
 
-            ActasHallazgo actaHallazgo = new ActasHallazgo();
+            ActasHallazgo actaHallazgo = new ActasHallazgo
             {
-                actaHallazgo.idActaHallazgo = modelo.IdActaHallazgo;
-                actaHallazgo.numeroFolio = modelo.NumeroFolio;
-                actaHallazgo.distrito = tablaGeneralDAL.GetCodigo("Generales", "distrito", modelo.Distrito.ToString()).idTablaGeneral;
-                actaHallazgo.fechaHora = modelo.Fecha;
-                actaHallazgo.avenida = modelo.Avenida;
-                actaHallazgo.calle = modelo.Calle;
-                actaHallazgo.otrasSenas = modelo.OtrasSenas;
-                actaHallazgo.inventario = modelo.Inventario;
-                actaHallazgo.estado = tablaGeneralDAL.GetCodigo("Actas", "estadoActa", modelo.Estado.ToString()).idTablaGeneral;
-                actaHallazgo.observaciones = modelo.Observaciones;
-                actaHallazgo.encargado = policiaDAL.GetPoliciaCedula(modelo.Encargado).idPolicia;
-                actaHallazgo.tipoTestigo = tablaGeneralDAL.GetCodigo("Actas", "tipoTestigo", modelo.TipoTestigo.ToString()).idTablaGeneral;
-
-                if (modelo.TipoTestigo != 3)
-                {
-                    if (modelo.TipoTestigo == 1)
-                    {
-                        if (modelo.IdTestigoPolicia != null && policiaDAL.CedulaPoliciaExiste(modelo.IdTestigoPolicia))
-                        {
-                            actaHallazgo.testigo = policiaDAL.GetPoliciaCedula(modelo.IdTestigoPolicia).idPolicia;
-                        }
-                        else
-                        {
-                            actaHallazgo.tipoTestigo = tablaGeneralDAL.GetCodigo("Actas", "tipoTestigo", "3").idTablaGeneral;
-                        }
-                    }
-                    else if (modelo.TipoTestigo == 2)
-                    {
-                        if (modelo.IdTestigoPersona != null && personaDAL.IdentificacionExiste(modelo.IdTestigoPersona))
-                        {
-                            actaHallazgo.testigo = personaDAL.GetPersonaIdentificacion(modelo.IdTestigoPersona).idPersona;
-                        }
-                        else
-                        {
-                            actaHallazgo.tipoTestigo = tablaGeneralDAL.GetCodigo("Actas", "tipoTestigo", "3").idTablaGeneral;
-                        }
-                    }
-                }
-                actaHallazgo.supervisor = policiaDAL.GetPoliciaCedula(modelo.Supervisor).idPolicia;
+                idActaHallazgo = modelo.IdActaHallazgo,
+                numeroFolio = modelo.NumeroFolio,
+                distrito = tablaGeneralDAL.GetCodigo("Generales", "distrito", modelo.Distrito.ToString()).idTablaGeneral,
+                fechaHora = modelo.Fecha,
+                avenida = ToUpperCheckForNull(modelo.Avenida),
+                calle = ToUpperCheckForNull(modelo.Calle),
+                otrasSenas = ToUpperCheckForNull(modelo.OtrasSenas),
+                inventario = ToUpperCheckForNull(modelo.Inventario),          
+                observaciones = ToUpperCheckForNull(modelo.Observaciones),
+                encargado = policiaDAL.GetPoliciaCedula(modelo.Encargado).idPolicia,
+                tipoTestigo = tablaGeneralDAL.GetCodigo("Actas", "tipoTestigo", modelo.TipoTestigo.ToString()).idTablaGeneral,
+                supervisor = policiaDAL.GetPoliciaCedula(modelo.Supervisor).idPolicia
             };
+            if (modelo.TipoTestigo == 1)
+            {
+                actaHallazgo.testigo = policiaDAL.GetPoliciaCedula(modelo.IdTestigoPolicia).idPolicia;
+            }
+            if (modelo.TipoTestigo == 2)
+            {
+                actaHallazgo.testigo = personaDAL.GetPersonaIdentificacion(modelo.IdTestigoPersona).idPersona;
+            }
+            if (modelo.Estado != 0)
+            {
+                actaHallazgo.estado = tablaGeneralDAL.GetCodigo("Actas", "estadoActa", modelo.Estado.ToString()).idTablaGeneral;
+            }
             return actaHallazgo;
         }
         public ActaHallazgoViewModel CargarActaHallazgo(ActasHallazgo actaHallazgo)
@@ -76,47 +61,48 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             policiaDAL = new PoliciaDAL();
             personaDAL = new PersonaDAL();
-            ActaHallazgoViewModel actaHallazgoCarga = new ActaHallazgoViewModel();
+            ActaHallazgoViewModel actaHallazgoCarga = new ActaHallazgoViewModel
             {
-                actaHallazgoCarga.IdActaHallazgo = actaHallazgo.idActaHallazgo;
-                actaHallazgoCarga.NumeroFolio = actaHallazgo.numeroFolio;
-                actaHallazgoCarga.Encargado = policiaDAL.GetPolicia(actaHallazgo.encargado).cedula;
-                actaHallazgoCarga.Supervisor = policiaDAL.GetPolicia(actaHallazgo.supervisor).cedula;
-                actaHallazgoCarga.Distrito = int.Parse(tablaGeneralDAL.Get(actaHallazgo.distrito).codigo);
-                actaHallazgoCarga.VistaDistrito = tablaGeneralDAL.Get(actaHallazgo.distrito).descripcion;
-                actaHallazgoCarga.Fecha = actaHallazgo.fechaHora.Value;
-                actaHallazgoCarga.Hora = actaHallazgo.fechaHora.Value;
-                actaHallazgoCarga.Avenida = actaHallazgo.avenida;
-                actaHallazgoCarga.Calle = actaHallazgo.calle;
-                actaHallazgoCarga.OtrasSenas = actaHallazgo.otrasSenas;
-                actaHallazgoCarga.Inventario = actaHallazgo.inventario;
-                actaHallazgoCarga.Observaciones = actaHallazgo.observaciones;
-                actaHallazgoCarga.VistaPoliciaEncargado = policiaDAL.GetPolicia(actaHallazgo.encargado).nombre;
-                actaHallazgoCarga.VistaPoliciaSupervisor = policiaDAL.GetPolicia(actaHallazgo.supervisor).nombre;
-                actaHallazgoCarga.Estado = int.Parse(tablaGeneralDAL.Get(actaHallazgo.estado).codigo);
-                actaHallazgoCarga.VistaEstadoActa = tablaGeneralDAL.Get(actaHallazgo.estado).descripcion;
-                actaHallazgoCarga.TipoTestigo = int.Parse(tablaGeneralDAL.Get(actaHallazgo.tipoTestigo).codigo);
-
-                if (int.Parse(tablaGeneralDAL.Get(actaHallazgo.tipoTestigo).codigo) != 3 && actaHallazgo.testigo != null)
-                {
-                    if (int.Parse(tablaGeneralDAL.Get(actaHallazgo.tipoTestigo).codigo) == 1 && policiaDAL.GetPolicia((int)actaHallazgo.testigo) != null)
-                    {
-                        actaHallazgoCarga.VistaTestigo = policiaDAL.GetPolicia((int)actaHallazgo.testigo).nombre;
-                        actaHallazgoCarga.IdTestigoPolicia = policiaDAL.GetPolicia((int)actaHallazgo.testigo).cedula;
-                        actaHallazgoCarga.VistaIdTestigo = policiaDAL.GetPolicia((int)actaHallazgo.testigo).cedula;
-                    }
-                    else if (int.Parse(tablaGeneralDAL.Get(actaHallazgo.tipoTestigo).codigo) == 2 && personaDAL.GetPersona((int)actaHallazgo.testigo) != null)
-                    {
-                        actaHallazgoCarga.VistaTestigo = personaDAL.GetPersona((int)actaHallazgo.testigo).nombre;
-                        actaHallazgoCarga.IdTestigoPersona = personaDAL.GetPersona((int)actaHallazgo.testigo).identificacion;
-                        actaHallazgoCarga.VistaIdTestigo = personaDAL.GetPersona((int)actaHallazgo.testigo).identificacion;
-                    }
-
-                }
-                actaHallazgoCarga.VistaTipoTestigo = tablaGeneralDAL.Get(actaHallazgo.tipoTestigo).descripcion;
+                IdActaHallazgo = actaHallazgo.idActaHallazgo,
+                NumeroFolio = actaHallazgo.numeroFolio,
+                Encargado = policiaDAL.GetPolicia(actaHallazgo.encargado).cedula,
+                Supervisor = policiaDAL.GetPolicia(actaHallazgo.supervisor).cedula,
+                Distrito = int.Parse(tablaGeneralDAL.Get(actaHallazgo.distrito).codigo),
+                VistaDistrito = tablaGeneralDAL.Get(actaHallazgo.distrito).descripcion,
+                Fecha = actaHallazgo.fechaHora.Value,
+                Hora = actaHallazgo.fechaHora.Value,
+                Avenida = actaHallazgo.avenida,
+                Calle = actaHallazgo.calle,
+                OtrasSenas = actaHallazgo.otrasSenas,
+                Inventario = actaHallazgo.inventario,
+                Observaciones = actaHallazgo.observaciones,
+                VistaPoliciaEncargado = policiaDAL.GetPolicia(actaHallazgo.encargado).nombre,
+                VistaPoliciaSupervisor = policiaDAL.GetPolicia(actaHallazgo.supervisor).nombre,
+                Estado = int.Parse(tablaGeneralDAL.Get(actaHallazgo.estado).codigo),
+                VistaEstadoActa = tablaGeneralDAL.Get(actaHallazgo.estado).descripcion,
+                TipoTestigo = int.Parse(tablaGeneralDAL.Get(actaHallazgo.tipoTestigo).codigo),
+                VistaTipoTestigo = tablaGeneralDAL.Get(actaHallazgo.tipoTestigo).descripcion
             };
+
+            if (actaHallazgo.testigo != null)
+            {
+                if (tablaGeneralDAL.Get(actaHallazgo.tipoTestigo).codigo =="1")
+                {
+                    actaHallazgoCarga.VistaTestigo = policiaDAL.GetPolicia((int)actaHallazgo.testigo).nombre;
+                    actaHallazgoCarga.IdTestigoPolicia = policiaDAL.GetPolicia((int)actaHallazgo.testigo).cedula;
+                    actaHallazgoCarga.VistaIdTestigo = policiaDAL.GetPolicia((int)actaHallazgo.testigo).cedula;
+                }
+                if (tablaGeneralDAL.Get(actaHallazgo.tipoTestigo).codigo == "2")
+                {
+                    actaHallazgoCarga.VistaTestigo = personaDAL.GetPersona((int)actaHallazgo.testigo).nombre;
+                    actaHallazgoCarga.IdTestigoPersona = personaDAL.GetPersona((int)actaHallazgo.testigo).identificacion;
+                    actaHallazgoCarga.VistaIdTestigo = personaDAL.GetPersona((int)actaHallazgo.testigo).identificacion;
+                }
+            }
+
             return actaHallazgoCarga;
         }
+       
         public List<PoliciaViewModel> ConvertirListaPoliciasFiltrados(List<Policias> policias)
         {
             return (from d in policias
@@ -225,36 +211,52 @@ namespace FrontEnd.Controllers
             }
         }
 
+        public string ToUpperCheckForNull(string input)
+        {
 
+            string retval = input;
 
+            if (!string.IsNullOrEmpty(retval))
+            {
+                retval = retval.ToUpper();
+            }
 
+            return retval;
+
+        }
+
+        //metodos de las vistas de las actas
         public ActionResult Index(string filtroSeleccionados, string busqueda, string busquedaFechaInicioH, string busquedaFechaFinalH)
         {
             Autorizar();
             actaHallazgoDAL = new ActaHallazgoDAL();
             policiaDAL = new PoliciaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
-            List<ActaHallazgoViewModel> actasHallazgo = new List<ActaHallazgoViewModel>();
-            List<ActaHallazgoViewModel> actasHallazgoFiltradas = new List<ActaHallazgoViewModel>();
+
+            //Carga combobox busqueda
             List<TablaGeneral> comboindex = tablaGeneralDAL.Get("ActasHallazgo", "index");
             List<SelectListItem> items = comboindex.ConvertAll(d =>
-            {               
+            {
                 return new SelectListItem()
                 {
-                    Text = d.descripcion                                           
-                };              
+                    Text = d.descripcion
+                };
             });
             ViewBag.items = items;
+
+            //Carga lista de actas de hallazgo
+            List<ActaHallazgoViewModel> actasHallazgo = new List<ActaHallazgoViewModel>();
+            List<ActaHallazgoViewModel> actasHallazgoFiltradas = new List<ActaHallazgoViewModel>();
             foreach (ActasHallazgo actaHallazgo in actaHallazgoDAL.Get())
             {
                 actasHallazgo.Add(CargarActaHallazgo(actaHallazgo));
             }
-            
-            if (busqueda != null && filtroSeleccionados != "" )
+
+            if (busqueda != null && filtroSeleccionados != "")
             {
-             
+
                 foreach (ActaHallazgoViewModel actaHallazgo in actasHallazgo)
-                {                   
+                {
                     if (filtroSeleccionados == "Número de Folio")
                     {
                         if (actaHallazgo.NumeroFolio.Contains(busqueda))
@@ -284,12 +286,13 @@ namespace FrontEnd.Controllers
                             }
                         }
                     }
-                }                
-                actasHallazgo = actasHallazgoFiltradas;                
-            }            
-            return View(actasHallazgo.OrderBy(x => x.NumeroFolio).ToList());       
-            
-}
+                }
+                actasHallazgo = actasHallazgoFiltradas;
+            }
+            return View(actasHallazgo.OrderBy(x => x.NumeroFolio).ToList());
+
+        }
+
         public ActionResult Nuevo()
         {
             Autorizar();
@@ -311,16 +314,19 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             usuarioDAL = new UsuarioDAL();
             auditoriaDAL = new AuditoriaDAL();
-            AuditoriaViewModel auditoria_model = new AuditoriaViewModel();
+
+            AuditoriaViewModel auditoria_model = new AuditoriaViewModel
+            {
+                Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral,
+                IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "7").idTablaGeneral,
+                IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario
+            };
+
             model.Estado = int.Parse(tablaGeneralDAL.GetCodigo("Actas", "estadoActa", "1").codigo);
-            model.Distritos = tablaGeneralDAL.Get("Generales", "distrito").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
-            model.TiposTestigo = tablaGeneralDAL.Get("Actas", "tipoTestigo").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             model.NumeroFolio = (actaHallazgoDAL.GetCount() + 1).ToString() + "-" + DateTime.Now.Year;
             DateTime newDateTime = model.Fecha.Date + model.Hora.TimeOfDay;
             model.Fecha = newDateTime;
-            auditoria_model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
-            auditoria_model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "7").idTablaGeneral;
-            auditoria_model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
+
             try
             {
                 if (ModelState.IsValid)
@@ -329,10 +335,11 @@ namespace FrontEnd.Controllers
                     auditoria_model.IdElemento = actaHallazgoDAL.GetActaHallazgoFolio(model.NumeroFolio).idActaHallazgo;
                     auditoriaDAL.Add(ConvertirAuditoria(auditoria_model));
                     int aux = actaHallazgoDAL.GetActaHallazgoFolio(model.NumeroFolio).idActaHallazgo;
-                   
                     return Redirect("~/ActaHallazgo/Detalle/" + aux);
-               
+
                 }
+                model.Distritos = tablaGeneralDAL.Get("Generales", "distrito").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+                model.TiposTestigo = tablaGeneralDAL.Get("Actas", "tipoTestigo").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
                 return View(model);
             }
             catch (Exception ex)
@@ -349,10 +356,9 @@ namespace FrontEnd.Controllers
             Session["auditoria"] = actaHallazgoDAL.GetActaHallazgo(id).numeroFolio;
             Session["tabla"] = "Acta de Hallazgo";
             ActaHallazgoViewModel modelo = CargarActaHallazgo(actaHallazgoDAL.GetActaHallazgo(id));
-           return View(modelo);
+            return View(modelo);
         }
 
-        //Devuelve la página de edición de policías con sus apartados llenos
         public ActionResult Editar(int id)
         {
             AutorizarEditar();
@@ -373,21 +379,21 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             usuarioDAL = new UsuarioDAL();
             auditoriaDAL = new AuditoriaDAL();
-            AuditoriaViewModel auditoria_model = new AuditoriaViewModel();
-            model.Distritos = tablaGeneralDAL.Get("Generales", "distrito").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
-            model.Estados = tablaGeneralDAL.Get("Actas", "estadoActa").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
-            model.TiposTestigo = tablaGeneralDAL.Get("Actas", "tipoTestigo").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            AuditoriaViewModel auditoria_model = new AuditoriaViewModel
+            {
+                Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral,
+                IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "7").idTablaGeneral,
+                IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario
+            };
+
             DateTime newDateTime = model.Fecha.Date + model.Hora.TimeOfDay;
             model.Fecha = newDateTime;
-            auditoria_model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
-            auditoria_model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "7").idTablaGeneral;
-            auditoria_model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
             int estado = actaHallazgoDAL.GetActaHallazgo(model.IdActaHallazgo).estado;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    if (tablaGeneralDAL.GetCodigo("Actas","estadoActa",model.Estado.ToString()).idTablaGeneral != estado && model.IdActaHallazgo != 0)
+                    if (tablaGeneralDAL.GetCodigo("Actas", "estadoActa", model.Estado.ToString()).idTablaGeneral != estado)
                     {
                         auditoriaDAL.Add(CambiarEstadoAuditoria(model.IdActaHallazgo));
                     }
@@ -396,6 +402,9 @@ namespace FrontEnd.Controllers
                     auditoriaDAL.Add(ConvertirAuditoria(auditoria_model));
                     return Redirect("~/ActaHallazgo/Detalle/" + model.IdActaHallazgo);
                 }
+                model.Distritos = tablaGeneralDAL.Get("Generales", "distrito").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+                model.Estados = tablaGeneralDAL.Get("Actas", "estadoActa").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+                model.TiposTestigo = tablaGeneralDAL.Get("Actas", "tipoTestigo").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
                 return View(model);
             }
             catch (Exception ex)

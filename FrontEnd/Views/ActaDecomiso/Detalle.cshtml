@@ -13,126 +13,137 @@
     </div>
 
     <hr />
-
-    <dl class="row">
-
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.NumeroFolio)
-        </dt>
-        <dd id="req" class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.NumeroFolio)
-        </dd>
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.VistaOficialActuante)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.VistaOficialActuante)
-        </dd>
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.VistaOficialAcompanante)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.VistaOficialAcompanante)
-        </dd>
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.Supervisor)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.VistaPoliciaSupervisor)
-        </dd>
-
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.Fecha)
-        </dt>
-        <dd class="col-sm-8 ">
-            @{ var fecha = Model.Fecha.ToShortDateString(); }
-            @Html.DisplayTextFor(d => fecha)
-        </dd>
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.Hora)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.Hora.TimeOfDay)
-        </dd>
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.IdDecomisado)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.IdDecomisado)
-        </dd>
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.NombreDecomisado)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.NombreDecomisado)
-        </dd>
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.VistaTipoEstadoCivil)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.VistaTipoEstadoCivil)
-        </dd>
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.TelefonoDecomisado)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.TelefonoDecomisado)
-        </dd>
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.DireccionDecomisado)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.DireccionDecomisado)
-        </dd>
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.LugarDelProcedimiento)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.LugarDelProcedimiento)
-        </dd>
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.Inventario)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.Inventario)
-        </dd>
-        @if (Model.Observaciones != null)
-        {
-            <dt class="col-sm-4 ">
-                @Html.LabelFor(d => d.Observaciones)
-            </dt>
-            <dd class="col-sm-8 ">
-                @Html.DisplayTextFor(d => d.Observaciones)
-            </dd>
-        }
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.VistaEstadoActa)
-        </dt>
-        <dd class="col-sm-8">
-            @Html.DisplayTextFor(d => d.VistaEstadoActa)
-        </dd>
-     
-
-
-    </dl>
-    <hr />
-  
-
-    <div class="row">
-        <div class="col-sm-12">
-            <a href="~/ActaDecomiso/Index/" class="btn btn-outline-secondary">Regresar</a>
-            @if (Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "5")
-            {
-        <div style="text-align:center;">
-            <a class="btn btn-primary" href="~/ActaDecomiso/Editar/@Model.IdActaDecomiso">Editar</a>
-            <a class="btn btn-secondary" href="~/Auditoria/ListadoAuditoria/@Model.IdActaDecomiso">Ver Auditorias</a>
-            <a href="~/ActaDecomiso/CreatePDF/@Model.IdActaDecomiso" class="btn btn-outline-secondary">Imprimir</a>
+    <div class="card col-md-12">
+        <div class="card-header">
+            <h2> @Html.DisplayTextFor(d => d.NumeroFolio)</h2>
         </div>
-            }  </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.VistaOficialActuante)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.VistaOficialActuante)</text>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.VistaOficialAcompanante)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.VistaOficialAcompanante)</text>
+                </div>
+            </li>
 
-    </div>
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.VistaPoliciaSupervisor)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.VistaPoliciaSupervisor)</text>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.Fecha)</b>
+                    <text class="col-sm-8">
+                        @{ var fecha = Model.Fecha.ToShortDateString(); }
+                        @Html.DisplayTextFor(d => fecha)
+                    </text>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.Hora)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.Hora.TimeOfDay)</text>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.IdDecomisado)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.IdDecomisado)</text>
+                </div>
+            </li>
+
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.NombreDecomisado)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.NombreDecomisado)</text>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.VistaTipoEstadoCivil)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.VistaTipoEstadoCivil)</text>
+                </div>
+            </li>
+            @if (Model.TelefonoDecomisado != null)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.TelefonoDecomisado)</b>
+                        <text class="col-sm-8">@Html.DisplayTextFor(d => d.TelefonoDecomisado)</text>
+                    </div>
+                    </li>
+                    }
+                    @if (Model.DireccionDecomisado != null)
+                    {
+                    <li class="list-group-item">
+                        <div class="row">
+                            <b class="col-sm-4"> @Html.LabelFor(d => d.DireccionDecomisado)</b>
+                            <text class="col-sm-8">@Html.DisplayTextFor(d => d.DireccionDecomisado)</text>
+                        </div>
+                    </li>
+                }
+                    <li class="list-group-item">
+                        <div class="row">
+                            <b class="col-sm-4"> @Html.LabelFor(d => d.LugarDelProcedimiento)</b>
+                            <text class="col-sm-8">@Html.DisplayTextFor(d => d.LugarDelProcedimiento)</text>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <b class="col-sm-4"> @Html.LabelFor(d => d.Inventario)</b>
+                            <text class="col-sm-8">@Html.DisplayTextFor(d => d.Inventario)</text>
+                        </div>
+                    </li>
+                    @if (Model.Observaciones != null)
+                    {
+                        <li class="list-group-item">
+                            <div class="row">
+                                <b class="col-sm-4"> @Html.LabelFor(d => d.Observaciones)</b>
+                                <text class="col-sm-8">@Html.DisplayTextFor(d => d.Observaciones)</text>
+                            </div>
+                        </li>
+                    }
+                    <li class="list-group-item">
+                        <div class="row">
+                            <b class="col-sm-4"> @Html.LabelFor(d => d.VistaEstadoActa)</b>
+                            <text class="col-sm-8">@Html.DisplayTextFor(d => d.VistaEstadoActa)</text>
+                        </div>
+                    </li>
+                </ul>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-sm-2">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr />
 
 
-</div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <a href="~/ActaDecomiso/Index/" class="btn btn-outline-secondary">Regresar</a>
+                    @if (Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "5")
+                    {
+                        <div style="text-align:center;">
+                            <a class="btn btn-primary" href="~/ActaDecomiso/Editar/@Model.IdActaDecomiso">Editar</a>
+                            <a class="btn btn-secondary" href="~/Auditoria/ListadoAuditoria/@Model.IdActaDecomiso">Ver Auditorias</a>
+                            <a href="~/ActaDecomiso/CreatePDF/@Model.IdActaDecomiso" class="btn btn-outline-secondary">Imprimir</a>
+                        </div>
+                    }
+                </div>
+
+            </div>
+
+
+        </div>
 
 

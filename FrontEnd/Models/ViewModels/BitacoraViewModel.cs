@@ -10,9 +10,10 @@ namespace FrontEnd.Models.ViewModels
     public class BitacoraViewModel 
     {
         public int IdBitacora { get; set; }
-        public string NumeroConsecutivo { get; set; }
-        public bool ArmaPoliciaAsignado { get; set; }
 
+        public string NumeroConsecutivo { get; set; }
+
+        public int IdArma { get; set; }
         [Required]
         [Display(Name = "Número de serie de Arma")]
         public string NumeroSerieArma { get; set; }
@@ -22,8 +23,12 @@ namespace FrontEnd.Models.ViewModels
         public string ArmeroProveedor { get; set; }
         [Display(Name = "Armero que entrega")]
         public string VistaArmeroProveedor { get; set; }
+
         [Display(Name = "Armero que recibe")]
         public string ArmeroReceptor { get; set; }
+        [Display(Name = "Armero que recibe: ")]
+        public string VistaArmeroReceptor { get; set; }
+
         [Required]
         [Display(Name = "Policía Solicitante")]
         public string PoliciaSolicitante { get; set; }
@@ -32,9 +37,13 @@ namespace FrontEnd.Models.ViewModels
 
         [Display(Name = "Condición del arma al entregarse")]
         public string CondicionInicial { get; set; }
+        [Display(Name = "Condición del arma al entregarse")]
+        public string VistaCondicionInicial { get; set; }
 
         [Display(Name = "Condición del arma al devolverse")]
         public int CondicionFinal { get; set; }
+        [Display(Name = "Condición del arma al devolverse: ")]
+        public string VistaCondicionFinal { get; set; }
 
         [Display(Name = "Fecha de solicitud")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
@@ -70,12 +79,11 @@ namespace FrontEnd.Models.ViewModels
         public int EstadoActual { get; set; }
         [Display(Name = "Estado actual de bitácora")]
         public string VistaEstadoActual { get; set; }
-        public IEnumerable<SelectListItem> TiposCondicion { get; set; }
-        public string VistaArmeroReceptor { get; internal set; }
-        public string VistaCondicionFinal { get; internal set; }
-        public int IdArma { get; set; }
 
-        [Display(Name = "Condición del arma al entregarse")]
-        public string VistaCondicionInicial { get; set; }
+        public IEnumerable<SelectListItem> TiposCondicion { get; set; }
+
+
+
+
     }
 }

@@ -3,128 +3,115 @@
     ViewBag.Title = "Agregar Información de Persona";
 }
 <div class="container bg-light text-dark border" style=" height: auto; min-height: 80vh; padding-bottom: 20px; margin-bottom: 28px; word-wrap: break-word;">
-    <div class="row">
-        <div class="col-md-12">
-            <div style="text-align:center;">
-                <h2 class="display-4" style="text-align:center;">@ViewBag.Title</h2>
-            </div>
-        </div>
+    <div style="text-align:center;">
+        <h1 class="display-5">@ViewBag.Title</h1>
     </div>
-
+    <hr />
     @using (Html.BeginForm("Nuevo", "Persona", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
-        <div class="form-row">
-            <div class="form-group col-md-3">
+        <div class="row mb-4">
+            <div class="form-group col-md-3 position-relative">
                 @Html.LabelFor(d => d.TipoIdentificacionPersona)
-                
-                @Html.DropDownListFor(d => d.TipoIdentificacionPersona, Model.TiposDeIdentificacion, "--Seleccione--", new { @class = "myselect form-control", @id = "tipoDeIdentificacion" })
+                @Html.DropDownListFor(d => d.TipoIdentificacionPersona, Model.TiposDeIdentificacion, "--Seleccione--", new { @class = "form-select", @id = "tipoDeIdentificacion" })
                 @Html.ValidationMessageFor(d => d.TipoIdentificacionPersona, null, new { @class = "red" })
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-3 position-relative">
                 @Html.LabelFor(d => d.Identificacion)
-                @Html.TextBoxFor(d => d.Identificacion, "", new { @class = "form-control", @id = "pcedula", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)" })
+                @Html.TextBoxFor(d => d.Identificacion, "", new { @class = "form-control", @id = "pcedula", @maxlength = "20", @style = "text-transform:uppercase", @onkeydown = "return /[0-9a-zA-Z]/i.test(event.key)", @autocomplete = "new-password" })
                 @Html.ValidationMessageFor(d => d.Identificacion, null, new { @class = "red" })
-                @if (Model.IdentificacionPersonaFiltrada != null)
-                {@Html.ValidationMessageFor(d => d.Identificacion, "La identificación ya existe", new { @class = "red" })}
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-6 position-relative">
                 @Html.LabelFor(d => d.NombrePersona)
-                @Html.TextBoxFor(d => d.NombrePersona, "", new { @class = "form-control", @id = "nombre", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)" })
+                @Html.TextBoxFor(d => d.NombrePersona, "", new { @class = "form-control", @id = "nombre", @maxlength = "150", @style = "text-transform:uppercase", @onkeydown = "return /[a-z,A-Z ,Á,á,é,É,í,Í,ó,Ó,ú,Ú]/i.test(event.key)", @autocomplete = "new-password" })
                 @Html.ValidationMessageFor(d => d.NombrePersona, null, new { @class = "red" })
             </div>
         </div>
-        <div class="form-row">
-            <div class="form-group col-md-2" id="fechaNacimiento" style="display:block">
+        <div class="row mb-4">
+            <div class="form-group col-md-2 position-relative" id="fechaNacimiento" style="display:block">
                 @Html.LabelFor(d => d.FechaNacimientoPersona)
-                @Html.EditorFor(d => d.FechaNacimientoPersona, "", new { @class = "form-control"})
+                @Html.EditorFor(d => d.FechaNacimientoPersona, "", new { @class = "form-control" })
                 @Html.ValidationMessageFor(d => d.FechaNacimientoPersona, "", new { @class = "red" })
-            </div>            
-            <div class="form-group col-md-3" id="sexo" style="display:block">
+            </div>
+            <div class="form-group col-md-3 position-relative" id="sexo" style="display:block">
                 @Html.LabelFor(d => d.SexoPersona)
-                @Html.DropDownListFor(d => d.SexoPersona, Model.TiposDeSexo, "--Seleccione--", new { @class = "myselect form-control"})
+                @Html.DropDownListFor(d => d.SexoPersona, Model.TiposDeSexo, "--Seleccione--", new { @class = "form-select" })
                 @Html.ValidationMessageFor(d => d.SexoPersona, null, new { @class = "red" })
             </div>
-            <div class="form-group col-md-3" style="display:block" id="nacionalidades">
+            <div class="form-group col-md-3 position-relative" style="display:block" id="nacionalidades">
                 @Html.LabelFor(d => d.NacionalidadPersona)
-                @Html.DropDownListFor(d => d.NacionalidadPersona, Model.Nacionalidades, "--Seleccione--", new { @class = "myselect form-control" })
+                @Html.DropDownListFor(d => d.NacionalidadPersona, Model.Nacionalidades, "--Seleccione--", new { @class = "form-select" })
                 @Html.ValidationMessageFor(d => d.NacionalidadPersona, null, new { @class = "red" })
             </div>
-            <div class="form-group col-md-4" style="display:block" id="profesion" >
+            <div class="form-group col-md-4 position-relative" style="display:block" id="profesion">
                 @Html.LabelFor(d => d.ProfesionPersona)
-                @Html.TextBoxFor(d => d.ProfesionPersona, "", new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetras(event)" })
+                @Html.TextBoxFor(d => d.ProfesionPersona, "", new { @class = "form-control", @maxlength = "100", @style = "text-transform:uppercase", @onkeydown = "return /[a-z,A-Z ,Á,á,é,É,í,Í,ó,Ó,ú,Ú]/i.test(event.key)", @autocomplete = "new-password" })
                 @Html.ValidationMessageFor(d => d.ProfesionPersona, null, new { @class = "red" })
             </div>
         </div>
-        <div class="form-row">
-
-            <div class="form-group col-md-3" style="display:block" id="lugarDeTrabajo">
+        <div class="row mb-4">
+            <div class="form-group col-md-3 position-relative" style="display:block" id="lugarDeTrabajo">
                 @Html.LabelFor(d => d.LugarTrabajoPersona)
-                @Html.TextBoxFor(d => d.LugarTrabajoPersona, "", new { @class = "form-control", @autocomplete = "new-password", @onkeyup = "this.value = this.value.toUpperCase();"  })
+                @Html.TextBoxFor(d => d.LugarTrabajoPersona, "", new { @class = "form-control", @autocomplete = "new-password", @maxlength = "100", @style = "text-transform:uppercase" })
                 @Html.ValidationMessageFor(d => d.LugarTrabajoPersona, null, new { @class = "red" })
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-3 position-relative">
                 @Html.LabelFor(d => d.TelefonoTrabajoPersona)
-                @Html.TextBoxFor(d => d.TelefonoTrabajoPersona, "", new { @class = "inputphone form-control" })
+                @Html.TextBoxFor(d => d.TelefonoTrabajoPersona, "", new { @class = "form-control", @maxlength = "9", @onfocusout = "LimpiaGuion(this)", @onKeyup = " ValidarTelefono(this)" })
                 @Html.ValidationMessageFor(d => d.TelefonoTrabajoPersona, "", new { @class = "red" })
 
             </div>
-            <div class="form-group col-md-3" style="display:block" id="telefonoCasa" >
+            <div class="form-group col-md-3 position-relative" style="display:block" id="telefonoCasa">
                 @Html.LabelFor(d => d.TelefonoCasaPersona)
-                @Html.TextBoxFor(d => d.TelefonoCasaPersona, "", new { @class = "inputphone form-control" })
+                @Html.TextBoxFor(d => d.TelefonoCasaPersona, "", new { @class = "form-control", @autocomplete = "new-password", @onfocusout = "LimpiaGuion(this)", @maxlength = "9", @onKeyup = " ValidarTelefono(this)" })
                 @Html.ValidationMessageFor(d => d.TelefonoCasaPersona, "", new { @class = "red" })
             </div>
-            <div class="form-group col-md-3" style="display:block" id="telefonoCelular">
+            <div class="form-group col-md-3 position-relative" style="display:block" id="telefonoCelular">
                 @Html.LabelFor(d => d.TelefonoCelularPersona)
-                @Html.TextBoxFor(d => d.TelefonoCelularPersona, "", new { @class = "inputphone form-control"})
+                @Html.TextBoxFor(d => d.TelefonoCelularPersona, "", new { @class = "inputphone form-control", @autocomplete = "new-password", @onfocusout = "LimpiaGuion(this)",@maxlength = "9", @onKeyup = " ValidarTelefono(this)" })
                 @Html.ValidationMessageFor(d => d.TelefonoCelularPersona, "", new { @class = "red" })
             </div>
-
         </div>
-        <div class="form-row">
+        <div class="row mb-4">
             <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.CorreoElectronicoPersona)
-                @Html.TextBoxFor(d => d.CorreoElectronicoPersona, "", new { @class = "form-control", @autocomplete = "new-password" , @id="correo"})
+                @Html.TextBoxFor(d => d.CorreoElectronicoPersona, "", new { @class = "form-control", @autocomplete = "new-password", @id = "correo" })
                 @Html.ValidationMessageFor(d => d.CorreoElectronicoPersona, null, new { @class = "red" })
             </div>
             <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.DireccionExacta)
-                @Html.TextAreaFor(d => d.DireccionExacta, new { @class = "form-control", @id = "direccion", @onkeyup = "this.value = this.value.toUpperCase();" })
+                @Html.TextAreaFor(d => d.DireccionExacta, new { @class = "form-control", @id = "direccion", @maxlength = "250", @style = "text-transform:uppercase" })
                 @Html.ValidationMessageFor(d => d.DireccionExacta, null, new { @class = "red" })
             </div>
             <div class="form-group col-md-4" style="display:none" id="instalaciones">
                 @Html.LabelFor(d => d.Instalaciones)
-                @Html.TextAreaFor(d => d.Instalaciones, new { @class = "form-control", @onkeyup = "this.value = this.value.toUpperCase();"})
+                @Html.TextAreaFor(d => d.Instalaciones, new { @class = "form-control", @maxlength = "300", @style = "text-transform:uppercase" })
                 @Html.ValidationMessageFor(d => d.Instalaciones, null, new { @class = "red" })
             </div>
-
         </div>
-     
-       
         <hr />
-        <div class="form-row">
+        <div class="row">
             <div class="form-group col-md-12">
                 <div style="text-align:center;">
-                    <a class="btn btn-secondary" href="~/Persona/Index">Cancelar</a>
-                    <input value="Guardar" class="btn btn-primary" type="button" id="hGuardar" data-toggle="modal" data-target="#show" />
+                    <a class="btn btn-secondary " href="~/Persona/Index">Cancelar</a>
+                    <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#show">Guardar</a>
                 </div>
             </div>
         </div>
 
-        <div class="modal" id="show" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
+
+        <div class="modal fade" id="show" tabindex="-1" aria-labelledby="showLabel" aria-hidden="true">
+            <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Agregar una Persona</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <h5 class="modal-title" id="showLabel">Agregar una Persona</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" />
                     </div>
                     <div class="modal-body">
                         <p>¿Está seguro que desea guardar una nueva persona?</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-danger" id="Cancel" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary" id="btnSave">Guardar</button>
+                        <button type="button" class="btn btn-outline-danger" id="Cancel" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" id="btnSave" data-bs-dismiss="modal">Guardar</button>
                     </div>
                 </div>
             </div>
@@ -132,3 +119,88 @@
     }
 </div>
 
+<script>
+
+    function ValidarTelefono(f) {
+
+        var r = /(\D+)/g,
+            first4 = '',
+            last4 = '';
+        f.value = f.value.replace(r, '');
+        first4 = f.value.substr(0, 4);
+        last4 = f.value.substr(4, 8);
+        f.value = first4 + '-' + last4;
+
+    }
+    function LimpiaGuion(f) {
+        if (f.value.length <= 1) {
+            f.value = "";
+        }
+    }
+    if (document.getElementById("tipoDeIdentificacion") != null) {
+        window.addEventListener("load", function () {
+
+            var tipoDeIdentificacion = document.getElementById("tipoDeIdentificacion")
+            var tipoSeleccion = tipoDeIdentificacion.value;
+            if (tipoSeleccion == 5) {
+                document.getElementById("telefonoCelular").style.display = 'none';
+                document.getElementById("telefonoCasa").style.display = 'none';
+                document.getElementById("lugarDeTrabajo").style.display = 'none';
+                document.getElementById("profesion").style.display = 'none';
+                document.getElementById("nacionalidades").style.display = 'none';
+                document.getElementById("sexo").style.display = 'none';
+                document.getElementById("fechaNacimiento").style.display = 'none';
+                document.getElementById("instalaciones").style.display = 'block';
+                document.getElementById("sexo").removeAttribute('required');
+                document.getElementById("fechaNacimiento").removeAttribute('required');
+                document.getElementById("nacionalidades").removeAttribute('required');
+
+            } else {
+                document.getElementById("telefonoCelular").style.display = 'block';
+                document.getElementById("telefonoCasa").style.display = 'block';
+                document.getElementById("lugarDeTrabajo").style.display = 'block';
+                document.getElementById("profesion").style.display = 'block';
+                document.getElementById("nacionalidades").style.display = 'block';
+                document.getElementById("sexo").style.display = 'block';
+                document.getElementById("fechaNacimiento").style.display = 'block';
+                document.getElementById("instalaciones").style.display = 'none';
+                document.getElementById("sexo").setAttribute('required');
+                document.getElementById("fechaNacimiento").setAttribute('required');
+                document.getElementById("nacionalidades").setAttribute('required');
+            }
+        });
+    }
+    if (document.getElementById("tipoDeIdentificacion") != null) {
+        document.getElementById("tipoDeIdentificacion").addEventListener("change", function () {
+            var tipoDeIdentificacion = document.getElementById("tipoDeIdentificacion")
+            var tipoSeleccion = tipoDeIdentificacion.value;
+            if (tipoSeleccion == 5) {
+                document.getElementById("telefonoCelular").style.display = 'none';
+                document.getElementById("telefonoCasa").style.display = 'none';
+                document.getElementById("lugarDeTrabajo").style.display = 'none';
+                document.getElementById("profesion").style.display = 'none';
+                document.getElementById("nacionalidades").style.display = 'none';
+                document.getElementById("sexo").style.display = 'none';
+                document.getElementById("fechaNacimiento").style.display = 'none';
+                document.getElementById("instalaciones").style.display = 'block';
+                document.getElementById("sexo").removeAttribute('required');
+                document.getElementById("fechaNacimiento").removeAttribute('required');
+                document.getElementById("nacionalidades").removeAttribute('required');
+
+            } else {
+                document.getElementById("telefonoCelular").style.display = 'block';
+                document.getElementById("telefonoCasa").style.display = 'block';
+                document.getElementById("lugarDeTrabajo").style.display = 'block';
+                document.getElementById("profesion").style.display = 'block';
+                document.getElementById("nacionalidades").style.display = 'block';
+                document.getElementById("sexo").style.display = 'block';
+                document.getElementById("fechaNacimiento").style.display = 'block';
+                document.getElementById("instalaciones").style.display = 'none';
+                document.getElementById("sexo").setAttribute('required');
+                document.getElementById("fechaNacimiento").setAttribute('required');
+                document.getElementById("nacionalidades").setAttribute('required');
+            }
+        });
+    }
+
+</script>

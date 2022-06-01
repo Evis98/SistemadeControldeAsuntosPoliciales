@@ -75,7 +75,7 @@ namespace BackEnd.DAL
             }
         }
 
-        public bool IdentificacionExiste(string numeroDeIdentificacion)
+        public bool InfractorExiste(string numeroDeIdentificacion)
         {
             try
             {
@@ -93,16 +93,6 @@ namespace BackEnd.DAL
 
         }
 
-        public string GetCedulaInfractor(string identificacion)
-        {
-            if (IdentificacionExiste(identificacion))
-            {
-                return identificacion;
-            }
-            else
-            {
-                return null;
-            }
-        }
+
     }
 }
