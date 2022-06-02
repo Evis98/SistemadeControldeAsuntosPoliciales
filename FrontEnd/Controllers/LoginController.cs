@@ -66,7 +66,7 @@ namespace FrontEnd.Controllers
             Session["Nombre"] = userDetails.nombre;
             Session["cedula"] = userDetails.cedula;
             Session["Rol"] = userDetails.rol;
-            Session["vistaRol"] = rolDAL.GetRol(userDetails.rol).descripcion;
+            Session["vistaRol"] = rolDAL.GetRol(userDetails.rol).descripcion.ToUpper();
 
 
             //List<RolesUsuarios> roles = usuarioDAL.GetRolesPorUsuario(userDetails.idUsuario).ToList();

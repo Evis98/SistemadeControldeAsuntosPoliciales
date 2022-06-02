@@ -20,19 +20,19 @@
                 </div>
                 @Html.ValidationMessageFor(d => d.NumeroSerieArma, null, new { @class = "red" })
             </div>
-            @if (Session["Rol"].ToString() == "4")
+            @if (Session["Rol"].ToString() == "5"  )
             {
                 <div class="form-group col-md-4">
                     @Html.LabelFor(d => d.ArmeroProveedor)
-                    @Html.TextBoxFor(d => d.ArmeroProveedor, "", new { @class = "form-control", @id = "idArmeroProveedor", @readonly = "readonly", @Value = @Session["cedula"].ToString() })
+                    @Html.TextBoxFor(d => d.ArmeroProveedor, "", new { @class = "form-control", @id = "idArmeroProveedor" })
                     @Html.ValidationMessageFor(d => d.ArmeroProveedor, null, new { @class = "red" })
                 </div>
             }
-            @if (Session["Rol"].ToString() == "5")
+            @if (Session["Rol"].ToString() == "4" || Session["Rol"].ToString() == "3")
             {
                 <div class="form-group col-md-4">
                     @Html.LabelFor(d => d.ArmeroProveedor)
-                    @Html.TextBoxFor(d => d.ArmeroProveedor, "", new { @class = "form-control", @id = "idArmeroProveedor", @Value = @Session["cedula"].ToString() })
+                    @Html.TextBoxFor(d => d.ArmeroProveedor, "", new { @class = "form-control", @id = "idArmeroProveedor", @Value = @Session["cedula"].ToString(), @readonly = "readonly" })
                     @Html.ValidationMessageFor(d => d.ArmeroProveedor, null, new { @class = "red" })
                 </div>
             }

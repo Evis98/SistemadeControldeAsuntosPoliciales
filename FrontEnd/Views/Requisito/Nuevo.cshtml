@@ -19,7 +19,7 @@
         <div class="row mb-4">
             <div class="form-group col-md-2 position-relative">
                 @Html.LabelFor(d => d.TipoRequisito)
-                @Html.DropDownListFor(d => d.TipoRequisito, Model.TiposRequisito, "--Seleccione--", new { @class = "form-select", @id = "tiposRequisito",@onchange= "ocultarFecha()" })
+                @Html.DropDownListFor(d => d.TipoRequisito, Model.TiposRequisito, "--Seleccione--", new { @class = "form-select", @id = "tiposRequisito" ,@onchange= "ocultarFecha()" })
                 @Html.ValidationMessageFor(d => d.TipoRequisito, null, new { @class = "red" })
             </div>
         </div>
@@ -74,3 +74,14 @@
     }
 
 </div>
+<script>
+    function ocultarFecha() {
+        var aux2 = document.getElementById("tiposRequisito");
+        var aux3 = document.getElementById("fechaVencimiento");
+        if (aux2.selectedOptions[0].innerHTML === "Carné") {
+            aux3.style.display = "block"
+        } else {
+            aux3.style.display = "none"
+        }
+    }
+</script>
