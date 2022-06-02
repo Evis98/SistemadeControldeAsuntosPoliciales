@@ -462,7 +462,7 @@ namespace FrontEnd.Models.ViewModels
         [Display(Name = "Ente a Cargo")]
         public int EnteAcargo { get; set; }
 
-        
+        [StringLength(20, ErrorMessage = "Numero de Móvil excede los 20 caracteres.")]
         [Display(Name = "Número de Móvil")]
         public string Movil { get; set; }
 
@@ -493,16 +493,19 @@ namespace FrontEnd.Models.ViewModels
         //Policía Asiste 
         [Required(ErrorMessage = "Este campo es Obligatorio")]
         [Display(Name = "Nombre")]
+        [StringLength(150, ErrorMessage = "Identificación sobrepasa los 150 caracteres")]
         public string NombrePoliciaAsiste { get; set; }
 
         [Required(ErrorMessage = "Este campo es Obligatorio")]
         [Display(Name = "Número de Identificación")]
+        [StringLength(60, ErrorMessage = "Identificación sobrepasa los 60 caracteres")]
         public string IdentificacionPoliciaAsiste { get; set; }
 
 
         [Display(Name = "Teléfono")]
         public string TelefonoPoliciaAsiste { get; set; }
 
+        
         [Required(ErrorMessage = "Este campo es Obligatorio")]
         [Display(Name = "Unidad Origen")]
         

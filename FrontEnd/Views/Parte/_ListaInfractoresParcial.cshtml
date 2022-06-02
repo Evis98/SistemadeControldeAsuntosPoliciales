@@ -1,8 +1,8 @@
 ﻿@model List<FrontEnd.Models.ViewModels.InfractorViewModel>
 
-<table class="table">
+<table id="idTableInfractores" class="table table-sm table-bordered">
 
-    <thead class="thead-light">
+    <thead class="table-light">
         <tr>
             <th scope="col">Cédula</th>
             <th scope="col">Nombre</th>
@@ -14,9 +14,33 @@
             <tr>
                 <th scope="row">@Html.DisplayFor(modelItem => item.Identificacion)</th>
                 <td>
-                    <label><a href="#" onclick="reply_click3(this.id, this.name)" name="@item.Nombre" id="@item.Identificacion"> @item.Nombre</a></label>
+                    <label><a href="#" onclick="reply_click3(this.id, this.name)" name="@item.Nombre" id="@item.Identificacion" data-bs-dismiss="modal"> @item.Nombre</a></label>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+<script>
+    $(document).ready(function () {
+        $('#idTableInfractores').DataTable({
+            searching: false,
+            lengthMenu: [[10], [10]],
+            lengthChange: false,
+            language: {
+                lengthMenu: "Mostrar _MENU_ entradas",
+                info: "Se muestran de _START_ a _END_ de _TOTAL_ entradas totales",
+                infoEmpty: "Se muestran de 0 a 0 de 0 entradas totales",
+                paginate: {
+                    first: "Primero",
+                    last: "Último",
+                    next: "Siguiente",
+                    previous: "Anterior"
+                }
+            }
+
+        });
+    });
+
+
+</script>

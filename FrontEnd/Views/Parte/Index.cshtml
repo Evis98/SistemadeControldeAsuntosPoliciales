@@ -5,19 +5,15 @@
 
 
 <div class="container bg-light text-dark border" style=" height: auto; min-height: 80vh; margin-bottom: 20px; word-wrap: break-word;">
-    <div class="row">
-        <div class="col-md-12">
-            <div style="text-align:center;">
-                <h2 class="display-4">@ViewBag.Title</h2>
-            </div>
-        </div>
+    <div style="text-align:center;">
+        <h1 class="display-5">@ViewBag.Title</h1>
     </div>
 
     @using (Html.BeginForm("Index", "Parte", FormMethod.Get))
     {
-        <div class="form-row">
+        <div class="row">
             <div class="col-sm-3">
-                @Html.DropDownList("filtrosSeleccionado", items, new { @class = "form-control", @id = "filtroSeleccionado", @name = "filtroSeleccionado", @onclick = "ocultarFechaParte()" })
+                @Html.DropDownList("filtrosSeleccionado", items, new { @class = "form-select", @id = "filtroSeleccionado", @name = "filtroSeleccionado", @onclick = "ocultarFechaParte()" })
                 <script>
                     document.getElementById("filtroSeleccionado").value = "Número de Folio";
                 </script>
@@ -43,10 +39,9 @@
         </div>}
 
     <hr />
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table table-bordered center table-sm" id="idtablaParte">
-                <thead class="thead-dark">
+   
+            <table class="table table-bordered table-sm" id="idtablaParte">
+                <thead class="table-dark">
                     <tr>
                         <th scope="col">Numero de Folio</th>
                         <th scope="col">Fecha</th>
@@ -74,10 +69,7 @@
 
             </table>
         </div>
-    </div>
 
-
-</div>
 <script>
 
     function VaciarParteIndex() {
