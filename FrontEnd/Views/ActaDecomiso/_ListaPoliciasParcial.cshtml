@@ -1,7 +1,6 @@
 ﻿@model List<FrontEnd.Models.ViewModels.PoliciaViewModel>
 
 <table class="table table-sm table-bordered" id="idtablaPolicia">
-
     <thead class="table-light">
         <tr>
             <th scope="col">Cédula</th>
@@ -25,7 +24,7 @@
     $(document).ready(function () {
         $('#idtablaPolicia').DataTable({
             searching: false,
-            lengthMenu: [[6], [6]],
+            lengthMenu: [[10], [10]],
             lengthChange: false,
             language: {
                 lengthMenu: "Mostrar _MENU_ entradas",

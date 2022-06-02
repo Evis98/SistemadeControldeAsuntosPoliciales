@@ -20,6 +20,7 @@ namespace FrontEnd.Controllers
         IAuditoriaDAL auditoriaDAL;
         IUsuarioDAL usuarioDAL;
         IPersonaDAL personaDAL;
+
         //metodos útiles
         public ActasHallazgo ConvertirActaHallazgo(ActaHallazgoViewModel modelo)
         {
@@ -389,6 +390,7 @@ namespace FrontEnd.Controllers
             DateTime newDateTime = model.Fecha.Date + model.Hora.TimeOfDay;
             model.Fecha = newDateTime;
             int estado = actaHallazgoDAL.GetActaHallazgo(model.IdActaHallazgo).estado;
+
             try
             {
                 if (ModelState.IsValid)

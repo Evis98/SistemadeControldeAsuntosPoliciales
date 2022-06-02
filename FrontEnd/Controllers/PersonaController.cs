@@ -55,7 +55,7 @@ namespace FrontEnd.Controllers
             {
                 idPersona = modelo.IdPersona,
                 tipoIdentificacion = tablaGeneralDAL.GetCodigo("Generales", "tipoDeIdentificacion", modelo.TipoIdentificacionPersona.ToString()).idTablaGeneral,
-                identificacion = modelo.Identificacion,
+                identificacion = modelo.Identificacion.ToUpper(),
                 telefonoHabitacion = modelo.TelefonoCasaPersona,
                 telefonoCelular = modelo.TelefonoCelularPersona,
                 telefonoTrabajo = modelo.TelefonoTrabajoPersona,

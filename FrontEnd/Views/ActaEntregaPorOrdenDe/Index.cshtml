@@ -2,27 +2,21 @@
     List<SelectListItem> items = (List<SelectListItem>)ViewBag.items;
 }
 <div class="container bg-light text-dark border" style=" height: auto; min-height: 80vh; margin-bottom: 20px; word-wrap: break-word;">
-    <div class="row">
-        <div class="col-md-12">
-            <div style="text-align:center;">
-                <h2 class="display-4">@ViewBag.Title</h2>
-            </div>
-        </div>
+    <div style="text-align:center;">
+        <h1 class="display-5">@ViewBag.Title</h1>
     </div>
-
     <hr />
     @using (Html.BeginForm("Index", "ActaEntregaPorOrdenDe", FormMethod.Get))
     {
-        <div class="form-row">
+        <div class="row">
             <div class="col-sm-3">
-                @Html.DropDownList("filtrosSeleccionado", items, new { @class = "myselect form-control", @id = "filtroSeleccionado", @name = "filtroSeleccionado", @onclick = "ocultarFechaActa()" })
+                @Html.DropDownList("filtrosSeleccionado", items, new { @class = "form-select", @id = "filtroSeleccionado", @name = "filtroSeleccionado", @onclick = "ocultarFechaActa()" })
                 <script>
                     document.getElementById("filtroSeleccionado").value = "Número de Folio";
                 </script>
             </div>
-
             <div class="col-sm-3">
-                <input class="form-control" name="busqueda" type="text" id="busqueda" onkeyup="this.value = this.value.toUpperCase();" />
+                <input class="form-control" name="busqueda" type="text" id="busqueda" maxlength="151" style="text-transform:uppercase" onkeydown="return /[0-9A-Z -ÁáéÉíÍóÓúÚ]/i.test(event.key)" />
                 <input class="form-control" name="busquedaFechaInicioH" type="date" id="busquedaFechaInicioH" style="display:none" />
                 <label id="textFechaInicioH" style="display:none">Fecha de inicio</label>
             </div>
@@ -41,46 +35,40 @@
             </div>
         </div>}
     <hr />
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table table-bordered center table-sm" id="idtablaEntregaPorOrden">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">Numero de Folio</th>
-                        <th scope="col">Funcionario que entrega </th>
-                        <th scope="col">Fecha</th>
-                        <th scope="col">Persona que se le entrega</th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var oElemento in Model)
-                    {
-                        <tr>
-                            <th scope="row">@oElemento.NumeroFolio</th>
-                            <td>@oElemento.NombreFuncionarioQueEntrega</td>
-                            <td>@oElemento.Fecha.ToShortDateString()</td>
-                            <td>@oElemento.NombrePersonaQueSeLeEntrega</td>
-                            <td>
-                                <div style="text-align:center;">
-                                    <a class="btn btn-sm btn-outline-info" href="~/ActaEntregaPorOrdenDe/Detalle/@oElemento.IdActaEntregaPorOrdenDe">Ver Detalles</a>
-                                    @*<a class="btn btn-sm btn-outline-secondary">Aditorí­as</a>*@
-                                </div>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
-
+    <table class="table table-sm table-bordered" id="idtablaEntregaPorOrden">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">Numero de Folio</th>
+                <th scope="col">Funcionario que entrega </th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Persona que se le entrega</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var oElemento in Model)
+            {
+                <tr>
+                    <th scope="row">@oElemento.NumeroFolio</th>
+                    <td>@oElemento.NombreFuncionarioQueEntrega</td>
+                    <td>@oElemento.Fecha.ToShortDateString()</td>
+                    <td>@oElemento.NombrePersonaQueSeLeEntrega</td>
+                    <td>
+                        <div style="text-align:center;">
+                            <a class="btn btn-sm btn-outline-secondary" href="~/ActaEntregaPorOrdenDe/Detalle/@oElemento.IdActaEntregaPorOrdenDe">Ver Detalles</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
 
 <script>
     $(document).ready(function () {
         $('#idtablaEntregaPorOrden').DataTable({
             searching: false,
-            lengthMenu: [[6], [6]],
+            lengthMenu: [[10], [10]],
             lengthChange: false,
             language: {
                 lengthMenu: "Mostrar _MENU_ entradas",

@@ -1,7 +1,7 @@
 ﻿@model List<FrontEnd.Models.ViewModels.PersonaViewModel>
 
-<table class="table" id="idtablaPersona">
-    <thead class="thead-light">
+<table class="table table-sm table-bordered" id="idtablaPersona">
+    <thead class="table-light">
         <tr>
             <th scope="col">Cédula</th>
             <th scope="col">Nombre</th>
@@ -13,7 +13,7 @@
             <tr>
                 <th scope="row">@Html.DisplayFor(modelItem => item.Identificacion)</th>
                 <td>
-                    <label><a href="#" onclick="reply_click4(this.id)" id="@item.Identificacion"> @item.NombrePersona</a></label>
+                    <label><a href="#" onclick="reply_click4(this.id)" id="@item.Identificacion" data-bs-dismiss="modal"> @item.NombrePersona</a></label>
                 </td>
             </tr>
         }
@@ -24,7 +24,7 @@
     $(document).ready(function () {
         $('#idtablaPersona').DataTable({
             searching: false,
-            lengthMenu: [[6], [6]],
+            lengthMenu: [[10], [10]],
             lengthChange: false,
             language: {
                 lengthMenu: "Mostrar _MENU_ entradas",
@@ -40,6 +40,4 @@
 
         });
     });
-
-
 </script>

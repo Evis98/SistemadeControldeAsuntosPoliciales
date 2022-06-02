@@ -21,6 +21,8 @@ namespace FrontEnd.Controllers
         IActaEntregaPorOrdenDeDAL actaEntregaPorOrdenDeDAL;
         IAuditoriaDAL auditoriaDAL;
         IUsuarioDAL usuarioDAL;
+
+        //Metodos Útiles
         public ActasEntregaPorOrdenDe ConvertirActaEntregaPorOrdenDe(ActaEntregaPorOrdenDeViewModel modelo)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
@@ -28,58 +30,40 @@ namespace FrontEnd.Controllers
             actaDecomisoDAL = new ActaDecomisoDAL();
             personaDAL = new PersonaDAL();
             actaHallazgoDAL = new ActaHallazgoDAL();
-            ActasEntregaPorOrdenDe acta = new ActasEntregaPorOrdenDe();
-
-            acta.idActaEntregaPorOrdenDe = modelo.IdActaEntregaPorOrdenDe;
-            acta.numeroFolio = modelo.NumeroFolio;
-            acta.idFuncionarioQueEntrega = policiaDAL.GetPoliciaCedula(modelo.CedulaFuncionarioQueEntrega).idPolicia;
-            acta.tipoTestigo = tablaGeneralDAL.GetCodigo("Actas", "tipoTestigo", modelo.TipoTestigo.ToString()).idTablaGeneral;
-
-            if (modelo.TipoTestigo != 3)
+            ActasEntregaPorOrdenDe acta = new ActasEntregaPorOrdenDe
             {
-                if (modelo.TipoTestigo == 1)
-                {
-                    if (modelo.IdTestigoPolicia != null && policiaDAL.PoliciaExiste(modelo.IdTestigoPolicia))
-                    {
-                        acta.testigo = policiaDAL.GetPoliciaCedula(modelo.IdTestigoPolicia).idPolicia;
-                    }
-                    else
-                    {
-                        acta.tipoTestigo = tablaGeneralDAL.GetCodigo("Actas", "tipoTestigo", "3").idTablaGeneral;
-                    }
-                }
-                else if (modelo.TipoTestigo == 2)
-                {
-                    if (modelo.IdTestigoPersona != null && personaDAL.IdentificacionExiste(modelo.IdTestigoPersona))
-                    {
-                        acta.testigo = personaDAL.GetPersonaIdentificacion(modelo.IdTestigoPersona).idPersona;
-                    }
-                    else
-                    {
-                        acta.tipoTestigo = tablaGeneralDAL.GetCodigo("Actas", "tipoTestigo", "3").idTablaGeneral;
-                    }
-                }
+                idActaEntregaPorOrdenDe = modelo.IdActaEntregaPorOrdenDe,
+                numeroFolio = modelo.NumeroFolio,
+                idFuncionarioQueEntrega = policiaDAL.GetPoliciaCedula(modelo.CedulaFuncionarioQueEntrega).idPolicia,
+                tipoTestigo = tablaGeneralDAL.GetCodigo("Actas", "tipoTestigo", modelo.TipoTestigo.ToString()).idTablaGeneral,
+                fechaHoraEntrega = modelo.Fecha,
+                idPorOrdenDe = personaDAL.GetPersonaIdentificacion(modelo.IdentificacionPorOrdenDe).idPersona,
+                numeroResolucion = modelo.NumeroResolucion,
+                idPersonaQueSeLeEntrega = personaDAL.GetPersonaIdentificacion(modelo.IdentificacionPorOrdenDe).idPersona,
+                estado = tablaGeneralDAL.GetCodigo("Actas", "estadoActa", modelo.Estado.ToString()).idTablaGeneral,
+                tipoInventario = tablaGeneralDAL.GetCodigo("ActasEntregaPorOrdenDe", "tipoInventario", modelo.TipoInventario.ToString()).idTablaGeneral
+            };
+
+            if (modelo.TipoTestigo == 1)
+            {
+                acta.testigo = policiaDAL.GetPoliciaCedula(modelo.IdTestigoPolicia).idPolicia;
             }
-
-            if (actaDecomisoDAL.FolioExiste(modelo.NumeroActaLigada))
+            if (modelo.TipoTestigo == 2)
             {
-                string cod = "1";
-                acta.tipoInventario = tablaGeneralDAL.GetCodigo("ActasEntregaPorOrdenDe", "tipoInventario", cod).idTablaGeneral;
+                acta.testigo = personaDAL.GetPersonaIdentificacion(modelo.IdTestigoPersona).idPersona;
+            }
+            if (modelo.Estado != 0)
+            {
+                acta.estado = tablaGeneralDAL.GetCodigo("Actas", "estadoActa", modelo.Estado.ToString()).idTablaGeneral;
+            }
+            if (modelo.TipoInventario == 1)
+            {
                 acta.idActaLigada = actaDecomisoDAL.GetActaDecomisoFolio(modelo.NumeroActaLigada).idActaDecomiso;
             }
-            else
+            if (modelo.TipoInventario == 2)
             {
-                string cod = "2";
-                acta.tipoInventario = tablaGeneralDAL.GetCodigo("ActasEntregaPorOrdenDe", "tipoInventario", cod).idTablaGeneral;
                 acta.numeroInventario = modelo.NumeroInventario;
             }
-            acta.fechaHoraEntrega = modelo.Fecha;
-            acta.idPorOrdenDe = personaDAL.GetPersonaIdentificacion(modelo.IdentificacionPorOrdenDe).idPersona;
-            acta.numeroResolucion = modelo.NumeroResolucion;
-            acta.idPersonaQueSeLeEntrega = personaDAL.GetPersonaIdentificacion(modelo.IdentificacionPorOrdenDe).idPersona;
-            //acta.nombrePersonaQueSeLeEntrega = modelo.NombrePersonaQueSeLeEntrega;
-            acta.estado = tablaGeneralDAL.GetCodigo("Actas", "estadoActa", modelo.Estado.ToString()).idTablaGeneral;
-
             return acta;
         }
 
@@ -92,33 +76,37 @@ namespace FrontEnd.Controllers
             personaDAL = new PersonaDAL();
             actaHallazgoDAL = new ActaHallazgoDAL();
 
-            ActaEntregaPorOrdenDeViewModel acta = new ActaEntregaPorOrdenDeViewModel();
-
-            acta.IdActaEntregaPorOrdenDe = actaEntregaPorOrdenDe.idActaEntregaPorOrdenDe;
-            acta.NumeroFolio = actaEntregaPorOrdenDe.numeroFolio;
-            acta.CedulaFuncionarioQueEntrega = policiaDAL.GetPolicia(actaEntregaPorOrdenDe.idFuncionarioQueEntrega).cedula;
-            acta.NombreFuncionarioQueEntrega = policiaDAL.GetPolicia(actaEntregaPorOrdenDe.idFuncionarioQueEntrega).nombre;
-
-            acta.VistaTipoInventario = tablaGeneralDAL.Get(actaEntregaPorOrdenDe.tipoInventario).descripcion;
-            acta.Fecha = actaEntregaPorOrdenDe.fechaHoraEntrega.Value;
-            acta.Hora = actaEntregaPorOrdenDe.fechaHoraEntrega.Value;
-            acta.TipoInventario = int.Parse(tablaGeneralDAL.Get(actaEntregaPorOrdenDe.tipoInventario).codigo);
-            acta.VistaTipoInventario = tablaGeneralDAL.Get(actaEntregaPorOrdenDe.tipoInventario).descripcion;
-            acta.IdentificacionPorOrdenDe = personaDAL.GetPersona(actaEntregaPorOrdenDe.idPorOrdenDe).identificacion;
-            acta.NombrePorOrdenDe = personaDAL.GetPersona(actaEntregaPorOrdenDe.idPorOrdenDe).nombre;
-            acta.Estado = int.Parse(tablaGeneralDAL.Get(actaEntregaPorOrdenDe.estado).codigo);
-            acta.VistaEstadoActa = tablaGeneralDAL.Get(actaEntregaPorOrdenDe.estado).descripcion;
-            acta.TipoTestigo = int.Parse(tablaGeneralDAL.Get(actaEntregaPorOrdenDe.tipoTestigo).codigo);
-
-            if (int.Parse(tablaGeneralDAL.Get(actaEntregaPorOrdenDe.tipoTestigo).codigo) != 3 && actaEntregaPorOrdenDe.testigo != null)
+            ActaEntregaPorOrdenDeViewModel acta = new ActaEntregaPorOrdenDeViewModel
             {
-                if (int.Parse(tablaGeneralDAL.Get(actaEntregaPorOrdenDe.tipoTestigo).codigo) == 1 && policiaDAL.GetPolicia((int)actaEntregaPorOrdenDe.testigo) != null)
+                IdActaEntregaPorOrdenDe = actaEntregaPorOrdenDe.idActaEntregaPorOrdenDe,
+                NumeroFolio = actaEntregaPorOrdenDe.numeroFolio,
+                CedulaFuncionarioQueEntrega = policiaDAL.GetPolicia(actaEntregaPorOrdenDe.idFuncionarioQueEntrega).cedula,
+                NombreFuncionarioQueEntrega = policiaDAL.GetPolicia(actaEntregaPorOrdenDe.idFuncionarioQueEntrega).nombre,
+                VistaTipoInventario = tablaGeneralDAL.Get(actaEntregaPorOrdenDe.tipoInventario).descripcion,
+                Fecha = actaEntregaPorOrdenDe.fechaHoraEntrega.Value,
+                Hora = actaEntregaPorOrdenDe.fechaHoraEntrega.Value,
+                TipoInventario = int.Parse(tablaGeneralDAL.Get(actaEntregaPorOrdenDe.tipoInventario).codigo),
+                IdentificacionPorOrdenDe = personaDAL.GetPersona(actaEntregaPorOrdenDe.idPorOrdenDe).identificacion,
+                NombrePorOrdenDe = personaDAL.GetPersona(actaEntregaPorOrdenDe.idPorOrdenDe).nombre,
+                Estado = int.Parse(tablaGeneralDAL.Get(actaEntregaPorOrdenDe.estado).codigo),
+                VistaEstadoActa = tablaGeneralDAL.Get(actaEntregaPorOrdenDe.estado).descripcion,
+                TipoTestigo = int.Parse(tablaGeneralDAL.Get(actaEntregaPorOrdenDe.tipoTestigo).codigo),
+                NumeroResolucion = actaEntregaPorOrdenDe.numeroResolucion,
+                NumeroInventario = actaEntregaPorOrdenDe.numeroInventario,
+                NombrePersonaQueSeLeEntrega = personaDAL.GetPersona(actaEntregaPorOrdenDe.idPorOrdenDe).nombre,
+                CedulaPersonaQueSeLeEntrega = personaDAL.GetPersona(actaEntregaPorOrdenDe.idPorOrdenDe).identificacion,
+                VistaTipoTestigo = tablaGeneralDAL.Get(actaEntregaPorOrdenDe.tipoTestigo).descripcion
+            };
+
+            if (actaEntregaPorOrdenDe.testigo != null)
+            {
+                if (int.Parse(tablaGeneralDAL.Get(actaEntregaPorOrdenDe.tipoTestigo).codigo) == 1)
                 {
                     acta.VistaTestigo = policiaDAL.GetPolicia((int)actaEntregaPorOrdenDe.testigo).nombre;
                     acta.IdTestigoPolicia = policiaDAL.GetPolicia((int)actaEntregaPorOrdenDe.testigo).cedula;
                     acta.VistaIdTestigo = policiaDAL.GetPolicia((int)actaEntregaPorOrdenDe.testigo).cedula;
                 }
-                else if (int.Parse(tablaGeneralDAL.Get(actaEntregaPorOrdenDe.tipoTestigo).codigo) == 2 && personaDAL.GetPersona((int)actaEntregaPorOrdenDe.testigo) != null)
+                else if (int.Parse(tablaGeneralDAL.Get(actaEntregaPorOrdenDe.tipoTestigo).codigo) == 2)
                 {
                     acta.VistaTestigo = personaDAL.GetPersona((int)actaEntregaPorOrdenDe.testigo).nombre;
                     acta.IdTestigoPersona = personaDAL.GetPersona((int)actaEntregaPorOrdenDe.testigo).identificacion;
@@ -126,8 +114,8 @@ namespace FrontEnd.Controllers
                 }
 
             }
-            acta.VistaTipoTestigo = tablaGeneralDAL.Get(actaEntregaPorOrdenDe.tipoTestigo).descripcion;
-            if (tablaGeneralDAL.Get(actaEntregaPorOrdenDe.tipoInventario).codigo == "1") {
+            if (tablaGeneralDAL.Get(actaEntregaPorOrdenDe.tipoInventario).codigo == "1")
+            {
                 acta.IdActaLigada = (int)actaEntregaPorOrdenDe.idActaLigada;
                 acta.NumeroActaLigada = actaDecomisoDAL.GetActaDecomiso(actaEntregaPorOrdenDe.idActaLigada.Value).numeroFolio;
                 acta.DescripcionDeArticulos = actaDecomisoDAL.GetActaDecomiso(actaEntregaPorOrdenDe.idActaLigada.Value).inventario;
@@ -136,14 +124,8 @@ namespace FrontEnd.Controllers
             {
                 acta.NumeroInventario = actaEntregaPorOrdenDe.numeroInventario;
             }
-
-            acta.NumeroResolucion = actaEntregaPorOrdenDe.numeroResolucion;
-            acta.NumeroInventario = actaEntregaPorOrdenDe.numeroInventario;
-            acta.NombrePersonaQueSeLeEntrega = personaDAL.GetPersona(actaEntregaPorOrdenDe.idPorOrdenDe).nombre;
-            acta.CedulaPersonaQueSeLeEntrega = personaDAL.GetPersona(actaEntregaPorOrdenDe.idPorOrdenDe).identificacion;
             return acta;
         }
-
 
         public List<PoliciaViewModel> ConvertirListaPoliciasFiltrados(List<Policias> policias)
         {
@@ -186,8 +168,6 @@ namespace FrontEnd.Controllers
 
             return PartialView("_ListaPoliciasParcial", ConvertirListaPoliciasFiltrados(policiasFiltrados));
         }
-
-
 
         public List<ActaDecomisoViewModel> ConvertirListaActasDecomisoFiltrados(List<ActasDecomiso> actasDecomiso)
         {
@@ -298,6 +278,7 @@ namespace FrontEnd.Controllers
             }
         }
 
+        //Metodos de las Vistas
         public ActionResult Index(string filtrosSeleccionado, string busqueda, string busquedaFechaInicioH, string busquedaFechaFinalH)
         {
             Autorizar();
@@ -305,8 +286,8 @@ namespace FrontEnd.Controllers
             policiaDAL = new PoliciaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             personaDAL = new PersonaDAL();
-            List<ActaEntregaPorOrdenDeViewModel> actasEntregaPorOrdenDe = new List<ActaEntregaPorOrdenDeViewModel>();
-            List<ActaEntregaPorOrdenDeViewModel> actasEntregaPorOrdenDeFiltradas = new List<ActaEntregaPorOrdenDeViewModel>();
+
+            //Carga combobox busqueda
             List<TablaGeneral> comboindex = tablaGeneralDAL.Get("ActasEntregaPorOrdenDe", "index");
             List<SelectListItem> items = comboindex.ConvertAll(d =>
             {
@@ -316,6 +297,10 @@ namespace FrontEnd.Controllers
                 };
             });
             ViewBag.items = items;
+
+            //Carga lista de policias
+            List<ActaEntregaPorOrdenDeViewModel> actasEntregaPorOrdenDe = new List<ActaEntregaPorOrdenDeViewModel>();
+            List<ActaEntregaPorOrdenDeViewModel> actasEntregaPorOrdenDeFiltradas = new List<ActaEntregaPorOrdenDeViewModel>();
             foreach (ActasEntregaPorOrdenDe actaEntregaPorOrdenDe in actaEntregaPorOrdenDeDAL.Get())
             {
                 actasEntregaPorOrdenDe.Add(CargarActaEntregaPorOrdenDe(actaEntregaPorOrdenDe));
@@ -365,8 +350,6 @@ namespace FrontEnd.Controllers
                 actasEntregaPorOrdenDe = actasEntregaPorOrdenDeFiltradas;
             }
             return View(actasEntregaPorOrdenDe.OrderBy(x => x.NumeroFolio).ToList());
-            
-           
         }
         public ActionResult Nuevo()
         {
@@ -390,16 +373,18 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             usuarioDAL = new UsuarioDAL();
             auditoriaDAL = new AuditoriaDAL();
-            AuditoriaViewModel auditoria_model = new AuditoriaViewModel();
-            model.TiposDeInventario = tablaGeneralDAL.Get("ActasEntregaPorOrdenDe", "tipoInventario").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
-            model.TiposTestigo = tablaGeneralDAL.Get("Actas", "tipoTestigo").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            AuditoriaViewModel auditoria_model = new AuditoriaViewModel
+            {
+                Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral,
+                IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "10").idTablaGeneral,
+                IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario
+            };
+
             model.NumeroFolio = (actaEntregaPorOrdenDeDAL.GetCount() + 1).ToString() + "-" + DateTime.Now.Year;
             DateTime newDateTime = model.Fecha.Date + model.Hora.TimeOfDay;
-            model.Fecha = newDateTime;           
+            model.Fecha = newDateTime;
             model.Estado = int.Parse(tablaGeneralDAL.GetCodigo("Actas", "estadoActa", "1").codigo);
-            auditoria_model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
-            auditoria_model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "10").idTablaGeneral;
-            auditoria_model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
+
             try
             {
                 if (ModelState.IsValid)
@@ -411,6 +396,8 @@ namespace FrontEnd.Controllers
                     return Redirect("~/ActaEntregaPorOrdenDe/Detalle/" + aux);
 
                 }
+                model.TiposDeInventario = tablaGeneralDAL.Get("ActasEntregaPorOrdenDe", "tipoInventario").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+                model.TiposTestigo = tablaGeneralDAL.Get("Actas", "tipoTestigo").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
                 return View(model);
             }
             catch (Exception ex)
@@ -424,7 +411,7 @@ namespace FrontEnd.Controllers
             Autorizar();
             actaEntregaPorOrdenDeDAL = new ActaEntregaPorOrdenDeDAL();
             Session["idActaEntregaPorOrdenDe"] = id;
-           Session["auditoria"] = actaEntregaPorOrdenDeDAL.GetActaEntregaPorOrdenDe(id).numeroFolio;
+            Session["auditoria"] = actaEntregaPorOrdenDeDAL.GetActaEntregaPorOrdenDe(id).numeroFolio;
             Session["tabla"] = "Acta de Entrega Por Orden De";
             ActaEntregaPorOrdenDeViewModel modelo = CargarActaEntregaPorOrdenDe(actaEntregaPorOrdenDeDAL.GetActaEntregaPorOrdenDe(id));
             return View(modelo);
@@ -451,21 +438,22 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             usuarioDAL = new UsuarioDAL();
             auditoriaDAL = new AuditoriaDAL();
-            AuditoriaViewModel auditoria_model = new AuditoriaViewModel();
-            model.Estados = tablaGeneralDAL.Get("Actas", "estadoActa").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
-            model.TiposTestigo = tablaGeneralDAL.Get("Actas", "tipoTestigo").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
-            auditoria_model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
-            auditoria_model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "10").idTablaGeneral;
-            auditoria_model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
+            AuditoriaViewModel auditoria_model = new AuditoriaViewModel
+            {
+                Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral,
+                IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "10").idTablaGeneral,
+                IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario
+            };
+
             int estado = actaEntregaPorOrdenDeDAL.GetActaEntregaPorOrdenDe(model.IdActaEntregaPorOrdenDe).estado;
-            model.TiposDeInventario = tablaGeneralDAL.Get("ActasEntregaPorOrdenDe", "tipoInventario").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
             DateTime newDateTime = model.Fecha.Date + model.Hora.TimeOfDay;
             model.Fecha = newDateTime;
+
             try
             {
                 if (ModelState.IsValid)
                 {
-                    if (tablaGeneralDAL.GetCodigo("Actas", "estadoActa", model.Estado.ToString()).idTablaGeneral != estado && model.IdActaEntregaPorOrdenDe != 0)
+                    if (tablaGeneralDAL.GetCodigo("Actas", "estadoActa", model.Estado.ToString()).idTablaGeneral != estado)
                     {
                         auditoriaDAL.Add(CambiarEstadoAuditoria(model.IdActaEntregaPorOrdenDe));
                     }
@@ -474,6 +462,9 @@ namespace FrontEnd.Controllers
                     auditoriaDAL.Add(ConvertirAuditoria(auditoria_model));
                     return Redirect("~/ActaEntregaPorOrdenDe/Detalle/" + model.IdActaEntregaPorOrdenDe);
                 }
+                model.TiposDeInventario = tablaGeneralDAL.Get("ActasEntregaPorOrdenDe", "tipoInventario").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+                model.Estados = tablaGeneralDAL.Get("Actas", "estadoActa").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+                model.TiposTestigo = tablaGeneralDAL.Get("Actas", "tipoTestigo").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
                 return View(model);
             }
             catch (Exception ex)

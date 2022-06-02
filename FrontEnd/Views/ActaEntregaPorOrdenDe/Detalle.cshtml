@@ -13,137 +13,139 @@
     </div>
 
     <hr />
+    <div class="card col-md-12">
+        <div class="card-header">
+            <h2> @Html.DisplayTextFor(d => d.NumeroFolio)</h2>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.NombreFuncionarioQueEntrega)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.NombreFuncionarioQueEntrega)</text>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.CedulaFuncionarioQueEntrega)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.CedulaFuncionarioQueEntrega)</text>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.CedulaPersonaQueSeLeEntrega)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.CedulaPersonaQueSeLeEntrega)</text>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.NombrePersonaQueSeLeEntrega)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.NombrePersonaQueSeLeEntrega)</text>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.VistaTipoTestigo)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.VistaTipoTestigo)</text>
+                </div>
+            </li>
+            @if (Model.VistaTestigo != null)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.VistaTestigo)</b>
+                        <text class="col-sm-8">@Html.DisplayTextFor(d => d.VistaTestigo)</text>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.VistaIdTestigo)</b>
+                        <text class="col-sm-8">@Html.DisplayTextFor(d => d.VistaIdTestigo)</text>
+                    </div>
+                </li>
+            }
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.NombrePorOrdenDe)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.NombrePorOrdenDe)</text>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.IdentificacionPorOrdenDe)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.IdentificacionPorOrdenDe)</text>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.NumeroResolucion)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.NumeroResolucion)</text>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.VistaTipoInventario)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.VistaTipoInventario)</text>
+                </div>
+            </li>
+            @if (Model.NumeroActaLigada != null)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.NumeroActaLigada)</b>
+                        <text class="col-sm-8">@Html.DisplayTextFor(d => d.NumeroActaLigada)</text>
+                    </div>
+                </li>
+            }
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.Fecha)</b>
+                    <text class="col-sm-8">
+                        @{ var fecha = Model.Fecha.ToShortDateString(); }
+                        @Html.DisplayTextFor(d => fecha)
+                    </text>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.Hora)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.Hora.TimeOfDay)</text>
+                </div>
+            </li>
+            @if (Model.NumeroActaLigada != null)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.NumeroActaLigada)</b>
+                        <a class="col-sm-8" href="~/ActaHallazgo/Detalle/@Model.IdActaLigada" target="_blank">
+                            @Html.DisplayTextFor(d => d.NumeroActaLigada)
+                        </a>
+                    </div>
+                </li>
+            }
 
-    <dl class="row">
-
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.NumeroFolio)
-        </dt>
-        <dd id="req" class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.NumeroFolio)
-        </dd>
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.NombreFuncionarioQueEntrega)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.NombreFuncionarioQueEntrega)
-        </dd>
-        <dt class="col-sm-4">
-            @Html.LabelFor(d => d.CedulaFuncionarioQueEntrega)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.CedulaFuncionarioQueEntrega)
-        </dd>
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.CedulaPersonaQueSeLeEntrega)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.CedulaPersonaQueSeLeEntrega)
-        </dd>
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.NombrePersonaQueSeLeEntrega)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.NombrePersonaQueSeLeEntrega)
-        </dd>
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.VistaTipoTestigo)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.VistaTipoTestigo)
-        </dd>
-        @if (Model.VistaTestigo != null)
-        {
-            <dt class="col-sm-4 ">
-                @Html.LabelFor(d => d.VistaTestigo)
-            </dt>
-            <dd class="col-sm-8 ">
-                @Html.DisplayTextFor(d => d.VistaTestigo)
-            </dd>
-            <dt class="col-sm-4 ">
-                @Html.LabelFor(d => d.VistaIdTestigo)
-            </dt>
-            <dd class="col-sm-8 ">
-                @Html.DisplayTextFor(d => d.VistaIdTestigo)
-            </dd>
-        }
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.NombrePorOrdenDe)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.NombrePorOrdenDe)
-        </dd>
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.IdentificacionPorOrdenDe)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.IdentificacionPorOrdenDe)
-        </dd>
-
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.NumeroResolucion)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.NumeroResolucion)
-        </dd>
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.VistaTipoInventario)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.VistaTipoInventario)
-        </dd>
-        @if (Model.NumeroActaLigada != null)
-        {
-            <dt class="col-sm-4 ">
-                @Html.LabelFor(d => d.NumeroActaLigada)
-            </dt>
-            <dd class="col-sm-8 ">
-                @Html.DisplayTextFor(d => d.NumeroActaLigada)
-            </dd>
-        }
-
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.Fecha)
-        </dt>
-        <dd class="col-sm-8 ">
-            @{ var fecha = Model.Fecha.ToShortDateString(); }
-            @Html.DisplayTextFor(d => fecha)
-        </dd>
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.Hora)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.Hora.TimeOfDay)
-        </dd>
-        @if (Model.NumeroActaLigada != null)
-        {
-            <dt class="col-sm-4 ">
-                @Html.LabelFor(d => d.NumeroActaLigada)
-            </dt>
-            <dd class="col-sm-8 ">
-                <a href="~/ActaDecomiso/Detalle/@Model.IdActaLigada" target="_blank">
-                    @Html.DisplayTextFor(d => d.NumeroActaLigada)
-                </a>
-            </dd>
-        }
-        @if (Model.NumeroInventario != null)
-        {
-            <dt class="col-sm-4 ">
-                @Html.LabelFor(d => d.NumeroInventario)
-            </dt>
-            <dd class="col-sm-8 ">
-                @Html.DisplayTextFor(d => d.NumeroInventario)
-
-            </dd>
-        }
-        <dt class="col-sm-4 ">
-            @Html.LabelFor(d => d.VistaEstadoActa)
-        </dt>
-        <dd class="col-sm-8 ">
-            @Html.DisplayTextFor(d => d.VistaEstadoActa)
-        </dd>
-
-    </dl>
+            @if (Model.NumeroInventario != null)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.NumeroInventario)</b>
+                        <text class="col-sm-8">@Html.DisplayTextFor(d => d.NumeroInventario)</text>
+                    </div>
+                </li>
+            }
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.VistaEstadoActa)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.VistaEstadoActa)</text>
+                </div>
+            </li>
+        </ul>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-sm-2">
+                </div>
+            </div>
+        </div>
+    </div>
     <hr />
 
 
@@ -161,26 +163,6 @@
         </div>
 
     </div>
-
-    @*<div class="modal" id="show3" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Modificar Estado</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>¿Está seguro que desea modificar el estado del acta?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-danger" id="Cancel" data-dismiss="modal">Cancelar</button>
-                        <a class="btn btn-primary" id="Save" href="~/ActaEntregaPorOrdenDe/CambioEstadoActa/@Model.EstadoActa">Modificar</a>
-                    </div>
-                </div>
-            </div>
-        </div>*@
 
 
 </div>

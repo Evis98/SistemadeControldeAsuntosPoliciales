@@ -4,12 +4,8 @@
 
 
 <div class="container bg-light text-dark border" style=" height: auto; min-height: 80vh; padding-bottom: 20px; margin-bottom: 28px; word-wrap: break-word;">
-    <div class="row">
-        <div class="col-md-12">
-            <div style="text-align:center;">
-                <h2 class="display-4">@ViewBag.Title </h2>
-            </div>
-        </div>
+    <div style="text-align:center;">
+        <h1 class="display-5">@ViewBag.Title</h1>
     </div>
 
     <hr />
@@ -78,72 +74,72 @@
                         <b class="col-sm-4"> @Html.LabelFor(d => d.TelefonoDecomisado)</b>
                         <text class="col-sm-8">@Html.DisplayTextFor(d => d.TelefonoDecomisado)</text>
                     </div>
-                    </li>
-                    }
-                    @if (Model.DireccionDecomisado != null)
-                    {
-                    <li class="list-group-item">
-                        <div class="row">
-                            <b class="col-sm-4"> @Html.LabelFor(d => d.DireccionDecomisado)</b>
-                            <text class="col-sm-8">@Html.DisplayTextFor(d => d.DireccionDecomisado)</text>
-                        </div>
-                    </li>
-                }
-                    <li class="list-group-item">
-                        <div class="row">
-                            <b class="col-sm-4"> @Html.LabelFor(d => d.LugarDelProcedimiento)</b>
-                            <text class="col-sm-8">@Html.DisplayTextFor(d => d.LugarDelProcedimiento)</text>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="row">
-                            <b class="col-sm-4"> @Html.LabelFor(d => d.Inventario)</b>
-                            <text class="col-sm-8">@Html.DisplayTextFor(d => d.Inventario)</text>
-                        </div>
-                    </li>
-                    @if (Model.Observaciones != null)
-                    {
-                        <li class="list-group-item">
-                            <div class="row">
-                                <b class="col-sm-4"> @Html.LabelFor(d => d.Observaciones)</b>
-                                <text class="col-sm-8">@Html.DisplayTextFor(d => d.Observaciones)</text>
-                            </div>
-                        </li>
-                    }
-                    <li class="list-group-item">
-                        <div class="row">
-                            <b class="col-sm-4"> @Html.LabelFor(d => d.VistaEstadoActa)</b>
-                            <text class="col-sm-8">@Html.DisplayTextFor(d => d.VistaEstadoActa)</text>
-                        </div>
-                    </li>
-                </ul>
-                <div class="card-footer">
+                </li>
+            }
+            @if (Model.DireccionDecomisado != null)
+            {
+                <li class="list-group-item">
                     <div class="row">
-                        <div class="col-sm-2">
-                        </div>
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.DireccionDecomisado)</b>
+                        <text class="col-sm-8">@Html.DisplayTextFor(d => d.DireccionDecomisado)</text>
                     </div>
+                </li>
+            }
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.LugarDelProcedimiento)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.LugarDelProcedimiento)</text>
                 </div>
-            </div>
-
-            <hr />
-
-
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.Inventario)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.Inventario)</text>
+                </div>
+            </li>
+            @if (Model.Observaciones != null)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4"> @Html.LabelFor(d => d.Observaciones)</b>
+                        <text class="col-sm-8">@Html.DisplayTextFor(d => d.Observaciones)</text>
+                    </div>
+                </li>
+            }
+            <li class="list-group-item">
+                <div class="row">
+                    <b class="col-sm-4"> @Html.LabelFor(d => d.VistaEstadoActa)</b>
+                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.VistaEstadoActa)</text>
+                </div>
+            </li>
+        </ul>
+        <div class="card-footer">
             <div class="row">
-                <div class="col-sm-12">
-                    <a href="~/ActaDecomiso/Index/" class="btn btn-outline-secondary">Regresar</a>
-                    @if (Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "5")
-                    {
-                        <div style="text-align:center;">
-                            <a class="btn btn-primary" href="~/ActaDecomiso/Editar/@Model.IdActaDecomiso">Editar</a>
-                            <a class="btn btn-secondary" href="~/Auditoria/ListadoAuditoria/@Model.IdActaDecomiso">Ver Auditorias</a>
-                            <a href="~/ActaDecomiso/CreatePDF/@Model.IdActaDecomiso" class="btn btn-outline-secondary">Imprimir</a>
-                        </div>
-                    }
+                <div class="col-sm-2">
                 </div>
-
             </div>
-
-
         </div>
+    </div>
+
+    <hr />
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <a href="~/ActaDecomiso/Index/" class="btn btn-outline-secondary">Regresar</a>
+            @if (Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "5")
+            {
+                <div style="text-align:center;">
+                    <a class="btn btn-primary" href="~/ActaDecomiso/Editar/@Model.IdActaDecomiso">Editar</a>
+                    <a class="btn btn-secondary" href="~/Auditoria/ListadoAuditoria/@Model.IdActaDecomiso">Ver Auditorias</a>
+                    <a href="~/ActaDecomiso/CreatePDF/@Model.IdActaDecomiso" class="btn btn-outline-secondary">Imprimir</a>
+                </div>
+            }
+        </div>
+
+    </div>
+
+
+</div>
 
 

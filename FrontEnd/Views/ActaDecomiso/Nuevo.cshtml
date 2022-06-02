@@ -15,7 +15,7 @@
                     @Html.LabelFor(d => d.OficialActuante)
                     <div class="input-group">
                         @Html.TextBoxFor(d => d.OficialActuante, "", new { @class = "form-control", @Value = @Session["cedula"].ToString(), @id = "idActuante", @readonly = "readonly" })
-                        <a class="btn btn-primary" data-book-id="idActuante" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
+                        <a class="btn btn-primary" data-book-id="idActuante" data-bs-toggle="modal" data-bs-target="#modalBusquedaPolicia">Buscar</a>
                     </div>
                     @Html.ValidationMessageFor(d => d.OficialActuante, null, new { @class = "red" })
                 </div>
@@ -66,7 +66,6 @@
                     <a class="btn btn-primary" data-book-id="idDecomisado" data-bs-toggle="modal" data-bs-target="#modalBusquedaPersona">Buscar</a>
                 </div>
             </div>
-
             <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.EstadoCivil)
                 @Html.DropDownListFor(d => d.EstadoCivil, Model.EstadosCivil, "--Seleccione--", new { @class = " form-select" })
@@ -100,7 +99,6 @@
                     <a class="btn btn-secondary" href="~/ActaDecomiso/Index">Cancelar</a>
                     <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#show">Guardar</a>
                 </div>
-
             </div>
         </div>
 
@@ -165,8 +163,8 @@
             var elem = document.getElementById("idSupervisor");
         }
         elem.value = clicked_id;
-
     }
+
     function reply_click4(clicked_id4) {
         var aux = document.getElementsByName("agregarPersona")[0].getAttribute("id");
 

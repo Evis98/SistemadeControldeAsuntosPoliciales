@@ -19,54 +19,43 @@ namespace FrontEnd.Controllers
         IPersonaDAL personaDAL;
         IAuditoriaDAL auditoriaDAL;
         IUsuarioDAL usuarioDAL;
-        public ActasDeNotificacion ConvertirActaDeNotificacion(ActaNotificacionViewModel model)
+
+        //metodos útiles
+        public ActasDeNotificacion ConvertirActaDeNotificacion(ActaNotificacionViewModel modelo)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
             policiaDAL = new PoliciaDAL();
             personaDAL = new PersonaDAL();
             actaDeNotificacionDAL = new ActaDeNotificacionDAL();
 
-            ActasDeNotificacion acta = new ActasDeNotificacion();
+            ActasDeNotificacion actaNotificacion = new ActasDeNotificacion
             {
-                acta.idActaDeNotificacion = model.IdActaDeNotificacion;
-                acta.numeroFolio = model.NumeroFolio;
-                acta.personaNotificada = personaDAL.GetPersonaIdentificacion(model.Notificado).idPersona;
-                acta.oficialActuante = policiaDAL.GetPoliciaCedula(model.Oficial).idPolicia;
-                acta.distrito = tablaGeneralDAL.GetCodigo("Generales", "distrito", model.Distrito.ToString()).idTablaGeneral;
-                acta.fechaHora = model.Fecha;
-                acta.direccionExacta = model.DireccionExactaProcedimiento;
-                acta.barrio = model.Barrio;
-                acta.disposiciones = model.Disposiciones;
-                acta.tipoTestigo = tablaGeneralDAL.GetCodigo("Actas", "tipoTestigo", model.TipoTestigo.ToString()).idTablaGeneral;
-                acta.estado = tablaGeneralDAL.GetCodigo("Actas", "estadoActa", model.Estado.ToString()).idTablaGeneral;
-                if (model.TipoTestigo != 3)
-                {
-                    if (model.TipoTestigo == 1)
-                    {
-                        if (model.IdTestigoPolicia != null && policiaDAL.PoliciaExiste(model.IdTestigoPolicia))
-                        {
-                            acta.testigo = policiaDAL.GetPoliciaCedula(model.IdTestigoPolicia).idPolicia;
-                        }
-                        else
-                        {
-                            acta.tipoTestigo = tablaGeneralDAL.GetCodigo("Actas", "tipoTestigo", "3").idTablaGeneral;
-                        }
-                    }
-                    else if (model.TipoTestigo == 2)
-                    {
-                        if (model.IdTestigoPersona != null && personaDAL.IdentificacionExiste(model.IdTestigoPersona))
-                        {
-                            acta.testigo = personaDAL.GetPersonaIdentificacion(model.IdTestigoPersona).idPersona;
-                        }
-                        else
-                        {
-                            acta.tipoTestigo = tablaGeneralDAL.GetCodigo("Actas", "tipoTestigo", "3").idTablaGeneral;
-                        }
-                    }
-                }
-
+                idActaDeNotificacion = modelo.IdActaDeNotificacion,
+                numeroFolio = modelo.NumeroFolio,
+                personaNotificada = personaDAL.GetPersonaIdentificacion(modelo.Notificado).idPersona,
+                oficialActuante = policiaDAL.GetPoliciaCedula(modelo.Oficial).idPolicia,
+                distrito = tablaGeneralDAL.GetCodigo("Generales", "distrito", modelo.Distrito.ToString()).idTablaGeneral,
+                fechaHora = modelo.Fecha,
+                direccionExacta = modelo.DireccionExactaProcedimiento,
+                barrio = modelo.Barrio,
+                disposiciones = modelo.Disposiciones,
+                tipoTestigo = tablaGeneralDAL.GetCodigo("Actas", "tipoTestigo", modelo.TipoTestigo.ToString()).idTablaGeneral,
+                estado = tablaGeneralDAL.GetCodigo("Actas", "estadoActa", modelo.Estado.ToString()).idTablaGeneral
             };
-            return acta;
+
+            if (modelo.TipoTestigo == 1)
+            {
+                actaNotificacion.testigo = policiaDAL.GetPoliciaCedula(modelo.IdTestigoPolicia).idPolicia;
+            }
+            if (modelo.TipoTestigo == 2)
+            {
+                actaNotificacion.testigo = personaDAL.GetPersonaIdentificacion(modelo.IdTestigoPersona).idPersona;
+            }
+            if (modelo.Estado != 0)
+            {
+                actaNotificacion.estado = tablaGeneralDAL.GetCodigo("Actas", "estadoActa", modelo.Estado.ToString()).idTablaGeneral;
+            }
+            return actaNotificacion;
         }
 
         public ActaNotificacionViewModel CargarActaNotificacion(ActasDeNotificacion actaDeNotificacion)
@@ -74,45 +63,42 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             policiaDAL = new PoliciaDAL();
             personaDAL = new PersonaDAL();
-            ActaNotificacionViewModel acta = new ActaNotificacionViewModel();
-
-            acta.IdActaDeNotificacion = actaDeNotificacion.idActaDeNotificacion;
-            acta.NumeroFolio = actaDeNotificacion.numeroFolio;
-            acta.TipoTestigo = int.Parse(tablaGeneralDAL.Get(actaDeNotificacion.tipoTestigo).codigo);
-
-
-            if (int.Parse(tablaGeneralDAL.Get(actaDeNotificacion.tipoTestigo).codigo) != 3 && actaDeNotificacion.testigo != null)
+            ActaNotificacionViewModel acta = new ActaNotificacionViewModel
             {
-                if (int.Parse(tablaGeneralDAL.Get(actaDeNotificacion.tipoTestigo).codigo) == 1 && policiaDAL.GetPolicia((int)actaDeNotificacion.testigo) != null)
+                IdActaDeNotificacion = actaDeNotificacion.idActaDeNotificacion,
+                NumeroFolio = actaDeNotificacion.numeroFolio,
+                TipoTestigo = int.Parse(tablaGeneralDAL.Get(actaDeNotificacion.tipoTestigo).codigo),
+                Estado = int.Parse(tablaGeneralDAL.Get(actaDeNotificacion.estado).codigo),
+                VistaEstadoActa = tablaGeneralDAL.Get(actaDeNotificacion.estado).descripcion,
+                Oficial = policiaDAL.GetPolicia(actaDeNotificacion.oficialActuante).cedula,
+                Notificado = personaDAL.GetPersona(actaDeNotificacion.personaNotificada).identificacion,
+                Fecha = actaDeNotificacion.fechaHora,
+                Hora = actaDeNotificacion.fechaHora,
+                Distrito = int.Parse(tablaGeneralDAL.Get(actaDeNotificacion.distrito).codigo),
+                DireccionExactaProcedimiento = actaDeNotificacion.direccionExacta,
+                Barrio = actaDeNotificacion.barrio,
+                Disposiciones = actaDeNotificacion.disposiciones,
+                VistaTipoTestigo = tablaGeneralDAL.Get(actaDeNotificacion.tipoTestigo).descripcion,
+                VistaOficialActuante = policiaDAL.GetPolicia(actaDeNotificacion.oficialActuante).nombre,
+                VistaPersonaNotificada = personaDAL.GetPersona(actaDeNotificacion.personaNotificada).nombre,
+                VistaDistrito = tablaGeneralDAL.Get(actaDeNotificacion.distrito).descripcion
+            };
+
+            if (actaDeNotificacion.testigo != null)
+            {
+                if (tablaGeneralDAL.Get(actaDeNotificacion.tipoTestigo).codigo == "1")
                 {
                     acta.VistaTestigo = policiaDAL.GetPolicia((int)actaDeNotificacion.testigo).nombre;
                     acta.IdTestigoPolicia = policiaDAL.GetPolicia((int)actaDeNotificacion.testigo).cedula;
                     acta.VistaIdTestigo = policiaDAL.GetPolicia((int)actaDeNotificacion.testigo).cedula;
                 }
-                else if (int.Parse(tablaGeneralDAL.Get(actaDeNotificacion.tipoTestigo).codigo) == 2 && personaDAL.GetPersona((int)actaDeNotificacion.testigo) != null)
+                if (tablaGeneralDAL.Get(actaDeNotificacion.tipoTestigo).codigo == "2")
                 {
                     acta.VistaTestigo = personaDAL.GetPersona((int)actaDeNotificacion.testigo).nombre;
                     acta.IdTestigoPersona = personaDAL.GetPersona((int)actaDeNotificacion.testigo).identificacion;
                     acta.VistaIdTestigo = personaDAL.GetPersona((int)actaDeNotificacion.testigo).identificacion;
                 }
             }
-
-            acta.Estado = int.Parse(tablaGeneralDAL.Get(actaDeNotificacion.estado).codigo);
-            acta.VistaEstadoActa = tablaGeneralDAL.Get(actaDeNotificacion.estado).descripcion;
-            acta.Oficial = policiaDAL.GetPolicia(actaDeNotificacion.oficialActuante).cedula;
-            acta.Notificado = personaDAL.GetPersona(actaDeNotificacion.personaNotificada).identificacion;
-            acta.Fecha = actaDeNotificacion.fechaHora;
-            acta.Hora = actaDeNotificacion.fechaHora;
-            acta.Distrito = int.Parse(tablaGeneralDAL.Get(actaDeNotificacion.distrito).codigo);
-            acta.DireccionExactaProcedimiento = actaDeNotificacion.direccionExacta;
-            acta.Barrio = actaDeNotificacion.barrio;
-            acta.Disposiciones = actaDeNotificacion.disposiciones;
-
-            acta.VistaTipoTestigo = tablaGeneralDAL.Get(actaDeNotificacion.tipoTestigo).descripcion;
-            acta.VistaOficialActuante = policiaDAL.GetPolicia(actaDeNotificacion.oficialActuante).nombre;
-            acta.VistaPersonaNotificada = personaDAL.GetPersona(actaDeNotificacion.personaNotificada).nombre;
-            acta.VistaDistrito = tablaGeneralDAL.Get(actaDeNotificacion.distrito).descripcion;
-
             return acta;
         }
 
@@ -171,7 +157,6 @@ namespace FrontEnd.Controllers
                     NombrePersona = persona.nombre,
                     VecesNotificado = actaDeNotificacionDAL.VecesNotificado(persona.idPersona)
                 };
-                //aux.VecesNotificado = actaDeNotificacionDAL.VecesNotificado(persona.idPersona);
                 lista.Add(aux);
             }
             return lista;
@@ -233,17 +218,16 @@ namespace FrontEnd.Controllers
             }
         }
 
-
+        //metodos de las vistas de las actas
         public ActionResult Index(string filtrosSeleccionado, string busqueda, string busquedaFechaInicioH, string busquedaFechaFinalH)
         {
             Autorizar();
             actaDeNotificacionDAL = new ActaDeNotificacionDAL();
             policiaDAL = new PoliciaDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
-            List<ActaNotificacionViewModel> actasNotificacion = new List<ActaNotificacionViewModel>();
-            List<ActaNotificacionViewModel> actasNotificacionFiltradas = new List<ActaNotificacionViewModel>();
-            List<TablaGeneral> comboindex = tablaGeneralDAL.Get("ActasDeNotificacion", "index");
 
+            //Carga combobox busqueda
+            List<TablaGeneral> comboindex = tablaGeneralDAL.Get("ActasDeNotificacion", "index");
             List<SelectListItem> items = comboindex.ConvertAll(d =>
             {
                 return new SelectListItem()
@@ -252,6 +236,10 @@ namespace FrontEnd.Controllers
                 };
             });
             ViewBag.items = items;
+
+            //Carga lista de actas de hallazgo
+            List<ActaNotificacionViewModel> actasNotificacion = new List<ActaNotificacionViewModel>();
+            List<ActaNotificacionViewModel> actasNotificacionFiltradas = new List<ActaNotificacionViewModel>();
             foreach (ActasDeNotificacion actaDeNotificacion in actaDeNotificacionDAL.Get())
             {
                 actasNotificacion.Add(CargarActaNotificacion(actaDeNotificacion));
@@ -308,8 +296,8 @@ namespace FrontEnd.Controllers
                 actasNotificacion = actasNotificacionFiltradas;
             }
             return View(actasNotificacion.OrderBy(x => x.NumeroFolio).ToList());
-            
-          
+
+
         }
 
         public ActionResult Nuevo()
@@ -334,18 +322,20 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             usuarioDAL = new UsuarioDAL();
             auditoriaDAL = new AuditoriaDAL();
-            AuditoriaViewModel auditoria_model = new AuditoriaViewModel();
-            model.Distritos = tablaGeneralDAL.Get("Generales", "distrito").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
-            model.TiposTestigo = tablaGeneralDAL.Get("Actas", "tipoTestigo").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            AuditoriaViewModel auditoria_model = new AuditoriaViewModel
+            {
+                Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral,
+                IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "12").idTablaGeneral,
+                IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario
+            };
+
             model.NumeroFolio = (actaDeNotificacionDAL.GetCount(model.Fecha.Date) + 1).ToString() + "-" + model.Fecha.Date.Year;
             DateTime newDateTime = model.Fecha.Date + model.Hora.TimeOfDay;
             model.Fecha = newDateTime;
             model.Estado = int.Parse(tablaGeneralDAL.GetCodigo("Actas", "estadoActa", "1").codigo);
-            auditoria_model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "1").idTablaGeneral;
-            auditoria_model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "12").idTablaGeneral;
-            auditoria_model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
+
             try
-            {   
+            {
                 if (ModelState.IsValid)
                 {
                     actaDeNotificacionDAL.Add(ConvertirActaDeNotificacion(model));
@@ -355,6 +345,8 @@ namespace FrontEnd.Controllers
                     return Redirect("~/ActaNotificacion/Detalle/" + aux);
 
                 }
+                model.Distritos = tablaGeneralDAL.Get("Generales", "distrito").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+                model.TiposTestigo = tablaGeneralDAL.Get("Actas", "tipoTestigo").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
                 return View(model);
             }
             catch (Exception ex)
@@ -371,12 +363,11 @@ namespace FrontEnd.Controllers
             Session["idActaNotificacion"] = id;
             Session["auditoria"] = actaDeNotificacionDAL.GetActaDeNotificacion(id).numeroFolio;
             Session["tabla"] = "Acta de Notificación";
-      
+
             ActaNotificacionViewModel modelo = CargarActaNotificacion(actaDeNotificacionDAL.GetActaDeNotificacion(id));
             return View(modelo);
         }
 
-        //Devuelve la página de edición de policías con sus apartados llenos
         public ActionResult Editar(int id)
         {
             AutorizarEditar();
@@ -397,21 +388,21 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             usuarioDAL = new UsuarioDAL();
             auditoriaDAL = new AuditoriaDAL();
-            AuditoriaViewModel auditoria_model = new AuditoriaViewModel();
-            model.Distritos = tablaGeneralDAL.Get("Generales", "distrito").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
-            model.Estados = tablaGeneralDAL.Get("Actas", "estadoActa").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
-            model.TiposTestigo = tablaGeneralDAL.Get("Actas", "tipoTestigo").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            AuditoriaViewModel auditoria_model = new AuditoriaViewModel
+            {
+                Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral,
+                IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "12").idTablaGeneral,
+                IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario
+            };
+            
             DateTime newDateTime = model.Fecha.Date + model.Hora.TimeOfDay;
             model.Fecha = newDateTime;
-            auditoria_model.Accion = tablaGeneralDAL.GetCodigo("Auditoria", "accion", "2").idTablaGeneral;
-            auditoria_model.IdCategoria = tablaGeneralDAL.GetCodigo("Auditoria", "tabla", "12").idTablaGeneral;
-            auditoria_model.IdUsuario = usuarioDAL.GetUsuario((int?)Session["userID"]).idUsuario;
             int estado = actaDeNotificacionDAL.GetActaDeNotificacion(model.IdActaDeNotificacion).estado;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    if (tablaGeneralDAL.GetCodigo("Actas", "estadoActa", model.Estado.ToString()).idTablaGeneral != estado && model.IdActaDeNotificacion != 0)
+                    if (tablaGeneralDAL.GetCodigo("Actas", "estadoActa", model.Estado.ToString()).idTablaGeneral != estado)
                     {
                         auditoriaDAL.Add(CambiarEstadoAuditoria(model.IdActaDeNotificacion));
                     }
@@ -421,6 +412,9 @@ namespace FrontEnd.Controllers
                     auditoriaDAL.Add(ConvertirAuditoria(auditoria_model));
                     return Redirect("~/ActaNotificacion/Detalle/" + model.IdActaDeNotificacion);
                 }
+                model.Distritos = tablaGeneralDAL.Get("Generales", "distrito").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+                model.Estados = tablaGeneralDAL.Get("Actas", "estadoActa").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+                model.TiposTestigo = tablaGeneralDAL.Get("Actas", "tipoTestigo").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
                 return View(model);
             }
             catch (Exception ex)

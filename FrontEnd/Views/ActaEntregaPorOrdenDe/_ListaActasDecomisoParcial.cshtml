@@ -1,8 +1,8 @@
 ﻿@model List<FrontEnd.Models.ViewModels.ActaDecomisoViewModel>
 
-<table class="table" id="idtablaDecomiso">
+<table class="table table-sm table-bordered" id="idtablaDecomiso">
 
-    <thead class="thead-light">
+    <thead class="table-light">
         <tr>
             <th scope="col">Número de Folio</th>
             <th scope="col">Fecha</th>
@@ -14,7 +14,7 @@
             <tr>
                 <th scope="row">@Html.DisplayFor(modelItem => item.NumeroFolio)</th>
                 <td>
-                    <label><a href="#" onclick="reply_click4(this.id, this.name)" id="@item.NumeroFolio" name="@item.Inventario"> @item.Fecha</a></label>
+                    <label><a href="#" onclick="reply_click4(this.id, this.name)" id="@item.NumeroFolio" name="@item.Inventario" data-bs-dismiss="modal"> @item.Fecha</a></label>
                 </td>
             </tr>
         }
@@ -25,7 +25,7 @@
     $(document).ready(function () {
         $('#idtablaDecomiso').DataTable({
             searching: false,
-            lengthMenu: [[6], [6]],
+            lengthMenu: [[10], [10]],
             lengthChange: false,
             language: {
                 lengthMenu: "Mostrar _MENU_ entradas",
