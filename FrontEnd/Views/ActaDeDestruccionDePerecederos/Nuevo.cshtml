@@ -2,334 +2,285 @@
 @{ ViewBag.Title = "Agregar Información Acta de Destrucción de Perecederos"; }
 
 <div class="container bg-light text-dark border" style=" height: auto; min-height: 80vh; padding-bottom: 20px; margin-bottom: 28px; word-wrap: break-word;">
-    <div class="row">
-        <div class="col-md-12">
-            <div style="text-align:center;">
-                <h2 class="display-4" style="text-align:center;">@ViewBag.Title</h2>
-            </div>
-
-        </div>
+    <div style="text-align:center;">
+        <h1 class="display-4">@ViewBag.Title</h1>
     </div>
+
     <hr />
     @using (Html.BeginForm("Nuevo", "ActaDeDestruccionDePerecederos", FormMethod.Post))
     {
-<div class="form-row">
-    <div class="form-group col-md-3">
-        @Html.LabelFor(d => d.TipoActaD)
-        @Html.DropDownListFor(d => d.TipoActaD, Model.TiposActaD, "--Seleccione--", new { @class = "myselect form-control", @id = "tipoActaSeleccionado", @onclick = "ocultarActa()" })
-        @Html.ValidationMessageFor(d => d.TipoActaD, null, new { @class = "red" })
-    </div>
-    <div class="form-group col-md-3" style="display:none;" id="consecutivoActaHallazgo">
-        @Html.LabelFor(d => d.ConsecutivoActaHallazgo)
-        <div class="input-group">
-            @Html.TextBoxFor(d => d.ConsecutivoActaHallazgo, "", new { @class = "form-control", @id = "consecutivoActa", @readonly = "readonly" })
-            <div class="input-group-append ">
-                <a class="btn btn-primary" data-book-id="consecutivoActa" data-toggle="modal" data-target="#modalBusquedaHallazgo">Buscar</a>
+        <div class="row mb-4">
+            <div class="form-group col-md-3">
+                @Html.LabelFor(d => d.TipoActaD)
+                @Html.DropDownListFor(d => d.TipoActaD, Model.TiposActaD, "--Seleccione--", new { @class = "form-select", @id = "tipoActaSeleccionado", @onclick = "ocultarActa()" })
+                @Html.ValidationMessageFor(d => d.TipoActaD, null, new { @class = "red" })
             </div>
-        </div>
-        @Html.ValidationMessageFor(d => d.ConsecutivoActaHallazgo, null, new { @class = "red" })
-    </div>
-
-    <div class="form-group col-md-3" style="display:none;" id="consecutivoActaDecomiso">
-        @Html.LabelFor(d => d.ConsecutivoActaDecomiso)
-        <div class="input-group">
-            @Html.TextBoxFor(d => d.ConsecutivoActaDecomiso, "", new { @class = "form-control", @id = "consecutivoActa2", @readonly = "readonly" })
-            <div class="input-group-append ">
-                <a class="btn btn-primary" data-book-id="consecutivoActa" data-toggle="modal" data-target="#modalBusquedaDecomiso">Buscar</a>
+            <div class="form-group col-md-3" style="display:none;" id="consecutivoActaHallazgo">
+                @Html.LabelFor(d => d.ConsecutivoActaHallazgo)
+                <div class="input-group">
+                    @Html.TextBoxFor(d => d.ConsecutivoActaHallazgo, "", new { @class = "form-control", @id = "consecutivoActa", @readonly = "readonly" })
+                        <a class="btn btn-primary" data-book-id="consecutivoActa" data-bs-toggle="modal" data-bs-target="#modalBusquedaHallazgo">Buscar</a>
+                </div>
+                @Html.ValidationMessageFor(d => d.ConsecutivoActaHallazgo, null, new { @class = "red" })
             </div>
-        </div>
-        @Html.ValidationMessageFor(d => d.ConsecutivoActaDecomiso, null, new { @class = "red" })
-    </div>
 
-    @if (Session["Rol"].ToString() == "1" || Session["Rol"].ToString() == "2"|| Session["Rol"].ToString() == "3")
-    {
-        <div class="form-group col-md-3">
-            @Html.LabelFor(d => d.Encargado)
-            <div class="input-group">
-                @Html.TextBoxFor(d => d.Encargado, "", new { @class = "form-control", @Value = @Session["cedula"].ToString(), @id = "idEncargado", @readonly = "readonly" })
-                <div class="input-group-append ">
-                    <a class="btn btn-primary" data-book-id="idEncargado" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
+            <div class="form-group col-md-3" style="display:none;" id="consecutivoActaDecomiso">
+                @Html.LabelFor(d => d.ConsecutivoActaDecomiso)
+                <div class="input-group">
+                    @Html.TextBoxFor(d => d.ConsecutivoActaDecomiso, "", new { @class = "form-control", @id = "consecutivoActa2", @readonly = "readonly" })
+                        <a class="btn btn-primary" data-book-id="consecutivoActa2" data-bs-toggle="modal" data-bs-target="#modalBusquedaDecomiso">Buscar</a>
+                </div>
+                @Html.ValidationMessageFor(d => d.ConsecutivoActaDecomiso, null, new { @class = "red" })
+            </div>
+
+            @if (Session["Rol"].ToString() == "1" || Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3")
+            {
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(d => d.Encargado)
+                    <div class="input-group">
+                        @Html.TextBoxFor(d => d.Encargado, "", new { @class = "form-control", @Value = @Session["cedula"].ToString(), @id = "idEncargado", @readonly = "readonly" })
+                            <a class="btn btn-primary" data-book-id="idEncargado" data-bs-toggle="modal" data-bs-target="#modalBusquedaPolicia">Buscar</a>
+                    </div>
+                    @Html.ValidationMessageFor(d => d.Encargado, null, new { @class = "red" })
+                </div>
+            }
+            else
+            {
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(d => d.Encargado)
+                    <div class="input-group">
+                        @Html.TextBoxFor(d => d.Encargado, "", new { @class = "form-control", @id = "idEncargado", @readonly = "readonly" })
+                            <a class="btn btn-primary" data-book-id="idEncargado" data-bs-toggle="modal" data-bs-target="#modalBusquedaPolicia">Buscar</a>
+                    </div>
+                    @Html.ValidationMessageFor(d => d.Encargado, null, new { @class = "red" })
+                </div>
+            }
+
+            <div class="form-group col-md-3">
+                @Html.LabelFor(d => d.Supervisor)
+                <div class="input-group">
+                    @Html.TextBoxFor(d => d.Supervisor, "", new { @class = "form-control", @id = "idSupervisor", @readonly = "readonly" })
+                        <a class="btn btn-primary" data-book-id="idSupervisor" data-bs-toggle="modal" data-bs-target="#modalBusquedaPolicia">Buscar</a>
+                </div>
+                @Html.ValidationMessageFor(d => d.Supervisor, null, new { @class = "red" })
+            </div>
+
+        </div>
+
+        <div class="row mb-4">
+            <div class="form-group col-md-3">
+                @Html.LabelFor(d => d.TipoTestigo)
+                @Html.DropDownListFor(d => d.TipoTestigo, Model.TiposTestigo, "--Seleccione--", new { @class = "form-select", @id = "idTipoTestigo" })
+                @Html.ValidationMessageFor(d => d.TipoTestigo, null, new { @class = "red" })
+            </div>
+
+            <div class="form-group col-md-3" id="idOficialTestigoCampo" style="display:none">
+                @Html.LabelFor(d => d.IdTestigoPolicia)
+                <div class="input-group">
+                    @Html.TextBoxFor(d => d.IdTestigoPolicia, "", new { @class = "form-control", @id = "idTestigoPolicia", @readonly = "readonly" })
+                    <a class="btn btn-primary" data-book-id="idTestigoPolicia" data-bs-toggle="modal" data-bs-target="#modalBusquedaPolicia">Buscar</a>
                 </div>
             </div>
-            @Html.ValidationMessageFor(d => d.Encargado, null, new { @class = "red" })
-        </div>
 
-    }
-    else
-    {
-        <div class="form-group col-md-3">
-            @Html.LabelFor(d => d.Encargado)
-            <div class="input-group">
-                @Html.TextBoxFor(d => d.Encargado, "", new { @class = "form-control", @id = "idEncargado", @readonly = "readonly" })
-                <div class="input-group-append ">
-                    <a class="btn btn-primary" data-book-id="idEncargado" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
+            <div class="form-group col-md-3" id="idPersonaTestigoCampo" style="display:none">
+                @Html.LabelFor(d => d.IdTestigoPersona)
+                <div class="input-group">
+                    @Html.TextBoxFor(d => d.IdTestigoPersona, "", new { @class = "form-control", @id = "idTestigoPersona", @readonly = "readonly" })
+                    <a class="btn btn-primary" data-book-id="idTestigoPersona" data-bs-toggle="modal" data-bs-target="#modalBusquedaPersona">Buscar</a>
                 </div>
             </div>
-            @Html.ValidationMessageFor(d => d.Encargado, null, new { @class = "red" })
-        </div>
-    }
-
-
-
-    <div class="form-group col-md-3">
-        @Html.LabelFor(d => d.Supervisor)
-        <div class="input-group">
-            @Html.TextBoxFor(d => d.Supervisor, "", new { @class = "form-control", @id = "idSupervisor", @readonly = "readonly" })
-            <div class="input-group-append ">
-                <a class="btn btn-primary" data-book-id="idSupervisor" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
+            <div class="form-group col-md-2">
+                @Html.LabelFor(d => d.Fecha)
+                @Html.EditorFor(d => d.Fecha, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.Fecha, null, new { @class = "red" })
+            </div>
+            <div class="form-group col-md-2">
+                @Html.LabelFor(d => d.Hora)
+                @Html.EditorFor(d => d.Hora, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.Hora, null, new { @class = "red" })
             </div>
         </div>
-        @Html.ValidationMessageFor(d => d.Supervisor, null, new { @class = "red" })
+
+        <div class="row mb-4">
+            <div class="form-group col-md-12">
+                @Html.LabelFor(d => d.InventarioDestruido)
+                @Html.TextAreaFor(d => d.InventarioDestruido, new { @class = "form-control", @readonly = "readonly", @id = "inventario" })
+                @Html.ValidationMessageFor(d => d.InventarioDestruido, null, new { @class = "red" })
+            </div>
+        </div>
+        <hr />
+
+        <div class="row">
+            <div class="form-group col-md-12">
+                <div style="text-align:center;">
+                    <a class="btn btn-secondary" href="~/ActaDeDestruccionDePerecederos/Index">Cancelar</a>
+                    <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#show">Guardar</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="show" tabindex="-1" aria-labelledby="showLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="showLabel">Agregar un Acta de Destrucción De Perecederos</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" />
+                    </div>
+                    <div class="modal-body">
+                        <p>¿Está seguro que desea guardar una nueva Acta de Destrucción de Perecederos?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-danger" id="Cancel" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" id="btnSave" data-bs-dismiss="modal">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>}
+
+
+    <div class="modal fade" id="modalBusquedaPolicia" tabindex="-1" role="dialog" aria-labelledby="modalBusquedaPoliciaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalBusquedaPoliciaLabel">Buscar Policía</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" />
+                </div>
+                <p hidden name="agregarPolicia" id="" />
+                <div class="modal-body">
+                    @{ Html.RenderAction("ListaPoliciasBuscar", "ActaDeDestruccionDePerecederos", new { nombre = "" }); }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalBusquedaHallazgo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Buscar Acta de Hallazgo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" />
+                </div>
+                <p hidden name="agregarHallazgo" id="" />
+                <div class="modal-body">
+                    @{ Html.RenderAction("ListaHallazgosBuscar", "ActaDeDestruccionDePerecederos", new { nombre = "" }); }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalBusquedaDecomiso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Buscar Acta de Hallazgo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" />
+                </div>
+                <p hidden name="agregarDecomiso" id="" />
+                <div class="modal-body">
+                    @{ Html.RenderAction("ListaDecomisosBuscar", "ActaDeDestruccionDePerecederos", new { nombre = "" }); }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalBusquedaPersona" tabindex="-1" role="dialog" aria-labelledby="modalBusquedaPersonaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalBusquedaPersonaLabel">Buscar Persona</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" />
+                </div>
+                <p hidden name="agregarPersona" id="" />
+                <div class="modal-body">
+                    @{ Html.RenderAction("ListaPersonasBuscar", "ActaDeDestruccionDePerecederos", new { nombre = "" }); }
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>
 
+<script>
 
-<div class="form-row">
+    function reply_click(clicked_id) {
+        var aux = document.getElementsByName("agregarPolicia")[0].getAttribute("id");
+        if (aux === "idTestigo") {
+            var elem = document.getElementById("idTestigo");
+        }
+        if (aux === "idEncargado") {
+            var elem = document.getElementById("idEncargado");
+        }
+        if (aux === "idSupervisor") {
+            var elem = document.getElementById("idSupervisor");
+        }
+        if (aux === "idTestigoPolicia") {
+            var elem = document.getElementById("idTestigoPolicia");
+        }
+        elem.value = clicked_id;
+        $('#modalBusqueda').modal('hide');
+    }
 
+    function reply_click4(clicked_id4) {
+        var aux = document.getElementsByName("agregarPersona")[0].getAttribute("id");
 
+        if (aux === "idTestigoPersona") {
+            var elem = document.getElementById("idTestigoPersona");
+        }
+        elem.value = clicked_id4;
+        $('#modalBusquedaPersona').modal('hide');
+    }
 
-    <div class="form-group col-md-3">
-        @Html.LabelFor(d => d.TipoTestigo)
-        @Html.DropDownListFor(d => d.TipoTestigo, Model.TiposTestigo, "--Seleccione--", new { @class = "myselect form-control", @id = "idTipoTestigo" })
-        @Html.ValidationMessageFor(d => d.TipoTestigo, null, new { @class = "red" })
-    </div>
+    function reply_click2(clicked_id, inventarioLista) {
 
-    <div class="form-group col-md-3" id="idOficialTestigoCampo" style="display:none">
-        @Html.LabelFor(d => d.IdTestigoPolicia)
-        <div class="input-group">
-            @Html.TextBoxFor(d => d.IdTestigoPolicia, "", new { @class = "form-control", @id = "idTestigoPolicia", @readonly = "readonly" })
-            <div class="input-group-append">
-                <a class="btn btn-primary" data-book-id="idTestigoPolicia" data-toggle="modal" data-target="#modalBusqueda">Buscar</a>
-            </div>
-        </div>
-    </div>
+        var elem = document.getElementById("consecutivoActa");
+        elem.value = clicked_id;
+        var elem = document.getElementById("consecutivoActa2");
+        elem.value = "";
+        var elem2 = document.getElementById("inventario");
+        elem2.value = inventarioLista;
+        $('#modalBusquedaHallazgo').modal('hide');
+    }
+    function reply_click3(clicked_id, inventarioLista) {
 
-    <div class="form-group col-md-3" id="idPersonaTestigoCampo" style="display:none">
-        @Html.LabelFor(d => d.IdTestigoPersona)
-        <div class="input-group">
-            @Html.TextBoxFor(d => d.IdTestigoPersona, "", new { @class = "form-control", @id = "idTestigoPersona", @readonly = "readonly" })
-            <div class="input-group-append">
-                <a class="btn btn-primary" data-book-id="idTestigoPersona" data-toggle="modal" data-target="#modalBusquedaPersona">Buscar</a>
-            </div>
-        </div>
-    </div>
-    <div class="form-group col-md-2">
-        @Html.LabelFor(d => d.Fecha)
-        @Html.EditorFor(d => d.Fecha, "", new { @class = "form-control" })
-        @Html.ValidationMessageFor(d => d.Fecha, null, new { @class = "red" })
-    </div>
-    <div class="form-group col-md-2">
-        @Html.LabelFor(d => d.Hora)
-        @Html.EditorFor(d => d.Hora, "", new { @class = "form-control" })
-        @Html.ValidationMessageFor(d => d.Hora, null, new { @class = "red" })
-    </div>
-</div>
-          
-            <div class="form-row">
-                <div class="form-group col-md-12">
-                    @Html.LabelFor(d => d.InventarioDestruido)
-                    @Html.TextAreaFor(d => d.InventarioDestruido, new { @class = "form-control", @readonly = "readonly", @id = "inventario" })
-                    @Html.ValidationMessageFor(d => d.InventarioDestruido, null, new { @class = "red" })
-                </div>
-            </div>
+        var elem = document.getElementById("consecutivoActa2");
+        elem.value = clicked_id;
+        var elem = document.getElementById("consecutivoActa");
+        elem.value = "";
+        var elem2 = document.getElementById("inventario");
+        elem2.value = inventarioLista;
+        $('#modalBusquedaDecomiso').modal('hide');
+    }
 
-            <hr />
-            <div class="form-row">
-                <div class="form-group col-md-12">
-                    <div style="text-align:center;">
+    function ocultarActa() {
 
-                        <a class="btn btn-secondary" href="~/ActaDeDestruccionDePerecederos/Index">Cancelar</a>
-                        <script>
-                            $('#btnSave').click(function () {
-                                $('#show').modal('hide');
-                            });</script>
-                        <input value="Guardar" class="btn btn-primary" type="button" id="hGuardar" data-toggle="modal" data-target="#show" />
-                    </div>
+        var aux1 = document.getElementById("consecutivoActaHallazgo");
+        var aux2 = document.getElementById("tipoActaSeleccionado");
+        var aux3 = document.getElementById("consecutivoActaDecomiso");
+        if (aux2.options[aux2.selectedIndex].innerText === "Hallazgo") {
+            aux1.style.display = "block";
+            var elem = document.getElementById("consecutivoActa2");
+            elem.value = "";
+            aux3.style.display = "none";
+            var elem = document.getElementById("inventario");
+            elem.value = "";
 
-                </div>
-            </div>
+        }
+        if (aux2.options[aux2.selectedIndex].innerText === "Decomiso") {
+            var elem = document.getElementById("consecutivoActa");
+            elem.value = "";
+            aux1.style.display = "none";
+            aux3.style.display = "block";
+            var elem = document.getElementById("inventario");
+            elem.value = "";
 
-            <div class="modal" id="show">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Agregar un Acta de Destrucción De Perecederos</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <p>¿Está seguro que desea guardar una nueva Acta de Destrucción de Perecederos?</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-danger" id="Cancel" data-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-primary" id="btnSave">Guardar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>}
+        }
+        if (aux2.options[aux2.selectedIndex].innerText === "--Seleccione--") {
+            aux1.style.display = "none";
+            var elem = document.getElementById("consecutivoActa2");
+            elem.value = "";
+            aux3.style.display = "none"
+            var elem = document.getElementById("consecutivoActa");
+            elem.value = "";
+            var elem = document.getElementById("inventario");
+            elem.value = "";
 
-            <div class="modal fade" id="modalBusqueda" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Buscar Policía</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <p hidden name="agregarPolicia" id="" />
-
-                        <div class="modal-body">
-                            @{ Html.RenderAction("ListaPoliciasBuscar", "ActaDeDestruccionDePerecederos", new { nombre = "" }); }
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="modal fade" id="modalBusquedaHallazgo" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Buscar Acta de Hallazgo</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <p hidden name="agregarHallazgo" id="" />
-
-                        <div class="modal-body">
-                            @{ Html.RenderAction("ListaHallazgosBuscar", "ActaDeDestruccionDePerecederos", new { numeroFolio = "" }); }
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade" id="modalBusquedaDecomiso" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Buscar Acta de Decomiso</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <p hidden name="agregarDecomiso" id="" />
-
-                        <div class="modal-body">
-                            @{ Html.RenderAction("ListaDecomisosBuscar", "ActaDeDestruccionDePerecederos", new { numeroFolio = "" }); }
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <div class="modal fade" id="modalBusquedaPersona" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Buscar Persona</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <p hidden name="agregarPersona" id="" />
-
-                        <div class="modal-body">
-                            @{ Html.RenderAction("ListaPersonasBuscar", "ActaDeDestruccionDePerecederos", new { nombre = "" }); }
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <script>
-
-            function reply_click(clicked_id) {
-                var aux = document.getElementsByName("agregarPolicia")[0].getAttribute("id");
-                if (aux === "idTestigo") {
-                    var elem = document.getElementById("idTestigo");
-                }
-                if (aux === "idEncargado") {
-                    var elem = document.getElementById("idEncargado");
-                }
-                if (aux === "idSupervisor") {
-                    var elem = document.getElementById("idSupervisor");
-                }
-                if (aux === "idTestigoPolicia") {
-                    var elem = document.getElementById("idTestigoPolicia");
-                }
-                elem.value = clicked_id;
-                $('#modalBusqueda').modal('hide');
-            }
-
-            function reply_click4(clicked_id4) {
-                var aux = document.getElementsByName("agregarPersona")[0].getAttribute("id");
-
-                if (aux === "idTestigoPersona") {
-                    var elem = document.getElementById("idTestigoPersona");
-                }
-                elem.value = clicked_id4;
-                $('#modalBusquedaPersona').modal('hide');
-            }
-
-            function reply_click2(clicked_id, inventarioLista) {
-
-                var elem = document.getElementById("consecutivoActa");
-                elem.value = clicked_id;
-                var elem = document.getElementById("consecutivoActa2");
-                elem.value = "";
-                var elem2 = document.getElementById("inventario");
-                elem2.value = inventarioLista;
-                $('#modalBusquedaHallazgo').modal('hide');
-            }
-            function reply_click3(clicked_id, inventarioLista) {
-
-                var elem = document.getElementById("consecutivoActa2");
-                elem.value = clicked_id;
-                var elem = document.getElementById("consecutivoActa");
-                elem.value = "";
-                var elem2 = document.getElementById("inventario");
-                elem2.value = inventarioLista;
-                $('#modalBusquedaDecomiso').modal('hide');
-            }
-
-            function ocultarActa() {
-
-                var aux1 = document.getElementById("consecutivoActaHallazgo");
-                var aux2 = document.getElementById("tipoActaSeleccionado");
-                var aux3 = document.getElementById("consecutivoActaDecomiso");
-                if (aux2.options[aux2.selectedIndex].innerText === "Hallazgo") {
-                    aux1.style.display = "block";
-                    var elem = document.getElementById("consecutivoActa2");
-                    elem.value = "";
-                    aux3.style.display = "none";
-                    var elem = document.getElementById("inventario");
-                    elem.value = "";
-
-                }
-                if (aux2.options[aux2.selectedIndex].innerText === "Decomiso") {
-                    var elem = document.getElementById("consecutivoActa");
-                    elem.value = "";
-                    aux1.style.display = "none";
-                    aux3.style.display = "block";
-                    var elem = document.getElementById("inventario");
-                    elem.value = "";
-
-                }
-                if (aux2.options[aux2.selectedIndex].innerText === "--Seleccione--") {
-                    aux1.style.display = "none";
-                    var elem = document.getElementById("consecutivoActa2");
-                    elem.value = "";
-                    aux3.style.display = "none"
-                    var elem = document.getElementById("consecutivoActa");
-                    elem.value = "";
-                    var elem = document.getElementById("inventario");
-                    elem.value = "";
-
-                }
-            }
-        </script>
+        }
+    }
+</script>

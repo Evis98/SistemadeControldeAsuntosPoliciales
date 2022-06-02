@@ -40,9 +40,7 @@
         </div>}
     <hr />
 
-
-
-    <table class="table table-bordered center table-sm" id="idtablaDestruccion">
+    <table class="table table-bordered table-sm" id="idtablaDestruccion">
         <thead class="table-dark">
             <tr>
                 <th scope="col">Número de Folio</th>
@@ -62,7 +60,7 @@
                     <td>@oElemento.VistaTipoActaD</td>
                     <td>
                         <div style="text-align:center;">
-                            <a class="btn btn-sm btn-outline-info" href="~/ActaDeDestruccionDePerecederos/Detalle/@oElemento.IdActaDeDestruccionDePerecederos">Ver Detalles</a>
+                            <a class="btn btn-sm btn-outline-secondary" href="~/ActaDeDestruccionDePerecederos/Detalle/@oElemento.IdActaDeDestruccionDePerecederos">Ver Detalles</a>
 
                         </div>
                     </td>
@@ -76,7 +74,7 @@
     $(document).ready(function () {
         $('#idtablaDestruccion').DataTable({
             searching: false,
-            lengthMenu: [[6], [6]],
+            lengthMenu: [[10], [10]],
             lengthChange: false,
             language: {
                 lengthMenu: "Mostrar _MENU_ entradas",
@@ -92,6 +90,36 @@
 
         });
     });
+
+    function ocultarFechaActa() {
+        var auxa = document.getElementById("busquedaFechaInicioH");
+        var auxb = document.getElementById("busquedaFechaFinalH");
+        var auxc = document.getElementById("filtroSeleccionado");
+        var auxFIT = document.getElementById("textFechaInicioH");
+        var auxFFT = document.getElementById("textFechaFinalH");
+        var auxd = document.getElementById('busqueda');
+        if (auxc.options[auxc.selectedIndex].textContent === "Fecha") {
+            auxa.setAttribute('required', '');
+            auxb.setAttribute('required', '');
+            auxFIT.style.display = "block";
+            auxFFT.style.display = "block";
+            auxa.style.display = "block";
+            auxb.style.display = "block";
+            auxd.style.display = "none"
+        }
+        else {
+            auxa.removeAttribute('required');
+            auxb.removeAttribute('required');
+            auxa.style.display = "none";
+            auxb.style.display = "none";
+            auxFFT.style.display = "none";
+            auxFIT.style.display = "none";
+            auxd.style.display = "block"
+        }
+    }
+
+   
+    
 
 
 </script>

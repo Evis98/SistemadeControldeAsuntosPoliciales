@@ -1,8 +1,7 @@
 ﻿@model List<FrontEnd.Models.ViewModels.PoliciaViewModel>
 
-<table class="table" id="idtablaPolicia">
-
-    <thead class="thead-light">
+<table class="table table-sm table-bordered" id="idtablaPolicia">
+    <thead class="table-light">
         <tr>
             <th scope="col">Cédula</th>
             <th scope="col">Nombre</th>
@@ -14,7 +13,7 @@
             <tr>
                 <th scope="row">@Html.DisplayFor(modelItem => item.Cedula)</th>
                 <td>
-                    <label><a href="#" onclick="reply_click(this.id)" id="@item.Cedula"> @item.Nombre</a></label>
+                    <label><a href="#" onclick="reply_click(this.id)" id="@item.Cedula" data-bs-dismiss="modal"> @item.Nombre</a></label>
                 </td>
             </tr>
         }

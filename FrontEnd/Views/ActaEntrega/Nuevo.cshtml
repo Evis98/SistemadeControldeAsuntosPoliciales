@@ -27,7 +27,6 @@
                 <div class="input-group">
                     @Html.TextBoxFor(d => d.ConsecutivoActaDecomiso, "", new { @class = "form-control", @id = "consecutivoActa2", @readonly = "readonly" })
                     <a class="btn btn-primary" data-book-id="consecutivoActa" data-bs-toggle="modal" data-bs-target="#modalBusquedaDecomiso">Buscar</a>
-
                 </div>
                 @Html.ValidationMessageFor(d => d.ConsecutivoActaDecomiso, null, new { @class = "red" })
             </div>
