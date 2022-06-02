@@ -1,8 +1,10 @@
 ﻿using BackEnd;
 using BackEnd.DAL;
 using FrontEnd.Models.ViewModels;
+using Microsoft.Reporting.WinForms;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -983,6 +985,674 @@ namespace FrontEnd.Controllers
                 idUsuario = modelo.IdUsuario,
             };
 
+        }
+        public void CreatePDF(int id)
+        {
+            //--------------------------Creacion de los DataSet--------------------------
+            infractorDAL = new InfractorDAL();
+            parteDAL = new ParteDAL();
+            tablaGeneralDAL = new TablaGeneralDAL();
+            policiaDAL = new PoliciaDAL();
+            personaDAL = new PersonaDAL();
+
+            ReportViewer viewer = new ReportViewer();
+            viewer.ProcessingMode = ProcessingMode.Local;
+            viewer.LocalReport.ReportPath = Path.Combine(Server.MapPath("~/PDFs"), "ReportePartePolicial.rdlc");
+
+            //Parte
+            PartesPoliciales parte = parteDAL.GetParte(id);
+            List<PartesPoliciales> partes = new List<PartesPoliciales>();
+            partes.Add(parte);
+
+            //Policia
+            Policias policiaActuante = policiaDAL.GetPolicia(parte.idPoliciaActuante);
+            List<Policias> policiasActuantes = new List<Policias>();
+            policiasActuantes.Add(policiaActuante);
+
+            //Personas
+            Personas ofendido1 = personaDAL.GetPersona(parte.ofendido1);
+            List<Personas> ofendidos1 = new List<Personas>();
+            if (ofendido1.direccionPersona == null)
+            {
+                ofendido1.direccionPersona = "No aplica";
+            }
+            if (ofendido1.telefonoCelular == null)
+            {
+                ofendido1.telefonoCelular = "No aplica";
+            }
+            if (ofendido1.profesion == null)
+            {
+                ofendido1.profesion = "No aplica";
+            }
+            if (ofendido1.correoElectronicoPersona == null)
+            {
+                ofendido1.correoElectronicoPersona = "No aplica";
+            }
+            ofendido1.lugarTrabajoPersona = ObtenerEdad(ofendido1.fechaNacimiento);
+            ofendidos1.Add(ofendido1);
+
+            //Infractor
+            Infractores infractor = infractorDAL.GetInfractor(parte.idInfractor);
+            List<Infractores> infractores = new List<Infractores>();
+            if (infractor.apodoInfractor == null)
+            {
+                infractor.apodoInfractor = "No aplica";
+            }
+            if (infractor.rasgosFisicosInfractor == null)
+            {
+                infractor.rasgosFisicosInfractor = "No aplica";
+            }
+            if (infractor.correoEletronico == null)
+            {
+                infractor.correoEletronico = "No aplica";
+            }
+            if (infractor.observaciones == null)
+            {
+                infractor.observaciones = "No aplica";
+            }
+            infractor.nombreDeLaMadre = ObtenerEdad(infractor.fechaNacimiento);
+            infractores.Add(infractor);
+
+            //TablaGeneral
+            TablaGeneral distrito = new TablaGeneral();
+            List<TablaGeneral> distritos = new List<TablaGeneral>();
+            distrito.descripcion = tablaGeneralDAL.Get(parte.distrito).descripcion;
+            distritos.Add(distrito);
+
+            TablaGeneral lugarS = new TablaGeneral();
+            List<TablaGeneral> lugaresS = new List<TablaGeneral>();
+            lugarS.descripcion = tablaGeneralDAL.Get(parte.lugarSuceso).descripcion;
+            lugaresS.Add(lugarS);
+
+            TablaGeneral aprehendido = new TablaGeneral();
+            List<TablaGeneral> aprehendidos = new List<TablaGeneral>();
+            aprehendido.descripcion = tablaGeneralDAL.Get(parte.aprehendido).descripcion;
+            aprehendidos.Add(aprehendido);
+
+            TablaGeneral entendido = new TablaGeneral();
+            List<TablaGeneral> entendidos = new List<TablaGeneral>();
+            entendido.descripcion = tablaGeneralDAL.Get((int)parte.entendido).descripcion;
+            entendidos.Add(entendido);
+
+            TablaGeneral alertador = new TablaGeneral();
+            List<TablaGeneral> alertadores = new List<TablaGeneral>();
+            alertador.descripcion = tablaGeneralDAL.Get(parte.alertador).descripcion;
+            alertadores.Add(alertador);
+
+            TablaGeneral enteACargo = new TablaGeneral();
+            List<TablaGeneral> entesACargo = new List<TablaGeneral>();
+            enteACargo.descripcion = tablaGeneralDAL.Get(parte.enteAcargo).descripcion;
+            entesACargo.Add(enteACargo);
+
+            //Sexo y nacionalidad del imputado
+            TablaGeneral sexo = new TablaGeneral();
+            List<TablaGeneral> sexos = new List<TablaGeneral>();
+            sexo.descripcion = tablaGeneralDAL.Get(infractor.sexo).descripcion;
+            sexos.Add(sexo);
+
+            TablaGeneral nacionalidad = new TablaGeneral();
+            List<TablaGeneral> nacionalidades = new List<TablaGeneral>();
+            nacionalidad.descripcion = tablaGeneralDAL.Get(infractor.nacionalidad).descripcion;
+            nacionalidades.Add(nacionalidad);
+
+            //Sexo y nacionalidad del ofendido 1
+            TablaGeneral sexoO1 = new TablaGeneral();
+            List<TablaGeneral> sexosO1 = new List<TablaGeneral>();
+            sexoO1.descripcion = tablaGeneralDAL.Get((int)ofendido1.sexo).descripcion;
+            sexosO1.Add(sexoO1);
+
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("SexoOfendido1DataSet", sexosO1));
+
+            TablaGeneral nacionalidadO1 = new TablaGeneral();
+            List<TablaGeneral> nacionalidadesO1 = new List<TablaGeneral>();
+            nacionalidadO1.descripcion = tablaGeneralDAL.Get((int)ofendido1.nacionalidad).descripcion;
+            nacionalidadesO1.Add(nacionalidadO1);
+
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("NacionalidadOfendido1DataSet", nacionalidadesO1));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("ParteDataSet", partes));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("ActuanteDataSet", policiasActuantes));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("Ofendido1DataSet", ofendidos1));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("DistritoDataSet", distritos));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("LugarSucesoDataSet", lugaresS));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("FueAprehendidoDataSet", aprehendidos));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("EntendidoDataSet", entendidos));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("AlertadorDataSet", alertadores));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("EnteACargoDataSet", entesACargo));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("InfractorDataSet", infractores));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("SexoInfractorDataSet", sexos));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("NacionalidadInfractorDataSet", nacionalidades));
+
+            //Testigo 1
+            if (parte.testigo1 == null)
+            {
+                Personas testigo1 = new Personas();
+                List<Personas> testigos1 = new List<Personas>();
+                testigos1.Add(testigo1);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("Testigo1DataSet", testigos1));
+
+                TablaGeneral testigonulo = new TablaGeneral();
+                List<TablaGeneral> testigonulos = new List<TablaGeneral>();
+                testigonulo.descripcion = "No aplica";
+                testigonulos.Add(testigonulo);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("TestigoNuloDataSet", testigonulos));
+            }
+            else
+            {
+                Personas testigo1 = personaDAL.GetPersona((int)parte.testigo1);
+                List<Personas> testigos1 = new List<Personas>();
+                if (testigo1.direccionPersona == null)
+                {
+                    testigo1.direccionPersona = "No aplica";
+                }
+                if (testigo1.telefonoCelular == null)
+                {
+                    testigo1.telefonoCelular = "No aplica";
+                }
+                if (testigo1.profesion == null)
+                {
+                    testigo1.profesion = "No aplica";
+                }
+                if (testigo1.correoElectronicoPersona == null)
+                {
+                    testigo1.correoElectronicoPersona = "No aplica";
+                }
+                if (testigo1.lugarTrabajoPersona == null)
+                {
+                    testigo1.lugarTrabajoPersona = "No aplica";
+                }
+                testigos1.Add(testigo1);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("Testigo1DataSet", testigos1));
+
+                TablaGeneral testigonulo = new TablaGeneral();
+                List<TablaGeneral> testigonulos = new List<TablaGeneral>();
+                testigonulos.Add(testigonulo);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("TestigoNuloDataSet", testigonulos));
+            }
+
+            //Testigo 2
+            if (parte.testigo2 == null)
+            {
+                Personas testigo2 = new Personas();
+                List<Personas> testigos2 = new List<Personas>();
+                testigos2.Add(testigo2);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("Testigo2DataSet", testigos2));
+
+                TablaGeneral testigo2nulo = new TablaGeneral();
+                List<TablaGeneral> testigo2nulos = new List<TablaGeneral>();
+                testigo2nulo.descripcion = "No aplica";
+                testigo2nulos.Add(testigo2nulo);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("TestigoNulo2DataSet", testigo2nulos));
+            }
+            else
+            {
+                Personas testigo2 = personaDAL.GetPersona((int)parte.testigo2);
+                List<Personas> testigos2 = new List<Personas>();
+                if (testigo2.direccionPersona == null)
+                {
+                    testigo2.direccionPersona = "No aplica";
+                }
+                if (testigo2.telefonoCelular == null)
+                {
+                    testigo2.telefonoCelular = "No aplica";
+                }
+                if (testigo2.profesion == null)
+                {
+                    testigo2.profesion = "No aplica";
+                }
+                if (testigo2.correoElectronicoPersona == null)
+                {
+                    testigo2.correoElectronicoPersona = "No aplica";
+                }
+                if (testigo2.lugarTrabajoPersona == null)
+                {
+                    testigo2.lugarTrabajoPersona = "No aplica";
+                }
+
+                testigos2.Add(testigo2);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("Testigo2DataSet", testigos2));
+
+                TablaGeneral testigo2nulo = new TablaGeneral();
+                List<TablaGeneral> testigo2nulos = new List<TablaGeneral>();
+                testigo2nulos.Add(testigo2nulo);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("TestigoNulo2DataSet", testigo2nulos));
+            }
+
+            //Ofendido 2
+            if (parte.ofendido2 == null)
+            {
+                Personas ofendido2 = new Personas();
+                List<Personas> ofendidos2 = new List<Personas>();
+                if (ofendido2.fechaNacimiento == DateTime.MinValue)
+                {
+                    ofendido2.lugarTrabajoPersona = null;
+                }
+                ofendidos2.Add(ofendido2);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("Ofendido2DataSet", ofendidos2));
+
+                TablaGeneral sexoO2 = new TablaGeneral();
+                List<TablaGeneral> sexosO2 = new List<TablaGeneral>();
+                sexosO2.Add(sexoO2);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("SexoOfendido2DataSet", sexosO2));
+
+                TablaGeneral nacionalidadO2 = new TablaGeneral();
+                List<TablaGeneral> nacionalidadesO2 = new List<TablaGeneral>();
+                nacionalidadesO2.Add(nacionalidadO2);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("NacionalidadOfendido2DataSet", nacionalidadesO2));
+
+                TablaGeneral ofendido2nulo = new TablaGeneral();
+                List<TablaGeneral> ofendido2nulos = new List<TablaGeneral>();
+                ofendido2nulo.descripcion = "No aplica";
+                ofendido2nulos.Add(ofendido2nulo);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("Ofendido2NuloDataSet", ofendido2nulos));
+
+                TablaGeneral edadO2 = new TablaGeneral();
+                List<TablaGeneral> edadesO2 = new List<TablaGeneral>();
+                edadO2.descripcion = "No aplica";
+                edadesO2.Add(edadO2);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("EdadOfendido2DataSet", edadesO2));
+            }
+            else
+            {
+                Personas ofendido2 = personaDAL.GetPersona((int)parte.ofendido2);
+                List<Personas> ofendidos2 = new List<Personas>();
+                if (ofendido2.direccionPersona == null)
+                {
+                    ofendido2.direccionPersona = "No aplica";
+                }
+                if (ofendido2.telefonoCelular == null)
+                {
+                    ofendido2.telefonoCelular = "No aplica";
+                }
+                if (ofendido2.profesion == null)
+                {
+                    ofendido2.profesion = "No aplica";
+                }
+                if (ofendido2.correoElectronicoPersona == null)
+                {
+                    ofendido2.correoElectronicoPersona = "No aplica";
+                }
+                ofendido2.lugarTrabajoPersona = ofendido2.fechaNacimiento?.ToString("dd-MM-yyyy");
+                ofendidos2.Add(ofendido2);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("Ofendido2DataSet", ofendidos2));
+
+                //Sexo y nacionalidad del ofendido 2
+                TablaGeneral sexoO2 = new TablaGeneral();
+                List<TablaGeneral> sexosO2 = new List<TablaGeneral>();
+                sexoO2.descripcion = tablaGeneralDAL.Get((int)ofendido2.sexo).descripcion;
+                sexosO2.Add(sexoO2);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("SexoOfendido2DataSet", sexosO2));
+
+                TablaGeneral nacionalidadO2 = new TablaGeneral();
+                List<TablaGeneral> nacionalidadesO2 = new List<TablaGeneral>();
+                nacionalidadO2.descripcion = tablaGeneralDAL.Get((int)ofendido2.nacionalidad).descripcion;
+                nacionalidadesO2.Add(nacionalidadO2);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("NacionalidadOfendido2DataSet", nacionalidadesO2));
+
+                TablaGeneral ofendido2nulo = new TablaGeneral();
+                List<TablaGeneral> ofendido2nulos = new List<TablaGeneral>();
+                ofendido2nulos.Add(ofendido2nulo);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("Ofendido2NuloDataSet", ofendido2nulos));
+
+                TablaGeneral edadO2 = new TablaGeneral();
+                List<TablaGeneral> edadesO2 = new List<TablaGeneral>();
+                edadO2.descripcion = ObtenerEdad(ofendido2.fechaNacimiento);
+                edadesO2.Add(edadO2);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("EdadOfendido2DataSet", edadesO2));
+            }
+
+            //Ofendido 3
+            if (parte.ofendido3 == null)
+            {
+                Personas ofendido3 = new Personas();
+                List<Personas> ofendidos3 = new List<Personas>();
+                ofendidos3.Add(ofendido3);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("Ofendido3DataSet", ofendidos3));
+
+                TablaGeneral sexoO3 = new TablaGeneral();
+                List<TablaGeneral> sexosO3 = new List<TablaGeneral>();
+                sexosO3.Add(sexoO3);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("SexoOfendido3DataSet", sexosO3));
+
+                TablaGeneral nacionalidadO3 = new TablaGeneral();
+                List<TablaGeneral> nacionalidadesO3 = new List<TablaGeneral>();
+                nacionalidadesO3.Add(nacionalidadO3);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("NacionalidadOfendido3DataSet", nacionalidadesO3));
+
+
+                TablaGeneral ofendido3nulo = new TablaGeneral();
+                List<TablaGeneral> ofendido3nulos = new List<TablaGeneral>();
+                ofendido3nulo.descripcion = "No aplica";
+                ofendido3nulos.Add(ofendido3nulo);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("Ofendido3NuloDataSet", ofendido3nulos));
+
+                TablaGeneral edadO3 = new TablaGeneral();
+                List<TablaGeneral> edadesO3 = new List<TablaGeneral>();
+                edadO3.descripcion = "No aplica";
+                edadesO3.Add(edadO3);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("EdadOfendido3DataSet", edadesO3));
+            }
+            else
+            {
+                Personas ofendido3 = personaDAL.GetPersona((int)parte.ofendido3);
+                List<Personas> ofendidos3 = new List<Personas>();
+                if (ofendido3.direccionPersona == null)
+                {
+                    ofendido3.direccionPersona = "No aplica";
+                }
+                if (ofendido3.telefonoCelular == null)
+                {
+                    ofendido3.telefonoCelular = "No aplica";
+                }
+                if (ofendido3.profesion == null)
+                {
+                    ofendido3.profesion = "No aplica";
+                }
+                if (ofendido3.correoElectronicoPersona == null)
+                {
+                    ofendido3.correoElectronicoPersona = "No aplica";
+                }
+                ofendido3.lugarTrabajoPersona = ofendido3.fechaNacimiento?.ToString("dd-MM-yyyy");
+                ofendido3.idPersona = int.Parse(ObtenerEdad(ofendido3.fechaNacimiento));
+                ofendidos3.Add(ofendido3);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("Ofendido3DataSet", ofendidos3));
+
+                //Sexo y nacionalidad del ofendido 3
+                TablaGeneral sexoO3 = new TablaGeneral();
+                List<TablaGeneral> sexosO3 = new List<TablaGeneral>();
+                sexoO3.descripcion = tablaGeneralDAL.Get((int)ofendido3.sexo).descripcion;
+                sexosO3.Add(sexoO3);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("SexoOfendido3DataSet", sexosO3));
+
+                TablaGeneral nacionalidadO3 = new TablaGeneral();
+                List<TablaGeneral> nacionalidadesO3 = new List<TablaGeneral>();
+                nacionalidadO3.descripcion = tablaGeneralDAL.Get((int)ofendido3.nacionalidad).descripcion;
+                nacionalidadesO3.Add(nacionalidadO3);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("NacionalidadOfendido3DataSet", nacionalidadesO3));
+
+                TablaGeneral ofendido3nulo = new TablaGeneral();
+                List<TablaGeneral> ofendido3nulos = new List<TablaGeneral>();
+                ofendido3nulos.Add(ofendido3nulo);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("Ofendido3NuloDataSet", ofendido3nulos));
+
+                TablaGeneral edadO3 = new TablaGeneral();
+                List<TablaGeneral> edadesO3 = new List<TablaGeneral>();
+                edadO3.descripcion = ObtenerEdad(ofendido3.fechaNacimiento);
+                edadesO3.Add(edadO3);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("EdadOfendido3DataSet", edadesO3));
+            }
+
+            //Ofendido 4
+            if (parte.ofendido4 == null)
+            {
+                Personas ofendido4 = new Personas();
+                List<Personas> ofendidos4 = new List<Personas>();
+                ofendidos4.Add(ofendido4);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("Ofendido4DataSet", ofendidos4));
+
+                TablaGeneral ofendido4nulo = new TablaGeneral();
+                List<TablaGeneral> ofendido4nulos = new List<TablaGeneral>();
+                ofendido4nulo.descripcion = "No aplica";
+                ofendido4nulos.Add(ofendido4nulo);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("Ofendido4NuloDataSet", ofendido4nulos));
+
+                TablaGeneral sexoO4 = new TablaGeneral();
+                List<TablaGeneral> sexosO4 = new List<TablaGeneral>();
+                sexosO4.Add(sexoO4);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("SexoOfendido4DataSet", sexosO4));
+
+                TablaGeneral nacionalidadO4 = new TablaGeneral();
+                List<TablaGeneral> nacionalidadesO4 = new List<TablaGeneral>();
+                nacionalidadesO4.Add(nacionalidadO4);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("NacionalidadOfendido4DataSet", nacionalidadesO4));
+
+                TablaGeneral edadO4 = new TablaGeneral();
+                List<TablaGeneral> edadesO4 = new List<TablaGeneral>();
+                edadO4.descripcion = "No aplica";
+                edadesO4.Add(edadO4);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("EdadOfendido4DataSet", edadesO4));
+            }
+            else
+            {
+                Personas ofendido4 = personaDAL.GetPersona((int)parte.ofendido4);
+                List<Personas> ofendidos4 = new List<Personas>();
+                if (ofendido4.direccionPersona == null)
+                {
+                    ofendido4.direccionPersona = "No aplica";
+                }
+                if (ofendido4.telefonoCelular == null)
+                {
+                    ofendido4.telefonoCelular = "No aplica";
+                }
+                if (ofendido4.profesion == null)
+                {
+                    ofendido4.profesion = "No aplica";
+                }
+                if (ofendido4.correoElectronicoPersona == null)
+                {
+                    ofendido4.correoElectronicoPersona = "No aplica";
+                }
+                ofendido4.lugarTrabajoPersona = ofendido4.fechaNacimiento?.ToString("dd-MM-yyyy");
+                ofendido4.idPersona = int.Parse(ObtenerEdad(ofendido4.fechaNacimiento));
+                ofendidos4.Add(ofendido4);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("Ofendido4DataSet", ofendidos4));
+
+                //Sexo y nacionalidad del ofendido 4
+                TablaGeneral sexoO4 = new TablaGeneral();
+                List<TablaGeneral> sexosO4 = new List<TablaGeneral>();
+                sexoO4.descripcion = tablaGeneralDAL.Get((int)ofendido4.sexo).descripcion;
+                sexosO4.Add(sexoO4);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("SexoOfendido4DataSet", sexosO4));
+
+                TablaGeneral nacionalidadO4 = new TablaGeneral();
+                List<TablaGeneral> nacionalidadesO4 = new List<TablaGeneral>();
+                nacionalidadO4.descripcion = tablaGeneralDAL.Get((int)ofendido4.nacionalidad).descripcion;
+                nacionalidadesO4.Add(nacionalidadO4);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("NacionalidadOfendido4DataSet", nacionalidadesO4));
+
+                TablaGeneral ofendido4nulo = new TablaGeneral();
+                List<TablaGeneral> ofendido4nulos = new List<TablaGeneral>();
+                ofendido4nulos.Add(ofendido4nulo);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("Ofendido4NuloDataSet", ofendido4nulos));
+
+                TablaGeneral edadO4 = new TablaGeneral();
+                List<TablaGeneral> edadesO4 = new List<TablaGeneral>();
+                edadO4.descripcion = ObtenerEdad(ofendido4.fechaNacimiento);
+                edadesO4.Add(edadO4);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("EdadOfendido4DataSet", edadesO4));
+            }
+
+            //Ofendido 5
+            if (parte.ofendido5 == null)
+            {
+                Personas ofendido5 = new Personas();
+                List<Personas> ofendidos5 = new List<Personas>();
+                ofendidos5.Add(ofendido5);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("Ofendido5DataSet", ofendidos5));
+
+                TablaGeneral ofendido5nulo = new TablaGeneral();
+                List<TablaGeneral> ofendido5nulos = new List<TablaGeneral>();
+                ofendido5nulo.descripcion = "No aplica";
+                ofendido5nulos.Add(ofendido5nulo);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("Ofendido5NuloDataSet", ofendido5nulos));
+
+                TablaGeneral sexoO5 = new TablaGeneral();
+                List<TablaGeneral> sexosO5 = new List<TablaGeneral>();
+                sexosO5.Add(sexoO5);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("SexoOfendido5DataSet", sexosO5));
+
+                TablaGeneral nacionalidadO5 = new TablaGeneral();
+                List<TablaGeneral> nacionalidadesO5 = new List<TablaGeneral>();
+                nacionalidadesO5.Add(nacionalidadO5);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("NacionalidadOfendido5DataSet", nacionalidadesO5));
+
+                TablaGeneral edadO5 = new TablaGeneral();
+                List<TablaGeneral> edadesO5 = new List<TablaGeneral>();
+                edadO5.descripcion = "No aplica";
+                edadesO5.Add(edadO5);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("EdadOfendido5DataSet", edadesO5));
+            }
+            else
+            {
+                Personas ofendido5 = personaDAL.GetPersona((int)parte.ofendido5);
+                List<Personas> ofendidos5 = new List<Personas>();
+                if (ofendido5.direccionPersona == null)
+                {
+                    ofendido5.direccionPersona = "No aplica";
+                }
+                if (ofendido5.telefonoCelular == null)
+                {
+                    ofendido5.telefonoCelular = "No aplica";
+                }
+                if (ofendido5.profesion == null)
+                {
+                    ofendido5.profesion = "No aplica";
+                }
+                if (ofendido5.correoElectronicoPersona == null)
+                {
+                    ofendido5.correoElectronicoPersona = "No aplica";
+                }
+                ofendido5.lugarTrabajoPersona = ofendido5.fechaNacimiento?.ToString("dd-MM-yyyy");
+                ofendido5.idPersona = int.Parse(ObtenerEdad(ofendido5.fechaNacimiento));
+                ofendidos5.Add(ofendido5);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("Ofendido5DataSet", ofendidos5));
+
+                //Sexo y nacionalidad del ofendido 5
+                TablaGeneral sexoO5 = new TablaGeneral();
+                List<TablaGeneral> sexosO5 = new List<TablaGeneral>();
+                sexoO5.descripcion = tablaGeneralDAL.Get((int)ofendido5.sexo).descripcion;
+                sexosO5.Add(sexoO5);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("SexoOfendido5DataSet", sexosO5));
+
+                TablaGeneral nacionalidadO5 = new TablaGeneral();
+                List<TablaGeneral> nacionalidadesO5 = new List<TablaGeneral>();
+                nacionalidadO5.descripcion = tablaGeneralDAL.Get((int)ofendido5.nacionalidad).descripcion;
+                nacionalidadesO5.Add(nacionalidadO5);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("NacionalidadOfendido5DataSet", nacionalidadesO5));
+
+                TablaGeneral ofendido5nulo = new TablaGeneral();
+                List<TablaGeneral> ofendido5nulos = new List<TablaGeneral>();
+                ofendido5nulos.Add(ofendido5nulo);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("Ofendido5NuloDataSet", ofendido5nulos));
+
+                TablaGeneral edadO5 = new TablaGeneral();
+                List<TablaGeneral> edadesO5 = new List<TablaGeneral>();
+                edadO5.descripcion = ObtenerEdad(ofendido5.fechaNacimiento);
+                edadesO5.Add(edadO5);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("EdadOfendido5DataSet", edadesO5));
+            }
+
+            if (parte.entendido == null)
+            {
+                TablaGeneral entendidonulo = new TablaGeneral();
+                List<TablaGeneral> entendidonulos = new List<TablaGeneral>();
+                entendidonulo.descripcion = "No aplica";
+                entendidonulos.Add(entendidonulo);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("EntendidoNuloDataSet", entendidonulos));
+            }
+            else
+            {
+                TablaGeneral entendidonulo = new TablaGeneral();
+                List<TablaGeneral> entendidonulos = new List<TablaGeneral>();
+                entendidonulos.Add(entendidonulo);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("EntendidoNuloDataSet", entendidonulos));
+            }
+
+            if (aprehendido.descripcion == "No")
+            {
+                TablaGeneral aprehendidono = new TablaGeneral();
+                List<TablaGeneral> aprehendidosno = new List<TablaGeneral>();
+                aprehendidono.descripcion = "No aplica";
+                aprehendidosno.Add(aprehendidono);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("AprehendidoNoDataSet", aprehendidosno));
+
+                parte.horaAprehension = null;
+            }
+            else
+            {
+                TablaGeneral aprehendidono = new TablaGeneral();
+                List<TablaGeneral> aprehendidosno = new List<TablaGeneral>();
+                aprehendidosno.Add(aprehendidono);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("AprehendidoNoDataSet", aprehendidosno));
+            }
+
+            //--------------------------Creacion de las variables--------------------------
+            Warning[] warnings;
+            string[] streamIds;
+            string mimeType = string.Empty;
+            string encoding = string.Empty;
+            string extension = string.Empty;
+
+            var deviceInfo = @"<DeviceInfo>
+            <EmbedFonts>None</EmbedFonts>
+            <OutputFormat>PDF</OutputFormat>
+            <PageWidth>8.5in</PageWidth>
+            <PageHeight>11in</PageHeight>
+            <MarginTop>0.25in</MarginTop>
+            <MarginLeft>0.25in</MarginLeft>
+            <MarginRight>0.25in</MarginRight>
+            <MarginBottom>0.25in</MarginBottom>
+            </DeviceInfo>";
+
+            byte[] bytes = viewer.LocalReport.Render("PDF", deviceInfo, out mimeType, out encoding, out extension, out streamIds, out warnings);
+
+            Response.Buffer = true;
+            Response.Clear();
+            Response.ContentType = mimeType;
+            Response.AddHeader("content-disposition", "attachment; filename=" + "Parte policial No. " + parte.numeroFolio + "." + extension);
+            Response.BinaryWrite(bytes);
+            Response.Flush();
         }
     }
 }

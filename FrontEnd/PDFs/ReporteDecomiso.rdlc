@@ -286,7 +286,27 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>LUGAR DEL PROCEDIMIENTO: LUGAR     </Value>
+                <Value>LUGAR DEL PROCEDIMIENTO: </Value>
+                <Style>
+                  <FontStyle>Normal</FontStyle>
+                  <FontSize>12pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                  <Color>#000000</Color>
+                </Style>
+              </TextRun>
+              <TextRun>
+                <Value>=First(Fields!lugarProcedimiento.Value, "DecomisoDataSet")</Value>
+                <Style>
+                  <FontStyle>Normal</FontStyle>
+                  <FontSize>14pt</FontSize>
+                  <FontWeight>Normal</FontWeight>
+                  <Format>H:mm</Format>
+                  <TextDecoration>None</TextDecoration>
+                  <Color>#000000</Color>
+                </Style>
+              </TextRun>
+              <TextRun>
+                <Value xml:space="preserve">     </Value>
                 <Style>
                   <FontStyle>Normal</FontStyle>
                   <FontSize>12pt</FontSize>
@@ -372,11 +392,44 @@
               <TextAlign>Left</TextAlign>
             </Style>
           </Paragraph>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value />
+                <Style>
+                  <FontStyle>Normal</FontStyle>
+                  <FontSize>12pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                  <Color>#000000</Color>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Firma_________________</Value>
+                <Style>
+                  <FontStyle>Normal</FontStyle>
+                  <FontSize>11pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                  <TextDecoration>None</TextDecoration>
+                  <Color>#000000</Color>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox13</rd:DefaultName>
-        <Top>12.96161cm</Top>
+        <Top>12.3663cm</Top>
         <Left>2.01516cm</Left>
-        <Height>0.73229cm</Height>
+        <Height>1.67074cm</Height>
         <Width>16.90208cm</Width>
         <ZIndex>3</ZIndex>
         <Style>
@@ -432,7 +485,49 @@
                 </Style>
               </TextRun>
               <TextRun>
-                <Value xml:space="preserve">               </Value>
+                <Value xml:space="preserve">  </Value>
+                <Style>
+                  <FontStyle>Normal</FontStyle>
+                  <FontSize>12pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                  <Color>#000000</Color>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value />
+                <Style>
+                  <FontStyle>Normal</FontStyle>
+                  <FontSize>12pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                  <Color>#000000</Color>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Firma_________________</Value>
+                <Style>
+                  <FontStyle>Normal</FontStyle>
+                  <FontSize>11pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                  <TextDecoration>None</TextDecoration>
+                  <Color>#000000</Color>
+                </Style>
+              </TextRun>
+              <TextRun>
+                <Value xml:space="preserve">             </Value>
                 <Style>
                   <FontStyle>Normal</FontStyle>
                   <FontSize>12pt</FontSize>
@@ -447,9 +542,9 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox13</rd:DefaultName>
-        <Top>13.87029cm</Top>
+        <Top>14.21342cm</Top>
         <Left>2.01516cm</Left>
-        <Height>0.73229cm</Height>
+        <Height>1.65833cm</Height>
         <Width>16.90208cm</Width>
         <ZIndex>4</ZIndex>
         <Style>
@@ -520,7 +615,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox13</rd:DefaultName>
-        <Top>14.77897cm</Top>
+        <Top>16.04814cm</Top>
         <Left>2.01516cm</Left>
         <Height>0.73229cm</Height>
         <Width>16.90208cm</Width>
@@ -552,7 +647,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox15</rd:DefaultName>
-        <Top>8.99286cm</Top>
+        <Top>8.67123cm</Top>
         <Left>2.01516cm</Left>
         <Height>1.42021cm</Height>
         <Width>16.90208cm</Width>
@@ -664,7 +759,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox13</rd:DefaultName>
-        <Top>10.69942cm</Top>
+        <Top>10.40838cm</Top>
         <Left>2.01516cm</Left>
         <Height>0.73229cm</Height>
         <Width>16.90208cm</Width>
@@ -696,7 +791,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox15</rd:DefaultName>
-        <Top>11.57283cm</Top>
+        <Top>11.31706cm</Top>
         <Left>2.01516cm</Left>
         <Height>0.87285cm</Height>
         <Width>16.90208cm</Width>
@@ -805,7 +900,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>Policía Municial de Alajuela</Value>
+                  <Value>Policía Municipal de Alajuela</Value>
                   <Style>
                     <FontWeight>Bold</FontWeight>
                   </Style>
@@ -816,9 +911,9 @@
           </Paragraphs>
           <rd:DefaultName>Textbox21</rd:DefaultName>
           <Top>1.0796cm</Top>
-          <Left>15.14725cm</Left>
+          <Left>14.90913cm</Left>
           <Height>0.6cm</Height>
-          <Width>4.9077cm</Width>
+          <Width>5.14583cm</Width>
           <Style>
             <Border>
               <Style>None</Style>

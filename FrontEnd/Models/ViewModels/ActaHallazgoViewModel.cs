@@ -53,17 +53,17 @@ namespace FrontEnd.Models.ViewModels
 
         [Display(Name = "Otras Señas")]
         [Required]
-        [StringLength(250)]
+        [StringLength(300)]
         public string OtrasSenas { get; set; }
 
         [Display(Name = "Inventario")]
         [Required]
-        [StringLength(500)]
+        [StringLength(10000)]
         public string Inventario { get; set; }
 
         [Display(Name = "Observaciones")]
 
-        [StringLength(250)]
+        [StringLength(500)]
         public string Observaciones { get; set; }
 
         [Display(Name = "Nombre del Encargado")]

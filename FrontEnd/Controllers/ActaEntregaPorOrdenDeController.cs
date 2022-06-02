@@ -8,6 +8,7 @@ using BackEnd;
 using FrontEnd.Models;
 using FrontEnd.Models.ViewModels;
 using System.IO;
+using Microsoft.Reporting.WinForms;
 
 namespace FrontEnd.Controllers
 {
@@ -504,6 +505,182 @@ namespace FrontEnd.Controllers
 
             };
         }
+        public void CreatePDF(int id)
+        {
+            //--------------------------Creacion de los DataSet--------------------------
+            actaEntregaPorOrdenDeDAL = new ActaEntregaPorOrdenDeDAL();
+            tablaGeneralDAL = new TablaGeneralDAL();
+            actaDecomisoDAL = new ActaDecomisoDAL();
+            policiaDAL = new PoliciaDAL();
+            personaDAL = new PersonaDAL();
 
+            ReportViewer viewer = new ReportViewer();
+            viewer.ProcessingMode = ProcessingMode.Local;
+            viewer.LocalReport.ReportPath = Path.Combine(Server.MapPath("~/PDFs"), "ReporteEntregaPorOrdenDe.rdlc");
+
+            //EntregaPorOrdenDe
+            ActasEntregaPorOrdenDe entregaPOD = actaEntregaPorOrdenDeDAL.GetActaEntregaPorOrdenDe(id);
+            List<ActasEntregaPorOrdenDe> entregasPOD = new List<ActasEntregaPorOrdenDe>();
+            entregasPOD.Add(entregaPOD);
+
+            //Policias
+            Policias funcionario = policiaDAL.GetPolicia(entregaPOD.idFuncionarioQueEntrega);
+            List<Policias> funcionarios = new List<Policias>();
+            funcionarios.Add(funcionario);
+
+            //Persona
+            Personas ordenador = personaDAL.GetPersona(entregaPOD.idPorOrdenDe);
+            List<Personas> ordenadores = new List<Personas>();
+            ordenadores.Add(ordenador);
+
+            Personas entregado = personaDAL.GetPersona((int)entregaPOD.idPersonaQueSeLeEntrega);
+            List<Personas> entregados = new List<Personas>();
+            entregados.Add(entregado);
+
+            //TablaGeneral
+            TablaGeneral tipoDeTestigo = new TablaGeneral();
+            List<TablaGeneral> tiposDeTestigos = new List<TablaGeneral>();
+            tipoDeTestigo.descripcion = tablaGeneralDAL.Get(entregaPOD.tipoTestigo).descripcion;
+            tiposDeTestigos.Add(tipoDeTestigo);
+
+
+
+            //Agregado a Data Set
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("EntregaPorOrdenDeDataSet", entregasPOD));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("FuncionarioEDataSet", funcionarios));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("OrdenadorDataSet", ordenadores));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("EntregadoDataSet", entregados));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("TGTipoDataSet", tiposDeTestigos));
+
+            //Tipos de Testigo
+            if (tipoDeTestigo.descripcion == "Policía")
+            {
+                Policias policiaTestigo = policiaDAL.GetPolicia((int)entregaPOD.testigo);
+                List<Policias> policiasT = new List<Policias>();
+                policiasT.Add(policiaTestigo);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("PTestigoDataSet", policiasT));
+
+                Personas persona = new Personas();
+                List<Personas> personas = new List<Personas>();
+                personas.Add(persona);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("PerTestigoDataSet", personas));
+
+                TablaGeneral noAplica = new TablaGeneral();
+                List<TablaGeneral> noAplican = new List<TablaGeneral>();
+                noAplican.Add(noAplica);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("aplicaDataSet", noAplican));
+            }
+            else
+            {
+                if (tipoDeTestigo.descripcion == "Persona")
+                {
+                    Personas personaTestigo = personaDAL.GetPersona((int)entregaPOD.testigo);
+                    List<Personas> personasTestigo = new List<Personas>();
+                    personasTestigo.Add(personaTestigo);
+
+                    viewer.LocalReport.DataSources.Add(new ReportDataSource("PerTestigoDataSet", personasTestigo));
+
+                    Policias policiaTestigo = new Policias();
+                    List<Policias> policiasT = new List<Policias>();
+                    policiasT.Add(policiaTestigo);
+
+                    viewer.LocalReport.DataSources.Add(new ReportDataSource("PTestigoDataSet", policiasT));
+
+                    TablaGeneral noAplica = new TablaGeneral();
+                    List<TablaGeneral> noAplican = new List<TablaGeneral>();
+                    noAplican.Add(noAplica);
+
+                    viewer.LocalReport.DataSources.Add(new ReportDataSource("aplicaDataSet", noAplican));
+                }
+                else
+                {
+                    TablaGeneral noAplica = new TablaGeneral();
+                    List<TablaGeneral> noAplican = new List<TablaGeneral>();
+                    noAplica.descripcion = "No Aplica";
+                    noAplican.Add(noAplica);
+
+                    viewer.LocalReport.DataSources.Add(new ReportDataSource("aplicaDataSet", noAplican));
+
+                    Policias policiaTestigo = new Policias();
+                    List<Policias> policiasT = new List<Policias>();
+                    policiasT.Add(policiaTestigo);
+
+                    viewer.LocalReport.DataSources.Add(new ReportDataSource("PTestigoDataSet", policiasT));
+
+                    Personas persona = new Personas();
+                    List<Personas> personas = new List<Personas>();
+                    personas.Add(persona);
+
+                    viewer.LocalReport.DataSources.Add(new ReportDataSource("PerTestigoDataSet", personas));
+                }
+
+            }
+
+            if (entregaPOD.idActaLigada == null)
+            {
+                ActasDecomiso decomiso = new ActasDecomiso();
+                List<ActasDecomiso> decomisos = new List<ActasDecomiso>();
+                decomisos.Add(decomiso);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("DecomisoDataSet", decomisos));
+            }
+            else
+            {
+                ActasDecomiso decomiso = actaDecomisoDAL.GetActaDecomiso((int)entregaPOD.idActaLigada);
+                List<ActasDecomiso> decomisos = new List<ActasDecomiso>();
+                decomiso.observaciones = "acta de decomiso No. " + decomiso.numeroFolio;
+                decomisos.Add(decomiso);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("DecomisoDataSet", decomisos));
+            }
+
+            if (entregaPOD.numeroInventario == null)
+            {
+                TablaGeneral inventario = new TablaGeneral();
+                List<TablaGeneral> inventarios = new List<TablaGeneral>();
+                inventarios.Add(inventario);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("TipoInventarioDataSet", inventarios));
+            }
+            else
+            {
+                TablaGeneral inventario = new TablaGeneral();
+                List<TablaGeneral> inventarios = new List<TablaGeneral>();
+                inventario.descripcion = "Inventario de vehículos detenidos";
+                inventarios.Add(inventario);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("TipoInventarioDataSet", inventarios));
+            }
+
+            //--------------------------Creacion de las variables--------------------------
+            Warning[] warnings;
+            string[] streamIds;
+            string mimeType = string.Empty;
+            string encoding = string.Empty;
+            string extension = string.Empty;
+
+            var deviceInfo = @"<DeviceInfo>
+            <EmbedFonts>None</EmbedFonts>
+            <OutputFormat>PDF</OutputFormat>
+            <PageWidth>8.5in</PageWidth>
+            <PageHeight>11in</PageHeight>
+            <MarginTop>0.25in</MarginTop>
+            <MarginLeft>0.25in</MarginLeft>
+            <MarginRight>0.25in</MarginRight>
+            <MarginBottom>0.25in</MarginBottom>
+            </DeviceInfo>";
+
+            byte[] bytes = viewer.LocalReport.Render("PDF", deviceInfo, out mimeType, out encoding, out extension, out streamIds, out warnings);
+
+            Response.Buffer = true;
+            Response.Clear();
+            Response.ContentType = mimeType;
+            Response.AddHeader("content-disposition", "attachment; filename=" + "Acta de entrega por orden de No. " + entregaPOD.numeroFolio + "." + extension);
+            Response.BinaryWrite(bytes);
+            Response.Flush();
+        }
     }
 }

@@ -124,11 +124,11 @@
             <a href="~/ActaHallazgo/Index/" class="btn btn-outline-secondary">Regresar</a>
             @if (Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "5")
             {
-                <div style="text-align:center;">
-                    <a class="btn btn-primary" href="~/ActaHallazgo/Editar/@Model.IdActaHallazgo">Editar</a>
-                    <a class="btn btn-secondary" href="~/Auditoria/ListadoAuditoria/@Model.IdActaHallazgo">Ver Auditorias</a>
-                    <a href="~/ActaHallazgo/CreatePDF/@Model.IdActaHallazgo" class="btn btn-outline-secondary" target="_blank">Imprimir</a>
-                </div>
+        <div style="text-align:center;">
+            <a class="btn btn-primary" href="~/ActaHallazgo/Editar/@Model.IdActaHallazgo">Editar</a>
+            <a class="btn btn-secondary" href="~/Auditoria/ListadoAuditoria/@Model.IdActaHallazgo" target="_blank">Ver Auditorías</a>
+            <a href="~/ActaHallazgo/CreatePDF/@Model.IdActaHallazgo" class="btn btn-outline-secondary" target="_blank">Imprimir</a>
+        </div>
             }
         </div>
 

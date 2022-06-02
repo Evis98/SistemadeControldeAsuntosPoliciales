@@ -84,7 +84,7 @@ namespace FrontEnd.Models.ViewModels
         [Display(Name = "Actividad de venta")]
         public string ActividadVenta { get; set; }
 
-        [StringLength(250, ErrorMessage = "Placa de vehículo excede los 30 caracteres.")]
+        [StringLength(30, ErrorMessage = "Placa de vehículo excede los 30 caracteres.")]
         [Display(Name = "Placa de vehículo")]
         public string PlacaVehiculo { get; set; }
 

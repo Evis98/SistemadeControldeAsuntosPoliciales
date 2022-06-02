@@ -397,7 +397,7 @@ namespace FrontEnd.Controllers
             bitacoraDAL = new BitacoraDAL();
             Session["idBitacora"] = id;
             Session["auditoria"] = bitacoraDAL.GetBitacora(id).numeroConsecutivo;
-            Session["tabla"] = "Bitacora";
+            Session["tabla"] = "Bitácora";
             Session["consecutivo"] = bitacoraDAL.GetBitacora(id).numeroConsecutivo;
             BitacoraViewModel modelo = CargarBitacora(bitacoraDAL.GetBitacora(id));
             return View(modelo);
@@ -407,9 +407,9 @@ namespace FrontEnd.Controllers
         {
             Autorizar();
             bitacoraDAL = new BitacoraDAL();
-            BitacoraViewModel model = CargarBitacora(bitacoraDAL.GetBitacora(id));
-            model.TiposCondicion = tablaGeneralDAL.Get("Armas", "condicion").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
-            return View(model);
+            BitacoraViewModel modelo = CargarBitacora(bitacoraDAL.GetBitacora(id));
+            modelo.TiposCondicion = tablaGeneralDAL.Get("Armas", "condicion").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo });
+            return View(modelo);
         }
 
         [HttpPost]

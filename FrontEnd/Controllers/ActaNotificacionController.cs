@@ -478,6 +478,11 @@ namespace FrontEnd.Controllers
             List<Personas> notificados = new List<Personas>();
             notificados.Add(notificado);
 
+            if (notificado.direccionPersona == null)
+            {
+                notificado.direccionPersona = "No aplica";
+            }
+
             //Policia
             Policias actuante = policiaDAL.GetPolicia(notificacion.oficialActuante);
             List<Policias> actuantes = new List<Policias>();
@@ -548,7 +553,7 @@ namespace FrontEnd.Controllers
                 {
                     TablaGeneral noAplica = new TablaGeneral();
                     List<TablaGeneral> noAplican = new List<TablaGeneral>();
-                    noAplica.descripcion = "N/A";
+                    noAplica.descripcion = "No Aplica";
                     noAplican.Add(noAplica);
 
                     viewer.LocalReport.DataSources.Add(new ReportDataSource("aplicaDataSet", noAplican));

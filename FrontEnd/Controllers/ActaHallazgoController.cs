@@ -37,7 +37,7 @@ namespace FrontEnd.Controllers
                 avenida = ToUpperCheckForNull(modelo.Avenida),
                 calle = ToUpperCheckForNull(modelo.Calle),
                 otrasSenas = ToUpperCheckForNull(modelo.OtrasSenas),
-                inventario = ToUpperCheckForNull(modelo.Inventario),          
+                inventario = ToUpperCheckForNull(modelo.Inventario),
                 observaciones = ToUpperCheckForNull(modelo.Observaciones),
                 encargado = policiaDAL.GetPoliciaCedula(modelo.Encargado).idPolicia,
                 tipoTestigo = tablaGeneralDAL.GetCodigo("Actas", "tipoTestigo", modelo.TipoTestigo.ToString()).idTablaGeneral,
@@ -87,7 +87,7 @@ namespace FrontEnd.Controllers
 
             if (actaHallazgo.testigo != null)
             {
-                if (tablaGeneralDAL.Get(actaHallazgo.tipoTestigo).codigo =="1")
+                if (tablaGeneralDAL.Get(actaHallazgo.tipoTestigo).codigo == "1")
                 {
                     actaHallazgoCarga.VistaTestigo = policiaDAL.GetPolicia((int)actaHallazgo.testigo).nombre;
                     actaHallazgoCarga.IdTestigoPolicia = policiaDAL.GetPolicia((int)actaHallazgo.testigo).cedula;
@@ -103,7 +103,7 @@ namespace FrontEnd.Controllers
 
             return actaHallazgoCarga;
         }
-       
+
         public List<PoliciaViewModel> ConvertirListaPoliciasFiltrados(List<Policias> policias)
         {
             return (from d in policias
@@ -446,7 +446,6 @@ namespace FrontEnd.Controllers
 
             };
         }
-
         public void CreatePDF(int id)
         {
             //--------------------------Creacion de los DataSet--------------------------
@@ -462,6 +461,10 @@ namespace FrontEnd.Controllers
             //Hallazgos
             ActasHallazgo hallazgo = actaHallazgoDAL.GetActaHallazgo(id);
             List<ActasHallazgo> hallazgos = new List<ActasHallazgo>();
+            if (hallazgo.observaciones == null)
+            {
+                hallazgo.observaciones = "No aplica";
+            }
             hallazgos.Add(hallazgo);
 
             //Policias
@@ -492,7 +495,7 @@ namespace FrontEnd.Controllers
             viewer.LocalReport.DataSources.Add(new ReportDataSource("TGDistritoDataSet", distritos));
 
             //Tipos de Testigo
-            if (tipoDeTestigo.descripcion == "PolicÃ­a")
+            if (tipoDeTestigo.descripcion == "Policía")
             {
                 Policias policiaTestigo = policiaDAL.GetPolicia((int)hallazgo.testigo);
                 List<Policias> policiasT = new List<Policias>();
@@ -538,7 +541,7 @@ namespace FrontEnd.Controllers
                 {
                     TablaGeneral noAplica = new TablaGeneral();
                     List<TablaGeneral> noAplican = new List<TablaGeneral>();
-                    noAplica.descripcion = "N/A";
+                    noAplica.descripcion = "No Aplica";
                     noAplican.Add(noAplica);
 
                     viewer.LocalReport.DataSources.Add(new ReportDataSource("aplicaDataSet", noAplican));

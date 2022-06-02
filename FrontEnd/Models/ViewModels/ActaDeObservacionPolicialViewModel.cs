@@ -36,7 +36,7 @@ namespace FrontEnd.Models.ViewModels
         public string VistaPersonaInteresada { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "Condición excede los 150 caracteres.")]
+        [StringLength(1000, ErrorMessage = "Condición excede los 1000 caracteres.")]
         [Display(Name = "En su condición de")]
         public string CondicionInteresado { get; set; }
 
@@ -53,7 +53,7 @@ namespace FrontEnd.Models.ViewModels
 
         [Display(Name = "Observaciones")]
 
-        [StringLength(5000)]
+        [StringLength(10000)]
         public string Observaciones { get; set; }
 
         [Display(Name = "Oficial Actuante")]

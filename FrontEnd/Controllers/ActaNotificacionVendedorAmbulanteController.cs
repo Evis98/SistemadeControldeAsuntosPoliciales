@@ -1,8 +1,10 @@
 ﻿using BackEnd;
 using BackEnd.DAL;
 using FrontEnd.Models.ViewModels;
+using Microsoft.Reporting.WinForms;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -64,7 +66,7 @@ namespace FrontEnd.Controllers
             acta.formaDeVenta = tablaGeneralDAL.GetCodigo("ActasNotificacionVendedorAmbulante", "formaDeVenta", modelo.FormaDeVenta.ToString()).idTablaGeneral;
             acta.actividadVenta = modelo.ActividadVenta;
 
-            if(modelo.FormaDeVenta == 1 && modelo.PlacaVehiculo != null)
+            if (modelo.FormaDeVenta == 1 && modelo.PlacaVehiculo != null)
             {
                 acta.placaDeVehiculo = modelo.PlacaVehiculo;
             }
@@ -72,7 +74,7 @@ namespace FrontEnd.Controllers
             acta.oficialActuante = policiaDAL.GetPoliciaCedula(modelo.OficialActuante).idPolicia;
             acta.direccionNotificado = modelo.DireccionNotificado;
 
-           
+
             return acta;
         }
         public ActaNotificacionVendedorAmbulanteViewModel CargarActaNotificacionVendedorAmbulante(ActasNotificacionVendedorAmbulante actaNotificacionVendedorAmbulante)
@@ -108,7 +110,7 @@ namespace FrontEnd.Controllers
             acta.FormaDeVenta = int.Parse(tablaGeneralDAL.Get(actaNotificacionVendedorAmbulante.formaDeVenta).codigo);
             acta.VistaFormaDeVenta = tablaGeneralDAL.Get(actaNotificacionVendedorAmbulante.formaDeVenta).descripcion;
 
-            if(actaNotificacionVendedorAmbulante.placaDeVehiculo != null)
+            if (actaNotificacionVendedorAmbulante.placaDeVehiculo != null)
             {
                 acta.PlacaVehiculo = actaNotificacionVendedorAmbulante.placaDeVehiculo;
             }
@@ -299,8 +301,8 @@ namespace FrontEnd.Controllers
                 actasNotificacionVendedorAmbulante = actasNotificacionVendedorAmbulanteFiltradas;
             }
             return View(actasNotificacionVendedorAmbulante.OrderBy(x => x.NumeroFolio).ToList());
-                  
-}
+
+        }
         public ActionResult Nuevo()
         {
             Autorizar();
@@ -450,6 +452,174 @@ namespace FrontEnd.Controllers
                 idElemento = actaNotificacionVendedorAmbulanteDAL.GetActaNotificacionVendedorAmbulante(idActaNotificacionVendedorAmbulante).idNotificacionVendedorAmbulante
 
             };
+        }
+        public void CreatePDF(int id)
+        {
+            //--------------------------Creacion de los DataSet--------------------------
+            actaNotificacionVendedorAmbulanteDAL = new ActaNotificacionVendedorAmbulanteDAL();
+            tablaGeneralDAL = new TablaGeneralDAL();
+            policiaDAL = new PoliciaDAL();
+            personaDAL = new PersonaDAL();
+
+            ReportViewer viewer = new ReportViewer();
+            viewer.ProcessingMode = ProcessingMode.Local;
+            viewer.LocalReport.ReportPath = Path.Combine(Server.MapPath("~/PDFs"), "ReporteVendedoresAmbulantes.rdlc");
+
+            //Ambulantes
+            ActasNotificacionVendedorAmbulante ambulante = actaNotificacionVendedorAmbulanteDAL.GetActaNotificacionVendedorAmbulante(id);
+            List<ActasNotificacionVendedorAmbulante> ambulantes = new List<ActasNotificacionVendedorAmbulante>();
+            ambulantes.Add(ambulante);
+
+            //Policias
+            Policias policiaActuante = policiaDAL.GetPolicia(ambulante.oficialActuante);
+            List<Policias> policiasActuantes = new List<Policias>();
+            policiasActuantes.Add(policiaActuante);
+
+            //Personas
+            Personas notificado = personaDAL.GetPersona(ambulante.idNotificado);
+
+            List<Personas> notificados = new List<Personas>();
+            if (notificado.direccionPersona == null)
+            {
+                notificado.direccionPersona = "No aplica";
+            }
+            notificados.Add(notificado);
+
+
+            //TablaGeneral
+            TablaGeneral distrito = new TablaGeneral();
+            List<TablaGeneral> distritos = new List<TablaGeneral>();
+            distrito.descripcion = tablaGeneralDAL.Get(ambulante.distrito).descripcion;
+            distritos.Add(distrito);
+
+            TablaGeneral tipoDeTestigo = new TablaGeneral();
+            List<TablaGeneral> tiposDeTestigos = new List<TablaGeneral>();
+            tipoDeTestigo.descripcion = tablaGeneralDAL.Get(ambulante.tipoTestigo).descripcion;
+            tiposDeTestigos.Add(tipoDeTestigo);
+
+            TablaGeneral venta = new TablaGeneral();
+            List<TablaGeneral> ventas = new List<TablaGeneral>();
+            venta.descripcion = tablaGeneralDAL.Get(ambulante.formaDeVenta).descripcion;
+            ventas.Add(venta);
+
+            //Agregado a Data Set
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("AmbulanteDataSet", ambulantes));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("ActuanteDataSet", policiasActuantes));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("NotificadoDataSet", notificados));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("DistritoDataSet", distritos));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("TGTipoDataSet", tiposDeTestigos));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("formaVentaDataSet", ventas));
+
+            //Tipos de Testigo
+            if (tipoDeTestigo.descripcion == "Policía")
+            {
+                Policias policiaTestigo = policiaDAL.GetPolicia((int)ambulante.testigo);
+                List<Policias> policiasT = new List<Policias>();
+                policiasT.Add(policiaTestigo);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("PTestigoDataSet", policiasT));
+
+                Personas persona = new Personas();
+                List<Personas> personas = new List<Personas>();
+                personas.Add(persona);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("PerTestigoDataSet", personas));
+
+                TablaGeneral noAplica = new TablaGeneral();
+                List<TablaGeneral> noAplican = new List<TablaGeneral>();
+                noAplican.Add(noAplica);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("aplicaDataSet", noAplican));
+            }
+            else
+            {
+                if (tipoDeTestigo.descripcion == "Persona")
+                {
+                    Personas personaTestigo = personaDAL.GetPersona((int)ambulante.testigo);
+                    List<Personas> personasTestigo = new List<Personas>();
+                    personasTestigo.Add(personaTestigo);
+
+                    viewer.LocalReport.DataSources.Add(new ReportDataSource("PerTestigoDataSet", personasTestigo));
+
+                    Policias policiaTestigo = new Policias();
+                    List<Policias> policiasT = new List<Policias>();
+                    policiasT.Add(policiaTestigo);
+
+                    viewer.LocalReport.DataSources.Add(new ReportDataSource("PTestigoDataSet", policiasT));
+
+                    TablaGeneral noAplica = new TablaGeneral();
+                    List<TablaGeneral> noAplican = new List<TablaGeneral>();
+                    noAplican.Add(noAplica);
+
+                    viewer.LocalReport.DataSources.Add(new ReportDataSource("aplicaDataSet", noAplican));
+                }
+                else
+                {
+                    TablaGeneral noAplica = new TablaGeneral();
+                    List<TablaGeneral> noAplican = new List<TablaGeneral>();
+                    noAplica.descripcion = "No Aplica";
+                    noAplican.Add(noAplica);
+
+                    viewer.LocalReport.DataSources.Add(new ReportDataSource("aplicaDataSet", noAplican));
+
+                    Policias policiaTestigo = new Policias();
+                    List<Policias> policiasT = new List<Policias>();
+                    policiasT.Add(policiaTestigo);
+
+                    viewer.LocalReport.DataSources.Add(new ReportDataSource("PTestigoDataSet", policiasT));
+
+                    Personas persona = new Personas();
+                    List<Personas> personas = new List<Personas>();
+                    personas.Add(persona);
+
+                    viewer.LocalReport.DataSources.Add(new ReportDataSource("PerTestigoDataSet", personas));
+                }
+            }
+
+            if (venta.descripcion == "Vehículo")
+            {
+                TablaGeneral placa = new TablaGeneral();
+                List<TablaGeneral> placas = new List<TablaGeneral>();
+                placa.descripcion = "placa No. " + ambulante.placaDeVehiculo;
+                placas.Add(placa);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("PlacaDataSet", placas));
+            }
+            else
+            {
+                TablaGeneral placa = new TablaGeneral();
+                List<TablaGeneral> placas = new List<TablaGeneral>();
+                placas.Add(placa);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("PlacaDataSet", placas));
+            }
+
+            //--------------------------Creacion de las variables--------------------------
+            Warning[] warnings;
+            string[] streamIds;
+            string mimeType = string.Empty;
+            string encoding = string.Empty;
+            string extension = string.Empty;
+
+            var deviceInfo = @"<DeviceInfo>
+            <EmbedFonts>None</EmbedFonts>
+            <OutputFormat>PDF</OutputFormat>
+            <PageWidth>8.5in</PageWidth>
+            <PageHeight>11in</PageHeight>
+            <MarginTop>0.25in</MarginTop>
+            <MarginLeft>0.25in</MarginLeft>
+            <MarginRight>0.25in</MarginRight>
+            <MarginBottom>0.25in</MarginBottom>
+            </DeviceInfo>";
+
+            byte[] bytes = viewer.LocalReport.Render("PDF", deviceInfo, out mimeType, out encoding, out extension, out streamIds, out warnings);
+
+            Response.Buffer = true;
+            Response.Clear();
+            Response.ContentType = mimeType;
+            Response.AddHeader("content-disposition", "attachment; filename=" + "Acta de notificación a vendedores ambulantes No. " + ambulante.numeroFolio + "." + extension);
+            Response.BinaryWrite(bytes);
+            Response.Flush();
         }
     }
 }

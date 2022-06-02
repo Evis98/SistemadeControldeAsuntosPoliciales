@@ -111,11 +111,11 @@
             <a href="~/ActaDeDestruccionDePerecederos/Index/" class="btn btn-outline-secondary">Regresar</a>
             @if (Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "5")
             {
-                <div style="text-align:center;">
-                <a class="btn btn-primary" href="~/ActaDeDestruccionDePerecederos/Editar/@Model.IdActaDeDestruccionDePerecederos">Editar</a>
-                <a class="btn btn-secondary" href="~/Auditoria/ListadoAuditoria/@Model.IdActaDeDestruccionDePerecederos">Ver Auditorias</a>
-                <a href="~/ActaDeDestruccionDePerecederos/CreatePDF/@Model.IdActaDeDestruccionDePerecederos" class="btn btn-outline-secondary">Imprimir</a>
-                </div> }
+        <div style="text-align:center;">
+            <a class="btn btn-primary" href="~/ActaDeDestruccionDePerecederos/Editar/@Model.IdActaDeDestruccionDePerecederos">Editar</a>
+            <a class="btn btn-secondary" href="~/Auditoria/ListadoAuditoria/@Model.IdActaDeDestruccionDePerecederos" target="_blank">Ver Auditorías</a>
+            <a href="~/ActaDeDestruccionDePerecederos/CreatePDF/@Model.IdActaDeDestruccionDePerecederos" class="btn btn-outline-secondary">Imprimir</a>
+        </div> }
             </div>
 
     </div>

@@ -385,11 +385,44 @@
               <TextAlign>Left</TextAlign>
             </Style>
           </Paragraph>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value />
+                <Style>
+                  <FontStyle>Normal</FontStyle>
+                  <FontSize>12pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                  <Color>#000000</Color>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Firma_________________</Value>
+                <Style>
+                  <FontStyle>Normal</FontStyle>
+                  <FontSize>11pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                  <TextDecoration>None</TextDecoration>
+                  <Color>#000000</Color>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox13</rd:DefaultName>
-        <Top>14.28118cm</Top>
+        <Top>14.0166cm</Top>
         <Left>2.01516cm</Left>
-        <Height>0.73229cm</Height>
+        <Height>1.62288cm</Height>
         <Width>16.90208cm</Width>
         <ZIndex>4</ZIndex>
         <Style>
@@ -460,7 +493,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox13</rd:DefaultName>
-        <Top>15.18986cm</Top>
+        <Top>15.9658cm</Top>
         <Left>2.01516cm</Left>
         <Height>0.73229cm</Height>
         <Width>16.90208cm</Width>
@@ -708,7 +741,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>Policía Municial de Alajuela</Value>
+                  <Value>Policía Municipal de Alajuela</Value>
                   <Style>
                     <FontWeight>Bold</FontWeight>
                   </Style>
@@ -719,9 +752,9 @@
           </Paragraphs>
           <rd:DefaultName>Textbox21</rd:DefaultName>
           <Top>1.0796cm</Top>
-          <Left>15.14725cm</Left>
+          <Left>14.90913cm</Left>
           <Height>0.6cm</Height>
-          <Width>4.9077cm</Width>
+          <Width>5.14583cm</Width>
           <ZIndex>1</ZIndex>
           <Style>
             <Border>

@@ -64,7 +64,7 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                         <li class="nav-item">
-                            <a class="nav-link active" id="link1" href="~/Home/Index/">Inicio</a>
+                            <a class="nav-link" id="link1" href="~/Home/Index/">Inicio</a>
                         </li>
                         @if (Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "5")
                         {
@@ -94,25 +94,25 @@
                         @if (Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "1" || Session["Rol"].ToString() == "5")
                         {
                             <li class="nav-item">
-                                <a class="nav-link" id="link5" href="~/Persona/Index/">Personas</a>
+                                <a class="nav-link" id="link6" href="~/Persona/Index/">Personas</a>
                             </li>
                         }
                         @if (Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "1" || Session["Rol"].ToString() == "5")
                         {
                             <li class="nav-item">
-                                <a class="nav-link" id="link6" href="~/Infractor/Index/">Infractores</a>
+                                <a class="nav-link" id="link7" href="~/Infractor/Index/">Infractores</a>
                             </li>
                         }
                         @if (Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "1" || Session["Rol"].ToString() == "5")
                         {
                             <li class="nav-item">
-                                <a class="nav-link" id="link7" href="~/Acta/Index/">Actas</a>
+                                <a class="nav-link" id="link8" href="~/Acta/Index/">Actas</a>
                             </li>
                         }
-                        @if (Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "5")
+                        @if (Session["Rol"].ToString() == "5")
                         {
                             <li class="nav-item">
-                                <a class="nav-link" id="link8" href="~/Usuario/Index/">Usuarios</a>
+                                <a class="nav-link" id="link9" href="~/Usuario/Index/">Usuarios</a>
                             </li>
                         }
                     </ul>
@@ -120,7 +120,7 @@
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link active">
-                                @Session["Nombre"] @Session["cedula"]
+                                @Session["Nombre"] @Session["vistaRol"]
                             </a>
                         </li>
 

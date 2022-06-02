@@ -122,8 +122,8 @@
             <a class="btn btn-outline-secondary" href="~/Parte/Index">Regresar</a>
         </div>
         <div class="col-sm-6">
-            
-            <a class="btn btn-secondary" href="~/Auditoria/ListadoAuditoria/@Model.IdParte">Ver Auditorias</a>
+            <a href="~/Parte/CreatePDF/@Model.IdParte" class="btn btn-outline-secondary">Imprimir</a>
+            <a class="btn btn-secondary" href="~/Auditoria/ListadoAuditoria/@Model.IdParte" target="_blank">Ver Auditorías</a>
         </div>
         <div class="col-sm-2">
             <a class="btn btn-primary" href="~/Parte/Detalle2/@HttpContext.Current.Session["idParte"].ToString()">Siguiente</a>

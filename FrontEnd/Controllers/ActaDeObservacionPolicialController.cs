@@ -1,8 +1,10 @@
 ﻿using BackEnd;
 using BackEnd.DAL;
 using FrontEnd.Models.ViewModels;
+using Microsoft.Reporting.WinForms;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -45,7 +47,7 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             policiaDAL = new PoliciaDAL();
             personaDAL = new PersonaDAL();
-            ActaDeObservacionPolicialViewModel modelo =  new ActaDeObservacionPolicialViewModel()
+            ActaDeObservacionPolicialViewModel modelo = new ActaDeObservacionPolicialViewModel()
             {
                 IdActaDeObservacionPolicial = actaDeObservacionPolicial.idActaDeObservacionPolicial,
                 NumeroFolio = actaDeObservacionPolicial.numeroFolio,
@@ -247,8 +249,8 @@ namespace FrontEnd.Controllers
                 actasDeObservacionPolicial = actasDeObservacionPolicialFiltradas;
             }
             return View(actasDeObservacionPolicial.OrderBy(x => x.NumeroFolio).ToList());
-            
-            
+
+
         }
         public ActionResult Nuevo()
         {
@@ -256,8 +258,8 @@ namespace FrontEnd.Controllers
             tablaGeneralDAL = new TablaGeneralDAL();
             ActaDeObservacionPolicialViewModel modelo = new ActaDeObservacionPolicialViewModel()
             {
-            Distritos = tablaGeneralDAL.Get("Generales", "distrito").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
-            Fecha = DateTime.Today
+                Distritos = tablaGeneralDAL.Get("Generales", "distrito").Select(i => new SelectListItem() { Text = i.descripcion, Value = i.codigo }),
+                Fecha = DateTime.Today
             };
             return View(modelo);
         }
@@ -306,7 +308,7 @@ namespace FrontEnd.Controllers
         {
             Autorizar();
             actaDeObservacionPolicialDAL = new ActaDeObservacionPolicialDAL();
-            Session["idActaDeObservacionPolicial"] = id;          
+            Session["idActaDeObservacionPolicial"] = id;
             Session["auditoria"] = actaDeObservacionPolicialDAL.GetActaDeObservacionPolicial(id).numeroFolio;
             Session["tabla"] = "Acta de Observación Policial";
             ActaDeObservacionPolicialViewModel modelo = CargarActaDeObservacionPolicial(actaDeObservacionPolicialDAL.GetActaDeObservacionPolicial(id));
@@ -365,7 +367,7 @@ namespace FrontEnd.Controllers
                 throw new Exception(ex.Message);
             }
         }
-      
+
         public Auditorias ConvertirAuditoria(AuditoriaViewModel modelo)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
@@ -399,6 +401,95 @@ namespace FrontEnd.Controllers
 
             };
         }
+        public void CreatePDF(int id)
+        {
+            //--------------------------Creacion de los DataSet--------------------------
+            actaDeObservacionPolicialDAL = new ActaDeObservacionPolicialDAL();
+            tablaGeneralDAL = new TablaGeneralDAL();
+            policiaDAL = new PoliciaDAL();
+            personaDAL = new PersonaDAL();
 
+            ReportViewer viewer = new ReportViewer();
+            viewer.ProcessingMode = ProcessingMode.Local;
+            viewer.LocalReport.ReportPath = Path.Combine(Server.MapPath("~/PDFs"), "ReporteObservacionPolicial.rdlc");
+
+            //Hallazgos
+            ActasDeObservacionPolicial observacion = actaDeObservacionPolicialDAL.GetActaDeObservacionPolicial(id);
+            List<ActasDeObservacionPolicial> observaciones = new List<ActasDeObservacionPolicial>();
+            observaciones.Add(observacion);
+
+            //Policias
+            Policias policiaActuante = policiaDAL.GetPolicia(observacion.oficialActuante);
+            List<Policias> policiasActuantes = new List<Policias>();
+            policiasActuantes.Add(policiaActuante);
+
+            Policias policiaAcompanante = policiaDAL.GetPolicia(observacion.oficialAcompanante);
+            List<Policias> policiasAcompanantes = new List<Policias>();
+            policiasAcompanantes.Add(policiaAcompanante);
+
+            //Personas
+            Personas interesado = personaDAL.GetPersona(observacion.idInteresado);
+            List<Personas> interesados = new List<Personas>();
+            interesados.Add(interesado);
+
+            //TablaGeneral
+            TablaGeneral distrito = new TablaGeneral();
+            List<TablaGeneral> distritos = new List<TablaGeneral>();
+            distrito.descripcion = tablaGeneralDAL.Get(observacion.distrito).descripcion;
+            distritos.Add(distrito);
+
+            //Agregado a Data Set
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("ObservacionDataSet", observaciones));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("ActuanteDataSet", policiasActuantes));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("AcompañanteDataSet", policiasAcompanantes));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("InteresadoDataSet", interesados));
+            viewer.LocalReport.DataSources.Add(new ReportDataSource("DistritoDataSet", distritos));
+
+            //Tipos de Testigo
+            if (observacion.observaciones != null)
+            {
+                TablaGeneral noAplica = new TablaGeneral();
+                List<TablaGeneral> noAplican = new List<TablaGeneral>();
+                noAplican.Add(noAplica);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("aplicaDataSet", noAplican));
+            }
+            else
+            {
+                TablaGeneral noAplica = new TablaGeneral();
+                List<TablaGeneral> noAplican = new List<TablaGeneral>();
+                noAplica.descripcion = "No Aplica";
+                noAplican.Add(noAplica);
+
+                viewer.LocalReport.DataSources.Add(new ReportDataSource("aplicaDataSet", noAplican));
+            }
+
+            //--------------------------Creacion de las variables--------------------------
+            Warning[] warnings;
+            string[] streamIds;
+            string mimeType = string.Empty;
+            string encoding = string.Empty;
+            string extension = string.Empty;
+
+            var deviceInfo = @"<DeviceInfo>
+            <EmbedFonts>None</EmbedFonts>
+            <OutputFormat>PDF</OutputFormat>
+            <PageWidth>8.5in</PageWidth>
+            <PageHeight>11in</PageHeight>
+            <MarginTop>0.25in</MarginTop>
+            <MarginLeft>0.25in</MarginLeft>
+            <MarginRight>0.25in</MarginRight>
+            <MarginBottom>0.25in</MarginBottom>
+            </DeviceInfo>";
+
+            byte[] bytes = viewer.LocalReport.Render("PDF", deviceInfo, out mimeType, out encoding, out extension, out streamIds, out warnings);
+
+            Response.Buffer = true;
+            Response.Clear();
+            Response.ContentType = mimeType;
+            Response.AddHeader("content-disposition", "attachment; filename=" + "Acta de observación policial No. " + observacion.numeroFolio + "." + extension);
+            Response.BinaryWrite(bytes);
+            Response.Flush();
+        }
     }
 }

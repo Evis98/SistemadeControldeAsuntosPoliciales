@@ -82,7 +82,7 @@ namespace FrontEnd.Controllers
             {
                 persona.nacionalidad = tablaGeneralDAL.GetCodigo("Generales", "nacionalidad", modelo.NacionalidadPersona.ToString()).idTablaGeneral;
             }
-            if (persona.tipoIdentificacion == 77)//revisar esto
+            if (persona.tipoIdentificacion == tablaGeneralDAL.Get("Generales", "tipoDeIdentificacion", "Cédula Jurídica").idTablaGeneral)
             {
                 persona.fechaNacimiento = null;
             }

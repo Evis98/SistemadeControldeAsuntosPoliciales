@@ -111,16 +111,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>.</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>14pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Center</TextAlign>
@@ -546,7 +536,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Firma Persona Notificada ______________________  IDENTIFICACION </Value>
+                <Value>Firma Persona Notificada ______________________  IDENTIFICACIÓN </Value>
                 <Style>
                   <FontStyle>Normal</FontStyle>
                   <FontSize>12pt</FontSize>
@@ -809,7 +799,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>Policía Municial de Alajuela</Value>
+                  <Value>Policía Municipal de Alajuela</Value>
                   <Style>
                     <FontWeight>Bold</FontWeight>
                   </Style>
@@ -820,9 +810,9 @@
           </Paragraphs>
           <rd:DefaultName>Textbox21</rd:DefaultName>
           <Top>1.0796cm</Top>
-          <Left>15.14725cm</Left>
+          <Left>14.96204cm</Left>
           <Height>0.6cm</Height>
-          <Width>4.9077cm</Width>
+          <Width>5.09291cm</Width>
           <ZIndex>1</ZIndex>
           <Style>
             <Border>
@@ -890,6 +880,13 @@
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
       <rd:DataSourceID>7ec1b5e8-f0ad-49ef-9104-65978644ad87</rd:DataSourceID>
+    </DataSource>
+    <DataSource Name="AmbulanteDataSet">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>921f1601-7983-48ed-8f77-3649c9a372ed</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>

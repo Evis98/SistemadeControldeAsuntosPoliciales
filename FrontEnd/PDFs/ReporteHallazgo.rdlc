@@ -248,7 +248,7 @@
         <rd:DefaultName>Textbox15</rd:DefaultName>
         <Top>5.44744cm</Top>
         <Left>2.01516cm</Left>
-        <Height>2.69021cm</Height>
+        <Height>1.92292cm</Height>
         <Width>16.90208cm</Width>
         <ZIndex>2</ZIndex>
         <Style>
@@ -283,7 +283,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox13</rd:DefaultName>
-        <Top>8.6489cm</Top>
+        <Top>7.54675cm</Top>
         <Left>2.01516cm</Left>
         <Height>0.73229cm</Height>
         <Width>16.90208cm</Width>
@@ -341,7 +341,7 @@
                 </Style>
               </TextRun>
               <TextRun>
-                <Value xml:space="preserve">  </Value>
+                <Value xml:space="preserve">   </Value>
                 <Style>
                   <FontStyle>Normal</FontStyle>
                   <FontSize>12pt</FontSize>
@@ -354,11 +354,44 @@
               <TextAlign>Left</TextAlign>
             </Style>
           </Paragraph>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value />
+                <Style>
+                  <FontStyle>Normal</FontStyle>
+                  <FontSize>12pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                  <Color>#000000</Color>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Firma_________________</Value>
+                <Style>
+                  <FontStyle>Normal</FontStyle>
+                  <FontSize>11pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                  <TextDecoration>None</TextDecoration>
+                  <Color>#000000</Color>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox13</rd:DefaultName>
-        <Top>12.96161cm</Top>
+        <Top>10.7664cm</Top>
         <Left>2.01516cm</Left>
-        <Height>0.73229cm</Height>
+        <Height>1.65833cm</Height>
         <Width>16.90208cm</Width>
         <ZIndex>4</ZIndex>
         <Style>
@@ -441,7 +474,49 @@
                 </Style>
               </TextRun>
               <TextRun>
-                <Value xml:space="preserve">               </Value>
+                <Value xml:space="preserve">      </Value>
+                <Style>
+                  <FontStyle>Normal</FontStyle>
+                  <FontSize>12pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                  <Color>#000000</Color>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value />
+                <Style>
+                  <FontStyle>Normal</FontStyle>
+                  <FontSize>12pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                  <Color>#000000</Color>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Firma_________________</Value>
+                <Style>
+                  <FontStyle>Normal</FontStyle>
+                  <FontSize>11pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                  <TextDecoration>None</TextDecoration>
+                  <Color>#000000</Color>
+                </Style>
+              </TextRun>
+              <TextRun>
+                <Value xml:space="preserve">         </Value>
                 <Style>
                   <FontStyle>Normal</FontStyle>
                   <FontSize>12pt</FontSize>
@@ -456,9 +531,9 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox13</rd:DefaultName>
-        <Top>13.87029cm</Top>
+        <Top>12.60112cm</Top>
         <Left>2.01516cm</Left>
-        <Height>0.73229cm</Height>
+        <Height>1.65833cm</Height>
         <Width>16.90208cm</Width>
         <ZIndex>5</ZIndex>
         <Style>
@@ -527,11 +602,44 @@
               <TextAlign>Left</TextAlign>
             </Style>
           </Paragraph>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value />
+                <Style>
+                  <FontStyle>Normal</FontStyle>
+                  <FontSize>12pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                  <Color>#000000</Color>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Firma_________________</Value>
+                <Style>
+                  <FontStyle>Normal</FontStyle>
+                  <FontSize>11pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                  <TextDecoration>None</TextDecoration>
+                  <Color>#000000</Color>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox13</rd:DefaultName>
-        <Top>14.77897cm</Top>
+        <Top>14.43584cm</Top>
         <Left>2.01516cm</Left>
-        <Height>0.73229cm</Height>
+        <Height>1.65751cm</Height>
         <Width>16.90208cm</Width>
         <ZIndex>6</ZIndex>
         <Style>
@@ -561,9 +669,9 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox15</rd:DefaultName>
-        <Top>9.76015cm</Top>
+        <Top>8.45543cm</Top>
         <Left>2.01516cm</Left>
-        <Height>2.69021cm</Height>
+        <Height>1.92292cm</Height>
         <Width>16.90208cm</Width>
         <ZIndex>7</ZIndex>
         <Style>
@@ -707,7 +815,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>Policía Municial de Alajuela</Value>
+                  <Value>Policía Municipal de Alajuela</Value>
                   <Style>
                     <FontWeight>Bold</FontWeight>
                   </Style>
@@ -718,9 +826,9 @@
           </Paragraphs>
           <rd:DefaultName>Textbox21</rd:DefaultName>
           <Top>1.0796cm</Top>
-          <Left>15.14725cm</Left>
+          <Left>14.96204cm</Left>
           <Height>0.6cm</Height>
-          <Width>4.9077cm</Width>
+          <Width>5.09291cm</Width>
           <Style>
             <Border>
               <Style>None</Style>

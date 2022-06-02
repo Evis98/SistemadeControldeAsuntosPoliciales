@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace FrontEnd {
+namespace FrontEnd.DataSet {
     
     
     /// <summary>
@@ -3249,7 +3249,7 @@ namespace FrontEnd {
         }
     }
 }
-namespace FrontEnd.NotificacionDataSetTableAdapters {
+namespace FrontEnd.DataSet.NotificacionDataSetTableAdapters {
     
     
     /// <summary>

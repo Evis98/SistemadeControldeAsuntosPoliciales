@@ -52,6 +52,21 @@ namespace FrontEnd.Controllers
 
             return modelo;
         }
+        public void Autorizar()
+        {
+            if (Session["userID"] != null)
+            {
+                if (Session["Rol"].ToString() != "5")
+                {
+                    Session["Error"] = "Usuario no autorizado";
+                    Response.Redirect("~/Error/ErrorUsuario.cshtml");
+                }
+            }
+            else
+            {
+                Response.Redirect("~/Login/Index");
+            }
+        }
         public Auditorias ConvertirAuditoria(AuditoriaViewModel modelo)
         {
             tablaGeneralDAL = new TablaGeneralDAL();
@@ -71,9 +86,8 @@ namespace FrontEnd.Controllers
         //Metodos de las Vistas
         public ActionResult Index(string filtrosSeleccionado, string busqueda)
         {
-            if (Session["userID"] != null)
-            {
-                usuarioDAL = new UsuarioDAL();
+            Autorizar();
+            usuarioDAL = new UsuarioDAL();
                 tablaGeneralDAL = new TablaGeneralDAL();
 
                 //Carga combobox busqueda
@@ -116,33 +130,25 @@ namespace FrontEnd.Controllers
                     usuarios = usuariosFiltrados;
                 }
                 return View(usuarios.OrderBy(x => x.Nombre).ToList());
-            }
-            else
-            {
-                return Redirect("~/Shared/Error");
-            }
+
         }
 
         public ActionResult Nuevo()
         {
-            if (Session["userID"] != null)
-            {
+            Autorizar();
                 rolDAL = new RolDAL();
                 UsuarioViewModel modelo = new UsuarioViewModel
                 {
                     TiposDeRol = rolDAL.Get().Select(i => new SelectListItem() { Text = i.descripcion, Value = i.idRol.ToString() })
                 };
                 return View(modelo);
-            }
-            else
-            {
-                return Redirect("~/Shared/Error");
-            }
+
         }
 
         [HttpPost]
         public ActionResult Nuevo(UsuarioViewModel modelo)
         {
+            Autorizar();
             tablaGeneralDAL = new TablaGeneralDAL();
             usuarioDAL = new UsuarioDAL();
             auditoriaDAL = new AuditoriaDAL();
@@ -190,6 +196,7 @@ namespace FrontEnd.Controllers
 
         public ActionResult Editar(int id)
         {
+            Autorizar();
             usuarioDAL = new UsuarioDAL();
             rolDAL = new RolDAL();
             UsuarioViewModel modelo = CargarUsuario(usuarioDAL.GetUsuario(id));
@@ -200,6 +207,7 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public ActionResult Editar(UsuarioViewModel modelo)
         {
+            Autorizar();
             usuarioDAL = new UsuarioDAL();
             tablaGeneralDAL = new TablaGeneralDAL();
             auditoriaDAL = new AuditoriaDAL();

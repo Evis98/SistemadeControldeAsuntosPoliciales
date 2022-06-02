@@ -147,11 +147,12 @@
 
             @if (Session["Rol"].ToString() == "2" || Session["Rol"].ToString() == "3" || Session["Rol"].ToString() == "5")
             {
-                <div style="text-align:center;">
-                    <a class="btn btn-primary" href="~/ActaEntrega/Editar/@Model.IdActaEntrega">Editar</a>
-                    <a class="btn btn-secondary" href="~/Auditoria/ListadoAuditoria/@Model.IdActaEntrega">Ver Auditorias</a>
-                    <a href="~/ActaEntrega/CreatePDF/@Model.IdActaEntrega" class="btn btn-outline-secondary">Imprimir</a>
-                </div>
+        <div style="text-align:center;">
+            <a class="btn btn-primary" href="~/ActaEntrega/Editar/@Model.IdActaEntrega">Editar</a>
+            <a class="btn btn-secondary" href="~/Auditoria/ListadoAuditoria/@Model.IdActaEntrega" target="_blank">Ver Auditorías</a>
+            <a href="~/ActaEntrega/CreatePDF/@Model.IdActaEntrega" class="btn btn-outline-secondary">Imprimir</a>
+
+        </div>
             }
         </div>
 

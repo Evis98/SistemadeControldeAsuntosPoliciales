@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace FrontEnd {
+namespace FrontEnd.DataSet {
     
     
     /// <summary>
@@ -20,11 +20,11 @@ namespace FrontEnd {
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-    [global::System.Xml.Serialization.XmlRootAttribute("DecomisoDataSet")]
+    [global::System.Xml.Serialization.XmlRootAttribute("ObservacionDataSet")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-    public partial class DecomisoDataSet : global::System.Data.DataSet {
+    public partial class ObservacionDataSet : global::System.Data.DataSet {
         
-        private ActasDecomisoDataTable tableActasDecomiso;
+        private ActasDeObservacionPolicialDataTable tableActasDeObservacionPolicial;
         
         private PersonasDataTable tablePersonas;
         
@@ -32,15 +32,15 @@ namespace FrontEnd {
         
         private TablaGeneralDataTable tableTablaGeneral;
         
-        private global::System.Data.DataRelation relationFK_EstadoActaDecomiso;
+        private global::System.Data.DataRelation relationFK_AcompananteObservacionPolicial;
         
-        private global::System.Data.DataRelation relationFK_OficialAcompanante;
+        private global::System.Data.DataRelation relationFK_ActuantanteObservacionPolicial;
         
-        private global::System.Data.DataRelation relationFK_OficialActuante;
+        private global::System.Data.DataRelation relationFK_DistritoObservacionPolicial;
         
-        private global::System.Data.DataRelation relationFK_PersonaDecomisado;
+        private global::System.Data.DataRelation relationFK_EstadoObservacionPolicial;
         
-        private global::System.Data.DataRelation relationFK_SupervisorDecomiso;
+        private global::System.Data.DataRelation relationFK_InteresadoObservacionPolicial;
         
         private global::System.Data.DataRelation relationFK_NacionalidadPersona;
         
@@ -56,7 +56,7 @@ namespace FrontEnd {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public DecomisoDataSet() {
+        public ObservacionDataSet() {
             this.BeginInit();
             this.InitClass();
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -67,7 +67,7 @@ namespace FrontEnd {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        protected DecomisoDataSet(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+        protected ObservacionDataSet(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                 base(info, context, false) {
             if ((this.IsBinarySerialized(info, context) == true)) {
                 this.InitVars(false);
@@ -80,8 +80,8 @@ namespace FrontEnd {
             if ((this.DetermineSchemaSerializationMode(info, context) == global::System.Data.SchemaSerializationMode.IncludeSchema)) {
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
-                if ((ds.Tables["ActasDecomiso"] != null)) {
-                    base.Tables.Add(new ActasDecomisoDataTable(ds.Tables["ActasDecomiso"]));
+                if ((ds.Tables["ActasDeObservacionPolicial"] != null)) {
+                    base.Tables.Add(new ActasDeObservacionPolicialDataTable(ds.Tables["ActasDeObservacionPolicial"]));
                 }
                 if ((ds.Tables["Personas"] != null)) {
                     base.Tables.Add(new PersonasDataTable(ds.Tables["Personas"]));
@@ -114,9 +114,9 @@ namespace FrontEnd {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public ActasDecomisoDataTable ActasDecomiso {
+        public ActasDeObservacionPolicialDataTable ActasDeObservacionPolicial {
             get {
-                return this.tableActasDecomiso;
+                return this.tableActasDeObservacionPolicial;
             }
         }
         
@@ -192,7 +192,7 @@ namespace FrontEnd {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public override global::System.Data.DataSet Clone() {
-            DecomisoDataSet cln = ((DecomisoDataSet)(base.Clone()));
+            ObservacionDataSet cln = ((ObservacionDataSet)(base.Clone()));
             cln.InitVars();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
@@ -217,8 +217,8 @@ namespace FrontEnd {
                 this.Reset();
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXml(reader);
-                if ((ds.Tables["ActasDecomiso"] != null)) {
-                    base.Tables.Add(new ActasDecomisoDataTable(ds.Tables["ActasDecomiso"]));
+                if ((ds.Tables["ActasDeObservacionPolicial"] != null)) {
+                    base.Tables.Add(new ActasDeObservacionPolicialDataTable(ds.Tables["ActasDeObservacionPolicial"]));
                 }
                 if ((ds.Tables["Personas"] != null)) {
                     base.Tables.Add(new PersonasDataTable(ds.Tables["Personas"]));
@@ -262,10 +262,10 @@ namespace FrontEnd {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         internal void InitVars(bool initTable) {
-            this.tableActasDecomiso = ((ActasDecomisoDataTable)(base.Tables["ActasDecomiso"]));
+            this.tableActasDeObservacionPolicial = ((ActasDeObservacionPolicialDataTable)(base.Tables["ActasDeObservacionPolicial"]));
             if ((initTable == true)) {
-                if ((this.tableActasDecomiso != null)) {
-                    this.tableActasDecomiso.InitVars();
+                if ((this.tableActasDeObservacionPolicial != null)) {
+                    this.tableActasDeObservacionPolicial.InitVars();
                 }
             }
             this.tablePersonas = ((PersonasDataTable)(base.Tables["Personas"]));
@@ -286,11 +286,11 @@ namespace FrontEnd {
                     this.tableTablaGeneral.InitVars();
                 }
             }
-            this.relationFK_EstadoActaDecomiso = this.Relations["FK_EstadoActaDecomiso"];
-            this.relationFK_OficialAcompanante = this.Relations["FK_OficialAcompanante"];
-            this.relationFK_OficialActuante = this.Relations["FK_OficialActuante"];
-            this.relationFK_PersonaDecomisado = this.Relations["FK_PersonaDecomisado"];
-            this.relationFK_SupervisorDecomiso = this.Relations["FK_SupervisorDecomiso"];
+            this.relationFK_AcompananteObservacionPolicial = this.Relations["FK_AcompananteObservacionPolicial"];
+            this.relationFK_ActuantanteObservacionPolicial = this.Relations["FK_ActuantanteObservacionPolicial"];
+            this.relationFK_DistritoObservacionPolicial = this.Relations["FK_DistritoObservacionPolicial"];
+            this.relationFK_EstadoObservacionPolicial = this.Relations["FK_EstadoObservacionPolicial"];
+            this.relationFK_InteresadoObservacionPolicial = this.Relations["FK_InteresadoObservacionPolicial"];
             this.relationFK_NacionalidadPersona = this.Relations["FK_NacionalidadPersona"];
             this.relationFK_SexoPersona = this.Relations["FK_SexoPersona"];
             this.relationFK_TipoIdentificacionPersona = this.Relations["FK_TipoIdentificacionPersona"];
@@ -301,39 +301,39 @@ namespace FrontEnd {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private void InitClass() {
-            this.DataSetName = "DecomisoDataSet";
+            this.DataSetName = "ObservacionDataSet";
             this.Prefix = "";
-            this.Namespace = "http://tempuri.org/DecomisoDataSet.xsd";
+            this.Namespace = "http://tempuri.org/ObservacionDataSet.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
-            this.tableActasDecomiso = new ActasDecomisoDataTable();
-            base.Tables.Add(this.tableActasDecomiso);
+            this.tableActasDeObservacionPolicial = new ActasDeObservacionPolicialDataTable();
+            base.Tables.Add(this.tableActasDeObservacionPolicial);
             this.tablePersonas = new PersonasDataTable();
             base.Tables.Add(this.tablePersonas);
             this.tablePolicias = new PoliciasDataTable();
             base.Tables.Add(this.tablePolicias);
             this.tableTablaGeneral = new TablaGeneralDataTable();
             base.Tables.Add(this.tableTablaGeneral);
-            this.relationFK_EstadoActaDecomiso = new global::System.Data.DataRelation("FK_EstadoActaDecomiso", new global::System.Data.DataColumn[] {
+            this.relationFK_AcompananteObservacionPolicial = new global::System.Data.DataRelation("FK_AcompananteObservacionPolicial", new global::System.Data.DataColumn[] {
+                        this.tablePolicias.idPoliciaColumn}, new global::System.Data.DataColumn[] {
+                        this.tableActasDeObservacionPolicial.oficialAcompananteColumn}, false);
+            this.Relations.Add(this.relationFK_AcompananteObservacionPolicial);
+            this.relationFK_ActuantanteObservacionPolicial = new global::System.Data.DataRelation("FK_ActuantanteObservacionPolicial", new global::System.Data.DataColumn[] {
+                        this.tablePolicias.idPoliciaColumn}, new global::System.Data.DataColumn[] {
+                        this.tableActasDeObservacionPolicial.oficialActuanteColumn}, false);
+            this.Relations.Add(this.relationFK_ActuantanteObservacionPolicial);
+            this.relationFK_DistritoObservacionPolicial = new global::System.Data.DataRelation("FK_DistritoObservacionPolicial", new global::System.Data.DataColumn[] {
                         this.tableTablaGeneral.idTablaGeneralColumn}, new global::System.Data.DataColumn[] {
-                        this.tableActasDecomiso.estadoColumn}, false);
-            this.Relations.Add(this.relationFK_EstadoActaDecomiso);
-            this.relationFK_OficialAcompanante = new global::System.Data.DataRelation("FK_OficialAcompanante", new global::System.Data.DataColumn[] {
-                        this.tablePolicias.idPoliciaColumn}, new global::System.Data.DataColumn[] {
-                        this.tableActasDecomiso.oficialAcompananteColumn}, false);
-            this.Relations.Add(this.relationFK_OficialAcompanante);
-            this.relationFK_OficialActuante = new global::System.Data.DataRelation("FK_OficialActuante", new global::System.Data.DataColumn[] {
-                        this.tablePolicias.idPoliciaColumn}, new global::System.Data.DataColumn[] {
-                        this.tableActasDecomiso.oficialActuanteColumn}, false);
-            this.Relations.Add(this.relationFK_OficialActuante);
-            this.relationFK_PersonaDecomisado = new global::System.Data.DataRelation("FK_PersonaDecomisado", new global::System.Data.DataColumn[] {
+                        this.tableActasDeObservacionPolicial.distritoColumn}, false);
+            this.Relations.Add(this.relationFK_DistritoObservacionPolicial);
+            this.relationFK_EstadoObservacionPolicial = new global::System.Data.DataRelation("FK_EstadoObservacionPolicial", new global::System.Data.DataColumn[] {
+                        this.tableTablaGeneral.idTablaGeneralColumn}, new global::System.Data.DataColumn[] {
+                        this.tableActasDeObservacionPolicial.estadoColumn}, false);
+            this.Relations.Add(this.relationFK_EstadoObservacionPolicial);
+            this.relationFK_InteresadoObservacionPolicial = new global::System.Data.DataRelation("FK_InteresadoObservacionPolicial", new global::System.Data.DataColumn[] {
                         this.tablePersonas.idPersonaColumn}, new global::System.Data.DataColumn[] {
-                        this.tableActasDecomiso.idDecomisadoColumn}, false);
-            this.Relations.Add(this.relationFK_PersonaDecomisado);
-            this.relationFK_SupervisorDecomiso = new global::System.Data.DataRelation("FK_SupervisorDecomiso", new global::System.Data.DataColumn[] {
-                        this.tablePolicias.idPoliciaColumn}, new global::System.Data.DataColumn[] {
-                        this.tableActasDecomiso.supervisorDecomisoColumn}, false);
-            this.Relations.Add(this.relationFK_SupervisorDecomiso);
+                        this.tableActasDeObservacionPolicial.idInteresadoColumn}, false);
+            this.Relations.Add(this.relationFK_InteresadoObservacionPolicial);
             this.relationFK_NacionalidadPersona = new global::System.Data.DataRelation("FK_NacionalidadPersona", new global::System.Data.DataColumn[] {
                         this.tableTablaGeneral.idTablaGeneralColumn}, new global::System.Data.DataColumn[] {
                         this.tablePersonas.nacionalidadColumn}, false);
@@ -358,7 +358,7 @@ namespace FrontEnd {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private bool ShouldSerializeActasDecomiso() {
+        private bool ShouldSerializeActasDeObservacionPolicial() {
             return false;
         }
         
@@ -391,7 +391,7 @@ namespace FrontEnd {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-            DecomisoDataSet ds = new DecomisoDataSet();
+            ObservacionDataSet ds = new ObservacionDataSet();
             global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
             global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
             global::System.Xml.Schema.XmlSchemaAny any = new global::System.Xml.Schema.XmlSchemaAny();
@@ -436,7 +436,7 @@ namespace FrontEnd {
         }
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public delegate void ActasDecomisoRowChangeEventHandler(object sender, ActasDecomisoRowChangeEvent e);
+        public delegate void ActasDeObservacionPolicialRowChangeEventHandler(object sender, ActasDeObservacionPolicialRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public delegate void PersonasRowChangeEventHandler(object sender, PersonasRowChangeEvent e);
@@ -452,9 +452,9 @@ namespace FrontEnd {
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class ActasDecomisoDataTable : global::System.Data.TypedTableBase<ActasDecomisoRow> {
+        public partial class ActasDeObservacionPolicialDataTable : global::System.Data.TypedTableBase<ActasDeObservacionPolicialRow> {
             
-            private global::System.Data.DataColumn columnidActaDecomiso;
+            private global::System.Data.DataColumn columnidActaDeObservacionPolicial;
             
             private global::System.Data.DataColumn columnnumeroFolio;
             
@@ -462,26 +462,24 @@ namespace FrontEnd {
             
             private global::System.Data.DataColumn columnoficialAcompanante;
             
-            private global::System.Data.DataColumn columnsupervisorDecomiso;
+            private global::System.Data.DataColumn columndistrito;
             
-            private global::System.Data.DataColumn columnfecha;
+            private global::System.Data.DataColumn columnfechaHora;
             
-            private global::System.Data.DataColumn columnidDecomisado;
+            private global::System.Data.DataColumn columnidInteresado;
             
-            private global::System.Data.DataColumn columnestadoCivilDecomisado;
-            
-            private global::System.Data.DataColumn columnlugarProcedimiento;
-            
-            private global::System.Data.DataColumn columninventario;
+            private global::System.Data.DataColumn columncondicion;
             
             private global::System.Data.DataColumn columnobservaciones;
+            
+            private global::System.Data.DataColumn columndireccion;
             
             private global::System.Data.DataColumn columnestado;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ActasDecomisoDataTable() {
-                this.TableName = "ActasDecomiso";
+            public ActasDeObservacionPolicialDataTable() {
+                this.TableName = "ActasDeObservacionPolicial";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -489,7 +487,7 @@ namespace FrontEnd {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal ActasDecomisoDataTable(global::System.Data.DataTable table) {
+            internal ActasDeObservacionPolicialDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -506,16 +504,16 @@ namespace FrontEnd {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected ActasDecomisoDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected ActasDeObservacionPolicialDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn idActaDecomisoColumn {
+            public global::System.Data.DataColumn idActaDeObservacionPolicialColumn {
                 get {
-                    return this.columnidActaDecomiso;
+                    return this.columnidActaDeObservacionPolicial;
                 }
             }
             
@@ -545,49 +543,33 @@ namespace FrontEnd {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn supervisorDecomisoColumn {
+            public global::System.Data.DataColumn distritoColumn {
                 get {
-                    return this.columnsupervisorDecomiso;
+                    return this.columndistrito;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn fechaColumn {
+            public global::System.Data.DataColumn fechaHoraColumn {
                 get {
-                    return this.columnfecha;
+                    return this.columnfechaHora;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn idDecomisadoColumn {
+            public global::System.Data.DataColumn idInteresadoColumn {
                 get {
-                    return this.columnidDecomisado;
+                    return this.columnidInteresado;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn estadoCivilDecomisadoColumn {
+            public global::System.Data.DataColumn condicionColumn {
                 get {
-                    return this.columnestadoCivilDecomisado;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn lugarProcedimientoColumn {
-                get {
-                    return this.columnlugarProcedimiento;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn inventarioColumn {
-                get {
-                    return this.columninventario;
+                    return this.columncondicion;
                 }
             }
             
@@ -596,6 +578,14 @@ namespace FrontEnd {
             public global::System.Data.DataColumn observacionesColumn {
                 get {
                     return this.columnobservaciones;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn direccionColumn {
+                get {
+                    return this.columndireccion;
                 }
             }
             
@@ -618,78 +608,77 @@ namespace FrontEnd {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ActasDecomisoRow this[int index] {
+            public ActasDeObservacionPolicialRow this[int index] {
                 get {
-                    return ((ActasDecomisoRow)(this.Rows[index]));
+                    return ((ActasDeObservacionPolicialRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event ActasDecomisoRowChangeEventHandler ActasDecomisoRowChanging;
+            public event ActasDeObservacionPolicialRowChangeEventHandler ActasDeObservacionPolicialRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event ActasDecomisoRowChangeEventHandler ActasDecomisoRowChanged;
+            public event ActasDeObservacionPolicialRowChangeEventHandler ActasDeObservacionPolicialRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event ActasDecomisoRowChangeEventHandler ActasDecomisoRowDeleting;
+            public event ActasDeObservacionPolicialRowChangeEventHandler ActasDeObservacionPolicialRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event ActasDecomisoRowChangeEventHandler ActasDecomisoRowDeleted;
+            public event ActasDeObservacionPolicialRowChangeEventHandler ActasDeObservacionPolicialRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void AddActasDecomisoRow(ActasDecomisoRow row) {
+            public void AddActasDeObservacionPolicialRow(ActasDeObservacionPolicialRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ActasDecomisoRow AddActasDecomisoRow(string numeroFolio, PoliciasRow parentPoliciasRowByFK_OficialActuante, PoliciasRow parentPoliciasRowByFK_OficialAcompanante, PoliciasRow parentPoliciasRowByFK_SupervisorDecomiso, System.DateTime fecha, PersonasRow parentPersonasRowByFK_PersonaDecomisado, int estadoCivilDecomisado, string lugarProcedimiento, string inventario, string observaciones, TablaGeneralRow parentTablaGeneralRowByFK_EstadoActaDecomiso) {
-                ActasDecomisoRow rowActasDecomisoRow = ((ActasDecomisoRow)(this.NewRow()));
+            public ActasDeObservacionPolicialRow AddActasDeObservacionPolicialRow(string numeroFolio, PoliciasRow parentPoliciasRowByFK_ActuantanteObservacionPolicial, PoliciasRow parentPoliciasRowByFK_AcompananteObservacionPolicial, TablaGeneralRow parentTablaGeneralRowByFK_DistritoObservacionPolicial, System.DateTime fechaHora, PersonasRow parentPersonasRowByFK_InteresadoObservacionPolicial, string condicion, string observaciones, string direccion, TablaGeneralRow parentTablaGeneralRowByFK_EstadoObservacionPolicial) {
+                ActasDeObservacionPolicialRow rowActasDeObservacionPolicialRow = ((ActasDeObservacionPolicialRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         numeroFolio,
                         null,
                         null,
                         null,
-                        fecha,
+                        fechaHora,
                         null,
-                        estadoCivilDecomisado,
-                        lugarProcedimiento,
-                        inventario,
+                        condicion,
                         observaciones,
+                        direccion,
                         null};
-                if ((parentPoliciasRowByFK_OficialActuante != null)) {
-                    columnValuesArray[2] = parentPoliciasRowByFK_OficialActuante[0];
+                if ((parentPoliciasRowByFK_ActuantanteObservacionPolicial != null)) {
+                    columnValuesArray[2] = parentPoliciasRowByFK_ActuantanteObservacionPolicial[0];
                 }
-                if ((parentPoliciasRowByFK_OficialAcompanante != null)) {
-                    columnValuesArray[3] = parentPoliciasRowByFK_OficialAcompanante[0];
+                if ((parentPoliciasRowByFK_AcompananteObservacionPolicial != null)) {
+                    columnValuesArray[3] = parentPoliciasRowByFK_AcompananteObservacionPolicial[0];
                 }
-                if ((parentPoliciasRowByFK_SupervisorDecomiso != null)) {
-                    columnValuesArray[4] = parentPoliciasRowByFK_SupervisorDecomiso[0];
+                if ((parentTablaGeneralRowByFK_DistritoObservacionPolicial != null)) {
+                    columnValuesArray[4] = parentTablaGeneralRowByFK_DistritoObservacionPolicial[0];
                 }
-                if ((parentPersonasRowByFK_PersonaDecomisado != null)) {
-                    columnValuesArray[6] = parentPersonasRowByFK_PersonaDecomisado[0];
+                if ((parentPersonasRowByFK_InteresadoObservacionPolicial != null)) {
+                    columnValuesArray[6] = parentPersonasRowByFK_InteresadoObservacionPolicial[0];
                 }
-                if ((parentTablaGeneralRowByFK_EstadoActaDecomiso != null)) {
-                    columnValuesArray[11] = parentTablaGeneralRowByFK_EstadoActaDecomiso[0];
+                if ((parentTablaGeneralRowByFK_EstadoObservacionPolicial != null)) {
+                    columnValuesArray[10] = parentTablaGeneralRowByFK_EstadoObservacionPolicial[0];
                 }
-                rowActasDecomisoRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowActasDecomisoRow);
-                return rowActasDecomisoRow;
+                rowActasDeObservacionPolicialRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowActasDeObservacionPolicialRow);
+                return rowActasDeObservacionPolicialRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ActasDecomisoRow FindByidActaDecomiso(int idActaDecomiso) {
-                return ((ActasDecomisoRow)(this.Rows.Find(new object[] {
-                            idActaDecomiso})));
+            public ActasDeObservacionPolicialRow FindByidActaDeObservacionPolicial(int idActaDeObservacionPolicial) {
+                return ((ActasDeObservacionPolicialRow)(this.Rows.Find(new object[] {
+                            idActaDeObservacionPolicial})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                ActasDecomisoDataTable cln = ((ActasDecomisoDataTable)(base.Clone()));
+                ActasDeObservacionPolicialDataTable cln = ((ActasDeObservacionPolicialDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -697,101 +686,97 @@ namespace FrontEnd {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new ActasDecomisoDataTable();
+                return new ActasDeObservacionPolicialDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             internal void InitVars() {
-                this.columnidActaDecomiso = base.Columns["idActaDecomiso"];
+                this.columnidActaDeObservacionPolicial = base.Columns["idActaDeObservacionPolicial"];
                 this.columnnumeroFolio = base.Columns["numeroFolio"];
                 this.columnoficialActuante = base.Columns["oficialActuante"];
                 this.columnoficialAcompanante = base.Columns["oficialAcompanante"];
-                this.columnsupervisorDecomiso = base.Columns["supervisorDecomiso"];
-                this.columnfecha = base.Columns["fecha"];
-                this.columnidDecomisado = base.Columns["idDecomisado"];
-                this.columnestadoCivilDecomisado = base.Columns["estadoCivilDecomisado"];
-                this.columnlugarProcedimiento = base.Columns["lugarProcedimiento"];
-                this.columninventario = base.Columns["inventario"];
+                this.columndistrito = base.Columns["distrito"];
+                this.columnfechaHora = base.Columns["fechaHora"];
+                this.columnidInteresado = base.Columns["idInteresado"];
+                this.columncondicion = base.Columns["condicion"];
                 this.columnobservaciones = base.Columns["observaciones"];
+                this.columndireccion = base.Columns["direccion"];
                 this.columnestado = base.Columns["estado"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             private void InitClass() {
-                this.columnidActaDecomiso = new global::System.Data.DataColumn("idActaDecomiso", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnidActaDecomiso);
+                this.columnidActaDeObservacionPolicial = new global::System.Data.DataColumn("idActaDeObservacionPolicial", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnidActaDeObservacionPolicial);
                 this.columnnumeroFolio = new global::System.Data.DataColumn("numeroFolio", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnnumeroFolio);
                 this.columnoficialActuante = new global::System.Data.DataColumn("oficialActuante", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnoficialActuante);
                 this.columnoficialAcompanante = new global::System.Data.DataColumn("oficialAcompanante", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnoficialAcompanante);
-                this.columnsupervisorDecomiso = new global::System.Data.DataColumn("supervisorDecomiso", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnsupervisorDecomiso);
-                this.columnfecha = new global::System.Data.DataColumn("fecha", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnfecha);
-                this.columnidDecomisado = new global::System.Data.DataColumn("idDecomisado", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnidDecomisado);
-                this.columnestadoCivilDecomisado = new global::System.Data.DataColumn("estadoCivilDecomisado", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnestadoCivilDecomisado);
-                this.columnlugarProcedimiento = new global::System.Data.DataColumn("lugarProcedimiento", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnlugarProcedimiento);
-                this.columninventario = new global::System.Data.DataColumn("inventario", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columninventario);
+                this.columndistrito = new global::System.Data.DataColumn("distrito", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columndistrito);
+                this.columnfechaHora = new global::System.Data.DataColumn("fechaHora", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnfechaHora);
+                this.columnidInteresado = new global::System.Data.DataColumn("idInteresado", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnidInteresado);
+                this.columncondicion = new global::System.Data.DataColumn("condicion", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncondicion);
                 this.columnobservaciones = new global::System.Data.DataColumn("observaciones", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnobservaciones);
+                this.columndireccion = new global::System.Data.DataColumn("direccion", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columndireccion);
                 this.columnestado = new global::System.Data.DataColumn("estado", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnestado);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
-                                this.columnidActaDecomiso}, true));
-                this.columnidActaDecomiso.AutoIncrement = true;
-                this.columnidActaDecomiso.AutoIncrementSeed = -1;
-                this.columnidActaDecomiso.AutoIncrementStep = -1;
-                this.columnidActaDecomiso.AllowDBNull = false;
-                this.columnidActaDecomiso.ReadOnly = true;
-                this.columnidActaDecomiso.Unique = true;
+                                this.columnidActaDeObservacionPolicial}, true));
+                this.columnidActaDeObservacionPolicial.AutoIncrement = true;
+                this.columnidActaDeObservacionPolicial.AutoIncrementSeed = -1;
+                this.columnidActaDeObservacionPolicial.AutoIncrementStep = -1;
+                this.columnidActaDeObservacionPolicial.AllowDBNull = false;
+                this.columnidActaDeObservacionPolicial.ReadOnly = true;
+                this.columnidActaDeObservacionPolicial.Unique = true;
                 this.columnnumeroFolio.AllowDBNull = false;
                 this.columnnumeroFolio.MaxLength = 30;
                 this.columnoficialActuante.AllowDBNull = false;
                 this.columnoficialAcompanante.AllowDBNull = false;
-                this.columnsupervisorDecomiso.AllowDBNull = false;
-                this.columnfecha.AllowDBNull = false;
-                this.columnidDecomisado.AllowDBNull = false;
-                this.columnestadoCivilDecomisado.AllowDBNull = false;
-                this.columnlugarProcedimiento.AllowDBNull = false;
-                this.columnlugarProcedimiento.MaxLength = 250;
-                this.columninventario.AllowDBNull = false;
-                this.columninventario.MaxLength = 2147483647;
+                this.columndistrito.AllowDBNull = false;
+                this.columnfechaHora.AllowDBNull = false;
+                this.columnidInteresado.AllowDBNull = false;
+                this.columncondicion.AllowDBNull = false;
+                this.columncondicion.MaxLength = 2147483647;
                 this.columnobservaciones.MaxLength = 2147483647;
+                this.columndireccion.AllowDBNull = false;
+                this.columndireccion.MaxLength = 250;
                 this.columnestado.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ActasDecomisoRow NewActasDecomisoRow() {
-                return ((ActasDecomisoRow)(this.NewRow()));
+            public ActasDeObservacionPolicialRow NewActasDeObservacionPolicialRow() {
+                return ((ActasDeObservacionPolicialRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new ActasDecomisoRow(builder);
+                return new ActasDeObservacionPolicialRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(ActasDecomisoRow);
+                return typeof(ActasDeObservacionPolicialRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.ActasDecomisoRowChanged != null)) {
-                    this.ActasDecomisoRowChanged(this, new ActasDecomisoRowChangeEvent(((ActasDecomisoRow)(e.Row)), e.Action));
+                if ((this.ActasDeObservacionPolicialRowChanged != null)) {
+                    this.ActasDeObservacionPolicialRowChanged(this, new ActasDeObservacionPolicialRowChangeEvent(((ActasDeObservacionPolicialRow)(e.Row)), e.Action));
                 }
             }
             
@@ -799,8 +784,8 @@ namespace FrontEnd {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.ActasDecomisoRowChanging != null)) {
-                    this.ActasDecomisoRowChanging(this, new ActasDecomisoRowChangeEvent(((ActasDecomisoRow)(e.Row)), e.Action));
+                if ((this.ActasDeObservacionPolicialRowChanging != null)) {
+                    this.ActasDeObservacionPolicialRowChanging(this, new ActasDeObservacionPolicialRowChangeEvent(((ActasDeObservacionPolicialRow)(e.Row)), e.Action));
                 }
             }
             
@@ -808,8 +793,8 @@ namespace FrontEnd {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.ActasDecomisoRowDeleted != null)) {
-                    this.ActasDecomisoRowDeleted(this, new ActasDecomisoRowChangeEvent(((ActasDecomisoRow)(e.Row)), e.Action));
+                if ((this.ActasDeObservacionPolicialRowDeleted != null)) {
+                    this.ActasDeObservacionPolicialRowDeleted(this, new ActasDeObservacionPolicialRowChangeEvent(((ActasDeObservacionPolicialRow)(e.Row)), e.Action));
                 }
             }
             
@@ -817,14 +802,14 @@ namespace FrontEnd {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.ActasDecomisoRowDeleting != null)) {
-                    this.ActasDecomisoRowDeleting(this, new ActasDecomisoRowChangeEvent(((ActasDecomisoRow)(e.Row)), e.Action));
+                if ((this.ActasDeObservacionPolicialRowDeleting != null)) {
+                    this.ActasDeObservacionPolicialRowDeleting(this, new ActasDeObservacionPolicialRowChangeEvent(((ActasDeObservacionPolicialRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void RemoveActasDecomisoRow(ActasDecomisoRow row) {
+            public void RemoveActasDeObservacionPolicialRow(ActasDeObservacionPolicialRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -833,7 +818,7 @@ namespace FrontEnd {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                DecomisoDataSet ds = new DecomisoDataSet();
+                ObservacionDataSet ds = new ObservacionDataSet();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -851,7 +836,7 @@ namespace FrontEnd {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "ActasDecomisoDataTable";
+                attribute2.FixedValue = "ActasDeObservacionPolicialDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -1301,7 +1286,7 @@ namespace FrontEnd {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                DecomisoDataSet ds = new DecomisoDataSet();
+                ObservacionDataSet ds = new ObservacionDataSet();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -1741,7 +1726,7 @@ namespace FrontEnd {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                DecomisoDataSet ds = new DecomisoDataSet();
+                ObservacionDataSet ds = new ObservacionDataSet();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -2063,7 +2048,7 @@ namespace FrontEnd {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                DecomisoDataSet ds = new DecomisoDataSet();
+                ObservacionDataSet ds = new ObservacionDataSet();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -2125,25 +2110,25 @@ namespace FrontEnd {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class ActasDecomisoRow : global::System.Data.DataRow {
+        public partial class ActasDeObservacionPolicialRow : global::System.Data.DataRow {
             
-            private ActasDecomisoDataTable tableActasDecomiso;
+            private ActasDeObservacionPolicialDataTable tableActasDeObservacionPolicial;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal ActasDecomisoRow(global::System.Data.DataRowBuilder rb) : 
+            internal ActasDeObservacionPolicialRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableActasDecomiso = ((ActasDecomisoDataTable)(this.Table));
+                this.tableActasDeObservacionPolicial = ((ActasDeObservacionPolicialDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int idActaDecomiso {
+            public int idActaDeObservacionPolicial {
                 get {
-                    return ((int)(this[this.tableActasDecomiso.idActaDecomisoColumn]));
+                    return ((int)(this[this.tableActasDeObservacionPolicial.idActaDeObservacionPolicialColumn]));
                 }
                 set {
-                    this[this.tableActasDecomiso.idActaDecomisoColumn] = value;
+                    this[this.tableActasDeObservacionPolicial.idActaDeObservacionPolicialColumn] = value;
                 }
             }
             
@@ -2151,10 +2136,10 @@ namespace FrontEnd {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public string numeroFolio {
                 get {
-                    return ((string)(this[this.tableActasDecomiso.numeroFolioColumn]));
+                    return ((string)(this[this.tableActasDeObservacionPolicial.numeroFolioColumn]));
                 }
                 set {
-                    this[this.tableActasDecomiso.numeroFolioColumn] = value;
+                    this[this.tableActasDeObservacionPolicial.numeroFolioColumn] = value;
                 }
             }
             
@@ -2162,10 +2147,10 @@ namespace FrontEnd {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public int oficialActuante {
                 get {
-                    return ((int)(this[this.tableActasDecomiso.oficialActuanteColumn]));
+                    return ((int)(this[this.tableActasDeObservacionPolicial.oficialActuanteColumn]));
                 }
                 set {
-                    this[this.tableActasDecomiso.oficialActuanteColumn] = value;
+                    this[this.tableActasDeObservacionPolicial.oficialActuanteColumn] = value;
                 }
             }
             
@@ -2173,76 +2158,54 @@ namespace FrontEnd {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public int oficialAcompanante {
                 get {
-                    return ((int)(this[this.tableActasDecomiso.oficialAcompananteColumn]));
+                    return ((int)(this[this.tableActasDeObservacionPolicial.oficialAcompananteColumn]));
                 }
                 set {
-                    this[this.tableActasDecomiso.oficialAcompananteColumn] = value;
+                    this[this.tableActasDeObservacionPolicial.oficialAcompananteColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int supervisorDecomiso {
+            public int distrito {
                 get {
-                    return ((int)(this[this.tableActasDecomiso.supervisorDecomisoColumn]));
+                    return ((int)(this[this.tableActasDeObservacionPolicial.distritoColumn]));
                 }
                 set {
-                    this[this.tableActasDecomiso.supervisorDecomisoColumn] = value;
+                    this[this.tableActasDeObservacionPolicial.distritoColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public System.DateTime fecha {
+            public System.DateTime fechaHora {
                 get {
-                    return ((global::System.DateTime)(this[this.tableActasDecomiso.fechaColumn]));
+                    return ((global::System.DateTime)(this[this.tableActasDeObservacionPolicial.fechaHoraColumn]));
                 }
                 set {
-                    this[this.tableActasDecomiso.fechaColumn] = value;
+                    this[this.tableActasDeObservacionPolicial.fechaHoraColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int idDecomisado {
+            public int idInteresado {
                 get {
-                    return ((int)(this[this.tableActasDecomiso.idDecomisadoColumn]));
+                    return ((int)(this[this.tableActasDeObservacionPolicial.idInteresadoColumn]));
                 }
                 set {
-                    this[this.tableActasDecomiso.idDecomisadoColumn] = value;
+                    this[this.tableActasDeObservacionPolicial.idInteresadoColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int estadoCivilDecomisado {
+            public string condicion {
                 get {
-                    return ((int)(this[this.tableActasDecomiso.estadoCivilDecomisadoColumn]));
+                    return ((string)(this[this.tableActasDeObservacionPolicial.condicionColumn]));
                 }
                 set {
-                    this[this.tableActasDecomiso.estadoCivilDecomisadoColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string lugarProcedimiento {
-                get {
-                    return ((string)(this[this.tableActasDecomiso.lugarProcedimientoColumn]));
-                }
-                set {
-                    this[this.tableActasDecomiso.lugarProcedimientoColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string inventario {
-                get {
-                    return ((string)(this[this.tableActasDecomiso.inventarioColumn]));
-                }
-                set {
-                    this[this.tableActasDecomiso.inventarioColumn] = value;
+                    this[this.tableActasDeObservacionPolicial.condicionColumn] = value;
                 }
             }
             
@@ -2251,14 +2214,26 @@ namespace FrontEnd {
             public string observaciones {
                 get {
                     try {
-                        return ((string)(this[this.tableActasDecomiso.observacionesColumn]));
+                        return ((string)(this[this.tableActasDeObservacionPolicial.observacionesColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'observaciones\' in table \'ActasDecomiso\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'observaciones\' in table \'ActasDeObservacionPolicial\' is DBN" +
+                                "ull.", e);
                     }
                 }
                 set {
-                    this[this.tableActasDecomiso.observacionesColumn] = value;
+                    this[this.tableActasDeObservacionPolicial.observacionesColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string direccion {
+                get {
+                    return ((string)(this[this.tableActasDeObservacionPolicial.direccionColumn]));
+                }
+                set {
+                    this[this.tableActasDeObservacionPolicial.direccionColumn] = value;
                 }
             }
             
@@ -2266,43 +2241,54 @@ namespace FrontEnd {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public int estado {
                 get {
-                    return ((int)(this[this.tableActasDecomiso.estadoColumn]));
+                    return ((int)(this[this.tableActasDeObservacionPolicial.estadoColumn]));
                 }
                 set {
-                    this[this.tableActasDecomiso.estadoColumn] = value;
+                    this[this.tableActasDeObservacionPolicial.estadoColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public TablaGeneralRow TablaGeneralRow {
+            public PoliciasRow PoliciasRowByFK_AcompananteObservacionPolicial {
                 get {
-                    return ((TablaGeneralRow)(this.GetParentRow(this.Table.ParentRelations["FK_EstadoActaDecomiso"])));
+                    return ((PoliciasRow)(this.GetParentRow(this.Table.ParentRelations["FK_AcompananteObservacionPolicial"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_EstadoActaDecomiso"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_AcompananteObservacionPolicial"]);
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public PoliciasRow PoliciasRowByFK_OficialAcompanante {
+            public PoliciasRow PoliciasRowByFK_ActuantanteObservacionPolicial {
                 get {
-                    return ((PoliciasRow)(this.GetParentRow(this.Table.ParentRelations["FK_OficialAcompanante"])));
+                    return ((PoliciasRow)(this.GetParentRow(this.Table.ParentRelations["FK_ActuantanteObservacionPolicial"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_OficialAcompanante"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_ActuantanteObservacionPolicial"]);
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public PoliciasRow PoliciasRowByFK_OficialActuante {
+            public TablaGeneralRow TablaGeneralRowByFK_DistritoObservacionPolicial {
                 get {
-                    return ((PoliciasRow)(this.GetParentRow(this.Table.ParentRelations["FK_OficialActuante"])));
+                    return ((TablaGeneralRow)(this.GetParentRow(this.Table.ParentRelations["FK_DistritoObservacionPolicial"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_OficialActuante"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_DistritoObservacionPolicial"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public TablaGeneralRow TablaGeneralRowByFK_EstadoObservacionPolicial {
+                get {
+                    return ((TablaGeneralRow)(this.GetParentRow(this.Table.ParentRelations["FK_EstadoObservacionPolicial"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_EstadoObservacionPolicial"]);
                 }
             }
             
@@ -2310,34 +2296,23 @@ namespace FrontEnd {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public PersonasRow PersonasRow {
                 get {
-                    return ((PersonasRow)(this.GetParentRow(this.Table.ParentRelations["FK_PersonaDecomisado"])));
+                    return ((PersonasRow)(this.GetParentRow(this.Table.ParentRelations["FK_InteresadoObservacionPolicial"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_PersonaDecomisado"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public PoliciasRow PoliciasRowByFK_SupervisorDecomiso {
-                get {
-                    return ((PoliciasRow)(this.GetParentRow(this.Table.ParentRelations["FK_SupervisorDecomiso"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_SupervisorDecomiso"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_InteresadoObservacionPolicial"]);
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsobservacionesNull() {
-                return this.IsNull(this.tableActasDecomiso.observacionesColumn);
+                return this.IsNull(this.tableActasDeObservacionPolicial.observacionesColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetobservacionesNull() {
-                this[this.tableActasDecomiso.observacionesColumn] = global::System.Convert.DBNull;
+                this[this.tableActasDeObservacionPolicial.observacionesColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -2663,12 +2638,12 @@ namespace FrontEnd {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ActasDecomisoRow[] GetActasDecomisoRows() {
-                if ((this.Table.ChildRelations["FK_PersonaDecomisado"] == null)) {
-                    return new ActasDecomisoRow[0];
+            public ActasDeObservacionPolicialRow[] GetActasDeObservacionPolicialRows() {
+                if ((this.Table.ChildRelations["FK_InteresadoObservacionPolicial"] == null)) {
+                    return new ActasDeObservacionPolicialRow[0];
                 }
                 else {
-                    return ((ActasDecomisoRow[])(base.GetChildRows(this.Table.ChildRelations["FK_PersonaDecomisado"])));
+                    return ((ActasDeObservacionPolicialRow[])(base.GetChildRows(this.Table.ChildRelations["FK_InteresadoObservacionPolicial"])));
                 }
             }
         }
@@ -2860,34 +2835,23 @@ namespace FrontEnd {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ActasDecomisoRow[] GetActasDecomisoRowsByFK_OficialAcompanante() {
-                if ((this.Table.ChildRelations["FK_OficialAcompanante"] == null)) {
-                    return new ActasDecomisoRow[0];
+            public ActasDeObservacionPolicialRow[] GetActasDeObservacionPolicialRowsByFK_AcompananteObservacionPolicial() {
+                if ((this.Table.ChildRelations["FK_AcompananteObservacionPolicial"] == null)) {
+                    return new ActasDeObservacionPolicialRow[0];
                 }
                 else {
-                    return ((ActasDecomisoRow[])(base.GetChildRows(this.Table.ChildRelations["FK_OficialAcompanante"])));
+                    return ((ActasDeObservacionPolicialRow[])(base.GetChildRows(this.Table.ChildRelations["FK_AcompananteObservacionPolicial"])));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ActasDecomisoRow[] GetActasDecomisoRowsByFK_OficialActuante() {
-                if ((this.Table.ChildRelations["FK_OficialActuante"] == null)) {
-                    return new ActasDecomisoRow[0];
+            public ActasDeObservacionPolicialRow[] GetActasDeObservacionPolicialRowsByFK_ActuantanteObservacionPolicial() {
+                if ((this.Table.ChildRelations["FK_ActuantanteObservacionPolicial"] == null)) {
+                    return new ActasDeObservacionPolicialRow[0];
                 }
                 else {
-                    return ((ActasDecomisoRow[])(base.GetChildRows(this.Table.ChildRelations["FK_OficialActuante"])));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ActasDecomisoRow[] GetActasDecomisoRowsByFK_SupervisorDecomiso() {
-                if ((this.Table.ChildRelations["FK_SupervisorDecomiso"] == null)) {
-                    return new ActasDecomisoRow[0];
-                }
-                else {
-                    return ((ActasDecomisoRow[])(base.GetChildRows(this.Table.ChildRelations["FK_SupervisorDecomiso"])));
+                    return ((ActasDeObservacionPolicialRow[])(base.GetChildRows(this.Table.ChildRelations["FK_ActuantanteObservacionPolicial"])));
                 }
             }
         }
@@ -3031,12 +2995,23 @@ namespace FrontEnd {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ActasDecomisoRow[] GetActasDecomisoRows() {
-                if ((this.Table.ChildRelations["FK_EstadoActaDecomiso"] == null)) {
-                    return new ActasDecomisoRow[0];
+            public ActasDeObservacionPolicialRow[] GetActasDeObservacionPolicialRowsByFK_DistritoObservacionPolicial() {
+                if ((this.Table.ChildRelations["FK_DistritoObservacionPolicial"] == null)) {
+                    return new ActasDeObservacionPolicialRow[0];
                 }
                 else {
-                    return ((ActasDecomisoRow[])(base.GetChildRows(this.Table.ChildRelations["FK_EstadoActaDecomiso"])));
+                    return ((ActasDeObservacionPolicialRow[])(base.GetChildRows(this.Table.ChildRelations["FK_DistritoObservacionPolicial"])));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public ActasDeObservacionPolicialRow[] GetActasDeObservacionPolicialRowsByFK_EstadoObservacionPolicial() {
+                if ((this.Table.ChildRelations["FK_EstadoObservacionPolicial"] == null)) {
+                    return new ActasDeObservacionPolicialRow[0];
+                }
+                else {
+                    return ((ActasDeObservacionPolicialRow[])(base.GetChildRows(this.Table.ChildRelations["FK_EstadoObservacionPolicial"])));
                 }
             }
             
@@ -3100,22 +3075,22 @@ namespace FrontEnd {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public class ActasDecomisoRowChangeEvent : global::System.EventArgs {
+        public class ActasDeObservacionPolicialRowChangeEvent : global::System.EventArgs {
             
-            private ActasDecomisoRow eventRow;
+            private ActasDeObservacionPolicialRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ActasDecomisoRowChangeEvent(ActasDecomisoRow row, global::System.Data.DataRowAction action) {
+            public ActasDeObservacionPolicialRowChangeEvent(ActasDeObservacionPolicialRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ActasDecomisoRow Row {
+            public ActasDeObservacionPolicialRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -3233,7 +3208,7 @@ namespace FrontEnd {
         }
     }
 }
-namespace FrontEnd.DecomisoDataSetTableAdapters {
+namespace FrontEnd.DataSet.ObservacionDataSetTableAdapters {
     
     
     /// <summary>
@@ -3245,7 +3220,7 @@ namespace FrontEnd.DecomisoDataSetTableAdapters {
     [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
         ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class ActasDecomisoTableAdapter : global::System.ComponentModel.Component {
+    public partial class ActasDeObservacionPolicialTableAdapter : global::System.ComponentModel.Component {
         
         private global::System.Data.SqlClient.SqlDataAdapter _adapter;
         
@@ -3259,7 +3234,7 @@ namespace FrontEnd.DecomisoDataSetTableAdapters {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public ActasDecomisoTableAdapter() {
+        public ActasDeObservacionPolicialTableAdapter() {
             this.ClearBeforeFill = true;
         }
         
@@ -3356,57 +3331,54 @@ namespace FrontEnd.DecomisoDataSetTableAdapters {
             this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "ActasDecomiso";
-            tableMapping.ColumnMappings.Add("idActaDecomiso", "idActaDecomiso");
+            tableMapping.DataSetTable = "ActasDeObservacionPolicial";
+            tableMapping.ColumnMappings.Add("idActaDeObservacionPolicial", "idActaDeObservacionPolicial");
             tableMapping.ColumnMappings.Add("numeroFolio", "numeroFolio");
             tableMapping.ColumnMappings.Add("oficialActuante", "oficialActuante");
             tableMapping.ColumnMappings.Add("oficialAcompanante", "oficialAcompanante");
-            tableMapping.ColumnMappings.Add("supervisorDecomiso", "supervisorDecomiso");
-            tableMapping.ColumnMappings.Add("fecha", "fecha");
-            tableMapping.ColumnMappings.Add("idDecomisado", "idDecomisado");
-            tableMapping.ColumnMappings.Add("estadoCivilDecomisado", "estadoCivilDecomisado");
-            tableMapping.ColumnMappings.Add("lugarProcedimiento", "lugarProcedimiento");
-            tableMapping.ColumnMappings.Add("inventario", "inventario");
+            tableMapping.ColumnMappings.Add("distrito", "distrito");
+            tableMapping.ColumnMappings.Add("fechaHora", "fechaHora");
+            tableMapping.ColumnMappings.Add("idInteresado", "idInteresado");
+            tableMapping.ColumnMappings.Add("condicion", "condicion");
             tableMapping.ColumnMappings.Add("observaciones", "observaciones");
+            tableMapping.ColumnMappings.Add("direccion", "direccion");
             tableMapping.ColumnMappings.Add("estado", "estado");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[ActasDecomiso] WHERE (([idActaDecomiso] = @Original_idActaDeco" +
-                "miso))";
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[ActasDeObservacionPolicial] WHERE (([idActaDeObservacionPolici" +
+                "al] = @Original_idActaDeObservacionPolicial))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_idActaDecomiso", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "idActaDecomiso", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_idActaDeObservacionPolicial", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "idActaDeObservacionPolicial", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[ActasDecomiso] ([numeroFolio], [oficialActuante], [oficialAcompanante], [supervisorDecomiso], [fecha], [idDecomisado], [estadoCivilDecomisado], [lugarProcedimiento], [inventario], [observaciones], [estado]) VALUES (@numeroFolio, @oficialActuante, @oficialAcompanante, @supervisorDecomiso, @fecha, @idDecomisado, @estadoCivilDecomisado, @lugarProcedimiento, @inventario, @observaciones, @estado)";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[ActasDeObservacionPolicial] ([numeroFolio], [oficialActuante], [oficialAcompanante], [distrito], [fechaHora], [idInteresado], [condicion], [observaciones], [direccion], [estado]) VALUES (@numeroFolio, @oficialActuante, @oficialAcompanante, @distrito, @fechaHora, @idInteresado, @condicion, @observaciones, @direccion, @estado)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@numeroFolio", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "numeroFolio", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@oficialActuante", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "oficialActuante", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@oficialAcompanante", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "oficialAcompanante", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@supervisorDecomiso", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "supervisorDecomiso", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@fecha", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "fecha", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@idDecomisado", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "idDecomisado", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@estadoCivilDecomisado", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "estadoCivilDecomisado", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@lugarProcedimiento", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "lugarProcedimiento", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@inventario", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "inventario", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@distrito", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "distrito", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@fechaHora", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "fechaHora", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@idInteresado", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "idInteresado", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@condicion", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "condicion", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@observaciones", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "observaciones", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@direccion", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "direccion", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@estado", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "estado", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[ActasDecomiso] SET [numeroFolio] = @numeroFolio, [oficialActuante] = @oficialActuante, [oficialAcompanante] = @oficialAcompanante, [supervisorDecomiso] = @supervisorDecomiso, [fecha] = @fecha, [idDecomisado] = @idDecomisado, [estadoCivilDecomisado] = @estadoCivilDecomisado, [lugarProcedimiento] = @lugarProcedimiento, [inventario] = @inventario, [observaciones] = @observaciones, [estado] = @estado WHERE (([idActaDecomiso] = @Original_idActaDecomiso))";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[ActasDeObservacionPolicial] SET [numeroFolio] = @numeroFolio, [oficialActuante] = @oficialActuante, [oficialAcompanante] = @oficialAcompanante, [distrito] = @distrito, [fechaHora] = @fechaHora, [idInteresado] = @idInteresado, [condicion] = @condicion, [observaciones] = @observaciones, [direccion] = @direccion, [estado] = @estado WHERE (([idActaDeObservacionPolicial] = @Original_idActaDeObservacionPolicial))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@numeroFolio", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "numeroFolio", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@oficialActuante", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "oficialActuante", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@oficialAcompanante", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "oficialAcompanante", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@supervisorDecomiso", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "supervisorDecomiso", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@fecha", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "fecha", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@idDecomisado", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "idDecomisado", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@estadoCivilDecomisado", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "estadoCivilDecomisado", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@lugarProcedimiento", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "lugarProcedimiento", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@inventario", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "inventario", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@distrito", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "distrito", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@fechaHora", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "fechaHora", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@idInteresado", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "idInteresado", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@condicion", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "condicion", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@observaciones", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "observaciones", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@direccion", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "direccion", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@estado", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "estado", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_idActaDecomiso", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "idActaDecomiso", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_idActaDeObservacionPolicial", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "idActaDeObservacionPolicial", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3422,9 +3394,9 @@ namespace FrontEnd.DecomisoDataSetTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT idActaDecomiso, numeroFolio, oficialActuante, oficialAcompanante, supervis" +
-                "orDecomiso, fecha, idDecomisado, estadoCivilDecomisado, lugarProcedimiento, inve" +
-                "ntario, observaciones, estado FROM dbo.ActasDecomiso";
+            this._commandCollection[0].CommandText = "SELECT idActaDeObservacionPolicial, numeroFolio, oficialActuante, oficialAcompana" +
+                "nte, distrito, fechaHora, idInteresado, condicion, observaciones, direccion, est" +
+                "ado FROM dbo.ActasDeObservacionPolicial";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -3432,7 +3404,7 @@ namespace FrontEnd.DecomisoDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(DecomisoDataSet.ActasDecomisoDataTable dataTable) {
+        public virtual int Fill(ObservacionDataSet.ActasDeObservacionPolicialDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -3445,9 +3417,9 @@ namespace FrontEnd.DecomisoDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual DecomisoDataSet.ActasDecomisoDataTable GetData() {
+        public virtual ObservacionDataSet.ActasDeObservacionPolicialDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            DecomisoDataSet.ActasDecomisoDataTable dataTable = new DecomisoDataSet.ActasDecomisoDataTable();
+            ObservacionDataSet.ActasDeObservacionPolicialDataTable dataTable = new ObservacionDataSet.ActasDeObservacionPolicialDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -3455,15 +3427,15 @@ namespace FrontEnd.DecomisoDataSetTableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(DecomisoDataSet.ActasDecomisoDataTable dataTable) {
+        public virtual int Update(ObservacionDataSet.ActasDeObservacionPolicialDataTable dataTable) {
             return this.Adapter.Update(dataTable);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(DecomisoDataSet dataSet) {
-            return this.Adapter.Update(dataSet, "ActasDecomiso");
+        public virtual int Update(ObservacionDataSet dataSet) {
+            return this.Adapter.Update(dataSet, "ActasDeObservacionPolicial");
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3485,8 +3457,8 @@ namespace FrontEnd.DecomisoDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_idActaDecomiso) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_idActaDecomiso));
+        public virtual int Delete(int Original_idActaDeObservacionPolicial) {
+            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_idActaDeObservacionPolicial));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -3507,7 +3479,7 @@ namespace FrontEnd.DecomisoDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string numeroFolio, int oficialActuante, int oficialAcompanante, int supervisorDecomiso, System.DateTime fecha, int idDecomisado, int estadoCivilDecomisado, string lugarProcedimiento, string inventario, string observaciones, int estado) {
+        public virtual int Insert(string numeroFolio, int oficialActuante, int oficialAcompanante, int distrito, System.DateTime fechaHora, int idInteresado, string condicion, string observaciones, string direccion, int estado) {
             if ((numeroFolio == null)) {
                 throw new global::System.ArgumentNullException("numeroFolio");
             }
@@ -3516,29 +3488,28 @@ namespace FrontEnd.DecomisoDataSetTableAdapters {
             }
             this.Adapter.InsertCommand.Parameters[1].Value = ((int)(oficialActuante));
             this.Adapter.InsertCommand.Parameters[2].Value = ((int)(oficialAcompanante));
-            this.Adapter.InsertCommand.Parameters[3].Value = ((int)(supervisorDecomiso));
-            this.Adapter.InsertCommand.Parameters[4].Value = ((System.DateTime)(fecha));
-            this.Adapter.InsertCommand.Parameters[5].Value = ((int)(idDecomisado));
-            this.Adapter.InsertCommand.Parameters[6].Value = ((int)(estadoCivilDecomisado));
-            if ((lugarProcedimiento == null)) {
-                throw new global::System.ArgumentNullException("lugarProcedimiento");
+            this.Adapter.InsertCommand.Parameters[3].Value = ((int)(distrito));
+            this.Adapter.InsertCommand.Parameters[4].Value = ((System.DateTime)(fechaHora));
+            this.Adapter.InsertCommand.Parameters[5].Value = ((int)(idInteresado));
+            if ((condicion == null)) {
+                throw new global::System.ArgumentNullException("condicion");
             }
             else {
-                this.Adapter.InsertCommand.Parameters[7].Value = ((string)(lugarProcedimiento));
-            }
-            if ((inventario == null)) {
-                throw new global::System.ArgumentNullException("inventario");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[8].Value = ((string)(inventario));
+                this.Adapter.InsertCommand.Parameters[6].Value = ((string)(condicion));
             }
             if ((observaciones == null)) {
-                this.Adapter.InsertCommand.Parameters[9].Value = global::System.DBNull.Value;
+                this.Adapter.InsertCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[9].Value = ((string)(observaciones));
+                this.Adapter.InsertCommand.Parameters[7].Value = ((string)(observaciones));
             }
-            this.Adapter.InsertCommand.Parameters[10].Value = ((int)(estado));
+            if ((direccion == null)) {
+                throw new global::System.ArgumentNullException("direccion");
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[8].Value = ((string)(direccion));
+            }
+            this.Adapter.InsertCommand.Parameters[9].Value = ((int)(estado));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -3559,7 +3530,7 @@ namespace FrontEnd.DecomisoDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string numeroFolio, int oficialActuante, int oficialAcompanante, int supervisorDecomiso, System.DateTime fecha, int idDecomisado, int estadoCivilDecomisado, string lugarProcedimiento, string inventario, string observaciones, int estado, int Original_idActaDecomiso) {
+        public virtual int Update(string numeroFolio, int oficialActuante, int oficialAcompanante, int distrito, System.DateTime fechaHora, int idInteresado, string condicion, string observaciones, string direccion, int estado, int Original_idActaDeObservacionPolicial) {
             if ((numeroFolio == null)) {
                 throw new global::System.ArgumentNullException("numeroFolio");
             }
@@ -3568,30 +3539,29 @@ namespace FrontEnd.DecomisoDataSetTableAdapters {
             }
             this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(oficialActuante));
             this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(oficialAcompanante));
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(supervisorDecomiso));
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((System.DateTime)(fecha));
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(idDecomisado));
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(estadoCivilDecomisado));
-            if ((lugarProcedimiento == null)) {
-                throw new global::System.ArgumentNullException("lugarProcedimiento");
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(distrito));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((System.DateTime)(fechaHora));
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(idInteresado));
+            if ((condicion == null)) {
+                throw new global::System.ArgumentNullException("condicion");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(lugarProcedimiento));
-            }
-            if ((inventario == null)) {
-                throw new global::System.ArgumentNullException("inventario");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(inventario));
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(condicion));
             }
             if ((observaciones == null)) {
-                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((string)(observaciones));
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(observaciones));
             }
-            this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(estado));
-            this.Adapter.UpdateCommand.Parameters[11].Value = ((int)(Original_idActaDecomiso));
+            if ((direccion == null)) {
+                throw new global::System.ArgumentNullException("direccion");
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(direccion));
+            }
+            this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(estado));
+            this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(Original_idActaDeObservacionPolicial));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -3811,7 +3781,7 @@ namespace FrontEnd.DecomisoDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(DecomisoDataSet.PersonasDataTable dataTable) {
+        public virtual int Fill(ObservacionDataSet.PersonasDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -3824,9 +3794,9 @@ namespace FrontEnd.DecomisoDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual DecomisoDataSet.PersonasDataTable GetData() {
+        public virtual ObservacionDataSet.PersonasDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            DecomisoDataSet.PersonasDataTable dataTable = new DecomisoDataSet.PersonasDataTable();
+            ObservacionDataSet.PersonasDataTable dataTable = new ObservacionDataSet.PersonasDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -3834,14 +3804,14 @@ namespace FrontEnd.DecomisoDataSetTableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(DecomisoDataSet.PersonasDataTable dataTable) {
+        public virtual int Update(ObservacionDataSet.PersonasDataTable dataTable) {
             return this.Adapter.Update(dataTable);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(DecomisoDataSet dataSet) {
+        public virtual int Update(ObservacionDataSet dataSet) {
             return this.Adapter.Update(dataSet, "Personas");
         }
         
@@ -4237,7 +4207,7 @@ namespace FrontEnd.DecomisoDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(DecomisoDataSet.PoliciasDataTable dataTable) {
+        public virtual int Fill(ObservacionDataSet.PoliciasDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -4250,9 +4220,9 @@ namespace FrontEnd.DecomisoDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual DecomisoDataSet.PoliciasDataTable GetData() {
+        public virtual ObservacionDataSet.PoliciasDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            DecomisoDataSet.PoliciasDataTable dataTable = new DecomisoDataSet.PoliciasDataTable();
+            ObservacionDataSet.PoliciasDataTable dataTable = new ObservacionDataSet.PoliciasDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -4260,14 +4230,14 @@ namespace FrontEnd.DecomisoDataSetTableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(DecomisoDataSet.PoliciasDataTable dataTable) {
+        public virtual int Update(ObservacionDataSet.PoliciasDataTable dataTable) {
             return this.Adapter.Update(dataTable);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(DecomisoDataSet dataSet) {
+        public virtual int Update(ObservacionDataSet dataSet) {
             return this.Adapter.Update(dataSet, "Policias");
         }
         
@@ -4630,7 +4600,7 @@ namespace FrontEnd.DecomisoDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(DecomisoDataSet.TablaGeneralDataTable dataTable) {
+        public virtual int Fill(ObservacionDataSet.TablaGeneralDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -4643,9 +4613,9 @@ namespace FrontEnd.DecomisoDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual DecomisoDataSet.TablaGeneralDataTable GetData() {
+        public virtual ObservacionDataSet.TablaGeneralDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            DecomisoDataSet.TablaGeneralDataTable dataTable = new DecomisoDataSet.TablaGeneralDataTable();
+            ObservacionDataSet.TablaGeneralDataTable dataTable = new ObservacionDataSet.TablaGeneralDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -4653,14 +4623,14 @@ namespace FrontEnd.DecomisoDataSetTableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(DecomisoDataSet.TablaGeneralDataTable dataTable) {
+        public virtual int Update(ObservacionDataSet.TablaGeneralDataTable dataTable) {
             return this.Adapter.Update(dataTable);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(DecomisoDataSet dataSet) {
+        public virtual int Update(ObservacionDataSet dataSet) {
             return this.Adapter.Update(dataSet, "TablaGeneral");
         }
         
@@ -4805,7 +4775,7 @@ namespace FrontEnd.DecomisoDataSetTableAdapters {
         
         private UpdateOrderOption _updateOrder;
         
-        private ActasDecomisoTableAdapter _actasDecomisoTableAdapter;
+        private ActasDeObservacionPolicialTableAdapter _actasDeObservacionPolicialTableAdapter;
         
         private PersonasTableAdapter _personasTableAdapter;
         
@@ -4833,12 +4803,12 @@ namespace FrontEnd.DecomisoDataSetTableAdapters {
         [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
             "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
             "a", "System.Drawing.Design.UITypeEditor")]
-        public ActasDecomisoTableAdapter ActasDecomisoTableAdapter {
+        public ActasDeObservacionPolicialTableAdapter ActasDeObservacionPolicialTableAdapter {
             get {
-                return this._actasDecomisoTableAdapter;
+                return this._actasDeObservacionPolicialTableAdapter;
             }
             set {
-                this._actasDecomisoTableAdapter = value;
+                this._actasDeObservacionPolicialTableAdapter = value;
             }
         }
         
@@ -4903,9 +4873,9 @@ namespace FrontEnd.DecomisoDataSetTableAdapters {
                 if ((this._connection != null)) {
                     return this._connection;
                 }
-                if (((this._actasDecomisoTableAdapter != null) 
-                            && (this._actasDecomisoTableAdapter.Connection != null))) {
-                    return this._actasDecomisoTableAdapter.Connection;
+                if (((this._actasDeObservacionPolicialTableAdapter != null) 
+                            && (this._actasDeObservacionPolicialTableAdapter.Connection != null))) {
+                    return this._actasDeObservacionPolicialTableAdapter.Connection;
                 }
                 if (((this._personasTableAdapter != null) 
                             && (this._personasTableAdapter.Connection != null))) {
@@ -4932,7 +4902,7 @@ namespace FrontEnd.DecomisoDataSetTableAdapters {
         public int TableAdapterInstanceCount {
             get {
                 int count = 0;
-                if ((this._actasDecomisoTableAdapter != null)) {
+                if ((this._actasDeObservacionPolicialTableAdapter != null)) {
                     count = (count + 1);
                 }
                 if ((this._personasTableAdapter != null)) {
@@ -4953,7 +4923,7 @@ namespace FrontEnd.DecomisoDataSetTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private int UpdateUpdatedRows(DecomisoDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateUpdatedRows(ObservacionDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             if ((this._tablaGeneralTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.TablaGeneral.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
@@ -4982,12 +4952,12 @@ namespace FrontEnd.DecomisoDataSetTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._actasDecomisoTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.ActasDecomiso.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._actasDeObservacionPolicialTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.ActasDeObservacionPolicial.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._actasDecomisoTableAdapter.Update(updatedRows));
+                    result = (result + this._actasDeObservacionPolicialTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -4999,7 +4969,7 @@ namespace FrontEnd.DecomisoDataSetTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private int UpdateInsertedRows(DecomisoDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateInsertedRows(ObservacionDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             if ((this._tablaGeneralTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.TablaGeneral.Select(null, null, global::System.Data.DataViewRowState.Added);
@@ -5025,11 +4995,11 @@ namespace FrontEnd.DecomisoDataSetTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._actasDecomisoTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.ActasDecomiso.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._actasDeObservacionPolicialTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.ActasDeObservacionPolicial.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._actasDecomisoTableAdapter.Update(addedRows));
+                    result = (result + this._actasDeObservacionPolicialTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -5041,13 +5011,13 @@ namespace FrontEnd.DecomisoDataSetTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private int UpdateDeletedRows(DecomisoDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
+        private int UpdateDeletedRows(ObservacionDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
-            if ((this._actasDecomisoTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.ActasDecomiso.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._actasDeObservacionPolicialTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.ActasDeObservacionPolicial.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._actasDecomisoTableAdapter.Update(deletedRows));
+                    result = (result + this._actasDeObservacionPolicialTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -5107,15 +5077,15 @@ namespace FrontEnd.DecomisoDataSetTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public virtual int UpdateAll(DecomisoDataSet dataSet) {
+        public virtual int UpdateAll(ObservacionDataSet dataSet) {
             if ((dataSet == null)) {
                 throw new global::System.ArgumentNullException("dataSet");
             }
             if ((dataSet.HasChanges() == false)) {
                 return 0;
             }
-            if (((this._actasDecomisoTableAdapter != null) 
-                        && (this.MatchTableAdapterConnection(this._actasDecomisoTableAdapter.Connection) == false))) {
+            if (((this._actasDeObservacionPolicialTableAdapter != null) 
+                        && (this.MatchTableAdapterConnection(this._actasDeObservacionPolicialTableAdapter.Connection) == false))) {
                 throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
                         "tring.");
             }
@@ -5166,13 +5136,13 @@ namespace FrontEnd.DecomisoDataSetTableAdapters {
             try {
                 // ---- Prepare for update -----------
                 //
-                if ((this._actasDecomisoTableAdapter != null)) {
-                    revertConnections.Add(this._actasDecomisoTableAdapter, this._actasDecomisoTableAdapter.Connection);
-                    this._actasDecomisoTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
-                    this._actasDecomisoTableAdapter.Transaction = ((global::System.Data.SqlClient.SqlTransaction)(workTransaction));
-                    if (this._actasDecomisoTableAdapter.Adapter.AcceptChangesDuringUpdate) {
-                        this._actasDecomisoTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
-                        adaptersWithAcceptChangesDuringUpdate.Add(this._actasDecomisoTableAdapter.Adapter);
+                if ((this._actasDeObservacionPolicialTableAdapter != null)) {
+                    revertConnections.Add(this._actasDeObservacionPolicialTableAdapter, this._actasDeObservacionPolicialTableAdapter.Connection);
+                    this._actasDeObservacionPolicialTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
+                    this._actasDeObservacionPolicialTableAdapter.Transaction = ((global::System.Data.SqlClient.SqlTransaction)(workTransaction));
+                    if (this._actasDeObservacionPolicialTableAdapter.Adapter.AcceptChangesDuringUpdate) {
+                        this._actasDeObservacionPolicialTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
+                        adaptersWithAcceptChangesDuringUpdate.Add(this._actasDeObservacionPolicialTableAdapter.Adapter);
                     }
                 }
                 if ((this._personasTableAdapter != null)) {
@@ -5260,9 +5230,9 @@ namespace FrontEnd.DecomisoDataSetTableAdapters {
                 if (workConnOpened) {
                     workConnection.Close();
                 }
-                if ((this._actasDecomisoTableAdapter != null)) {
-                    this._actasDecomisoTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._actasDecomisoTableAdapter]));
-                    this._actasDecomisoTableAdapter.Transaction = null;
+                if ((this._actasDeObservacionPolicialTableAdapter != null)) {
+                    this._actasDeObservacionPolicialTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._actasDeObservacionPolicialTableAdapter]));
+                    this._actasDeObservacionPolicialTableAdapter.Transaction = null;
                 }
                 if ((this._personasTableAdapter != null)) {
                     this._personasTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._personasTableAdapter]));

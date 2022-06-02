@@ -606,6 +606,7 @@ namespace FrontEnd.Controllers
 
             };
         }
+
         public void CreatePDF(int id)
         {
             //--------------------------Creacion de los DataSet--------------------------
@@ -676,8 +677,8 @@ namespace FrontEnd.Controllers
 
                 Personas personaDec = new Personas();
                 List<Personas> personasDec = new List<Personas>();
-                personaDec.nombre = "N/A";
-                personaDec.identificacion = "N/A";
+                personaDec.nombre = "No Aplica";
+                personaDec.identificacion = "No Aplica";
                 personasDec.Add(personaDec);
 
                 viewer.LocalReport.DataSources.Add(new ReportDataSource("PerDecomisadaDataSet", personasDec));
@@ -750,7 +751,7 @@ namespace FrontEnd.Controllers
                 {
                     TablaGeneral noAplica = new TablaGeneral();
                     List<TablaGeneral> noAplican = new List<TablaGeneral>();
-                    noAplica.descripcion = "N/A";
+                    noAplica.descripcion = "No Aplica";
                     noAplican.Add(noAplica);
 
                     viewer.LocalReport.DataSources.Add(new ReportDataSource("aplicaDataSet", noAplican));
@@ -774,6 +775,7 @@ namespace FrontEnd.Controllers
             {
                 Personas razonsocial = personaDAL.GetPersona((int)entrega.razonSocial);
                 List<Personas> razonessociales = new List<Personas>();
+                razonsocial.direccionPersona = "razón social " + razonsocial.nombre + " y cédula jurídica " + razonsocial.identificacion + ",";
                 razonessociales.Add(razonsocial);
 
                 viewer.LocalReport.DataSources.Add(new ReportDataSource("PerRSDataSet", razonessociales));
@@ -788,7 +790,7 @@ namespace FrontEnd.Controllers
             {
                 TablaGeneral noAplica = new TablaGeneral();
                 List<TablaGeneral> noAplican = new List<TablaGeneral>();
-                noAplica.descripcion = "N/A";
+                noAplica.descripcion = "No Aplica";
                 noAplican.Add(noAplica);
 
                 viewer.LocalReport.DataSources.Add(new ReportDataSource("aplicaRSDataSet", noAplican));

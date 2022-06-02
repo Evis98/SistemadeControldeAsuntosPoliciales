@@ -431,6 +431,7 @@ namespace FrontEnd.Controllers
 
             };
         }
+
         public void CreatePDF(int id)
         {
             //--------------------------Creacion de los DataSet--------------------------
@@ -446,6 +447,10 @@ namespace FrontEnd.Controllers
             //Decomisos
             ActasDecomiso decomiso = actaDecomisoDAL.GetActaDecomiso(id);
             List<ActasDecomiso> decomisos = new List<ActasDecomiso>();
+            if (decomiso.observaciones == null)
+            {
+                decomiso.observaciones = "No aplica";
+            }
             decomisos.Add(decomiso);
 
             //Policias
@@ -466,11 +471,11 @@ namespace FrontEnd.Controllers
             List<Personas> decomisados = new List<Personas>();
             if (decomisado.telefonoCelular == null)
             {
-                decomisado.telefonoCelular = "N/A";
+                decomisado.telefonoCelular = "No Aplica";
             }
             if (decomisado.direccionPersona == null)
             {
-                decomisado.direccionPersona = "N/A";
+                decomisado.direccionPersona = "No Aplica";
             }
             decomisados.Add(decomisado);
 
