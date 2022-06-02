@@ -36,13 +36,15 @@
                     </div>
                 </li>
             }
-            <li class="list-group-item">
-                <div class="row">
-                    <b class="col-sm-4">  @Html.Label("Archivo: ")</b>
-                    <text class="col-sm-8">@Model.NombrePolicia - @Model.Detalles .pdf</text>
-                </div>
-            </li>
-        </ul>
+            @if (Model.RutaArchivo != null)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <b class="col-sm-4">  @Html.Label("Archivo: ")</b>
+                        <text class="col-sm-8">@Model.NombrePolicia - @Model.Detalles .pdf</text>
+                    </div>
+                </li>
+            }</ul>
         <div class="card-footer">
             <div class="row">
                 <div class="col-sm-2">

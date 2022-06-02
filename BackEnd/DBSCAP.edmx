@@ -17,7 +17,7 @@
           <Property Name="fecha" Type="datetime" Nullable="false" />
           <Property Name="idDecomisado" Type="int" Nullable="false" />
           <Property Name="estadoCivilDecomisado" Type="int" Nullable="false" />
-          <Property Name="lugarProcedimiento" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="lugarProcedimiento" Type="varchar" MaxLength="300" Nullable="false" />
           <Property Name="inventario" Type="varchar(max)" Nullable="false" />
           <Property Name="observaciones" Type="varchar(max)" />
           <Property Name="estado" Type="int" Nullable="false" />
@@ -49,8 +49,8 @@
           <Property Name="testigo" Type="int" />
           <Property Name="distrito" Type="int" Nullable="false" />
           <Property Name="fechaHora" Type="datetime" Nullable="false" />
-          <Property Name="direccionExacta" Type="varchar" MaxLength="250" Nullable="false" />
-          <Property Name="barrio" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="direccionExacta" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="barrio" Type="varchar" MaxLength="300" Nullable="false" />
           <Property Name="disposiciones" Type="varchar(max)" />
           <Property Name="numeroFolio" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="estado" Type="int" Nullable="false" />
@@ -68,7 +68,7 @@
           <Property Name="idInteresado" Type="int" Nullable="false" />
           <Property Name="condicion" Type="varchar(max)" Nullable="false" />
           <Property Name="observaciones" Type="varchar(max)" />
-          <Property Name="direccion" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="direccion" Type="varchar" MaxLength="300" Nullable="false" />
           <Property Name="estado" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ActasEntrega">
@@ -102,7 +102,7 @@
           <Property Name="tipoInventario" Type="int" Nullable="false" />
           <Property Name="fechaHoraEntrega" Type="datetime" />
           <Property Name="idPorOrdenDe" Type="int" Nullable="false" />
-          <Property Name="numeroResolucion" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="numeroResolucion" Type="varchar" MaxLength="300" Nullable="false" />
           <Property Name="numeroInventario" Type="varchar(max)" />
           <Property Name="idPersonaQueSeLeEntrega" Type="int" />
           <Property Name="estado" Type="int" Nullable="false" />
@@ -121,9 +121,9 @@
           <Property Name="fechaHora" Type="datetime" />
           <Property Name="avenida" Type="varchar" MaxLength="60" Nullable="false" />
           <Property Name="calle" Type="varchar" MaxLength="60" Nullable="false" />
-          <Property Name="otrasSenas" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="otrasSenas" Type="varchar" MaxLength="300" Nullable="false" />
           <Property Name="inventario" Type="varchar(max)" Nullable="false" />
-          <Property Name="observaciones" Type="varchar" MaxLength="250" />
+          <Property Name="observaciones" Type="varchar" MaxLength="500" />
           <Property Name="estado" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ActasNotificacionVendedorAmbulante">
@@ -159,7 +159,7 @@
           <Property Name="calibre" Type="int" Nullable="false" />
           <Property Name="condicion" Type="int" Nullable="false" />
           <Property Name="ubicacion" Type="int" Nullable="false" />
-          <Property Name="observacion" Type="varchar" MaxLength="150" />
+          <Property Name="observacion" Type="varchar" MaxLength="300" />
           <Property Name="estadoArma" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Auditorias">
@@ -191,8 +191,8 @@
           <Property Name="municionDevuelta" Type="varchar" MaxLength="10" />
           <Property Name="cargadoresEntregados" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="cargadoresDevueltos" Type="varchar" MaxLength="10" />
-          <Property Name="observacionesEntrega" Type="varchar" MaxLength="250" />
-          <Property Name="observacionesDevuelta" Type="varchar" MaxLength="250" />
+          <Property Name="observacionesEntrega" Type="varchar" MaxLength="300" />
+          <Property Name="observacionesDevuelta" Type="varchar" MaxLength="300" />
           <Property Name="estadoActualBitacora" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Infractores">
@@ -205,13 +205,13 @@
           <Property Name="nacionalidad" Type="int" Nullable="false" />
           <Property Name="nombreCompleto" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="apodoInfractor" Type="varchar" MaxLength="150" />
-          <Property Name="rasgosFisicosInfractor" Type="varchar" MaxLength="150" />
+          <Property Name="rasgosFisicosInfractor" Type="varchar" MaxLength="300" />
           <Property Name="fechaNacimiento" Type="date" Nullable="false" />
           <Property Name="telefono" Type="varchar" MaxLength="9" />
-          <Property Name="direccionExacta" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="direccionExacta" Type="varchar" MaxLength="300" Nullable="false" />
           <Property Name="sexo" Type="int" Nullable="false" />
           <Property Name="correoEletronico" Type="varchar" MaxLength="100" />
-          <Property Name="observaciones" Type="varchar" MaxLength="150" />
+          <Property Name="observaciones" Type="varchar" MaxLength="400" />
           <Property Name="profesionUOficio" Type="varchar" MaxLength="50" />
           <Property Name="estatura" Type="varchar" MaxLength="4" Nullable="false" />
           <Property Name="tatuajes" Type="varchar" MaxLength="150" />
@@ -231,8 +231,8 @@
           <Property Name="provincia" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="canton" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="distrito" Type="int" Nullable="false" />
-          <Property Name="barrio" Type="varchar" MaxLength="250" Nullable="false" />
-          <Property Name="direccion" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="barrio" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="direccion" Type="varchar" MaxLength="300" Nullable="false" />
           <Property Name="lugarSuceso" Type="int" Nullable="false" />
           <Property Name="idInfractor" Type="int" Nullable="false" />
           <Property Name="edadInfractor" Type="varchar" MaxLength="3" Nullable="false" />
@@ -272,14 +272,14 @@
             <PropertyRef Name="idPersona" />
           </Key>
           <Property Name="idPersona" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="nombre" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="tipoIdentificacion" Type="int" Nullable="false" />
-          <Property Name="identificacion" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="identificacion" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="sexo" Type="int" />
           <Property Name="fechaNacimiento" Type="date" />
           <Property Name="nacionalidad" Type="int" />
           <Property Name="instalaciones" Type="varchar" MaxLength="300" />
-          <Property Name="direccionPersona" Type="varchar" MaxLength="250" />
+          <Property Name="direccionPersona" Type="varchar" MaxLength="300" />
           <Property Name="telefonoHabitacion" Type="varchar" MaxLength="9" />
           <Property Name="telefonoTrabajo" Type="varchar" MaxLength="9" />
           <Property Name="telefonoCelular" Type="varchar" MaxLength="9" />
@@ -297,7 +297,7 @@
           <Property Name="nombre" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="fechaNacimiento" Type="date" Nullable="false" />
           <Property Name="correoElectronico" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="direccion" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="direccion" Type="varchar" MaxLength="300" Nullable="false" />
           <Property Name="telefonoCelular" Type="varchar" MaxLength="9" Nullable="false" />
           <Property Name="telefonoCasa" Type="varchar" MaxLength="9" />
           <Property Name="contactoEmergencia" Type="varchar" MaxLength="150" Nullable="false" />
@@ -339,7 +339,7 @@
           <Property Name="idUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="usuario" Type="varchar" MaxLength="150" />
           <Property Name="nombre" Type="varchar" MaxLength="150" />
-          <Property Name="cedula" Type="varchar" MaxLength="150" />
+          <Property Name="cedula" Type="varchar" MaxLength="40" />
           <Property Name="rol" Type="int" />
         </EntityType>
         <Association Name="FK_AcompananteObservacionPolicial">
@@ -1596,7 +1596,7 @@
           <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="idDecomisado" Type="Int32" Nullable="false" />
           <Property Name="estadoCivilDecomisado" Type="Int32" Nullable="false" />
-          <Property Name="lugarProcedimiento" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="lugarProcedimiento" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="inventario" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="estado" Type="Int32" Nullable="false" />
@@ -1638,8 +1638,8 @@
           <Property Name="testigo" Type="Int32" />
           <Property Name="distrito" Type="Int32" Nullable="false" />
           <Property Name="fechaHora" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="direccionExacta" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="barrio" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="direccionExacta" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="barrio" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="disposiciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="numeroFolio" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="estado" Type="Int32" Nullable="false" />
@@ -1662,7 +1662,7 @@
           <Property Name="idInteresado" Type="Int32" Nullable="false" />
           <Property Name="condicion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="direccion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="direccion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="estado" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Policias" Relationship="Self.FK_AcompananteObservacionPolicial" FromRole="ActasDeObservacionPolicial" ToRole="Policias" />
           <NavigationProperty Name="Policias1" Relationship="Self.FK_ActuantanteObservacionPolicial" FromRole="ActasDeObservacionPolicial" ToRole="Policias" />
@@ -1707,7 +1707,7 @@
           <Property Name="tipoInventario" Type="Int32" Nullable="false" />
           <Property Name="fechaHoraEntrega" Type="DateTime" Precision="3" />
           <Property Name="idPorOrdenDe" Type="Int32" Nullable="false" />
-          <Property Name="numeroResolucion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="numeroResolucion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="numeroInventario" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="idPersonaQueSeLeEntrega" Type="Int32" />
           <Property Name="estado" Type="Int32" Nullable="false" />
@@ -1732,9 +1732,9 @@
           <Property Name="fechaHora" Type="DateTime" Precision="3" />
           <Property Name="avenida" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="calle" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="otrasSenas" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="otrasSenas" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="inventario" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="observaciones" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="observaciones" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="estado" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Policias" Relationship="Self.FK_Encargado" FromRole="ActasHallazgo" ToRole="Policias" />
           <NavigationProperty Name="TablaGeneral" Relationship="Self.FK_EstadoActa" FromRole="ActasHallazgo" ToRole="TablaGeneral" />
@@ -1780,7 +1780,7 @@
           <Property Name="calibre" Type="Int32" Nullable="false" />
           <Property Name="condicion" Type="Int32" Nullable="false" />
           <Property Name="ubicacion" Type="Int32" Nullable="false" />
-          <Property Name="observacion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="observacion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="estadoArma" Type="Int32" Nullable="false" />
           <NavigationProperty Name="TablaGeneral" Relationship="Self.FK_Calibre" FromRole="Armas" ToRole="TablaGeneral" />
           <NavigationProperty Name="TablaGeneral1" Relationship="Self.FK_Condicion" FromRole="Armas" ToRole="TablaGeneral" />
@@ -1822,8 +1822,8 @@
           <Property Name="municionDevuelta" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="cargadoresEntregados" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cargadoresDevueltos" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="observacionesEntrega" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="observacionesDevuelta" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="observacionesEntrega" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="observacionesDevuelta" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="estadoActualBitacora" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Armas" Relationship="Self.FK_IdArma" FromRole="Bitacoras" ToRole="Armas" />
           <NavigationProperty Name="Policias" Relationship="Self.FK_ArmeroProveedor" FromRole="Bitacoras" ToRole="Policias" />
@@ -1841,13 +1841,13 @@
           <Property Name="nacionalidad" Type="Int32" Nullable="false" />
           <Property Name="nombreCompleto" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="apodoInfractor" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="rasgosFisicosInfractor" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="rasgosFisicosInfractor" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="fechaNacimiento" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="telefono" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
-          <Property Name="direccionExacta" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="direccionExacta" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="sexo" Type="Int32" Nullable="false" />
           <Property Name="correoEletronico" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="observaciones" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="observaciones" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
           <Property Name="profesionUOficio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="estatura" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="tatuajes" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
@@ -1871,8 +1871,8 @@
           <Property Name="provincia" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="canton" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="distrito" Type="Int32" Nullable="false" />
-          <Property Name="barrio" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="direccion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="barrio" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="direccion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="lugarSuceso" Type="Int32" Nullable="false" />
           <Property Name="idInfractor" Type="Int32" Nullable="false" />
           <Property Name="edadInfractor" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
@@ -1923,14 +1923,14 @@
             <PropertyRef Name="idPersona" />
           </Key>
           <Property Name="idPersona" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="tipoIdentificacion" Type="Int32" Nullable="false" />
-          <Property Name="identificacion" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="identificacion" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="sexo" Type="Int32" />
           <Property Name="fechaNacimiento" Type="DateTime" Precision="0" />
           <Property Name="nacionalidad" Type="Int32" />
           <Property Name="instalaciones" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="direccionPersona" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="direccionPersona" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="telefonoHabitacion" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
           <Property Name="telefonoTrabajo" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
           <Property Name="telefonoCelular" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
@@ -1958,7 +1958,7 @@
           <Property Name="nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="fechaNacimiento" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="correoElectronico" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="direccion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="direccion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="telefonoCelular" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="telefonoCasa" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
           <Property Name="contactoEmergencia" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
@@ -2068,7 +2068,7 @@
           <Property Name="idUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="usuario" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="cedula" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="cedula" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="rol" Type="Int32" />
           <NavigationProperty Name="Auditorias" Relationship="Self.FK_IdUsuarioAuditoria" FromRole="Usuarios" ToRole="Auditorias" />
           <NavigationProperty Name="Roles" Relationship="Self.FK_TipoRol" FromRole="Usuarios" ToRole="Roles" />
@@ -3689,7 +3689,7 @@
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

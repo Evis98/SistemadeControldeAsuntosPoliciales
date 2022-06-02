@@ -293,7 +293,7 @@ namespace FrontEnd.Controllers
             Autorizar();
             policiaDAL = new PoliciaDAL();
             Session["idPolicia"] = id;
-            Session["tabla"] = "Policia";
+            Session["tabla"] = "Policía";
             Session["nombrePolicia"] = policiaDAL.GetPolicia(id).nombre;
             Session["auditoria"] = policiaDAL.GetPolicia(id).nombre;
             PoliciaViewModel modelo = CargarPolicia(policiaDAL.GetPolicia(id));
