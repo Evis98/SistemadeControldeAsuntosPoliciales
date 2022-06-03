@@ -435,7 +435,7 @@
                 </Style>
               </TextRun>
               <TextRun>
-                <Value>=First(Fields!cedula.Value, "PoliciaTDataSet")</Value>
+                <Value>=First(Fields!identificacion.Value, "PersonaTDataSet")</Value>
                 <Style>
                   <FontStyle>Normal</FontStyle>
                   <FontSize>12pt</FontSize>

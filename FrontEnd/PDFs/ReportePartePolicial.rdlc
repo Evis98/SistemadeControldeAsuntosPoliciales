@@ -2091,16 +2091,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "Ofendido2NuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Center</TextAlign>
@@ -2113,6 +2103,9 @@
         <Height>0.71875in</Height>
         <Width>1.3125in</Width>
         <ZIndex>36</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Ofendido2DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -2156,16 +2149,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "Ofendido2NuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Center</TextAlign>
@@ -2178,6 +2161,9 @@
         <Height>0.71875in</Height>
         <Width>1.3125in</Width>
         <ZIndex>37</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!identificacion.Value, "Ofendido2DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -2221,16 +2207,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "Ofendido2NuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Center</TextAlign>
@@ -2243,6 +2219,9 @@
         <Height>0.71875in</Height>
         <Width>0.8125in</Width>
         <ZIndex>38</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!descripcion.Value, "SexoOfendido2DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -2298,6 +2277,9 @@
         <Height>0.71875in</Height>
         <Width>0.61029in</Width>
         <ZIndex>39</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Ofendido2DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -2341,16 +2323,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "Ofendido2NuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Center</TextAlign>
@@ -2363,6 +2335,9 @@
         <Height>0.71875in</Height>
         <Width>1.0278in</Width>
         <ZIndex>40</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!descripcion.Value, "NacionalidadOfendido2DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -2407,16 +2382,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "Ofendido2NuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Center</TextAlign>
@@ -2429,6 +2394,9 @@
         <Height>0.71875in</Height>
         <Width>1.29861in</Width>
         <ZIndex>41</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!lugarTrabajoPersona.Value, "Ofendido2DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -2465,16 +2433,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "Ofendido2NuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Left</TextAlign>
@@ -2487,6 +2445,9 @@
         <Height>0.25in</Height>
         <Width>6.37418in</Width>
         <ZIndex>42</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!direccionPersona.Value, "Ofendido2DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -2523,16 +2484,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "Ofendido2NuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Left</TextAlign>
@@ -2545,6 +2496,9 @@
         <Height>0.25in</Height>
         <Width>6.37418in</Width>
         <ZIndex>43</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!telefonoCelular.Value, "Ofendido2DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -2581,16 +2535,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "Ofendido2NuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Left</TextAlign>
@@ -2603,6 +2547,9 @@
         <Height>0.25in</Height>
         <Width>3.16585in</Width>
         <ZIndex>44</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!profesion.Value, "Ofendido2DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -2639,16 +2586,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "Ofendido2NuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Left</TextAlign>
@@ -2661,6 +2598,9 @@
         <Height>0.25in</Height>
         <Width>3.20833in</Width>
         <ZIndex>45</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!correoElectronicoPersona.Value, "Ofendido2DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -2733,6 +2673,9 @@
         <Height>0.59375in</Height>
         <Width>6.37418in</Width>
         <ZIndex>46</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Ofendido2DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -2776,16 +2719,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "Ofendido3NuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Center</TextAlign>
@@ -2798,6 +2731,9 @@
         <Height>0.72916in</Height>
         <Width>1.3125in</Width>
         <ZIndex>47</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Ofendido3DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -2841,16 +2777,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "Ofendido3NuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Center</TextAlign>
@@ -2863,6 +2789,9 @@
         <Height>0.72916in</Height>
         <Width>1.3125in</Width>
         <ZIndex>48</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Ofendido3DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -2906,16 +2835,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "Ofendido3NuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Center</TextAlign>
@@ -2928,6 +2847,9 @@
         <Height>0.72916in</Height>
         <Width>0.8125in</Width>
         <ZIndex>49</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Ofendido3DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -2983,6 +2905,9 @@
         <Height>0.72916in</Height>
         <Width>0.61029in</Width>
         <ZIndex>50</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Ofendido3DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -3026,16 +2951,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "Ofendido3NuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Center</TextAlign>
@@ -3048,6 +2963,9 @@
         <Height>0.72916in</Height>
         <Width>1.02779in</Width>
         <ZIndex>51</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Ofendido3DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -3092,16 +3010,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "Ofendido3NuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Center</TextAlign>
@@ -3114,6 +3022,9 @@
         <Height>0.72916in</Height>
         <Width>1.29861in</Width>
         <ZIndex>52</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Ofendido3DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -3150,16 +3061,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "Ofendido3NuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Left</TextAlign>
@@ -3172,6 +3073,9 @@
         <Height>0.25in</Height>
         <Width>6.37418in</Width>
         <ZIndex>53</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Ofendido3DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -3208,16 +3112,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "Ofendido3NuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Left</TextAlign>
@@ -3230,6 +3124,9 @@
         <Height>0.25in</Height>
         <Width>6.37418in</Width>
         <ZIndex>54</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Ofendido3DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -3266,16 +3163,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "Ofendido3NuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Left</TextAlign>
@@ -3288,6 +3175,9 @@
         <Height>0.25in</Height>
         <Width>3.16585in</Width>
         <ZIndex>55</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Ofendido3DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -3324,16 +3214,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "Ofendido3NuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Left</TextAlign>
@@ -3346,6 +3226,9 @@
         <Height>0.25in</Height>
         <Width>3.20833in</Width>
         <ZIndex>56</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Ofendido3DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -3418,6 +3301,9 @@
         <Height>0.59375in</Height>
         <Width>6.37418in</Width>
         <ZIndex>57</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Ofendido3DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -3461,16 +3347,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "Ofendido4NuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Center</TextAlign>
@@ -3483,6 +3359,9 @@
         <Height>0.77083in</Height>
         <Width>1.3125in</Width>
         <ZIndex>58</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Ofendido4DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -3526,16 +3405,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "Ofendido4NuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Center</TextAlign>
@@ -3548,6 +3417,9 @@
         <Height>0.77083in</Height>
         <Width>1.3125in</Width>
         <ZIndex>59</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Ofendido4DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -3591,16 +3463,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "Ofendido4NuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Center</TextAlign>
@@ -3613,6 +3475,9 @@
         <Height>0.77083in</Height>
         <Width>0.8125in</Width>
         <ZIndex>60</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Ofendido4DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -3668,6 +3533,9 @@
         <Height>0.77083in</Height>
         <Width>0.61029in</Width>
         <ZIndex>61</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Ofendido4DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -3711,16 +3579,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "Ofendido4NuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Center</TextAlign>
@@ -3733,6 +3591,9 @@
         <Height>0.77083in</Height>
         <Width>1.02778in</Width>
         <ZIndex>62</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Ofendido4DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -3777,16 +3638,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "Ofendido4NuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Center</TextAlign>
@@ -3799,6 +3650,9 @@
         <Height>0.77083in</Height>
         <Width>1.29861in</Width>
         <ZIndex>63</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Ofendido4DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -3835,16 +3689,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "Ofendido4NuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Left</TextAlign>
@@ -3857,6 +3701,9 @@
         <Height>0.25in</Height>
         <Width>6.37418in</Width>
         <ZIndex>64</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Ofendido4DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -3893,16 +3740,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "Ofendido4NuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Left</TextAlign>
@@ -3915,6 +3752,9 @@
         <Height>0.25in</Height>
         <Width>6.37418in</Width>
         <ZIndex>65</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Ofendido4DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -3951,16 +3791,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "Ofendido4NuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Left</TextAlign>
@@ -3973,6 +3803,9 @@
         <Height>0.25in</Height>
         <Width>3.16585in</Width>
         <ZIndex>66</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Ofendido4DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -4009,16 +3842,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "Ofendido4NuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Left</TextAlign>
@@ -4031,6 +3854,9 @@
         <Height>0.25in</Height>
         <Width>3.20833in</Width>
         <ZIndex>67</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Ofendido4DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -4103,6 +3929,9 @@
         <Height>0.59375in</Height>
         <Width>6.37418in</Width>
         <ZIndex>68</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Ofendido4DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -4146,16 +3975,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "Ofendido5NuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Center</TextAlign>
@@ -4168,6 +3987,9 @@
         <Height>0.76041in</Height>
         <Width>1.3125in</Width>
         <ZIndex>69</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Ofendido5DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -4211,16 +4033,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "Ofendido5NuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Center</TextAlign>
@@ -4233,6 +4045,9 @@
         <Height>0.76041in</Height>
         <Width>1.3125in</Width>
         <ZIndex>70</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Ofendido5DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -4276,16 +4091,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "Ofendido5NuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Center</TextAlign>
@@ -4298,6 +4103,9 @@
         <Height>0.76041in</Height>
         <Width>0.8125in</Width>
         <ZIndex>71</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Ofendido5DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -4353,6 +4161,9 @@
         <Height>0.76041in</Height>
         <Width>0.61029in</Width>
         <ZIndex>72</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Ofendido5DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -4396,16 +4207,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "Ofendido5NuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Center</TextAlign>
@@ -4418,6 +4219,9 @@
         <Height>0.76041in</Height>
         <Width>1.02778in</Width>
         <ZIndex>73</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Ofendido5DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -4462,16 +4266,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "Ofendido5NuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Center</TextAlign>
@@ -4484,6 +4278,9 @@
         <Height>0.76041in</Height>
         <Width>1.29861in</Width>
         <ZIndex>74</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Ofendido5DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -4520,16 +4317,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "Ofendido5NuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Left</TextAlign>
@@ -4542,6 +4329,9 @@
         <Height>0.25in</Height>
         <Width>6.37418in</Width>
         <ZIndex>75</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Ofendido5DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -4578,16 +4368,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "Ofendido5NuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Left</TextAlign>
@@ -4600,6 +4380,9 @@
         <Height>0.25in</Height>
         <Width>6.37418in</Width>
         <ZIndex>76</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Ofendido5DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -4636,16 +4419,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "Ofendido5NuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Left</TextAlign>
@@ -4658,6 +4431,9 @@
         <Height>0.25in</Height>
         <Width>3.16585in</Width>
         <ZIndex>77</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Ofendido5DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -4694,16 +4470,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "Ofendido5NuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Left</TextAlign>
@@ -4716,6 +4482,9 @@
         <Height>0.25in</Height>
         <Width>3.20833in</Width>
         <ZIndex>78</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Ofendido5DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -4788,6 +4557,9 @@
         <Height>0.59375in</Height>
         <Width>6.37418in</Width>
         <ZIndex>79</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Ofendido5DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -4869,16 +4641,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "TestigoNuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Center</TextAlign>
@@ -4891,6 +4653,9 @@
         <Height>0.69444in</Height>
         <Width>1.9471in</Width>
         <ZIndex>81</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Testigo1DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -4934,16 +4699,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "TestigoNuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Center</TextAlign>
@@ -4956,6 +4711,9 @@
         <Height>0.69444in</Height>
         <Width>2.40625in</Width>
         <ZIndex>82</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Testigo1DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -4999,16 +4757,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "TestigoNuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Center</TextAlign>
@@ -5021,6 +4769,9 @@
         <Height>0.69444in</Height>
         <Width>2.02083in</Width>
         <ZIndex>83</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Testigo1DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -5057,16 +4808,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "TestigoNuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Left</TextAlign>
@@ -5079,6 +4820,9 @@
         <Height>0.25in</Height>
         <Width>6.37418in</Width>
         <ZIndex>84</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Testigo1DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -5115,16 +4859,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "TestigoNuloDataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Left</TextAlign>
@@ -5137,6 +4871,9 @@
         <Height>0.25in</Height>
         <Width>6.37418in</Width>
         <ZIndex>85</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Testigo1DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -6265,16 +6002,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "TestigoNulo2DataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Center</TextAlign>
@@ -6287,6 +6014,9 @@
         <Height>0.70486in</Height>
         <Width>1.9471in</Width>
         <ZIndex>111</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Testigo2DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -6330,16 +6060,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "TestigoNulo2DataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Center</TextAlign>
@@ -6352,6 +6072,9 @@
         <Height>0.70486in</Height>
         <Width>2.40625in</Width>
         <ZIndex>112</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Testigo2DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -6395,16 +6118,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "TestigoNulo2DataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Center</TextAlign>
@@ -6417,6 +6130,9 @@
         <Height>0.70486in</Height>
         <Width>2.02083in</Width>
         <ZIndex>113</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Testigo2DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -6453,16 +6169,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "TestigoNulo2DataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Left</TextAlign>
@@ -6475,6 +6181,9 @@
         <Height>0.25in</Height>
         <Width>6.37418in</Width>
         <ZIndex>114</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Testigo2DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -6511,16 +6220,6 @@
                   <Color>#000000</Color>
                 </Style>
               </TextRun>
-              <TextRun>
-                <Value>=First(Fields!descripcion.Value, "TestigoNulo2DataSet")</Value>
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontSize>11pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
             </TextRuns>
             <Style>
               <TextAlign>Left</TextAlign>
@@ -6533,6 +6232,9 @@
         <Height>0.25in</Height>
         <Width>6.37418in</Width>
         <ZIndex>115</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Testigo2DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>

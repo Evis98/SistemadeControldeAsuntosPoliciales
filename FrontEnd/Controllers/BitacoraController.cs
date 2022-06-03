@@ -226,15 +226,20 @@ namespace FrontEnd.Controllers
             {
                 idBitacora = modelo.IdBitacora,
                 numeroConsecutivo = modelo.NumeroConsecutivo,
-                idArmeroProveedor = policiaDAL.GetPoliciaCedula(modelo.ArmeroProveedor).idPolicia,
                 idPoliciaSolicitante = policiaDAL.GetPoliciaCedula(modelo.PoliciaSolicitante).idPolicia,
                 idArma = armaDAL.GetArmaNumSerie(modelo.NumeroSerieArma).idArma,
                 fechaCreacion = modelo.FechaCreacion,
                 municionEntregada = modelo.MunicionEntregada,
                 cargadoresEntregados = modelo.CargadoresEntregados,
+                idArmeroProveedor = policiaDAL.GetPoliciaCedula(modelo.ArmeroProveedor).idPolicia,
                 //observacionesEntrega = modelo.ObservacionesEntrega.ToUpper(),
                 condicionInicial = tablaGeneralDAL.Get("Armas", "condicion", modelo.VistaCondicionInicial).idTablaGeneral
             };
+
+            //if (policiaDAL.PoliciaExiste(modelo.ArmeroProveedor))
+            //{
+            //    bitacora.idArmeroProveedor = policiaDAL.GetPoliciaCedula(modelo.ArmeroProveedor).idPolicia;
+            //}
             if (modelo.ObservacionesEntrega != null)
             {
                 bitacora.observacionesEntrega = modelo.ObservacionesEntrega.ToUpper();
@@ -372,7 +377,12 @@ namespace FrontEnd.Controllers
                         ModelState.AddModelError(nameof(modelo.NumeroSerieArma), "El arma ya tiene policía asignado");
                         errores++;
                     }
-                    if(errores == 0) 
+                    if (!(policiaDAL.PoliciaExiste(modelo.ArmeroProveedor)))
+                    {
+                        ModelState.AddModelError(nameof(modelo.ArmeroProveedor), "El armero no existe");
+                        errores++;
+                    }
+                        if (errores == 0) 
                     { 
                         Armas arma = armaDAL.GetArmaNumSerie(modelo.NumeroSerieArma);
                         Bitacoras bitacora = ConvertirBitacora(modelo);

@@ -480,7 +480,7 @@ namespace FrontEnd.Controllers
 
             if (notificado.direccionPersona == null)
             {
-                notificado.direccionPersona = "No aplica";
+                notificado.direccionPersona = "el lugar anteriormente descrito";
             }
 
             //Policia
