@@ -16,9 +16,8 @@ namespace FrontEnd.Models.ViewModels
         public string Nombre { get; set; }
         [Display(Name = "Error")]
         public string LoginErrorMessage { get;  set; }
-        [StringLength(100, ErrorMessage = "Correo electrónico excede los 100 caracteres.")]
-        [EmailAddress(ErrorMessage = "Escriba una dirección de correo válida.")]
-        [Display(Name = "Identificador (Correo Electrónico)")]
+        [StringLength(50, ErrorMessage = "Usuario excede los caracteres.")]
+        [Display(Name = "Usuario")]
         [Required]
         public string UserName { get;  set; }
         [Display(Name = "Contraseña")]

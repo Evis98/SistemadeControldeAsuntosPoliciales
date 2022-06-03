@@ -16,13 +16,13 @@
             </div>
             <div class="form-group col-sm-4 position-relative">
                 @Html.LabelFor(d => d.Cedula, new { @class = "form-label" })
-                @Html.TextBoxFor(d => d.Cedula, "", new { @class = "form-control", @maxlength = "25", @style = "text-transform:uppercase", @onkeydown = "return /[0-9a-zA-Z-]/i.test(event.key)", @autocomplete = "new-password" })
+                @Html.TextBoxFor(d => d.Cedula, "", new { @class = "form-control", @maxlength = "25", @style = "text-transform:uppercase", @onkeydown = "return /[0-9a-zA-Z]/i.test(event.key)", @autocomplete = "new-password" })
                 @Html.ValidationMessageFor(d => d.Cedula, null, new { @class = "red" })
 
             </div>
             <div class="form-group col-sm-6 position-relative">
                 @Html.LabelFor(d => d.Nombre, new { @class = "form-label" })
-                @Html.TextBoxFor(d => d.Nombre, "", new { @class = "form-control", @maxlength = "150", @style = "text-transform:uppercase", @onkeydown = "return /[a-z,A-Z ,Á,á,é,É,í,Í,ó,Ó,ú,Ú]/i.test(event.key)", @autocomplete = "new-password" })
+                @Html.TextBoxFor(d => d.Nombre, "", new { @class = "form-control", @maxlength = "150", @style = "text-transform:uppercase", @onkeydown = "return /[a-zA-Z ÁÉÍÓÚÑáéíóúñ]/i.test(event.key)", @autocomplete = "new-password" })
                 @Html.ValidationMessageFor(d => d.Nombre, null, new { @class = "red" })
             </div>
         </div>
@@ -57,12 +57,12 @@
         <div class="row mb-4">
             <div class="form-group col-sm-6 position-relative">
                 @Html.LabelFor(d => d.ContactoEmergencia, new { @class = "form-label" })
-                @Html.TextBoxFor(d => d.ContactoEmergencia, "", new { @class = "form-control", @maxlength = "150", @style = "text-transform:uppercase", @onkeydown = "return /[a-zA-Z, ,Á,á,é,É,í,Í,ó,Ó,ú,Ú]/i.test(event.key)", @autocomplete = "new-password" })
+                @Html.TextBoxFor(d => d.ContactoEmergencia, "", new { @class = "form-control", @maxlength = "150", @style = "text-transform:uppercase", @onkeydown = "return /[a-zA-Z ÁÉÍÓÚÑáéíóúñ]/i.test(event.key)", @autocomplete = "new-password" })
                 @Html.ValidationMessageFor(d => d.ContactoEmergencia, null, new { @class = "red" })
             </div>
             <div class="form-group col-sm-3 position-relative">
                 @Html.LabelFor(d => d.TelefonoEmergencia, new { @class = "form-label" })
-                @Html.TextBoxFor(d => d.TelefonoEmergencia, "", new { @class = "form-control", @autocomplete = "new-password", @maxlength = "9", @onKeyup = " ValidarTelefono(this)" })
+                @Html.TextBoxFor(d => d.TelefonoEmergencia, "", new { @class = "form-control", @autocomplete = "new-password", @maxlength = "9", @onfocusout = "LimpiaGuion(this)", @onKeyup = " ValidarTelefono(this)" })
                 @Html.ValidationMessageFor(d => d.TelefonoEmergencia, null, new { @class = "red" })
             </div>
         </div>
@@ -104,7 +104,6 @@
 <script>
 
     function ValidarTelefono(f) {
-
         var r = /(\D+)/g,
             first4 = '',
             last4 = '';

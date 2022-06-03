@@ -19,12 +19,12 @@
         <div class="row mb-4">
             <div class="form-group col-md-2 position-relative">
                 @Html.LabelFor(d => d.TipoRequisito)
-                @Html.DropDownListFor(d => d.TipoRequisito, Model.TiposRequisito, "--Seleccione--", new { @class = "form-select", @id = "tiposRequisito" ,@onchange= "ocultarFecha()" })
+                @Html.DropDownListFor(d => d.TipoRequisito, Model.TiposRequisito, "--Seleccione--", new { @class = "form-select", @id = "tiposRequisito", @onchange = "ocultarFecha()" })
                 @Html.ValidationMessageFor(d => d.TipoRequisito, null, new { @class = "red" })
             </div>
         </div>
         <div class="row mb-4" id="fechaVencimiento" style="display:none;">
-            <div class="form-group col-md-2 position-relative" >
+            <div class="form-group col-md-2 position-relative">
                 @Html.LabelFor(d => d.FechaVencimiento)
                 @Html.EditorFor(d => d.FechaVencimiento, "", new { @class = "form-control" })
                 @Html.ValidationMessageFor(d => d.FechaVencimiento, null, new { @class = "red" })
@@ -33,15 +33,15 @@
         <div class="row mb-4">
             <div class="form-group col-md-12 position-relative">
                 @Html.LabelFor(d => d.Detalles)
-                @Html.TextAreaFor(d => d.Detalles, new { @class = "form-control", @maxlength = "250", @style = "text-transform:uppercase"})
+                @Html.TextAreaFor(d => d.Detalles, new { @class = "form-control", @maxlength = "250", @style = "text-transform:uppercase" })
                 @Html.ValidationMessageFor(d => d.Detalles, null, new { @class = "red" })
             </div>
         </div>
         <div class="row mb-4">
             <div class="form-group col-md-3 position-relative">
                 @Html.LabelFor(d => d.Archivo)
-                @Html.TextBoxFor(d => d.Archivo, new { @type = "file", accept = ".pdf" })
-                @Html.ValidationMessageFor(d => d.Archivo, "", new { @class = "red" })
+                @Html.TextBoxFor(d => d.Archivo, new { @type = "file", @id = "uploadField", accept = ".pdf", @onchange = "validaTamano(this)" })
+                <p class="red" id="errorArchivo" style="display:none;">El archivo es muy grande.</p>
             </div>
         </div>
         <hr />
@@ -82,6 +82,16 @@
             aux3.style.display = "block"
         } else {
             aux3.style.display = "none"
+        }
+    }
+
+    function validaTamano(j) {
+        var input = $('#errorArchivo');
+        if (j.files[0].size > 4194304) {
+            input.css('display', 'block');
+            j.value = "";
+        } else {
+            input.css('display', 'none');
         }
     }
 </script>

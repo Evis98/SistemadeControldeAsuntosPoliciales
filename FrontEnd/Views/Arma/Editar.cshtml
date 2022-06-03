@@ -21,7 +21,7 @@
         <div class="row mb-4">
             <div class="form-group col-md-3 position-relative">
                 @Html.LabelFor(d => d.NumeroSerie)
-                @Html.TextBoxFor(d => d.NumeroSerie, "", new { @class = "form-control", @maxlength = "20", @style = "text-transform:uppercase", @onkeydown = "return /[0-9a-zA-Z]/i.test(event.key)", autocomplete = "off" })
+                @Html.TextBoxFor(d => d.NumeroSerie, "", new { @class = "form-control", @maxlength = "20", @style = "text-transform:uppercase", @onkeydown = "return /[0-9a-zA-Z- ]/i.test(event.key)", autocomplete = "off" })
                 @Html.ValidationMessageFor(d => d.NumeroSerie, null, new { @class = "red" })
             </div>
             <div class="form-group col-md-3  position-relative">
@@ -44,7 +44,7 @@
         <div class="row mb-4">
             <div class="form-group col-md-4 position-relative">
                 @Html.LabelFor(d => d.ModeloArma)
-                @Html.TextBoxFor(d => d.ModeloArma, "", new { @class = "form-control", @maxlength = "50", @style = "text-transform:uppercase", @onkeydown = "return /[0-9a-zA-Z]/i.test(event.key)" })
+                @Html.TextBoxFor(d => d.ModeloArma, "", new { @class = "form-control", @maxlength = "50", @style = "text-transform:uppercase", @onkeydown = "return /[0-9a-zA-Z ]/i.test(event.key)" })
                 @Html.ValidationMessageFor(d => d.ModeloArma, null, new { @class = "red" })
             </div>
             <div class="form-group col-md-2 position-relative">

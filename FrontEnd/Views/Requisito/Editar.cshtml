@@ -20,19 +20,31 @@
         <div class="row mb-4">
             <div class="form-group col-md-2 position-relative">
                 @Html.LabelFor(d => d.TipoRequisito)
-                @Html.DropDownListFor(d => d.TipoRequisito, Model.TiposRequisito, "--Seleccione--", new { @class = "form-select", @id = "TipoRequisito" })
+                @Html.DropDownListFor(d => d.TipoRequisito, Model.TiposRequisito, "--Seleccione--", new { @class = "form-select", @id = "TipoRequisito", @onchange = "ocultarFecha()" })
                 @Html.ValidationMessageFor(d => d.TipoRequisito, null, new { @class = "red" })
             </div>
         </div>
         if (Model.FechaVencimiento != null)
         {
             <div class="row mb-4">
-                <div class="form-group col-md-2 position-relative" , id="FechaVencimiento">
+                <div class="form-group col-md-2 position-relative" id="FechaVencimiento">
                     @Html.LabelFor(d => d.FechaVencimiento)
                     @Html.EditorFor(d => d.FechaVencimiento, "", new { @class = "form-control" })
                     @Html.ValidationMessageFor(d => d.FechaVencimiento, null, new { @class = "red" })
                 </div>
             </div>
+        }
+        else
+        {
+
+            <div class="row mb-4">
+                <div class="form-group col-md-2 position-relative" id="FechaVencimiento" style="display:none;">
+                    @Html.LabelFor(d => d.FechaVencimiento)
+                    @Html.EditorFor(d => d.FechaVencimiento, "", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(d => d.FechaVencimiento, null, new { @class = "red" })
+                </div>
+            </div>
+
         }
         <div class="row mb-4">
             <div class="form-group col-md-12 position-relative">
@@ -46,8 +58,8 @@
             <div class="row mb-4">
                 <div class="form-group col-md-3 position-relative">
                     @Html.LabelFor(d => d.Archivo)
-                    @Html.TextBoxFor(d => d.Archivo, new { @type = "file", accept = ".pdf" })
-                    @Html.ValidationMessageFor(d => d.Archivo, "", new { @class = "red" })
+                    @Html.TextBoxFor(d => d.Archivo, new { @type = "file", @id = "uploadField", accept = ".pdf", @onchange = "validaTamano(this)" })
+                    <p class="red" id="errorArchivo" style="display:none;">El archivo es muy grande.</p>
                 </div>
             </div>
         }
@@ -81,3 +93,24 @@
         </div>
     }
 </div>
+<script>
+    function ocultarFecha() {
+        var aux2 = document.getElementById("tiposRequisito");
+        var aux3 = document.getElementById("fechaVencimiento");
+        if (aux2.selectedOptions[0].innerHTML === "Carné") {
+            aux3.style.display = "block"
+        } else {
+            aux3.style.display = "none"
+        }
+    }
+
+    function validaTamano(j) {
+        var input = $('#errorArchivo');
+        if (j.files[0].size > 4194304) {
+            input.css('display', 'block');
+            j.value = "";
+        } else {
+            input.css('display', 'none');
+        }
+    }
+</script>

@@ -3,12 +3,8 @@
     ViewBag.Title = "Editar Información del Policía";
 }
 <div class="container bg-light text-dark border" style=" height: auto; min-height: 80vh; padding-bottom: 20px; margin-bottom: 28px; word-wrap: break-word;">
-    <div class="row">
-        <div class="col-md-12">
-            <div style="text-align:center;">
-                <h2 class="display-4" style="text-align:center;">@ViewBag.Title</h2>
-            </div>
-        </div>
+    <div style="text-align:center;">
+        <h1 class="display-5">@ViewBag.Title</h1>
     </div>
     <hr />
     @using (Html.BeginForm("Editar", "Policia", FormMethod.Post))
@@ -29,7 +25,7 @@
             </div>
             <div class="form-group col-sm-6 position-relative">
                 @Html.LabelFor(d => d.Nombre, new { @class = "form-label" })
-                @Html.TextBoxFor(d => d.Nombre, "", new { @class = "form-control", @maxlength = "150", @style = "text-transform:uppercase", @onkeydown = "return /[a-z,A-Z ,Á,á,é,É,í,Í,ó,Ó,ú,Ú]/i.test(event.key)", autocomplete = "new-password" })
+                @Html.TextBoxFor(d => d.Nombre, "", new { @class = "form-control", @maxlength = "150", @style = "text-transform:uppercase", @onkeydown = "return /[a-zA-Z ÁÉÍÓÚÑáéíóúñ]/i.test(event.key)", autocomplete = "new-password" })
                 @Html.ValidationMessageFor(d => d.Nombre, null, new { @class = "red" })
             </div>
         </div>
@@ -41,12 +37,12 @@
             </div>
             <div class="form-group col-sm-3">
                 @Html.LabelFor(d => d.TelefonoCelular, new { @class = "form-label" })
-                @Html.TextBoxFor(d => d.TelefonoCelular, "", new { @class = "form-control", autocomplete = "new-password", @maxlength = "9", @onKeyup = " ValidatePhone(this)" })
+                @Html.TextBoxFor(d => d.TelefonoCelular, "", new { @class = "form-control", autocomplete = "new-password", @maxlength = "9", @onfocusout = "LimpiaGuion(this)",@onKeyup = " ValidatePhone(this)" })
                 @Html.ValidationMessageFor(d => d.TelefonoCelular, null, new { @class = "red" })
             </div>
             <div class="form-group col-sm-3">
                 @Html.LabelFor(d => d.TelefonoCasa, new { @class = "form-label" })
-                @Html.TextBoxFor(d => d.TelefonoCasa, "", new { @class = "form-control", autocomplete = "new-password", @maxlength = "9", @onKeyup = " ValidatePhone(this)" })
+                @Html.TextBoxFor(d => d.TelefonoCasa, "", new { @class = "form-control", autocomplete = "new-password", @maxlength = "9", @onfocusout = "LimpiaGuion(this)", @onKeyup = " ValidatePhone(this)" })
             </div>
             <div class="form-group col-sm-4">
                 @Html.LabelFor(d => d.CorreoElectronico, new { @class = "form-label" })
@@ -64,12 +60,12 @@
         <div class="row mb-4">
             <div class="form-group col-sm-6">
                 @Html.LabelFor(d => d.ContactoEmergencia, new { @class = "form-label" })
-                @Html.TextBoxFor(d => d.ContactoEmergencia, "", new { @class = "form-control", @maxlength = "150", @style = "text-transform:uppercase", @onkeydown = "return /[a-zA-Z, ,Á,á,é,É,í,Í,ó,Ó,ú,Ú]/i.test(event.key)", autocomplete = "new-password" })
+                @Html.TextBoxFor(d => d.ContactoEmergencia, "", new { @class = "form-control", @maxlength = "150", @style = "text-transform:uppercase", @onkeydown = "return /[a-zA-Z ÁÉÍÓÚÑáéíóúñ]/i.test(event.key)", autocomplete = "new-password" })
                 @Html.ValidationMessageFor(d => d.ContactoEmergencia, null, new { @class = "red" })
             </div>
             <div class="form-group col-sm-3">
                 @Html.LabelFor(d => d.TelefonoEmergencia, new { @class = "form-label" })
-                @Html.TextBoxFor(d => d.TelefonoEmergencia, "", new { @class = "form-control", autocomplete = "new-password", @maxlength = "9", @onKeyup = " ValidatePhone(this)" })
+                @Html.TextBoxFor(d => d.TelefonoEmergencia, "", new { @class = "form-control", autocomplete = "new-password", @maxlength = "9", @onfocusout = "LimpiaGuion(this)", @onKeyup = " ValidarTelefono(this)" })
                 @Html.ValidationMessageFor(d => d.TelefonoEmergencia, null, new { @class = "red" })
             </div>
         </div>
@@ -107,17 +103,20 @@
 </div>
 
 <script>
-    var settings = {
-        validClass: "is-valid",
-        errorClass: "is-invalid"
+    function ValidarTelefono(f) {
+        var r = /(\D+)/g,
+            first4 = '',
+            last4 = '';
+        f.value = f.value.replace(r, '');
+        first4 = f.value.substr(0, 4);
+        last4 = f.value.substr(4, 8);
+        f.value = first4 + '-' + last4;
 
-    };
-    $.validator.setDefaults(settings);
-    $.validator.unobtrusive.options = settings;
-
-    $('#btnSave').click(function () {
-        $('#show').modal('hide');
-        $(".modal-backdrop").remove();
-    });
+    }
+    function LimpiaGuion(f) {
+        if (f.value.length <= 1) {
+            f.value = "";
+        }
+    }
 </script>
 

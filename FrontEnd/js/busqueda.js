@@ -146,21 +146,3 @@ function ocultarFecha() {
     }
 }
 
-uploadField.onchange = function () {
-    if (this.files[0].size > 4194304) {
-        error.textContent = "El peso de la imagen es mayor a 4 MB."
-        error.style.color = "red"
-        this.value = "";
-    } else {
-        error.textContent = ""
-    }
-}
-uploadField2.onchange = function () {
-    if (this.files[0].size > 4194304) {
-        error.textContent = "El peso de la imagen es mayor a 4 MB."
-        error.style.color = "red"
-        this.value = "";
-    } else {
-        error.textContent = ""
-    }
-}

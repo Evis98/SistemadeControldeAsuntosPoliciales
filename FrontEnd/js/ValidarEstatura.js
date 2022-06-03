@@ -140,15 +140,3 @@ function convertir(sStr, sChar) {
 	return sNewStr;
 }
 
-
-for (i = 0; i < document.querySelectorAll('.inputheight').length; i++) {
-	document.getElementsByClassName('inputheight')[i].onkeydown = function (e) {
-		abajo(this, e);
-	}
-
-	document.getElementsByClassName('inputheight')[i].onkeyup = function (e) {
-		arriba(this, e);
-	}
-}
-
-
