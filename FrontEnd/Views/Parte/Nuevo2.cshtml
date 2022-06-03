@@ -17,11 +17,8 @@
             <div class="form-group col-md-5">
                 @Html.LabelFor(d => d.IdentificacionOfendido1)
                 <div class="input-group">
-                    @Html.TextBoxFor(d => d.IdentificacionOfendido1, "", new { @class = "form-control", @id = "idOfendido1", @readonly = "readonly" })
-                    <div class="input-group-append ">
-                        <a class="btn btn-primary" data-book-id="idOfendido1" data-bs-toggle="modal" data-bs-target="#modalBusquedaPersona">Buscar</a>
-                        <a class="btn btn-danger" data-toggle="modal" data-book-id="idOfendido1" data-target="#quitaPolicia">Quitar</a>
-                    </div>
+                    @Html.TextBoxFor(d => d.IdentificacionOfendido1, "", new { @class = "form-control", @id = "idOfendido1", @readonly = "readonly" })                   
+                        <a class="btn btn-primary" data-book-id="idOfendido1" data-bs-toggle="modal" data-bs-target="#modalBusquedaPersona">Buscar</a>                   
                 </div>
                 @Html.ValidationMessageFor(d => d.IdentificacionOfendido1, null, new { @class = "red" })
             </div>
@@ -40,10 +37,7 @@
                         @class = "form-control",
                         @id = "idOfendido2",
                         @readonly = "readonly"@*, @onclick = "parteValidacionesPersonas()"*@})
-                    <div class="input-group-append ">
                         <a class="btn btn-primary" data-book-id="idOfendido2" data-bs-toggle="modal" data-bs-target="#modalBusquedaPersona">Buscar</a>
-                        <a class="btn btn-danger" data-toggle="modal" data-book-id="idOfendido2" data-target="#quitaPolicia">Quitar</a>
-                    </div>
                 </div>
                 @Html.ValidationMessageFor(d => d.IdentificacionOfendido2, null, new { @class = "red" })
             </div>
@@ -62,10 +56,7 @@
                         @class = "form-control",
                         @id = "idOfendido3",
                         @readonly = "readonly"@*, @onclick = "parteValidacionesPersonas()"*@})
-                    <div class="input-group-append ">
                         <a class="btn btn-primary" data-book-id="idOfendido3" data-bs-toggle="modal" data-bs-target="#modalBusquedaPersona">Buscar</a>
-                        <a class="btn btn-danger" data-toggle="modal" data-book-id="idOfendido3" data-target="#quitaPolicia">Quitar</a>
-                    </div>
                 </div>
                 @Html.ValidationMessageFor(d => d.IdentificacionOfendido3, null, new { @class = "red" })
             </div>
@@ -78,10 +69,7 @@
                 @Html.LabelFor(d => d.IdentificacionOfendido4)
                 <div class="input-group">
                     @Html.TextBoxFor(d => d.IdentificacionOfendido4, "", new { @class = "form-control", @id = "idOfendido4", @readonly = "readonly" })
-                    <div class="input-group-append ">
                         <a class="btn btn-primary" data-book-id="idOfendido4" data-bs-toggle="modal" data-bs-target="#modalBusquedaPersona">Buscar</a>
-                        <a class="btn btn-danger" data-toggle="modal" data-book-id="idOfendido4" data-target="#quitaPolicia">Quitar</a>
-                    </div>
                 </div>
                 @Html.ValidationMessageFor(d => d.IdentificacionOfendido4, null, new { @class = "red" })
             </div>
@@ -96,10 +84,7 @@
                 @Html.LabelFor(d => d.IdentificacionOfendido5)
                 <div class="input-group">
                     @Html.TextBoxFor(d => d.IdentificacionOfendido5, "", new { @class = "form-control", @id = "idOfendido5", @readonly = "readonly" })
-                    <div class="input-group-append ">
                         <a class="btn btn-primary" data-book-id="idOfendido5" data-bs-toggle="modal" data-bs-target="#modalBusquedaPersona">Buscar</a>
-                        <a class="btn btn-danger" data-toggle="modal" data-book-id="idOfendido5" data-target="#quitaPolicia">Quitar</a>
-                    </div>
                 </div>
                 @Html.ValidationMessageFor(d => d.IdentificacionOfendido5, null, new { @class = "red" })
             </div>
@@ -121,10 +106,7 @@
                 @Html.LabelFor(d => d.IdentificacionTestigo1)
                 <div class="input-group">
                     @Html.TextBoxFor(d => d.IdentificacionTestigo1, "", new { @class = "form-control", @id = "idTestigo1", @readonly = "readonly" })
-                    <div class="input-group-append ">
-                        <a class="btn btn-primary" data-book-id="idTestigo1" data-bs-toggle="modal" data-bs-target="#modalBusquedaPersona">Buscar</a>
-                        <a class="btn btn-danger" data-toggle="modal" data-book-id="idTestigo1" data-target="#quitaPolicia">Quitar</a>
-                    </div>
+                    <a class="btn btn-primary" data-book-id="idTestigo1" data-bs-toggle="modal" data-bs-target="#modalBusquedaPersona">Buscar</a>
                 </div>
                 @Html.ValidationMessageFor(d => d.IdentificacionTestigo1, null, new { @class = "red" })
             </div>
@@ -138,10 +120,7 @@
                 @Html.LabelFor(d => d.IdentificacionTestigo2)
                 <div class="input-group">
                     @Html.TextBoxFor(d => d.IdentificacionTestigo2, "", new { @class = "form-control", @id = "idTestigo2", @readonly = "readonly" })
-                    <div class="input-group-append ">
                         <a class="btn btn-primary" data-book-id="idTestigo2" data-bs-toggle="modal" data-bs-target="#modalBusquedaPersona">Buscar</a>
-                        <a class="btn btn-danger" data-toggle="modal" data-book-id="idTestigo2" data-target="#quitaPolicia">Quitar</a>
-                    </div>
                 </div>
                 @Html.ValidationMessageFor(d => d.IdentificacionTestigo2, null, new { @class = "red" })
             </div>
@@ -153,25 +132,7 @@
         </div>
 
 
-        <div class="modal" id="quitaPolicia">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Quitar una Persona de un Parte</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>¿Está seguro que desea quitar una persona de un parte?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" id="Cancel" data-dismiss="modal">Cancelar</button>
-                        <a name="quitarPolicia" class="btn btn-danger" onclick="reply_click7(this.id)" data-dismiss="modal">Quitar </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+
 
         <div class="row mb-4">
             <div class="form-group col-md-10">

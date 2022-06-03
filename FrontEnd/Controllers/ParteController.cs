@@ -780,6 +780,7 @@ namespace FrontEnd.Controllers
             }
             catch (Exception ex)
             {
+              
                 throw new Exception(ex.Message);
             }
         }

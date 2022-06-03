@@ -5959,6 +5959,9 @@
         <Height>0.73229cm</Height>
         <Width>16.19042cm</Width>
         <ZIndex>110</ZIndex>
+        <Visibility>
+          <Hidden>=IIf(IsNothing(First(Fields!nombre.Value, "Testigo2DataSet")),True,False)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>Solid</Style>

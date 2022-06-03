@@ -24,14 +24,14 @@
         <div class="row mb-4">
             <div class="form-group col-md-12" style="text-align:center;">
                 <h4>Diligencias Policiales</h4>
-                @Html.TextAreaFor(d => d.DiligenciasPoliciales, new { @class = "form-control", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();"})
+                @Html.TextAreaFor(d => d.DiligenciasPoliciales, new { @class = "form-control", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();" })
                 @Html.ValidationMessageFor(d => d.DiligenciasPoliciales, null, new { @class = "red" })
             </div>
         </div>
         <div class="row mb-4">
             <div class="form-group col-md-12" style="text-align:center;">
                 <h4>Manisfestación del Ofendido</h4>
-                @Html.TextAreaFor(d => d.ManisfestacionOfendido, new { @class = "form-control", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();"})
+                @Html.TextAreaFor(d => d.ManisfestacionOfendido, new { @class = "form-control", @id = "TNombre", @onkeyup = "this.value = this.value.toUpperCase();" })
                 @Html.ValidationMessageFor(d => d.ManisfestacionOfendido, null, new { @class = "red" })
             </div>
         </div>
@@ -61,7 +61,7 @@
             </div>
             <div class="form-group col-md-4">
                 @Html.LabelFor(d => d.Movil)
-                @Html.TextBoxFor(d => d.Movil, "", new { @class = "form-control",@onkeyup = "this.value = this.value.toUpperCase();" })
+                @Html.TextBoxFor(d => d.Movil, "", new { @class = "form-control", @maxlength = "9", @onfocusout = "LimpiaGuion(this)", @onKeyup = " ValidarTelefono(this)" })
                 @Html.ValidationMessageFor(d => d.Movil, null, new { @class = "red" })
             </div>
         </div>
@@ -78,3 +78,21 @@
     }
 
 </div>
+<script>
+
+    function ValidarTelefono(f) {
+        var r = /(\D+)/g,
+            first4 = '',
+            last4 = '';
+        f.value = f.value.replace(r, '');
+        first4 = f.value.substr(0, 4);
+        last4 = f.value.substr(4, 8);
+        f.value = first4 + '-' + last4;
+
+    }
+    function LimpiaGuion(f) {
+        if (f.value.length <= 1) {
+            f.value = "";
+        }
+    }
+</script>

@@ -26,10 +26,7 @@
                 @Html.LabelFor(d => d.IdentificacionPoliciaActuante)
                 <div class="input-group">
                     @Html.TextBoxFor(d => d.IdentificacionPoliciaActuante, "", new { @class = "form-control", @id = "idPoliciaActuante", @readonly = "readonly" })
-                    <div class="input-group-append ">
                         <a class="btn btn-primary" data-book-id="idPoliciaActuante" data-bs-toggle="modal" data-bs-target="#modalBusquedaPolicia">Buscar</a>
-
-                    </div>
                 </div>
                 @Html.ValidationMessageFor(d => d.IdentificacionPoliciaActuante, null, new { @class = "red" })
             </div>
@@ -67,20 +64,25 @@
                 @Html.LabelFor(d => d.NombrePoliciaAsiste)
                 @Html.TextBoxFor(d => d.NombrePoliciaAsiste, "", new
                 {
-                    @class = "form-control"@*, @readonly = "readonly"*@,@id = "NPoliciaAsiste"})
+                    @class = "form-control"@*, @readonly = "readonly"*@,@id = "NPoliciaAsiste",
+               @onkeyup = "this.value = this.value.toUpperCase();"
+           })
                 @Html.ValidationMessageFor(d => d.NombrePoliciaAsiste, null, new { @class = "red" })
             </div>
             <div class="form-group col-md-4 position-relative">
                 @Html.LabelFor(d => d.IdentificacionPoliciaAsiste)
                 @Html.TextBoxFor(d => d.IdentificacionPoliciaAsiste, "", new
-                {
-                    @class = "form-control",
-                    @onkeyup = "this.value = this.value.toUpperCase();"@*, @readonly = "readonly"*@})
+           {
+               @class = "form-control",
+
+
+               
+               @onkeyup = "this.value = this.value.toUpperCase();" @*, @readonly = "readonly"*@})
                 @Html.ValidationMessageFor(d => d.IdentificacionPoliciaAsiste, null, new { @class = "red" })
             </div>
             <div class="form-group col-md-3 position-relative">
                 @Html.LabelFor(d => d.TelefonoPoliciaAsiste)
-                @Html.TextBoxFor(d => d.TelefonoPoliciaAsiste, "", new { @class = "inputphone form-control" })
+                @Html.TextBoxFor(d => d.TelefonoPoliciaAsiste, "", new { @class = " form-control", @maxlength = "9", @onfocusout = "LimpiaGuion(this)", @onKeyup = " ValidarTelefono(this)" })
                 @Html.ValidationMessageFor(d => d.TelefonoPoliciaAsiste, "", new { @class = "red" })
             </div>
         </div>
@@ -108,25 +110,6 @@
         </div>
 
 
-        <div class="modal" id="quitaPolicia" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Quitar un Policía de un Parte</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>¿Está seguro que desea quitar un policía del parte?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" id="Cancel" data-dismiss="modal">Cancelar</button>
-                        <a name="quitarPolicia" class="btn btn-danger" onclick="reply_click8(this.id)" data-dismiss="modal">Quitar </a>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div class="modal fade" id="show" tabindex="-1" aria-labelledby="showLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -198,6 +181,21 @@
             document.getElementById("NPoliciaAsiste").value = '';
         }
     }
-       
+
+    function ValidarTelefono(f) {
+        var r = /(\D+)/g,
+            first4 = '',
+            last4 = '';
+        f.value = f.value.replace(r, '');
+        first4 = f.value.substr(0, 4);
+        last4 = f.value.substr(4, 8);
+        f.value = first4 + '-' + last4;
+
+    }
+    function LimpiaGuion(f) {
+        if (f.value.length <= 1) {
+            f.value = "";
+        }
+    }
 
 </script>
