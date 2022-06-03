@@ -74,7 +74,7 @@
                 @Html.LabelFor(d => d.IdTestigoPersona)
                 <div class="input-group">
                     @Html.TextBoxFor(d => d.IdTestigoPersona, "", new { @class = "form-control", @id = "idTestigoPersona", @readonly = "readonly" })
-                    <a class="btn btn-primary" data-book-id="idTestigoPersona" data-bs-toggle="modal" data-bs-target="#modalBusquedaPolicia">Buscar</a>
+                    <a class="btn btn-primary" data-book-id="idTestigoPersona" data-bs-toggle="modal" data-bs-target="#modalBusquedaPersona">Buscar</a>
                 </div>
             </div>
         </div>
@@ -206,6 +206,38 @@
             var elem = document.getElementById("idEncargadoEntrega");
             elem.value = clicked_id;
         }
+    }
+
+    if (document.getElementById("idTipoTestigo") != null) {
+        window.addEventListener("load", function () {
+            var tipoRequisito = document.getElementById("idTipoTestigo")
+            var tipoSeleccion = tipoRequisito.value;
+            if (tipoSeleccion == 1) {
+                document.getElementById("idOficialTestigoCampo").style.display = 'block';
+                document.getElementById("idPersonaTestigoCampo").style.display = 'none';
+            } else if (tipoSeleccion == 2) {
+                document.getElementById("idOficialTestigoCampo").style.display = 'none';
+                document.getElementById("idPersonaTestigoCampo").style.display = 'block';
+            } else {
+                document.getElementById("idOficialTestigoCampo").style.display = 'none';
+                document.getElementById("idPersonaTestigoCampo").style.display = 'none';
+            }
+        })
+        document.getElementById("idTipoTestigo").addEventListener("change", function () {
+            var tipoRequisito = document.getElementById("idTipoTestigo")
+            var tipoSeleccion = tipoRequisito.value;
+            if (tipoSeleccion == 1) {
+                document.getElementById("idOficialTestigoCampo").style.display = 'block';
+                document.getElementById("idPersonaTestigoCampo").style.display = 'none';
+            } else if (tipoSeleccion == 2) {
+                document.getElementById("idOficialTestigoCampo").style.display = 'none';
+                document.getElementById("idPersonaTestigoCampo").style.display = 'block';
+            }
+            else {
+                document.getElementById("idOficialTestigoCampo").style.display = 'none';
+                document.getElementById("idPersonaTestigoCampo").style.display = 'none';
+            }
+        });
     }
 
     function reply_click4(clicked_id4, clicked_name4) {

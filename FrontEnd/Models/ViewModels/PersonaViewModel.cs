@@ -73,6 +73,8 @@ namespace FrontEnd.Models.ViewModels
         [StringLength(300, ErrorMessage = "Instalaciones excede la cantidad maxima de caractéres")]
         [Display(Name = "Instalaciones")]
         public string Instalaciones { get; set; }
+
+        //public string VistaFecha { get; set; }
         public IEnumerable<SelectListItem> TiposDeIdentificacion { get; set; }
         public IEnumerable<SelectListItem> TiposDeSexo { get; set; }
         public IEnumerable<SelectListItem> Nacionalidades { get; set; }

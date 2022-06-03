@@ -49,7 +49,7 @@
         <div class="row mb-4">
             <div class="form-group col-md-12 position-relative">
                 @Html.LabelFor(d => d.Detalles)
-                @Html.TextAreaFor(d => d.Detalles, new { @class = "form-control", @maxlength = "250", @style = "text-transform:uppercase", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)" })
+                @Html.TextAreaFor(d => d.Detalles, new { @class = "form-control", @maxlength = "250", @id = "textoDetalle", @style = "text-transform:uppercase", @onkeyup = "this.value = this.value.toUpperCase();", @onkeypress = "return sololetrasnumeros(event)" })
                 @Html.ValidationMessageFor(d => d.Detalles, null, new { @class = "red" })
             </div>
         </div>
@@ -113,4 +113,10 @@
             input.css('display', 'none');
         }
     }
+
+    $('#textoDetalle').keypress(function (event) {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+        }
+    });
 </script>

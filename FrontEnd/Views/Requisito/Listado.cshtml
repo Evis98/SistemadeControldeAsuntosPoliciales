@@ -52,9 +52,9 @@
             @foreach (var oElemento in Model.Take(10))
             {
                 <tr>
-                    <th scope="row">@oElemento.VistaTipoRequisito</th>
-                    <td>@oElemento.Detalles</td>
-                    <td>
+                    <th  scope="row" style="max-width: 200px;">@oElemento.VistaTipoRequisito</th>
+                    <td style="max-width: 250px;">@oElemento.Detalles</td>
+                    <td style="max-width: 200px;">
                         <div style="text-align:center;">
                             <a class="btn btn-sm btn-outline-secondary" href="~/Requisito/Detalle/@oElemento.IdRequisito">Ver Detalles</a>
                         </div>

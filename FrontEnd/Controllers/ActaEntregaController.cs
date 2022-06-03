@@ -168,7 +168,7 @@ namespace FrontEnd.Controllers
 
             foreach (Personas persona in personas)
             {
-                if (persona.nombre.Contains(nombre))
+                if (persona.nombre.Contains(nombre.ToUpper()))
                 {
                     if (tablaGeneralDAL.Get(persona.tipoIdentificacion).descripcion == "Cédula Jurídica")
                     {
@@ -205,7 +205,7 @@ namespace FrontEnd.Controllers
 
             foreach (Personas persona in personas)
             {
-                if (persona.nombre.Contains(nombre))
+                if (persona.nombre.Contains(nombre.ToUpper()))
                 {
                     if (tablaGeneralDAL.Get(persona.tipoIdentificacion).descripcion != "Cédula Jurídica")
                     {
@@ -248,7 +248,7 @@ namespace FrontEnd.Controllers
             {
                 foreach (Policias policia in policias)
                 {
-                    if (policia.nombre.Contains(nombre))
+                    if (policia.nombre.Contains(nombre.ToUpper()))
                     {
                         policiasFiltrados.Add(policia);
                     }
@@ -418,14 +418,14 @@ namespace FrontEnd.Controllers
                     }
                     if (filtrosSeleccionado == "Nombre Policía Encargado")
                     {
-                        if (policiaDAL.GetPoliciaCedula(actaEntrega.Encargado).nombre.Contains(busqueda))
+                        if (policiaDAL.GetPoliciaCedula(actaEntrega.Encargado).nombre.Contains(busqueda.ToUpper()))
                         {
                             actasEntregaFiltradas.Add(actaEntrega);
                         }
                     }
                     if (filtrosSeleccionado == "Persona que Recibe")
                     {
-                        if (personaDAL.GetPersonaIdentificacion(actaEntrega.Recibe).nombre.Contains(busqueda))
+                        if (personaDAL.GetPersonaIdentificacion(actaEntrega.Recibe).nombre.Contains(busqueda.ToUpper()))
                         {
                             actasEntregaFiltradas.Add(actaEntrega);
                         }

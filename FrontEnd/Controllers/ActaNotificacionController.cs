@@ -134,7 +134,7 @@ namespace FrontEnd.Controllers
             {
                 foreach (Policias policia in policias)
                 {
-                    if (policia.nombre.Contains(nombre))
+                    if (policia.nombre.Contains(nombre.ToUpper()))
                     {
                         policiasFiltrados.Add(policia);
                     }
@@ -176,7 +176,7 @@ namespace FrontEnd.Controllers
             List<Personas> personasFiltradas = new List<Personas>();
             foreach (Personas persona in personas)
             {
-                if (persona.nombre.Contains(nombre))
+                if (persona.nombre.Contains(nombre.ToUpper()))
                 {
                     if (tablaGeneralDAL.Get(persona.tipoIdentificacion).descripcion != "Cédula Jurídica")
                     {
@@ -257,21 +257,21 @@ namespace FrontEnd.Controllers
                     }
                     if (filtrosSeleccionado == "Nombre Policía Actuante")
                     {
-                        if (policiaDAL.GetPoliciaCedula(actaDeNotificacion.Oficial).nombre.Contains(busqueda))
+                        if (policiaDAL.GetPoliciaCedula(actaDeNotificacion.Oficial).nombre.Contains(busqueda.ToUpper()))
                         {
                             actasNotificacionFiltradas.Add(actaDeNotificacion);
                         }
                     }
                     if (filtrosSeleccionado == "Cédula del Notificado")
                     {
-                        if (actaDeNotificacion.Notificado.Contains(busqueda))
+                        if (actaDeNotificacion.Notificado.Contains(busqueda.ToUpper()))
                         {
                             actasNotificacionFiltradas.Add(actaDeNotificacion);
                         }
                     }
                     if (filtrosSeleccionado == "Nombre del Notificado")
                     {
-                        if (actaDeNotificacion.VistaPersonaNotificada.Contains(busqueda))
+                        if (actaDeNotificacion.VistaPersonaNotificada.Contains(busqueda.ToUpper()))
                         {
                             actasNotificacionFiltradas.Add(actaDeNotificacion);
                         }

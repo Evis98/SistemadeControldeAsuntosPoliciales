@@ -8,4 +8,11 @@
 .contenedor-imagenes img:first-child {
         margin-right: auto;
 }
+td {
+    max-width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+
 /*color de fondo #8bceff */

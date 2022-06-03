@@ -64,6 +64,7 @@ namespace FrontEnd.Models.ViewModels
 
         [Required]
         [DataType(DataType.Date)]
+        [DateValidationPerecederos(ErrorMessage = "Fecha ingresada invalida")]
         [Display(Name = "Fecha del Suceso")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Fecha { get; set; }
@@ -99,5 +100,14 @@ namespace FrontEnd.Models.ViewModels
         public IEnumerable<SelectListItem> TiposActaD { get; set; }
 
         public IEnumerable<SelectListItem> TiposTestigo { get; set; }
+    }
+
+    public class DateValidationPerecederos : ValidationAttribute
+    {
+        public override bool IsValid(object value)
+        {
+            DateTime todayDate = Convert.ToDateTime(value);
+            return todayDate <= DateTime.Now;
+        }
     }
 }

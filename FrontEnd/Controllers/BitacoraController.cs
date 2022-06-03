@@ -85,7 +85,7 @@ namespace FrontEnd.Controllers
                 foreach (Policias policia in policias)
                 {
 
-                    if (policia.nombre.Contains(nombre))
+                    if (policia.nombre.Contains(nombre.ToUpper()))
                     {
                         if (requisitoDAL.GetRequisitosPortacion(policia.idPolicia, "PORTACIÓN").Count > 0)
                         {
@@ -232,9 +232,13 @@ namespace FrontEnd.Controllers
                 fechaCreacion = modelo.FechaCreacion,
                 municionEntregada = modelo.MunicionEntregada,
                 cargadoresEntregados = modelo.CargadoresEntregados,
-                observacionesEntrega = modelo.ObservacionesEntrega.ToUpper(),
+                //observacionesEntrega = modelo.ObservacionesEntrega.ToUpper(),
                 condicionInicial = tablaGeneralDAL.Get("Armas", "condicion", modelo.VistaCondicionInicial).idTablaGeneral
             };
+            if (modelo.ObservacionesEntrega != null)
+            {
+                bitacora.observacionesEntrega = modelo.ObservacionesEntrega.ToUpper();
+            }
             if (modelo.VistaEstadoActual == "Pendiente")
             {
                 bitacora.estadoActualBitacora = tablaGeneralDAL.GetCodigo("Bitacoras", "estadoActualBitacora", "1").idTablaGeneral;
@@ -246,7 +250,8 @@ namespace FrontEnd.Controllers
                 bitacora.fechaFinalizacion = modelo.FechaFinalizacion;
                 bitacora.municionDevuelta = modelo.MunicionDevuelta;
                 bitacora.cargadoresDevueltos = modelo.CargadoresDevueltos;
-                bitacora.observacionesDevuelta = modelo.ObservacionesDevuelta.ToUpper();
+                if(modelo.ObservacionesDevuelta != null) { 
+                bitacora.observacionesDevuelta = modelo.ObservacionesDevuelta.ToUpper();}
                 bitacora.estadoActualBitacora = tablaGeneralDAL.GetCodigo("Bitacoras", "estadoActualBitacora", "2").idTablaGeneral;
             }
 

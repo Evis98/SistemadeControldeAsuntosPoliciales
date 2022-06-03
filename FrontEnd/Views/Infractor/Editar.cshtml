@@ -49,7 +49,7 @@
 
             <div class="form-group col-md-2 position-relative">
                 @Html.LabelFor(d => d.Estatura)
-                @Html.TextBoxFor(d => d.Estatura, "", new { @class = "form-control inputheight", @maxlength = "4", @style = "text-transform:uppercase" })
+                @Html.TextBoxFor(d => d.Estatura, "", new { @class = "form-control inputheight", @maxlength = "4", @style = "text-transform:uppercase", @onkeyup = "ValidateHeight(this)" })
                 @Html.ValidationMessageFor(d => d.Estatura, null, new { @class = "red" })
 
             </div>
@@ -170,6 +170,48 @@
     function LimpiaGuion(f) {
         if (f.value.length <= 1) {
             f.value = "";
+        }
+    }
+
+
+
+    function aparecerObservaciones() {
+        var checkBox = document.getElementById("checkboxObservaciones");
+        var text = document.getElementById("Obs");
+        if (checkBox.checked == true) {
+            text.style.display = "block";
+        } else {
+            text.style.display = "none";
+        }
+    }
+
+    function aparecerPadre() {
+        var checkBox = document.getElementById("checkboxPadre");
+        var text = document.getElementById("nombrePadre");
+        if (checkBox.checked == true) {
+            text.style.display = "block";
+        } else {
+            text.style.display = "none";
+        }
+    }
+
+    function aparecerMadre() {
+        var checkBox = document.getElementById("checkboxMadre");
+        var text = document.getElementById("nombreMadre");
+        if (checkBox.checked == true) {
+            text.style.display = "block";
+        } else {
+            text.style.display = "none";
+        }
+    }
+
+    function aparecerTatuajes() {
+        var checkBox = document.getElementById("checkboxTatuajes");
+        var text = document.getElementById("nombreTatuajes");
+        if (checkBox.checked == true) {
+            text.style.display = "block";
+        } else {
+            text.style.display = "none";
         }
     }
 </script>

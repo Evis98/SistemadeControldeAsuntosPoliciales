@@ -58,6 +58,7 @@ namespace FrontEnd.Models.ViewModels
 
         [Required]
         [DataType(DataType.Date)]
+        [DateValidationNotificacion(ErrorMessage = "Fecha ingresada invalida")]
         [Display(Name = "Fecha Procedimiento")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Fecha { get; set; }
@@ -72,7 +73,7 @@ namespace FrontEnd.Models.ViewModels
         [Display(Name = "Dirección Exacta Procedimiento")]
         public string DireccionExactaProcedimiento { get; set; }
 
-        [Display(Name = "Barrio y/o Caserío")]
+        [Display(Name = "Barrio y/o Caserío o Comercio")]
         [Required]
         [StringLength(60)]
         public string Barrio { get; set; }

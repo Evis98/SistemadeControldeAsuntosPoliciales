@@ -37,12 +37,12 @@
             </div>
             <div class="form-group col-sm-3">
                 @Html.LabelFor(d => d.TelefonoCelular, new { @class = "form-label" })
-                @Html.TextBoxFor(d => d.TelefonoCelular, "", new { @class = "form-control", autocomplete = "new-password", @maxlength = "9", @onfocusout = "LimpiaGuion(this)",@onKeyup = " ValidatePhone(this)" })
+                @Html.TextBoxFor(d => d.TelefonoCelular, "", new { @class = "form-control", autocomplete = "new-password", @maxlength = "9", @onfocusout = "LimpiaGuion(this)",@onKeyup = " ValidarTelefono(this)" })
                 @Html.ValidationMessageFor(d => d.TelefonoCelular, null, new { @class = "red" })
             </div>
             <div class="form-group col-sm-3">
                 @Html.LabelFor(d => d.TelefonoCasa, new { @class = "form-label" })
-                @Html.TextBoxFor(d => d.TelefonoCasa, "", new { @class = "form-control", autocomplete = "new-password", @maxlength = "9", @onfocusout = "LimpiaGuion(this)", @onKeyup = " ValidatePhone(this)" })
+                @Html.TextBoxFor(d => d.TelefonoCasa, "", new { @class = "form-control", autocomplete = "new-password", @maxlength = "9", @onfocusout = "LimpiaGuion(this)", @onKeyup = " ValidarTelefono(this)" })
             </div>
             <div class="form-group col-sm-4">
                 @Html.LabelFor(d => d.CorreoElectronico, new { @class = "form-label" })

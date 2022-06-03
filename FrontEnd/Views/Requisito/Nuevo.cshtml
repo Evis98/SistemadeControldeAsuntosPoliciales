@@ -3,7 +3,15 @@
 @{
     ViewBag.Title = "Agregar Información del Requisito";
 }
+<style>
+    td {
+        max-width: 100px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 
+</style>
 <div class="container bg-light text-dark border" style=" height: auto; min-height: 80vh; padding-bottom: 20px; margin-bottom: 28px; word-wrap: break-word;">
     <div style="text-align:center;">
         <h1 class="display-5">@ViewBag.Title</h1>
@@ -33,7 +41,7 @@
         <div class="row mb-4">
             <div class="form-group col-md-12 position-relative">
                 @Html.LabelFor(d => d.Detalles)
-                @Html.TextAreaFor(d => d.Detalles, new { @class = "form-control", @maxlength = "250", @style = "text-transform:uppercase" })
+                @Html.TextAreaFor(d => d.Detalles, new { @class = "form-control", @id = "textoDetalle", @maxlength = "250", @style = "text-transform:uppercase"  , @onkeydown = "return /[a-zA-Z ÁÉÍÓÚÑáéíóúñ123654789-]/i.test(event.key)" @*, @onkeydown = "return (event.keyCode!=13);"*@ })
                 @Html.ValidationMessageFor(d => d.Detalles, null, new { @class = "red" })
             </div>
         </div>
@@ -74,6 +82,7 @@
     }
 
 </div>
+
 <script>
     function ocultarFecha() {
         var aux2 = document.getElementById("tiposRequisito");
@@ -94,4 +103,13 @@
             input.css('display', 'none');
         }
     }
+
+
+        $('#textoDetalle').keypress(function (event) {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+        }
+    });
+
+
 </script>

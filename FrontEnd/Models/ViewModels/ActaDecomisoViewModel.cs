@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace FrontEnd.Models.ViewModels
 {
-    public class ActaDecomisoViewModel : AuditoriaViewModel
+    public class ActaDecomisoViewModel
     {
 
         public int IdActaDecomiso { get; set; }

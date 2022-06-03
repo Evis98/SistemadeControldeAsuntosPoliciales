@@ -158,7 +158,7 @@ namespace FrontEnd.Controllers
             {
                 foreach (Policias policia in policias)
                 {
-                    if (policia.nombre.Contains(nombre))
+                    if (policia.nombre.Contains(nombre.ToUpper()))
                     {
                         policiasFiltrados.Add(policia);
                     }
@@ -192,7 +192,7 @@ namespace FrontEnd.Controllers
             List<Personas> personasFiltradas = new List<Personas>();
             foreach (Personas persona in personas)
             {
-                if (persona.nombre.Contains(nombre))
+                if (persona.nombre.Contains(nombre.ToUpper()))
                 {
                     if (tablaGeneralDAL.Get(persona.tipoIdentificacion).descripcion != "Cédula Jurídica")
                     {
@@ -270,14 +270,14 @@ namespace FrontEnd.Controllers
                     }
                     if (filtrosSeleccionado == "Nombre Policía Actuante")
                     {
-                        if (policiaDAL.GetPoliciaCedula(actaNotificacionVendedorAmbulante.OficialActuante).nombre.Contains(busqueda))
+                        if (policiaDAL.GetPoliciaCedula(actaNotificacionVendedorAmbulante.OficialActuante).nombre.Contains(busqueda.ToUpper()))
                         {
                             actasNotificacionVendedorAmbulanteFiltradas.Add(actaNotificacionVendedorAmbulante);
                         }
                     }
                     if (filtrosSeleccionado == "Persona que Recibe")
                     {
-                        if (personaDAL.GetPersonaIdentificacion(actaNotificacionVendedorAmbulante.IdNotificado).nombre.Contains(busqueda))
+                        if (personaDAL.GetPersonaIdentificacion(actaNotificacionVendedorAmbulante.IdNotificado).nombre.Contains(busqueda.ToUpper()))
                         {
                             actasNotificacionVendedorAmbulanteFiltradas.Add(actaNotificacionVendedorAmbulante);
                         }

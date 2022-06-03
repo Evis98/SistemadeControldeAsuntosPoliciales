@@ -85,6 +85,8 @@ namespace FrontEnd.Controllers
             if (persona.tipoIdentificacion == tablaGeneralDAL.Get("Generales", "tipoDeIdentificacion", "Cédula Jurídica").idTablaGeneral)
             {
                 persona.fechaNacimiento = null;
+                persona.sexo = null;
+                persona.nacionalidad = null;
             }
             else
             {
@@ -140,6 +142,7 @@ namespace FrontEnd.Controllers
             {
                 personaViewModel.FechaNacimientoPersona = (DateTime)persona.fechaNacimiento;
             }
+           
 
             return personaViewModel;
         }
@@ -189,7 +192,7 @@ namespace FrontEnd.Controllers
                 {
                     if (filtrosSeleccionado == "Cédula")
                     {
-                        if (persona.Identificacion.Contains(busqueda))
+                        if (persona.Identificacion.Contains(busqueda.ToUpper()))
                         {
 
                             personasFiltrados.Add(persona);
@@ -197,7 +200,7 @@ namespace FrontEnd.Controllers
                     }
                     if (filtrosSeleccionado == "Nombre")
                     {
-                        if (persona.NombrePersona.Contains(busqueda))
+                        if (persona.NombrePersona.Contains(busqueda.ToUpper()))
                         {
                             personasFiltrados.Add(persona);
                         }

@@ -205,14 +205,14 @@ namespace FrontEnd.Controllers
                 {
                     if (filtrosSeleccionado == "Cédula")
                     {
-                        if (policia.Cedula.Contains(busqueda))
+                        if (policia.Cedula.Contains(busqueda.ToUpper()))
                         {
                             policiasFiltrados.Add(policia);
                         }
                     }
                     if (filtrosSeleccionado == "Nombre")
                     {
-                        if (policia.Nombre.Contains(busqueda))
+                        if (policia.Nombre.Contains(busqueda.ToUpper()))
                         {
                             policiasFiltrados.Add(policia);
                         }

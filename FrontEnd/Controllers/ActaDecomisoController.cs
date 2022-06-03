@@ -126,7 +126,7 @@ namespace FrontEnd.Controllers
             {
                 foreach (Policias policia in policias)
                 {
-                    if (policia.nombre.Contains(nombre))
+                    if (policia.nombre.Contains(nombre.ToUpper()))
                     {
                         policiasFiltrados.Add(policia);
                     }
@@ -162,7 +162,7 @@ namespace FrontEnd.Controllers
             List<Personas> personasFiltradas = new List<Personas>();
             foreach (Personas persona in personas)
             {
-                if (persona.nombre.Contains(nombre))
+                if (persona.nombre.Contains(nombre.ToUpper()))
                 {
                     if (tablaGeneralDAL.Get(persona.tipoIdentificacion).descripcion != "Cédula Jurídica")
                     {
@@ -244,14 +244,14 @@ namespace FrontEnd.Controllers
                     }
                     if (filtrosSeleccionado == "Nombre Policía Actuante")
                     {
-                        if (policiaDAL.GetPoliciaCedula(actaDecomiso.OficialActuante).nombre.Contains(busqueda))
+                        if (policiaDAL.GetPoliciaCedula(actaDecomiso.OficialActuante).nombre.Contains(busqueda.ToUpper()))
                         {
                             actasDecomisoFiltradas.Add(actaDecomiso);
                         }
                     }
                     if (filtrosSeleccionado == "Nombre a Quién Decomisan")
                     {
-                        if (actaDecomiso.NombreDecomisado.Contains(busqueda))
+                        if (actaDecomiso.NombreDecomisado.Contains(busqueda.ToUpper()))
                         {
                             actasDecomisoFiltradas.Add(actaDecomiso);
                         }

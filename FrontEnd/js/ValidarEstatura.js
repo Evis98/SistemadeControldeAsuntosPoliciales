@@ -61,7 +61,7 @@ function GetCursorPosition() {
 
 function ValidateHeight(object) {
 
-	var p = estaturavalor1
+	var p = object.value;
 
 	p = p.replace(/[^\d]*/gi, "")
 

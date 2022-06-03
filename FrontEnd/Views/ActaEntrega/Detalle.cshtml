@@ -43,12 +43,7 @@
                     <text class="col-sm-8">@Html.DisplayTextFor(d => d.VistaPoliciaSupervisor)</text>
                 </div>
             </li>
-            <li class="list-group-item">
-                <div class="row">
-                    <b class="col-sm-4"> @Html.LabelFor(d => d.VistaPoliciaSupervisor)</b>
-                    <text class="col-sm-8">@Html.DisplayTextFor(d => d.VistaPoliciaSupervisor)</text>
-                </div>
-            </li>
+          
             <li class="list-group-item">
                 <div class="row">
                     <b class="col-sm-4"> @Html.LabelFor(d => d.Fecha)</b>
@@ -90,7 +85,7 @@
                 <li class="list-group-item">
                     <div class="row">
                         <b class="col-sm-4"> @Html.LabelFor(d => d.ConsecutivoActaDecomiso)</b>
-                        <a class="col-sm-8" href="~/ActaHallazgo/Detalle/@Model.IdActaDecomiso" target="_blank">
+                        <a class="col-sm-8" href="~/ActaDecomiso/Detalle/@Model.IdActaDecomiso" target="_blank">
                             @Html.DisplayTextFor(d => d.ConsecutivoActaDecomiso)
                         </a>
                     </div>

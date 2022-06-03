@@ -22,7 +22,7 @@
             </div>
             <div class="form-group col-md-6 position-relative">
                 @Html.LabelFor(d => d.NombrePersona)
-                @Html.TextBoxFor(d => d.NombrePersona, "", new { @class = "form-control", @id = "nombre", @maxlength = "150", @style = "text-transform:uppercase", @onkeydown = "return /[a-z,A-Z ,Á,á,é,É,í,Í,ó,Ó,ú,Ú]/i.test(event.key)", @autocomplete = "new-password" })
+                @Html.TextBoxFor(d => d.NombrePersona, "", new { @class = "form-control", @id = "nombre", @maxlength = "150", @style = "text-transform:uppercase", @onkeydown = "return /[a-z,A-Z ,Á,á,é,É,í,Í,ó,Ó,ú,Ú,Ñ,ñ]/i.test(event.key)", @autocomplete = "new-password" })
                 @Html.ValidationMessageFor(d => d.NombrePersona, null, new { @class = "red" })
             </div>
         </div>
@@ -44,7 +44,7 @@
             </div>
             <div class="form-group col-md-4 position-relative" style="display:block" id="profesion">
                 @Html.LabelFor(d => d.ProfesionPersona)
-                @Html.TextBoxFor(d => d.ProfesionPersona, "", new { @class = "form-control", @maxlength = "100", @style = "text-transform:uppercase", @onkeydown = "return /[a-z,A-Z ,Á,á,é,É,í,Í,ó,Ó,ú,Ú]/i.test(event.key)", @autocomplete = "new-password" })
+                @Html.TextBoxFor(d => d.ProfesionPersona, "", new { @class = "form-control", @maxlength = "100", @style = "text-transform:uppercase", @onkeydown = "return /[a-z,A-Z ,Á,á,é,É,í,Í,ó,Ó,ú,Ú,ñ,Ñ]/i.test(event.key)", @autocomplete = "new-password" })
                 @Html.ValidationMessageFor(d => d.ProfesionPersona, null, new { @class = "red" })
             </div>
         </div>

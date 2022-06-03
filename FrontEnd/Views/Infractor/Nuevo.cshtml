@@ -23,7 +23,7 @@
             </div>
             <div class="form-group col-md-6 position-relative">
                 @Html.LabelFor(d => d.Nombre)
-                @Html.TextBoxFor(d => d.Nombre, "", new { @class = "form-control", @style = "text-transform:uppercase", @onkeydown = "return /[a-z,A-Z ÁÉÍÓÚáéíóú]/i.test(event.key)", autocomplete = "new-password" })
+                @Html.TextBoxFor(d => d.Nombre, "", new { @class = "form-control", @style = "text-transform:uppercase", @onkeydown = "return /[a-z,A-Z ÁÉÍÓÚÑáéíóúñ]/i.test(event.key)", autocomplete = "new-password" })
                 @Html.ValidationMessageFor(d => d.Nombre, null, new { @class = "red" })
             </div>
         </div>
@@ -46,7 +46,7 @@
 
             <div class="form-group col-md-2 position-relative">
                 @Html.LabelFor(d => d.Estatura)
-                @Html.TextBoxFor(d => d.Estatura, "", new { @class = "form-control inputheight", @maxlength = "4", @style = "text-transform:uppercase" })
+                @Html.TextBoxFor(d => d.Estatura, "", new { @class = "form-control inputheight", @maxlength = "4", @style = "text-transform:uppercase" , @onkeyup = "ValidateHeight(this)" })
                 @Html.ValidationMessageFor(d => d.Estatura, null, new { @class = "red" })
 
             </div>
@@ -60,7 +60,7 @@
         <div class="row mb-4">
             <div class="form-group col-md-3 position-relative">
                 @Html.LabelFor(d => d.ProfesionUOficio)
-                @Html.TextBoxFor(d => d.ProfesionUOficio, "", new { @class = "form-control", @style = "text-transform:uppercase", @onkeydown = "return /[0-9a-zA-Z]/i.test(event.key)" })
+                @Html.TextBoxFor(d => d.ProfesionUOficio, "", new { @class = "form-control", @style = "text-transform:uppercase", @onkeydown = "return /[0-9a-zA-Z ñÑ]/i.test(event.key)" })
                 @Html.ValidationMessageFor(d => d.ProfesionUOficio, null, new { @class = "red" })
             </div>
             <div class="form-group col-md-4 position-relative">
@@ -78,24 +78,24 @@
         <div class="row mb-4">
             <div class="form-group col-md-3 position-relative">
                 @Html.LabelFor(d => d.ApodoInfractor)
-                @Html.TextBoxFor(d => d.ApodoInfractor, "", new { @class = "form-control", @style = "text-transform:uppercase", @onkeydown = "return /[a-z,A-Z ,Á,á,é,É,í,Í,ó,Ó,ú,Ú]/i.test(event.key)" })
+                @Html.TextBoxFor(d => d.ApodoInfractor, "", new { @class = "form-control", @style = "text-transform:uppercase", @onkeydown = "return /[a-z,A-Z ,Á,á,é,É,í,Í,ó,Ó,ú,Ú,ñ,Ñ]/i.test(event.key)" })
                 @Html.ValidationMessageFor(d => d.ApodoInfractor, null, new { @class = "red" })
             </div>
             <div class="form-group col-md-4 position-relative">
                 @Html.LabelFor(d => d.NombrePadre)
-                @Html.TextBoxFor(d => d.NombrePadre, "", new { @class = "form-control", @style = "text-transform:uppercase", @onkeydown = "return /[a-z,A-Z ,Á,á,é,É,í,Í,ó,Ó,ú,Ú]/i.test(event.key)" })
+                @Html.TextBoxFor(d => d.NombrePadre, "", new { @class = "form-control", @style = "text-transform:uppercase", @onkeydown = "return /[a-z,A-Z ,Á,á,é,É,í,Í,ó,Ó,ú,Ú,Ñ,ñ]/i.test(event.key)" })
                 @Html.ValidationMessageFor(d => d.NombrePadre, null, new { @class = "red" })
             </div>
             <div class="form-group col-md-5 position-relative">
                 @Html.LabelFor(d => d.NombreMadre)
-                @Html.TextBoxFor(d => d.NombreMadre, "", new { @class = "form-control", @style = "text-transform:uppercase", @onkeydown = "return /[a-z,A-Z ,Á,á,é,É,í,Í,ó,Ó,ú,Ú]/i.test(event.key)" })
+                @Html.TextBoxFor(d => d.NombreMadre, "", new { @class = "form-control", @style = "text-transform:uppercase", @onkeydown = "return /[a-z,A-Z ,Á,á,é,É,í,Í,ó,Ó,ú,Ú,ñ,Ñ]/i.test(event.key)" })
                 @Html.ValidationMessageFor(d => d.NombreMadre, null, new { @class = "red" })
             </div>
         </div>
         <div class="row mb-4">
             <div class="form-group col-md-4 position-relative">
                 @Html.LabelFor(d => d.RasgosFisicos)
-                @Html.TextAreaFor(d => d.RasgosFisicos, new { @class = "form-control", @style = "text-transform:uppercase", @onkeydown = "return /[0-9a-zA-Z ,.-]/i.test(event.key)", @autocomplete = "new-password" })
+                @Html.TextAreaFor(d => d.RasgosFisicos, new { @class = "form-control", @style = "text-transform:uppercase", @onkeydown = "return /[0-9a-zA-Z ,.-Ññ]/i.test(event.key)", @autocomplete = "new-password" })
                 @Html.ValidationMessageFor(d => d.RasgosFisicos, null, new { @class = "red" })
             </div>
             <div class="form-group col-md-4 position-relative">
@@ -104,7 +104,7 @@
                     <input type="checkbox" class="form-check-input" id="checkboxTatuajes" onclick="aparecerTatuajes()">
                     <label class="form-check-label" for="exampleCheck1">Aplica</label>
                 </div>
-                @Html.TextAreaFor(d => d.Tatuajes, new { @class = "form-control",@id="nombreTatuajes", @style = "display:none;text-transform:uppercase", @onkeydown = "return /[0-9a-zA-Z ,.-]/i.test(event.key)", @autocomplete = "new-password" })
+                @Html.TextAreaFor(d => d.Tatuajes, new { @class = "form-control",@id="nombreTatuajes", @style = "display:none;text-transform:uppercase", @onkeydown = "return /[0-9a-zA-Z ,.-ñÑ]/i.test(event.key)", @autocomplete = "new-password" })
                 @Html.ValidationMessageFor(d => d.Tatuajes, null, new { @class = "red" })
             </div>
             <div class="form-group col-md-4 position-relative">
@@ -113,7 +113,7 @@
                     <input type="checkbox" class="form-check-input" id="checkboxObservaciones" onclick="aparecerObservaciones()">
                     <label class="form-check-label" for="exampleCheck1">Aplica</label>
                 </div>
-                @Html.TextAreaFor(d => d.Observaciones, new { @class = "form-control",@id="Obs", @style = "display:none;text-transform:uppercase", @onkeydown = "return /[0-9a-zA-Z ,.-]/i.test(event.key)", @autocomplete = "new-password" })
+                @Html.TextAreaFor(d => d.Observaciones, new { @class = "form-control",@id="Obs", @style = "display:none;text-transform:uppercase", @onkeydown = "return /[0-9a-zA-Z ,.-ñÑ]/i.test(event.key)", @autocomplete = "new-password" })
                 @Html.ValidationMessageFor(d => d.Observaciones, null, new { @class = "red" })
             </div>
         </div>
@@ -172,6 +172,46 @@
     function LimpiaGuion(f) {
         if (f.value.length <= 1) {
             f.value = "";
+        }
+    }
+
+    function aparecerObservaciones() {
+        var checkBox = document.getElementById("checkboxObservaciones");
+        var text = document.getElementById("Obs");
+        if (checkBox.checked == true) {
+            text.style.display = "block";
+        } else {
+            text.style.display = "none";
+        }
+    }
+
+    function aparecerPadre() {
+        var checkBox = document.getElementById("checkboxPadre");
+        var text = document.getElementById("nombrePadre");
+        if (checkBox.checked == true) {
+            text.style.display = "block";
+        } else {
+            text.style.display = "none";
+        }
+    }
+
+    function aparecerMadre() {
+        var checkBox = document.getElementById("checkboxMadre");
+        var text = document.getElementById("nombreMadre");
+        if (checkBox.checked == true) {
+            text.style.display = "block";
+        } else {
+            text.style.display = "none";
+        }
+    }
+
+    function aparecerTatuajes() {
+        var checkBox = document.getElementById("checkboxTatuajes");
+        var text = document.getElementById("nombreTatuajes");
+        if (checkBox.checked == true) {
+            text.style.display = "block";
+        } else {
+            text.style.display = "none";
         }
     }
 </script>

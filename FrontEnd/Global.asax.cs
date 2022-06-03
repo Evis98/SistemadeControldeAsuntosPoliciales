@@ -19,7 +19,7 @@ namespace FrontEnd
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
-       /* protected void Application_Error()
+        protected void Application_Error()
         {
             Exception ex = Server.GetLastError();
             HttpException httpException = ex as HttpException;
@@ -42,6 +42,6 @@ namespace FrontEnd
                 new RequestContext(new HttpContextWrapper(Context), rutaerror)
                 );
             Session["Error"] = "AYUDA";
-        }*/
+        }
     }
 }

@@ -46,7 +46,7 @@
             {
                 <div class="form-group col-md-3">
                     @Html.LabelFor(d => d.ArmeroReceptor)
-                    @Html.TextBoxFor(d => d.ArmeroReceptor, "", new { @class = "form-control", @id = "idArmeroReceptor", @Value = @Session["cedula"].ToString() })
+                    @Html.TextBoxFor(d => d.ArmeroReceptor, "", new { @class = "form-control", @id = "idArmeroReceptor" })
                     @Html.ValidationMessageFor(d => d.ArmeroReceptor, null, new { @class = "red" })
                 </div>
             }
